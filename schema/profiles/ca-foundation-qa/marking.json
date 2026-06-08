@@ -9,23 +9,27 @@
   "marks_per_correct": 1,
   "negative_mark_per_wrong": 0.25,
   "marks_per_unattempted": 0,
-  "num_questions": null,
-  "num_questions_note": "Total question count for Paper 3 was not authoritatively confirmed in search; commonly treated as 100 one-mark MCQs. Confirm against an ICAI source before locking the readiness math.",
+  "num_questions": 100,
+  "num_questions_note": "Confirmed: 100 one-mark objective MCQs, 100 marks, 2 hours. Cross-checked against the ICAI sample paper (syllabus/SA May 2025 QA.pdf: 100 questions, Q1-40 Business Mathematics, Q41-60 Logical Reasoning, Q61-100 Statistics) and ICAI exam-pattern sources. Per-part question counts follow the 40/20/40 mark split at one mark each.",
   "parts": [
-    { "name": "Business Mathematics", "marks": 40 },
-    { "name": "Logical Reasoning", "marks": 20 },
-    { "name": "Statistics", "marks": 40 }
+    { "name": "Business Mathematics", "marks": 40, "questions": 40 },
+    { "name": "Logical Reasoning", "marks": 20, "questions": 20 },
+    { "name": "Statistics", "marks": 40, "questions": 40 }
   ],
   "pass": {
     "paper_min_percent": 40,
     "paper_min_marks": 40,
+    "sectional_min_percent": null,
+    "sectional_min_note": "No sectional minimum within Paper 3. The 40 percent bar is on the paper total, net of negative marking.",
     "aggregate_min_percent": 50,
     "aggregate_note": "The 50% aggregate is across all four Foundation papers and is out of scope for a QA-only app. Readiness here anchors on the 40% single-paper bar."
   },
   "readiness_anchor": "A predicted Paper 3 mark of 40 out of 100, net of negative marking, is the pass threshold. Readiness is shown as distance to this anchor, honestly labelled as an estimate until empirical calibration exists.",
   "sources": [
-    "https://www.icai.org/post/sm-foundation-p3-may2026",
-    "https://www.catestseries.org/blogs/negative-marking-in-ca-foundation.php"
+    "syllabus/SA May 2025 QA.pdf — ICAI sample paper, May 2025 (100 questions; Q1-40 Business Mathematics, Q41-60 Logical Reasoning, Q61-100 Statistics)",
+    "https://www.icai.org/post/section-wise-weightages-nset — ICAI section-wise weightage (Paper 3: 40/20/40 marks)",
+    "https://www.icai.org/post/sm-foundation-p3-may2026 — ICAI BoS study material, Paper 3",
+    "https://www.catestseries.org/blogs/negative-marking-in-ca-foundation.php — negative marking 0.25 on objective papers"
   ],
-  "confidence": "Negative marking of 0.25 per wrong answer on objective Papers 3 and 4 is confirmed. The per-paper 40 percent and aggregate 50 percent rule is standard ICAI policy. The exact Paper 3 question count is to confirm."
+  "confidence": "Question count (100), total marks (100), duration (2 hours), four-option objective format, negative marking (0.25 per wrong), and the 40% single-paper pass are confirmed across the ICAI sample paper and ICAI sources. Per-part question counts (40/20/40) are inferred from the confirmed 40/20/40 mark split at one mark per question, consistent with the sample paper's section boundaries."
 }

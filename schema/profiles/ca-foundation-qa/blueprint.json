@@ -1,0 +1,99 @@
+{
+  "exam": "ca_foundation",
+  "paper": "Paper 3 — Quantitative Aptitude",
+  "version": 1,
+  "status": "draft",
+  "source": "ICAI section-wise weightage issued 26 October 2023, applicable May 2024 onwards (syllabus/CA foundation question weightage.pdf); ICAI skill-wise weightage (syllabus/CA foundation skill-wise-weightage.pdf); ICAI sample paper May 2025 (syllabus/SA May 2025 QA.pdf).",
+  "deviation_allowed_percent": 5,
+  "deviation_note": "ICAI permits a maximum deviation of plus or minus 5 percent on the specified section-wise weightage.",
+  "skill_levels": {
+    "level_1_comprehension_knowledge_percent": 0,
+    "level_2_application_percent": 100,
+    "note": "ICAI classifies Paper 3 as 100 percent Level II (Application); Level I (Comprehension and Knowledge) is unlisted. Generate predominantly application and problem-solving items. The sample paper carries a few definitional items, so a small conceptual minority is faithful to the real paper."
+  },
+  "parts": [
+    {
+      "id": "qa.bmath",
+      "name": "Business Mathematics",
+      "marks": 40,
+      "questions": 40,
+      "sections": [
+        {
+          "icai_section": "I",
+          "label": "Ratio and Proportion, Indices and Logarithms; Equations; Linear Inequalities",
+          "weight_percent_of_part": [20, 30],
+          "derived_target_questions": 10,
+          "families": ["qa.bmath.ratio_indices_log", "qa.bmath.equations", "qa.bmath.inequalities"]
+        },
+        {
+          "icai_section": "II",
+          "label": "Mathematics of Finance",
+          "weight_percent_of_part": [30, 40],
+          "derived_target_questions": 14,
+          "families": ["qa.bmath.finance"]
+        },
+        {
+          "icai_section": "III",
+          "label": "Permutations and Combinations; Sequence and Series; Sets, Relations and Functions, Limits and Continuity; Calculus",
+          "weight_percent_of_part": [30, 50],
+          "derived_target_questions": 16,
+          "families": ["qa.bmath.permutations_combinations", "qa.bmath.sequence_series", "qa.bmath.sets_functions", "qa.bmath.calculus"]
+        }
+      ]
+    },
+    {
+      "id": "qa.lr",
+      "name": "Logical Reasoning",
+      "marks": 20,
+      "questions": 20,
+      "sections": [
+        {
+          "icai_section": "IV",
+          "label": "Number Series, Coding and Decoding, Odd Man Out; Direction Tests; Seating Arrangements; Blood Relations",
+          "weight_percent_of_part_per_topic": [20, 30],
+          "weight_note": "ICAI lists 20-30 percent for each of the four Logical Reasoning topics.",
+          "derived_target_questions": 20,
+          "families": ["qa.lr.series_coding", "qa.lr.direction_tests", "qa.lr.seating", "qa.lr.blood_relations"]
+        }
+      ]
+    },
+    {
+      "id": "qa.stats",
+      "name": "Statistics",
+      "marks": 40,
+      "questions": 40,
+      "sections": [
+        {
+          "icai_section": "V",
+          "label": "Statistical Representation of Data and Sampling; Measures of Central Tendency and Dispersion",
+          "weight_percent_of_part": [45, 50],
+          "derived_target_questions": 19,
+          "families": ["qa.stats.data_representation", "qa.stats.central_tendency_dispersion"]
+        },
+        {
+          "icai_section": "VI",
+          "label": "Probability; Theoretical Distributions",
+          "weight_percent_of_part": [25, 30],
+          "derived_target_questions": 11,
+          "families": ["qa.stats.probability", "qa.stats.distributions"]
+        },
+        {
+          "icai_section": "VII",
+          "label": "Correlation and Regression",
+          "weight_percent_of_part": [10, 15],
+          "derived_target_questions": 5,
+          "families": ["qa.stats.correlation_regression"]
+        },
+        {
+          "icai_section": "VIII",
+          "label": "Index Numbers",
+          "weight_percent_of_part": [10, 15],
+          "derived_target_questions": 5,
+          "families": ["qa.stats.index_numbers"]
+        }
+      ]
+    }
+  ],
+  "derived_target_note": "derived_target_questions applies the midpoint of each ICAI weightage range to the part's question count and rounds so each part sums to its total. Use as a generation and mock-assembly guide, not a hard ICAI figure; the plus or minus 5 percent deviation applies.",
+  "usage": "Drives generation volume per family, mock-paper assembly, and readiness weighting. Section percentages are within each part; parts are 40/20/40 marks at one mark per question."
+}

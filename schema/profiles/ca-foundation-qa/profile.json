@@ -11,6 +11,7 @@
   "taxonomy": "taxonomy.json",
   "misconceptions": "misconceptions.json",
   "marking": "marking.json",
+  "blueprint": "blueprint.json",
   "language": "en",
   "id_namespace": "caf_(qa|be)",
   "option_count": 4,
@@ -19,7 +20,7 @@
   "assets_allowed": false,
   "assets_note": "Diagrams and images are disabled for v1. The Core retains the asset machinery for future exams that need it.",
   "v1_scope": {
-    "intent": "Prove the core loop on the simplest, most computational, diagram-free slice of Paper 3, then widen across the full taxonomy.",
+    "intent": "Cover the entire Paper 3 Quantitative Aptitude taxonomy. The ICAI sample paper (May 2025) confirms every item is text and numeric, so no family needs diagram or image assets and v1 keeps assets disabled.",
     "in_scope_families": [
       "qa.bmath.ratio_indices_log",
       "qa.bmath.equations",
@@ -28,23 +29,20 @@
       "qa.bmath.permutations_combinations",
       "qa.bmath.sequence_series",
       "qa.bmath.sets_functions",
+      "qa.bmath.calculus",
       "qa.lr.series_coding",
+      "qa.lr.direction_tests",
+      "qa.lr.seating",
       "qa.lr.blood_relations",
-      "qa.stats.data_representation.frequency_distribution",
-      "qa.stats.data_representation.sampling",
+      "qa.stats.data_representation",
       "qa.stats.central_tendency_dispersion",
       "qa.stats.probability",
       "qa.stats.distributions",
       "qa.stats.correlation_regression",
       "qa.stats.index_numbers"
     ],
-    "deferred_families": [
-      "qa.bmath.calculus",
-      "qa.lr.direction_tests",
-      "qa.lr.seating",
-      "qa.stats.data_representation.graphical"
-    ],
-    "deferred_reason": "Calculus is heavy notation. Direction tests, seating arrangements, and graphical statistics need diagrams or spatial rendering the v1 app does not support.",
-    "open_question": "Confirm whether the very first pilot narrows further, for example Business Mathematics only, before widening to all in-scope families."
+    "deferred_families": [],
+    "scope_note": "Earlier drafts deferred calculus, direction tests, seating, and graphical statistics for assumed notation or asset needs. The ICAI sample paper refutes that: direction and seating items are text word-problems, graphical-statistics items test properties rather than chart-reading, and calculus is text notation (business and economics applications only, excluding trigonometric). All families are in scope with assets disabled.",
+    "resolved": "v1 covers the full in-scope taxonomy across Business Mathematics, Logical Reasoning, and Statistics. The first content pilot samples across all three parts, not one part only."
   }
 }

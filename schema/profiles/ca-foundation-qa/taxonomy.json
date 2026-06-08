@@ -70,25 +70,25 @@
     { "id": "qa.bmath.sets_functions.limits", "name": "Limits", "parent": "qa.bmath.sets_functions", "v1_scope": true },
     { "id": "qa.bmath.sets_functions.continuity", "name": "Continuity", "parent": "qa.bmath.sets_functions", "v1_scope": true },
 
-    { "id": "qa.bmath.calculus", "name": "Differential and Integral Calculus", "parent": "qa.bmath", "abstract": true, "v1_scope": false, "defer_reason": "Heavy notation; outside the diagram-free, low-notation v1 wedge." },
-    { "id": "qa.bmath.calculus.differentiation", "name": "Differentiation", "parent": "qa.bmath.calculus", "v1_scope": false },
-    { "id": "qa.bmath.calculus.integration", "name": "Integration", "parent": "qa.bmath.calculus", "v1_scope": false },
-    { "id": "qa.bmath.calculus.applications", "name": "Applications in business and economics", "parent": "qa.bmath.calculus", "v1_scope": false },
+    { "id": "qa.bmath.calculus", "name": "Differential and Integral Calculus", "parent": "qa.bmath", "abstract": true, "v1_scope": true, "note": "Basic applications of differential and integral calculus in business and economics; excludes trigonometric applications. Pose textually." },
+    { "id": "qa.bmath.calculus.differentiation", "name": "Differentiation", "parent": "qa.bmath.calculus", "v1_scope": true },
+    { "id": "qa.bmath.calculus.integration", "name": "Integration", "parent": "qa.bmath.calculus", "v1_scope": true },
+    { "id": "qa.bmath.calculus.applications", "name": "Applications in business and economics", "parent": "qa.bmath.calculus", "v1_scope": true },
 
     { "id": "qa.lr", "name": "Logical Reasoning", "parent": "qa", "abstract": true },
     { "id": "qa.lr.series_coding", "name": "Number Series, Coding and Decoding, Odd Man Out", "parent": "qa.lr", "abstract": true },
     { "id": "qa.lr.series_coding.number_series", "name": "Number series", "parent": "qa.lr.series_coding", "v1_scope": true },
     { "id": "qa.lr.series_coding.coding_decoding", "name": "Coding and decoding", "parent": "qa.lr.series_coding", "v1_scope": true },
     { "id": "qa.lr.series_coding.odd_man_out", "name": "Odd man out", "parent": "qa.lr.series_coding", "v1_scope": true },
-    { "id": "qa.lr.direction_tests", "name": "Direction Tests", "parent": "qa.lr", "v1_scope": false, "defer_reason": "Spatial reasoning; usually needs a diagram." },
-    { "id": "qa.lr.seating", "name": "Seating Arrangements", "parent": "qa.lr", "v1_scope": false, "defer_reason": "Spatial reasoning; usually needs a diagram." },
+    { "id": "qa.lr.direction_tests", "name": "Direction Tests", "parent": "qa.lr", "v1_scope": true, "note": "Text-posed word problems; the ICAI sample paper confirms no diagram is required." },
+    { "id": "qa.lr.seating", "name": "Seating Arrangements", "parent": "qa.lr", "v1_scope": true, "note": "Text-posed word problems; no diagram required in v1." },
     { "id": "qa.lr.blood_relations", "name": "Blood Relations", "parent": "qa.lr", "v1_scope": true, "note": "Text-posed only in v1." },
 
     { "id": "qa.stats", "name": "Statistics", "parent": "qa", "abstract": true },
 
     { "id": "qa.stats.data_representation", "name": "Statistical Representation of Data and Sampling", "parent": "qa.stats", "abstract": true },
     { "id": "qa.stats.data_representation.frequency_distribution", "name": "Frequency distribution", "parent": "qa.stats.data_representation", "v1_scope": true },
-    { "id": "qa.stats.data_representation.graphical", "name": "Graphical representation", "parent": "qa.stats.data_representation", "v1_scope": false, "defer_reason": "Chart reading needs a rendered figure." },
+    { "id": "qa.stats.data_representation.graphical", "name": "Graphical representation", "parent": "qa.stats.data_representation", "v1_scope": true, "note": "Pose conceptually or as text-described distributions; the sample paper tests properties of histograms and ogives, not reading values off a rendered chart. No figure asset in v1." },
     { "id": "qa.stats.data_representation.sampling", "name": "Sampling", "parent": "qa.stats.data_representation", "v1_scope": true },
 
     { "id": "qa.stats.central_tendency_dispersion", "name": "Measures of Central Tendency and Dispersion", "parent": "qa.stats", "abstract": true },
