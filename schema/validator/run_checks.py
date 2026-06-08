@@ -1,0 +1,109 @@
+#!/usr/bin/env python3
+"""Tier 2 check runner. Proves every cross-record invariant fires.
+
+  - the good pack validates clean,
+  - each reject fixture surfaces exactly the invariant it targets,
+  - the CA v1 -> UQS migration produces a clean item,
+  - the SVG sanitization guard accepts inert SVG and rejects scripted SVG.
+
+Items are validated against the CA Foundation QA Profile (Core + Profile,
+resolved through a referencing registry). Taxonomy nodes and the misconception
+canon are loaded from the Profile directory (profiles/ca-foundation-qa/).
+
+Run: python3 run_checks.py   (exit 0 = all good)
+"""
+import json
+import pathlib
+import sys
+
+from referencing import Registry, Resource
+
+HERE = pathlib.Path(__file__).parent
+sys.path.insert(0, str(HERE))
+
+import canonical
+import pack_validator as pv
+from migrate_ca_v1 import migrate
+
+SCHEMA_DIR = HERE.parent
+PROFILE_DIR = SCHEMA_DIR / "profiles" / "ca-foundation-qa"
+CORE = json.loads((SCHEMA_DIR / "core" / "uqs-core.schema.json").read_text())
+SCHEMA = json.loads((PROFILE_DIR / "ca-foundation-qa.schema.json").read_text())
+REGISTRY = Registry().with_resource(CORE["$id"], Resource.from_contents(CORE))
+
+REJECTS = {
+    "packs/reject/bad_hash.json": "HASH_MISMATCH",
+    "packs/reject/dup_content_hash.json": "DUP_CONTENT_HASH",
+    "packs/reject/dup_id.json": "DUP_ID",
+    "packs/reject/unknown_test_node.json": "UNKNOWN_TEST_NODE",
+    "packs/reject/bad_option_keys.json": "BAD_OPTION_KEYS",
+    "packs/reject/rationale_verdict_mismatch.json": "RATIONALE_VERDICT_MISMATCH",
+    "packs/reject/unknown_misconception.json": "UNKNOWN_MISCONCEPTION",
+    "packs/reject/dangling_asset_ref.json": "DANGLING_ASSET_REF",
+    "packs/reject/missing_rationale.json": "RATIONALE_COVERAGE",
+    "packs/reject/rationale_missing_misconception.json": "MISCONCEPTION_REQUIRED",
+    "packs/reject/numeric_missing_common_errors.json": "MISSING_COMMON_ERRORS",
+}
+
+
+def load(rel):
+    return json.loads((HERE / rel).read_text())
+
+
+def load_taxonomy():
+    tax = json.loads((PROFILE_DIR / "taxonomy.json").read_text())
+    misc = json.loads((PROFILE_DIR / "misconceptions.json").read_text())
+    return {
+        "nodes": {n["id"] for n in tax["nodes"]},
+        "misconceptions": {m["id"] for m in misc["misconceptions"]},
+        "difficulty_scale": tax["difficulty_scale"],
+    }
+
+
+def main() -> int:
+    tax = load_taxonomy()
+    ok = True
+
+    good = pv.validate_pack(load("packs/good.json"), tax, SCHEMA, REGISTRY)
+    if good:
+        ok = False
+        print("FAIL  good pack produced violations:")
+        for v in good:
+            print("       ", v.code, v.item_id, v.message)
+    else:
+        print("PASS  good pack: 0 violations")
+
+    for path, code in REJECTS.items():
+        codes = {v.code for v in pv.validate_pack(load(path), tax, SCHEMA, REGISTRY)}
+        if code in codes:
+            print(f"PASS  {pathlib.Path(path).name}: fired {code}")
+        else:
+            ok = False
+            print(f"FAIL  {pathlib.Path(path).name}: expected {code}, got {sorted(codes) or 'none'}")
+
+    v1 = load("packs/legacy/ca_v1_000088.json")
+    migrated = migrate(v1)
+    pack = canonical.stamp_pack({"items": [migrated], "assets": []})
+    residual = {v.code for v in pv.validate_pack(pack, tax, SCHEMA, REGISTRY)}
+    # CA v1 carries no per-option diagnosis. The migration maps every field; the
+    # only open item is the new per-option requirement, filled later by enrichment.
+    if residual <= {"RATIONALE_COVERAGE"} and migrated["id"] == "vlt_caf_qa_000088":
+        note = "needs per-option diagnosis enrichment before publish" if residual else "clean"
+        print(f"PASS  migration CA v1 -> UQS field-complete; id {migrated['id']} ({note})")
+    else:
+        ok = False
+        print(f"FAIL  migration: id {migrated['id']}, residual {sorted(residual)}")
+
+    if pv.svg_is_safe('<svg><circle r="3"/></svg>') and not pv.svg_is_safe(
+        '<svg><script>x()</script></svg>'
+    ):
+        print("PASS  svg_is_safe accepts inert SVG, rejects scripted SVG")
+    else:
+        ok = False
+        print("FAIL  svg_is_safe sanitization logic wrong")
+
+    return 0 if ok else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

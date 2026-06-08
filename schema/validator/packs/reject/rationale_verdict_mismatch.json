@@ -1,0 +1,77 @@
+{
+  "items": [
+    {
+      "id": "vlt_caf_qa_000088",
+      "schema_version": "uqs-1",
+      "content_hash": "a8021a238549b42148f5b515c2e620676345cd25d1571305809fadf7e98042c1",
+      "exam": "ca_foundation",
+      "lang": "en",
+      "pool": "vault",
+      "verification_status": "human_reviewed",
+      "provenance": {
+        "source": "verdict_mismatch_fixture",
+        "license": "CC-BY-SA-4.0",
+        "created": "2026-04-29"
+      },
+      "tests": [
+        "qa.probability.conditional"
+      ],
+      "difficulty_label": "L3",
+      "taxonomy_version": 1,
+      "item_type": "single_best",
+      "stem": "Two events A and B satisfy P(A and B) = 1/6 and P(B) = 1/2. Find P(A given B).",
+      "options": [
+        {
+          "key": 1,
+          "text": "1/3"
+        },
+        {
+          "key": 2,
+          "text": "1/2"
+        },
+        {
+          "key": 3,
+          "text": "2/3"
+        },
+        {
+          "key": 4,
+          "text": "3/4"
+        }
+      ],
+      "answer_key": {
+        "correct": 1
+      },
+      "per_option_rationale": [
+        {
+          "option_key": 1,
+          "verdict": "incorrect",
+          "rationale": "Wrongly labels the correct option as incorrect."
+        },
+        {
+          "option_key": 2,
+          "verdict": "incorrect",
+          "rationale": "Treats the events as mutually exclusive.",
+          "misconception": "complement_confusion"
+        },
+        {
+          "option_key": 3,
+          "verdict": "incorrect",
+          "rationale": "Assumes independence.",
+          "misconception": "independence_assumed"
+        },
+        {
+          "option_key": 4,
+          "verdict": "incorrect",
+          "rationale": "Arithmetic slip.",
+          "misconception": "arithmetic_slip"
+        }
+      ],
+      "explanation": "The rationale verdict for the keyed option disagrees with answer_key.correct.",
+      "empirical": {
+        "calibration_status": "none",
+        "n_responses": 0
+      }
+    }
+  ],
+  "assets": []
+}

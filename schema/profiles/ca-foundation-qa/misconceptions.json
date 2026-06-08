@@ -1,0 +1,33 @@
+{
+  "exam": "ca_foundation",
+  "section": "quantitative_aptitude",
+  "version": 1,
+  "status": "draft",
+  "tagging_rule": "Every wrong single_best option and every numeric_entry common_error must carry exactly one misconception id from this closed canon. Choose the most specific id that fits the actual wrong-answer path. Do not invent ids inline. If a genuine, recurring error has no id here, propose an addition and bump the version; this canon is designed upfront so generators never guess. arithmetic_slip is the fallback for a genuine computational slip only, never for a conceptual error. This draft is validated against a small pilot before mass generation.",
+  "misconceptions": [
+    { "id": "arithmetic_slip", "name": "Arithmetic slip", "description": "A genuine computational slip with sound method. Fallback only.", "families": ["*"] },
+    { "id": "sign_error", "name": "Sign error", "description": "Dropped or flipped a sign during manipulation.", "families": ["qa.bmath.equations", "qa.bmath.inequalities", "qa.stats"] },
+    { "id": "decimal_place_error", "name": "Decimal or power-of-ten error", "description": "Misplaced a decimal point or a power of ten.", "families": ["qa.bmath.finance", "qa.bmath.ratio_indices_log", "qa.stats"] },
+    { "id": "rounding_error", "name": "Premature or wrong rounding", "description": "Rounded too early or to the wrong precision, changing the answer.", "families": ["qa.bmath.finance", "qa.stats"] },
+    { "id": "order_of_operations", "name": "Order of operations", "description": "Applied operations in the wrong order.", "families": ["qa.bmath"] },
+    { "id": "formula_misapplied", "name": "Formula misapplied", "description": "Used a valid formula in a situation it does not cover.", "families": ["qa.bmath.finance", "qa.stats", "qa.bmath.sequence_series"] },
+    { "id": "wrong_formula", "name": "Wrong formula chosen", "description": "Selected the wrong formula for the quantity asked.", "families": ["qa.bmath", "qa.stats"] },
+    { "id": "unit_confusion", "name": "Unit confusion", "description": "Mismatched or ignored units (rate per period, currency, time).", "families": ["qa.bmath.finance"] },
+    { "id": "percentage_base_confusion", "name": "Percentage base confusion", "description": "Took the percentage of the wrong base quantity.", "families": ["qa.bmath.ratio_indices_log", "qa.bmath.finance", "qa.stats.index_numbers"] },
+    { "id": "ratio_inverted", "name": "Ratio inverted", "description": "Inverted or misordered the terms of a ratio.", "families": ["qa.bmath.ratio_indices_log"] },
+    { "id": "compound_interest_confusion", "name": "Simple vs compound interest", "description": "Applied compound interest where simple was asked, or the reverse.", "families": ["qa.bmath.finance"] },
+    { "id": "time_factor_dropped", "name": "Time period misread", "description": "Dropped or misread the time period or number of periods.", "families": ["qa.bmath.finance"] },
+    { "id": "rate_period_mismatch", "name": "Rate and period mismatch", "description": "Did not match the interest rate to the compounding period.", "families": ["qa.bmath.finance"] },
+    { "id": "inequality_sign_not_flipped", "name": "Inequality sign not flipped", "description": "Did not reverse the inequality when multiplying or dividing by a negative.", "families": ["qa.bmath.inequalities"] },
+    { "id": "extraneous_root_kept", "name": "Extraneous root kept", "description": "Kept a root the problem context excludes.", "families": ["qa.bmath.equations"] },
+    { "id": "permutation_combination_confusion", "name": "Permutation vs combination", "description": "Counted order where it does not matter, or the reverse.", "families": ["qa.bmath.permutations_combinations"] },
+    { "id": "complement_confusion", "name": "Event vs complement", "description": "Confused an event with its complement.", "families": ["qa.stats.probability"] },
+    { "id": "independence_assumed", "name": "Independence wrongly assumed", "description": "Assumed events were independent when they were not.", "families": ["qa.stats.probability"] },
+    { "id": "conditional_reversed", "name": "Conditional reversed", "description": "Computed P(B given A) instead of P(A given B).", "families": ["qa.stats.probability"] },
+    { "id": "mutually_exclusive_vs_independent", "name": "Mutually exclusive vs independent", "description": "Confused mutually exclusive events with independent events.", "families": ["qa.stats.probability"] },
+    { "id": "mean_median_mode_confusion", "name": "Wrong measure of central tendency", "description": "Used the wrong average for the question.", "families": ["qa.stats.central_tendency_dispersion"] },
+    { "id": "population_sample_confusion", "name": "Population vs sample", "description": "Confused a population parameter with a sample statistic (for example the divisor n vs n-1).", "families": ["qa.stats.central_tendency_dispersion", "qa.stats.data_representation"] },
+    { "id": "misread_quantity", "name": "Solved the wrong quantity", "description": "Solved for a different quantity than the one asked.", "families": ["*"] },
+    { "id": "off_by_one", "name": "Off by one", "description": "Off-by-one in counting, indexing, or number of periods.", "families": ["qa.bmath.permutations_combinations", "qa.bmath.sequence_series", "qa.bmath.finance"] }
+  ]
+}

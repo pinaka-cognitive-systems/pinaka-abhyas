@@ -1,0 +1,27 @@
+{
+  "id": "vlt_caf_qa_000089",
+  "schema_version": "uqs-1",
+  "content_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "vault",
+  "verification_status": "human_reviewed",
+  "provenance": {
+    "source": "synthetic_negative_fixture",
+    "license": "CC-BY-SA-4.0",
+    "created": "2026-04-29"
+  },
+  "tests": ["qa.probability.conditional"],
+  "difficulty_label": "L4",
+  "taxonomy_version": 1,
+  "item_type": "single_best",
+  "stem": "Negative fixture stem.",
+  "options": [
+    { "key": 1, "text": "1/3" },
+    { "key": 2, "text": "1/2" },
+    { "key": 3, "text": "2/3" }
+  ],
+  "answer_key": { "correct": 7 },
+  "explanation": "Too short.",
+  "unexpected_field": true
+}

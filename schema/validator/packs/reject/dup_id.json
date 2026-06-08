@@ -1,0 +1,99 @@
+{
+  "items": [
+    {
+      "id": "vlt_caf_qa_000088",
+      "schema_version": "uqs-1",
+      "content_hash": "a8021a238549b42148f5b515c2e620676345cd25d1571305809fadf7e98042c1",
+      "exam": "ca_foundation",
+      "lang": "en",
+      "pool": "vault",
+      "verification_status": "human_reviewed",
+      "provenance": {
+        "source": "dupid_a",
+        "license": "CC-BY-SA-4.0",
+        "created": "2026-04-29"
+      },
+      "tests": [
+        "qa.probability.conditional"
+      ],
+      "difficulty_label": "L3",
+      "taxonomy_version": 1,
+      "item_type": "single_best",
+      "stem": "Two events A and B satisfy P(A and B) = 1/6 and P(B) = 1/2. Find P(A given B).",
+      "options": [
+        {
+          "key": 1,
+          "text": "1/3"
+        },
+        {
+          "key": 2,
+          "text": "1/2"
+        },
+        {
+          "key": 3,
+          "text": "2/3"
+        },
+        {
+          "key": 4,
+          "text": "3/4"
+        }
+      ],
+      "answer_key": {
+        "correct": 1
+      },
+      "explanation": "First item. Shares an id with the second, which must be rejected.",
+      "empirical": {
+        "calibration_status": "none",
+        "n_responses": 0
+      }
+    },
+    {
+      "id": "vlt_caf_qa_000088",
+      "schema_version": "uqs-1",
+      "content_hash": "d9472e2e06a844046c5cfb974c309e479ac21bbb0f90e345fe5dfbf216685d5d",
+      "exam": "ca_foundation",
+      "lang": "en",
+      "pool": "vault",
+      "verification_status": "human_reviewed",
+      "provenance": {
+        "source": "dupid_b",
+        "license": "CC-BY-SA-4.0",
+        "created": "2026-04-29"
+      },
+      "tests": [
+        "qa.probability.independent_events"
+      ],
+      "difficulty_label": "L1",
+      "taxonomy_version": 1,
+      "item_type": "single_best",
+      "stem": "A fair die is rolled once. What is the probability of an even number?",
+      "options": [
+        {
+          "key": 1,
+          "text": "1/6"
+        },
+        {
+          "key": 2,
+          "text": "1/3"
+        },
+        {
+          "key": 3,
+          "text": "1/2"
+        },
+        {
+          "key": 4,
+          "text": "2/3"
+        }
+      ],
+      "answer_key": {
+        "correct": 3
+      },
+      "explanation": "Different content from the first item, but the same id, which must be rejected.",
+      "empirical": {
+        "calibration_status": "none",
+        "n_responses": 0
+      }
+    }
+  ],
+  "assets": []
+}

@@ -1,0 +1,31 @@
+{
+  "exam": "ca_foundation",
+  "paper": "Paper 3 — Quantitative Aptitude",
+  "version": 1,
+  "status": "draft",
+  "total_marks": 100,
+  "duration_minutes": 120,
+  "question_format": "objective_mcq",
+  "marks_per_correct": 1,
+  "negative_mark_per_wrong": 0.25,
+  "marks_per_unattempted": 0,
+  "num_questions": null,
+  "num_questions_note": "Total question count for Paper 3 was not authoritatively confirmed in search; commonly treated as 100 one-mark MCQs. Confirm against an ICAI source before locking the readiness math.",
+  "parts": [
+    { "name": "Business Mathematics", "marks": 40 },
+    { "name": "Logical Reasoning", "marks": 20 },
+    { "name": "Statistics", "marks": 40 }
+  ],
+  "pass": {
+    "paper_min_percent": 40,
+    "paper_min_marks": 40,
+    "aggregate_min_percent": 50,
+    "aggregate_note": "The 50% aggregate is across all four Foundation papers and is out of scope for a QA-only app. Readiness here anchors on the 40% single-paper bar."
+  },
+  "readiness_anchor": "A predicted Paper 3 mark of 40 out of 100, net of negative marking, is the pass threshold. Readiness is shown as distance to this anchor, honestly labelled as an estimate until empirical calibration exists.",
+  "sources": [
+    "https://www.icai.org/post/sm-foundation-p3-may2026",
+    "https://www.catestseries.org/blogs/negative-marking-in-ca-foundation.php"
+  ],
+  "confidence": "Negative marking of 0.25 per wrong answer on objective Papers 3 and 4 is confirmed. The per-paper 40 percent and aggregate 50 percent rule is standard ICAI policy. The exact Paper 3 question count is to confirm."
+}

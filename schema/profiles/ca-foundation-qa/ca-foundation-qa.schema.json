@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pinaka.dev/schema/profiles/ca-foundation-qa-1.json",
+  "title": "Pinaka UQS Profile — CA Foundation Quantitative Aptitude (v1)",
+  "description": "TIER: PROFILE. Specializes uqs-core-1 for CA Foundation Paper 3 (Quantitative Aptitude). It composes the Core via allOf + $ref and narrows it for this exam only: exam is ca_foundation, id namespace is caf_(qa|be), difficulty scale is L1-L3, single_best carries exactly 4 options, and item-level assets (diagrams/images) are disabled for v1. Everything not narrowed here is inherited unchanged from the Core. To add another exam, write a sibling profile against the same Core; do not edit the Core.",
+  "allOf": [
+    { "$ref": "https://pinaka.dev/schema/uqs-core-1.json" },
+    {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "pattern": "^(sd|vlt|arn)_caf_(qa|be)_\\d{6}$" },
+        "exam": { "const": "ca_foundation" },
+        "difficulty_label": { "enum": ["L1", "L2", "L3"] },
+        "assets": false,
+        "ext": { "$ref": "#/$defs/ext_ca" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": ["item_type"],
+            "properties": { "item_type": { "const": "single_best" } }
+          },
+          "then": {
+            "properties": {
+              "options": { "type": "array", "minItems": 4, "maxItems": 4 }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "$defs": {
+    "ext_ca": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "icai_skill_bucket": { "enum": ["recall", "application"] },
+        "icai_provenance": { "type": "string" },
+        "tier_eligibility": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

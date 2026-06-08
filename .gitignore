@@ -1,0 +1,17 @@
+# OS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+**/.venv/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+
+# Generated types (regenerate via schema/generate.sh once codegen bundling lands)
+schema/generated/

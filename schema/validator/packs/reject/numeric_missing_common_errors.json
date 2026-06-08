@@ -1,0 +1,37 @@
+{
+  "items": [
+    {
+      "id": "vlt_caf_qa_000201",
+      "schema_version": "uqs-1",
+      "content_hash": "830f3e05c85eb984a012ee061dad4486e4f5a27ce63a759385d632f0d8fcbe7e",
+      "exam": "ca_foundation",
+      "lang": "en",
+      "pool": "vault",
+      "verification_status": "machine_verified",
+      "provenance": {
+        "source": "missing_common_errors_fixture",
+        "license": "CC-BY-SA-4.0",
+        "created": "2026-05-02"
+      },
+      "tests": [
+        "qa.interest.simple"
+      ],
+      "difficulty_label": "L1",
+      "taxonomy_version": 1,
+      "item_type": "numeric_entry",
+      "stem": "Find the simple interest on 10000 rupees at 5% per annum for 2 years, in rupees.",
+      "answer_key": {
+        "value": 1000,
+        "tol_abs": 0,
+        "tol_rel": 0,
+        "unit": "INR"
+      },
+      "explanation": "A numeric_entry item with no common_errors: a wrong number cannot be diagnosed.",
+      "empirical": {
+        "calibration_status": "none",
+        "n_responses": 0
+      }
+    }
+  ],
+  "assets": []
+}

@@ -1,0 +1,37 @@
+{
+  "id": "vlt_caf_qa_000088",
+  "schema_version": "uqs-1",
+  "content_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "vault",
+  "verification_status": "human_reviewed",
+  "provenance": {
+    "source": "legacy_q88_example",
+    "license": "CC-BY-SA-4.0",
+    "parent_id": "sd_caf_qa_000088",
+    "created": "2026-04-29"
+  },
+  "tests": ["qa.stats.probability.conditional", "qa.stats.probability.independent_events"],
+  "difficulty_label": "L3",
+  "taxonomy_version": 1,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Two events A and B satisfy P(A and B) = 1/6 and P(B) = 1/2. Find P(A given B).",
+  "options": [
+    { "key": 1, "text": "1/3" },
+    { "key": 2, "text": "1/2" },
+    { "key": 3, "text": "2/3" },
+    { "key": 4, "text": "3/4" }
+  ],
+  "answer_key": { "correct": 1 },
+  "per_option_rationale": [
+    { "option_key": 1, "verdict": "correct", "rationale": "Applies the conditional probability definition correctly." },
+    { "option_key": 2, "verdict": "incorrect", "rationale": "Treats the two events as mutually exclusive.", "misconception": "complement_confusion" },
+    { "option_key": 3, "verdict": "incorrect", "rationale": "Assumes the events are independent.", "misconception": "independence_assumed" },
+    { "option_key": 4, "verdict": "incorrect", "rationale": "Arithmetic slip in the final ratio.", "misconception": "arithmetic_slip" }
+  ],
+  "explanation": "Use P(A given B) = P(A and B) / P(B). Substituting the given values yields 1/3, which is option 1. The key step is recognizing that the events are dependent, not independent.",
+  "empirical": { "calibration_status": "none", "n_responses": 0 },
+  "ext": { "icai_skill_bucket": "application" }
+}
