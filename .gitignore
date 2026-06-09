@@ -21,3 +21,6 @@ schema/profiles/ca-foundation-qa/genspike/pack.json
 
 # Reference extraction of the ICAI sample paper (not distributed)
 syllabus/extracted/sa-may-2025-qa.md
+
+# ICAI source materials (syllabus, sample paper, weightage tables) — not for public distribution
+/syllabus/
