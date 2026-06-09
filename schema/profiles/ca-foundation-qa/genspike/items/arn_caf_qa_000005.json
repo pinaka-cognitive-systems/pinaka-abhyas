@@ -1,0 +1,76 @@
+{
+  "id": "arn_caf_qa_000005",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genspike_v1",
+    "license": "CC-BY-NC-ND-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-09"
+  },
+  "tests": [
+    "qa.bmath.equations.quadratic"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 1,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "The perimeter of a rectangular plot is 100 m and its area is 600 sq m. Find the length of the longer side.",
+  "options": [
+    {
+      "key": 1,
+      "text": "30 m"
+    },
+    {
+      "key": 2,
+      "text": "60 m"
+    },
+    {
+      "key": 3,
+      "text": "20 m"
+    },
+    {
+      "key": 4,
+      "text": "25 m"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Let length = l, width = w. Then l + w = 50 and lw = 600, giving x^2 - 50x + 600 = 0 with roots 30 and 20; the longer side is 30 m."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student writes l - w = 50 instead of l + w = 50 (sign error in the perimeter relation), obtaining w^2 + 50w - 600 = 0 whose positive root is w = 10, giving l = 60.",
+      "misconception": "sign_error"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student solves x^2 - 50x + 600 = 0 correctly but reports the smaller root (the width) instead of the length.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Treated the rectangle as a square and averaged the semi-perimeter, 50/2 = 25.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "l + w = 100/2 = 50 and lw = 600 give the quadratic x^2 - 50x + 600 = 0. Discriminant = 2500 - 2400 = 100, so x = (50 + 10)/2 = 30 or 20. The longer side is 30 m.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

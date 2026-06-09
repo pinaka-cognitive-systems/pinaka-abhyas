@@ -1,0 +1,76 @@
+{
+  "id": "arn_caf_qa_000024",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genspike_v1",
+    "license": "CC-BY-NC-ND-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-09"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.correlation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 1,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "For two variables X and Y, Karl Pearson's correlation coefficient r = 0.6. The regression coefficient of X on Y (b_XY) is 0.9. What is the regression coefficient of Y on X (b_YX)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.9"
+    },
+    {
+      "key": 2,
+      "text": "0.54"
+    },
+    {
+      "key": 3,
+      "text": "0.36"
+    },
+    {
+      "key": 4,
+      "text": "0.4"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "b_XY x b_YX = r^2, so b_YX = r^2 / b_XY = 0.36 / 0.9 = 0.4."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student confused the two regression coefficients and assumed b_YX equals b_XY, treating both as interchangeable.",
+      "misconception": "concept_definition_confused"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student believed the second regression coefficient is obtained by multiplying the first by r rather than by r^2/b_XY, giving 0.6 x 0.9 = 0.54.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student recalled b_XY x b_YX = r^2 but set b_YX = r^2 directly, forgetting to divide by b_XY: 0.6^2 = 0.36.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "The two regression coefficients satisfy b_XY x b_YX = r^2. With b_XY = 0.9 and r = 0.6, we get b_YX = r^2 / b_XY = 0.36 / 0.9 = 0.4. Note that b_YX lies between 0 and 1 here, consistent with r = 0.6.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "arn_caf_qa_000009",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": { "source": "pinaka_synth_genspike_v1", "license": "CC-BY-NC-ND-4.0", "generator": "sonnet", "created": "2026-06-09" },
+  "tests": ["qa.lr.blood_relations"],
+  "difficulty_label": "L2",
+  "taxonomy_version": 1,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "While introducing a woman named Kavya to others, Rajan says: 'Her mother's only sister is my father's only sister.' How is Kavya related to Rajan?",
+  "options": [
+    { "key": 1, "text": "Cousin" },
+    { "key": 2, "text": "Niece" },
+    { "key": 3, "text": "Aunt" },
+    { "key": 4, "text": "Nephew" }
+  ],
+  "answer_key": { "correct": 1 },
+  "per_option_rationale": [
+    { "option_key": 1, "verdict": "correct", "rationale": "Kavya's mother's only sister = Rajan's father's only sister, so Kavya's mother and Rajan's father are siblings; their children are first cousins." },
+    { "option_key": 2, "verdict": "incorrect", "rationale": "Treats Kavya as one generation below Rajan (as if she were Rajan's sibling's daughter) instead of the same generation.", "misconception": "kinship_generation_error" },
+    { "option_key": 3, "verdict": "incorrect", "rationale": "Inverts the direction: concludes Kavya belongs to the parent generation when she is in Rajan's own generation.", "misconception": "kinship_direction_inverted" },
+    { "option_key": 4, "verdict": "incorrect", "rationale": "Reaches the correct generation (cousin-level) but applies the male gendered term to Kavya, who is female.", "misconception": "kinship_gender_error" }
+  ],
+  "explanation": "Rajan's father's only sister = Kavya's mother's only sister. This means Kavya's mother and Rajan's father are siblings (they share the same sister). A child of your parent's sibling is your first cousin, so Kavya is Rajan's cousin.",
+  "empirical": { "calibration_status": "none", "n_responses": 0 },
+  "ext": { "icai_skill_bucket": "application" }
+}

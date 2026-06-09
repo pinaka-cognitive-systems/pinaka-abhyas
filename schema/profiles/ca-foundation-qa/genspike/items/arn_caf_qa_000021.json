@@ -1,0 +1,76 @@
+{
+  "id": "arn_caf_qa_000021",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genspike_v1",
+    "license": "CC-BY-NC-ND-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-09"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mean"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 1,
+  "item_type": "single_best",
+  "expected_seconds": 45,
+  "stem": "A distribution has the following values and frequencies: value 5 with frequency 4, value 10 with frequency 2, value 15 with frequency 3, and value 20 with frequency 1. What is the arithmetic mean?",
+  "options": [
+    {
+      "key": 1,
+      "text": "10.5"
+    },
+    {
+      "key": 2,
+      "text": "10"
+    },
+    {
+      "key": 3,
+      "text": "5"
+    },
+    {
+      "key": 4,
+      "text": "12.5"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Sum of (value * frequency) = 5*4 + 10*2 + 15*3 + 20*1 = 20+20+45+20 = 105; total frequency = 10; mean = 105/10 = 10.5."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Reports the median (5th and 6th values in the ordered set are both 10, so median = 10) instead of the arithmetic mean.",
+      "misconception": "mean_median_mode_confusion"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Reports the mode (value 5 has the highest frequency of 4) instead of the arithmetic mean.",
+      "misconception": "mean_median_mode_confusion"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Ignores the frequencies and averages the four distinct values only: (5+10+15+20)/4 = 12.5.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "Arithmetic mean from a frequency distribution = (sum of f*x) / (sum of f). Here sum(f*x) = 20+20+45+20 = 105 and sum(f) = 10, giving mean = 10.5. Frequencies must be used as weights; simply averaging the distinct values without weighting gives the wrong answer.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

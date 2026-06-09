@@ -1,0 +1,50 @@
+{
+  "id": "arn_caf_qa_000012",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": { "source": "pinaka_synth_genspike_v1", "license": "CC-BY-NC-ND-4.0", "generator": "sonnet", "created": "2026-06-09" },
+  "tests": ["qa.lr.direction_tests"],
+  "difficulty_label": "L2",
+  "taxonomy_version": 1,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "Priya starts from point O facing North. She walks 6 km, then turns right and walks 8 km, then turns right again and walks 6 km. How far is she from O, and in which direction?",
+  "options": [
+    { "key": 1, "text": "20 km from O" },
+    { "key": 2, "text": "8 km, to the West of O" },
+    { "key": 3, "text": "10 km from O" },
+    { "key": 4, "text": "8 km, to the East of O" }
+  ],
+  "answer_key": { "correct": 4 },
+  "per_option_rationale": [
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "After the three legs Priya is at (8, 0) relative to O, which is 8 km due East."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student added all three distances (6 + 8 + 6 = 20) without tracking direction, giving a scalar total instead of net displacement.",
+      "misconception": "net_displacement_error"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student turned left at each instruction instead of right, finishing 8 km to the West of O.",
+      "misconception": "direction_turn_error"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student ignored the last 6 km southward leg and calculated the distance from O to the intermediate point (8, 6), which is sqrt(64 + 36) = 10 km.",
+      "misconception": "constraint_omitted"
+    }
+  ],
+  "explanation": "Track coordinates: start at (0, 0) facing North. Walk 6 km North to (0, 6). Turn right (now East), walk 8 km to (8, 6). Turn right (now South), walk 6 km to (8, 0). Distance from O = 8 km, direction East.",
+  "empirical": { "calibration_status": "none", "n_responses": 0 },
+  "ext": { "icai_skill_bucket": "application" }
+}

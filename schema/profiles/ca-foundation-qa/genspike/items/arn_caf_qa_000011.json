@@ -1,0 +1,50 @@
+{
+  "id": "arn_caf_qa_000011",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": { "source": "pinaka_synth_genspike_v1", "license": "CC-BY-NC-ND-4.0", "generator": "sonnet", "created": "2026-06-09" },
+  "tests": ["qa.lr.direction_tests"],
+  "difficulty_label": "L2",
+  "taxonomy_version": 1,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "Vikram starts at point O facing North. He walks 4 km, then turns left and walks 3 km, then turns right and walks 2 km. In which direction is Vikram from point O now?",
+  "options": [
+    { "key": 1, "text": "North-East" },
+    { "key": 2, "text": "North" },
+    { "key": 3, "text": "North-West" },
+    { "key": 4, "text": "South-East" }
+  ],
+  "answer_key": { "correct": 3 },
+  "per_option_rationale": [
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Facing North, turn left (West), walk 3 km, turn right (North), walk 2 km: final position is 3 km West and 6 km North of O, which is North-West."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Swapping left for right and right for left at every turn places Vikram 3 km East and 6 km North of O, which is North-East.",
+      "misconception": "direction_turn_error"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Adding all distances as a straight northward journey (4+3+2 = 9 km North) and ignoring the direction changes gives a final position due North.",
+      "misconception": "net_displacement_error"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Reading the starting direction as South instead of North places Vikram 3 km East and 6 km South of O, which is South-East.",
+      "misconception": "constraint_reversed"
+    }
+  ],
+  "explanation": "From O, Vikram walks 4 km North to (0,4). He turns left (now facing West) and walks 3 km to (-3,4). He turns right (now facing North again) and walks 2 km to (-3,6). Relative to O, he is 3 km West and 6 km North, placing him in the North-West direction.",
+  "empirical": { "calibration_status": "none", "n_responses": 0 },
+  "ext": { "icai_skill_bucket": "application" }
+}

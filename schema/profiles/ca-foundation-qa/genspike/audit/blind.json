@@ -1,0 +1,530 @@
+[
+  {
+    "id": "arn_caf_qa_000001",
+    "stem": "Priya deposits Rs 20,000 in a bank that offers 10% per annum interest compounded half-yearly. What is the compound interest earned at the end of 1 year?",
+    "options": [
+      {
+        "key": 1,
+        "text": "Rs 2,050"
+      },
+      {
+        "key": 2,
+        "text": "Rs 2,000"
+      },
+      {
+        "key": 3,
+        "text": "Rs 4,200"
+      },
+      {
+        "key": 4,
+        "text": "Rs 2,100"
+      }
+    ]
+  },
+  {
+    "id": "arn_caf_qa_000002",
+    "stem": "Arjun lends Rs 10,000 to a friend at a simple interest rate of 10% per annum for 3 years. What is the total simple interest earned?",
+    "options": [
+      {
+        "key": 1,
+        "text": "Rs 3,310"
+      },
+      {
+        "key": 2,
+        "text": "Rs 3,000"
+      },
+      {
+        "key": 3,
+        "text": "Rs 1,000"
+      },
+      {
+        "key": 4,
+        "text": "Rs 300"
+      }
+    ]
+  },
+  {
+    "id": "arn_caf_qa_000003",
+    "stem": "Asha, Bimal, and Chetan invest in a business in the ratio 4:5:6. The total profit at the end of the year is Rs 75,000. What is Chetan's share of the profit?",
+    "options": [
+      {
+        "key": 1,
+        "text": "Rs 20,000"
+      },
+      {
+        "key": 2,
+        "text": "Rs 28,125"
+      },
+      {
+        "key": 3,
+        "text": "Rs 30,000"
+      },
+      {
+        "key": 4,
+        "text": "Rs 50,000"
+      }
+    ]
+  },
+  {
+    "id": "arn_caf_qa_000004",
+    "stem": "A project team needs to select a sub-group of 3 members from a pool of 8 candidates. In how many distinct ways can the sub-group be formed?",
+    "options": [
+      {
+        "key": 1,
+        "text": "84"
+      },
+      {
+        "key": 2,
+        "text": "168"
+      },
+      {
+        "key": 3,
+        "text": "336"
+      },
+      {
+        "key": 4,
+        "text": "56"
+      }
+    ]
+  },
+  {
+    "id": "arn_caf_qa_000005",
+    "stem": "The perimeter of a rectangular plot is 100 m and its area is 600 sq m. Find the length of the longer side.",
+    "options": [
+      {
+        "key": 1,
+        "text": "30 m"
+      },
+      {
+        "key": 2,
+        "text": "60 m"
+      },
+      {
+        "key": 3,
+        "text": "20 m"
+      },
+      {
+        "key": 4,
+        "text": "25 m"
+      }
+    ]
+  },
+  {
+    "id": "arn_caf_qa_000006",
+    "stem": "Six observations are recorded: 4, 4, 4, 8, 8, 8. Calculate the population standard deviation.",
+    "options": [
+      {
+        "key": 1,
+        "text": "4"
+      },
+      {
+        "key": 2,
+        "text": "2"
+      },
+      {
+        "key": 3,
+        "text": "2.19"
+      },
+      {
+        "key": 4,
+        "text": "1.41"
+      }
+    ]
+  },
+  {
+    "id": "arn_caf_qa_000007",
+    "stem": "A single card is drawn at random from a standard deck of 52 playing cards. What is the probability that the card is either a heart or a king?",
+    "options": [
+      {
+        "key": 1,
+        "text": "9/13"
+      },
+      {
+        "key": 2,
+        "text": "1/52"
+      },
+      {
+        "key": 3,
+        "text": "4/13"
+      },
+      {
+        "key": 4,
+        "text": "17/52"
+      }
+    ]
+  },
+  {
+    "id": "arn_caf_qa_000008",
+    "stem": "Find the sum of the first 5 terms of the geometric progression 2, 6, 18, 54, ...",
+    "options": [
+      {
+        "key": 1,
+        "text": "486"
+      },
+      {
+        "key": 2,
+        "text": "50"
+      },
+      {
+        "key": 3,
+        "text": "80"
+      },
+      {
+        "key": 4,
+        "text": "242"
+      }
+    ]
+  },
+  {
+    "id": "arn_caf_qa_000009",
+    "stem": "While introducing a woman named Kavya to others, Rajan says: 'Her mother's only sister is my father's only sister.' How is Kavya related to Rajan?",
+    "options": [
+      {
+        "key": 1,
+        "text": "Cousin"
+      },
+      {
+        "key": 2,
+        "text": "Niece"
+      },
+      {
+        "key": 3,
+        "text": "Aunt"
+      },
+      {
+        "key": 4,
+        "text": "Nephew"
+      }
+    ]
+  },
+  {
+    "id": "arn_caf_qa_000010",
+    "stem": "Ramesh introduces Kaveri to his friend saying, 'She is the daughter of the only son of my grandfather.' How is Kaveri related to Ramesh?",
+    "options": [
+      {
+        "key": 1,
+        "text": "Niece"
+      },
+      {
+        "key": 2,
+        "text": "Sister"
+      },
+      {
+        "key": 3,
+        "text": "Daughter"
+      },
+      {
+        "key": 4,
+        "text": "Granddaughter"
+      }
+    ]
+  },
+  {
+    "id": "arn_caf_qa_000011",
+    "stem": "Vikram starts at point O facing North. He walks 4 km, then turns left and walks 3 km, then turns right and walks 2 km. In which direction is Vikram from point O now?",
+    "options": [
+      {
+        "key": 1,
+        "text": "North-East"
+      },
+      {
+        "key": 2,
+        "text": "North"
+      },
+      {
+        "key": 3,
+        "text": "North-West"
+      },
+      {
+        "key": 4,
+        "text": "South-East"
+      }
+    ]
+  },
+  {
+    "id": "arn_caf_qa_000012",
+    "stem": "Priya starts from point O facing North. She walks 6 km, then turns right and walks 8 km, then turns right again and walks 6 km. How far is she from O, and in which direction?",
+    "options": [
+      {
+        "key": 1,
+        "text": "20 km from O"
+      },
+      {
+        "key": 2,
+        "text": "8 km, to the West of O"
+      },
+      {
+        "key": 3,
+        "text": "10 km from O"
+      },
+      {
+        "key": 4,
+        "text": "8 km, to the East of O"
+      }
+    ]
+  },
+  {
+    "id": "arn_caf_qa_000013",
+    "stem": "Five people -- Ajay, Birju, Chhaya, Dhruv, and Esha -- sit in a row of five seats numbered 1 (leftmost) to 5 (rightmost). The following clues apply: (1) Esha sits at the rightmost seat. (2) Birju, Chhaya, and Dhruv occupy three consecutive seats in that left-to-right order. (3) Ajay does not sit in any of the last three seats (seats 3, 4, or 5). Who sits in the fourth seat from the left?",
+    "options": [
+      {
+        "key": 1,
+        "text": "Dhruv"
+      },
+      {
+        "key": 2,
+        "text": "Ajay"
+      },
+      {
+        "key": 3,
+        "text": "Chhaya"
+      },
+      {
+        "key": 4,
+        "text": "Birju"
+      }
+    ]
+  },
+  {
+    "id": "arn_caf_qa_000014",
+    "stem": "Five people A, B, C, D, E sit in a row of seats numbered 1 to 5 from left to right. C sits at seat 3. A sits immediately to the left of B. D sits at seat 4. E does not sit at seat 1. Who sits at seat 2?",
+    "options": [
+      {
+        "key": 1,
+        "text": "A"
+      },
+      {
+        "key": 2,
+        "text": "B"
+      },
+      {
+        "key": 3,
+        "text": "C"
+      },
+      {
+        "key": 4,
+        "text": "E"
+      }
+    ]
+  },
+  {
+    "id": "arn_caf_qa_000015",
+    "stem": "What is the next number in the series: 2, 6, 12, 20, 30, ?",
+    "options": [
+      {
+        "key": 1,
+        "text": "34"
+      },
+      {
+        "key": 2,
+        "text": "41"
+      },
+      {
+        "key": 3,
+        "text": "42"
+      },
+      {
+        "key": 4,
+        "text": "18"
+      }
+    ]
+  },
+  {
+    "id": "arn_caf_qa_000016",
+    "stem": "In a code language, the first letter of a word is shifted forward by 1 place in the alphabet, the second letter by 2 places, and the third letter by 3 places (A=1, B=2, ..., Z=26; wrapping is not needed for this word). Using this rule, how is the word RAJ written in code?",
+    "options": [
+      {
+        "key": 1,
+        "text": "TBM"
+      },
+      {
+        "key": 2,
+        "text": "RBL"
+      },
+      {
+        "key": 3,
+        "text": "UCK"
+      },
+      {
+        "key": 4,
+        "text": "SCM"
+      }
+    ]
+  },
+  {
+    "id": "arn_caf_qa_000017",
+    "stem": "For two variables X and Y, the regression coefficient of Y on X is b_yx = 0.6 and the regression coefficient of X on Y is b_xy = 0.8. New variables are defined as u = X + 2 and v = Y + 3. What are b_vu and b_uv?",
+    "options": [
+      {
+        "key": 1,
+        "text": "b_vu = 0.6 and b_uv = 0.8"
+      },
+      {
+        "key": 2,
+        "text": "b_vu = 0.4 and b_uv = 1.2"
+      },
+      {
+        "key": 3,
+        "text": "b_vu = 0.8 and b_uv = 0.6"
+      },
+      {
+        "key": 4,
+        "text": "b_vu = 2/3 and b_uv = 3/2"
+      }
+    ]
+  },
+  {
+    "id": "arn_caf_qa_000018",
+    "stem": "The relation R defined on the set of integers by 'a R b if and only if a is less than or equal to b' (a <= b) is best described as:",
+    "options": [
+      {
+        "key": 1,
+        "text": "Symmetric and reflexive"
+      },
+      {
+        "key": 2,
+        "text": "Transitive but not symmetric"
+      },
+      {
+        "key": 3,
+        "text": "An equivalence relation"
+      },
+      {
+        "key": 4,
+        "text": "Antisymmetric only"
+      }
+    ]
+  },
+  {
+    "id": "arn_caf_qa_000019",
+    "stem": "In a survey of students in a school, the probability that a randomly selected student plays chess is 0.30, the probability of playing carrom is 0.50, and the probability of playing both games is 0.20. What is the probability that the student plays chess or carrom (or both)?",
+    "options": [
+      {
+        "key": 1,
+        "text": "0.20"
+      },
+      {
+        "key": 2,
+        "text": "0.65"
+      },
+      {
+        "key": 3,
+        "text": "0.60"
+      },
+      {
+        "key": 4,
+        "text": "0.40"
+      }
+    ]
+  },
+  {
+    "id": "arn_caf_qa_000020",
+    "stem": "The price of a commodity in the base year is Rs 40 and in the current year is Rs 50. What is the price relative of this commodity for the current year?",
+    "options": [
+      {
+        "key": 1,
+        "text": "80"
+      },
+      {
+        "key": 2,
+        "text": "20"
+      },
+      {
+        "key": 3,
+        "text": "25"
+      },
+      {
+        "key": 4,
+        "text": "125"
+      }
+    ]
+  },
+  {
+    "id": "arn_caf_qa_000021",
+    "stem": "A distribution has the following values and frequencies: value 5 with frequency 4, value 10 with frequency 2, value 15 with frequency 3, and value 20 with frequency 1. What is the arithmetic mean?",
+    "options": [
+      {
+        "key": 1,
+        "text": "10.5"
+      },
+      {
+        "key": 2,
+        "text": "10"
+      },
+      {
+        "key": 3,
+        "text": "5"
+      },
+      {
+        "key": 4,
+        "text": "12.5"
+      }
+    ]
+  },
+  {
+    "id": "arn_caf_qa_000022",
+    "stem": "A customer support desk receives on average 4 complaints per hour. Assuming complaints follow a Poisson distribution, what is the variance of the number of complaints received in a 2-hour period?",
+    "options": [
+      {
+        "key": 1,
+        "text": "4"
+      },
+      {
+        "key": 2,
+        "text": "8"
+      },
+      {
+        "key": 3,
+        "text": "16"
+      },
+      {
+        "key": 4,
+        "text": "64"
+      }
+    ]
+  },
+  {
+    "id": "arn_caf_qa_000023",
+    "stem": "Rajan deposits Rs 2,000 at the end of every year into a savings scheme for 4 years. The scheme pays 10% interest per year compounded annually. Find the future value of this annuity at the end of 4 years. [Given: (1.1)^4 = 1.4641; (1.05)^4 = 1.2155]",
+    "options": [
+      {
+        "key": 1,
+        "text": "Rs 6,340"
+      },
+      {
+        "key": 2,
+        "text": "Rs 8,620"
+      },
+      {
+        "key": 3,
+        "text": "Rs 9,282"
+      },
+      {
+        "key": 4,
+        "text": "Rs 9,200"
+      }
+    ]
+  },
+  {
+    "id": "arn_caf_qa_000024",
+    "stem": "For two variables X and Y, Karl Pearson's correlation coefficient r = 0.6. The regression coefficient of X on Y (b_XY) is 0.9. What is the regression coefficient of Y on X (b_YX)?",
+    "options": [
+      {
+        "key": 1,
+        "text": "0.9"
+      },
+      {
+        "key": 2,
+        "text": "0.54"
+      },
+      {
+        "key": 3,
+        "text": "0.36"
+      },
+      {
+        "key": 4,
+        "text": "0.4"
+      }
+    ]
+  }
+]

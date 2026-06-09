@@ -1,0 +1,31 @@
+{
+  "id": "arn_caf_qa_000002",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": { "source": "pinaka_synth_genspike_v1", "license": "CC-BY-NC-ND-4.0", "generator": "sonnet", "created": "2026-06-09" },
+  "tests": ["qa.bmath.finance.simple_interest"],
+  "difficulty_label": "L1",
+  "taxonomy_version": 1,
+  "item_type": "single_best",
+  "expected_seconds": 45,
+  "stem": "Arjun lends Rs 10,000 to a friend at a simple interest rate of 10% per annum for 3 years. What is the total simple interest earned?",
+  "options": [
+    { "key": 1, "text": "Rs 3,310" },
+    { "key": 2, "text": "Rs 3,000" },
+    { "key": 3, "text": "Rs 1,000" },
+    { "key": 4, "text": "Rs 300" }
+  ],
+  "answer_key": { "correct": 2 },
+  "per_option_rationale": [
+    { "option_key": 2, "verdict": "correct", "rationale": "SI = P * r * t = 10000 * 0.10 * 3 = 3,000." },
+    { "option_key": 1, "verdict": "incorrect", "rationale": "Applies compound interest formula instead: 10000 * (1.10)^3 - 10000 = 3,310.", "misconception": "compound_interest_confusion" },
+    { "option_key": 3, "verdict": "incorrect", "rationale": "Uses t = 1 year instead of the stated 3 years: 10000 * 0.10 * 1 = 1,000.", "misconception": "time_factor_dropped" },
+    { "option_key": 4, "verdict": "incorrect", "rationale": "Reads 10% as 1% (decimal place shifted): 10000 * 0.01 * 3 = 300.", "misconception": "decimal_place_error" }
+  ],
+  "explanation": "Simple interest is SI = P * r * t = 10000 * 0.10 * 3 = 3,000. The full time period of 3 years must be used; compounding does not apply here.",
+  "empirical": { "calibration_status": "none", "n_responses": 0 },
+  "ext": { "icai_skill_bucket": "application" }
+}

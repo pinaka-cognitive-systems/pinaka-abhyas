@@ -1,0 +1,50 @@
+{
+  "id": "arn_caf_qa_000008",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": { "source": "pinaka_synth_genspike_v1", "license": "CC-BY-NC-ND-4.0", "generator": "sonnet", "created": "2026-06-09" },
+  "tests": ["qa.bmath.sequence_series.gp"],
+  "difficulty_label": "L2",
+  "taxonomy_version": 1,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "Find the sum of the first 5 terms of the geometric progression 2, 6, 18, 54, ...",
+  "options": [
+    { "key": 1, "text": "486" },
+    { "key": 2, "text": "50" },
+    { "key": 3, "text": "80" },
+    { "key": 4, "text": "242" }
+  ],
+  "answer_key": { "correct": 4 },
+  "per_option_rationale": [
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "S_5 = a(r^5 - 1)/(r - 1) = 2(243 - 1)/2 = 242."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student used the formula S = a x r^n instead of a(r^n - 1)/(r - 1), giving 2 x 3^5 = 486.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student treated the sequence as an AP with common difference 4 (= 6 - 2) and computed S_5 = (5/2)(2x2 + 4x4) = (5/2)x20 = 50.",
+      "misconception": "series_pattern_misidentified"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student used n = 4 instead of 5 (off by one in the number of terms): S_4 = 2(3^4 - 1)/2 = 80.",
+      "misconception": "off_by_one"
+    }
+  ],
+  "explanation": "The sequence 2, 6, 18, 54 has first term a = 2 and common ratio r = 3. Apply S_n = a(r^n - 1)/(r - 1): S_5 = 2(3^5 - 1)/(3 - 1) = 2(243 - 1)/2 = 242.",
+  "empirical": { "calibration_status": "none", "n_responses": 0 },
+  "ext": { "icai_skill_bucket": "application" }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "arn_caf_qa_000017",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": { "source": "pinaka_synth_genspike_v1", "license": "CC-BY-NC-ND-4.0", "generator": "sonnet", "created": "2026-06-09" },
+  "tests": ["qa.stats.correlation_regression.regression"],
+  "difficulty_label": "L2",
+  "taxonomy_version": 1,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "For two variables X and Y, the regression coefficient of Y on X is b_yx = 0.6 and the regression coefficient of X on Y is b_xy = 0.8. New variables are defined as u = X + 2 and v = Y + 3. What are b_vu and b_uv?",
+  "options": [
+    { "key": 1, "text": "b_vu = 0.6 and b_uv = 0.8" },
+    { "key": 2, "text": "b_vu = 0.4 and b_uv = 1.2" },
+    { "key": 3, "text": "b_vu = 0.8 and b_uv = 0.6" },
+    { "key": 4, "text": "b_vu = 2/3 and b_uv = 3/2" }
+  ],
+  "answer_key": { "correct": 1 },
+  "per_option_rationale": [
+    { "option_key": 1, "verdict": "correct", "rationale": "Regression coefficients are invariant under a change of origin (adding constants to X and Y); b_vu = b_yx = 0.6 and b_uv = b_xy = 0.8." },
+    { "option_key": 2, "verdict": "incorrect", "rationale": "Applies the change-of-scale rule (b_vu = (a/b)*b_yx = (2/3)*0.6 = 0.4 and b_uv = (b/a)*b_xy = (3/2)*0.8 = 1.2) to an origin shift, where it does not apply.", "misconception": "invariance_property_confused" },
+    { "option_key": 3, "verdict": "incorrect", "rationale": "Swaps the two regression coefficients, confusing b_yx (Y on X) with b_xy (X on Y).", "misconception": "concept_definition_confused" },
+    { "option_key": 4, "verdict": "incorrect", "rationale": "Uses the ratio of the shift constants (2 and 3) directly as the regression coefficients, misapplying the formula.", "misconception": "formula_misapplied" }
+  ],
+  "explanation": "Adding a constant to X or Y is a change of origin. Regression coefficients b_yx and b_xy depend only on deviations from means, so adding constants does not change them. A change of scale (multiplying by a constant) would change the coefficients, but an additive shift does not.",
+  "empirical": { "calibration_status": "none", "n_responses": 0 },
+  "ext": { "icai_skill_bucket": "application" }
+}

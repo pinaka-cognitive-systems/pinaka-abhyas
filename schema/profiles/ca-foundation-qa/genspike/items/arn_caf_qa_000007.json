@@ -1,0 +1,76 @@
+{
+  "id": "arn_caf_qa_000007",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genspike_v1",
+    "license": "CC-BY-NC-ND-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-09"
+  },
+  "tests": [
+    "qa.stats.probability.classical"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 1,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "A single card is drawn at random from a standard deck of 52 playing cards. What is the probability that the card is either a heart or a king?",
+  "options": [
+    {
+      "key": 1,
+      "text": "9/13"
+    },
+    {
+      "key": 2,
+      "text": "1/52"
+    },
+    {
+      "key": 3,
+      "text": "4/13"
+    },
+    {
+      "key": 4,
+      "text": "17/52"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "P(heart or king) = P(heart) + P(king) - P(heart and king) = 13/52 + 4/52 - 1/52 = 16/52 = 4/13."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student computed P(not heart and not king) = 36/52 = 9/13, the complement of the required event.",
+      "misconception": "complement_confusion"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student treated 'or' as 'and' and computed P(heart) x P(king) = (13/52)x(4/52) = 52/2704 = 1/52.",
+      "misconception": "set_operation_confused"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student added P(heart) and P(king) without subtracting the overlap: 13/52 + 4/52 = 17/52.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "Use the addition rule: P(A or B) = P(A) + P(B) - P(A and B). There are 13 hearts, 4 kings, and 1 card (king of hearts) that is both; (13 + 4 - 1)/52 = 16/52 = 4/13.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

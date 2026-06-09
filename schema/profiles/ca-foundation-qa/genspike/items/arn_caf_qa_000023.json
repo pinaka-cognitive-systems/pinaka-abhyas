@@ -1,0 +1,50 @@
+{
+  "id": "arn_caf_qa_000023",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": { "source": "pinaka_synth_genspike_v1", "license": "CC-BY-NC-ND-4.0", "generator": "sonnet", "created": "2026-06-09" },
+  "tests": ["qa.bmath.finance.annuity"],
+  "difficulty_label": "L3",
+  "taxonomy_version": 1,
+  "item_type": "single_best",
+  "expected_seconds": 110,
+  "stem": "Rajan deposits Rs 2,000 at the end of every year into a savings scheme for 4 years. The scheme pays 10% interest per year compounded annually. Find the future value of this annuity at the end of 4 years. [Given: (1.1)^4 = 1.4641; (1.05)^4 = 1.2155]",
+  "options": [
+    { "key": 1, "text": "Rs 6,340" },
+    { "key": 2, "text": "Rs 8,620" },
+    { "key": 3, "text": "Rs 9,282" },
+    { "key": 4, "text": "Rs 9,200" }
+  ],
+  "answer_key": { "correct": 3 },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student applies the present-value annuity formula PV = PMT * [1 - (1.1)^(-4)] / 0.1 = 2000 * [1 - 0.6830] / 0.1 = 2000 * 3.170 = Rs 6,340, confusing future value with present value.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student halves the annual rate to 5% (treating the annual scheme as if it were semi-annual) and computes FV = 2000 * [(1.05)^4 - 1] / 0.05 = 2000 * 0.2155 / 0.05 = 2000 * 4.31 = Rs 8,620.",
+      "misconception": "rate_period_mismatch"
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Future-value annuity factor = [(1.1)^4 - 1] / 0.1 = (1.4641 - 1) / 0.1 = 4.641; FV = 2000 * 4.641 = Rs 9,282."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student rounds (1.1)^4 to 1.46 (two decimal places) instead of using the given 1.4641, computing FV = 2000 * (1.46 - 1) / 0.1 = 2000 * 4.6 = Rs 9,200.",
+      "misconception": "rounding_error"
+    }
+  ],
+  "explanation": "For an ordinary annuity (end-of-period payments), FV = PMT * [(1 + r)^n - 1] / r. With PMT = 2000, r = 0.10, n = 4: annuity factor = (1.4641 - 1) / 0.10 = 0.4641 / 0.10 = 4.641. FV = 2000 * 4.641 = Rs 9,282. Using the PV formula instead gives 3.170 * 2000 = Rs 6,340 -- a common trap at L3.",
+  "empirical": { "calibration_status": "none", "n_responses": 0 },
+  "ext": { "icai_skill_bucket": "application" }
+}

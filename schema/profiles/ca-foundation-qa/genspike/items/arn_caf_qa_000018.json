@@ -1,0 +1,76 @@
+{
+  "id": "arn_caf_qa_000018",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genspike_v1",
+    "license": "CC-BY-NC-ND-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-09"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.relations_functions"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 1,
+  "item_type": "single_best",
+  "expected_seconds": 45,
+  "stem": "The relation R defined on the set of integers by 'a R b if and only if a is less than or equal to b' (a <= b) is best described as:",
+  "options": [
+    {
+      "key": 1,
+      "text": "Symmetric and reflexive"
+    },
+    {
+      "key": 2,
+      "text": "Transitive but not symmetric"
+    },
+    {
+      "key": 3,
+      "text": "An equivalence relation"
+    },
+    {
+      "key": 4,
+      "text": "Antisymmetric only"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "a <= a holds (reflexive); a <= b and b <= c implies a <= c (transitive); but a <= b does not imply b <= a (not symmetric), so it is transitive but not symmetric."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Treating 'comparable' as meaning both a <= b and b <= a always hold leads to falsely claiming the relation is symmetric; 1 <= 2 but 2 <= 1 is false.",
+      "misconception": "relation_property_misidentified"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Confusing 'has transitivity' with 'is an equivalence relation' ignores the symmetry requirement; the relation fails symmetry so it cannot be an equivalence relation.",
+      "misconception": "concept_definition_confused"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Confusing the symbol <= with strict equality (=) suggests the relation is only antisymmetric, missing that reflexivity and transitivity also hold.",
+      "misconception": "relation_property_misidentified"
+    }
+  ],
+  "explanation": "The <= relation on integers is reflexive (a<=a), antisymmetric (a<=b and b<=a implies a=b), and transitive (a<=b, b<=c implies a<=c). Because symmetry fails (1<=2 but not 2<=1), it is a total order, not an equivalence relation. Among the options, 'transitive but not symmetric' is the correct characterisation.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

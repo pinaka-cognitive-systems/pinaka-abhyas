@@ -1,0 +1,50 @@
+{
+  "id": "arn_caf_qa_000003",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": { "source": "pinaka_synth_genspike_v1", "license": "CC-BY-NC-ND-4.0", "generator": "sonnet", "created": "2026-06-09" },
+  "tests": ["qa.bmath.ratio_indices_log.ratio"],
+  "difficulty_label": "L2",
+  "taxonomy_version": 1,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "Asha, Bimal, and Chetan invest in a business in the ratio 4:5:6. The total profit at the end of the year is Rs 75,000. What is Chetan's share of the profit?",
+  "options": [
+    { "key": 1, "text": "Rs 20,000" },
+    { "key": 2, "text": "Rs 28,125" },
+    { "key": 3, "text": "Rs 30,000" },
+    { "key": 4, "text": "Rs 50,000" }
+  ],
+  "answer_key": { "correct": 3 },
+  "per_option_rationale": [
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Total parts = 4+5+6 = 15; Chetan's share = (6/15) x 75,000 = 30,000."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Inverting the ratio order to 6:5:4 assigns Chetan only 4 parts out of 15: (4/15) x 75,000 = 20,000.",
+      "misconception": "ratio_inverted"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Summing the ratio parts as 4+5+6 = 16 instead of 15 gives Chetan (6/16) x 75,000 = 28,125.",
+      "misconception": "arithmetic_slip"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Using only Asha and Bimal's parts (4+5 = 9) as the denominator instead of the total 15 gives (6/9) x 75,000 = 50,000.",
+      "misconception": "percentage_base_confusion"
+    }
+  ],
+  "explanation": "The three partners' shares are proportional to 4, 5, and 6. Divide each share by the total number of parts (4+5+6 = 15) to get the fraction. Chetan's fraction is 6/15 = 2/5, so his share is (2/5) x 75,000 = 30,000.",
+  "empirical": { "calibration_status": "none", "n_responses": 0 },
+  "ext": { "icai_skill_bucket": "application" }
+}
