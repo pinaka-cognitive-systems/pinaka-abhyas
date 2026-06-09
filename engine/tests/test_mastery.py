@@ -1,11 +1,20 @@
 """
-Tests for mastery.py
+Tests for mastery.py (v2)
 
-Assertions from the spec:
+v1 assertions kept:
   - Mastery rises with correct streaks and falls with wrong streaks.
   - The weakest true node ends with the lowest estimated mastery.
-  - A repeatedly triggered misconception appears at the top of the
-    recurring list.
+  - A repeatedly triggered misconception appears at the top of the recurring list.
+  - Surprising outcomes (L3-correct, L1-wrong) move mastery more.
+  - Observations count correctly.
+  - p stays in [0, 1].
+  - Misconception recording and recency.
+
+v2 additions:
+  - effective_p applies time-decay toward 0.5.
+  - A node seen recently decays less than a node seen long ago.
+  - pace_sum / pace_count updated from events with expected_seconds.
+  - mean_pace_ratio and pace_status reflect measured speed.
 """
 import sys
 import os
@@ -16,16 +25,21 @@ import unittest
 from engine.mastery import (
     apply_event,
     apply_events,
+    effective_p,
+    mean_pace_ratio,
+    pace_status,
     ranked_misconceptions,
     RECURRING_THRESHOLD_COUNT,
+    DECAY_HALFLIFE_DAYS,
 )
-from engine.types import Event, MasteryState
+from engine.types import Event, MasteryState, NodeMastery
 
 
 def make_event(
     event_id, item_id, node_id, difficulty, correct,
     misconception=None,
     occurred_at="2024-01-15T10:00:00+00:00",
+    time_ms=30000,
 ):
     return Event(
         event_id=event_id,
@@ -36,7 +50,7 @@ def make_event(
         correct=correct,
         selected_misconception=misconception,
         occurred_at=occurred_at,
-        time_ms=30000,
+        time_ms=time_ms,
         resurfaced=False,
     )
 
@@ -108,8 +122,6 @@ class TestMasteryUpdates(unittest.TestCase):
 
     def test_surprising_correct_on_hard_moves_more(self):
         """Correct on L3 (surprising) should move p more than correct on L2."""
-        # Baseline: two nodes both starting at ~0.5, one gets L3-correct,
-        # the other gets L2-correct.
         state_l2 = MasteryState()
         state_l3 = MasteryState()
         node = "qa.bmath.calculus"
@@ -208,7 +220,6 @@ class TestMisconceptionTracking(unittest.TestCase):
         """
         state = MasteryState()
         # Fire "mis_A" many times recently
-        base_date = "2024-06-01"
         for i in range(10):
             day = f"2024-06-{i + 1:02d}T10:00:00+00:00"
             evt = make_event(f"eA{i}", f"itemA{i}", "qa.stats.probability", "L2",
@@ -263,6 +274,205 @@ class TestMisconceptionTracking(unittest.TestCase):
             self.assertFalse(old_entry.is_recurring,
                              f"Old misconception should not be recurring; "
                              f"recency_score={old_entry.recency_score:.6f}")
+
+
+# ---------------------------------------------------------------------------
+# v2: Time-decay tests
+# ---------------------------------------------------------------------------
+
+class TestEffectiveP(unittest.TestCase):
+
+    def test_no_decay_at_zero_days(self):
+        """effective_p == p when queried at the same time as last_updated."""
+        nm = NodeMastery(
+            node_id="qa.bmath.equations",
+            p=0.80,
+            observations=10,
+            last_updated="2024-06-01T10:00:00+00:00",
+        )
+        ep = effective_p(nm, now_iso="2024-06-01T10:00:00+00:00")
+        self.assertAlmostEqual(ep, 0.80, places=3)
+
+    def test_decay_toward_05_after_one_halflife(self):
+        """After DECAY_HALFLIFE_DAYS, effective_p should be halfway between p and 0.5."""
+        p_stored = 0.80
+        nm = NodeMastery(
+            node_id="qa.bmath.equations",
+            p=p_stored,
+            observations=10,
+            last_updated="2024-01-01T00:00:00+00:00",
+        )
+        # now = last_updated + DECAY_HALFLIFE_DAYS
+        import datetime
+        last_dt = datetime.datetime(2024, 1, 1, tzinfo=datetime.timezone.utc)
+        now_dt = last_dt + datetime.timedelta(days=DECAY_HALFLIFE_DAYS)
+        ep = effective_p(nm, now_iso=now_dt.isoformat())
+        expected = 0.5 + (p_stored - 0.5) * 0.5  # halfway back
+        self.assertAlmostEqual(ep, expected, places=3,
+            msg=f"After one half-life, effective_p should be {expected:.3f}, got {ep:.3f}")
+
+    def test_decay_further_after_two_halflives(self):
+        """After 2x DECAY_HALFLIFE_DAYS, effective_p should be closer to 0.5 than after 1x."""
+        p_stored = 0.80
+        nm = NodeMastery(
+            node_id="qa.bmath.equations",
+            p=p_stored,
+            observations=10,
+            last_updated="2024-01-01T00:00:00+00:00",
+        )
+        import datetime
+        last_dt = datetime.datetime(2024, 1, 1, tzinfo=datetime.timezone.utc)
+        now_1hl = last_dt + datetime.timedelta(days=DECAY_HALFLIFE_DAYS)
+        now_2hl = last_dt + datetime.timedelta(days=2 * DECAY_HALFLIFE_DAYS)
+
+        ep_1 = effective_p(nm, now_1hl.isoformat())
+        ep_2 = effective_p(nm, now_2hl.isoformat())
+
+        # For p > 0.5, more decay means lower ep
+        self.assertLess(ep_2, ep_1,
+            f"After 2 half-lives ({ep_2:.3f}) should be less than after 1 ({ep_1:.3f})")
+
+    def test_node_below_05_decays_upward(self):
+        """A weak node (p < 0.5) should decay upward toward 0.5."""
+        p_stored = 0.20
+        nm = NodeMastery(
+            node_id="qa.stats.probability",
+            p=p_stored,
+            observations=10,
+            last_updated="2024-01-01T00:00:00+00:00",
+        )
+        import datetime
+        last_dt = datetime.datetime(2024, 1, 1, tzinfo=datetime.timezone.utc)
+        now_dt = last_dt + datetime.timedelta(days=DECAY_HALFLIFE_DAYS)
+        ep = effective_p(nm, now_iso=now_dt.isoformat())
+        # Should be between p_stored and 0.5
+        self.assertGreater(ep, p_stored,
+            f"Weak node should decay upward: {p_stored:.3f} -> {ep:.3f}")
+        self.assertLessEqual(ep, 0.5 + 1e-6,
+            f"Should not exceed 0.5 after decay from {p_stored:.3f}")
+
+    def test_recently_updated_decays_less_than_old(self):
+        """A recently-updated node decays less than a long-stale one."""
+        p_stored = 0.80
+        recent_nm = NodeMastery(
+            node_id="qa.bmath.finance",
+            p=p_stored,
+            observations=10,
+            last_updated="2024-06-01T00:00:00+00:00",
+        )
+        old_nm = NodeMastery(
+            node_id="qa.bmath.finance",
+            p=p_stored,
+            observations=10,
+            last_updated="2024-01-01T00:00:00+00:00",
+        )
+        now_iso = "2024-06-15T00:00:00+00:00"
+        ep_recent = effective_p(recent_nm, now_iso)
+        ep_old = effective_p(old_nm, now_iso)
+        self.assertGreater(ep_recent, ep_old,
+            f"Recently updated ({ep_recent:.3f}) should decay less than old ({ep_old:.3f})")
+
+
+# ---------------------------------------------------------------------------
+# v2: Speed (pace) tracking tests
+# ---------------------------------------------------------------------------
+
+class TestSpeedTracking(unittest.TestCase):
+
+    def test_pace_ratio_tracked_with_expected_seconds(self):
+        """When expected_seconds is provided, pace_sum and pace_count update."""
+        state = MasteryState()
+        node = "qa.bmath.equations"
+        # time_ms = 150000 (150 s), expected_seconds = 75 -> pace_ratio = 2.0
+        evt = make_event("e1", "item1", node, "L2", True,
+                         occurred_at="2024-01-15T10:00:00+00:00",
+                         time_ms=150000)
+        state = apply_event(state, evt, expected_seconds=75.0)
+        nm = state.nodes[node]
+        self.assertEqual(nm.pace_count, 1)
+        self.assertAlmostEqual(nm.pace_sum, 2.0, places=3)
+
+    def test_mean_pace_ratio_reflects_average(self):
+        """mean_pace_ratio should average across events."""
+        state = MasteryState()
+        node = "qa.bmath.equations"
+        # Event 1: 150 s / 75 s = 2.0
+        # Event 2: 37.5 s / 75 s = 0.5
+        # Mean: 1.25
+        for i, ms in enumerate([150000, 37500]):
+            evt = make_event(f"e{i}", f"item{i}", node, "L2", True,
+                             occurred_at=f"2024-01-{15+i:02d}T10:00:00+00:00",
+                             time_ms=ms)
+            state = apply_event(state, evt, expected_seconds=75.0)
+        nm = state.nodes[node]
+        self.assertAlmostEqual(mean_pace_ratio(nm), 1.25, places=3)
+
+    def test_pace_status_on_pace(self):
+        """pace_ratio <= 1.0 -> on_pace."""
+        nm = NodeMastery(
+            node_id="qa.lr.series_coding",
+            p=0.7, observations=5,
+            last_updated="2024-01-15T10:00:00+00:00",
+            pace_sum=0.8, pace_count=1,  # 0.8 <= 1.0 -> on_pace
+        )
+        self.assertEqual(pace_status(nm), "on_pace")
+
+    def test_pace_status_slow(self):
+        """pace_ratio > 1.0 -> slow."""
+        nm = NodeMastery(
+            node_id="qa.stats.probability",
+            p=0.4, observations=5,
+            last_updated="2024-01-15T10:00:00+00:00",
+            pace_sum=2.5, pace_count=1,  # 2.5 > 1.0 -> slow
+        )
+        self.assertEqual(pace_status(nm), "slow")
+
+    def test_no_expected_seconds_does_not_update_pace(self):
+        """Events without expected_seconds should not update pace_count."""
+        state = MasteryState()
+        node = "qa.bmath.equations"
+        evt = make_event("e1", "item1", node, "L2", True,
+                         occurred_at="2024-01-15T10:00:00+00:00",
+                         time_ms=75000)
+        # No expected_seconds provided
+        state = apply_event(state, evt, expected_seconds=None)
+        nm = state.nodes[node]
+        self.assertEqual(nm.pace_count, 0,
+            "pace_count should remain 0 when expected_seconds is None")
+
+    def test_apply_events_with_item_bank_updates_pace(self):
+        """apply_events with an item_bank should propagate expected_seconds."""
+        from engine.synthetic import make_item_bank
+        from engine.mastery import apply_events as mastery_apply_events
+
+        item_bank = make_item_bank()
+        # Use an L2 item with expected_seconds=75
+        item_id = "sd_bmath_eqn_000002"
+        node = "qa.bmath.equations"
+        self.assertIn(item_id, item_bank)
+        self.assertEqual(item_bank[item_id]["expected_seconds"], 75.0)
+
+        events = []
+        for i in range(5):
+            events.append(Event(
+                event_id=f"e{i}",
+                item_id=item_id,
+                tests=[node],
+                difficulty_label="L2",
+                mode="drill",
+                correct=True,
+                selected_misconception=None,
+                occurred_at=f"2024-01-{15+i:02d}T10:00:00+00:00",
+                time_ms=75000,  # exactly on pace
+                resurfaced=False,
+            ))
+
+        state = mastery_apply_events(events, item_bank=item_bank)
+        nm = state.nodes[node]
+        self.assertEqual(nm.pace_count, 5,
+            f"Expected pace_count=5, got {nm.pace_count}")
+        self.assertAlmostEqual(mean_pace_ratio(nm), 1.0, places=2,
+            msg="At 75000ms / 75s = pace_ratio 1.0, mean should be ~1.0")
 
 
 if __name__ == "__main__":

@@ -1,23 +1,26 @@
 """
-engine — Pinaka headless engine prototype.
+engine — Pinaka headless engine v2 (score-driven).
 
-Exam-agnostic brain: reads UQS event-log records and produces per-node mastery,
-per-misconception mastery, a spaced-repetition schedule, the next action, and an
-honest readiness estimate. Python 3 stdlib only; no network or file I/O in core
-logic.
+Reads UQS event-log records and produces per-node mastery with time-decay,
+per-node speed tracking, per-misconception mastery, a spaced-repetition
+schedule, a score-driven next action in 4-tier priority, and an honest
+readiness estimate with smart-attempt policy and time feasibility.
+
+Python 3 stdlib only; no network or file I/O in core logic.
 
 Modules
 -------
 types       Shared data structures (Event, MasteryState, SchedulerState, etc.)
-mastery     Elo-style per-node mastery and misconception tracking
-scheduler   SM-2-lite spaced-repetition scheduling
-selector    Next-action selection (review vs. fresh practice)
-readiness   Honest readiness estimation with confidence band
-synthetic   Synthetic student and event generator for testing
+mastery     Elo-style mastery, time-decay (effective_p), speed (pace_ratio)
+scheduler   SM-2-lite spaced-repetition scheduling (unchanged from v1)
+value       Exam-value helpers: part_weight, headroom, base_priority
+selector    4-tier score-driven next-action selection
+readiness   Honest v2 readiness: smart-attempt policy, time feasibility
+synthetic   Synthetic student and event generator (v2: realistic time_ms)
 
 Usage
 -----
-from engine import mastery, scheduler, selector, readiness, synthetic
+from engine import mastery, scheduler, value, selector, readiness, synthetic
 """
 
 from .types import (

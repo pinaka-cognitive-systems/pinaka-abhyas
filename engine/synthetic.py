@@ -1,5 +1,5 @@
 """
-synthetic.py — synthetic student and event generator.
+synthetic.py — synthetic student and event generator (v2).
 
 A "true student" is defined by:
   - true_p: {node_id: float}  — true probability of answering a question on
@@ -7,8 +7,11 @@ A "true student" is defined by:
   - prone_misconceptions: {node_id: [misconception_id, ...]} — when the
     student gets a question on this node wrong, they emit one of these
     misconceptions with equal probability
+  - true_pace: {node_id: float} — true pace_ratio for this student on this node
+    (pace_ratio = actual_seconds / expected_seconds).
+    Default 1.0 (on-pace). Values > 1.0 mean the student is slow.
 
-The generator:
+The generator (v2 extensions):
   1. Iterates over a series of (item, event_time) tuples.
   2. For each item, picks a difficulty from the item bank.
   3. Adjusts the true p by difficulty (same scaling as readiness.py):
@@ -18,6 +21,10 @@ The generator:
   4. Samples correct/incorrect from a Bernoulli with that adjusted probability.
   5. If incorrect, picks a misconception from the node's prone list (if any).
   6. Emits an Event with a synthetic UUID and advancing timestamp.
+  7. v2: time_ms is computed from the item's expected_seconds * student's
+     true_pace_ratio for the primary node, with Gaussian noise (sigma=0.15 of
+     expected). If expected_seconds is absent from the item bank, falls back
+     to a uniform random in [15000, 120000] ms as in v1.
 
 Timestamps advance by a configurable step (default 1 day between sessions,
 items within a session spaced by ~2 minutes) so the scheduler can be
@@ -52,12 +59,14 @@ DEFAULT_DIFFICULTY = "L2"
 
 class SyntheticStudent:
     """
-    Describes a simulated student.
+    Describes a simulated student (v2).
 
     Parameters
     ----------
     true_p: {node_id: float} — true P(correct | L2, this node)
     prone_misconceptions: {node_id: [misconception_id, ...]}
+    true_pace: {node_id: float} — true pace_ratio (actual/expected).
+        Default 1.0 per node (on-pace). Values > 1.0 = slower than expected.
     seed: random seed for reproducibility
     install_id: synthetic install id
     exam: exam identifier
@@ -67,12 +76,14 @@ class SyntheticStudent:
         self,
         true_p: Dict[str, float],
         prone_misconceptions: Optional[Dict[str, List[str]]] = None,
+        true_pace: Optional[Dict[str, float]] = None,
         seed: int = 42,
         install_id: str = "synthetic-install-001",
         exam: str = "ca_foundation_qa",
     ):
         self.true_p = true_p
         self.prone_misconceptions = prone_misconceptions or {}
+        self.true_pace = true_pace or {}
         self.rng = random.Random(seed)
         self.install_id = install_id
         self.exam = exam
@@ -91,6 +102,31 @@ class SyntheticStudent:
         if not options:
             return None
         return self.rng.choice(options)
+
+    def sample_time_ms(self, node_id: str, expected_seconds: Optional[float]) -> int:
+        """
+        v2: sample time_ms for an event on this node.
+
+        If expected_seconds is available, use the student's true_pace_ratio for
+        that node (defaulting to 1.0) multiplied by expected_seconds, with
+        Gaussian noise (sigma = 0.15 * expected_seconds, floored at 5 s).
+
+        If expected_seconds is None, fall back to uniform [15000, 120000] ms.
+        """
+        if expected_seconds is None or expected_seconds <= 0:
+            return self.rng.randint(15000, 120000)
+
+        pace_ratio = self.true_pace.get(node_id, 1.0)
+        mean_secs = pace_ratio * expected_seconds
+        sigma_secs = 0.15 * expected_seconds
+        # Simple Gaussian sample via Box-Muller (stdlib only)
+        u1 = max(1e-9, self.rng.random())
+        u2 = self.rng.random()
+        import math as _math
+        z = _math.sqrt(-2.0 * _math.log(u1)) * _math.cos(2.0 * _math.pi * u2)
+        secs = mean_secs + sigma_secs * z
+        secs = max(5.0, secs)  # floor at 5 seconds
+        return int(secs * 1000)
 
 
 # ---------------------------------------------------------------------------
@@ -170,6 +206,14 @@ def generate_events(
                     misconception = mc
                     break
 
+        # v2: time_ms from per-node true pace * expected_seconds
+        primary_node = tests[0] if tests else None
+        expected_seconds = meta.get("expected_seconds")
+        if primary_node is not None:
+            time_ms = student.sample_time_ms(primary_node, expected_seconds)
+        else:
+            time_ms = student.rng.randint(15000, 120000)
+
         event = Event(
             event_id=str(uuid.UUID(int=student.rng.getrandbits(128))),
             item_id=item_id,
@@ -179,7 +223,7 @@ def generate_events(
             correct=correct,
             selected_misconception=misconception,
             occurred_at=current_dt.isoformat(),
-            time_ms=student.rng.randint(15000, 120000),
+            time_ms=time_ms,
             resurfaced=False,
         )
         events.append(event)
@@ -197,7 +241,12 @@ def make_item_bank() -> Dict[str, Dict]:
     CA QA parts and all three difficulty levels.
 
     item_id format: sd_<part>_<family>_<NNNNNN>
+
+    v2: adds expected_seconds per item (L1=45, L2=75, L3=110 from spec).
     """
+    # Expected seconds by difficulty (from spec / marking.json intent)
+    EXPECTED_SECS = {"L1": 45.0, "L2": 75.0, "L3": 110.0}
+
     items: Dict[str, Dict] = {}
 
     specs = [
@@ -241,6 +290,7 @@ def make_item_bank() -> Dict[str, Dict]:
         items[item_id] = {
             "tests": tests,
             "difficulty_label": difficulty,
+            "expected_seconds": EXPECTED_SECS.get(difficulty, 75.0),
         }
 
     return items

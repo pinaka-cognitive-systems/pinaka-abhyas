@@ -1,43 +1,55 @@
 """
-selector.py — next-action selector.
+selector.py — score-driven next-action selector (v2).
 
-Decision logic:
+4-tier decision logic (in strict priority order):
 
-  1. If any reviews are due -> action = "review", item_id = first due item.
-  2. Otherwise -> find the best fresh item from the item bank:
-     a. Exclude recently served items (last_served set).
-     b. For each candidate, compute predicted_success = P(correct | node mastery, difficulty).
-     c. Prefer items in the target band [0.60, 0.80]: not too easy, not too hard.
-     d. Among in-band items, prefer:
-        - Items exercising weak nodes (lowest average node mastery).
-        - Items exercising nodes touched by active misconceptions.
-        - Interleave across topics (avoid same part as the last served item).
-     e. If no in-band item exists, pick the candidate closest to the band.
+  1. Due reviews (spaced retention protects banked marks) -> action "review".
+  2. Active recurring misconception costing marks -> action "remediate_misconception":
+     serve practice targeting that misconception's node(s) until it stops recurring.
+  3. Accurate but slow on a high-value node -> action "speed_drill": timed practice
+     to fix pace before the student runs out of time in the exam.
+  4. Else -> action "practice": the node with the highest base_priority among
+     LEARNABLE items (predicted success in soft band ~0.40-0.85 so it is improvable,
+     not hopeless), interleaved across parts, excluding recently served items.
 
-Predicted success for an item:
-  p_item = average of p_node for the item's tested nodes (using PRIOR_P=0.5
-  for unseen nodes), then adjusted for difficulty:
-    L1 -> multiply by 1.15 (clamped to 1.0)  [easier than median]
-    L2 -> no adjustment
-    L3 -> multiply by 0.75                    [harder than median]
+All reason strings are framed in marks:
+  "high-weight area (~N marks of headroom)"
+  "this misconception has cost ~M marks; let's kill it"
+  "you are accurate but slow here; at this pace you may not finish the paper"
 
-Item bank format: {item_id: {"tests": [node_id, ...], "difficulty_label": "L1"|"L2"|"L3"}}
+Python 3 standard library only. No file/network I/O. Pure-functional core.
+Parameters labelled PROVISIONAL; real calibration from beta cohort.
 """
 from __future__ import annotations
 
 import math
 from typing import Dict, List, Optional, Set
 
-from .types import Event, MasteryState, NextAction, SchedulerState
+from .mastery import effective_p as mastery_effective_p, mean_pace_ratio, ranked_misconceptions
 from .scheduler import due_queue
+from .types import Event, MasteryState, NextAction, SchedulerState
+from .value import base_priority, est_marks_gain, part_weight
 
 # ---------------------------------------------------------------------------
-# Constants
+# Constants (provisional)
 # ---------------------------------------------------------------------------
 
-TARGET_LOW = 0.60
-TARGET_HIGH = 0.80
-PRIOR_P = 0.5
+# Learnable band: predicted success in [BAND_LOW, BAND_HIGH]
+# Below BAND_LOW -> item too hard (hopeless); above BAND_HIGH -> too easy (no gain)
+BAND_LOW = 0.40
+BAND_HIGH = 0.85
+
+# For the "accurate-but-slow" tier: node must have mastery >= ACCURATE_P_THRESHOLD
+# and pace_ratio > SLOW_PACE_THRESHOLD to qualify for a speed_drill.
+ACCURATE_P_THRESHOLD = 0.65   # node is reasonably well understood
+SLOW_PACE_THRESHOLD = 1.0     # pace_ratio > 1.0 means taking longer than expected
+
+# High-value for speed_drill: only drill speed on nodes whose base_priority
+# is in a part that is "high-value" (i.e. part_weight >= HIGH_VALUE_WEIGHT).
+HIGH_VALUE_WEIGHT = 0.35  # qa.bmath and qa.stats qualify (0.40 each); qa.lr does not
+
+# Minimum pace_count before we trust the speed measurement
+MIN_PACE_COUNT = 3
 
 DIFFICULTY_ADJUSTMENT = {
     "L1": 1.15,
@@ -45,33 +57,41 @@ DIFFICULTY_ADJUSTMENT = {
     "L3": 0.75,
 }
 
-# Part prefixes — used for interleaving
+PRIOR_P = 0.5
+
 PART_PREFIXES = {
     "qa.bmath": "bmath",
     "qa.lr": "lr",
     "qa.stats": "stats",
 }
 
+# Target band kept for v1 test compatibility (imported by tests)
+TARGET_LOW = BAND_LOW
+TARGET_HIGH = BAND_HIGH
+
 
 # ---------------------------------------------------------------------------
-# Helpers
+# Internal helpers
 # ---------------------------------------------------------------------------
 
-def _node_p(node_id: str, mastery: MasteryState) -> float:
+def _node_effective_p(node_id: str, mastery: MasteryState, now_iso: str) -> float:
     nm = mastery.nodes.get(node_id)
-    return nm.p if nm is not None else PRIOR_P
+    if nm is None:
+        return PRIOR_P
+    return mastery_effective_p(nm, now_iso)
 
 
 def _item_predicted_success(
     item_id: str,
     item_meta: Dict,
     mastery: MasteryState,
+    now_iso: str,
 ) -> float:
-    """Predict P(student answers this item correctly)."""
+    """Predict P(student answers this item correctly) using decayed mastery."""
     tests: List[str] = item_meta.get("tests", [])
     if not tests:
         return PRIOR_P
-    avg_p = sum(_node_p(nid, mastery) for nid in tests) / len(tests)
+    avg_p = sum(_node_effective_p(n, mastery, now_iso) for n in tests) / len(tests)
     adj = DIFFICULTY_ADJUSTMENT.get(
         item_meta.get("difficulty_label", "L2").upper(), 1.0
     )
@@ -79,7 +99,6 @@ def _item_predicted_success(
 
 
 def _item_part(item_meta: Dict) -> Optional[str]:
-    """Return the part label for this item based on its node prefixes."""
     tests = item_meta.get("tests", [])
     for node_id in tests:
         for prefix, part in PART_PREFIXES.items():
@@ -88,27 +107,62 @@ def _item_part(item_meta: Dict) -> Optional[str]:
     return None
 
 
-def _average_node_mastery(item_meta: Dict, mastery: MasteryState) -> float:
-    """Average p across nodes tested by this item."""
+def _item_avg_priority(item_meta: Dict, mastery: MasteryState, now_iso: str) -> float:
+    """Average base_priority across nodes tested by this item."""
     tests = item_meta.get("tests", [])
     if not tests:
-        return PRIOR_P
-    return sum(_node_p(nid, mastery) for nid in tests) / len(tests)
+        return 0.0
+    return sum(
+        base_priority(n, _node_effective_p(n, mastery, now_iso))
+        for n in tests
+    ) / len(tests)
 
 
-def _touches_active_misconception_nodes(
-    item_meta: Dict,
-    active_misconception_nodes: Set[str],
-) -> bool:
-    """True if any of the item's nodes are in the active-misconception node set."""
-    return bool(set(item_meta.get("tests", [])) & active_misconception_nodes)
+def _in_learnable_band(p: float) -> bool:
+    return BAND_LOW <= p <= BAND_HIGH
 
 
 def _distance_to_band(p: float) -> float:
-    """0 if in band, else distance to nearest band edge."""
-    if TARGET_LOW <= p <= TARGET_HIGH:
+    if _in_learnable_band(p):
         return 0.0
-    return min(abs(p - TARGET_LOW), abs(p - TARGET_HIGH))
+    return min(abs(p - BAND_LOW), abs(p - BAND_HIGH))
+
+
+def _is_accurate_but_slow(node_id: str, mastery: MasteryState, now_iso: str) -> bool:
+    """True if node is well-understood (p >= ACCURATE_P_THRESHOLD) but slow."""
+    nm = mastery.nodes.get(node_id)
+    if nm is None:
+        return False
+    ep = mastery_effective_p(nm, now_iso)
+    if ep < ACCURATE_P_THRESHOLD:
+        return False  # not accurate yet
+    if nm.pace_count < MIN_PACE_COUNT:
+        return False  # not enough speed data
+    pr = mean_pace_ratio(nm)
+    return pr > SLOW_PACE_THRESHOLD
+
+
+def _nodes_for_misconception(
+    misconception_id: str,
+    misconception_node_map: Dict[str, List[str]],
+) -> List[str]:
+    """Return node ids associated with a misconception, from the provided map."""
+    return misconception_node_map.get(misconception_id, [])
+
+
+def _items_for_nodes(
+    node_ids: Set[str],
+    item_bank: Dict[str, Dict],
+    recently_served: Set[str],
+) -> List[str]:
+    """Return items that test at least one of the given nodes, excluding recently served."""
+    result = []
+    for iid, meta in item_bank.items():
+        if iid in recently_served:
+            continue
+        if set(meta.get("tests", [])) & node_ids:
+            result.append(iid)
+    return result
 
 
 # ---------------------------------------------------------------------------
@@ -124,37 +178,55 @@ def select_next(
     active_misconception_nodes: Optional[Set[str]] = None,
     last_served_part: Optional[str] = None,
     active_misconception_items: Optional[Set[str]] = None,
+    # v2 additions
+    active_misconceptions: Optional[List] = None,       # list of MisconceptionSummary
+    misconception_node_map: Optional[Dict[str, List[str]]] = None,  # mid -> [node_id]
 ) -> NextAction:
     """
-    Return the next action for the student.
+    Return the next action for the student (v2 — score-driven, 4-tier).
 
     Parameters
     ----------
-    mastery: current MasteryState
+    mastery: current MasteryState (with time-decayed effective_p available)
     scheduler_state: current SchedulerState
-    item_bank: {item_id: {tests, difficulty_label}} — all available items
-    now_iso: current datetime (ISO-8601) for due-date comparison
-    recently_served: item ids served in this session (excluded from fresh picks)
-    active_misconception_nodes: node ids linked to active misconceptions
-    last_served_part: part label of the last served item (for interleaving)
-    active_misconception_items: item ids whose last wrong answer was a
-        misconception item (priority resurface)
+    item_bank: {item_id: {tests, difficulty_label, expected_seconds}} — all items
+    now_iso: current datetime (ISO-8601)
+    recently_served: item ids served this session (excluded from fresh picks)
+    active_misconception_nodes: node ids linked to active recurring misconceptions
+    last_served_part: part label of last served item (for interleaving in tier 4)
+    active_misconception_items: item ids whose last wrong was a misconception item
+    active_misconceptions: list of MisconceptionSummary (from mastery.ranked_misconceptions)
+    misconception_node_map: {misconception_id: [node_id, ...]} for tier-2 targeting
     """
     recently_served = recently_served or set()
     active_misconception_nodes = active_misconception_nodes or set()
     active_misconception_items = active_misconception_items or set()
+    active_misconceptions = active_misconceptions or []
+    misconception_node_map = misconception_node_map or {}
 
-    # --- Step 1: check for due reviews ---
+    # -----------------------------------------------------------------------
+    # Tier 1: Due reviews (spaced retention protects banked marks)
+    # -----------------------------------------------------------------------
     due = due_queue(scheduler_state, now_iso, active_misconception_items)
     if due:
         first_due = due[0]
+        item_meta = item_bank.get(first_due.item_id, {})
+        tests = item_meta.get("tests", [])
+        gain_str = ""
+        if tests:
+            ep = _node_effective_p(tests[0], mastery, now_iso)
+            gain_approx = est_marks_gain(tests[0], ep)
+            if gain_approx > 0.1:
+                gain_str = f" (~{gain_approx:.1f} marks of headroom)"
         return NextAction(
             action="review",
             item_id=first_due.item_id,
-            reason=f"Review due: {first_due.item_id} (was due {first_due.due_at[:10]})",
+            reason=(
+                f"Review due: spaced repetition protects banked marks{gain_str}. "
+                f"(was due {first_due.due_at[:10]})"
+            ),
         )
 
-    # --- Step 2: pick a fresh item ---
     candidates = [iid for iid in item_bank if iid not in recently_served]
 
     if not candidates:
@@ -164,54 +236,127 @@ def select_next(
             reason="No items available (all recently served or bank empty).",
         )
 
-    # Score each candidate — lower score = better.
-    #
-    # Primary driver: avg_mastery (lower = weaker = higher priority to practice).
-    # We negate it so that weaker nodes score lower (better).
-    #
-    # Band preference: items whose predicted success falls in [0.60, 0.80] get
-    # a bonus (-0.3). Items far outside the band get a mild penalty, but this
-    # is secondary — we still prefer a very weak node even if it's below band
-    # over a strong node that happens to be in-band.
-    #
-    # This matches the spec: "weighted toward weak nodes and active
-    # misconceptions, and interleaved across topics".
+    # -----------------------------------------------------------------------
+    # Tier 2: Remediate active recurring misconception
+    # -----------------------------------------------------------------------
+    recurring_misconceptions = [ms for ms in active_misconceptions if ms.is_recurring]
+    if recurring_misconceptions:
+        # Pick the highest-recency-score recurring misconception
+        top_mis = max(recurring_misconceptions, key=lambda m: m.recency_score)
+        mis_nodes = set(_nodes_for_misconception(top_mis.misconception_id, misconception_node_map))
+
+        if not mis_nodes:
+            # Fallback: use active_misconception_nodes if no specific map provided
+            mis_nodes = active_misconception_nodes
+
+        if mis_nodes:
+            mis_items = _items_for_nodes(mis_nodes, item_bank, recently_served)
+            if mis_items:
+                # Pick the item with the best learnable-band fit among mis_items
+                best_item = None
+                best_dist = math.inf
+                for iid in mis_items:
+                    meta = item_bank[iid]
+                    p = _item_predicted_success(iid, meta, mastery, now_iso)
+                    dist = _distance_to_band(p)
+                    if dist < best_dist:
+                        best_dist = dist
+                        best_item = iid
+
+                # Estimate cost of this misconception
+                cost = round(top_mis.recency_score * 1.25, 1)
+                return NextAction(
+                    action="remediate_misconception",
+                    item_id=best_item,
+                    reason=(
+                        f"Recurring misconception '{top_mis.misconception_id}' "
+                        f"is costing ~{cost:.1f} marks. "
+                        f"Practice here until it stops recurring."
+                    ),
+                )
+
+    # -----------------------------------------------------------------------
+    # Tier 3: Speed drill — accurate but slow on a high-value node
+    # -----------------------------------------------------------------------
+    slow_nodes: List[str] = []
+    for node_id, nm in mastery.nodes.items():
+        if not _is_accurate_but_slow(node_id, mastery, now_iso):
+            continue
+        pw = part_weight(node_id)
+        if pw < HIGH_VALUE_WEIGHT:
+            continue
+        slow_nodes.append(node_id)
+
+    if slow_nodes:
+        # Pick the slowest high-value node (highest pace_ratio)
+        slowest = max(slow_nodes, key=lambda n: mean_pace_ratio(mastery.nodes[n]))
+        slow_items = _items_for_nodes({slowest}, item_bank, recently_served)
+        if slow_items:
+            # Prefer in-band items for speed drill
+            in_band = [
+                iid for iid in slow_items
+                if _in_learnable_band(
+                    _item_predicted_success(iid, item_bank[iid], mastery, now_iso)
+                )
+            ]
+            drill_item = in_band[0] if in_band else slow_items[0]
+            pr = mean_pace_ratio(mastery.nodes[slowest])
+            return NextAction(
+                action="speed_drill",
+                item_id=drill_item,
+                reason=(
+                    f"You are accurate but slow on '{slowest}' "
+                    f"(pace {pr:.1f}x expected). "
+                    f"At this pace you may not finish the paper. "
+                    f"This is a high-weight area — speed here protects marks."
+                ),
+            )
+
+    # -----------------------------------------------------------------------
+    # Tier 4: Practice — highest base_priority learnable node
+    # -----------------------------------------------------------------------
     scored: List[tuple] = []
     for iid in candidates:
         meta = item_bank[iid]
-        p_success = _item_predicted_success(iid, meta, mastery)
-        avg_mastery = _average_node_mastery(meta, mastery)
+        p_success = _item_predicted_success(iid, meta, mastery, now_iso)
+        avg_priority = _item_avg_priority(meta, mastery, now_iso)
         dist = _distance_to_band(p_success)
-        touches_mis = _touches_active_misconception_nodes(meta, active_misconception_nodes)
         part = _item_part(meta)
         same_part = (part is not None and part == last_served_part)
 
-        # Lower score = preferred.
+        # Score: higher base_priority is better; nudge for in-band and interleave
         score = (
-            avg_mastery                            # primary: prefer weak nodes (lower p)
-            + dist * 0.5                           # secondary: mild nudge toward band
-            - (0.15 if dist == 0.0 else 0.0)       # in-band bonus
-            - (0.1 if touches_mis else 0.0)        # misconception coverage bonus
-            + (0.05 if same_part else 0.0)         # mild interleave penalty
+            -avg_priority                              # primary: higher priority = lower score
+            + dist * 0.2                               # secondary: mild nudge toward band
+            - (0.05 if dist == 0.0 else 0.0)           # in-band bonus
+            + (0.03 if same_part else 0.0)             # mild interleave penalty
         )
-        scored.append((score, iid, p_success, avg_mastery, touches_mis, dist))
+        scored.append((score, iid, p_success, avg_priority, dist))
 
     scored.sort(key=lambda x: x[0])
-    best_score, best_id, best_p, best_avg, best_mis, best_dist = scored[0]
+    best_score, best_id, best_p, best_priority, best_dist = scored[0]
     meta = item_bank[best_id]
+    tests = meta.get("tests", [])
 
-    # Build reason
-    reasons = []
-    if best_dist == 0.0:
-        reasons.append(f"predicted success {best_p:.0%} (in target band 60-80%)")
+    # Build marks-framed reason
+    if tests:
+        node = tests[0]
+        ep = _node_effective_p(node, mastery, now_iso)
+        gain_approx = est_marks_gain(node, ep)
+        pw = part_weight(node)
+        pw_pct = int(round(pw * 100))
+        reason = (
+            f"High-weight area ({pw_pct}% of marks), ~{gain_approx:.1f} marks of headroom"
+        )
+        if best_dist > 0:
+            reason += f"; predicted success {best_p:.0%} (near learnable band)"
+        else:
+            reason += f"; predicted success {best_p:.0%} (in learnable band)"
     else:
-        reasons.append(f"predicted success {best_p:.0%} (closest to target band)")
-    if best_mis:
-        reasons.append("covers an active misconception")
-    reasons.append(f"average node mastery {best_avg:.0%}")
+        reason = f"Highest priority available item (predicted success {best_p:.0%})"
 
     return NextAction(
         action="practice",
         item_id=best_id,
-        reason="; ".join(reasons),
+        reason=reason,
     )
