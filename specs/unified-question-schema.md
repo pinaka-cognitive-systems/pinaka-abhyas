@@ -129,7 +129,7 @@ Partial-credit policy for `multi_select` is **scoring config, not schema** (sect
 | Field | Type | Req | Notes |
 |---|---|---|---|
 | `source` | string | yes | Generation session, extraction source, or import batch. |
-| `license` | string (SPDX) | yes | Per-item license, e.g. `CC-BY-SA-4.0`. Required for open-source distribution. |
+| `license` | string (SPDX) | yes | Per-item SPDX license. Pinaka-owned content ships `CC-BY-NC-ND-4.0`; third-party-derived items not yet cleared use `LicenseRef-pinaka-internal-unreleased`. |
 | `parent_id` | string | optional | Seed or template lineage. |
 | `generator` | string | optional | Model or pipeline that produced it. |
 | `attribution` | string | optional | Human or source credit. |
@@ -400,7 +400,7 @@ pool: vault
 verification_status: human_reviewed
 provenance:
   source: legacy_q88_example
-  license: CC-BY-SA-4.0
+  license: LicenseRef-pinaka-internal-unreleased
   parent_id: sd_caf_qa_000088
   created: 2026-04-29
 tests: [qa.probability.conditional, qa.probability.independent_events]
@@ -448,7 +448,7 @@ pool: vault
 verification_status: human_reviewed
 provenance:
   source: session_002_variant
-  license: CC-BY-SA-4.0
+  license: CC-BY-NC-ND-4.0
   parent_id: session_002_skeleton_02_variant_7
   generator: opus_gen_v4
   created: 2026-05-01

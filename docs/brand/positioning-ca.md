@@ -12,7 +12,7 @@ A self-studying CA Foundation aspirant in India. Often a commerce student, late 
 
 ## What we lead with
 
-Free. Open source. Works offline. Your data stays on your device, and sharing is opt-in and anonymous. This is not a feature list bolted on; it is the position. We are not selling anything. We are trying to add value to students who are often sold to.
+Free for students. Open-source app. Works offline. Your data stays on your device, and sharing is opt-in and anonymous. This is not a feature list bolted on; it is the position. We are not selling anything. We are trying to add value to students who are often sold to.
 
 ## Vocabulary
 
@@ -26,14 +26,14 @@ The Paper 3 pass bar is 40 out of 100, net of negative marking (plus one per cor
 
 ## What changes from the LSAT product, explicitly
 
-| Axis | LSAT flagship | pinaka-abhyas (CA) |
-|---|---|---|
-| Audience | US and Canada law aspirants | India CA Foundation aspirants |
-| Price | Paid subscription | Free |
-| Delivery | Cloud web app | Offline desktop app |
-| Data | Server-side | On the device, opt-in sharing |
-| Vocabulary | LR, RC, predicted score | QA topics, misconception, readiness estimate |
-| Voice and principles | The Fellow, seven principles | Unchanged |
+| Axis                 | LSAT flagship                | pinaka-abhyas (CA)                           |
+| -------------------- | ---------------------------- | -------------------------------------------- |
+| Audience             | US and Canada law aspirants  | India CA Foundation aspirants                |
+| Price                | Paid subscription            | Free                                         |
+| Delivery             | Cloud web app                | Offline desktop app                          |
+| Data                 | Server-side                  | On the device, opt-in sharing                |
+| Vocabulary           | LR, RC, predicted score      | QA topics, misconception, readiness estimate |
+| Voice and principles | The Fellow, seven principles | Unchanged                                    |
 
 ## Tone check for any CA surface
 

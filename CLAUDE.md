@@ -25,7 +25,7 @@ A free, open-source, offline desktop app where a student practises verified ques
 ## Constraints
 
 - Do not touch the paid LSAT product (a separate repo). Learn from it; copy none of its code.
-- The content generator `prashna` stays private. This app and the questions it ships are open.
+- The content generator `prashna` stays private. The app is open-source (AGPL-3.0). The questions it ships are free for students but not open: CC-BY-NC-ND-4.0, no commercial use, no derivatives. Every shipped question is original, authored from the public syllabus; we do not redistribute ICAI questions. See `LICENSING.md`.
 - Honesty in the product: no predicted score we cannot back; readiness is an estimate until calibrated.
 
 ## Pointers

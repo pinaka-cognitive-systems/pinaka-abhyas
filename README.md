@@ -4,7 +4,7 @@ A free, open-source, offline desktop app where a student practises verified ques
 
 One exam, one section, one loop. We start with CA Foundation, Quantitative Aptitude, the simplest place to prove the core works. Once the loop is undeniable, we widen to other exams by adding a Profile against the same Core.
 
-Free. Open source. Works offline. Your data stays on your device; sharing is opt-in and anonymous.
+Free for students. Open-source app. Works offline. Your data stays on your device; sharing is opt-in and anonymous.
 
 ## Status
 
@@ -24,4 +24,4 @@ Phase 0, foundations. In place: the UQS Core and CA Profile schema, the CA QA ta
 
 ## Relationship to the paid LSAT product
 
-The paid LSAT flagship is a separate product and codebase. pinaka-abhyas shares its brand voice and learns from its methods, but takes none of its code. The content generator (prashna) stays private; this app and the questions it ships are open.
+The paid LSAT flagship is a separate product and codebase. pinaka-abhyas shares its brand voice and learns from its methods, but takes none of its code. The content generator (prashna) stays private. The app is open-source; the questions it ships are free for students but not open, licensed CC-BY-NC-ND-4.0 (no commercial use, no derivatives). See `LICENSING.md`.
