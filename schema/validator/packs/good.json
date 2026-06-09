@@ -10,7 +10,7 @@
       "verification_status": "human_reviewed",
       "provenance": {
         "source": "legacy_q88_example",
-        "license": "CC-BY-SA-4.0",
+        "license": "CC-BY-NC-ND-4.0",
         "parent_id": "sd_caf_qa_000088",
         "created": "2026-04-29"
       },
@@ -87,7 +87,7 @@
       "verification_status": "machine_verified",
       "provenance": {
         "source": "prashna_qa_template_simple_interest_v1",
-        "license": "CC-BY-SA-4.0",
+        "license": "CC-BY-NC-ND-4.0",
         "generator": "prashna_qa_template_v1",
         "created": "2026-05-02"
       },

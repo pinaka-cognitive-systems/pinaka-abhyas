@@ -8,7 +8,7 @@
       "lang": "en",
       "pool": "vault",
       "verification_status": "human_reviewed",
-      "provenance": { "source": "bad_hash_fixture", "license": "CC-BY-SA-4.0", "created": "2026-04-29" },
+      "provenance": { "source": "bad_hash_fixture", "license": "CC-BY-NC-ND-4.0", "created": "2026-04-29" },
       "tests": ["qa.probability.conditional"],
       "difficulty_label": "L3",
       "taxonomy_version": 1,

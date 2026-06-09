@@ -28,7 +28,7 @@ def migrate(v1: dict) -> dict:
 
     provenance = {
         "source": v1.get("icai_provenance", "migrated_ca_v1"),
-        "license": "CC-BY-SA-4.0",
+        "license": "LicenseRef-pinaka-internal-unreleased",
         "created": v1["created"],
     }
     if v1.get("parent_seed_id"):

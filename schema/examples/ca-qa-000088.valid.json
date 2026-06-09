@@ -8,7 +8,7 @@
   "verification_status": "human_reviewed",
   "provenance": {
     "source": "legacy_q88_example",
-    "license": "CC-BY-SA-4.0",
+    "license": "LicenseRef-pinaka-internal-unreleased",
     "parent_id": "sd_caf_qa_000088",
     "created": "2026-04-29"
   },
