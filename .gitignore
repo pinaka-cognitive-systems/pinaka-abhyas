@@ -45,3 +45,9 @@ packs/ca-foundation-qa/staging/
 
 # Generated pack manifest (emitted by build_and_validate.py beside pack.json)
 packs/ca-foundation-qa/pack.manifest.json
+
+# Local agent/editor workspaces and caches: never tracked
+.claude/
+.vite/
+**/.vite/
+coverage/
