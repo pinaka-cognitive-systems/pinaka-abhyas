@@ -5,7 +5,7 @@
   "lang": "en",
   "pool": "arena",
   "verification_status": "model_audited",
-  "provenance": { "source": "pinaka_synth_genspike_v1", "license": "CC-BY-NC-ND-4.0", "generator": "sonnet", "created": "2026-06-09" },
+  "provenance": { "source": "pinaka_synth_genspike_v1", "license": "CC-BY-NC-SA-4.0", "generator": "sonnet", "created": "2026-06-09" },
   "tests": ["qa.bmath.finance.annuity"],
   "difficulty_label": "L3",
   "taxonomy_version": 1,

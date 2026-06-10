@@ -9,7 +9,7 @@ enrichment pilot is retired).
 24 original UQS items (`arn_caf_qa_000001`..`000024`), authored from scratch across 20
 taxonomy nodes spanning Business Maths, Logical Reasoning, and Statistics, including the
 LR and conceptual families that canon v1 could not tag. Pool `arena`, license
-`CC-BY-NC-ND-4.0` (Pinaka-owned), provenance `pinaka_synth_genspike_v1`. No third-party
+`CC-BY-NC-SA-4.0` (Pinaka-owned), provenance `pinaka_synth_genspike_v1`. No third-party
 content.
 
 Method: misconception canon v2 (37 ids) plus distractor-by-construction. Each wrong

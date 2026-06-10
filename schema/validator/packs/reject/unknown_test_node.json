@@ -10,7 +10,7 @@
       "verification_status": "human_reviewed",
       "provenance": {
         "source": "unknown_node_fixture",
-        "license": "CC-BY-NC-ND-4.0",
+        "license": "CC-BY-NC-SA-4.0",
         "created": "2026-04-29"
       },
       "tests": [

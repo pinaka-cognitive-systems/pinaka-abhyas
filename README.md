@@ -1,5 +1,6 @@
 # pinaka-abhyas
 
+
 A free, open-source exam-prep engine plus exam packs. A student practises verified
 questions and the app diagnoses what they do not know, per topic and per
 misconception, resurfaces past mistakes on schedule, tells them the next thing to
@@ -33,7 +34,7 @@ validator tiers are green. Next is content generation (Gate A).
 - `docs/adr/`: architecture decision records.
 - `docs/brand/`: `brand-core.md` (voice and principles) and `positioning-ca.md`
   (CA positioning).
-- `syllabus/`: the official ICAI source.
+- `syllabus/`: the official ICAI source (local-only; gitignored; ICAI source materials not distributed).
 
 ## Validate
 

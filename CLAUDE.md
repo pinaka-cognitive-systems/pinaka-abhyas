@@ -74,4 +74,4 @@ old one and references it; the old ADR stays in place as the historical record.
 - Decisions: `docs/adr/`
 - Plan: `specs/foundation-plan.md` and `specs/roadmap.md`
 - Brand: `docs/brand/brand-core.md` (voice, principles), `docs/brand/design.md` (visual system), and `docs/brand/positioning-ca.md` (CA)
-- Syllabus source: `syllabus/`
+- Syllabus source: `syllabus/` (local-only; gitignored; ICAI source materials not distributed)
