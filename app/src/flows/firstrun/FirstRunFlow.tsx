@@ -21,7 +21,7 @@ import {
   AlreadyOpenError,
   detectCapabilities,
   isPersisted,
-  openStorage,
+  getSharedStorage, takeoverSharedStorage,
   requestPersistence,
   type StorageAdapter,
 } from "../../storage/index.js";
@@ -88,7 +88,7 @@ export function FirstRunFlow({ onComplete }: FirstRunFlowProps): JSX.Element {
   const ensureAdapter = useCallback(async (steal = false): Promise<StorageAdapter | null> => {
     if (adapterRef.current !== null) return adapterRef.current;
     try {
-      const { adapter } = await openStorage(steal ? { steal: true } : {});
+      const { adapter } = await (steal ? takeoverSharedStorage() : getSharedStorage());
       adapterRef.current = adapter;
       return adapter;
     } catch (err) {
@@ -104,7 +104,7 @@ export function FirstRunFlow({ onComplete }: FirstRunFlowProps): JSX.Element {
   // Release the connection on unmount.
   useEffect(() => {
     return () => {
-      void adapterRef.current?.close();
+      // Shared page-level connection stays open for the page lifetime.
     };
   }, []);
 

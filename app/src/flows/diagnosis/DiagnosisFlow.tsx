@@ -33,7 +33,7 @@ import {
   type NodeMastery,
 } from "../../engine/index.js";
 import { NUM_QUESTIONS, type EngineState, type Readiness } from "@pinaka/engine";
-import { openStorage, type StorageAdapter } from "../../storage/index.js";
+import { getSharedStorage, type StorageAdapter } from "../../storage/index.js";
 import {
   groupByBlueprint,
   readinessView,
@@ -78,7 +78,7 @@ export function DiagnosisFlow({ onExit }: DiagnosisFlowProps): JSX.Element {
   const load = useCallback(async (): Promise<void> => {
     const [{ loadCaPack }] = await Promise.all([import("../../engine/caPack.js")]);
     const pack = await loadCaPack();
-    const { adapter } = await openStorage();
+    const { adapter } = await getSharedStorage();
     adapterRef.current = adapter;
 
     const nowMs = Date.now();
@@ -101,7 +101,7 @@ export function DiagnosisFlow({ onExit }: DiagnosisFlowProps): JSX.Element {
     });
     return () => {
       cancelled = true;
-      void adapterRef.current?.close();
+      // Shared page-level connection stays open for the page lifetime.
     };
   }, [load]);
 

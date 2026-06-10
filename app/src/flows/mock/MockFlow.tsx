@@ -28,7 +28,7 @@ import {
   type LoadedPack,
 } from "../../engine/index.js";
 import type { Readiness } from "@pinaka/engine";
-import { openStorage, type StorageAdapter } from "../../storage/index.js";
+import { getSharedStorage, type StorageAdapter } from "../../storage/index.js";
 import { getExamMs } from "../firstrun/meta.js";
 import { loadCaContent } from "../practice/content.js";
 import type { ContentItem } from "../practice/types.js";
@@ -155,9 +155,9 @@ export function MockFlow({ onExit }: MockFlowProps): JSX.Element {
         loadCaContent(),
       ]);
       const pack = await loadCaPack();
-      const { adapter } = await openStorage();
+      const { adapter } = await getSharedStorage();
       if (cancelled) {
-        await adapter.close();
+        // Shared page-level connection: flows never close it (storage/index.ts).
         return;
       }
       examMsRef.current = await getExamMs(adapter);
@@ -213,7 +213,7 @@ export function MockFlow({ onExit }: MockFlowProps): JSX.Element {
         releaseMockGuard();
         guardHeldRef.current = false;
       }
-      void loadedRef.current?.adapter.close();
+      // Shared page-level connection stays open for the page lifetime.
     };
   }, []);
 

@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Router } from "./flows/router.js";
-import { detectCapabilities, openStorage } from "./storage/index.js";
+import { detectCapabilities, getSharedStorage } from "./storage/index.js";
 // Import the two boot-time helpers from their own modules (not the barrel) so
 // the entry chunk does not pull in the update state machine, which is loaded by
 // the (lazy) flows that drive it (W5-4 / ADR 0008 byte budget).
@@ -42,7 +42,7 @@ createRoot(root).render(
 
 // Open the local database AFTER first paint, not before it. This is the lazy
 // boundary that keeps sqlite-wasm (~865 KB) out of the initial chunk (ADR 0008
-// byte budget): openStorage() -> SahpoolAdapter.open() -> dynamic
+// byte budget): getSharedStorage() -> SahpoolAdapter.open() -> dynamic
 // import("@sqlite.org/sqlite-wasm"), so Vite code-splits the wasm into its own
 // chunk fetched only here. Real flows (W5-5) take ownership of the returned
 // adapter; for now we open and immediately release to exercise the path and
@@ -52,10 +52,10 @@ createRoot(root).render(
 // the real app version and live pack version into storage meta, so the export
 // envelope (ADR 0009) carries real values rather than the seed placeholders.
 requestAnimationFrame(() => {
-  void openStorage()
+  void getSharedStorage()
     .then(async ({ adapter }) => {
       await stampVersions(adapter, APP_VERSION);
-      await adapter.close();
+      // Shared page-level connection: not closed here.
     })
     .catch((err: unknown) => {
       console.warn("[storage] deferred open failed", err);

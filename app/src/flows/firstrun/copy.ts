@@ -34,7 +34,7 @@ export const COPY = {
     points: [
       "Free for students. No account, no sign-in.",
       "Works offline once it has loaded.",
-      "Your data stays on this device. Sharing is optional and anonymous.",
+      "Your data stays on this device. Sharing is optional and collects no personal data.",
     ],
     body:
       "You practise verified questions. The app diagnoses what you do not know, " +

@@ -3,7 +3,7 @@
  *
  * Voice-checked strings for the cold-start baseline, kept out of the JSX so the
  * tone can be reviewed in one place (matching firstrun/copy.ts). Plain text
- * only (ADR 0015): no HTML, no markdown. The voice is calm and honest — the
+ * only (ADR 0015): no HTML, no markdown. The voice is calm and honest; the
  * baseline is framed as a map, not a test; wrong answers are useful, not costly.
  */
 
@@ -11,10 +11,10 @@ export const COPY = {
   /** The one-screen intro shown before the first question. */
   intro: {
     eyebrow: "First session",
-    title: "Let's draw your first map.",
+    title: "Your first map starts here.",
     body:
       "About 30 minutes of questions across the paper. This is not a test and " +
-      "nothing here counts against you — it just shows us, and you, where you " +
+      "nothing here counts against you. It just shows us, and you, where you " +
       "stand right now.",
     /** Why wrong answers are fine here. */
     reassure:
@@ -28,10 +28,10 @@ export const COPY = {
   /** The closing screen, leading into the first diagnosis map. */
   close: {
     eyebrow: "First map ready",
-    title: "That's your starting point.",
+    title: "That is your starting point.",
     body:
-      "Here is your first honest read. It is rough — a single session can only " +
-      "say so much — and it sharpens every time you practise.",
+      "Here is your first honest read. It is rough, because a single session " +
+      "can only say so much, and it sharpens every time you practise.",
     /** Button that links into the diagnosis map (#/diagnosis). */
     cta: "See my diagnosis",
     /** Secondary action: go practise now. */

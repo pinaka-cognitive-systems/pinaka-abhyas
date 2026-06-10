@@ -94,7 +94,7 @@ export function createStoragePort(adapter: StorageAdapter): PackStagingPort {
  * The app version is the single source of truth passed from the wiring point
  * (main.tsx), which reads it from package.json via Vite's define. The pack
  * version comes from the live manifest if a pack has been committed; otherwise
- * the seed values from openStorage() stand.
+ * the seed values from getSharedStorage() stand.
  */
 export async function stampVersions(
   adapter: StorageAdapter,

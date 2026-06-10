@@ -22,7 +22,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import {
   AlreadyOpenError,
   isPersisted,
-  openStorage,
+  getSharedStorage, takeoverSharedStorage,
   type StorageAdapter,
 } from "../../storage/index.js";
 import { META_KEYS } from "../../storage/index.js";
@@ -130,7 +130,7 @@ export function SettingsFlow({ onExit, mockGuard }: SettingsFlowProps): JSX.Elem
   const ensureAdapter = useCallback(async (steal = false): Promise<StorageAdapter | null> => {
     if (adapterRef.current !== null) return adapterRef.current;
     try {
-      const { adapter } = await openStorage(steal ? { steal: true } : {});
+      const { adapter } = await (steal ? takeoverSharedStorage() : getSharedStorage());
       adapterRef.current = adapter;
       // Build the updater over the live ports the moment we have an adapter.
       updaterRef.current = new PackUpdater({
@@ -202,7 +202,7 @@ export function SettingsFlow({ onExit, mockGuard }: SettingsFlowProps): JSX.Elem
     })();
     return () => {
       cancelled = true;
-      void adapterRef.current?.close();
+      // Shared page-level connection stays open for the page lifetime.
     };
   }, [ensureAdapter, refreshStatus]);
 

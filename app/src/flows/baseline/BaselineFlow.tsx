@@ -32,7 +32,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import { buildEngineState, readiness as computeReadiness, type LoadedPack } from "../../engine/index.js";
 import type { EngineState, Readiness } from "@pinaka/engine";
-import { openStorage, type StorageAdapter, type StoredEvent } from "../../storage/index.js";
+import { getSharedStorage, type StorageAdapter, type StoredEvent } from "../../storage/index.js";
 import { buildEvent, type Response } from "../practice/event.js";
 import { buildFeedback, type FeedbackView } from "../practice/machine.js";
 import { loadCaContent } from "../practice/content.js";
@@ -97,9 +97,9 @@ export function BaselineFlow({ onExitToPractice, onSeeDiagnosis }: BaselineFlowP
         loadCaContent(),
       ]);
       const pack = await loadCaPack();
-      const { adapter } = await openStorage();
+      const { adapter } = await getSharedStorage();
       if (cancelled) {
-        await adapter.close();
+        // Shared page-level connection: flows never close it (storage/index.ts).
         return;
       }
       // The plan only names ids we have content for and that are selectable.
@@ -123,7 +123,7 @@ export function BaselineFlow({ onExitToPractice, onSeeDiagnosis }: BaselineFlowP
     });
     return () => {
       cancelled = true;
-      void loadedRef.current?.adapter.close();
+      // Shared page-level connection stays open for the page lifetime.
     };
   }, []);
 

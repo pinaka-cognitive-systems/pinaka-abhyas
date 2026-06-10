@@ -27,7 +27,7 @@ import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import { Shell } from "../Shell.js";
 import { isFirstRunComplete } from "./firstrun/meta.js";
 import { isBaselineDone, shouldShowBaseline } from "./baseline/meta.js";
-import { AlreadyOpenError, openStorage } from "../storage/index.js";
+import { AlreadyOpenError, getSharedStorage } from "../storage/index.js";
 
 const PracticeFlow = lazy(() =>
   import("./practice/PracticeFlow.js").then((m) => ({ default: m.PracticeFlow })),
@@ -97,10 +97,10 @@ export function Router(): JSX.Element {
     let cancelled = false;
     void (async () => {
       try {
-        const { adapter } = await openStorage();
+        const { adapter } = await getSharedStorage();
         const firstRunDone = await isFirstRunComplete(adapter);
         if (!firstRunDone) {
-          await adapter.close();
+          // Shared page-level connection: flows never close it (storage/index.ts).
           if (!cancelled) setDefaultTarget("firstrun");
           return;
         }
@@ -108,7 +108,7 @@ export function Router(): JSX.Element {
         // baseline gets it once; the returning student lands on the home surface.
         const baselineDone = await isBaselineDone(adapter);
         const eventCount = (await adapter.readAllEvents()).length;
-        await adapter.close();
+        // Shared page-level connection: flows never close it (storage/index.ts).
         if (!cancelled) {
           setDefaultTarget(shouldShowBaseline({ baselineDone, eventCount }) ? "baseline" : "home");
         }

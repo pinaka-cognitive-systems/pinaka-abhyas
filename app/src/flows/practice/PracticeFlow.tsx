@@ -27,7 +27,7 @@ import {
 } from "../../engine/index.js";
 import type { EngineState, Readiness } from "@pinaka/engine";
 import {
-  openStorage,
+  getSharedStorage,
   type StorageAdapter,
   type StoredEvent,
 } from "../../storage/index.js";
@@ -102,9 +102,9 @@ export function PracticeFlow({ onExit }: PracticeFlowProps): JSX.Element {
         loadCaContent(),
       ]);
       const pack = await loadCaPack();
-      const { adapter } = await openStorage();
+      const { adapter } = await getSharedStorage();
       if (cancelled) {
-        await adapter.close();
+        // Shared page-level connection: flows never close it (storage/index.ts).
         return;
       }
       loadedRef.current = { pack, content, adapter };
@@ -133,7 +133,7 @@ export function PracticeFlow({ onExit }: PracticeFlowProps): JSX.Element {
     return () => {
       cancelled = true;
       // Release the single connection when the flow unmounts.
-      void loadedRef.current?.adapter.close();
+      // Shared page-level connection stays open for the page lifetime.
     };
   }, []);
 

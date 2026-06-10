@@ -2,7 +2,7 @@
  * Second-tab screen (W5-5 flow d, ADR 0008 single-connection posture).
  *
  * The opfs-sahpool backend holds a single Web Lock. When another tab already
- * holds it, openStorage() throws AlreadyOpenError. Any flow that opens storage
+ * holds it, getSharedStorage() throws AlreadyOpenError. Any flow that opens storage
  * renders THIS screen on that error and offers an honest takeover, which
  * reopens with { steal: true } to break the existing lock cleanly.
  *

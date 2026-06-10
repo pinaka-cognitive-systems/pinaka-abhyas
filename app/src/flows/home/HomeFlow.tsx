@@ -30,7 +30,7 @@ import {
   type LoadedPack,
 } from "../../engine/index.js";
 import type { EngineState } from "@pinaka/engine";
-import { openStorage, type StorageAdapter, type StoredEvent } from "../../storage/index.js";
+import { getSharedStorage, type StorageAdapter, type StoredEvent } from "../../storage/index.js";
 import { getExamMs } from "../firstrun/meta.js";
 import {
   deriveTodayCard,
@@ -123,7 +123,7 @@ export function HomeFlow({ onBegin, onSettings, onDiagnosis }: HomeFlowProps): J
   const load = useCallback(async (): Promise<void> => {
     const [{ loadCaPack }] = await Promise.all([import("../../engine/caPack.js")]);
     const pack: LoadedPack = await loadCaPack();
-    const { adapter } = await openStorage();
+    const { adapter } = await getSharedStorage();
     adapterRef.current = adapter;
 
     const nowMs = Date.now();
@@ -193,7 +193,7 @@ export function HomeFlow({ onBegin, onSettings, onDiagnosis }: HomeFlowProps): J
     return () => {
       cancelled = true;
       cancelReminderRef.current?.();
-      void adapterRef.current?.close();
+      // Shared page-level connection stays open for the page lifetime.
     };
   }, [load]);
 

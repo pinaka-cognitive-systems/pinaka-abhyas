@@ -198,3 +198,43 @@ export async function isPersisted(): Promise<boolean> {
     return false;
   }
 }
+
+/**
+ * The page-level shared connection. The sahpool backend is single-connection
+ * (one Web Lock per origin), so the PAGE owns exactly one adapter: opened on
+ * first use, shared by every flow and the boot path, closed only on pagehide.
+ * Per-flow open/close caused the page to collide with itself ("already open
+ * in another tab" within one tab), found by driving the real dev server.
+ * A genuine second tab still surfaces AlreadyOpenError from the first open.
+ */
+let sharedStorage: Promise<OpenStorageResult> | null = null;
+
+export function getSharedStorage(options: OpenStorageOptions = {}): Promise<OpenStorageResult> {
+  if (sharedStorage === null) {
+    sharedStorage = openStorage(options).catch((err: unknown) => {
+      // A failed open must not poison the singleton: the next caller retries
+      // (e.g. after a takeover or when the lock holder goes away).
+      sharedStorage = null;
+      throw err;
+    });
+    if (typeof window !== "undefined") {
+      window.addEventListener(
+        "pagehide",
+        () => {
+          void sharedStorage?.then((r) => r.adapter.close()).catch(() => {});
+          sharedStorage = null;
+        },
+        { once: true },
+      );
+    }
+  }
+  return sharedStorage;
+}
+
+/** Reopen the shared connection with a lock takeover (the second-tab screen's
+ * action): closes nothing locally (we hold no lock), steals, and replaces the
+ * singleton. */
+export function takeoverSharedStorage(): Promise<OpenStorageResult> {
+  sharedStorage = null;
+  return getSharedStorage({ steal: true });
+}
