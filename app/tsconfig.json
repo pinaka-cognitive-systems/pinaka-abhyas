@@ -15,6 +15,10 @@
     "jsx": "react-jsx",
     // isolatedModules is required by Vite's single-file transform.
     "isolatedModules": true,
+    // resolveJsonModule lets the engine-integration vector test import the
+    // committed golden.json as a typed module (W5-3). No app source imports JSON;
+    // this is for the test that replays engine vectors through the app layer.
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     // noEmit: tsc is only used for type checking; Vite handles the build.
     "noEmit": true,
