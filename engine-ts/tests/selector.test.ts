@@ -282,3 +282,42 @@ describe("determinism: identical candidates always order the same", () => {
     expect(bank.get(action.itemId!)!.difficulty_label).toBe("L1");
   });
 });
+
+describe("descendant-node selection (the W5-3 integration regression)", () => {
+  // Blueprint families sit at section level (qa.bmath.finance); real pack items
+  // tag leaf nodes (qa.bmath.finance.compound_interest). Selection must reach
+  // them, exactly as readiness coverage() already does via prefix matching.
+  it("serves coverage from items tagged on a DESCENDANT of the blueprint family", () => {
+    const bank = new Map<string, BankItem>();
+    bank.set("deep#1", {
+      id: "deep#1",
+      tests: ["qa.bmath.finance.compound_interest"],
+      difficulty_label: "L1",
+      item_type: "single_best",
+      expected_seconds: 60,
+      verification_status: "verified",
+    });
+    const blueprint: Blueprint = {
+      parts: [
+        {
+          id: "qa.bmath",
+          marks: 40,
+          questions: 40,
+          sections: [
+            { id: "I", families: [{ nodeId: "qa.bmath.finance", quota: 14 }] },
+          ],
+        },
+      ],
+    };
+    const state: EngineState = {
+      skills: new Map(),
+      schedules: new Map(),
+      misconceptions: new Map(),
+      eventCount: 0,
+      lastSeenMs: new Map(),
+    };
+    const action = selectNextAction(state, bank, blueprint, 1_700_000_000_000, 20);
+    expect(action.kind).toBe("coverage");
+    expect(action.itemId).toBe("deep#1");
+  });
+});

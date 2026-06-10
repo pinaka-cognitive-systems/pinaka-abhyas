@@ -110,12 +110,16 @@ function lastSeen(state: EngineState, itemId: string): number | undefined {
   return state.lastSeenMs.get(itemId);
 }
 
-/** Items that exercise a node, selectable, sorted by item id ascending. */
+/** Items that exercise a node OR any of its descendants, selectable, sorted by
+ * item id ascending. Prefix matching mirrors readiness coverage(): blueprint
+ * families sit at section level while real pack items tag leaf nodes, and an
+ * exact match left most of a real bank unreachable by selection (found at
+ * W5-3 integration). */
 function itemsForNode(node: string, bank: Bank): BankItem[] {
   const out: BankItem[] = [];
   for (const item of bank.values()) {
     if (!isSelectable(item)) continue;
-    if (item.tests.includes(node)) out.push(item);
+    if (item.tests.some((t) => t === node || t.startsWith(node + "."))) out.push(item);
   }
   out.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
   return out;
