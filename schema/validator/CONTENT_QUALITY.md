@@ -23,6 +23,34 @@ Thresholds are named constants at the top of each module, documented and PROVISI
   small floor and not a stock phrase). The schema requires the field; this checks it says
   something.
 
+## B1 readability lint (W3-5) -> `B1_READABILITY` warnings
+
+Advisory by default; gates the build when `--strict` is passed to `run_quality.py`.
+Checks stems and explanations (options are too short for sentence-level checks; rationales
+are coach-facing, not student-facing).
+
+- `sentence_length`: any sentence over `B1_MAX_WORDS_PER_SENTENCE` (25) words warns.
+- `subordinate_clauses`: more than `B1_MAX_SUBORDINATE_MARKERS` (1) subordinate clause
+  markers per sentence warns. Markers: `which`, `where`, `although`, `whereas`,
+  `given that`.
+- `banned_jargon`: presence of any word from `B1_BANNED_JARGON` (utilize, ascertain,
+  commence, endeavour, notwithstanding) warns. Checked across all text fields.
+
+All thresholds are named constants in `quality.py` and PROVISIONAL.
+
+## Hard Tier-2 gates promoted from this layer (W3-3)
+
+The following checks were advisory in the quality layer; they are now ALSO enforced as
+hard Tier-2 violations in `pack_validator.py` and never reach the advisory layer:
+
+- `DISTRACTOR_EQUALS_KEY`: incorrect option text equals correct option text (canonical
+  normalization). Reject fixture: `packs/reject/distractor_equals_key.json`.
+- `STEM_ANSWER_LEAK`: correct option text appears verbatim in stem (non-LR items), or
+  stem contains "the answer is" / "correct option". Reject fixture:
+  `packs/reject/stem_answer_leak.json`.
+- `NEAR_DUPLICATE`: two stems have word-shingle Jaccard ≥ 0.80. Reject fixture:
+  `packs/reject/near_duplicate.json`.
+
 ## Pack / bank-health report -> metrics + PASS/WARN
 
 - `answer_position_balance`: distribution of `answer_key.correct` over option keys. For a
