@@ -1,0 +1,32 @@
+{
+  "name": "@pinaka/app",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "AGPL-3.0-only",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vitest run",
+    "check-size": "node scripts/check-size.mjs"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@pinaka/engine": "file:../engine-ts"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "~5.6.0",
+    "vite": "~6.4.3",
+    "vitest": "~2.1.8",
+    "eslint": "^9.15.0",
+    "typescript-eslint": "^8.16.0",
+    "@eslint/js": "^9.15.0"
+  }
+}

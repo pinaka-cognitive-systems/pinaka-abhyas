@@ -71,3 +71,41 @@ jobs:
       - name: Tests
         run: npx vitest run
         working-directory: engine-ts
+
+  app:
+    name: App (PWA scaffold) typecheck, lint, test, build, size
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          # Lock file lives in app/; the file: dep on ../engine-ts resolves as a
+          # symlink at install time and needs no separate engine-ts install step.
+          cache-dependency-path: app/package-lock.json
+
+      - name: "Install: app dependencies"
+        run: npm ci
+        working-directory: app
+
+      - name: Typecheck
+        run: npm run typecheck
+        working-directory: app
+
+      - name: Lint
+        run: npm run lint
+        working-directory: app
+
+      - name: Tests
+        run: npm test
+        working-directory: app
+
+      - name: Build
+        run: npm run build
+        working-directory: app
+
+      - name: "Size check: enforce ADR 0008 byte budget"
+        run: npm run check-size
+        working-directory: app

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!--
+      viewport: width=device-width is required for the 360px floor (ADR 0011).
+      initial-scale=1 prevents iOS Safari's default shrink-to-fit.
+      viewport-fit=cover extends into the safe-area-inset on notched devices.
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <!--
+      theme-color: set to the brand primary as a placeholder.
+      Real value derives from the W6-2 token intake (docs/brand/design.md -> #6366F1).
+    -->
+    <meta name="theme-color" content="#6366f1" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <title>Pinaka Abhyas</title>
+  </head>
+  <body>
+    <!-- React mounts here. id="root" is referenced by src/main.tsx. -->
+    <div id="root"></div>
+    <!--
+      type="module" tells the browser this is an ES module; Vite replaces this
+      with the compiled bundle in the production build.
+    -->
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    // Targets the ES2022 baseline; Vite's transpile handles older browsers.
+    "target": "ES2022",
+    // Bundler mode: lets Vite resolve bare specifiers and .ts extensions.
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    // Type safety mirrors engine-ts exactly (ADR 0010 consistency).
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "forceConsistentCasingInFileNames": true,
+    // Allows importing React JSX without explicit React import in scope.
+    "jsx": "react-jsx",
+    // isolatedModules is required by Vite's single-file transform.
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    // noEmit: tsc is only used for type checking; Vite handles the build.
+    "noEmit": true,
+    // lib includes DOM for browser globals (window, document, navigator).
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    // types: node is NOT included — app code must not reference Node.js APIs.
+    // Vitest globals are not included; tests use explicit imports from vitest.
+    "types": []
+  },
+  // Include both src and tests: tsc --noEmit covers both.
+  // Config files (vite.config.ts, vitest.config.ts, eslint.config.ts) are excluded:
+  // they are checked by Vite/Vitest/ESLint's own type resolution, not the app build.
+  "include": ["src", "tests"]
+}

@@ -34,5 +34,8 @@ syllabus/extracted/sa-may-2025-qa.md
 # Engine build output
 engine-ts/dist/
 
+# App build output (Vite production build; not committed, deployed via CI)
+app/dist/
+
 # Cross-check generated cases (deterministic; regenerate via crosscheck/generate_cases.py)
 crosscheck/cases.json
