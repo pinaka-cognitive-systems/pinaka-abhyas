@@ -27,3 +27,6 @@ syllabus/extracted/sa-may-2025-qa.md
 
 # Design-team working area (vendor inbox; ported artifacts land in docs/brand/ and app/)
 /design-team/
+
+# Python packaging artifact (pip install . in repo root)
+*.egg-info/

@@ -30,7 +30,13 @@ The executable contract for a Pinaka question. Two axes here. Do not conflate th
 - Tier 1: `python3 validate.py`
 - Tier 2: `python3 validator/run_checks.py`
 
-Both need `jsonschema` and `referencing`. The system `python3` has them.
+Both need `jsonschema`, `referencing`, and `rfc3339-validator`. Install with:
+
+```bash
+pip install ".[dev]"
+```
+
+Run this from the repo root in a fresh venv (`python3 -m venv .venv && source .venv/bin/activate`) or in any environment that has the root `pyproject.toml` installed. The `[dev]` extra also installs `pytest` for the test suites.
 
 ## v1 scope
 
