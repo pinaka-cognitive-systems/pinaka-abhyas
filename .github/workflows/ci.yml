@@ -4,6 +4,12 @@ on:
   push:
   pull_request:
 
+# One run per branch: a new push cancels the superseded run, so verdicts and
+# failure emails always refer to the current state of the branch.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate-and-test:
     name: Validate and test (Python 3.12)
