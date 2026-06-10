@@ -44,3 +44,27 @@ jobs:
 
       - name: "Advisory: content quality and assembly dry-run"
         run: python3 schema/validator/run_quality.py
+
+  engine-ts:
+    name: Engine (TypeScript) typecheck and tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: engine-ts/package-lock.json
+
+      - name: Install
+        run: npm ci
+        working-directory: engine-ts
+
+      - name: Typecheck
+        run: npx tsc --noEmit
+        working-directory: engine-ts
+
+      - name: Tests
+        run: npx vitest run
+        working-directory: engine-ts
