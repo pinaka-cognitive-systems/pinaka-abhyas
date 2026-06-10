@@ -9,7 +9,7 @@
     "noImplicitOverride": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "types": []
+    "types": ["node"]
   },
-  "include": ["src", "tests"]
+  "include": ["src", "tests", "vectors"]
 }
