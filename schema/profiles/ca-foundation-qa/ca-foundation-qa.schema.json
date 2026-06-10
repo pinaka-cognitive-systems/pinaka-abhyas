@@ -8,7 +8,7 @@
     {
       "type": "object",
       "properties": {
-        "id": { "type": "string", "pattern": "^(sd|vlt|arn)_caf_(qa|be)_\\d{6}$" },
+        "id": { "type": "string", "pattern": "^(sd|vlt|arn)_caf_qa_\\d{6}$", "description": "CA Foundation Paper 3 (Quantitative Aptitude) items only. The caf_be subject code (Paper 4 Business Economics) belongs to a separate future profile." },
         "exam": { "const": "ca_foundation" },
         "difficulty_label": { "enum": ["L1", "L2", "L3"] },
         "assets": false,
@@ -32,7 +32,8 @@
   "$defs": {
     "ext_ca": {
       "type": "object",
-      "additionalProperties": true,
+      "additionalProperties": false,
+      "description": "CA Foundation QA extension fields. additionalProperties:false enforces the closed set — typos are rejected rather than silently accepted.",
       "properties": {
         "icai_skill_bucket": { "enum": ["recall", "application"] },
         "icai_provenance": { "type": "string" },

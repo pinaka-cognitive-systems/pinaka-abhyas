@@ -33,12 +33,12 @@
       "enum": ["draft", "model_audited", "machine_verified", "human_reviewed", "published", "quarantined"]
     },
     "provenance": { "$ref": "#/$defs/provenance" },
-    "tests": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "tests": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string" } },
     "difficulty_label": { "type": "string", "minLength": 1 },
     "taxonomy_version": { "type": "integer", "minimum": 1 },
-    "tags": { "type": "array", "items": { "type": "string" } },
+    "tags": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
     "item_type": { "enum": ["single_best", "numeric_entry"] },
-    "options": { "type": "array" },
+    "options": { "type": "array", "uniqueItems": true },
     "answer_key": { "type": "object" },
     "stem": { "type": "string", "minLength": 1 },
     "explanation": { "type": "string", "minLength": 50 },
@@ -52,8 +52,9 @@
       "items": { "$ref": "#/$defs/common_error" }
     },
     "empirical": { "$ref": "#/$defs/empirical" },
-    "ext": { "type": "object" },
-    "assets": { "type": "array", "items": { "$ref": "#/$defs/asset" } }
+    "ext": { "type": "object", "description": "Per-exam extension. Shape validated by the exam Profile (additionalProperties enforcement lives there, not here). See ext_ca in the CA Foundation QA Profile." },
+    "assets": { "type": "array", "items": { "$ref": "#/$defs/asset" } },
+    "solution": { "$ref": "#/$defs/solution" }
   },
   "allOf": [
     {
@@ -86,6 +87,19 @@
           "answer_key": { "$ref": "#/$defs/answer_key_numeric" }
         }
       }
+    },
+    {
+      "description": "machine_verified requires solution to be present. An item cannot claim machine_verified unless its executable solution is recorded.",
+      "if": {
+        "required": ["verification_status"],
+        "properties": { "verification_status": { "const": "machine_verified" } }
+      },
+      "then": {
+        "required": ["solution"],
+        "properties": {
+          "solution": { "$ref": "#/$defs/solution" }
+        }
+      }
     }
   ],
   "$defs": {
@@ -95,7 +109,10 @@
       "required": ["source", "license", "created"],
       "properties": {
         "source": { "type": "string", "minLength": 1 },
-        "license": { "type": "string", "minLength": 1 },
+        "license": {
+          "enum": ["CC-BY-NC-SA-4.0", "LicenseRef-pinaka-internal-unreleased"],
+          "description": "SPDX license identifier. CC-BY-NC-SA-4.0 is the standard shipped license. LicenseRef-pinaka-internal-unreleased is permitted only when verification_status is not published (enforced by Tier-2 UNPUBLISHABLE_LICENSE check)."
+        },
         "parent_id": {
           "type": ["string", "null"],
           "pattern": "^(sd|vlt|arn)_[a-z0-9]+_[a-z0-9]+_\\d{6}$"
@@ -156,14 +173,39 @@
     "empirical": {
       "type": "object",
       "additionalProperties": false,
+      "description": "Machine-filled IRT and telemetry block. All numeric fields are bounded to their domain. Never authored by hand.",
       "properties": {
-        "difficulty_b": { "type": ["number", "null"] },
-        "discrimination_a": { "type": ["number", "null"] },
-        "guessing_c": { "type": ["number", "null"] },
-        "p_value": { "type": ["number", "null"] },
-        "avg_seconds": { "type": ["number", "null"] },
+        "difficulty_b": {
+          "type": ["number", "null"],
+          "minimum": -6, "maximum": 6,
+          "description": "IRT difficulty (ability-scale logits). Range [-6, 6] covers all practical items."
+        },
+        "discrimination_a": {
+          "type": ["number", "null"],
+          "minimum": 0, "maximum": 5,
+          "description": "IRT discrimination parameter. Negative discrimination indicates a problem item."
+        },
+        "guessing_c": {
+          "type": ["number", "null"],
+          "minimum": 0, "maximum": 1,
+          "description": "IRT pseudo-guessing parameter. Probability in [0, 1]."
+        },
+        "p_value": {
+          "type": ["number", "null"],
+          "minimum": 0, "maximum": 1,
+          "description": "Proportion of correct responses. Probability in [0, 1]."
+        },
+        "avg_seconds": {
+          "type": ["number", "null"],
+          "minimum": 0, "maximum": 3600,
+          "description": "Mean solve time in seconds. Capped at 3600 (1 hour) to bound outliers."
+        },
         "n_responses": { "type": "integer", "minimum": 0 },
-        "community_rating": { "type": ["number", "null"] },
+        "community_rating": {
+          "type": ["number", "null"],
+          "minimum": 1, "maximum": 5,
+          "description": "Community quality rating on a 1..5 scale."
+        },
         "community_rating_count": { "type": "integer", "minimum": 0 },
         "calibration_status": { "enum": ["none", "provisional", "calibrated"] },
         "last_calibrated": { "type": ["string", "null"], "format": "date" }
@@ -183,6 +225,16 @@
         "content_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
         "alt": { "type": "string", "minLength": 1 },
         "caption": { "type": "string" }
+      }
+    },
+    "solution": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Optional executable solution. Required when verification_status is machine_verified. The file at path (relative to the pack root) must exist and be non-empty (enforced by Tier-2 SOLUTION_FILE_MISSING check). Execution is a later task (W3-1).",
+      "required": ["language", "path"],
+      "properties": {
+        "language": { "enum": ["python"], "description": "Programming language of the solution script." },
+        "path": { "type": "string", "minLength": 1, "description": "Relative path within the pack to the solution .py file, e.g. solutions/arn_caf_qa_000001.py" }
       }
     }
   }

@@ -40,7 +40,7 @@ def migrate(v1: dict) -> dict:
         "exam": "ca_foundation",
         "lang": "en",
         "pool": v1["pool"],
-        "verification_status": "machine_verified",
+        "verification_status": "model_audited",
         "provenance": provenance,
         "tests": tests,
         "difficulty_label": v1["difficulty"],
