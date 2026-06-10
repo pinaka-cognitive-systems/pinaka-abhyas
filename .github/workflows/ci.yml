@@ -36,6 +36,17 @@ jobs:
       - name: "Tests: validator"
         run: python3 -m pytest schema/validator/tests -q
 
+      - name: "Build the pack artifact (consumed by the app job)"
+        run: python3 packs/ca-foundation-qa/build_and_validate.py
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ca-pack
+          path: |
+            packs/ca-foundation-qa/pack.json
+            packs/ca-foundation-qa/pack.manifest.json
+          retention-days: 1
+
   quality-report:
     name: Content quality report (advisory, never blocks merge)
     runs-on: ubuntu-latest
