@@ -44,6 +44,7 @@ import {
   type ServedQuestion,
   type SessionProgress,
 } from "./machine.js";
+import { getExamMs } from "../firstrun/meta.js";
 import { loadCaContent } from "./content.js";
 import type { ContentItem } from "./types.js";
 import "./practice.css";
@@ -84,6 +85,7 @@ export function PracticeFlow({ onExit }: PracticeFlowProps): JSX.Element {
   // Mutable session state that does not drive rendering directly. Held in refs
   // so the answer handler reads the latest without stale-closure bugs.
   const loadedRef = useRef<Loaded | null>(null);
+  const examMsRef = useRef<number | undefined>(undefined);
   const stateRef = useRef<EngineState | null>(null);
   const sessionRef = useRef<SessionProgress>(EMPTY_SESSION);
   const answeredRef = useRef<number>(0);
@@ -108,8 +110,12 @@ export function PracticeFlow({ onExit }: PracticeFlowProps): JSX.Element {
       loadedRef.current = { pack, content, adapter };
 
       const nowMs = Date.now();
+      // Exam horizon from first-run capture: switches on exam-aware scheduling
+      // (engine SPEC 4); undefined means the undecided path, no capping.
+      const examMs = await getExamMs(adapter);
+      examMsRef.current = examMs;
       const events = await adapter.readAllEvents();
-      const state = buildEngineState(events, pack.bank, nowMs);
+      const state = buildEngineState(events, pack.bank, nowMs, examMs);
       stateRef.current = state;
 
       if (cancelled) return;
@@ -199,7 +205,7 @@ export function PracticeFlow({ onExit }: PracticeFlowProps): JSX.Element {
     // Rebuild engine state from the full log (event log is the source of truth,
     // ADR 0009). Advance the session bookkeeping and the answered count.
     const events = await loaded.adapter.readAllEvents();
-    stateRef.current = buildEngineState(events, loaded.pack.bank, occurredAtMs);
+    stateRef.current = buildEngineState(events, loaded.pack.bank, occurredAtMs, examMsRef.current);
     sessionRef.current = advanceSession(sessionRef.current, q);
     answeredRef.current += 1;
 

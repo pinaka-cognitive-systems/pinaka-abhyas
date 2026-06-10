@@ -1,40 +1,62 @@
 /**
- * Minimal hash router (W5-5 flow a).
+ * Minimal hash router (W5-5 flow a + flow d).
  *
  * No dependency: the app is a static PWA and other flows land alongside this
  * one. A hash route (`#/practice`) keeps deep links working on GitHub/Cloudflare
- * Pages with no server rewrite, and survives offline reloads. This router maps
- * exactly the routes flow (a) needs today: the default screen (the existing
- * Shell demo) and the practice loop. Other agents add their routes here as their
- * flows land; the map is the single registration point.
+ * Pages with no server rewrite, and survives offline reloads. Other agents add
+ * their routes here as their flows land; the map is the single registration
+ * point.
  *
- * The PracticeFlow is loaded lazily so its code and the pack content chunk stay
- * off the entry chunk until the student actually opens practice.
+ * Default route (flow d): the FIRST visit on a device runs the first-run flow
+ * (welcome, install, persistence honesty, exam capture); thereafter the default
+ * sends the student straight to practice. "First visit" is the storage meta flag
+ * `firstrun_completed`, read once at boot — so it survives reloads and is not a
+ * fragile guess. While that read is in flight the router shows a neutral boot
+ * screen, never a flash of the wrong flow. The old engine-demo Shell now lives
+ * at the explicit `#/home` route.
+ *
+ * The PracticeFlow, DiagnosisFlow, and FirstRunFlow are loaded lazily so their
+ * code and the pack content chunk stay off the entry chunk until needed.
  */
 
 import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 
 import { Shell } from "../Shell.js";
+import { isFirstRunComplete } from "./firstrun/meta.js";
+import { AlreadyOpenError, openStorage } from "../storage/index.js";
 
 const PracticeFlow = lazy(() =>
   import("./practice/PracticeFlow.js").then((m) => ({ default: m.PracticeFlow })),
 );
 
-/** Read the current route from the URL hash. Unknown hashes fall to "home". */
+const DiagnosisFlow = lazy(() =>
+  import("./diagnosis/DiagnosisFlow.js").then((m) => ({ default: m.DiagnosisFlow })),
+);
+
+const FirstRunFlow = lazy(() =>
+  import("./firstrun/FirstRunFlow.js").then((m) => ({ default: m.FirstRunFlow })),
+);
+
+/** Read the current route from the URL hash. The empty hash is the default
+ * route, which the router resolves to first-run or practice at boot. */
 function readRoute(): string {
-  if (typeof window === "undefined") return "home";
-  const hash = window.location.hash.replace(/^#\/?/, "");
-  return hash.length === 0 ? "home" : hash;
+  if (typeof window === "undefined") return "";
+  return window.location.hash.replace(/^#\/?/, "");
 }
 
 /** Navigate by setting the hash (records a history entry, so Back works). */
 function navigate(route: string): void {
   if (typeof window === "undefined") return;
-  window.location.hash = route === "home" ? "" : `/${route}`;
+  window.location.hash = route === "" ? "" : `/${route}`;
 }
+
+/** The default-route decision: first-run for a new device, practice otherwise.
+ * null while the meta read is in flight. */
+type DefaultTarget = "firstrun" | "practice" | null;
 
 export function Router(): JSX.Element {
   const [route, setRoute] = useState<string>(readRoute);
+  const [defaultTarget, setDefaultTarget] = useState<DefaultTarget>(null);
 
   useEffect(() => {
     const onHash = (): void => setRoute(readRoute());
@@ -42,50 +64,125 @@ export function Router(): JSX.Element {
     return () => window.removeEventListener("hashchange", onHash);
   }, []);
 
-  const goHome = useCallback(() => navigate("home"), []);
+  // Resolve the default target once, by reading the first-run completion flag
+  // from storage. Done lazily off the entry path. A failure (or second-tab)
+  // falls back sensibly: an AlreadyOpenError means another tab already holds
+  // the connection, so the device is not new (go to practice, which renders the
+  // second-tab screen itself); any other failure treats the device as fresh and
+  // runs first-run. We open and release immediately so the flows own their own
+  // connection.
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      try {
+        const { adapter } = await openStorage();
+        const done = await isFirstRunComplete(adapter);
+        await adapter.close();
+        if (!cancelled) setDefaultTarget(done ? "practice" : "firstrun");
+      } catch (err) {
+        if (cancelled) return;
+        setDefaultTarget(err instanceof AlreadyOpenError ? "practice" : "firstrun");
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const goDefault = useCallback(() => navigate(""), []);
+  const goPractice = useCallback(() => navigate("practice"), []);
 
   if (route === "practice") {
     return (
+      <Suspense fallback={<BootScreen label="Loading practice" />}>
+        <PracticeFlow onExit={goDefault} />
+      </Suspense>
+    );
+  }
+
+  if (route === "diagnosis") {
+    return (
       <Suspense
         fallback={
-          <div className="pr-screen">
-            <main className="pr-body">
-              <section className="pr-status" aria-busy="true">
-                <p className="pr-status__label">Loading practice</p>
+          <div className="dg-screen">
+            <main className="dg-body">
+              <section className="dg-status" aria-busy="true">
+                <p className="dg-status__label">Loading your diagnosis</p>
               </section>
             </main>
           </div>
         }
       >
-        <PracticeFlow onExit={goHome} />
+        <DiagnosisFlow onExit={goDefault} />
       </Suspense>
     );
   }
 
-  // Default: the existing engine demo Shell, with an entry into practice.
-  return (
-    <div>
-      <Shell />
-      <div style={{ padding: "var(--gutter)" }}>
-        <button
-          type="button"
-          onClick={() => navigate("practice")}
-          style={{
-            minHeight: "var(--touch-target)",
-            padding: "0 var(--space-5)",
-            borderRadius: "var(--radius-md)",
-            border: "1px solid transparent",
-            background: "var(--color-brand-primary)",
-            color: "var(--color-brand-text)",
-            font: "inherit",
-            fontSize: "var(--text-base)",
-            fontWeight: "var(--font-weight-medium)",
-            cursor: "pointer",
-          }}
-        >
-          Start practice
-        </button>
+  // Explicit first-run route (a student can revisit it via #/firstrun).
+  if (route === "firstrun") {
+    return (
+      <Suspense fallback={<BootScreen label="Loading" />}>
+        <FirstRunFlow onComplete={goPractice} />
+      </Suspense>
+    );
+  }
+
+  // The old engine-demo Shell, kept at an explicit route.
+  if (route === "home") {
+    return (
+      <div>
+        <Shell />
+        <div style={{ padding: "var(--gutter)" }}>
+          <button
+            type="button"
+            onClick={() => navigate("practice")}
+            style={{
+              minHeight: "var(--touch-target)",
+              padding: "0 var(--space-5)",
+              borderRadius: "var(--radius-md)",
+              border: "1px solid transparent",
+              background: "var(--color-brand-primary)",
+              color: "var(--color-brand-text)",
+              font: "inherit",
+              fontSize: "var(--text-base)",
+              fontWeight: "var(--font-weight-medium)",
+              cursor: "pointer",
+            }}
+          >
+            Start practice
+          </button>
+        </div>
       </div>
+    );
+  }
+
+  // Default route (empty hash): resolve first-run vs practice from the flag.
+  if (defaultTarget === null) {
+    return <BootScreen label="Loading" />;
+  }
+  if (defaultTarget === "firstrun") {
+    return (
+      <Suspense fallback={<BootScreen label="Loading" />}>
+        <FirstRunFlow onComplete={goPractice} />
+      </Suspense>
+    );
+  }
+  return (
+    <Suspense fallback={<BootScreen label="Loading practice" />}>
+      <PracticeFlow onExit={goDefault} />
+    </Suspense>
+  );
+}
+
+/** Neutral boot screen, reusing the practice status shell tokens. */
+function BootScreen({ label }: { readonly label: string }): JSX.Element {
+  return (
+    <div className="pr-screen">
+      <main className="pr-body">
+        <section className="pr-status" aria-busy="true">
+          <p className="pr-status__label">{label}</p>
+        </section>
+      </main>
     </div>
   );
 }
