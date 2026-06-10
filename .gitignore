@@ -30,3 +30,6 @@ syllabus/extracted/sa-may-2025-qa.md
 
 # Python packaging artifact (pip install . in repo root)
 *.egg-info/
+
+# Engine build output
+engine-ts/dist/
