@@ -1,71 +1,17 @@
 {
-  "_comment": "Explicit allowlist of known MISCONCEPTION_FAMILY_MISMATCH violations pending W4-2 retag. Each entry records the item, option, and tag that violates scoping, and the note explains why it is deferred. This is a visible debt register. An empty allowlist is the end state. Date created: 2026-06-10.",
+  "_comment": "Explicit allowlist of known MISCONCEPTION_FAMILY_MISMATCH violations. This is a visible debt register; an empty allowlist is the end state. Date created: 2026-06-10. W4-2 retag applied 2026-06-10: nine of the original eleven entries resolved by retagging to in-family ids; the two below are genuine canon gaps, not tag errors.",
   "allowlist": [
-    {
-      "item_id": "arn_caf_qa_000004",
-      "option_key": 2,
-      "misconception": "formula_misapplied",
-      "note": "pending W4-2 retag: formula_misapplied families=[qa.bmath.finance, qa.stats, qa.bmath.sequence_series] does not cover qa.bmath.permutations_combinations"
-    },
-    {
-      "item_id": "arn_caf_qa_000005",
-      "option_key": 4,
-      "misconception": "formula_misapplied",
-      "note": "pending W4-2 retag: formula_misapplied families=[qa.bmath.finance, qa.stats, qa.bmath.sequence_series] does not cover qa.bmath.equations"
-    },
-    {
-      "item_id": "arn_caf_qa_000015",
-      "option_key": 2,
-      "misconception": "off_by_one",
-      "note": "pending W4-2 retag: off_by_one families=[qa.bmath.permutations_combinations, qa.bmath.sequence_series, qa.bmath.finance] does not cover qa.lr.series_coding"
-    },
-    {
-      "item_id": "arn_caf_qa_000015",
-      "option_key": 4,
-      "misconception": "sign_error",
-      "note": "pending W4-2 retag: sign_error families=[qa.bmath.equations, qa.bmath.inequalities, qa.stats] does not cover qa.lr.series_coding"
-    },
-    {
-      "item_id": "arn_caf_qa_000016",
-      "option_key": 2,
-      "misconception": "off_by_one",
-      "note": "pending W4-2 retag: off_by_one families=[qa.bmath.permutations_combinations, qa.bmath.sequence_series, qa.bmath.finance] does not cover qa.lr.series_coding"
-    },
-    {
-      "item_id": "arn_caf_qa_000016",
-      "option_key": 3,
-      "misconception": "constraint_reversed",
-      "note": "pending W4-2 retag: constraint_reversed families=[qa.lr.seating, qa.lr.direction_tests] does not cover qa.lr.series_coding"
-    },
     {
       "item_id": "arn_caf_qa_000017",
       "option_key": 3,
       "misconception": "concept_definition_confused",
-      "note": "pending W4-2 retag: concept_definition_confused families=[qa.stats.index_numbers, qa.stats.central_tendency_dispersion, qa.stats.data_representation, qa.stats.distributions] does not cover qa.stats.correlation_regression"
-    },
-    {
-      "item_id": "arn_caf_qa_000018",
-      "option_key": 3,
-      "misconception": "concept_definition_confused",
-      "note": "pending W4-2 retag: concept_definition_confused families=[qa.stats.index_numbers, qa.stats.central_tendency_dispersion, qa.stats.data_representation, qa.stats.distributions] does not cover qa.bmath.sets_functions"
-    },
-    {
-      "item_id": "arn_caf_qa_000020",
-      "option_key": 1,
-      "misconception": "ratio_inverted",
-      "note": "pending W4-2 retag: ratio_inverted families=[qa.bmath.ratio_indices_log] does not cover qa.stats.index_numbers"
-    },
-    {
-      "item_id": "arn_caf_qa_000022",
-      "option_key": 1,
-      "misconception": "time_factor_dropped",
-      "note": "pending W4-2 retag: time_factor_dropped families=[qa.bmath.finance] does not cover qa.stats.distributions"
+      "note": "canon gap: the error path (swapping b_vu and b_uv definitions) is concept_definition_confused, but the id's families do not cover qa.stats.correlation_regression. Extend the id's families in the batched canon v3 bump at W4-3; the bundle doctrine forbids a second version bump before then."
     },
     {
       "item_id": "arn_caf_qa_000024",
       "option_key": 1,
       "misconception": "concept_definition_confused",
-      "note": "pending W4-2 retag: concept_definition_confused families=[qa.stats.index_numbers, qa.stats.central_tendency_dispersion, qa.stats.data_representation, qa.stats.distributions] does not cover qa.stats.correlation_regression"
+      "note": "canon gap: the error path (assuming b_YX equals b_XY) is concept_definition_confused, but the id's families do not cover qa.stats.correlation_regression. Extend the id's families in the batched canon v3 bump at W4-3; the bundle doctrine forbids a second version bump before then."
     }
   ]
 }

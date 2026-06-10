@@ -54,7 +54,7 @@
       "option_key": 1,
       "verdict": "incorrect",
       "rationale": "Applying the Poisson variance formula to a 1-hour period (lambda = 4) instead of the stated 2-hour period gives variance = 4.",
-      "misconception": "time_factor_dropped"
+      "misconception": "misread_quantity"
     },
     {
       "option_key": 3,

@@ -39,13 +39,13 @@
       "option_key": 2,
       "verdict": "incorrect",
       "rationale": "Starting the shift sequence at 0 instead of 1 gives R+0=R, A+1=B, J+2=L = RBL.",
-      "misconception": "off_by_one"
+      "misconception": "coding_rule_misapplied"
     },
     {
       "option_key": 3,
       "verdict": "incorrect",
       "rationale": "Applying the shifts in reverse order (+3, +2, +1) gives R+3=U, A+2=C, J+1=K = UCK.",
-      "misconception": "constraint_reversed"
+      "misconception": "coding_rule_misapplied"
     }
   ],
   "explanation": "The rule assigns shift n to the nth letter of the word: position 1 gets +1, position 2 gets +2, position 3 gets +3. R(18)+1=19=S, A(1)+2=3=C, J(10)+3=13=M, yielding SCM.",

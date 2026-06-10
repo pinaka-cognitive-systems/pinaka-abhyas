@@ -66,7 +66,7 @@
       "option_key": 4,
       "verdict": "incorrect",
       "rationale": "Treated the rectangle as a square and averaged the semi-perimeter, 50/2 = 25.",
-      "misconception": "formula_misapplied"
+      "misconception": "wrong_formula"
     }
   ],
   "explanation": "l + w = 100/2 = 50 and lw = 600 give the quadratic x^2 - 50x + 600 = 0. Discriminant = 2500 - 2400 = 100, so x = (50 + 10)/2 = 30 or 20. The longer side is 30 m.",

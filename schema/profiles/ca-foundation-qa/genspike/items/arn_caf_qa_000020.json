@@ -54,7 +54,7 @@
       "option_key": 1,
       "verdict": "incorrect",
       "rationale": "Student inverted the ratio and computed (P0 / P1) x 100 = (40 / 50) x 100 = 80.",
-      "misconception": "ratio_inverted"
+      "misconception": "percentage_base_confusion"
     },
     {
       "option_key": 2,

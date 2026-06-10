@@ -39,7 +39,7 @@
       "option_key": 2,
       "verdict": "incorrect",
       "rationale": "Dividing 8 x 7 x 6 = 336 by 2! instead of 3! gives 168; the full factorial of the selection size was not used.",
-      "misconception": "formula_misapplied"
+      "misconception": "permutation_combination_confusion"
     },
     {
       "option_key": 3,

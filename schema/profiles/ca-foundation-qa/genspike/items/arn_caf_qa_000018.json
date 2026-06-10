@@ -60,7 +60,7 @@
       "option_key": 3,
       "verdict": "incorrect",
       "rationale": "Confusing 'has transitivity' with 'is an equivalence relation' ignores the symmetry requirement; the relation fails symmetry so it cannot be an equivalence relation.",
-      "misconception": "concept_definition_confused"
+      "misconception": "relation_property_misidentified"
     },
     {
       "option_key": 4,

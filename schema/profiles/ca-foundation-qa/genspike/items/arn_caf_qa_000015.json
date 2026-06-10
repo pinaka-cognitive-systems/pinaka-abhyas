@@ -26,8 +26,8 @@
   "per_option_rationale": [
     { "option_key": 3, "verdict": "correct", "rationale": "The differences are 4, 6, 8, 10, increasing by 2 each step; next difference = 12, so next term = 30 + 12 = 42." },
     { "option_key": 1, "verdict": "incorrect", "rationale": "Treats the series as having a constant difference of 4 (the first difference only), giving 30 + 4 = 34 instead of recognising the growing gaps.", "misconception": "series_pattern_misidentified" },
-    { "option_key": 2, "verdict": "incorrect", "rationale": "Uses 11 as the next difference (one less than the correct value of 12), giving 30 + 11 = 41.", "misconception": "off_by_one" },
-    { "option_key": 4, "verdict": "incorrect", "rationale": "Subtracts the next difference instead of adding it: 30 - 12 = 18.", "misconception": "sign_error" }
+    { "option_key": 2, "verdict": "incorrect", "rationale": "Uses 11 as the next difference (one less than the correct value of 12), giving 30 + 11 = 41.", "misconception": "series_pattern_misidentified" },
+    { "option_key": 4, "verdict": "incorrect", "rationale": "Subtracts the next difference instead of adding it: 30 - 12 = 18.", "misconception": "arithmetic_slip" }
   ],
   "explanation": "The consecutive differences are 4, 6, 8, 10 -- each two more than the previous. The next difference is 12, making the next term 30 + 12 = 42. The underlying pattern is n*(n+1): terms are 1*2, 2*3, 3*4, 4*5, 5*6, 6*7.",
   "empirical": { "calibration_status": "none", "n_responses": 0 },
