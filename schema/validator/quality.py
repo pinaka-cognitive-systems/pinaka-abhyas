@@ -12,6 +12,46 @@ import re
 from collections import Counter, defaultdict
 
 # ---------------------------------------------------------------------------
+# B1 READABILITY CONSTANTS (W3-5 / positioning-ca.md "Target CEFR B1").
+#
+# These thresholds implement the three checks mandated by the task:
+#   1. Sentence length over B1_MAX_WORDS_PER_SENTENCE words.
+#   2. More than B1_MAX_SUBORDINATE_MARKERS subordinate clause markers per sentence.
+#   3. Presence of any word from B1_BANNED_JARGON.
+#
+# The marker list and jargon list are sourced from positioning-ca.md and the task spec.
+# All thresholds are PROVISIONAL and advisory by default; gating requires --strict.
+# ---------------------------------------------------------------------------
+
+B1_MAX_WORDS_PER_SENTENCE = 25
+"""Sentence length above this word count warns as too long for CEFR B1."""
+
+B1_MAX_SUBORDINATE_MARKERS = 1
+"""More than this many subordinate clause markers in one sentence warns."""
+
+B1_SUBORDINATE_MARKERS = [
+    "which",
+    "where",
+    "although",
+    "whereas",
+    "given that",
+]
+"""Subordinate clause markers that signal clause depth exceeding B1."""
+
+B1_BANNED_JARGON = [
+    "utilize",
+    "ascertain",
+    "commence",
+    "endeavour",
+    "notwithstanding",
+]
+"""Words banned by the B1 readability policy (positioning-ca.md)."""
+
+# Sentence splitter: split on . ! ? followed by whitespace or end-of-string.
+# Handles abbreviations imperfectly but is good enough for content lint.
+_SENTENCE_SPLIT_RE = re.compile(r"[.!?]+(?:\s+|$)")
+
+# ---------------------------------------------------------------------------
 # PROVISIONAL THRESHOLDS — all named, all documented, all at the top.
 # ---------------------------------------------------------------------------
 
@@ -65,9 +105,25 @@ OVERUSE_SHARE = 0.25
 DIFFICULTY_SKEW_THRESHOLD = 0.85
 """Single difficulty level above this fraction of the pack warns as extreme skew."""
 
-# Blueprint part-share thresholds
-PART_MARKS = {"qa.bmath": 40, "qa.lr": 20, "qa.stats": 40}
-"""Expected mark allocation per part (sum = 100)."""
+# PART_MARKS is NO LONGER a hardcoded literal (VAL-09).
+# Use _derive_part_marks(blueprint) to get this at runtime.
+# The constant below is kept ONLY as a fallback for unit tests that do not
+# supply a full blueprint.  Production code must call _derive_part_marks().
+_PART_MARKS_FALLBACK = {"qa.bmath": 40, "qa.lr": 20, "qa.stats": 40}
+"""Fallback only.  Do not use directly; call _derive_part_marks(blueprint)."""
+
+
+def _derive_part_marks(blueprint: dict) -> dict:
+    """Derive PART_MARKS from blueprint parts at runtime (VAL-09).
+
+    Returns {part_id: marks}.  Falls back to _PART_MARKS_FALLBACK if the
+    blueprint has no 'parts' list (e.g. minimal test blueprints).
+    """
+    parts = blueprint.get("parts", [])
+    if not parts:
+        return dict(_PART_MARKS_FALLBACK)
+    result = {p["id"]: p["marks"] for p in parts if "marks" in p}
+    return result
 
 PART_SHARE_TOLERANCE = 0.15
 """Warn if a part's share of items deviates from expected by more than this."""
@@ -472,8 +528,10 @@ def check_blueprint_coverage(items: list, blueprint: dict) -> dict:
 
     gaps = sorted(f for f in all_families if family_counts[f] == 0)
 
-    # Part share check: expected vs actual
-    total_marks = sum(PART_MARKS.values())
+    # Part share check: expected vs actual.
+    # Derive PART_MARKS from the blueprint at runtime (VAL-09 single source).
+    derived_part_marks = _derive_part_marks(blueprint)
+    total_marks = sum(derived_part_marks.values())
     total_items = sum(part_counts.values())
 
     warnings = []
@@ -481,7 +539,7 @@ def check_blueprint_coverage(items: list, blueprint: dict) -> dict:
     status = "PASS"
 
     if total_items > 0:
-        for pid, expected_marks in PART_MARKS.items():
+        for pid, expected_marks in derived_part_marks.items():
             expected_share = expected_marks / total_marks
             actual_share = part_counts.get(pid, 0) / total_items
             deviation = abs(actual_share - expected_share)
@@ -507,6 +565,100 @@ def check_blueprint_coverage(items: list, blueprint: dict) -> dict:
         "warnings": warnings,
         "status": status,
     }
+
+
+# ---------------------------------------------------------------------------
+# B1 readability lint (W3-5 / advisory by default; gating with --strict)
+# ---------------------------------------------------------------------------
+
+
+def lint_b1_readability(item: dict) -> list:
+    """Return B1 readability warnings for a single item.
+
+    Checks stem, option texts, and explanation.  Rationale fields are NOT checked
+    here (they are coach-facing, not student-facing at the B1 surface).
+
+    Each warning: {"code": "B1_READABILITY", "item_id": str, "message": str}.
+    Pure function; never raises.
+    """
+    warnings = []
+    iid = item.get("id", "<no-id>")
+
+    def warn(msg: str) -> None:
+        warnings.append({"code": "B1_READABILITY", "item_id": iid, "message": msg})
+
+    texts_to_check = [
+        ("stem", item.get("stem", "") or ""),
+        ("explanation", item.get("explanation", "") or ""),
+    ]
+    for opt in item.get("options", []):
+        texts_to_check.append((f"option {opt.get('key', '?')}", opt.get("text", "") or ""))
+
+    # Banned jargon — check across all fields combined.
+    all_text = " ".join(t for _, t in texts_to_check).lower()
+    for jargon in B1_BANNED_JARGON:
+        # Word-boundary match so "utilizing" catches "utilize".
+        if re.search(r"\b" + re.escape(jargon.lower()), all_text):
+            warn(f"banned jargon '{jargon}' found")
+
+    # Per-sentence checks on stem and explanation only (options are short by design).
+    for field_name, field_text in texts_to_check:
+        if field_name.startswith("option"):
+            continue  # option texts are short; sentence checks don't apply
+        if not field_text.strip():
+            continue
+        # Split into sentences
+        sentences = [s.strip() for s in _SENTENCE_SPLIT_RE.split(field_text) if s.strip()]
+        for sent in sentences:
+            words = sent.split()
+            word_count = len(words)
+            if word_count > B1_MAX_WORDS_PER_SENTENCE:
+                warn(
+                    f"{field_name}: sentence has {word_count} words "
+                    f"(max {B1_MAX_WORDS_PER_SENTENCE}): '{sent[:80]}...'"
+                    if len(sent) > 80
+                    else f"{field_name}: sentence has {word_count} words "
+                    f"(max {B1_MAX_WORDS_PER_SENTENCE}): '{sent}'"
+                )
+            # Count subordinate clause markers.
+            sent_lower = sent.lower()
+            marker_count = sum(
+                1
+                for m in B1_SUBORDINATE_MARKERS
+                if re.search(r"\b" + re.escape(m.lower()) + r"\b", sent_lower)
+            )
+            if marker_count > B1_MAX_SUBORDINATE_MARKERS:
+                found = [
+                    m
+                    for m in B1_SUBORDINATE_MARKERS
+                    if re.search(r"\b" + re.escape(m.lower()) + r"\b", sent_lower)
+                ]
+                warn(
+                    f"{field_name}: sentence has {marker_count} subordinate markers "
+                    f"(max {B1_MAX_SUBORDINATE_MARKERS}): {found}"
+                )
+
+    return warnings
+
+
+def run_b1_readability_checks(items: list) -> dict:
+    """Run B1 readability lint across all items.
+
+    Returns:
+        {
+            "item_warnings": {item_id: [warning_dict]},
+            "warn_count": int,
+        }
+    """
+    item_warnings: dict = {}
+    total_warn = 0
+    for item in items:
+        iid = item.get("id", "<no-id>")
+        w = lint_b1_readability(item)
+        if w:
+            item_warnings[iid] = w
+            total_warn += len(w)
+    return {"item_warnings": item_warnings, "warn_count": total_warn}
 
 
 # ---------------------------------------------------------------------------

@@ -56,14 +56,10 @@ def _make_rich_bank(blueprint):
 
 class TestPartAllocation(unittest.TestCase):
     def test_100_item_paper_matches_blueprint(self):
-        from assemble import PART_MARKS
-
-        alloc = _allocate_to_parts(100, {"parts": []})
-        # With empty parts list the function still uses PART_MARKS directly
-        # Test via the full blueprint path instead
+        # PART_MARKS is now derived from the blueprint (VAL-09: single source).
         bp = minimal_blueprint()
         alloc = _allocate_to_parts(100, bp)
-        # PART_MARKS: bmath=40, lr=20, stats=40 → sum=100
+        # minimal_blueprint() has bmath=40, lr=20, stats=40 → sum=100
         self.assertEqual(sum(alloc.values()), 100)
         self.assertEqual(alloc["qa.bmath"], 40)
         self.assertEqual(alloc["qa.lr"], 20)

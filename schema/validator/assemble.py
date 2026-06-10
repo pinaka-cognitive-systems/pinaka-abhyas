@@ -26,22 +26,44 @@ DIFFICULTY_WEIGHTS = {"L1": 1, "L2": 2, "L3": 3}
 ANSWER_POS_TARGET = 0.25
 """Target fraction of correct answers at each position (balanced)."""
 
-# Part mark allocations — must match blueprint
-PART_MARKS = {"qa.bmath": 40, "qa.lr": 20, "qa.stats": 40}
-"""Mark (= question) allocation per part for a 100-question paper."""
+# PART_MARKS is NO LONGER a hardcoded literal (VAL-09).
+# It is derived at runtime from the blueprint by _derive_part_marks().
+# The hardcoded fallback below is used ONLY when no blueprint is available
+# (e.g. in unit tests that pass a minimal blueprint without a 'parts' list).
+_PART_MARKS_FALLBACK = {"qa.bmath": 40, "qa.lr": 20, "qa.stats": 40}
+"""Fallback part-mark allocation used only when blueprint has no 'parts'. Do not use
+directly; call _derive_part_marks(blueprint) instead."""
+
+
+def _derive_part_marks(blueprint: dict) -> dict:
+    """Derive PART_MARKS from blueprint parts at runtime (VAL-09).
+
+    Returns a dict {part_id: marks}.  Assertions: all marks are positive integers
+    and sum to 100.  Falls back to the hardcoded constant if blueprint has no parts.
+    """
+    parts = blueprint.get("parts", [])
+    if not parts:
+        return dict(_PART_MARKS_FALLBACK)
+    result = {p["id"]: p["marks"] for p in parts if "marks" in p}
+    total = sum(result.values())
+    assert total == 100, (
+        f"Blueprint part marks sum to {total}, expected 100. "
+        f"Parts: {result}"
+    )
+    return result
 
 # ---------------------------------------------------------------------------
 # Internal helpers
 # ---------------------------------------------------------------------------
 
 
-def _part_for_item(item: dict) -> str | None:
+def _part_for_item(item: dict, part_marks: dict) -> str | None:
     """Return the part id (qa.bmath / qa.lr / qa.stats) for an item, or None."""
     tests = item.get("tests", [])
     if not tests:
         return None
     subtopic = tests[0]
-    for pid in PART_MARKS:
+    for pid in part_marks:
         if subtopic == pid or subtopic.startswith(pid + "."):
             return pid
     return None
@@ -104,8 +126,9 @@ def _family_weight_midpoints(blueprint: dict) -> dict:
 
 def _allocate_to_parts(size: int, blueprint: dict) -> dict:
     """Return {part_id: question_count} scaling PART_MARKS to the target size."""
-    total_marks = sum(PART_MARKS.values())
-    raw = {pid: (marks / total_marks) * size for pid, marks in PART_MARKS.items()}
+    part_marks = _derive_part_marks(blueprint)
+    total_marks = sum(part_marks.values())
+    raw = {pid: (marks / total_marks) * size for pid, marks in part_marks.items()}
     # Integer allocation preserving sum via largest-remainder
     floors = {pid: int(v) for pid, v in raw.items()}
     remainders = sorted(

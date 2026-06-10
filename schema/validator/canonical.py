@@ -29,6 +29,35 @@ def normalize_text(s: str) -> str:
     return s
 
 
+def normalize_answer_key(answer_key: dict) -> dict:
+    """Return a canonical copy of answer_key with numeric values normalized.
+
+    Rationale (VAL-08): int-vs-float and trailing-zero float formatting produce
+    different JSON serializations that hash differently, splitting identical
+    problems into distinct hashes.  e.g. 1000, 1000.0, "1000" (as a number)
+    should all produce the same hash.
+
+    Normalization rule: if 'value' is an int or float, convert to int when it
+    is a whole number, otherwise round to 10 significant digits (to collapse
+    floating-point representation noise like 0.30000000000000004).
+
+    'correct' is an integer option key; it is left untouched.
+    """
+    if not answer_key:
+        return answer_key
+    result = dict(answer_key)
+    v = result.get("value")
+    if isinstance(v, (int, float)) and not isinstance(v, bool):
+        float_v = float(v)
+        if float_v == int(float_v):
+            result["value"] = int(float_v)
+        else:
+            # Round to 10 significant figures to collapse floating-point noise.
+            from decimal import Decimal, ROUND_HALF_UP
+            result["value"] = float(f"{float_v:.10g}")
+    return result
+
+
 def referenced_asset_ids(texts):
     out = []
     for t in texts:
@@ -50,7 +79,7 @@ def compute_item_content_hash(item, assets_by_id=None):
         "item_type": item["item_type"],
         "stem": normalize_text(item.get("stem", "")),
         "options": [normalize_text(t) for t in option_texts],
-        "answer_key": item["answer_key"],
+        "answer_key": normalize_answer_key(item["answer_key"]),
         "asset_hashes": asset_hashes,
     }
     blob = json.dumps(canonical, sort_keys=True, separators=(",", ":"), ensure_ascii=False)

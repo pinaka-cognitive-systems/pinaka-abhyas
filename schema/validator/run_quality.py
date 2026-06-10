@@ -2,10 +2,19 @@
 """run_quality.py — content-quality report + assembly dry-run.
 
 Usage:
-    python3 schema/validator/run_quality.py [ITEMS_DIR_OR_PACK_JSON]
+    python3 schema/validator/run_quality.py [--strict] [ITEMS_DIR_OR_PACK_JSON]
+
+    --strict   Exit nonzero when any advisory WARN is emitted.  In strict mode the
+               following finding classes gate the build (they are also promoted to hard
+               Tier-2 violations in pack_validator.py):
+                 OPTIONS_DUPLICATE (distractor equals key — quality layer view)
+                 STEM_ANSWER_LEAK  (quality layer B1/readability check)
+                 NEAR_DUPLICATE    (near-duplicate stems above threshold)
+               Additional strict gates (sentence length, subordinate clauses, banned
+               jargon) are reported with the B1_READABILITY code.
 
 Defaults to packs/ca-foundation-qa/items when no argument is given.
-Always exits 0 (advisory). Prints a structured WARN summary.
+Without --strict, always exits 0 (advisory). Prints a structured WARN summary.
 """
 
 import json
@@ -206,9 +215,15 @@ def print_assembly_summary(assembly_result: dict) -> None:
 
 
 def main() -> None:
-    # Determine input path
-    if len(sys.argv) > 1:
-        input_path = sys.argv[1]
+    # Parse arguments: optional --strict flag followed by optional path.
+    args = sys.argv[1:]
+    strict = False
+    if "--strict" in args:
+        strict = True
+        args = [a for a in args if a != "--strict"]
+
+    if args:
+        input_path = args[0]
     else:
         input_path = _DEFAULT_ITEMS_DIR
 
@@ -225,10 +240,22 @@ def main() -> None:
     canon_ids = {m["id"] for m in misc_data.get("misconceptions", [])}
 
     # Run quality checks
-    from quality import run_quality_checks
+    from quality import run_quality_checks, run_b1_readability_checks
 
     report = run_quality_checks(items, blueprint, canon_ids)
+    b1_report = run_b1_readability_checks(items)
     print_quality_report(report)
+
+    # Print B1 readability report
+    print(_section("B1 READABILITY LINT"))
+    print()
+    if b1_report["item_warnings"]:
+        for iid, warns in sorted(b1_report["item_warnings"].items()):
+            for w in warns:
+                print(f"  WARN  {iid}  {w['code']}  {w['message']}")
+    else:
+        print("  No B1 readability warnings.")
+    print(f"\n  Total B1 warnings: {b1_report['warn_count']}")
 
     # Run assembler dry-run
     from assemble import assemble_mock
@@ -259,6 +286,11 @@ def main() -> None:
         for w in report[section_key]["warnings"]:
             all_warnings.append(f"[{section_label:14s}]  {w}")
 
+    # B1 readability warnings
+    for iid, warns in b1_report["item_warnings"].items():
+        for w in warns:
+            all_warnings.append(f"[B1_READABILITY]  {iid}  {w['code']}  {w['message']}")
+
     if all_warnings:
         for w in all_warnings:
             print(f"  WARN  {w}")
@@ -268,12 +300,22 @@ def main() -> None:
     print()
     print(f"  Total items:    {report['total_items']}")
     print(f"  Total warnings: {report['warn_count']}")
+    print(f"  Total B1 warnings: {b1_report['warn_count']}")
     print(f"  Assembled:      {assembly['size_assembled']}/{assembly['size_requested']} questions")
     print(f"  Shortfalls:     {len(assembly['shortfalls'])} families")
     print()
-    print("  Advisory only — exit 0.")
-    # Always exit 0
-    sys.exit(0)
+
+    if strict:
+        total_strict_warns = report["warn_count"] + b1_report["warn_count"]
+        if total_strict_warns > 0:
+            print(f"  STRICT MODE: {total_strict_warns} warning(s) found — exit 1.")
+            sys.exit(1)
+        else:
+            print("  STRICT MODE: no warnings — exit 0.")
+            sys.exit(0)
+    else:
+        print("  Advisory only — exit 0.")
+        sys.exit(0)
 
 
 if __name__ == "__main__":
