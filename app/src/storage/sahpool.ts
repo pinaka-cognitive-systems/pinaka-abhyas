@@ -274,6 +274,23 @@ export class SahpoolAdapter implements StorageAdapter {
   }
 
   // eslint-disable-next-line @typescript-eslint/require-await
+  async clearAll(): Promise<void> {
+    this.assertOpen();
+    // Wipe both tables in one transaction so a crash cannot leave events without
+    // their meta or vice versa. The connection stays open; the schema is kept,
+    // so the adapter is immediately reusable as a fresh, empty log.
+    this.db.exec({ sql: "BEGIN" });
+    try {
+      this.db.exec({ sql: "DELETE FROM events" });
+      this.db.exec({ sql: "DELETE FROM meta" });
+      this.db.exec({ sql: "COMMIT" });
+    } catch (err) {
+      this.db.exec({ sql: "ROLLBACK" });
+      throw err;
+    }
+  }
+
+  // eslint-disable-next-line @typescript-eslint/require-await
   async close(): Promise<void> {
     if (this.closed) return;
     this.closed = true;

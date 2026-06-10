@@ -134,6 +134,17 @@ export interface StorageAdapter {
    */
   importEnvelope(env: ExportEnvelope): Promise<ImportReport>;
 
+  /**
+   * Erase ALL local data: every event and every meta value, on this backend.
+   * Backs the settings "delete all local data" danger zone (W5-5 flow e). This
+   * is the ONLY destructive operation in the contract; it is deliberate, never
+   * implicit, and the UI gates it behind a type-to-confirm step preceded by an
+   * export nudge (ADR 0008: export is the universal backstop). The adapter stays
+   * open and usable afterward (a fresh, empty log), so the student lands back in
+   * a clean first-run rather than a closed connection.
+   */
+  clearAll(): Promise<void>;
+
   /** Release the connection and any held lock. Safe to call more than once. */
   close(): Promise<void>;
 }

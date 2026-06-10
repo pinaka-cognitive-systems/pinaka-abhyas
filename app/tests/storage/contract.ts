@@ -230,6 +230,21 @@ export function runAdapterContract(
       await a.close();
     });
 
+    it("clearAll wipes events and meta and leaves the adapter reusable", async () => {
+      const a = await open(SEED_META);
+      await a.appendEvents([makeEvent({ event_id: "e1" }), makeEvent({ event_id: "e2" })]);
+      await a.setMeta("k", "v");
+      await a.clearAll();
+      // Everything is gone.
+      expect(await a.readAllEvents()).toEqual([]);
+      expect(await a.getMeta("k")).toBeNull();
+      expect(await a.getMeta(META_KEYS.installId)).toBeNull();
+      // Still open: a fresh write works against the empty log.
+      await a.appendEvents([makeEvent({ event_id: "e3" })]);
+      expect((await a.readAllEvents()).map((e) => e.event_id)).toEqual(["e3"]);
+      await a.close();
+    });
+
     it("rejects operations after close", async () => {
       const a = await open();
       await a.close();

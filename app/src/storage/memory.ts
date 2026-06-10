@@ -202,6 +202,15 @@ export class MemoryAdapter implements StorageAdapter {
     };
   }
 
+  async clearAll(): Promise<void> {
+    this.assertOpen();
+    // Wipe the in-memory store, then overwrite the snapshot so a reload does not
+    // restore the deleted data. The adapter stays open and reusable.
+    this.events.clear();
+    this.meta.clear();
+    await this.scheduleSnapshot();
+  }
+
   async close(): Promise<void> {
     if (this.closed) return;
     this.closed = true;
