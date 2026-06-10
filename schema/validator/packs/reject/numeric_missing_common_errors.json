@@ -14,7 +14,7 @@
         "created": "2026-05-02"
       },
       "tests": [
-        "qa.interest.simple"
+        "qa.bmath.finance.simple_interest"
       ],
       "difficulty_label": "L1",
       "taxonomy_version": 2,

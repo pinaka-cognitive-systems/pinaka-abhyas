@@ -14,7 +14,7 @@
         "created": "2026-04-29"
       },
       "tests": [
-        "qa.probability.conditional"
+        "qa.stats.probability.conditional"
       ],
       "difficulty_label": "L3",
       "taxonomy_version": 2,
@@ -61,7 +61,7 @@
         "created": "2026-04-29"
       },
       "tests": [
-        "qa.probability.independent_events"
+        "qa.stats.probability.independent_events"
       ],
       "difficulty_label": "L1",
       "taxonomy_version": 2,
