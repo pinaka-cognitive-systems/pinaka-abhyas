@@ -1,0 +1,73 @@
+{
+  "items": [
+    {
+      "id": "vlt_caf_qa_000301",
+      "schema_version": "uqs-1",
+      "content_hash": "4298907fb82525bb42b9e10f9c2e279e610cf898ef284dfc9420747d28b5f80b",
+      "exam": "ca_foundation",
+      "lang": "en",
+      "pool": "vault",
+      "verification_status": "human_reviewed",
+      "provenance": {
+        "source": "near_dup_a",
+        "license": "CC-BY-NC-SA-4.0",
+        "created": "2026-06-10"
+      },
+      "tests": ["qa.bmath.finance.simple_interest"],
+      "difficulty_label": "L1",
+      "taxonomy_version": 2,
+      "item_type": "single_best",
+      "stem": "A principal of Rs 5000 is deposited at 4 percent per annum simple interest for 3 years. What is the simple interest earned at the end of the deposit period?",
+      "options": [
+        {"key": 1, "text": "600"},
+        {"key": 2, "text": "1200"},
+        {"key": 3, "text": "300"},
+        {"key": 4, "text": "150"}
+      ],
+      "answer_key": {"correct": 1},
+      "explanation": "Simple interest = P * R * T / 100 = 5000 * 4 * 3 / 100 = 600 rupees.",
+      "per_option_rationale": [
+        {"option_key": 1, "verdict": "correct", "rationale": "SI = PRT/100 = 5000*4*3/100 = 600."},
+        {"option_key": 2, "verdict": "incorrect", "rationale": "Used T=6 instead of T=3 in calculation.", "misconception": "time_factor_dropped"},
+        {"option_key": 3, "verdict": "incorrect", "rationale": "Used T=1.5 years rather than 3 years.", "misconception": "time_factor_dropped"},
+        {"option_key": 4, "verdict": "incorrect", "rationale": "Divided by 200 instead of 100 in formula.", "misconception": "formula_misapplied"}
+      ],
+      "empirical": {"calibration_status": "none", "n_responses": 0}
+    },
+    {
+      "id": "vlt_caf_qa_000302",
+      "schema_version": "uqs-1",
+      "content_hash": "8c60067dc79e8aeee3cbba8983b0b1de20eac563055e655bef8b22ab4a541716",
+      "exam": "ca_foundation",
+      "lang": "en",
+      "pool": "vault",
+      "verification_status": "human_reviewed",
+      "provenance": {
+        "source": "near_dup_b",
+        "license": "CC-BY-NC-SA-4.0",
+        "created": "2026-06-10"
+      },
+      "tests": ["qa.bmath.finance.simple_interest"],
+      "difficulty_label": "L1",
+      "taxonomy_version": 2,
+      "item_type": "single_best",
+      "stem": "A principal of Rs 5000 is deposited at 4 percent per annum simple interest for 3 years. What is the simple interest accrued at the end of the deposit period?",
+      "options": [
+        {"key": 1, "text": "600"},
+        {"key": 2, "text": "1200"},
+        {"key": 3, "text": "300"},
+        {"key": 4, "text": "150"}
+      ],
+      "answer_key": {"correct": 1},
+      "explanation": "Simple interest = P * R * T / 100 = 5000 * 4 * 3 / 100 = 600 rupees.",
+      "per_option_rationale": [
+        {"option_key": 1, "verdict": "correct", "rationale": "SI = PRT/100 = 5000*4*3/100 = 600."},
+        {"option_key": 2, "verdict": "incorrect", "rationale": "Used T=6 instead of T=3 in calculation.", "misconception": "time_factor_dropped"},
+        {"option_key": 3, "verdict": "incorrect", "rationale": "Used T=1.5 years rather than 3 years.", "misconception": "time_factor_dropped"},
+        {"option_key": 4, "verdict": "incorrect", "rationale": "Divided by 200 instead of 100 in formula.", "misconception": "formula_misapplied"}
+      ],
+      "empirical": {"calibration_status": "none", "n_responses": 0}
+    }
+  ],
+  "assets": []
+}

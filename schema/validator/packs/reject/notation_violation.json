@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "id": "vlt_caf_qa_000088",
+      "schema_version": "uqs-1",
+      "content_hash": "789e1fda6053c9a4b1a3e0e4b47437707ab218c2338424c20efd6b46b177ba5c",
+      "exam": "ca_foundation",
+      "lang": "en",
+      "pool": "vault",
+      "verification_status": "human_reviewed",
+      "provenance": {
+        "source": "notation_violation_fixture",
+        "license": "CC-BY-NC-SA-4.0",
+        "created": "2026-06-10"
+      },
+      "tests": ["qa.bmath.finance.simple_interest"],
+      "difficulty_label": "L1",
+      "taxonomy_version": 2,
+      "item_type": "single_best",
+      "stem": "Compute $\\frac{P \\cdot R \\cdot T}{100}$ for P=5000, R=4, T=3.",
+      "options": [
+        {"key": 1, "text": "Rs 600"},
+        {"key": 2, "text": "Rs 500"},
+        {"key": 3, "text": "Rs 400"},
+        {"key": 4, "text": "Rs 300"}
+      ],
+      "answer_key": {"correct": 1},
+      "explanation": "This fixture has LaTeX markup in the stem which violates the ADR 0015 notation policy.",
+      "per_option_rationale": [
+        {"option_key": 1, "verdict": "correct", "rationale": "SI = PRT/100 = 5000*4*3/100 = 600."},
+        {"option_key": 2, "verdict": "incorrect", "rationale": "Dropped one factor in the calculation.", "misconception": "time_factor_dropped"},
+        {"option_key": 3, "verdict": "incorrect", "rationale": "Used T=2 instead of T=3 in the formula.", "misconception": "time_factor_dropped"},
+        {"option_key": 4, "verdict": "incorrect", "rationale": "Divided by 200 not 100 in the formula.", "misconception": "formula_misapplied"}
+      ],
+      "empirical": {"calibration_status": "none", "n_responses": 0}
+    }
+  ],
+  "assets": []
+}

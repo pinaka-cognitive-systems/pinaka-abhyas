@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "id": "vlt_caf_qa_000088",
+      "schema_version": "uqs-1",
+      "content_hash": "b46d3bd66bafdbace8631f1182f2a16853138c96df03060207e307e3847ea6b6",
+      "exam": "ca_foundation",
+      "lang": "en",
+      "pool": "vault",
+      "verification_status": "human_reviewed",
+      "provenance": {
+        "source": "stem_answer_leak_fixture",
+        "license": "CC-BY-NC-SA-4.0",
+        "created": "2026-06-10"
+      },
+      "tests": ["qa.stats.probability.conditional"],
+      "difficulty_label": "L2",
+      "taxonomy_version": 2,
+      "item_type": "single_best",
+      "stem": "The answer is 1/4. Given that P(A and B) = 3/20 and P(B) = 3/5, find P(A given B).",
+      "options": [
+        {"key": 1, "text": "1/4"},
+        {"key": 2, "text": "1/5"},
+        {"key": 3, "text": "3/4"},
+        {"key": 4, "text": "1/2"}
+      ],
+      "answer_key": {"correct": 1},
+      "explanation": "P(A given B) = P(A and B) / P(B) = (3/20) / (3/5) = 1/4.",
+      "per_option_rationale": [
+        {"option_key": 1, "verdict": "correct", "rationale": "P(A given B) = (3/20)/(3/5) = 1/4."},
+        {"option_key": 2, "verdict": "incorrect", "rationale": "Divided by the wrong quantity.", "misconception": "conditional_reversed"},
+        {"option_key": 3, "verdict": "incorrect", "rationale": "Used complement instead of ratio.", "misconception": "complement_confusion"},
+        {"option_key": 4, "verdict": "incorrect", "rationale": "Assumed independence and guessed 1/2.", "misconception": "independence_assumed"}
+      ],
+      "empirical": {"calibration_status": "none", "n_responses": 0}
+    }
+  ],
+  "assets": []
+}

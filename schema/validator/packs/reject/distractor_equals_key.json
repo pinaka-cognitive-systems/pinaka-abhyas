@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "id": "vlt_caf_qa_000088",
+      "schema_version": "uqs-1",
+      "content_hash": "e4d1b662c2ace725fe459d941091b0bfc02ba2f8df11927f2565b5b4257c555b",
+      "exam": "ca_foundation",
+      "lang": "en",
+      "pool": "vault",
+      "verification_status": "human_reviewed",
+      "provenance": {
+        "source": "distractor_equals_key_fixture",
+        "license": "CC-BY-NC-SA-4.0",
+        "created": "2026-06-10"
+      },
+      "tests": ["qa.stats.probability.conditional"],
+      "difficulty_label": "L2",
+      "taxonomy_version": 2,
+      "item_type": "single_best",
+      "stem": "A bag contains 3 red and 2 blue balls. One ball is drawn at random. Find the probability of drawing a red ball.",
+      "options": [
+        {"key": 1, "text": "3/5"},
+        {"key": 2, "text": "3/5"},
+        {"key": 3, "text": "2/5"},
+        {"key": 4, "text": "1/5"}
+      ],
+      "answer_key": {"correct": 1},
+      "explanation": "P(red) = number of red balls / total balls = 3 / (3+2) = 3/5. This fixture has a distractor with the same text as the correct option.",
+      "per_option_rationale": [
+        {"option_key": 1, "verdict": "correct", "rationale": "P(red) = 3/(3+2) = 3/5 by classical probability."},
+        {"option_key": 2, "verdict": "incorrect", "rationale": "This option duplicates the correct answer text exactly, which is a highest-harm defect.", "misconception": "complement_confusion"},
+        {"option_key": 3, "verdict": "incorrect", "rationale": "P(blue) = 2/5, not P(red). This confuses the target event.", "misconception": "complement_confusion"},
+        {"option_key": 4, "verdict": "incorrect", "rationale": "Divided by the wrong denominator, yielding 1/5.", "misconception": "misread_quantity"}
+      ],
+      "empirical": {"calibration_status": "none", "n_responses": 0}
+    }
+  ],
+  "assets": []
+}

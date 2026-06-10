@@ -32,26 +32,97 @@ CORE = json.loads((SCHEMA_DIR / "core" / "uqs-core.schema.json").read_text())
 SCHEMA = json.loads((PROFILE_DIR / "ca-foundation-qa.schema.json").read_text())
 REGISTRY = Registry().with_resource(CORE["$id"], Resource.from_contents(CORE))
 
-REJECTS = {
-    "packs/reject/bad_hash.json": "HASH_MISMATCH",
-    "packs/reject/dup_content_hash.json": "DUP_CONTENT_HASH",
-    "packs/reject/dup_id.json": "DUP_ID",
-    "packs/reject/unknown_test_node.json": "UNKNOWN_TEST_NODE",
-    "packs/reject/bad_option_keys.json": "BAD_OPTION_KEYS",
-    "packs/reject/rationale_verdict_mismatch.json": "RATIONALE_VERDICT_MISMATCH",
-    "packs/reject/unknown_misconception.json": "UNKNOWN_MISCONCEPTION",
-    "packs/reject/dangling_asset_ref.json": "DANGLING_ASSET_REF",
-    "packs/reject/missing_rationale.json": "RATIONALE_COVERAGE",
-    "packs/reject/rationale_missing_misconception.json": "MISCONCEPTION_REQUIRED",
-    "packs/reject/numeric_missing_common_errors.json": "MISSING_COMMON_ERRORS",
-    "packs/reject/taxonomy_version_mismatch.json": "TAXONOMY_VERSION_MISMATCH",
-    "packs/reject/abstract_test_node.json": "ABSTRACT_TEST_NODE",
-    "packs/reject/misconception_family_mismatch.json": "MISCONCEPTION_FAMILY_MISMATCH",
+# REJECTS maps each reject-fixture path to its EXACT expected violation set.
+#
+# Contract: the validator must fire EXACTLY this set of codes.  A fixture that
+# starts producing extra codes (or losing its target) fails loudly — it is no
+# longer isolating the invariant it is supposed to prove.
+#
+# Companion codes are documented inline.  They arise because a deliberately
+# malformed fixture may satisfy multiple invariant violations simultaneously
+# (e.g. missing per_option_rationale fields also trigger RATIONALE_COVERAGE).
+# Every companion is deliberate and documented; accidental companions are bugs.
+REJECTS: dict[str, frozenset[str]] = {
+    # HASH_MISMATCH: stored hash is wrong.
+    # RATIONALE_COVERAGE companion: the fixture omits per_option_rationale
+    # fields to keep it minimal; the validator also fires coverage.
+    "packs/reject/bad_hash.json": frozenset({"HASH_MISMATCH", "RATIONALE_COVERAGE"}),
+
+    # DUP_CONTENT_HASH: two items share an identical content hash.
+    # NEAR_DUPLICATE companion: the two items have identical stems (that is why
+    #   they hash the same), so the near-duplicate check also fires.
+    # RATIONALE_COVERAGE companion: minimal fixtures omit per_option_rationale.
+    "packs/reject/dup_content_hash.json": frozenset({
+        "DUP_CONTENT_HASH", "NEAR_DUPLICATE", "RATIONALE_COVERAGE"
+    }),
+
+    # DUP_ID: two items share the same id.
+    # RATIONALE_COVERAGE companion: minimal fixtures omit per_option_rationale.
+    "packs/reject/dup_id.json": frozenset({"DUP_ID", "RATIONALE_COVERAGE"}),
+
+    # UNKNOWN_TEST_NODE: tests[] references a node not in the taxonomy.
+    # RATIONALE_COVERAGE companion: minimal fixture.
+    "packs/reject/unknown_test_node.json": frozenset({
+        "UNKNOWN_TEST_NODE", "RATIONALE_COVERAGE"
+    }),
+
+    # BAD_OPTION_KEYS: option keys are not unique+contiguous, or answer is not a key.
+    # RATIONALE_COVERAGE companion: minimal fixture.
+    "packs/reject/bad_option_keys.json": frozenset({"BAD_OPTION_KEYS", "RATIONALE_COVERAGE"}),
+
+    # RATIONALE_VERDICT_MISMATCH: a rationale's verdict disagrees with answer_key.
+    "packs/reject/rationale_verdict_mismatch.json": frozenset({"RATIONALE_VERDICT_MISMATCH"}),
+
+    # UNKNOWN_MISCONCEPTION: misconception id not in the exam vocabulary.
+    "packs/reject/unknown_misconception.json": frozenset({"UNKNOWN_MISCONCEPTION"}),
+
+    # DANGLING_ASSET_REF: {{asset:id}} reference does not resolve.
+    # RATIONALE_COVERAGE companion: minimal fixture.
+    "packs/reject/dangling_asset_ref.json": frozenset({"DANGLING_ASSET_REF", "RATIONALE_COVERAGE"}),
+
+    # RATIONALE_COVERAGE: per_option_rationale does not cover all options.
+    "packs/reject/missing_rationale.json": frozenset({"RATIONALE_COVERAGE"}),
+
+    # MISCONCEPTION_REQUIRED: incorrect option has no misconception field.
+    "packs/reject/rationale_missing_misconception.json": frozenset({"MISCONCEPTION_REQUIRED"}),
+
+    # MISSING_COMMON_ERRORS: numeric_entry item has no common_errors.
+    # SCHEMA companion: the fixture is a numeric_entry without options/explanation,
+    #   which triggers a JSON Schema length/required violation.
+    "packs/reject/numeric_missing_common_errors.json": frozenset({
+        "MISSING_COMMON_ERRORS", "SCHEMA"
+    }),
+
+    # TAXONOMY_VERSION_MISMATCH: taxonomy version disagrees across pack.
+    "packs/reject/taxonomy_version_mismatch.json": frozenset({"TAXONOMY_VERSION_MISMATCH"}),
+
+    # ABSTRACT_TEST_NODE: tests[] targets an abstract (non-leaf) node.
+    "packs/reject/abstract_test_node.json": frozenset({"ABSTRACT_TEST_NODE"}),
+
+    # MISCONCEPTION_FAMILY_MISMATCH: misconception families do not intersect item ancestry.
+    "packs/reject/misconception_family_mismatch.json": frozenset({"MISCONCEPTION_FAMILY_MISMATCH"}),
+
+    # DISTRACTOR_EQUALS_KEY (W3-3): an incorrect option's text equals the correct option's
+    #   text after canonical normalization.
+    "packs/reject/distractor_equals_key.json": frozenset({"DISTRACTOR_EQUALS_KEY"}),
+
+    # STEM_ANSWER_LEAK (W3-3): correct option text appears verbatim in the stem, or the
+    #   stem contains a forbidden answer-leak phrase.
+    "packs/reject/stem_answer_leak.json": frozenset({"STEM_ANSWER_LEAK"}),
+
+    # NEAR_DUPLICATE (W3-3): two stems have word-shingle Jaccard similarity >= threshold.
+    "packs/reject/near_duplicate.json": frozenset({"NEAR_DUPLICATE"}),
+
+    # NOTATION_VIOLATION (W3-5): stem/options/explanation/rationale contain LaTeX, HTML,
+    #   control characters, or characters outside the ADR 0015 allowlist.
+    "packs/reject/notation_violation.json": frozenset({"NOTATION_VIOLATION"}),
 }
 
 # Rejects that need pack_root to fire (Tier-2 filesystem checks).
-REJECTS_WITH_PACK_ROOT = {
-    "packs/reject/solution_file_missing.json": "SOLUTION_FILE_MISSING",
+# Same exact-set contract applies.
+REJECTS_WITH_PACK_ROOT: dict[str, frozenset[str]] = {
+    # SOLUTION_FILE_MISSING: item's solution.path does not exist under pack_root.
+    "packs/reject/solution_file_missing.json": frozenset({"SOLUTION_FILE_MISSING"}),
 }
 
 
@@ -202,26 +273,40 @@ def main() -> int:
     else:
         print("PASS  good pack: 0 violations")
 
-    for path, code in REJECTS.items():
+    for path, expected_set in REJECTS.items():
         codes = {v.code for v in pv.validate_pack(load(path), tax, SCHEMA, REGISTRY)}
-        if code in codes:
-            print(f"PASS  {pathlib.Path(path).name}: fired {code}")
+        if codes == expected_set:
+            print(f"PASS  {pathlib.Path(path).name}: exact set {sorted(expected_set)}")
         else:
             ok = False
-            print(f"FAIL  {pathlib.Path(path).name}: expected {code}, got {sorted(codes) or 'none'}")
+            missing = sorted(expected_set - codes)
+            extra = sorted(codes - expected_set)
+            print(
+                f"FAIL  {pathlib.Path(path).name}: expected {sorted(expected_set)}, "
+                f"got {sorted(codes)}"
+                + (f" [missing: {missing}]" if missing else "")
+                + (f" [extra: {extra}]" if extra else "")
+            )
 
     # Rejects that need pack_root to trigger filesystem-backed checks.
     # Use a temporary empty directory as pack root so the referenced paths don't exist.
     import tempfile
     with tempfile.TemporaryDirectory() as tmp_root:
         tmp_path = pathlib.Path(tmp_root)
-        for path, code in REJECTS_WITH_PACK_ROOT.items():
+        for path, expected_set in REJECTS_WITH_PACK_ROOT.items():
             codes = {v.code for v in pv.validate_pack(load(path), tax, SCHEMA, REGISTRY, pack_root=tmp_path)}
-            if code in codes:
-                print(f"PASS  {pathlib.Path(path).name}: fired {code}")
+            if codes == expected_set:
+                print(f"PASS  {pathlib.Path(path).name}: exact set {sorted(expected_set)}")
             else:
                 ok = False
-                print(f"FAIL  {pathlib.Path(path).name}: expected {code}, got {sorted(codes) or 'none'}")
+                missing = sorted(expected_set - codes)
+                extra = sorted(codes - expected_set)
+                print(
+                    f"FAIL  {pathlib.Path(path).name}: expected {sorted(expected_set)}, "
+                    f"got {sorted(codes)}"
+                    + (f" [missing: {missing}]" if missing else "")
+                    + (f" [extra: {extra}]" if extra else "")
+                )
 
     v1 = load("packs/legacy/ca_v1_000088.json")
     migrated = migrate(v1)

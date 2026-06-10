@@ -137,6 +137,93 @@ def main() -> int:
         else:
             print(f"PASS  event reject/{path.name} rejected ({len(errs)} violation(s)); first: {errs[0].message}")
 
+    # 7. Tier-1 invalid-fixture matrix (W3-4 / VAL-12).
+    #
+    # Programmatically generate invalid variants of the valid example:
+    #   - drop each required field (15 variants: one per required field)
+    #   - break each enum:
+    #       pool: "bad_pool_value"
+    #       verification_status: "bad_status_value"
+    #       item_type: "bad_item_type"
+    #       difficulty_label (profile-level): "L99"
+    #   - violate each numeric bound used in the profile (minItems/maxItems on options):
+    #       options with 3 items (below minItems=4 for single_best)
+    #       options with 5 items (above maxItems=4 for single_best)
+    #   - wrong item_type/response combinations:
+    #       item_type "numeric_entry" with options[] present (cross-type field)
+    #       item_type "single_best" with entered_value-only answer_key (wrong shape)
+    # Each variant must be REJECTED.  If any variant unexpectedly passes,
+    # the test fails and reports which variant.
+
+    valid_item = load("examples/ca-qa-000088.valid.json")
+
+    import copy
+
+    REQUIRED_FIELDS = [
+        "id", "schema_version", "content_hash", "exam", "lang", "pool",
+        "verification_status", "provenance", "tests", "difficulty_label",
+        "taxonomy_version", "item_type", "answer_key", "stem", "explanation",
+    ]
+
+    OPTION_TEMPLATE = {"key": 1, "text": "x"}
+
+    invalid_variants: list[tuple[str, dict]] = []
+
+    # Drop each required field.
+    for field in REQUIRED_FIELDS:
+        variant = copy.deepcopy(valid_item)
+        del variant[field]
+        invalid_variants.append((f"drop_required_{field}", variant))
+
+    # Break enums.
+    enum_breaks = [
+        ("pool", "bad_pool_value"),
+        ("verification_status", "bad_status_value"),
+        ("item_type", "bad_item_type"),
+        ("difficulty_label", "L99"),
+    ]
+    for field, bad_value in enum_breaks:
+        variant = copy.deepcopy(valid_item)
+        variant[field] = bad_value
+        invalid_variants.append((f"bad_enum_{field}", variant))
+
+    # Violate numeric bounds: options count for single_best (minItems=4, maxItems=4).
+    for n_opts, label in [(3, "options_too_few"), (5, "options_too_many")]:
+        variant = copy.deepcopy(valid_item)
+        # Rebuild options list with n_opts items (keys 1..n_opts).
+        variant["options"] = [{"key": i, "text": f"opt_{i}"} for i in range(1, n_opts + 1)]
+        invalid_variants.append((label, variant))
+
+    # Wrong item_type/response combinations.
+    # numeric_entry with options[] (options are forbidden for numeric_entry).
+    ne_with_options = copy.deepcopy(valid_item)
+    ne_with_options["item_type"] = "numeric_entry"
+    ne_with_options["answer_key"] = {"value": 42, "tol_abs": 0, "tol_rel": 0}
+    # options field is present — forbidden for numeric_entry.
+    invalid_variants.append(("numeric_entry_with_options", ne_with_options))
+
+    # single_best with a numeric-style answer_key (no "correct" key).
+    sb_wrong_ak = copy.deepcopy(valid_item)
+    sb_wrong_ak["answer_key"] = {"value": 42}  # single_best needs {"correct": int}
+    invalid_variants.append(("single_best_wrong_answer_key", sb_wrong_ak))
+
+    matrix_pass = 0
+    matrix_fail = 0
+    for name, variant in invalid_variants:
+        errors = list(item_validator.iter_errors(variant))
+        if errors:
+            matrix_pass += 1
+        else:
+            ok = False
+            matrix_fail += 1
+            print(f"FAIL  invalid-matrix variant '{name}' unexpectedly conformed")
+
+    print(
+        f"PASS  Tier-1 invalid-fixture matrix: {matrix_pass}/{len(invalid_variants)} "
+        f"variants correctly rejected"
+        + (f" ({matrix_fail} failures)" if matrix_fail else "")
+    )
+
     return 0 if ok else 1
 
 

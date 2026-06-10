@@ -16,12 +16,20 @@ Cross-record checks:
   UNKNOWN_MISCONCEPTION      misconception absent from the exam vocabulary
   DANGLING_ASSET_REF         {{asset:id}} reference does not resolve
   ASSET_OWNER_MISMATCH       referenced asset is owned by another record
+  DISTRACTOR_EQUALS_KEY      an incorrect option's text equals the correct option's text
+                             (after canonical text normalization) — highest-harm defect
+  STEM_ANSWER_LEAK           the correct option's normalized text appears verbatim in the
+                             stem, or the stem contains the literal phrases
+                             "the answer is" or "correct option" — highest-harm defect
+  NEAR_DUPLICATE             two stems have word-shingle Jaccard similarity at or above
+                             NEAR_DUP_THRESHOLD — reskin masquerading as a distinct item
 
 Note: SVG sanitization is svg_is_safe(); the build runs it before packing.
 Schema-level structure is delegated to the JSON Schema.
 """
 import pathlib
 import re
+import unicodedata
 from collections import namedtuple
 
 from jsonschema import Draft202012Validator, FormatChecker
@@ -30,6 +38,42 @@ from referencing import Registry
 import canonical
 
 Violation = namedtuple("Violation", ["code", "item_id", "message"])
+
+# ---------------------------------------------------------------------------
+# Threshold for near-duplicate detection (W3-3 / VAL-02).
+# Word-shingle Jaccard similarity at or above this value within a pack is a
+# hard Tier-2 violation.  Mirrors the advisory threshold in quality.py so the
+# two layers agree on what "near-duplicate" means.
+# ---------------------------------------------------------------------------
+NEAR_DUP_THRESHOLD = 0.80
+"""Jaccard similarity (word k=3 shingles) above which two stems are near-duplicates."""
+
+# Literal phrases that constitute answer leakage regardless of option text.
+_LEAK_PHRASES = re.compile(r"\bthe answer is\b|\bcorrect option\b", re.IGNORECASE)
+
+
+def _canon_text(s: str) -> str:
+    """Canonical text for content comparison: NFC, lowercase, collapsed whitespace."""
+    s = unicodedata.normalize("NFC", (s or "").strip())
+    s = re.sub(r"\s+", " ", s)
+    return s.lower()
+
+
+def _shingles(text: str, k: int = 3) -> set:
+    """Word-level k-shingles of canonically normalized text."""
+    words = _canon_text(text).split()
+    if len(words) < k:
+        return set(words) if words else set()
+    return {tuple(words[i : i + k]) for i in range(len(words) - k + 1)}
+
+
+def _jaccard(a: set, b: set) -> float:
+    if not a and not b:
+        return 1.0
+    union = a | b
+    if not union:
+        return 0.0
+    return len(a & b) / len(union)
 
 # SVG can carry scripts. Reject these tokens (spec 11.4).
 SVG_FORBIDDEN = re.compile(
@@ -224,6 +268,176 @@ def validate_pack(pack, taxonomy, schema, registry=None, pack_root=None):
                     if ce.get("value") == answer_value:
                         violations.append(Violation("COMMON_ERROR_EQUALS_ANSWER", iid, f"value {ce.get('value')}"))
 
+        # 9b. NOTATION_VIOLATION (W3-5): ADR 0015 unicode-first policy.
+        #   Hard-reject LaTeX commands (backslash sequences), HTML tags,
+        #   C0/C1 control characters, the Unicode replacement character (U+FFFD),
+        #   and any character outside the declared allowlist.
+        #
+        # UNICODE_ALLOWLIST: printable ASCII (U+0020..U+007E) plus the explicit math
+        # and currency glyphs listed in ADR 0015:
+        #   × (U+00D7) ÷ (U+00F7) √ (U+221A) ∩ (U+2229) ∪ (U+222A)
+        #   ² (U+00B2) ³ (U+00B3) ∫ (U+222B) Δ (U+0394) σ (U+03C3)
+        #   μ (U+03BC) ≤ (U+2264) ≥ (U+2265) ≠ (U+2260) ≈ (U+2248)
+        #   ± (U+00B1) ⁄ (U+2044, fraction slash) ₹ (U+20B9, rupee sign)
+        # Plus standard punctuation outside ASCII that may appear in authored content:
+        #   ' ' " " (U+2018 U+2019 U+201C U+201D) — retained for legacy; ADR bans new use
+        UNICODE_ALLOWLIST = frozenset(
+            range(0x0020, 0x007F)  # printable ASCII
+        ) | frozenset(
+            [
+                0x00D7,  # × multiplication sign
+                0x00F7,  # ÷ division sign
+                0x221A,  # √ square root
+                0x2229,  # ∩ intersection
+                0x222A,  # ∪ union
+                0x00B2,  # ² superscript two
+                0x00B3,  # ³ superscript three
+                0x222B,  # ∫ integral
+                0x0394,  # Δ capital delta
+                0x03C3,  # σ sigma
+                0x03BC,  # μ mu
+                0x2264,  # ≤ less-than or equal
+                0x2265,  # ≥ greater-than or equal
+                0x2260,  # ≠ not equal
+                0x2248,  # ≈ approximately equal
+                0x00B1,  # ± plus-minus
+                0x2044,  # ⁄ fraction slash
+                0x20B9,  # ₹ rupee sign
+                # Common whitespace variants already collapsed by NFC, kept for safety
+                0x000A,  # newline (valid in multi-line content)
+                0x0009,  # tab
+            ]
+        )
+        _LATEX_RE = re.compile(r"\\[a-zA-Z]+")
+        _HTML_TAG_RE = re.compile(r"<[a-zA-Z!/][^>]*>")
+        _CTRL_RE = re.compile(r"[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]|�")
+
+        notation_texts = (
+            [item.get("stem", "") or ""]
+            + [o.get("text", "") or "" for o in item.get("options", [])]
+            + [item.get("explanation", "") or ""]
+            + [
+                r.get("rationale", "") or ""
+                for r in item.get("per_option_rationale", [])
+            ]
+        )
+        for field_text in notation_texts:
+            if not field_text:
+                continue
+            if _LATEX_RE.search(field_text):
+                violations.append(
+                    Violation(
+                        "NOTATION_VIOLATION",
+                        iid,
+                        f"LaTeX command found: {_LATEX_RE.search(field_text).group()!r}",
+                    )
+                )
+                break
+            if _HTML_TAG_RE.search(field_text):
+                violations.append(
+                    Violation(
+                        "NOTATION_VIOLATION",
+                        iid,
+                        f"HTML tag found: {_HTML_TAG_RE.search(field_text).group()!r}",
+                    )
+                )
+                break
+            if _CTRL_RE.search(field_text):
+                violations.append(
+                    Violation(
+                        "NOTATION_VIOLATION",
+                        iid,
+                        "control character or U+FFFD replacement character found",
+                    )
+                )
+                break
+            for ch in field_text:
+                cp = ord(ch)
+                if cp not in UNICODE_ALLOWLIST:
+                    violations.append(
+                        Violation(
+                            "NOTATION_VIOLATION",
+                            iid,
+                            f"character U+{cp:04X} ({ch!r}) is outside the ADR 0015 allowlist",
+                        )
+                    )
+                    break
+            else:
+                continue
+            break
+
+        # 10. DISTRACTOR_EQUALS_KEY (W3-3): any incorrect option's canonical text must
+        #     not equal the correct option's canonical text — highest-harm defect.
+        if item.get("item_type") == "single_best":
+            correct_key = item.get("answer_key", {}).get("correct")
+            opts_by_key = {o["key"]: _canon_text(o.get("text", "")) for o in item.get("options", [])}
+            correct_text = opts_by_key.get(correct_key, "")
+            for o in item.get("options", []):
+                if o["key"] != correct_key:
+                    if _canon_text(o.get("text", "")) == correct_text:
+                        violations.append(
+                            Violation(
+                                "DISTRACTOR_EQUALS_KEY",
+                                iid,
+                                f"option {o['key']} text equals correct option {correct_key} after normalization",
+                            )
+                        )
+
+        # 11. STEM_ANSWER_LEAK (W3-3): the correct option's normalized text must not
+        #     appear verbatim in the stem, and the stem must not contain literal leak
+        #     phrases ("the answer is", "correct option").
+        #
+        # Verbatim-check exemption for logical-reasoning items (qa.lr.*): in LR
+        # seating-arrangement and sequencing puzzles the answer entity (e.g. a
+        # person's name or label) must be mentioned in the premise list; its presence
+        # in the stem is structural necessity, not answer leakage.  The
+        # forbidden-phrase check fires unconditionally for all item types.
+        if item.get("item_type") == "single_best":
+            correct_key = item.get("answer_key", {}).get("correct")
+            correct_option_obj = next(
+                (o for o in item.get("options", []) if o["key"] == correct_key), None
+            )
+            if correct_option_obj:
+                # Forbidden-phrase check: always fires regardless of item type or
+                # option text length.
+                if _LEAK_PHRASES.search(item.get("stem", "")):
+                    violations.append(
+                        Violation(
+                            "STEM_ANSWER_LEAK",
+                            iid,
+                            "stem contains a forbidden answer-leak phrase "
+                            "('the answer is' or 'correct option')",
+                        )
+                    )
+                # Verbatim-appearance check: skip for LR items (qa.lr subtree)
+                # because the answer entity is necessarily named in the premise.
+                is_lr_item = any(
+                    t == "qa.lr" or t.startswith("qa.lr.")
+                    for t in item.get("tests", [])
+                )
+                if not is_lr_item:
+                    canon_stem = _canon_text(item.get("stem", ""))
+                    canon_correct = _canon_text(correct_option_obj.get("text", ""))
+                    if canon_correct and canon_correct in canon_stem:
+                        violations.append(
+                            Violation(
+                                "STEM_ANSWER_LEAK",
+                                iid,
+                                f"correct option text "
+                                f"'{correct_option_obj.get('text', '')}' "
+                                f"appears verbatim in stem",
+                            )
+                        )
+                if _LEAK_PHRASES.search(item.get("stem", "")):
+                    violations.append(
+                        Violation(
+                            "STEM_ANSWER_LEAK",
+                            iid,
+                            "stem contains a forbidden answer-leak phrase "
+                            "('the answer is' or 'correct option')",
+                        )
+                    )
+
         # 7. asset references resolve and are owned by this item
         texts = (
             [item.get("stem", "")]
@@ -264,5 +478,36 @@ def validate_pack(pack, taxonomy, schema, registry=None, pack_root=None):
                         f"solution path {sol_path} does not exist or is empty under pack root",
                     )
                 )
+
+    # Cross-item: NEAR_DUPLICATE (W3-3).  Run pairwise over all item stems;
+    # any pair whose word-shingle Jaccard similarity >= NEAR_DUP_THRESHOLD is a
+    # hard violation. O(n²) — acceptable at pack sizes <5000.
+    stemmed = [(item.get("id", "<no-id>"), _shingles(item.get("stem", ""))) for item in items]
+    reported = set()
+    for i in range(len(stemmed)):
+        for j in range(i + 1, len(stemmed)):
+            iid_i, sh_i = stemmed[i]
+            iid_j, sh_j = stemmed[j]
+            if _jaccard(sh_i, sh_j) >= NEAR_DUP_THRESHOLD:
+                # Emit one violation per affected item (deterministic order).
+                pair_key = (min(iid_i, iid_j), max(iid_i, iid_j))
+                if pair_key not in reported:
+                    reported.add(pair_key)
+                    violations.append(
+                        Violation(
+                            "NEAR_DUPLICATE",
+                            iid_i,
+                            f"stem Jaccard similarity {_jaccard(sh_i, sh_j):.2f} "
+                            f">= {NEAR_DUP_THRESHOLD} with item {iid_j}",
+                        )
+                    )
+                    violations.append(
+                        Violation(
+                            "NEAR_DUPLICATE",
+                            iid_j,
+                            f"stem Jaccard similarity {_jaccard(sh_i, sh_j):.2f} "
+                            f">= {NEAR_DUP_THRESHOLD} with item {iid_i}",
+                        )
+                    )
 
     return violations
