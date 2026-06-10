@@ -26,7 +26,8 @@ jobs:
 
       - name: "Hygiene: no absolute home paths in tracked files"
         run: |
-          if git grep -In "/Users/" -- ':!.github/workflows/ci.yml' ':!*.lock' ':!package-lock.json'; then
+          PAT="/Use""rs/"
+          if git grep -In "$PAT" -- ':!*.lock' ':!package-lock.json'; then
             echo "Tracked files contain absolute home paths."; exit 1
           fi
 

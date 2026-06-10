@@ -19,7 +19,10 @@ git -C "$ROOT" archive HEAD | tar -x -C "$WORK"
 cd "$WORK"
 
 echo "== hygiene: no absolute home paths"
-if grep -RIn "/Users/" --exclude-dir=.git --exclude=ci.yml --exclude="*.lock" --exclude="package-lock.json" . ; then
+# The pattern is assembled from parts so no file (including this one) contains
+# the literal and self-matches.
+PAT="/Use""rs/"
+if grep -RIn "$PAT" --exclude-dir=.git --exclude="*.lock" --exclude="package-lock.json" . ; then
   echo "FAIL  tracked files contain absolute home paths"; exit 1
 fi
 
