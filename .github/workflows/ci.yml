@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate-and-test:
+    name: Validate and test (Python 3.12)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install ".[dev]"
+
+      - name: "Tier 1: schema meta-validation and fixtures"
+        run: python3 schema/validate.py
+
+      - name: "Tier 2: cross-record pack checks"
+        run: python3 schema/validator/run_checks.py
+
+      - name: "Tests: engine and validator"
+        run: python3 -m pytest engine/tests schema/validator/tests -q
+
+  quality-report:
+    name: Content quality report (advisory, never blocks merge)
+    runs-on: ubuntu-latest
+    needs: validate-and-test
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install ".[dev]"
+
+      - name: "Advisory: content quality and assembly dry-run"
+        run: python3 schema/validator/run_quality.py

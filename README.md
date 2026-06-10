@@ -1,5 +1,6 @@
 # pinaka-abhyas
 
+[![CI](https://github.com/5h1vmani/pinaka-abhyas/actions/workflows/ci.yml/badge.svg)](https://github.com/5h1vmani/pinaka-abhyas/actions/workflows/ci.yml)
 
 A free, open-source exam-prep engine plus exam packs. A student practises verified
 questions and the app diagnoses what they do not know, per topic and per
