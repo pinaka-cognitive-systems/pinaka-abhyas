@@ -19,7 +19,7 @@
     "qa.bmath.finance.compound_interest"
   ],
   "difficulty_label": "L2",
-  "taxonomy_version": 3,
+  "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 75,
   "stem": "Priya deposits Rs 20,000 in a bank that offers 10% per annum interest compounded half-yearly. What is the compound interest earned at the end of 1 year?",

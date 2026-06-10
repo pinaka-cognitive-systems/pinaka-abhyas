@@ -12,7 +12,7 @@
   },
   "tests": ["qa.bmath.finance.simple_interest"],
   "difficulty_label": "L1",
-  "taxonomy_version": 3,
+  "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 45,
   "stem": "Arjun lends Rs 10,000 to a friend at a simple interest rate of 10% per annum for 3 years. What is the total simple interest earned?",

@@ -19,7 +19,7 @@
     "qa.stats.probability.classical"
   ],
   "difficulty_label": "L2",
-  "taxonomy_version": 3,
+  "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 75,
   "stem": "A single card is drawn at random from a standard deck of 52 playing cards. What is the probability that the card is either a heart or a king?",

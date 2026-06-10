@@ -19,7 +19,7 @@
     "qa.stats.index_numbers.construction"
   ],
   "difficulty_label": "L1",
-  "taxonomy_version": 3,
+  "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 45,
   "stem": "The price of a commodity in the base year is Rs 40 and in the current year is Rs 50. What is the price relative of this commodity for the current year?",

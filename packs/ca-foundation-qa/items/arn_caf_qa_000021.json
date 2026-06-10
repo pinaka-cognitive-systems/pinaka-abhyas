@@ -19,7 +19,7 @@
     "qa.stats.central_tendency_dispersion.mean"
   ],
   "difficulty_label": "L1",
-  "taxonomy_version": 3,
+  "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 45,
   "stem": "A distribution has the following values and frequencies: value 5 with frequency 4, value 10 with frequency 2, value 15 with frequency 3, and value 20 with frequency 1. What is the arithmetic mean?",

@@ -17,7 +17,7 @@
         "qa.stats.probability.conditional"
       ],
       "difficulty_label": "L3",
-      "taxonomy_version": 3,
+      "taxonomy_version": 4,
       "item_type": "single_best",
       "stem": "Two events A and B satisfy P(A and B) = 1/6 and P(B) = 1/2. Find P(A given B).",
       "options": [

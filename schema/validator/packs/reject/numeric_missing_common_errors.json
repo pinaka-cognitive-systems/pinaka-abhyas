@@ -17,7 +17,7 @@
         "qa.bmath.finance.simple_interest"
       ],
       "difficulty_label": "L1",
-      "taxonomy_version": 3,
+      "taxonomy_version": 4,
       "item_type": "numeric_entry",
       "stem": "Find the simple interest on 10000 rupees at 5% per annum for 2 years, in rupees.",
       "answer_key": {

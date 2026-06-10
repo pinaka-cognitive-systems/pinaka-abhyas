@@ -11,7 +11,7 @@
       "provenance": { "source": "bad_hash_fixture", "license": "CC-BY-NC-SA-4.0", "created": "2026-04-29" },
       "tests": ["qa.stats.probability.conditional"],
       "difficulty_label": "L3",
-      "taxonomy_version": 3,
+      "taxonomy_version": 4,
       "item_type": "single_best",
       "stem": "Two events A and B satisfy P(A and B) = 1/6 and P(B) = 1/2. Find P(A given B).",
       "options": [

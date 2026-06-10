@@ -14,7 +14,7 @@
   },
   "tests": ["qa.stats.probability.conditional", "qa.stats.probability.independent_events"],
   "difficulty_label": "L3",
-  "taxonomy_version": 3,
+  "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 90,
   "stem": "Two events A and B are such that P(A and B) = 3/20 and P(B) = 3/5. Find P(A given B).",

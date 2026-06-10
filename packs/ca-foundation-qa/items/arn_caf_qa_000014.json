@@ -19,7 +19,7 @@
     "qa.lr.seating"
   ],
   "difficulty_label": "L2",
-  "taxonomy_version": 3,
+  "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 75,
   "stem": "Five people A, B, C, D, E sit in a row of seats numbered 1 to 5 from left to right. C sits at seat 3. A sits immediately to the left of B. D sits at seat 4. E does not sit at seat 1. Who sits at seat 2?",

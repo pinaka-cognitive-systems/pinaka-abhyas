@@ -1,9 +1,9 @@
 {
   "exam": "ca_foundation",
   "section": "quantitative_aptitude",
-  "taxonomy_version": 3,
+  "taxonomy_version": 4,
   "status": "draft",
-  "tagging_rule": "Every wrong single_best option and every numeric_entry common_error must carry exactly one misconception id from this closed canon. Choose the most specific id that fits the actual wrong-answer path. Do not invent ids inline. If a genuine, recurring error has no id here, propose an addition and bump the version; this canon is designed upfront so generators never guess. arithmetic_slip is the fallback for a genuine computational slip only, never for a conceptual error. This canon was validated against a v1 pilot, which showed v1 covered only computational errors. Version 2 adds Logical Reasoning misconceptions (blood relations, direction and seating, series and coding) and conceptual or property misconceptions (invariance, relation properties, set operations, definitions). Version 3 adds calculus misconceptions and extends concept_definition_confused to correlation and regression and to calculus, closing the two registered family gaps.",
+  "tagging_rule": "Every wrong single_best option and every numeric_entry common_error must carry exactly one misconception id from this closed canon. Choose the most specific id that fits the actual wrong-answer path. Do not invent ids inline. If a genuine, recurring error has no id here, propose an addition and bump the version; this canon is designed upfront so generators never guess. arithmetic_slip is the fallback for a genuine computational slip only, never for a conceptual error. This canon was validated against a v1 pilot, which showed v1 covered only computational errors. Version 2 adds Logical Reasoning misconceptions (blood relations, direction and seating, series and coding) and conceptual or property misconceptions (invariance, relation properties, set operations, definitions). Version 3 adds calculus misconceptions and extends concept_definition_confused to correlation and regression and to calculus, closing the two registered family gaps. Version 4 extends complement_confusion to distributions and mean_median_mode_confusion to probability, where at-least-one and expectation items make those error paths natural.",
   "misconceptions": [
     {
       "id": "arithmetic_slip",
@@ -148,7 +148,8 @@
       "name": "Event vs complement",
       "description": "Confused an event with its complement.",
       "families": [
-        "qa.stats.probability"
+        "qa.stats.probability",
+        "qa.stats.distributions"
       ]
     },
     {
@@ -180,7 +181,8 @@
       "name": "Wrong measure of central tendency",
       "description": "Used the wrong average for the question.",
       "families": [
-        "qa.stats.central_tendency_dispersion"
+        "qa.stats.central_tendency_dispersion",
+        "qa.stats.probability"
       ]
     },
     {

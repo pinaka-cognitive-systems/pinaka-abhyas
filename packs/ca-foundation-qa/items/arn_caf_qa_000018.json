@@ -19,7 +19,7 @@
     "qa.bmath.sets_functions.relations_functions"
   ],
   "difficulty_label": "L1",
-  "taxonomy_version": 3,
+  "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 45,
   "stem": "The relation R defined on the set of integers by 'a R b if and only if a is less than or equal to b' (a <= b) is best described as:",

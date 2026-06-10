@@ -19,7 +19,7 @@
     "qa.bmath.equations.quadratic"
   ],
   "difficulty_label": "L2",
-  "taxonomy_version": 3,
+  "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 75,
   "stem": "The perimeter of a rectangular plot is 100 m and its area is 600 sq m. Find the length of the longer side.",
