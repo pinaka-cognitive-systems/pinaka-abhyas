@@ -22,6 +22,9 @@ in place as the historical record.
 | [0011](0011-device-target-phone-floor-desktop-best.md) | Device target: phone floor, desktop best | Accepted |
 | [0012](0012-glicko-lite-mastery.md) | Glicko-lite mastery | Accepted |
 | [0013](0013-english-only-v1.md) | English-only v1, Hindi deferred with a trigger | Accepted |
+| [0014](0014-anonymous-telemetry-dpdp.md) | Telemetry is anonymous by construction | Accepted |
+| [0015](0015-notation-unicode-first.md) | Notation: unicode-first, KaTeX pre-approved escape | Accepted |
+| [0016](0016-stimulus-group-and-multi-select-reserved.md) | Stimulus groups and multi-select reserved for pack 2 | Accepted |
 
 ADRs 0001 through 0007 record the project's founding
 decisions and share the founding date; their order within that date is the numeric

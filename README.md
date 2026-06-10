@@ -8,7 +8,7 @@ misconception, resurfaces past mistakes on schedule, tells them the next thing t
 do, and shows how close they are to ready.
 
 The app is a static client-side PWA. It works offline after first load, installs to
-the device, and keeps your data on your device. Sharing is opt-in and anonymous.
+the device, and keeps your data on your device. Sharing is opt-in and collects no personal data (ADR 0014).
 
 One exam, one paper, one loop. The first pack is CA Foundation Paper 3, Quantitative
 Aptitude, the simplest place to prove the core works. Once the loop is undeniable,
