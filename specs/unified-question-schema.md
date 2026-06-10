@@ -28,7 +28,9 @@ This document defines the logical contract. It is format-independent. Two physic
 
 ### 1.1 v1 implementation scope
 
-The core contract is universal and defined once. But v1 **implements and hardens only the CA Foundation QA surface**: `single_best` and `numeric_entry` items, `image` and `diagram` assets, the CA taxonomy bundle, scoring config, and the event log.
+The core contract is universal and defined once. But v1 **implements and hardens only the CA Foundation QA surface**: `single_best` and `numeric_entry` items, the CA taxonomy bundle, scoring config, and the event log.
+
+**Assets are disabled for v1.** The CA Foundation QA Profile sets `assets: false`. The ICAI sample paper confirms every Paper 3 item is text-and-numeric only; no item needs a diagram or image in v1. The Core retains the asset schema for future exams (JEE, etc.) that will need it. (Earlier rev 3 text said v1 "implements and hardens image and diagram assets for CA Foundation QA"; that was inaccurate and is corrected here in rev 4.)
 
 Defined but **deferred and not hardened in v1** (build no validators, SQLite tables, or build steps for these until LSAT migration): Stimulus and grouping, the `comparative_passage` and `data_set` kinds, the LSAT extension, and `multi_select`. They are specified so the core stays stable when they arrive, not so they ship now. Hardening multi-exam machinery before the first exam ships is over-engineering.
 
@@ -400,12 +402,12 @@ pool: vault
 verification_status: human_reviewed
 provenance:
   source: legacy_q88_example
-  license: LicenseRef-pinaka-internal-unreleased
+  license: CC-BY-NC-SA-4.0
   parent_id: sd_caf_qa_000088
   created: 2026-04-29
-tests: [qa.probability.conditional, qa.probability.independent_events]
+tests: [qa.stats.probability.conditional, qa.stats.probability.independent_events]
 difficulty_label: L3
-taxonomy_version: 1
+taxonomy_version: 2
 item_type: single_best
 expected_seconds: 90
 answer_key: { correct: 1 }
@@ -646,3 +648,49 @@ Scope and security added this round:
 - Security and content trust model added (11.4).
 
 ALERT still open, both gate v1-final: ICAI negative-marking fraction (10) and LSAT taxonomy reconciliation (7).
+
+---
+
+## 22. Changelog: rev 4 (schema hardening, 2026-06-10)
+
+Tasks W2-3 and W2-4. All changes are backward-compatible for currently-authored items; no existing item field is removed or made more restrictive in a way that breaks any valid item in the 24-item bank.
+
+### Event log (schema/core/event-log.schema.json)
+
+- **`schema_version` bumped to `uqs-event-2`** (ADR 0009). The field was `const: "uqs-event-1"`; it is now `enum: ["uqs-event-2"]`. Old v1 events are not valid against this schema by design; a migration or version-aware reader is needed.
+- **`device_context` field added** (optional): `{ form_factor: enum[phone, tablet, desktop], viewport_w: integer >= 1, additionalProperties: false }`. Lets calibration separate hard questions from small screens. No personal identifiers.
+- **Response shape enforcement**: `if/then` conditions now tie response shape to `item_type`. For `single_best` (not skipped), `selected_option` is required and `entered_value` is forbidden. For `numeric_entry` (not skipped), `entered_value` is required and `selected_option` is forbidden. When `skipped: true`, both answer fields must be absent. The `response` object now has `anyOf` requiring at least one of `selected_option`, `entered_value`, or `skipped: true` — an empty `{}` response is rejected.
+- **`rfc3339-validator` dependency made active**: `FormatChecker` with `rfc3339-validator` installed now enforces `date-time` format on `occurred_at`. The validator asserts loudly at startup that the checker is active; a missing dependency can no longer silently disable format checks.
+- **`tests` uniqueItems**: added to prevent duplicate node ids in event records.
+
+### Item Core (schema/core/uqs-core.schema.json)
+
+- **`solution` field added** (optional): `{ language: enum["python"], path: string }`. Holds the path (relative to pack root) to the executable solution `.py` file.
+- **`machine_verified` ratchet**: a `if/then` conditional now requires `solution` to be present when `verification_status` is `machine_verified`. No existing item claims `machine_verified` without a solution in the bank (all were relabeled to `model_audited` per W0-9).
+- **`provenance.license` validated** against an explicit allowlist: `enum: ["CC-BY-NC-SA-4.0", "LicenseRef-pinaka-internal-unreleased"]`. The free-string `minLength: 1` is replaced. A Tier-2 check (`UNPUBLISHABLE_LICENSE`) additionally rejects items where `LicenseRef-pinaka-internal-unreleased` is combined with `verification_status: published`.
+- **`tests[]` uniqueItems**: added to prevent duplicate node ids. Also added to `tags[]` and `options[]`.
+- **Empirical fields bounded**: `difficulty_b` in [-6, 6], `discrimination_a` in [0, 5], `guessing_c` in [0, 1], `p_value` in [0, 1], `avg_seconds` in [0, 3600], `community_rating` in [1, 5].
+- **`ext` field note clarified**: the Core's `ext` is intentionally open (no `additionalProperties` constraint at Core level); each Profile must set `additionalProperties: false` on its own ext schema to prevent typo-tolerant drift.
+
+### CA Foundation QA Profile (schema/profiles/ca-foundation-qa/ca-foundation-qa.schema.json)
+
+- **`ext_ca` set to `additionalProperties: false`** (was `additionalProperties: true`). Known fields: `icai_skill_bucket`, `icai_provenance`, `tier_eligibility`. Any unknown ext field is now a Tier-1 SCHEMA violation.
+- **`id` pattern tightened** to `^(sd|vlt|arn)_caf_qa_\\d{6}$`. The previous pattern admitted `caf_be` (Paper 4 Business Economics ids); the QA profile now scopes to Paper 3 QA only. A future `ca-foundation-be` profile will register the `caf_be` namespace.
+
+### New Tier-2 checks (schema/validator/pack_validator.py)
+
+- **`ABSTRACT_TEST_NODE`**: rejects items whose `tests[]` entries reference abstract (non-leaf) taxonomy nodes. Items must target the most specific applicable leaf.
+- **`MISCONCEPTION_FAMILY_MISMATCH`**: rejects items where a wrong-option misconception tag's declared `families` have no intersection with the item's `tests[]` ancestor chain. `"*"` family means unrestricted. 11 known violations in the current 24-item bank are in `schema/validator/family_scoping_allowlist.json` (pending W4-2 retag; empty allowlist is the end state).
+- **`SOLUTION_FILE_MISSING`**: when `pack_root` is provided, rejects items where `solution.path` does not resolve to a non-empty file under the pack root.
+- **`UNPUBLISHABLE_LICENSE`**: rejects items where `provenance.license` is `LicenseRef-pinaka-internal-unreleased` and `verification_status` is `published`.
+
+### Migration script (schema/validator/migrate_ca_v1.py)
+
+- **`verification_status` changed from `machine_verified` to `model_audited`** in the migration output. Migration emits `model_audited`; re-earning `machine_verified` requires passing the W3-1 key-execution harness (per W0-9).
+
+### Spec corrections (rev 4)
+
+- Section 1.1: assets disabled for v1 (correct); earlier text saying v1 "implements and hardens image and diagram assets" was inaccurate.
+- Section 14 worked example: stale node ids `qa.probability.conditional` and `qa.probability.independent_events` corrected to `qa.stats.probability.conditional` and `qa.stats.probability.independent_events`; `taxonomy_version` corrected from 1 to 2; `provenance.license` corrected to `CC-BY-NC-SA-4.0`.
+
+ALERT still open from rev 3: ICAI negative-marking fraction (10) and LSAT taxonomy reconciliation (7).
