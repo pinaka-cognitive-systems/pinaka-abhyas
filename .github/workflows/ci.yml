@@ -18,6 +18,12 @@ jobs:
       - name: Install dependencies
         run: pip install ".[dev]"
 
+      - name: "Hygiene: no absolute home paths in tracked files"
+        run: |
+          if git grep -In "/Users/" -- ':!.github/workflows/ci.yml' ':!*.lock' ':!package-lock.json'; then
+            echo "Tracked files contain absolute home paths."; exit 1
+          fi
+
       - name: "Tier 1: schema meta-validation and fixtures"
         run: python3 schema/validate.py
 
@@ -75,8 +81,17 @@ jobs:
   app:
     name: App (PWA scaffold) typecheck, lint, test, build, size
     runs-on: ubuntu-latest
+    # The app consumes the validated pack artifact: pack.json is generated, never
+    # tracked, so CI must hand the exact validator-passed build to the app job
+    # (a gitignored artifact satisfying local runs hid this dependency).
+    needs: validate-and-test
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: ca-pack
+          path: packs/ca-foundation-qa/
 
       - uses: actions/setup-node@v4
         with:
