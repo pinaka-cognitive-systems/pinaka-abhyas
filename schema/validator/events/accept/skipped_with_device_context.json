@@ -1,0 +1,26 @@
+{
+  "event_id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+  "schema_version": "uqs-event-2",
+  "occurred_at": "2026-06-10T10:00:00Z",
+  "install_id": "install_def456",
+  "session_id": "session_abc001",
+  "exam": "ca_foundation",
+  "item_id": "arn_caf_qa_000005",
+  "item_content_hash": "abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
+  "taxonomy_version": 2,
+  "tests": ["qa.lr.seating"],
+  "difficulty_label": "L3",
+  "item_type": "single_best",
+  "mode": "mock",
+  "response": {
+    "skipped": true
+  },
+  "correct": false,
+  "selected_misconception": null,
+  "time_ms": 5000,
+  "resurfaced": false,
+  "device_context": {
+    "form_factor": "phone",
+    "viewport_w": 375
+  }
+}

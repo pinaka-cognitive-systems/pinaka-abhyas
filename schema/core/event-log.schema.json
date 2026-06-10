@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://pinaka.dev/schema/uqs-event-1.json",
-  "title": "Pinaka UQS Event — local response record (v1)",
-  "description": "TIER: CORE. The one record written for every answer the student gives. It is the single fuel for three things: local diagnosis (per-topic and per-misconception mastery), the spaced-repetition scheduler, and the opt-in anonymised telemetry export. Exam-agnostic by design. Written locally first; nothing leaves the device unless the student opts in. install_id is a random per-install identifier, never personal identity. This record is a one-way door: changing its shape breaks historical comparability, so it is locked early and evolved only via schema_version.",
+  "$id": "https://pinaka.dev/schema/uqs-event-2.json",
+  "title": "Pinaka UQS Event — local response record (v2)",
+  "description": "TIER: CORE. The one record written for every answer the student gives. It is the single fuel for three things: local diagnosis (per-topic and per-misconception mastery), the spaced-repetition scheduler, and the opt-in anonymised telemetry export. Exam-agnostic by design. Written locally first; nothing leaves the device unless the student opts in. install_id is a random per-install identifier, never personal identity. This record is a one-way door: changing its shape breaks historical comparability, so it is locked early and evolved only via schema_version. v2 (ADR 0009): adds optional device_context (form factor, viewport class) and enforces response shape per item_type.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -26,7 +26,7 @@
   ],
   "properties": {
     "event_id": { "type": "string", "minLength": 1, "description": "UUID for this response, generated locally." },
-    "schema_version": { "const": "uqs-event-1" },
+    "schema_version": { "enum": ["uqs-event-2"] },
     "occurred_at": { "type": "string", "format": "date-time" },
     "app_version": { "type": "string" },
     "install_id": { "type": "string", "minLength": 1, "description": "Random per-install id. Not personal identity. Lets opt-in aggregates group a device's responses without naming the person." },
@@ -35,7 +35,7 @@
     "item_id": { "type": "string", "pattern": "^(sd|vlt|arn)_[a-z0-9]+_[a-z0-9]+_\\d{6}$" },
     "item_content_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$", "description": "Ties the response to the exact item version answered, so calibration survives content edits." },
     "taxonomy_version": { "type": "integer", "minimum": 1 },
-    "tests": { "type": "array", "minItems": 1, "items": { "type": "string" }, "description": "Skill nodes the item exercised, copied from the item at answer time." },
+    "tests": { "type": "array", "minItems": 1, "items": { "type": "string" }, "uniqueItems": true, "description": "Skill nodes the item exercised, copied from the item at answer time." },
     "difficulty_label": { "type": "string", "minLength": 1 },
     "item_type": { "enum": ["single_best", "numeric_entry"] },
     "mode": { "enum": ["drill", "review", "mock", "diagnostic"], "description": "review = a spaced-repetition resurface; diagnostic = the onboarding placement; mock = a timed full paper; drill = ordinary practice." },
@@ -47,23 +47,108 @@
     },
     "time_ms": { "type": "integer", "minimum": 0 },
     "resurfaced": { "type": "boolean", "description": "True if this item was scheduled by spaced repetition rather than freshly served." },
-    "hint_used": { "type": "boolean" }
+    "hint_used": { "type": "boolean" },
+    "device_context": { "$ref": "#/$defs/device_context" }
   },
+  "allOf": [
+    {
+      "description": "single_best: when not skipped, selected_option must be present and entered_value must be absent.",
+      "if": {
+        "properties": {
+          "item_type": { "const": "single_best" },
+          "response": {
+            "not": { "properties": { "skipped": { "const": true } }, "required": ["skipped"] }
+          }
+        },
+        "required": ["item_type", "response"]
+      },
+      "then": {
+        "properties": {
+          "response": {
+            "required": ["selected_option"],
+            "properties": {
+              "selected_option": { "type": "integer" },
+              "entered_value": false
+            }
+          }
+        }
+      }
+    },
+    {
+      "description": "numeric_entry: when not skipped, entered_value must be present and selected_option must be absent.",
+      "if": {
+        "properties": {
+          "item_type": { "const": "numeric_entry" },
+          "response": {
+            "not": { "properties": { "skipped": { "const": true } }, "required": ["skipped"] }
+          }
+        },
+        "required": ["item_type", "response"]
+      },
+      "then": {
+        "properties": {
+          "response": {
+            "required": ["entered_value"],
+            "properties": {
+              "entered_value": { "type": "number" },
+              "selected_option": false
+            }
+          }
+        }
+      }
+    },
+    {
+      "description": "When skipped is true, answer fields must be absent.",
+      "if": {
+        "properties": {
+          "response": {
+            "properties": { "skipped": { "const": true } },
+            "required": ["skipped"]
+          }
+        },
+        "required": ["response"]
+      },
+      "then": {
+        "properties": {
+          "response": {
+            "properties": {
+              "selected_option": false,
+              "entered_value": false
+            }
+          }
+        }
+      }
+    }
+  ],
   "$defs": {
     "response": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
         "selected_option": {
-          "type": ["integer", "null"],
+          "type": "integer",
           "minimum": 1,
-          "description": "single_best: the option key chosen, or null if skipped."
+          "description": "single_best: the option key chosen. Must be absent when skipped is true."
         },
         "entered_value": {
-          "type": ["number", "null"],
-          "description": "numeric_entry: the value entered, or null if skipped."
+          "type": "number",
+          "description": "numeric_entry: the value entered. Must be absent when skipped is true."
         },
         "skipped": { "type": "boolean", "default": false }
+      },
+      "anyOf": [
+        { "required": ["selected_option"] },
+        { "required": ["entered_value"] },
+        { "properties": { "skipped": { "const": true } }, "required": ["skipped"] }
+      ]
+    },
+    "device_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Optional. Records form factor and viewport width so calibration can separate hard questions from small screens. No personal identifiers.",
+      "properties": {
+        "form_factor": { "enum": ["phone", "tablet", "desktop"] },
+        "viewport_w": { "type": "integer", "minimum": 1 }
       }
     }
   }

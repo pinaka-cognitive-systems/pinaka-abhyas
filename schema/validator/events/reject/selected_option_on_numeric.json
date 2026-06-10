@@ -1,0 +1,21 @@
+{
+  "event_id": "f6a7b8c9-d0e1-2345-f012-456789012345",
+  "schema_version": "uqs-event-2",
+  "occurred_at": "2026-06-10T09:15:00Z",
+  "install_id": "install_abc123",
+  "session_id": "session_xyz789",
+  "exam": "ca_foundation",
+  "item_id": "arn_caf_qa_000010",
+  "item_content_hash": "1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+  "taxonomy_version": 2,
+  "tests": ["qa.bmath.finance.simple_interest"],
+  "difficulty_label": "L1",
+  "item_type": "numeric_entry",
+  "mode": "drill",
+  "response": {
+    "selected_option": 2
+  },
+  "correct": false,
+  "time_ms": 30000,
+  "resurfaced": false
+}
