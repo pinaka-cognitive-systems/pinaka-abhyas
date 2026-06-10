@@ -1,0 +1,258 @@
+/*
+ * tokens.css — Pinaka Abhyas design token layer.
+ *
+ * Source: design-team/v2/colors_and_type.css (primary source of truth).
+ * Reconciled with: docs/brand/design.md (the repo-canonical brand spec).
+ * Intake record: docs/design/intake-v2.md.
+ *
+ * Reconciliation decisions:
+ *   - The v2 drop ships three overlapping CSS files: colors_and_type.css,
+ *     app.css, and student-app.css. The latter two carry component and layout
+ *     rules, not tokens. Only colors_and_type.css is the token source; this
+ *     file ports it exactly, minus the @font-face declarations (those live in
+ *     index.html / W5-6) and minus the semantic element rules (those belong in
+ *     base.css in the `components` layer).
+ *   - student-app.css duplicates several surface tokens under `.sa-*` classes;
+ *     those are component rules, not tokens, and are not ported here.
+ *   - Desktop window chrome tokens (.win, .win__bar, .rail width, titlebar
+ *     height) are excluded per ADR 0011: this product is a web PWA, not a
+ *     desktop app. The OS provides the window.
+ *   - All token values are reconciled between the two sources. Where they
+ *     agreed on hex, the hex is kept. The motion scalar pattern (multiply
+ *     every duration by --motion-duration-scalar, collapse to 0 under
+ *     prefers-reduced-motion: reduce) is preserved intact from v2.
+ *   - Weight ceiling 600 (semibold) is enforced. No 700.
+ */
+
+/* @layer declaration is in base.css; tokens go in the tokens layer. */
+@layer tokens {
+  :root {
+    /* ------------------------------------------------------------------ */
+    /* TYPE FAMILIES                                                        */
+    /* ------------------------------------------------------------------ */
+    --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', 'Fira Code', Menlo, monospace;
+
+    /* ------------------------------------------------------------------ */
+    /* TYPE SCALE — 1.25 Major Third, base 16px                            */
+    /* xs 12 · sm 14 · base 16 · lg 18 · xl 20 · 2xl 24 · 3xl 30         */
+    /* 4xl 36 · 5xl 48 · 6xl 60 (hero ceiling, no 7xl)                   */
+    /* ------------------------------------------------------------------ */
+    --text-xs:   12px;   /* eyebrows, badges; floor per brand spec */
+    --text-sm:   14px;   /* captions, secondary copy */
+    --text-base: 16px;   /* body UI */
+    --text-lg:   18px;   /* lead paragraphs, long-form */
+    --text-xl:   20px;   /* card titles */
+    --text-2xl:  24px;
+    --text-3xl:  30px;
+    --text-4xl:  36px;
+    --text-5xl:  48px;
+    --text-6xl:  60px;   /* hero ceiling */
+
+    /* Numeric displays only — mono semibold carries the weight */
+    --text-metric-hero:    64px;   /* stat blocks, ticker */
+    --text-metric-display: 96px;   /* result-page score reveal */
+
+    /* ------------------------------------------------------------------ */
+    /* LINE HEIGHT                                                          */
+    /* ------------------------------------------------------------------ */
+    --leading-none:    1.0;
+    --leading-tight:   1.1;
+    --leading-snug:    1.25;
+    --leading-normal:  1.5;
+    --leading-relaxed: 1.625;
+
+    /* ------------------------------------------------------------------ */
+    /* LETTER SPACING                                                       */
+    /* ------------------------------------------------------------------ */
+    --tracking-tighter: -0.05em;
+    --tracking-tight:   -0.025em;
+    --tracking-heading: -0.02em;
+    --tracking-normal:  0;
+    --tracking-caps:    0.05em;
+
+    /* ------------------------------------------------------------------ */
+    /* FONT WEIGHTS — ceiling at 600; no 700 anywhere                      */
+    /* ------------------------------------------------------------------ */
+    --font-weight-normal:   400;
+    --font-weight-medium:   500;
+    --font-weight-semibold: 600;
+
+    /* ------------------------------------------------------------------ */
+    /* SURFACES — zinc cool-gray                                            */
+    /* ------------------------------------------------------------------ */
+    --color-background:         #FAFAFA;
+    --color-foreground:         #09090B;
+    --color-card:               #FFFFFF;
+    --color-card-foreground:    #09090B;
+    --color-popover:            #FFFFFF;
+    --color-popover-foreground: #09090B;
+    --color-muted:              #F4F4F5;
+    --color-muted-foreground:   #3F3F46;
+    --color-accent:             #F4F4F5;
+    --color-accent-foreground:  #09090B;
+    --color-subtle:             #E4E4E7;
+    --color-text-subtle:        #71717A;
+
+    /* ------------------------------------------------------------------ */
+    /* BORDERS                                                              */
+    /* ------------------------------------------------------------------ */
+    --color-border-hairline: #E4E4E7;
+    --color-border:          #D4D4D8;
+    --color-border-strong:   #A1A1AA;
+    --color-input:           #D4D4D8;
+    --color-ring:            var(--color-brand-primary);
+
+    /* ------------------------------------------------------------------ */
+    /* BRAND — indigo, one signal                                           */
+    /* ------------------------------------------------------------------ */
+    --color-brand-primary:         #6366F1;
+    --color-brand-primary-hover:   #4F46E5;   /* hover; also AA body-link color */
+    --color-brand-primary-active:  #4338CA;
+    --color-brand-secondary:       #818CF8;   /* accent on dark sections */
+    --color-brand-secondary-hover: #6366F1;
+    --color-brand-soft:            rgba(99, 102, 241, 0.10);   /* focus rings, selected */
+    --color-brand-text:            #FFFFFF;
+
+    /* ------------------------------------------------------------------ */
+    /* WARM ACCENT — amber, sparing, editorial callouts only               */
+    /* ------------------------------------------------------------------ */
+    --color-warm-500: #B45309;
+    --color-warm-100: #FEF3C7;
+    --color-warm-50:  #FFFBEB;
+
+    /* ------------------------------------------------------------------ */
+    /* SEMANTIC — success (emerald)                                         */
+    /* ------------------------------------------------------------------ */
+    --color-success:            #059669;
+    --color-success-soft:       #ECFDF5;
+    --color-success-text:       #065F46;
+    --color-success-border:     #34D399;
+    --color-success-foreground: #FFFFFF;
+
+    /* ------------------------------------------------------------------ */
+    /* SEMANTIC — warning (amber)                                           */
+    /* ------------------------------------------------------------------ */
+    --color-warning:            #D97706;
+    --color-warning-soft:       #FFFBEB;
+    --color-warning-text:       #92400E;
+    --color-warning-border:     #FBBF24;
+    --color-warning-foreground: #FFFFFF;
+
+    /* ------------------------------------------------------------------ */
+    /* SEMANTIC — danger (rose)                                             */
+    /* ------------------------------------------------------------------ */
+    --color-danger:            #E11D48;
+    --color-danger-soft:       #FFF1F2;
+    --color-danger-text:       #9F1239;
+    --color-danger-border:     #FB7185;
+    --color-danger-foreground: #FFFFFF;
+
+    /* ------------------------------------------------------------------ */
+    /* SEMANTIC — info (indigo, matches brand)                              */
+    /* ------------------------------------------------------------------ */
+    --color-info:            #6366F1;
+    --color-info-soft:       #EEF2FF;
+    --color-info-text:       #4338CA;
+    --color-info-border:     #A5B4FC;
+    --color-info-foreground: #FFFFFF;
+
+    /* ------------------------------------------------------------------ */
+    /* DARK-SECTION PALETTE — inverted surfaces                            */
+    /* One true dark section per page; a second CTA card is acceptable.    */
+    /* ------------------------------------------------------------------ */
+    --color-dark-bg:           #09090B;
+    --color-dark-text-primary: #FAFAFA;
+    --color-dark-text-body:    #D4D4D8;
+    --color-dark-text-muted:   #A1A1AA;
+    --color-dark-hairline:     #27272A;
+    --color-dark-strike:       #52525B;
+    --color-dark-brand-accent: #818CF8;   /* brand on dark; primary is too dark on #09090B */
+
+    /* ------------------------------------------------------------------ */
+    /* SPACING LADDER — these values only                                   */
+    /* 4 / 8 / 12 / 16 / 20 / 24 / 32 / 40 / 48 / 64 / 80 / 96 px        */
+    /* ------------------------------------------------------------------ */
+    --space-0:  0;
+    --space-1:  4px;
+    --space-2:  8px;
+    --space-3:  12px;
+    --space-4:  16px;
+    --space-5:  20px;
+    --space-6:  24px;
+    --space-8:  32px;
+    --space-10: 40px;
+    --space-12: 48px;
+    --space-16: 64px;
+    --space-20: 80px;
+    --space-24: 96px;
+
+    /* ------------------------------------------------------------------ */
+    /* RADII                                                                */
+    /* ------------------------------------------------------------------ */
+    --radius-sm:   4px;    /* chips, inline controls */
+    --radius-md:   6px;    /* buttons, inputs */
+    --radius-lg:   8px;    /* cards */
+    --radius-xl:   12px;   /* dialogs */
+    --radius-2xl:  16px;
+    --radius-full: 9999px; /* pills only */
+
+    /* ------------------------------------------------------------------ */
+    /* SHADOWS — almost imperceptible; rgba(9,9,11,0.04–0.06) only         */
+    /* ------------------------------------------------------------------ */
+    --shadow-xs: 0 1px 2px 0 rgba(9, 9, 11, 0.04);
+    --shadow-sm: 0 1px 2px 0 rgba(9, 9, 11, 0.05),
+                 0 1px 3px 0 rgba(9, 9, 11, 0.04);
+    --shadow-md: 0 2px 4px -1px rgba(9, 9, 11, 0.06),
+                 0 4px 8px -2px rgba(9, 9, 11, 0.04);
+    --shadow-lg: 0 4px 8px -2px rgba(9, 9, 11, 0.06),
+                 0 10px 20px -4px rgba(9, 9, 11, 0.06);
+
+    /* ------------------------------------------------------------------ */
+    /* TOUCH TARGET — WCAG 2.5.5, ADR 0011                                 */
+    /* ------------------------------------------------------------------ */
+    --touch-target: 44px;
+
+    /* ------------------------------------------------------------------ */
+    /* LAYOUT                                                               */
+    /* ------------------------------------------------------------------ */
+    --gutter: 1rem;   /* narrow gutter at the 360px floor */
+
+    /* ------------------------------------------------------------------ */
+    /* MOTION                                                               */
+    /*                                                                      */
+    /* Every duration must be multiplied by --motion-duration-scalar in     */
+    /* computed values: calc(var(--duration-base) * var(--motion-duration-  */
+    /* scalar)). The scalar collapses to 0 under prefers-reduced-motion.    */
+    /* Hardcoded milliseconds in component code are forbidden.              */
+    /* ------------------------------------------------------------------ */
+    --motion-duration-scalar: 1;
+
+    --ease-default:  cubic-bezier(0.2, 0.8, 0.2, 1);   /* the bow: decelerate */
+    --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-bounce:   cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-enter:    cubic-bezier(0, 0, 0.2, 1);
+    --ease-exit:     cubic-bezier(0.4, 0, 1, 1);
+    --ease-linear:   linear;
+    --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+
+    --duration-instant:     100ms;   /* Draw: press feedback, focus ring */
+    --duration-fast:        150ms;   /* Still: color shifts, hover backgrounds */
+    --duration-base:        200ms;   /* Release: modal/dropdown entry */
+    --duration-modal:       300ms;
+    --duration-section:     300ms;
+    --duration-emphasis:    400ms;   /* Breath: peak readout, first diagnosis paint */
+    --duration-page:        500ms;
+    --duration-slower:      500ms;
+    --duration-ticker:      800ms;
+    --duration-stagger:     50ms;
+    --duration-stagger-max: 300ms;
+  }
+
+  /* Collapse all motion under prefers-reduced-motion: reduce. */
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --motion-duration-scalar: 0;
+    }
+  }
+}
