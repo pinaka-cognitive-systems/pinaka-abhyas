@@ -16,11 +16,12 @@ in place as the historical record.
 | [0005](0005-machine-verified-item-pipeline.md) | Machine-verified item pipeline | Accepted |
 | [0006](0006-elo-now-telemetry-path-to-irt.md) | Elo mastery now, telemetry path to IRT | Partially superseded by 0012 |
 | [0007](0007-one-domain-marketing-site.md) | One domain, marketing site renders from the repo | Accepted |
+| [0008](0008-storage-and-hosting.md) | Storage and hosting: opfs-sahpool on Cloudflare Pages | Accepted |
+| [0009](0009-pack-and-data-lifecycle.md) | Pack and data lifecycle | Accepted |
 | [0010](0010-single-typescript-engine.md) | One engine, in TypeScript | Accepted |
 | [0011](0011-device-target-phone-floor-desktop-best.md) | Device target: phone floor, desktop best | Accepted |
 | [0012](0012-glicko-lite-mastery.md) | Glicko-lite mastery | Accepted |
 
-Numbers 0008 and 0009 are reserved for the storage-and-hosting and pack-lifecycle
-decisions named in the master plan. ADRs 0001 through 0007 record the project's founding
+ADRs 0001 through 0007 record the project's founding
 decisions and share the founding date; their order within that date is the numeric
 order.
