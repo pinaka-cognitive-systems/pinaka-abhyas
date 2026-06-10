@@ -21,6 +21,7 @@ in place as the historical record.
 | [0010](0010-single-typescript-engine.md) | One engine, in TypeScript | Accepted |
 | [0011](0011-device-target-phone-floor-desktop-best.md) | Device target: phone floor, desktop best | Accepted |
 | [0012](0012-glicko-lite-mastery.md) | Glicko-lite mastery | Accepted |
+| [0013](0013-english-only-v1.md) | English-only v1, Hindi deferred with a trigger | Accepted |
 
 ADRs 0001 through 0007 record the project's founding
 decisions and share the founding date; their order within that date is the numeric
