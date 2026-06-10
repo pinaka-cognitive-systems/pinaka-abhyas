@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000185",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b5",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000185.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Four people -- Anil, Beena, Charu, and Dev -- sit in a row of four seats numbered 1 to 4 (left to right). Clue 1: Beena sits immediately to the right of Anil. Clue 2: Dev does not sit at seat 1 or seat 4. Clue 3: Charu sits at seat 1. Who sits at seat 3?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Dev"
+    },
+    {
+      "key": 2,
+      "text": "Charu"
+    },
+    {
+      "key": 3,
+      "text": "Anil"
+    },
+    {
+      "key": 4,
+      "text": "Beena"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student places the Anil-Beena block at seats 2-3 (ignoring clue 2), then puts Dev at seat 4, violating the constraint that Dev is not at seat 4.",
+      "misconception": "constraint_omitted"
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Charu=1. Block (2,3) forces Dev to seat 4 (violates clue 2). Block (3,4) forces Dev to seat 2 (allowed). So Charu=1, Dev=2, Anil=3, Beena=4. Seat 3 = Anil."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student places the Anil-Beena block at seats 2-3 without verifying clue 2, reporting Beena at seat 3.",
+      "misconception": "constraint_omitted"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student ignores clue 3 and places Charu at seat 3 by a different arrangement.",
+      "misconception": "constraint_omitted"
+    }
+  ],
+  "explanation": "Clue 3: Charu=1. Clue 1: Anil-Beena consecutive block can be at seats (2,3) or (3,4). Clue 2: Dev not at seat 1 or 4. If block at (2,3), the only remaining seat is 4 for Dev, violating clue 2. If block at (3,4), the remaining seat is 2 for Dev, allowed. Unique solution: Charu=1, Dev=2, Anil=3, Beena=4. Seat 3 = Anil.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "0d66f2317554c6f86896bc1e19dc5822af3d34f514300f430abe2b3678188fec"
+}

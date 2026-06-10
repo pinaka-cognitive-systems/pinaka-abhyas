@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000162",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b4",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000162.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.venn"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "In a class of 60 students, 35 study Mathematics and 30 study Statistics. Every student studies at least one subject. How many students study both subjects?",
+  "options": [
+    {
+      "key": 1,
+      "text": "25"
+    },
+    {
+      "key": 2,
+      "text": "65"
+    },
+    {
+      "key": 3,
+      "text": "10"
+    },
+    {
+      "key": 4,
+      "text": "5"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "By inclusion-exclusion: |M ∩ S| = |M| + |S| - |M ∪ S| = 35 + 30 - 60 = 5."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student subtracts the smaller set from the larger: 35 - 30 = 25, confusing difference with intersection.",
+      "misconception": "set_operation_confused"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student adds 35 + 30 = 65 without subtracting the total, ignoring the inclusion-exclusion step entirely.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student uses 60 - 35 - 30 + 15 = 10 by misapplying a rearrangement and introducing a spurious value.",
+      "misconception": "arithmetic_slip"
+    }
+  ],
+  "explanation": "Inclusion-exclusion: |M ∪ S| = |M| + |S| - |M ∩ S|. Since every student studies at least one subject, |M ∪ S| = 60. So |M ∩ S| = 35 + 30 - 60 = 5.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "c4a5724c90dddc20858de8f7542620f86c5ed55736b53fc9b250cf14695836e4"
+}

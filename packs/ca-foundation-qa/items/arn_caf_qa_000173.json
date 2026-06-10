@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000173",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b4",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000173.py"
+  },
+  "tests": [
+    "qa.bmath.sequence_series.gm"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "Find the geometric mean of 2 and 8.",
+  "options": [
+    {
+      "key": 1,
+      "text": "4"
+    },
+    {
+      "key": 2,
+      "text": "5"
+    },
+    {
+      "key": 3,
+      "text": "16"
+    },
+    {
+      "key": 4,
+      "text": "10"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "GM = √(2 × 8) = √16 = 4."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student uses the arithmetic mean formula: (2 + 8) / 2 = 5, applying an arithmetic average rule instead of the geometric mean rule.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student computes the product 2 × 8 = 16 but forgets to take the square root.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student adds the two numbers: 2 + 8 = 10, applying a sum rather than any mean formula.",
+      "misconception": "wrong_formula"
+    }
+  ],
+  "explanation": "The geometric mean of two numbers a and b is √(a × b). Here GM = √(2 × 8) = √16 = 4.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "recall"
+  },
+  "content_hash": "8e991699d87382a9b6109cebc3d87ed8afe2a5be01b6e865caa724b19d903eb9"
+}

@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000161",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b4",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000161.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.sets"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "Set A has 5 elements and set B has 3 elements. All elements of B are also in A. How many elements does A ∪ B contain?",
+  "options": [
+    {
+      "key": 1,
+      "text": "8"
+    },
+    {
+      "key": 2,
+      "text": "5"
+    },
+    {
+      "key": 3,
+      "text": "2"
+    },
+    {
+      "key": 4,
+      "text": "3"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "B is a subset of A, so A ∪ B = A, which has 5 elements."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student adds |A| + |B| = 5 + 3 = 8, ignoring that the elements of B are already counted in A.",
+      "misconception": "set_operation_confused"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student reports |B| = 3, confusing union with intersection when B is a subset of A.",
+      "misconception": "set_operation_confused"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student computes |A| - |B| = 5 - 3 = 2, applying a difference formula instead of union.",
+      "misconception": "wrong_formula"
+    }
+  ],
+  "explanation": "Because B is a subset of A, every element of B is already in A. The union A ∪ B equals A, so it contains 5 elements.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "recall"
+  },
+  "content_hash": "522f228c0efd1b7c33a81345a3819fbcfd6c371a9f22cd4fe6729c63c2a816b2"
+}

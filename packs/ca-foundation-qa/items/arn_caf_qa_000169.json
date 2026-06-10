@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000169",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b4",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000169.py"
+  },
+  "tests": [
+    "qa.bmath.calculus.applications"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 120,
+  "stem": "A firm's total cost function is TC = 2q³ - 6q² + 10q + 50. Find the marginal cost when output q = 2.",
+  "options": [
+    {
+      "key": 1,
+      "text": "31"
+    },
+    {
+      "key": 2,
+      "text": "24"
+    },
+    {
+      "key": 3,
+      "text": "6"
+    },
+    {
+      "key": 4,
+      "text": "10"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "MC = d(TC)/dq = 6q² - 12q + 10. At q = 2: 6(4) - 12(2) + 10 = 24 - 24 + 10 = 10."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student divides TC by q to get average cost: TC(2)/2 = 62/2 = 31, confusing marginal cost with average cost.",
+      "misconception": "marginal_vs_average_confused"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student omits the n-factor in the power rule: treats d(2q³)/dq as 2q² and d(6q²)/dq as 6q, giving MC = 2(4) - 6(2) + 10 = 6.",
+      "misconception": "power_rule_misapplied"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student computes only the derivative of the first term and ignores the rest: d(2q³)/dq at q=2 = 6(4) = 24.",
+      "misconception": "misread_quantity"
+    }
+  ],
+  "explanation": "Marginal cost is the derivative of total cost. MC = d(TC)/dq = 6q² - 12q + 10. Substituting q = 2: MC = 6(4) - 12(2) + 10 = 24 - 24 + 10 = 10.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "892e0d8c65126753867f6e7a90976e554b244a384660b7dbc311a71879b62264"
+}

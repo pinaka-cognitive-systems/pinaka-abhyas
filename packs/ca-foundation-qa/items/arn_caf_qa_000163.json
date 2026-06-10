@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000163",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b4",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000163.py"
+  },
+  "tests": [
+    "qa.bmath.ratio_indices_log.logarithm"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "If log10(2) = 0.3010 and log10(3) = 0.4771, what is log10(12)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.7781"
+    },
+    {
+      "key": 2,
+      "text": "1.0791"
+    },
+    {
+      "key": 3,
+      "text": "1.3802"
+    },
+    {
+      "key": 4,
+      "text": "0.6021"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "log10(12) = log10(4 × 3) = 2 × log10(2) + log10(3) = 0.6020 + 0.4771 = 1.0791."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student uses log10(2) + log10(3) = 0.3010 + 0.4771 = 0.7781, computing log10(6) instead of log10(12).",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student uses 2 × log10(2) × log10(3) = 2 × 0.3010 × 0.4771, multiplying logs instead of adding them.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student uses 2 × log10(2) = 0.6020 alone, omitting the log10(3) term.",
+      "misconception": "arithmetic_slip"
+    }
+  ],
+  "explanation": "12 = 4 × 3 = 2² × 3. So log10(12) = log10(2²) + log10(3) = 2 × 0.3010 + 0.4771 = 0.6020 + 0.4771 = 1.0791.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "eb611d0cbcca5a44c1cb178c9c70041ba52d7af60de68c17b44b7ec5af107e75"
+}

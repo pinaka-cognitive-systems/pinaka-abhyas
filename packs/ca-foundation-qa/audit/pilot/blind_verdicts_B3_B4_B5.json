@@ -1,0 +1,240 @@
+[
+  {
+    "id": "arn_caf_qa_000141",
+    "computed_answer": "12.68%",
+    "option_key": 4,
+    "confident": true,
+    "note": "EAR = (1.01)^12 - 1 = 1.1268 - 1 = 0.1268"
+  },
+  {
+    "id": "arn_caf_qa_000142",
+    "computed_answer": "Rs 1,00,000",
+    "option_key": 2,
+    "confident": true,
+    "note": "PV = 121000 / 1.21 = 100000"
+  },
+  {
+    "id": "arn_caf_qa_000143",
+    "computed_answer": "Rs 62,985",
+    "option_key": 4,
+    "confident": true,
+    "note": "FV = 50000 * 1.2597 = 62985"
+  },
+  {
+    "id": "arn_caf_qa_000144",
+    "computed_answer": "Rs 1,07,740",
+    "option_key": 1,
+    "confident": true,
+    "note": "PMT = 500000 / 4.641 \u2248 107740"
+  },
+  {
+    "id": "arn_caf_qa_000145",
+    "computed_answer": "Rs 1,50,000",
+    "option_key": 3,
+    "confident": true,
+    "note": "Perpetuity PV = 12000 / 0.08 = 150000"
+  },
+  {
+    "id": "arn_caf_qa_000146",
+    "computed_answer": "Rs 9,997 \u2248 Rs 10,000",
+    "option_key": 1,
+    "confident": true,
+    "note": "NPV = 55000.55 + 54996.92 - 100000 \u2248 9997 \u2248 10000"
+  },
+  {
+    "id": "arn_caf_qa_000147",
+    "computed_answer": "12%",
+    "option_key": 3,
+    "confident": true,
+    "note": "Given (1.12)^3 = 1.40493 matches ratio; CAGR = 12%"
+  },
+  {
+    "id": "arn_caf_qa_000148",
+    "computed_answer": "6.67%",
+    "option_key": 4,
+    "confident": true,
+    "note": "Fisher: (1.12/1.05) - 1 = 0.06667 = 6.67%"
+  },
+  {
+    "id": "arn_caf_qa_000149",
+    "computed_answer": "Rs 30,000",
+    "option_key": 2,
+    "confident": true,
+    "note": "Real salary = 42000 / (140/100) = 30000"
+  },
+  {
+    "id": "arn_caf_qa_000150",
+    "computed_answer": "Time reversal test",
+    "option_key": 1,
+    "confident": true,
+    "note": "P01 * P10 = 1 is the Time Reversal Test by definition"
+  },
+  {
+    "id": "arn_caf_qa_000151",
+    "computed_answer": "Rs 16,380",
+    "option_key": 3,
+    "confident": true,
+    "note": "PMT = 100000 / 6.1051 \u2248 16380"
+  },
+  {
+    "id": "arn_caf_qa_000152",
+    "computed_answer": "2022",
+    "option_key": 1,
+    "confident": true,
+    "note": "Real wages: 2020=20000, 2021=20000, 2022=20833, 2023=20000"
+  },
+  {
+    "id": "arn_caf_qa_000161",
+    "computed_answer": "5",
+    "option_key": 2,
+    "confident": true,
+    "note": "B \u2286 A, so A \u222a B = A = 5 elements"
+  },
+  {
+    "id": "arn_caf_qa_000162",
+    "computed_answer": "5",
+    "option_key": 4,
+    "confident": true,
+    "note": "60 = 35 + 30 - x => x = 5"
+  },
+  {
+    "id": "arn_caf_qa_000163",
+    "computed_answer": "1.0791",
+    "option_key": 2,
+    "confident": true,
+    "note": "log10(12) = 2*0.3010 + 0.4771 = 1.0791"
+  },
+  {
+    "id": "arn_caf_qa_000164",
+    "computed_answer": "4",
+    "option_key": 3,
+    "confident": true,
+    "note": "2^(2+3-3) = 2^2 = 4"
+  },
+  {
+    "id": "arn_caf_qa_000165",
+    "computed_answer": "1",
+    "option_key": 1,
+    "confident": true,
+    "note": "d=4 from t9-t5=16; a = 17-4*4 = 1"
+  },
+  {
+    "id": "arn_caf_qa_000166",
+    "computed_answer": "x > 8",
+    "option_key": 3,
+    "confident": true,
+    "note": "3x - 7 > 2x + 1 => x > 8"
+  },
+  {
+    "id": "arn_caf_qa_000167",
+    "computed_answer": "9x\u00b2 - 10x",
+    "option_key": 1,
+    "confident": true,
+    "note": "d/dx(3x^3 - 5x^2 + 7) = 9x^2 - 10x"
+  },
+  {
+    "id": "arn_caf_qa_000168",
+    "computed_answer": "2x\u00b3 + 2x\u00b2 + C",
+    "option_key": 2,
+    "confident": true,
+    "note": "\u222b(6x^2+4x)dx = 2x^3 + 2x^2 + C"
+  },
+  {
+    "id": "arn_caf_qa_000169",
+    "computed_answer": "10",
+    "option_key": 4,
+    "confident": true,
+    "note": "MC = 6q^2 - 12q + 10; at q=2: 24-24+10 = 10"
+  },
+  {
+    "id": "arn_caf_qa_000170",
+    "computed_answer": "18",
+    "option_key": 3,
+    "confident": true,
+    "note": "MR = 50 - 4q; at q=8: 50-32 = 18"
+  },
+  {
+    "id": "arn_caf_qa_000171",
+    "computed_answer": "9:10",
+    "option_key": 1,
+    "confident": true,
+    "note": "a/c = (3/4)*(6/5) = 18/20 = 9/10"
+  },
+  {
+    "id": "arn_caf_qa_000172",
+    "computed_answer": "(4, 3)",
+    "option_key": 3,
+    "confident": true,
+    "note": "2(4)+3=11 > 10, violates constraint; others satisfy"
+  },
+  {
+    "id": "arn_caf_qa_000173",
+    "computed_answer": "4",
+    "option_key": 1,
+    "confident": true,
+    "note": "GM = sqrt(2*8) = sqrt(16) = 4"
+  },
+  {
+    "id": "arn_caf_qa_000174",
+    "computed_answer": "6",
+    "option_key": 4,
+    "confident": true,
+    "note": "(x^2-9)/(x-3) = x+3; limit as x->3 is 6"
+  },
+  {
+    "id": "arn_caf_qa_000181",
+    "computed_answer": "35",
+    "option_key": 4,
+    "confident": true,
+    "note": "All others (4,9,16,25,49) are perfect squares; 35 is not"
+  },
+  {
+    "id": "arn_caf_qa_000182",
+    "computed_answer": "Niece",
+    "option_key": 2,
+    "confident": true,
+    "note": "Woman's mother = Rahul's sister => woman is Rahul's niece"
+  },
+  {
+    "id": "arn_caf_qa_000183",
+    "computed_answer": "38",
+    "option_key": 4,
+    "confident": true,
+    "note": "Diffs 3,5,7,9,11; next term = 27+11 = 38"
+  },
+  {
+    "id": "arn_caf_qa_000184",
+    "computed_answer": "South",
+    "option_key": 1,
+    "confident": true,
+    "note": "N->E(+90cw)->N(+90acw)->S(+180); final facing South"
+  },
+  {
+    "id": "arn_caf_qa_000185",
+    "computed_answer": "Anil",
+    "option_key": 3,
+    "confident": true,
+    "note": "Charu=1,Dev=2,Anil=3,Beena=4; all clues satisfied"
+  },
+  {
+    "id": "arn_caf_qa_000186",
+    "computed_answer": "Wife",
+    "option_key": 1,
+    "confident": true,
+    "note": "D=mother of A,B,C; E=father of C => D is wife of E"
+  },
+  {
+    "id": "arn_caf_qa_000187",
+    "computed_answer": "ITCRG",
+    "option_key": 3,
+    "confident": true,
+    "note": "Each letter +2: GRAPE -> ITCRG (verified MANGO->OCPIQ)"
+  },
+  {
+    "id": "arn_caf_qa_000188",
+    "computed_answer": "U",
+    "option_key": 4,
+    "confident": true,
+    "note": "P=1,Q=2,S=3,R=4,T=5,U=6; S not at 6 satisfied"
+  }
+]

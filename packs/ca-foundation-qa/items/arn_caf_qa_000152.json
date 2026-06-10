@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000152",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000152.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.deflating"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 120,
+  "stem": "A worker's monthly wages and price index (base 2020 = 100) are shown below. 2020: Rs 20,000, index 100. 2021: Rs 22,000, index 110. 2022: Rs 25,000, index 120. 2023: Rs 28,000, index 140. In which year was the real wage highest?",
+  "options": [
+    {
+      "key": 1,
+      "text": "2022"
+    },
+    {
+      "key": 2,
+      "text": "2021"
+    },
+    {
+      "key": 3,
+      "text": "2020"
+    },
+    {
+      "key": 4,
+      "text": "2023"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student does not deflate and picks the base year. Real wage in 2020 = 20,000 / 100 × 100 = Rs 20,000, which is not the highest.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student notes the nominal wage rose but does not deflate. Real wage in 2021 = 22,000 / 110 × 100 = Rs 20,000, same as 2020.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Real wages: 2020 = 20,000; 2021 = 20,000; 2022 = 20,833; 2023 = 20,000. Year 2022 has the highest real wage."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student picks the year with the highest nominal wage (Rs 28,000) without deflating. Real wage in 2023 = 28,000 / 140 × 100 = Rs 20,000.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "Deflate each year: Real = (Nominal / Index) × 100. 2020: 20,000. 2021: 22,000/110×100 = 20,000. 2022: 25,000/120×100 = 20,833. 2023: 28,000/140×100 = 20,000. The real wage peaked in 2022, though the nominal wage kept rising.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "fd1c37006c7d24307eb9a5e3b6b444a11f4b61b0b370b9423636b70a028e5b15"
+}

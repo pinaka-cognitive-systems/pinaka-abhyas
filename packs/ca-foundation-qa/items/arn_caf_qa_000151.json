@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000151",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000151.py"
+  },
+  "tests": [
+    "qa.bmath.finance.sinking_fund"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 120,
+  "stem": "A company wants to accumulate Rs 1,00,000 in 5 years. Payments are made at the end of each year into a sinking fund at 10% per annum. Find the annual payment. [Given: (1.1) raised to the power 5 = 1.61051]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 12,961"
+    },
+    {
+      "key": 2,
+      "text": "Rs 26,380"
+    },
+    {
+      "key": 3,
+      "text": "Rs 16,380"
+    },
+    {
+      "key": 4,
+      "text": "Rs 20,000"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student divides the target by the number of years: 1,00,000 / 5 = 20,000, ignoring the interest earned on deposits.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student uses the present-value annuity factor (3.7908) instead of the future-value factor: 1,00,000 / 3.7908 = Rs 26,380.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "FV annuity factor = ((1.1) raised to the power 5 - 1) / 0.1 = 0.61051 / 0.1 = 6.1051. PMT = 1,00,000 / 6.1051 = Rs 16,380."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student uses n = 6 instead of n = 5 in the annuity factor, computing a factor of 7.7156 and PMT = 1,00,000 / 7.7156 = Rs 12,961.",
+      "misconception": "off_by_one"
+    }
+  ],
+  "explanation": "For a sinking fund with end-of-period payments: PMT = FV / [((1+r)^n - 1) / r]. FV annuity factor = (1.61051 - 1) / 0.10 = 6.1051. PMT = 1,00,000 / 6.1051 = Rs 16,380. Using a PV factor instead of the FV factor is the most frequent error at L3.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "8ffa3eab90e59044eade942160212d52bc359100976ba1a9a885e9434a7fb90a"
+}

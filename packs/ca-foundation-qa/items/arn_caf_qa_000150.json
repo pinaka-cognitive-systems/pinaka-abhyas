@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000150",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000150.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.tests_adequacy"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "Which test of adequacy is satisfied when P01 times P10 = 1, with base and current periods interchanged?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Time reversal test"
+    },
+    {
+      "key": 2,
+      "text": "Circular test"
+    },
+    {
+      "key": 3,
+      "text": "Unit test"
+    },
+    {
+      "key": 4,
+      "text": "Factor reversal test"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Circular test checks consistency across three or more time periods, not a simple base-current period swap.",
+      "misconception": "concept_definition_confused"
+    },
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Time reversal test: P01 × P10 = 1, where P01 is the index from base to current and P10 is the reverse."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Factor reversal test requires that the product of price and quantity index numbers equals the value ratio, not a time-period swap.",
+      "misconception": "concept_definition_confused"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Unit test states the index should be independent of the units used for prices and quantities, not about reversing time periods.",
+      "misconception": "concept_definition_confused"
+    }
+  ],
+  "explanation": "The time reversal test requires P01 × P10 = 1. Periods 0 and 1 are swapped; the two index numbers must multiply to 1. Fisher Ideal Index satisfies this. Circular test covers three or more periods; factor reversal tests the product of price and quantity index numbers.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "recall"
+  },
+  "content_hash": "6ce8a7dd461370eb30239f48489214028286b4c78c1938e4bb0f2b40ad1d3a68"
+}

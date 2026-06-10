@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000145",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000145.py"
+  },
+  "tests": [
+    "qa.bmath.finance.perpetuity"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "An endowment fund pays Rs 12,000 every year forever. The discount rate is 8% per annum. What is the present value of this perpetuity?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 1,20,000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 1,00,000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 1,50,000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 96,000"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student uses 12.5% as denominator instead of 8%: 12,000 / 0.125 = 96,000.",
+      "misconception": "arithmetic_slip"
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "PV of perpetuity = PMT / r = 12,000 / 0.08 = Rs 1,50,000."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student uses 10% instead of 8% as the discount rate: 12,000 / 0.10 = 1,20,000.",
+      "misconception": "percentage_base_confusion"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student treats 8% of 12,000 as the present value and multiplies by an incorrect factor of 10, giving Rs 1,00,000.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "Present value of a perpetuity = PMT / r. With PMT = 12,000 and r = 0.08: PV = 12,000 / 0.08 = Rs 1,50,000. A common error is using the wrong discount rate or applying a finite-period formula.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "recall"
+  },
+  "content_hash": "c930ce0758824aaa22b1511dce31ca9dfdf1c0dcd6bd11d2d9e5e03d448291aa"
+}

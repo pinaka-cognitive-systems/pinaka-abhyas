@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000166",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b4",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000166.py"
+  },
+  "tests": [
+    "qa.bmath.inequalities.one_variable"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Solve the inequality: 3x - 7 > 2x + 1. Which of the following describes all solutions?",
+  "options": [
+    {
+      "key": 1,
+      "text": "x > -8"
+    },
+    {
+      "key": 2,
+      "text": "x < 8"
+    },
+    {
+      "key": 3,
+      "text": "x > 8"
+    },
+    {
+      "key": 4,
+      "text": "x > 6"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "3x - 2x > 1 + 7 gives x > 8."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student moves 7 to the right side with the wrong sign: 3x - 2x > 1 - 7 = -6, misreading the direction of transposition.",
+      "misconception": "sign_error"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student solves correctly to x > 8 but reverses the inequality sign, writing x < 8.",
+      "misconception": "inequality_sign_not_flipped"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student subtracts 2 from both sides instead of collecting x terms: 3x - 7 > 2x + 1 becomes x - 7 > 1, then x > 8; or makes arithmetic error giving x > 6.",
+      "misconception": "arithmetic_slip"
+    }
+  ],
+  "explanation": "Subtract 2x from both sides: x - 7 > 1. Add 7 to both sides: x > 8.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "2889f54c836e735b7f8b9101c81ca3216425fb0a3b8695dc984d00d5a78b8084"
+}

@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000174",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b4",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000174.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.limits"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Find: lim(x -> 3) (x² - 9) ÷ (x - 3).",
+  "options": [
+    {
+      "key": 1,
+      "text": "0"
+    },
+    {
+      "key": 2,
+      "text": "9"
+    },
+    {
+      "key": 3,
+      "text": "3"
+    },
+    {
+      "key": 4,
+      "text": "6"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "Factor: (x² - 9) = (x - 3)(x + 3). Cancel (x - 3) to get lim(x -> 3)(x + 3) = 6."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student substitutes x = 3 directly into the numerator: 9 - 9 = 0, ignoring that the denominator is also 0 and the limit must be found by factoring.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student reports x = 3 as the answer, equating the limit point with the limit value.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student evaluates x² at x = 3 and reports 9, substituting into only part of the expression.",
+      "misconception": "misread_quantity"
+    }
+  ],
+  "explanation": "Direct substitution gives 0/0. Factor the numerator: x² - 9 = (x - 3)(x + 3). Cancel the common factor (x - 3) to get lim(x -> 3)(x + 3) = 3 + 3 = 6.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "149b3fc6e21ea532de264248058955f49a7f1d2c679272862f2f5aa5ad53c1b9"
+}

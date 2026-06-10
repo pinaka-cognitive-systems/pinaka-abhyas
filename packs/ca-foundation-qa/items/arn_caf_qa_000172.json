@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000172",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b4",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000172.py"
+  },
+  "tests": [
+    "qa.bmath.inequalities.solution_space"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A feasible region is defined by 2x + y ≤ 10, x ≥ 0, y ≥ 0. Which point lies outside this region?",
+  "options": [
+    {
+      "key": 1,
+      "text": "(3, 4)"
+    },
+    {
+      "key": 2,
+      "text": "(0, 0)"
+    },
+    {
+      "key": 3,
+      "text": "(4, 3)"
+    },
+    {
+      "key": 4,
+      "text": "(2, 5)"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "2(4) + 3 = 11 > 10, so (4, 3) violates the constraint and lies outside the region."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "2(0) + 0 = 0 ≤ 10 and both coordinates are non-negative, so (0, 0) is in the feasible region.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "2(3) + 4 = 10 ≤ 10, so (3, 4) satisfies the constraint and lies on the boundary of the region.",
+      "misconception": "sign_error"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "2(2) + 5 = 9 ≤ 10 and both coordinates are non-negative, so (2, 5) is inside the feasible region.",
+      "misconception": "arithmetic_slip"
+    }
+  ],
+  "explanation": "Check each point against 2x + y ≤ 10. For (4, 3): 2(4) + 3 = 11 > 10. This violates the constraint. All other points satisfy it.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "02f32d58b8753f18405e3f19bc823c80967424950d68e4bf70aa47ff3cce4273"
+}

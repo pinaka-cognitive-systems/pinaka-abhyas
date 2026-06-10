@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000164",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b4",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000164.py"
+  },
+  "tests": [
+    "qa.bmath.ratio_indices_log.indices"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "Simplify: (2² × 2³) ÷ 2³.",
+  "options": [
+    {
+      "key": 1,
+      "text": "8"
+    },
+    {
+      "key": 2,
+      "text": "16"
+    },
+    {
+      "key": 3,
+      "text": "4"
+    },
+    {
+      "key": 4,
+      "text": "2"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Adding exponents: 2² × 2³ = 2 to the power 5. Subtracting for division: 2 to the power 5 ÷ 2³ = 2² = 4."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student multiplies exponents in 2² × 2³ to get 2 to the power 6 instead of adding. Then 2 to the power 6 ÷ 2³ = 2³ = 8, then further miscomputes to get 16.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student computes 2 + 3 - 3 = 2 correctly but evaluates 2 to the power 1 as 2 instead of 2 to the power 2 as 4.",
+      "misconception": "arithmetic_slip"
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student applies division to only one factor: 2³ ÷ 2³ = 1. Then multiplies by 2² = 4 and adds 4 to get 8, misusing order of operations.",
+      "misconception": "order_of_operations"
+    }
+  ],
+  "explanation": "Index law for multiplication: 2² × 2³ = 2 to the power (2+3) = 2 to the power 5 = 32. Index law for division: 32 ÷ 2³ = 32 ÷ 8 = 4, or equivalently 2 to the power (5-3) = 2² = 4.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "recall"
+  },
+  "content_hash": "c49f4cf8a782761ff9d02490bab786a613ca5842783467b2ff4807fe8ada65d2"
+}

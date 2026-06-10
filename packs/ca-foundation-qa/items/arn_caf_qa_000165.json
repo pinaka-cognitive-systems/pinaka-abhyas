@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000165",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b4",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000165.py"
+  },
+  "tests": [
+    "qa.bmath.sequence_series.ap"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The 5th term of an arithmetic progression is 17 and the 9th term is 33. Find the first term.",
+  "options": [
+    {
+      "key": 1,
+      "text": "1"
+    },
+    {
+      "key": 2,
+      "text": "4"
+    },
+    {
+      "key": 3,
+      "text": "9"
+    },
+    {
+      "key": 4,
+      "text": "5"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Common difference d = (33 - 17) / (9 - 5) = 16 / 4 = 4. First term a = 17 - 4 × 4 = 1."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student uses the 5th term as the first term directly: a = T5 = 17 but then subtracts d incorrectly to get 9.",
+      "misconception": "off_by_one"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student finds d = 4 correctly but reports d as the first term instead of computing a = T5 - 4d.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student subtracts only 3 steps from T5 instead of 4: a = 17 - 3 × 4 = 5.",
+      "misconception": "off_by_one"
+    }
+  ],
+  "explanation": "Let first term = a and common difference = d. T5 = a + 4d = 17 and T9 = a + 8d = 33. Subtracting: 4d = 16, so d = 4. Then a = 17 - 4 × 4 = 1.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "d134cbbb86622d18de9f6d9c3fce60352cd8d1672703d66ad011b2b916a1ff6d"
+}

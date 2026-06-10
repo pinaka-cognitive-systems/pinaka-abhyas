@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000186",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b5",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000186.py"
+  },
+  "tests": [
+    "qa.lr.blood_relations"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A and B are brothers. C is the sister of B. D is the mother of A. E is the father of C. How is D related to E?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Wife"
+    },
+    {
+      "key": 2,
+      "text": "Sister"
+    },
+    {
+      "key": 3,
+      "text": "Daughter"
+    },
+    {
+      "key": 4,
+      "text": "Mother"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "A and B are brothers. C is B's sister, so C is also a sibling of A. D is A's mother, E is C's father. Since A, B, C are siblings, D and E are their parents: D is E's wife."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student treats D as a sibling of E rather than tracing that D and E share the same children, placing D at the same generational level as E but in a sibling relation.",
+      "misconception": "kinship_generation_error"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student reverses the direction of the parent-child link, making D a child of E instead of a co-parent.",
+      "misconception": "kinship_direction_inverted"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student adds an extra generation upward, treating D as E's mother instead of E's wife.",
+      "misconception": "kinship_generation_error"
+    }
+  ],
+  "explanation": "A and B are brothers, and C is the sister of B, so A, B, C are all siblings. D is the mother of A, so D is the mother of all three siblings. E is the father of C, so E is the father of all three siblings. D and E are parents of the same children, making D the wife of E.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "1cf1373aa374758194a8e94f8f138f2ec790bea366b3b118b4d1ac58b3de1458"
+}

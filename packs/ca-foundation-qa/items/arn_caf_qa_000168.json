@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000168",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b4",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000168.py"
+  },
+  "tests": [
+    "qa.bmath.calculus.integration"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Evaluate: ∫(6x² + 4x) dx.",
+  "options": [
+    {
+      "key": 1,
+      "text": "12x + 4 + C"
+    },
+    {
+      "key": 2,
+      "text": "2x³ + 2x² + C"
+    },
+    {
+      "key": 3,
+      "text": "6x³ + 4x² + C"
+    },
+    {
+      "key": 4,
+      "text": "2x³ + 2x²"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "∫6x² dx = (6/3)x³ = 2x³ and ∫4x dx = (4/2)x² = 2x². Adding C gives 2x³ + 2x² + C."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student multiplies each coefficient by x instead of dividing: 6x² becomes 6x³ instead of 2x³.",
+      "misconception": "power_rule_misapplied"
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student differentiates instead of integrating: d/dx(6x² + 4x) = 12x + 4.",
+      "misconception": "concept_definition_confused"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student obtains the correct antiderivative but omits the constant of integration C.",
+      "misconception": "integration_constant_dropped"
+    }
+  ],
+  "explanation": "Integrate term by term: ∫6x² dx = 2x³ and ∫4x dx = 2x². The general antiderivative is 2x³ + 2x² + C.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "6a9f66a4537ea18b5c4f56c7bb945e9610b4dd42a9d5788bfc689fd8acbe3468"
+}

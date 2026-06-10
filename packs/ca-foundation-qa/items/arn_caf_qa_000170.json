@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000170",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b4",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000170.py"
+  },
+  "tests": [
+    "qa.bmath.calculus.applications"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 120,
+  "stem": "A firm's total revenue function is TR = 50q - 2q². Find the marginal revenue when q = 8.",
+  "options": [
+    {
+      "key": 1,
+      "text": "26"
+    },
+    {
+      "key": 2,
+      "text": "48"
+    },
+    {
+      "key": 3,
+      "text": "18"
+    },
+    {
+      "key": 4,
+      "text": "34"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "MR = d(TR)/dq = 50 - 4q. At q = 8: MR = 50 - 32 = 18."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student computes average revenue TR/q = (50×8 - 2×64)/8 = 272/8 = 34, confusing marginal revenue with average revenue.",
+      "misconception": "marginal_vs_average_confused"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student drops the n-factor when differentiating 2q²: d(2q²)/dq = 2 instead of 4q, giving MR = 50 - 2 = 48.",
+      "misconception": "power_rule_misapplied"
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student makes an arithmetic slip: computes 4 × 8 = 24 instead of 32, giving MR = 50 - 24 = 26.",
+      "misconception": "arithmetic_slip"
+    }
+  ],
+  "explanation": "Marginal revenue is d(TR)/dq. TR = 50q - 2q², so MR = 50 - 4q. At q = 8: MR = 50 - 4(8) = 50 - 32 = 18.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "4db437033f0c3ea74f7b87215258ea5a8dce58e3bc96b80f9888ea466a5732d2"
+}

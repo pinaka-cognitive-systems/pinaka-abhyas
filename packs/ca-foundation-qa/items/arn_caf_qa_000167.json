@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000167",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b4",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000167.py"
+  },
+  "tests": [
+    "qa.bmath.calculus.differentiation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Find dy/dx if y = 3x³ - 5x² + 7.",
+  "options": [
+    {
+      "key": 1,
+      "text": "9x² - 10x"
+    },
+    {
+      "key": 2,
+      "text": "3x² - 5x"
+    },
+    {
+      "key": 3,
+      "text": "9x³ - 10x²"
+    },
+    {
+      "key": 4,
+      "text": "9x² - 5x²"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "dy/dx = 3 × 3x² - 5 × 2x + 0 = 9x² - 10x."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student reduces each power by 1 without multiplying by the original exponent: d/dx of 3x³ = 3x² instead of 9x².",
+      "misconception": "power_rule_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student multiplies the coefficient by the exponent but does not lower the power: 3 × 3 × x³ = 9x³ instead of 9x².",
+      "misconception": "power_rule_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student differentiates 3x³ correctly to 9x² but does not reduce the power in -5x²: the result is left as -5x² instead of -10x.",
+      "misconception": "power_rule_misapplied"
+    }
+  ],
+  "explanation": "Apply the power rule to each term. d/dx(3x³) = 9x², d/dx(-5x²) = -10x, d/dx(7) = 0. So dy/dx = 9x² - 10x.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "e4aa99251323e5979a52adcf387a614891f204b28ee9b5780697320006b7c6fa"
+}

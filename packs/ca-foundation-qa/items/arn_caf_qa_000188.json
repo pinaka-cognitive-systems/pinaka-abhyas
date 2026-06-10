@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000188",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b5",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000188.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 120,
+  "stem": "Six people -- P, Q, R, S, T, U -- sit in a row of seats 1 to 6 (left to right). Clue 1: P sits at seat 1. Clue 2: Q sits immediately to the right of P. Clue 3: R sits at seat 4. Clue 4: S does not sit at seat 6. Clue 5: T sits immediately to the right of R. Who sits at seat 6?",
+  "options": [
+    {
+      "key": 1,
+      "text": "S"
+    },
+    {
+      "key": 2,
+      "text": "Q"
+    },
+    {
+      "key": 3,
+      "text": "T"
+    },
+    {
+      "key": 4,
+      "text": "U"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Clue 4 explicitly bans S from seat 6, so S cannot be the answer.",
+      "misconception": "constraint_omitted"
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "P=1, Q=2, R=4, T=5 (right of R). Remaining: S and U for seats 3 and 6. Clue 4 bans S from seat 6, so S=3 and U=6."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student misreads clue 5 as T sitting at seat 4 rather than immediately right of R at seat 4, placing T at seat 6.",
+      "misconception": "constraint_reversed"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student ignores clue 2 and places Q at seat 6, failing to apply the adjacency constraint that puts Q at seat 2.",
+      "misconception": "constraint_omitted"
+    }
+  ],
+  "explanation": "Clue 1: P=1. Clue 2: Q=P+1=2. Clue 3: R=4. Clue 5: T=R+1=5. Fixed seats: P=1, Q=2, R=4, T=5. Remaining people S and U fill seats 3 and 6. Clue 4: S not at seat 6. So S=3 and U=6. Seat 6 is U.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "4f801c3787cbe919edba3391976e9d46e5d4993dbce2eb873f6cf3580e2683a6"
+}

@@ -1,0 +1,305 @@
+{
+  "batch": "batch-B4",
+  "generated_at": "2026-06-10T16:24:28Z",
+  "items": {
+    "arn_caf_qa_000161": {
+      "verdict": "PASS",
+      "stages": {
+        "tier1_schema": {
+          "passed": true,
+          "violations": []
+        },
+        "tier2_crossrec": {
+          "passed": true,
+          "violations": []
+        },
+        "solution": {
+          "passed": true,
+          "violations": []
+        },
+        "quality": {
+          "passed": true,
+          "violations": []
+        }
+      }
+    },
+    "arn_caf_qa_000162": {
+      "verdict": "PASS",
+      "stages": {
+        "tier1_schema": {
+          "passed": true,
+          "violations": []
+        },
+        "tier2_crossrec": {
+          "passed": true,
+          "violations": []
+        },
+        "solution": {
+          "passed": true,
+          "violations": []
+        },
+        "quality": {
+          "passed": true,
+          "violations": []
+        }
+      }
+    },
+    "arn_caf_qa_000163": {
+      "verdict": "PASS",
+      "stages": {
+        "tier1_schema": {
+          "passed": true,
+          "violations": []
+        },
+        "tier2_crossrec": {
+          "passed": true,
+          "violations": []
+        },
+        "solution": {
+          "passed": true,
+          "violations": []
+        },
+        "quality": {
+          "passed": true,
+          "violations": []
+        }
+      }
+    },
+    "arn_caf_qa_000164": {
+      "verdict": "PASS",
+      "stages": {
+        "tier1_schema": {
+          "passed": true,
+          "violations": []
+        },
+        "tier2_crossrec": {
+          "passed": true,
+          "violations": []
+        },
+        "solution": {
+          "passed": true,
+          "violations": []
+        },
+        "quality": {
+          "passed": true,
+          "violations": []
+        }
+      }
+    },
+    "arn_caf_qa_000165": {
+      "verdict": "PASS",
+      "stages": {
+        "tier1_schema": {
+          "passed": true,
+          "violations": []
+        },
+        "tier2_crossrec": {
+          "passed": true,
+          "violations": []
+        },
+        "solution": {
+          "passed": true,
+          "violations": []
+        },
+        "quality": {
+          "passed": true,
+          "violations": []
+        }
+      }
+    },
+    "arn_caf_qa_000166": {
+      "verdict": "PASS",
+      "stages": {
+        "tier1_schema": {
+          "passed": true,
+          "violations": []
+        },
+        "tier2_crossrec": {
+          "passed": true,
+          "violations": []
+        },
+        "solution": {
+          "passed": true,
+          "violations": []
+        },
+        "quality": {
+          "passed": true,
+          "violations": []
+        }
+      }
+    },
+    "arn_caf_qa_000167": {
+      "verdict": "PASS",
+      "stages": {
+        "tier1_schema": {
+          "passed": true,
+          "violations": []
+        },
+        "tier2_crossrec": {
+          "passed": true,
+          "violations": []
+        },
+        "solution": {
+          "passed": true,
+          "violations": []
+        },
+        "quality": {
+          "passed": true,
+          "violations": []
+        }
+      }
+    },
+    "arn_caf_qa_000168": {
+      "verdict": "PASS",
+      "stages": {
+        "tier1_schema": {
+          "passed": true,
+          "violations": []
+        },
+        "tier2_crossrec": {
+          "passed": true,
+          "violations": []
+        },
+        "solution": {
+          "passed": true,
+          "violations": []
+        },
+        "quality": {
+          "passed": true,
+          "violations": []
+        }
+      }
+    },
+    "arn_caf_qa_000169": {
+      "verdict": "PASS",
+      "stages": {
+        "tier1_schema": {
+          "passed": true,
+          "violations": []
+        },
+        "tier2_crossrec": {
+          "passed": true,
+          "violations": []
+        },
+        "solution": {
+          "passed": true,
+          "violations": []
+        },
+        "quality": {
+          "passed": true,
+          "violations": []
+        }
+      }
+    },
+    "arn_caf_qa_000170": {
+      "verdict": "PASS",
+      "stages": {
+        "tier1_schema": {
+          "passed": true,
+          "violations": []
+        },
+        "tier2_crossrec": {
+          "passed": true,
+          "violations": []
+        },
+        "solution": {
+          "passed": true,
+          "violations": []
+        },
+        "quality": {
+          "passed": true,
+          "violations": []
+        }
+      }
+    },
+    "arn_caf_qa_000171": {
+      "verdict": "PASS",
+      "stages": {
+        "tier1_schema": {
+          "passed": true,
+          "violations": []
+        },
+        "tier2_crossrec": {
+          "passed": true,
+          "violations": []
+        },
+        "solution": {
+          "passed": true,
+          "violations": []
+        },
+        "quality": {
+          "passed": true,
+          "violations": []
+        }
+      }
+    },
+    "arn_caf_qa_000172": {
+      "verdict": "PASS",
+      "stages": {
+        "tier1_schema": {
+          "passed": true,
+          "violations": []
+        },
+        "tier2_crossrec": {
+          "passed": true,
+          "violations": []
+        },
+        "solution": {
+          "passed": true,
+          "violations": []
+        },
+        "quality": {
+          "passed": true,
+          "violations": []
+        }
+      }
+    },
+    "arn_caf_qa_000173": {
+      "verdict": "PASS",
+      "stages": {
+        "tier1_schema": {
+          "passed": true,
+          "violations": []
+        },
+        "tier2_crossrec": {
+          "passed": true,
+          "violations": []
+        },
+        "solution": {
+          "passed": true,
+          "violations": []
+        },
+        "quality": {
+          "passed": true,
+          "violations": []
+        }
+      }
+    },
+    "arn_caf_qa_000174": {
+      "verdict": "PASS",
+      "stages": {
+        "tier1_schema": {
+          "passed": true,
+          "violations": []
+        },
+        "tier2_crossrec": {
+          "passed": true,
+          "violations": []
+        },
+        "solution": {
+          "passed": true,
+          "violations": []
+        },
+        "quality": {
+          "passed": true,
+          "violations": []
+        }
+      }
+    }
+  },
+  "totals": {
+    "pass": 14,
+    "fail": 0,
+    "total": 14
+  }
+}

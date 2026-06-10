@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000148",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000148.py"
+  },
+  "tests": [
+    "qa.bmath.finance.nominal_real_return"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 120,
+  "stem": "An investor earns a nominal return of 12% per annum. Inflation during the year is 5%. What is the real rate of return, using the exact Fisher equation?",
+  "options": [
+    {
+      "key": 1,
+      "text": "17.60%"
+    },
+    {
+      "key": 2,
+      "text": "11.43%"
+    },
+    {
+      "key": 3,
+      "text": "7.00%"
+    },
+    {
+      "key": 4,
+      "text": "6.67%"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student subtracts inflation from the nominal rate: 12% - 5% = 7%, using the approximation instead of the exact Fisher formula.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "Fisher: (1 + real) = (1 + 0.12) / (1 + 0.05) = 1.12 / 1.05 = 1.0667. Real rate = 6.67%."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student multiplies instead of divides: (1.12 × 1.05) - 1 = 0.176 = 17.60%, inverting the Fisher equation.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student divides the nominal rate by (1 + inflation): 0.12 / 1.05 = 0.1143 = 11.43%, misidentifying the denominator in the Fisher formula.",
+      "misconception": "percentage_base_confusion"
+    }
+  ],
+  "explanation": "The exact Fisher equation: (1 + real) = (1 + nominal) / (1 + inflation). With nominal = 0.12 and inflation = 0.05: (1 + real) = 1.12 / 1.05 = 1.0667. Real rate = 6.67%. The approximation (12% - 5% = 7%) overstates the real return slightly.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "0188f4abd3210eefcae2fac345e4d59bdbedf4aff3c7ee5e6a8335b41f6603e4"
+}

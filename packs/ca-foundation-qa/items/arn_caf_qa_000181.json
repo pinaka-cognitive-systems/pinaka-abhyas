@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000181",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b5",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000181.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.odd_man_out"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "Which number does not belong to this group: 4, 9, 16, 25, 35, 49?",
+  "options": [
+    {
+      "key": 1,
+      "text": "16"
+    },
+    {
+      "key": 2,
+      "text": "49"
+    },
+    {
+      "key": 3,
+      "text": "25"
+    },
+    {
+      "key": 4,
+      "text": "35"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "4, 9, 16, 25, 49 are perfect squares (2², 3², 4², 5², 7²). 35 is not a perfect square."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student picks 16 after misidentifying the rule as odd squares only, ignoring even perfect squares.",
+      "misconception": "series_pattern_misidentified"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student picks 25 by trying a gap-based rule and finding differences irregular, missing the perfect-square pattern.",
+      "misconception": "series_pattern_misidentified"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student picks 49 after incorrectly checking 7 as composite, not recognising 7² = 49 is still a perfect square.",
+      "misconception": "series_pattern_misidentified"
+    }
+  ],
+  "explanation": "All members except 35 are perfect squares: 4=2², 9=3², 16=4², 25=5², 49=7². 35=5×7 is not a perfect square, so 35 is the odd one out.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "recall"
+  },
+  "content_hash": "21ba6cc6608c8826d14807fb41957145bd34ecd3a69bd21705ec8465cbe782ed"
+}

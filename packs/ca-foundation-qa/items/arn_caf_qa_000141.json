@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000141",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000141.py"
+  },
+  "tests": [
+    "qa.bmath.finance.effective_rate"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "A bank offers a nominal interest rate of 12% per annum, compounded monthly. What is the effective annual rate of interest? [Use: (1.01) raised to the power 12 = 1.1268]",
+  "options": [
+    {
+      "key": 1,
+      "text": "12.36%"
+    },
+    {
+      "key": 2,
+      "text": "12.00%"
+    },
+    {
+      "key": 3,
+      "text": "11.68%"
+    },
+    {
+      "key": 4,
+      "text": "12.68%"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "Effective rate = (1 + 0.12/12) raised to the power 12 - 1 = (1.01) raised to the power 12 - 1 = 1.1268 - 1 = 0.1268 = 12.68%."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student treats the nominal rate as the effective rate, ignoring compounding within the year.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student uses (1 + 0.12/2)² - 1, treating monthly compounding as semi-annual: (1.06)² - 1 = 0.1236.",
+      "misconception": "rate_period_mismatch"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student computes 1.1268 - 1.01 = 0.1168, subtracting one monthly factor instead of 1.",
+      "misconception": "arithmetic_slip"
+    }
+  ],
+  "explanation": "Effective annual rate = (1 + r/m)^m - 1, where r = 0.12 and m = 12. This gives (1.01) raised to the power 12 - 1 = 1.1268 - 1 = 12.68%. The nominal rate 12% ignores within-year compounding, so it understates the true cost.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "recall"
+  },
+  "content_hash": "64c900893f34a5a7e0f1baad8113291226db2f0bf31a78402bee46e7a0e49ded"
+}

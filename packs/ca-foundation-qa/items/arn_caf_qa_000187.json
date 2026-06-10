@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000187",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b5",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000187.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.coding_decoding"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "In a code, MANGO is written as OCPIQ. Using the same rule, what is the code for GRAPE?",
+  "options": [
+    {
+      "key": 1,
+      "text": "HTDTJ"
+    },
+    {
+      "key": 2,
+      "text": "ITCRH"
+    },
+    {
+      "key": 3,
+      "text": "ITCRG"
+    },
+    {
+      "key": 4,
+      "text": "HSBQF"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Rule: each letter shifts forward by 2. M+2=O, A+2=C, N+2=P, G+2=I, O+2=Q. GRAPE: G+2=I, R+2=T, A+2=C, P+2=R, E+2=G. Code = ITCRG."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student correctly applies +2 to the first four letters but miscounts the shift for E, writing H (E+3) instead of G (E+2).",
+      "misconception": "coding_rule_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Shifting every letter by 1 instead of 2 gives G to H, R to S, A to B, P to Q, E to F, which is HSBQF.",
+      "misconception": "coding_rule_misapplied"
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Shifting each letter by its position (1, 2, 3, 4, 5) gives H, T, D, T, J. The uniform rule was replaced with a progressive one.",
+      "misconception": "coding_rule_misapplied"
+    }
+  ],
+  "explanation": "From MANGO to OCPIQ, each letter moves forward by 2 positions in the alphabet: M(13)+2=O(15), A(1)+2=C(3), N(14)+2=P(16), G(7)+2=I(9), O(15)+2=Q(17). Applying the same +2 rule to GRAPE: G(7)+2=I(9), R(18)+2=T(20), A(1)+2=C(3), P(16)+2=R(18), E(5)+2=G(7). Code = ITCRG.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "e2d2144c26e82015764643b12616734106cc6ecfd99095331c8f187676454025"
+}

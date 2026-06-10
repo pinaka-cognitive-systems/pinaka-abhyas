@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000143",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000143.py"
+  },
+  "tests": [
+    "qa.bmath.finance.future_value"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Suresh invests Rs 50,000 today at 8% per annum compounded annually for 3 years. What is the future value at the end of 3 years? [Use: (1.08)³ = 1.2597]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 60,000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 62,000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 63,000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 62,985"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "FV = 50,000 × (1.08)³ = 50,000 × 1.2597 = Rs 62,985."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student rounds 1.2597 to 1.24 and computes 50,000 × 1.24 = 62,000, rounding the given factor prematurely.",
+      "misconception": "rounding_error"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student uses 1.26 instead of the given 1.2597, computing 50,000 × 1.26 = 63,000.",
+      "misconception": "rounding_error"
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student computes simple interest only: 50,000 + 3 × 50,000 × 0.08 = 62,000, then further rounds to 60,000, mixing up formulas.",
+      "misconception": "compound_interest_confusion"
+    }
+  ],
+  "explanation": "Future value = P × (1 + r)^n. With P = 50,000, r = 0.08, n = 3: FV = 50,000 × 1.2597 = Rs 62,985. Using the given factor exactly is essential; rounding 1.2597 changes the answer.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "6af22659ba0bc0768473cf21bb7194f7080c311f7d2b53bd7325e9cb53d265ae"
+}

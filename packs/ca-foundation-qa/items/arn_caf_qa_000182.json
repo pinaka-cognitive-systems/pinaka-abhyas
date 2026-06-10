@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000182",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b5",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000182.py"
+  },
+  "tests": [
+    "qa.lr.blood_relations"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "Pointing to a woman, Rahul says, 'Her mother is the only daughter of my mother.' How is the woman related to Rahul?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Mother"
+    },
+    {
+      "key": 2,
+      "text": "Niece"
+    },
+    {
+      "key": 3,
+      "text": "Sister"
+    },
+    {
+      "key": 4,
+      "text": "Daughter"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Rahul's mother's only daughter is Rahul's sister. The woman's mother is Rahul's sister. So the woman is Rahul's sister's daughter, which is his niece."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student stops at the woman's mother and treats her as the answer, not tracing one more generation to the woman herself.",
+      "misconception": "kinship_generation_error"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student reads 'her mother is my mother's only daughter' as 'her mother is me', placing the woman one generation below Rahul directly.",
+      "misconception": "kinship_generation_error"
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student reverses the relation direction and reads the chain from the woman back to Rahul, giving an ancestor relation instead of a descendant one.",
+      "misconception": "kinship_direction_inverted"
+    }
+  ],
+  "explanation": "Rahul's mother's only daughter is Rahul's sister. The woman's mother is Rahul's sister. Therefore the woman is Rahul's sister's daughter, which makes her Rahul's niece.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "recall"
+  },
+  "content_hash": "da0911cb69611b385fec072e14ee351cf69820e6c5dcddb83a7561356f230a56"
+}

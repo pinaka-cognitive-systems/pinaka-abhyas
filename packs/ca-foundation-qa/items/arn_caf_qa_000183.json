@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000183",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b5",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000183.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.number_series"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Find the next term in the series: 3, 6, 11, 18, 27, ?",
+  "options": [
+    {
+      "key": 1,
+      "text": "33"
+    },
+    {
+      "key": 2,
+      "text": "36"
+    },
+    {
+      "key": 3,
+      "text": "40"
+    },
+    {
+      "key": 4,
+      "text": "38"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "Differences are 3, 5, 7, 9, 11 (odd numbers increasing by 2). Next difference after 9 is 11, so 27+11=38."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student spots the differences 3, 5, 7, 9 but assumes the next difference is 9 again (not increasing), giving 27+9=36.",
+      "misconception": "series_pattern_misidentified"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student treats differences as increasing by 2 but miscounts, adding 13 instead of 11 to the last term.",
+      "misconception": "series_pattern_misidentified"
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student reads the series as n²+2 (giving 3,6,11,18,27) but for n=6 computes 6²+2=38 yet miscalculates as 33 by adding the wrong n.",
+      "misconception": "series_pattern_misidentified"
+    }
+  ],
+  "explanation": "The differences between successive terms are 3, 5, 7, 9 (consecutive odd numbers). The next difference is 11, so the next term is 27+11=38. Equivalently, the n-th term is n²+2: 1²+2=3, 2²+2=6, 3²+2=11, 4²+2=18, 5²+2=27, 6²+2=38.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "9b45718877c0d1153b3d6b1d0791d69ddfd9ff512f978bfa8bedae52d9e725db"
+}

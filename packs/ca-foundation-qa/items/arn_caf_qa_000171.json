@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000171",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b4",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000171.py"
+  },
+  "tests": [
+    "qa.bmath.ratio_indices_log.proportion"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "If a : b = 3 : 4 and b : c = 6 : 5, find a : c.",
+  "options": [
+    {
+      "key": 1,
+      "text": "9 : 10"
+    },
+    {
+      "key": 2,
+      "text": "15 : 16"
+    },
+    {
+      "key": 3,
+      "text": "3 : 5"
+    },
+    {
+      "key": 4,
+      "text": "3 : 4"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Make b common: a:b = 9:12 and b:c = 12:10. So a:c = 9:10."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student reads only the first term of the first ratio and the last term of the second ratio: 3:5, skipping the linking step through b.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student adds numerators and denominators directly: (3+6):(4+5) = 9:9 = 1:1, or uses 3×5 = 15 and 4×4 = 16 without aligning b.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student reports a:b = 3:4 as the answer, confusing the given ratio a:b with the asked ratio a:c.",
+      "misconception": "misread_quantity"
+    }
+  ],
+  "explanation": "To link a:b = 3:4 and b:c = 6:5, make b equal. LCM(4, 6) = 12. Scale: a:b = 9:12 and b:c = 12:10. So a:c = 9:10.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "e709fba64674828017f3eadc7fbecc04d8cae9caf5bcbe9cdcfdd97f1b56def3"
+}

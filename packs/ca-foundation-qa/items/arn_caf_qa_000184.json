@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000184",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b5",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000184.py"
+  },
+  "tests": [
+    "qa.lr.direction_tests"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Meera starts facing north. She turns 90 degrees clockwise, then walks 8 m. She then turns 90 degrees anticlockwise and walks 6 m. She finally turns 180 degrees. In which direction is she now facing?",
+  "options": [
+    {
+      "key": 1,
+      "text": "South"
+    },
+    {
+      "key": 2,
+      "text": "North"
+    },
+    {
+      "key": 3,
+      "text": "East"
+    },
+    {
+      "key": 4,
+      "text": "West"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student treats the final 180 degrees turn as a 90 degrees left turn from North, arriving at West instead of South.",
+      "misconception": "direction_turn_error"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student skips the final 180 degrees turn and reports the direction after the first clockwise turn, giving East.",
+      "misconception": "constraint_omitted"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student skips the final 180 degrees turn entirely, reporting North after the second segment.",
+      "misconception": "constraint_omitted"
+    },
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Start N, CW 90 degrees -> E, walk 8 m. ACW 90 degrees from E -> N, walk 6 m. 180 degrees from N -> S. Final direction: South."
+    }
+  ],
+  "explanation": "Start facing North. Turn CW 90 degrees: now facing East. Walk 8 m. Turn ACW 90 degrees from East: now facing North. Walk 6 m. Turn 180 degrees from North: now facing South.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "6526c4c1b3b1f0519fe3b66996468c4f9cc422197b798d64b94c4b586debc78e"
+}

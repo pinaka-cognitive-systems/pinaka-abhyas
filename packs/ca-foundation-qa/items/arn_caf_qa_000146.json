@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000146",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000146.py"
+  },
+  "tests": [
+    "qa.bmath.finance.npv"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A project costs Rs 1,00,000 today. It returns Rs 60,500 at end of year 1 and Rs 66,550 at end of year 2. The discount rate is 10% per annum. What is the NPV? [Use: 1/1.1 = 0.9091; 1/(1.1)² = 0.8264]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 10,000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 27,050"
+    },
+    {
+      "key": 3,
+      "text": "Rs 21,550"
+    },
+    {
+      "key": 4,
+      "text": "Rs 17,982"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student adds undiscounted cash flows and subtracts cost: (60,500 + 66,550) - 1,00,000 = 27,050, ignoring discounting.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "PV1 = 60,500 / 1.1 = 55,000; PV2 = 66,550 / 1.21 = 55,000. NPV = 55,000 + 55,000 - 1,00,000 = Rs 10,000."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student discounts only year 1 and takes year 2 at face value: 55,000 + 66,550 - 1,00,000 = 21,550.",
+      "misconception": "time_factor_dropped"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student uses 5% (half the stated rate) as the discount rate, computing inflated present values and a higher NPV of Rs 17,982.",
+      "misconception": "rate_period_mismatch"
+    }
+  ],
+  "explanation": "NPV = sum of present values of cash flows minus the initial cost. PV1 = 60,500 / 1.1 = 55,000. PV2 = 66,550 / (1.1)² = 66,550 / 1.21 = 55,000. NPV = 55,000 + 55,000 - 1,00,000 = Rs 10,000.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "835944a36655a7c311afb218af4a7c17d84006ccee2e4885c82b1a108be76a2a"
+}

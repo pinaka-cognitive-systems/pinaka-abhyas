@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000142",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000142.py"
+  },
+  "tests": [
+    "qa.bmath.finance.present_value"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Meena will receive Rs 1,21,000 at the end of 2 years. The annual discount rate is 10% compounded annually. What is the present value of this amount? [Use: (1.1)² = 1.21]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 1,10,000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 1,00,000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 99,000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 1,21,000"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student discounts for only 1 year: PV = 1,21,000 / 1.1 = 1,10,000, using n = 1 instead of n = 2.",
+      "misconception": "time_factor_dropped"
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "PV = 1,21,000 / (1.1)² = 1,21,000 / 1.21 = 1,00,000."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student does not discount at all and treats the future amount as the present value.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student subtracts 10% twice as simple deduction: 1,21,000 - 2 × 11,000 = 99,000, confusing discounting with subtraction.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "Present value = Future value / (1 + r)^n. With FV = 1,21,000, r = 0.10, n = 2: PV = 1,21,000 / 1.21 = 1,00,000. Discounting only one year gives 1,10,000, a common error when n is misread.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "8fbac3b0583745dfce34a32c03a949b654190db3c54f1470bd705ea7c3238f80"
+}
