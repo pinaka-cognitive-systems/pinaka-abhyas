@@ -38,6 +38,13 @@ import {
 import { getExamAttempt } from "../firstrun/meta.js";
 import { isStandalone } from "../firstrun/platform.js";
 import { SecondTabScreen } from "../firstrun/SecondTabScreen.js";
+import {
+  readReminder,
+  reminderAvailability,
+  writeReminder,
+  type ReminderAvailability,
+  type ReminderSetting,
+} from "../home/reminder.js";
 import { COPY } from "./copy.js";
 import {
   canShareFile,
@@ -110,6 +117,10 @@ export function SettingsFlow({ onExit, mockGuard }: SettingsFlowProps): JSX.Elem
   const [updaterState, setUpdaterState] = useState<UpdaterState>({ phase: "idle" });
   const [hasChecked, setHasChecked] = useState(false);
 
+  // Reminder (W5-9 mechanism 4). Off by default; availability read at mount.
+  const [reminder, setReminder] = useState<ReminderSetting | null>(null);
+  const [reminderAvail, setReminderAvail] = useState<ReminderAvailability>("unavailable");
+
   // Danger zone.
   const [dangerOpen, setDangerOpen] = useState(false);
   const [confirmText, setConfirmText] = useState("");
@@ -176,12 +187,60 @@ export function SettingsFlow({ onExit, mockGuard }: SettingsFlowProps): JSX.Elem
         });
       }
       await refreshStatus(adapter);
+      // Reminder (W5-9): read the persisted setting and the current availability.
+      const setting = await readReminder(adapter);
+      if (!cancelled) {
+        setReminder(setting);
+        const hasApi = typeof window !== "undefined" && "Notification" in window;
+        setReminderAvail(
+          reminderAvailability({
+            hasNotificationApi: hasApi,
+            permission: hasApi ? Notification.permission : null,
+          }),
+        );
+      }
     })();
     return () => {
       cancelled = true;
       void adapterRef.current?.close();
     };
   }, [ensureAdapter, refreshStatus]);
+
+  // --- Reminder handlers (W5-9 mechanism 4). --------------------------------
+  const onToggleReminder = useCallback(async (): Promise<void> => {
+    const adapter = adapterRef.current;
+    if (adapter === null || reminder === null) return;
+    if (reminder.enabled) {
+      const next = { ...reminder, enabled: false };
+      await writeReminder(adapter, next);
+      setReminder(next);
+      return;
+    }
+    // Turning on: request permission first (the permission flow). Only persist
+    // enabled when granted, so the setting never lies about being on.
+    const hasApi = typeof window !== "undefined" && "Notification" in window;
+    if (!hasApi) {
+      setReminderAvail("unavailable");
+      return;
+    }
+    const permission = await Notification.requestPermission();
+    if (permission !== "granted") {
+      setReminderAvail(reminderAvailability({ hasNotificationApi: true, permission }));
+      return;
+    }
+    const next = { ...reminder, enabled: true };
+    await writeReminder(adapter, next);
+    setReminder(next);
+    setReminderAvail("available");
+  }, [reminder]);
+
+  const onChangeReminderTime = useCallback(async (time: string): Promise<void> => {
+    const adapter = adapterRef.current;
+    if (adapter === null || reminder === null) return;
+    const next = { ...reminder, time };
+    await writeReminder(adapter, next);
+    setReminder(next);
+  }, [reminder]);
 
   // --- Export ---------------------------------------------------------------
   const onExport = useCallback(async (share: boolean): Promise<void> => {
@@ -324,6 +383,13 @@ export function SettingsFlow({ onExit, mockGuard }: SettingsFlowProps): JSX.Elem
         />
 
         <TelemetrySection />
+
+        <ReminderSection
+          setting={reminder}
+          availability={reminderAvail}
+          onToggle={() => void onToggleReminder()}
+          onChangeTime={(t) => void onChangeReminderTime(t)}
+        />
 
         <DangerSection
           open={dangerOpen}
@@ -642,6 +708,70 @@ function TelemetrySection(): JSX.Element {
         />
       </div>
       <p className="st-text st-text--muted">{c.body}</p>
+    </Card>
+  );
+}
+
+function ReminderSection({
+  setting,
+  availability,
+  onToggle,
+  onChangeTime,
+}: {
+  readonly setting: ReminderSetting | null;
+  readonly availability: ReminderAvailability;
+  readonly onToggle: () => void;
+  readonly onChangeTime: (time: string) => void;
+}): JSX.Element {
+  const c = COPY.reminder;
+  const on = setting?.enabled === true;
+  const time = setting?.time ?? "19:00";
+  // The honest unavailability path: no Notification API (e.g. iOS uninstalled).
+  if (availability === "unavailable") {
+    return (
+      <Card eyebrow={c.eyebrow} title={c.title}>
+        <p className="st-text">{c.body}</p>
+        <p className="st-text st-text--muted">{c.unavailable}</p>
+      </Card>
+    );
+  }
+  return (
+    <Card eyebrow={c.eyebrow} title={c.title}>
+      <p className="st-text">{c.body}</p>
+      <p className="st-text st-text--muted">{c.limitation}</p>
+
+      <div className="st-toggle">
+        <span className="st-toggle__track" aria-hidden="true">
+          <span className="st-toggle__knob" />
+        </span>
+        <span className="st-toggle__state">{on ? c.stateOn(time) : c.stateOff}</span>
+        <input
+          type="checkbox"
+          className="st-toggle__input"
+          checked={on}
+          onChange={onToggle}
+          aria-label={on ? c.disable : c.enable}
+        />
+      </div>
+
+      {on && (
+        <label className="st-field">
+          <span className="st-field__label">{c.timeLabel}</span>
+          <input
+            type="time"
+            className="st-field__input"
+            value={time}
+            onChange={(e) => onChangeTime(e.target.value)}
+          />
+        </label>
+      )}
+
+      {availability === "denied" && (
+        <p className="st-note st-note--muted">{c.permissionDenied}</p>
+      )}
+      <p className="st-note" role="status">
+        {on ? c.onNote : c.offNote}
+      </p>
     </Card>
   );
 }

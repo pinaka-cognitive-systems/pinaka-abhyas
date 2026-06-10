@@ -143,6 +143,36 @@ export const COPY = {
     errataNone: "No corrections were listed for this update.",
   },
 
+  // --- Reminder (W5-9 mechanism 4): the student's own alarm, opt-in, off by
+  // default, one tap to set, one tap to remove. The plain line states this is
+  // the student's own alarm and the app neither knows nor cares whether it is
+  // answered; the limitation line states honestly that there is no background
+  // sync. The unavailable line is the honest iOS-uninstalled path. -----------
+  reminder: {
+    eyebrow: "Your reminder",
+    title: "Remind me to study",
+    body:
+      "Set a time and this device will remind you to study. It is your own " +
+      "alarm. Pinaka Abhyas neither knows nor cares whether you answer it. " +
+      "There is no penalty for missing it, and nothing is lost by being away.",
+    limitation:
+      "This works while the app is open or has been used recently. It is a " +
+      "single local reminder on this device, not a server that chases you.",
+    stateOff: "Off",
+    stateOn: (time: string): string => `On, at ${time}`,
+    timeLabel: "Time of day",
+    enable: "Turn on the reminder",
+    disable: "Turn off the reminder",
+    permissionDenied:
+      "This browser has blocked reminders. Allow them in your browser settings, " +
+      "then turn this on again.",
+    unavailable:
+      "Reminders are not available in this browser. On iPhone, add the app to " +
+      "your home screen first, then this will work.",
+    onNote: "Your reminder is set. You can change the time or turn it off any time.",
+    offNote: "Your reminder is off.",
+  },
+
   // --- Danger zone (type-to-confirm DELETE, preceded by an export nudge). ----
   danger: {
     eyebrow: "Danger zone",

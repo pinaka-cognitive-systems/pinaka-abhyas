@@ -7,26 +7,34 @@
  * their routes here as their flows land; the map is the single registration
  * point.
  *
- * Default route (flow d): the FIRST visit on a device runs the first-run flow
- * (welcome, install, persistence honesty, exam capture); thereafter the default
- * sends the student straight to practice. "First visit" is the storage meta flag
- * `firstrun_completed`, read once at boot — so it survives reloads and is not a
- * fragile guess. While that read is in flight the router shows a neutral boot
- * screen, never a flash of the wrong flow. The old engine-demo Shell now lives
- * at the explicit `#/home` route.
+ * Default route (flow d / W5-9): the FIRST visit on a device runs the first-run
+ * flow (welcome, install, persistence honesty, exam capture); a zero-history
+ * student then gets the cold-start baseline once; thereafter the default sends
+ * the returning student to the HOME surface (the honest-adherence today card,
+ * delta, and re-entry, W5-9), not straight into practice. "First visit" is the
+ * storage meta flag `firstrun_completed`, read once at boot — so it survives
+ * reloads and is not a fragile guess. While that read is in flight the router
+ * shows a neutral boot screen, never a flash of the wrong flow. The home surface
+ * also has an explicit `#/home` route; the old engine-demo Shell now lives at
+ * the explicit `#/demo` route.
  *
- * The PracticeFlow, DiagnosisFlow, and FirstRunFlow are loaded lazily so their
- * code and the pack content chunk stay off the entry chunk until needed.
+ * The flows are loaded lazily so their code and the pack content chunk stay off
+ * the entry chunk until needed.
  */
 
 import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 
 import { Shell } from "../Shell.js";
 import { isFirstRunComplete } from "./firstrun/meta.js";
+import { isBaselineDone, shouldShowBaseline } from "./baseline/meta.js";
 import { AlreadyOpenError, openStorage } from "../storage/index.js";
 
 const PracticeFlow = lazy(() =>
   import("./practice/PracticeFlow.js").then((m) => ({ default: m.PracticeFlow })),
+);
+
+const BaselineFlow = lazy(() =>
+  import("./baseline/BaselineFlow.js").then((m) => ({ default: m.BaselineFlow })),
 );
 
 const DiagnosisFlow = lazy(() =>
@@ -45,6 +53,10 @@ const MockFlow = lazy(() =>
   import("./mock/MockFlow.js").then((m) => ({ default: m.MockFlow })),
 );
 
+const HomeFlow = lazy(() =>
+  import("./home/HomeFlow.js").then((m) => ({ default: m.HomeFlow })),
+);
+
 /** Read the current route from the URL hash. The empty hash is the default
  * route, which the router resolves to first-run or practice at boot. */
 function readRoute(): string {
@@ -58,9 +70,11 @@ function navigate(route: string): void {
   window.location.hash = route === "" ? "" : `/${route}`;
 }
 
-/** The default-route decision: first-run for a new device, practice otherwise.
- * null while the meta read is in flight. */
-type DefaultTarget = "firstrun" | "practice" | null;
+/** The default-route decision: first-run for a new device, then the cold-start
+ * baseline for a student with no history who has not done it, the HOME surface
+ * for a returning student otherwise (W5-9). null while the meta read is in
+ * flight. */
+type DefaultTarget = "firstrun" | "baseline" | "home" | null;
 
 export function Router(): JSX.Element {
   const [route, setRoute] = useState<string>(readRoute);
@@ -84,12 +98,23 @@ export function Router(): JSX.Element {
     void (async () => {
       try {
         const { adapter } = await openStorage();
-        const done = await isFirstRunComplete(adapter);
+        const firstRunDone = await isFirstRunComplete(adapter);
+        if (!firstRunDone) {
+          await adapter.close();
+          if (!cancelled) setDefaultTarget("firstrun");
+          return;
+        }
+        // First run is done: a student with no history who has not seen the
+        // baseline gets it once; the returning student lands on the home surface.
+        const baselineDone = await isBaselineDone(adapter);
+        const eventCount = (await adapter.readAllEvents()).length;
         await adapter.close();
-        if (!cancelled) setDefaultTarget(done ? "practice" : "firstrun");
+        if (!cancelled) {
+          setDefaultTarget(shouldShowBaseline({ baselineDone, eventCount }) ? "baseline" : "home");
+        }
       } catch (err) {
         if (cancelled) return;
-        setDefaultTarget(err instanceof AlreadyOpenError ? "practice" : "firstrun");
+        setDefaultTarget(err instanceof AlreadyOpenError ? "home" : "firstrun");
       }
     })();
     return () => {
@@ -99,11 +124,25 @@ export function Router(): JSX.Element {
 
   const goDefault = useCallback(() => navigate(""), []);
   const goPractice = useCallback(() => navigate("practice"), []);
+  const goBaseline = useCallback(() => navigate("baseline"), []);
+  const goDiagnosis = useCallback(() => navigate("diagnosis"), []);
+  const goSettings = useCallback(() => navigate("settings"), []);
 
   if (route === "practice") {
     return (
       <Suspense fallback={<BootScreen label="Loading practice" />}>
         <PracticeFlow onExit={goDefault} />
+      </Suspense>
+    );
+  }
+
+  // Cold-start baseline (flow / W5-8): the guided first session. First-run
+  // finishes here for a zero-event student; the flow marks itself done so it
+  // never reappears, then hands off to practice or the diagnosis map.
+  if (route === "baseline") {
+    return (
+      <Suspense fallback={<BootScreen label="Loading your first session" />}>
+        <BaselineFlow onExitToPractice={goPractice} onSeeDiagnosis={goDiagnosis} />
       </Suspense>
     );
   }
@@ -149,13 +188,23 @@ export function Router(): JSX.Element {
   if (route === "firstrun") {
     return (
       <Suspense fallback={<BootScreen label="Loading" />}>
-        <FirstRunFlow onComplete={goPractice} />
+        <FirstRunFlow onComplete={goBaseline} />
+      </Suspense>
+    );
+  }
+
+  // The home surface (W5-9), also reachable at the explicit #/home route. Begin
+  // goes into practice; the settings and diagnosis links route accordingly.
+  if (route === "home") {
+    return (
+      <Suspense fallback={<BootScreen label="Loading" />}>
+        <HomeFlow onBegin={goPractice} onSettings={goSettings} onDiagnosis={goDiagnosis} />
       </Suspense>
     );
   }
 
   // The old engine-demo Shell, kept at an explicit route.
-  if (route === "home") {
+  if (route === "demo") {
     return (
       <div>
         <Shell />
@@ -183,20 +232,29 @@ export function Router(): JSX.Element {
     );
   }
 
-  // Default route (empty hash): resolve first-run vs practice from the flag.
+  // Default route (empty hash): resolve first-run, baseline, or practice from
+  // the meta flags and the event count.
   if (defaultTarget === null) {
     return <BootScreen label="Loading" />;
   }
   if (defaultTarget === "firstrun") {
     return (
       <Suspense fallback={<BootScreen label="Loading" />}>
-        <FirstRunFlow onComplete={goPractice} />
+        <FirstRunFlow onComplete={goBaseline} />
       </Suspense>
     );
   }
+  if (defaultTarget === "baseline") {
+    return (
+      <Suspense fallback={<BootScreen label="Loading your first session" />}>
+        <BaselineFlow onExitToPractice={goPractice} onSeeDiagnosis={goDiagnosis} />
+      </Suspense>
+    );
+  }
+  // Returning student: the home surface (W5-9).
   return (
-    <Suspense fallback={<BootScreen label="Loading practice" />}>
-      <PracticeFlow onExit={goDefault} />
+    <Suspense fallback={<BootScreen label="Loading" />}>
+      <HomeFlow onBegin={goPractice} onSettings={goSettings} onDiagnosis={goDiagnosis} />
     </Suspense>
   );
 }
