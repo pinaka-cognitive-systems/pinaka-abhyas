@@ -37,6 +37,14 @@ const FirstRunFlow = lazy(() =>
   import("./firstrun/FirstRunFlow.js").then((m) => ({ default: m.FirstRunFlow })),
 );
 
+const SettingsFlow = lazy(() =>
+  import("./settings/SettingsFlow.js").then((m) => ({ default: m.SettingsFlow })),
+);
+
+const MockFlow = lazy(() =>
+  import("./mock/MockFlow.js").then((m) => ({ default: m.MockFlow })),
+);
+
 /** Read the current route from the URL hash. The empty hash is the default
  * route, which the router resolves to first-run or practice at boot. */
 function readRoute(): string {
@@ -114,6 +122,25 @@ export function Router(): JSX.Element {
         }
       >
         <DiagnosisFlow onExit={goDefault} />
+      </Suspense>
+    );
+  }
+
+  // Mock (flow b / W5-7): blueprint-assembled timed mock, hall, resume,
+  // negative-marking score reveal, breakdown, readiness anchoring.
+  if (route === "mock") {
+    return (
+      <Suspense fallback={<BootScreen label="Loading mock" />}>
+        <MockFlow onExit={goDefault} />
+      </Suspense>
+    );
+  }
+
+  // Settings (flow e): import/export, status, telemetry, update, danger zone.
+  if (route === "settings") {
+    return (
+      <Suspense fallback={<BootScreen label="Loading settings" />}>
+        <SettingsFlow onExit={goDefault} />
       </Suspense>
     );
   }
