@@ -14,6 +14,11 @@ const pkg = JSON.parse(readFileSync(new URL("./package.json", import.meta.url), 
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // sqlite-wasm must not be pre-bundled: Vite's dep optimizer rewrites the
+  // module URL and the .wasm asset then resolves to index.html in dev (the
+  // browser sees "<!do" where the wasm magic word belongs). Production
+  // chunking is unaffected. Found by driving the dev server.
+  optimizeDeps: { exclude: ["@sqlite.org/sqlite-wasm"] },
   plugins: [
     // @vitejs/plugin-react: enables React fast-refresh in dev and handles
     // JSX transform without requiring React in scope (new JSX transform).
