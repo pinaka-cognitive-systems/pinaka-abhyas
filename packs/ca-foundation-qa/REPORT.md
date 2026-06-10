@@ -86,3 +86,13 @@ items are the ones eligible for use.
 
 machine_verified labels are earned only through the W3-1 key-execution harness and the
 W3-2 LR verification harness.
+
+## Promotion to machine_verified (2026-06-10)
+
+The 23 usable items now carry verification_status machine_verified, and the label is
+earned, not asserted: each item ships an executable solution that re-derives the answer
+from the givens; the sandboxed harness (schema/validator/run_solutions.py) executes
+every solution on every CI run and hard-fails any key mismatch; the five enumerable
+logical-reasoning items additionally prove their premises satisfiable and their answers
+unique. The schema forbids the machine_verified status without a solution present.
+Item 000009 remains quarantined pending replacement.
