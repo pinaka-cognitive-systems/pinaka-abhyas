@@ -37,21 +37,46 @@ ISO-8601 inputs parse to epoch milliseconds at the boundary, once. Strings witho
 offset are treated as UTC, by contract. Events are ordered by (occurredAtMs ascending,
 event_id ascending as tie-break), never by string comparison.
 
-## 3. Mastery (ADR 0012; implemented, certified)
+## 3. Mastery (ADR 0012; implemented, certified, refutation-hardened)
 
-Per node: rating r, deviation rd, on the shared logit scale of `src/scale.ts`
-(anchors L1=-1, L2=0, L3=+1; guessing floor c: 0.25 single_best, 0 numeric_entry;
-prior r=0, rd=1.5; rd bounds [0.25, 1.5]; |r| <= 4).
+The estimator is a TRACKER, not a static-ability estimator: a learner's ability is
+non-stationary, so certainty saturates at a floor and recent evidence dominates.
+Order is signal: forty wrongs then sixty rights reads as an improved student, by
+contract.
+
+Per node: rating r, deviation rd, slow reference rating sr, on the shared logit
+scale of `src/scale.ts` (anchors L1=-1, L2=0, L3=+1; guessing floor c: 0.25
+single_best, 0 numeric_entry; prior r=0, rd=1.5; rd bounds [0.25, 1.5]; |r| <= 4).
 
 - Expectation: E = c + (1-c) * sigmoid(r - b), b = empirical.difficulty_b if present
   else the label anchor.
-- Update (one-step Laplace): with p = sigmoid(r-b), dEdr = (1-c)p(1-p),
-  var = max(E(1-E), 1e-9), info = dEdr^2/var, prec' = 1/rd^2 + info,
-  r' = clamp(r + ((y-E) dEdr/var)/prec'), rd' = clamp(sqrt(1/prec')).
-- Idle drift, applied before each update and on read: variance grows by
-  ((1.5^2-0.25^2)/90) per idle day, capped at prior; rating fades toward 0 by
-  exp(-idleDays/120). The two clocks are deliberately separate.
+- Update (one-step Laplace with process noise): with p = sigmoid(r-b),
+  dEdr = (1-c)p(1-p), var = max(E(1-E), 1e-9), info = dEdr^2/var,
+  priorVar = min(rd^2 + Q, 1.5^2) with Q = 0.003 per event,
+  prec' = 1/priorVar + info, r' = clamp(r + ((y-E) dEdr/var)/prec'),
+  rd' = clamp(sqrt(1/prec')). Steady-state deviation ~0.40; effective evidence
+  window ~53 events per skill.
+- Slow reference rating: sr equals r while attempts < 3 (a prior-contaminated seed
+  would dilute the signal), then sr' = sr + (r' - sr)/80 per event. The drift
+  signal r - sr reads "current ability versus early ability" and feeds the
+  readiness band extension (section 6).
+- Idle drift, applied before each update and on read, ONLY to skills with at
+  least one observed event (a never-attempted skill is the prior; its lastEventMs
+  sentinel of 0 is not a timestamp): variance grows by ((1.5^2-0.25^2)/90) per
+  idle day, capped at prior; r and sr fade toward 0 by
+  exp(-max(0, idleDays - 30)/120). The 30-day grace exists so normal practice
+  rhythms carry no fade (a weekly student must not be biased low). A state
+  missing sr (imported from before the field) reads as "no drift", never NaN.
 - An event updates every node in its tests list.
+
+Certified claims (tests/ and refutation/ enforce all of these): stationary
+convergence within 0.1 probability at 200 events (0.12 near the anchor, where the
+tracker's steady-state error peaks) for abilities |theta| <= 2.5; an improving
+student (-1 to +2 over 300 events) is tracked to the current ability, not the
+lifetime mean; zero clamp-pinning for |theta| <= 2.5 and at most 5% touch at
+theta = 3; the 90% mastery interval covers at >= 85% across simulated students.
+Abilities beyond |theta| ~ 2.5 approach the floor/ceiling identifiability limits
+of four-option MCQ evidence and carry no precision guarantees.
 
 ## 4. Scheduler (W1-4, W1-5; ADR 0009)
 
@@ -109,16 +134,29 @@ No dict-order dependence anywhere.
   expected_seconds (empirical avg_seconds when present). Skipping is a time decision,
   never an ability verdict. Below-chance P is possible only on nodes with an active
   recurring misconception (worse than guessing is real there).
-- **Band.** Variance = sum over questions of EV variance, propagated from rating
-  deviations plus the binomial exam-day noise floor. The reported band is the score
-  EV +/- 1.645 sigma, floored at +/- 5 marks no matter how much data exists.
-  Rounded to whole marks, 5-mark display granularity.
+- **Band.** Variance = the independent binomial exam-day term per question, plus
+  the rating-deviation term summed per family before squaring (a node's
+  estimation error hits all its questions together). The reported band is the
+  score EV +/- 1.645 sigma, floored at +/- 5 marks no matter how much data
+  exists, then EXTENDED in the drift direction: driftMarks = 1.5 * sum over
+  attempted questions of (P(current rating) - P(slow reference rating)) * swing.
+  Positive drift (an improving student) extends the top of the band; negative
+  drift extends the bottom. No momentum is added to the point estimate: the
+  trailing value stays the claim, the band admits which way the truth likely
+  sits, and the note urges a fresh mock when |drift| is material. Finally the
+  whole band clamps structurally to the achievable score range
+  [-numQuestions * negativePerWrong, numQuestions * marksPerCorrect]. Rounded to
+  whole marks. Certified: band coverage >= 85% for stationary, improving, and
+  declining simulated students.
 - **Mock anchoring.** Completed mocks contribute their actual net scores: the readiness
   point estimate is a precision-weighted blend of the model EV and the recent-mock
   mean (mocks within 21 days, weight by recency). A model that disagrees with real
-  mocks loses, visibly. Aggregation contract: mock events group by UTC calendar day;
-  each day's net-marks-per-answered-question rate projects onto the 100-question
-  paper; a day's weight is recency times completeness times answered count.
+  mocks loses, visibly. Aggregation contract: mock events group by UTC calendar
+  day; days with fewer than 25 answered questions are no anchor at all; each
+  qualifying day's net-marks-per-answered rate projects onto the full paper with
+  precision recency / (numQuestions^2 * 0.25 * swing^2 / answered), the true
+  statistical precision of that projection, so a thin sample is a weak anchor by
+  construction and can never dominate the model (W1-11 attack FF).
 - **Confidence.** insufficient_data below 20 events or below 25% blueprint coverage.
   Otherwise low when mean deviation > 0.8 or coverage < 60%; else medium. Never higher,
   structurally.
