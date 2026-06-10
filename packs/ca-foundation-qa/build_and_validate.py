@@ -21,6 +21,7 @@ sys.path.insert(0, str(VALIDATOR_DIR))
 
 import canonical
 import pack_validator as pv
+import run_solutions
 from referencing import Registry, Resource
 
 CORE = json.loads((SCHEMA_DIR / "core" / "uqs-core.schema.json").read_text())
@@ -92,3 +93,10 @@ if violations:
     sys.exit(1)
 
 print(f"PASS  all {len(items)} items clean (Tier 1 + Tier 2)")
+
+# A pack build is always a verified build: run the solution harness over this pack.
+# Every item carrying a solution has it executed in the sandbox and its key checked.
+print("\nsolution harness:")
+harness_rc = run_solutions.run_pack(HERE)
+if harness_rc != 0:
+    sys.exit(harness_rc)

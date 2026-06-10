@@ -23,6 +23,7 @@ sys.path.insert(0, str(HERE))
 
 import canonical
 import pack_validator as pv
+import run_solutions
 from migrate_ca_v1 import migrate
 
 SCHEMA_DIR = HERE.parent
@@ -99,6 +100,93 @@ def load_taxonomy():
     }
 
 
+# Solution-harness self-test fixtures. Each is a tiny solution source paired with the
+# violation code it must provoke (or None for the good one). They exercise the harness
+# end to end: a real subprocess runs each in the sandbox.
+HARNESS_FIXTURES = {
+    # Good: reproduces the key, satisfiable+unique consistency.
+    "good.py": (
+        "def solve():\n"
+        "    return {'value': 42, 'option_key': 2}\n"
+        "def check_consistency():\n"
+        "    return {'satisfiable': True, 'unique': True}\n",
+        None,
+    ),
+    # Key mismatch: returns the wrong option_key.
+    "mismatch.py": (
+        "def solve():\n"
+        "    return {'value': 0, 'option_key': 4}\n",
+        "SOLUTION_KEY_MISMATCH",
+    ),
+    # Timeout: sleeps past the wall-clock limit without burning CPU (a busy loop would
+    # trip the 5s CPU limit first and surface as a run error; sleeping isolates the
+    # wall-clock path).
+    "timeout.py": (
+        "import time\n"
+        "def solve():\n"
+        "    time.sleep(30)\n"
+        "    return {'value': 42, 'option_key': 2}\n",
+        "SOLUTION_TIMEOUT",
+    ),
+    # Protocol violation: prints extra output to stdout before the JSON line.
+    "protocol.py": (
+        "def solve():\n"
+        "    print('chatty noise on stdout')\n"
+        "    return {'value': 42, 'option_key': 2}\n",
+        "SOLUTION_PROTOCOL_ERROR",
+    ),
+    # Unsatisfiable: check_consistency reports the premises cannot be met.
+    "unsatisfiable.py": (
+        "def solve():\n"
+        "    return {'value': 42, 'option_key': 2}\n"
+        "def check_consistency():\n"
+        "    return {'satisfiable': False, 'unique': False}\n",
+        "SOLUTION_UNSATISFIABLE",
+    ),
+}
+
+
+def run_solution_harness_selftest(ok: bool) -> bool:
+    """Drive run_solutions over a temp pack of crafted solutions, asserting each fires
+    its violation code (and the good one passes). Mirrors the reject-fixture pattern:
+    every harness violation is proven to fire."""
+    import tempfile
+
+    with tempfile.TemporaryDirectory() as tmp:
+        root = pathlib.Path(tmp)
+        sol_dir = root / "solutions"
+        sol_dir.mkdir()
+        for fname, (source, _code) in HARNESS_FIXTURES.items():
+            (sol_dir / fname).write_text(source)
+
+        # Each crafted item targets option_key 2 / answer_key.correct 2 so a faithful
+        # solution passes and only the intended fault trips the harness.
+        for fname, (_source, expected_code) in HARNESS_FIXTURES.items():
+            item = {
+                "id": f"selftest_{fname[:-3]}",
+                "item_type": "single_best",
+                "answer_key": {"correct": 2},
+                "solution": {"language": "python", "path": f"solutions/{fname}"},
+            }
+            status, code, detail = run_solutions.verify_item(item, root)
+            if expected_code is None:
+                if status == "PASS":
+                    print(f"PASS  harness self-test {fname}: passes clean")
+                else:
+                    ok = False
+                    print(f"FAIL  harness self-test {fname}: expected PASS, got {status} {code} {detail}")
+            else:
+                if status == "FAIL" and code == expected_code:
+                    print(f"PASS  harness self-test {fname}: fired {expected_code}")
+                else:
+                    ok = False
+                    print(
+                        f"FAIL  harness self-test {fname}: expected {expected_code}, "
+                        f"got {status} {code} ({detail})"
+                    )
+    return ok
+
+
 def main() -> int:
     tax = load_taxonomy()
     ok = True
@@ -158,6 +246,9 @@ def main() -> int:
     else:
         ok = False
         print("FAIL  svg_is_safe sanitization logic wrong")
+
+    # Solution-harness check layer: prove each harness violation code fires.
+    ok = run_solution_harness_selftest(ok)
 
     return 0 if ok else 1
 

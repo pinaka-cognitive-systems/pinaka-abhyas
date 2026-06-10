@@ -24,6 +24,9 @@ jobs:
       - name: "Tier 2: cross-record pack checks"
         run: python3 schema/validator/run_checks.py
 
+      - name: "Solution harness: sandboxed key execution"
+        run: python3 schema/validator/run_solutions.py packs/ca-foundation-qa
+
       - name: "Tests: validator"
         run: python3 -m pytest schema/validator/tests -q
 
