@@ -12,7 +12,7 @@
   },
   "tests": ["qa.stats.probability.addition_theorem"],
   "difficulty_label": "L2",
-  "taxonomy_version": 2,
+  "taxonomy_version": 3,
   "item_type": "single_best",
   "expected_seconds": 75,
   "stem": "In a survey of students in a school, the probability that a randomly selected student plays chess is 0.30, the probability of playing carrom is 0.50, and the probability of playing both games is 0.20. What is the probability that the student plays chess or carrom (or both)?",

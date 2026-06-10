@@ -15,7 +15,7 @@
       },
       "tests": ["qa.bmath.finance.simple_interest"],
       "difficulty_label": "L1",
-      "taxonomy_version": 2,
+      "taxonomy_version": 3,
       "item_type": "single_best",
       "stem": "A principal of Rs 5000 is deposited at 4 percent per annum simple interest for 3 years. What is the simple interest earned at the end of the deposit period?",
       "options": [
@@ -49,7 +49,7 @@
       },
       "tests": ["qa.bmath.finance.simple_interest"],
       "difficulty_label": "L1",
-      "taxonomy_version": 2,
+      "taxonomy_version": 3,
       "item_type": "single_best",
       "stem": "A principal of Rs 5000 is deposited at 4 percent per annum simple interest for 3 years. What is the simple interest accrued at the end of the deposit period?",
       "options": [

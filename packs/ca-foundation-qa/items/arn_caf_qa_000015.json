@@ -12,7 +12,7 @@
   },
   "tests": ["qa.lr.series_coding.number_series"],
   "difficulty_label": "L1",
-  "taxonomy_version": 2,
+  "taxonomy_version": 3,
   "item_type": "single_best",
   "expected_seconds": 45,
   "stem": "What is the next number in the series: 2, 6, 12, 20, 30, ?",

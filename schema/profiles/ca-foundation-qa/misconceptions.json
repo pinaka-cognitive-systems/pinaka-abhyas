@@ -1,47 +1,363 @@
 {
   "exam": "ca_foundation",
   "section": "quantitative_aptitude",
-  "taxonomy_version": 2,
+  "taxonomy_version": 3,
   "status": "draft",
-  "tagging_rule": "Every wrong single_best option and every numeric_entry common_error must carry exactly one misconception id from this closed canon. Choose the most specific id that fits the actual wrong-answer path. Do not invent ids inline. If a genuine, recurring error has no id here, propose an addition and bump the version; this canon is designed upfront so generators never guess. arithmetic_slip is the fallback for a genuine computational slip only, never for a conceptual error. This canon was validated against a v1 pilot, which showed v1 covered only computational errors. Version 2 adds Logical Reasoning misconceptions (blood relations, direction and seating, series and coding) and conceptual or property misconceptions (invariance, relation properties, set operations, definitions).",
+  "tagging_rule": "Every wrong single_best option and every numeric_entry common_error must carry exactly one misconception id from this closed canon. Choose the most specific id that fits the actual wrong-answer path. Do not invent ids inline. If a genuine, recurring error has no id here, propose an addition and bump the version; this canon is designed upfront so generators never guess. arithmetic_slip is the fallback for a genuine computational slip only, never for a conceptual error. This canon was validated against a v1 pilot, which showed v1 covered only computational errors. Version 2 adds Logical Reasoning misconceptions (blood relations, direction and seating, series and coding) and conceptual or property misconceptions (invariance, relation properties, set operations, definitions). Version 3 adds calculus misconceptions and extends concept_definition_confused to correlation and regression and to calculus, closing the two registered family gaps.",
   "misconceptions": [
-    { "id": "arithmetic_slip", "name": "Arithmetic slip", "description": "A genuine computational slip with sound method. Fallback only.", "families": ["*"] },
-    { "id": "sign_error", "name": "Sign error", "description": "Dropped or flipped a sign during manipulation.", "families": ["qa.bmath.equations", "qa.bmath.inequalities", "qa.stats"] },
-    { "id": "decimal_place_error", "name": "Decimal or power-of-ten error", "description": "Misplaced a decimal point or a power of ten.", "families": ["qa.bmath.finance", "qa.bmath.ratio_indices_log", "qa.stats"] },
-    { "id": "rounding_error", "name": "Premature or wrong rounding", "description": "Rounded too early or to the wrong precision, changing the answer.", "families": ["qa.bmath.finance", "qa.stats"] },
-    { "id": "order_of_operations", "name": "Order of operations", "description": "Applied operations in the wrong order.", "families": ["qa.bmath"] },
-    { "id": "formula_misapplied", "name": "Formula misapplied", "description": "Used a valid formula in a situation it does not cover.", "families": ["qa.bmath.finance", "qa.stats", "qa.bmath.sequence_series"] },
-    { "id": "wrong_formula", "name": "Wrong formula chosen", "description": "Selected the wrong formula for the quantity asked.", "families": ["qa.bmath", "qa.stats"] },
-    { "id": "unit_confusion", "name": "Unit confusion", "description": "Mismatched or ignored units (rate per period, currency, time).", "families": ["qa.bmath.finance"] },
-    { "id": "percentage_base_confusion", "name": "Percentage base confusion", "description": "Took the percentage of the wrong base quantity.", "families": ["qa.bmath.ratio_indices_log", "qa.bmath.finance", "qa.stats.index_numbers"] },
-    { "id": "ratio_inverted", "name": "Ratio inverted", "description": "Inverted or misordered the terms of a ratio.", "families": ["qa.bmath.ratio_indices_log"] },
-    { "id": "compound_interest_confusion", "name": "Simple vs compound interest", "description": "Applied compound interest where simple was asked, or the reverse.", "families": ["qa.bmath.finance"] },
-    { "id": "time_factor_dropped", "name": "Time period misread", "description": "Dropped or misread the time period or number of periods.", "families": ["qa.bmath.finance"] },
-    { "id": "rate_period_mismatch", "name": "Rate and period mismatch", "description": "Did not match the interest rate to the compounding period.", "families": ["qa.bmath.finance"] },
-    { "id": "inequality_sign_not_flipped", "name": "Inequality sign not flipped", "description": "Did not reverse the inequality when multiplying or dividing by a negative.", "families": ["qa.bmath.inequalities"] },
-    { "id": "extraneous_root_kept", "name": "Extraneous root kept", "description": "Kept a root the problem context excludes.", "families": ["qa.bmath.equations"] },
-    { "id": "permutation_combination_confusion", "name": "Permutation vs combination", "description": "Counted order where it does not matter, or the reverse.", "families": ["qa.bmath.permutations_combinations"] },
-    { "id": "complement_confusion", "name": "Event vs complement", "description": "Confused an event with its complement.", "families": ["qa.stats.probability"] },
-    { "id": "independence_assumed", "name": "Independence wrongly assumed", "description": "Assumed events were independent when they were not.", "families": ["qa.stats.probability"] },
-    { "id": "conditional_reversed", "name": "Conditional reversed", "description": "Computed P(B given A) instead of P(A given B).", "families": ["qa.stats.probability"] },
-    { "id": "mutually_exclusive_vs_independent", "name": "Mutually exclusive vs independent", "description": "Confused mutually exclusive events with independent events.", "families": ["qa.stats.probability"] },
-    { "id": "mean_median_mode_confusion", "name": "Wrong measure of central tendency", "description": "Used the wrong average for the question.", "families": ["qa.stats.central_tendency_dispersion"] },
-    { "id": "population_sample_confusion", "name": "Population vs sample", "description": "Confused a population parameter with a sample statistic (for example the divisor n vs n-1).", "families": ["qa.stats.central_tendency_dispersion", "qa.stats.data_representation"] },
-    { "id": "misread_quantity", "name": "Solved the wrong quantity", "description": "Solved for a different quantity than the one asked.", "families": ["*"] },
-    { "id": "off_by_one", "name": "Off by one", "description": "Off-by-one in counting, indexing, or number of periods.", "families": ["qa.bmath.permutations_combinations", "qa.bmath.sequence_series", "qa.bmath.finance"] },
-
-    { "id": "kinship_generation_error", "name": "Kinship generation error", "description": "Placed a family relation at the wrong generational distance, for example uncle vs grandfather or cousin vs sibling.", "families": ["qa.lr.blood_relations"] },
-    { "id": "kinship_direction_inverted", "name": "Kinship direction inverted", "description": "Reversed an ancestor or descendant relation, or took the relation from the wrong person's viewpoint.", "families": ["qa.lr.blood_relations"] },
-    { "id": "kinship_gender_error", "name": "Kinship gender error", "description": "Assigned the wrong gender to a relation, giving the wrong gendered term.", "families": ["qa.lr.blood_relations"] },
-    { "id": "direction_turn_error", "name": "Direction turn error", "description": "Turned the wrong way, left for right or the wrong sense of clockwise, at a step of a route or arrangement.", "families": ["qa.lr.direction_tests", "qa.lr.seating"] },
-    { "id": "net_displacement_error", "name": "Net displacement error", "description": "Combined the legs of a route incorrectly, giving the wrong final position, distance, or heading.", "families": ["qa.lr.direction_tests"] },
-    { "id": "constraint_omitted", "name": "Constraint omitted", "description": "Reached an answer without applying one or more stated clues or constraints of the puzzle.", "families": ["qa.lr.seating", "qa.lr.direction_tests", "qa.lr.blood_relations"] },
-    { "id": "constraint_reversed", "name": "Constraint reversed", "description": "Applied a directional or ordering clue backwards, for example read left-of as right-of.", "families": ["qa.lr.seating", "qa.lr.direction_tests"] },
-    { "id": "series_pattern_misidentified", "name": "Series pattern misidentified", "description": "Inferred the wrong generative rule for a number or letter series, for example linear growth instead of geometric.", "families": ["qa.lr.series_coding", "qa.bmath.sequence_series"] },
-    { "id": "coding_rule_misapplied", "name": "Coding rule misapplied", "description": "Used the wrong shift or mapping when encoding or decoding, or applied it in the wrong direction.", "families": ["qa.lr.series_coding"] },
-    { "id": "invariance_property_confused", "name": "Invariance property confused", "description": "Wrong belief about whether a transformation changes a statistic, for example thinking an origin shift changes a quantity that only a scale change affects.", "families": ["qa.stats.correlation_regression", "qa.stats.central_tendency_dispersion", "qa.stats.index_numbers"] },
-    { "id": "relation_property_misidentified", "name": "Relation property misidentified", "description": "Misjudged which of reflexive, symmetric, transitive, or equivalence holds for a relation, by not testing it against a case.", "families": ["qa.bmath.sets_functions"] },
-    { "id": "set_operation_confused", "name": "Set operation confused", "description": "Swapped union and intersection, or AND and OR, in a set or probability statement.", "families": ["qa.bmath.sets_functions", "qa.stats.probability"] },
-    { "id": "concept_definition_confused", "name": "Concept definition confused", "description": "Chose an answer reflecting a swapped or confused definition of the concept asked, for example which named index measures what, or which measure is which.", "families": ["qa.stats.index_numbers", "qa.stats.central_tendency_dispersion", "qa.stats.data_representation", "qa.stats.distributions"] }
+    {
+      "id": "arithmetic_slip",
+      "name": "Arithmetic slip",
+      "description": "A genuine computational slip with sound method. Fallback only.",
+      "families": [
+        "*"
+      ]
+    },
+    {
+      "id": "sign_error",
+      "name": "Sign error",
+      "description": "Dropped or flipped a sign during manipulation.",
+      "families": [
+        "qa.bmath.equations",
+        "qa.bmath.inequalities",
+        "qa.stats"
+      ]
+    },
+    {
+      "id": "decimal_place_error",
+      "name": "Decimal or power-of-ten error",
+      "description": "Misplaced a decimal point or a power of ten.",
+      "families": [
+        "qa.bmath.finance",
+        "qa.bmath.ratio_indices_log",
+        "qa.stats"
+      ]
+    },
+    {
+      "id": "rounding_error",
+      "name": "Premature or wrong rounding",
+      "description": "Rounded too early or to the wrong precision, changing the answer.",
+      "families": [
+        "qa.bmath.finance",
+        "qa.stats"
+      ]
+    },
+    {
+      "id": "order_of_operations",
+      "name": "Order of operations",
+      "description": "Applied operations in the wrong order.",
+      "families": [
+        "qa.bmath"
+      ]
+    },
+    {
+      "id": "formula_misapplied",
+      "name": "Formula misapplied",
+      "description": "Used a valid formula in a situation it does not cover.",
+      "families": [
+        "qa.bmath.finance",
+        "qa.stats",
+        "qa.bmath.sequence_series"
+      ]
+    },
+    {
+      "id": "wrong_formula",
+      "name": "Wrong formula chosen",
+      "description": "Selected the wrong formula for the quantity asked.",
+      "families": [
+        "qa.bmath",
+        "qa.stats"
+      ]
+    },
+    {
+      "id": "unit_confusion",
+      "name": "Unit confusion",
+      "description": "Mismatched or ignored units (rate per period, currency, time).",
+      "families": [
+        "qa.bmath.finance"
+      ]
+    },
+    {
+      "id": "percentage_base_confusion",
+      "name": "Percentage base confusion",
+      "description": "Took the percentage of the wrong base quantity.",
+      "families": [
+        "qa.bmath.ratio_indices_log",
+        "qa.bmath.finance",
+        "qa.stats.index_numbers"
+      ]
+    },
+    {
+      "id": "ratio_inverted",
+      "name": "Ratio inverted",
+      "description": "Inverted or misordered the terms of a ratio.",
+      "families": [
+        "qa.bmath.ratio_indices_log"
+      ]
+    },
+    {
+      "id": "compound_interest_confusion",
+      "name": "Simple vs compound interest",
+      "description": "Applied compound interest where simple was asked, or the reverse.",
+      "families": [
+        "qa.bmath.finance"
+      ]
+    },
+    {
+      "id": "time_factor_dropped",
+      "name": "Time period misread",
+      "description": "Dropped or misread the time period or number of periods.",
+      "families": [
+        "qa.bmath.finance"
+      ]
+    },
+    {
+      "id": "rate_period_mismatch",
+      "name": "Rate and period mismatch",
+      "description": "Did not match the interest rate to the compounding period.",
+      "families": [
+        "qa.bmath.finance"
+      ]
+    },
+    {
+      "id": "inequality_sign_not_flipped",
+      "name": "Inequality sign not flipped",
+      "description": "Did not reverse the inequality when multiplying or dividing by a negative.",
+      "families": [
+        "qa.bmath.inequalities"
+      ]
+    },
+    {
+      "id": "extraneous_root_kept",
+      "name": "Extraneous root kept",
+      "description": "Kept a root the problem context excludes.",
+      "families": [
+        "qa.bmath.equations"
+      ]
+    },
+    {
+      "id": "permutation_combination_confusion",
+      "name": "Permutation vs combination",
+      "description": "Counted order where it does not matter, or the reverse.",
+      "families": [
+        "qa.bmath.permutations_combinations"
+      ]
+    },
+    {
+      "id": "complement_confusion",
+      "name": "Event vs complement",
+      "description": "Confused an event with its complement.",
+      "families": [
+        "qa.stats.probability"
+      ]
+    },
+    {
+      "id": "independence_assumed",
+      "name": "Independence wrongly assumed",
+      "description": "Assumed events were independent when they were not.",
+      "families": [
+        "qa.stats.probability"
+      ]
+    },
+    {
+      "id": "conditional_reversed",
+      "name": "Conditional reversed",
+      "description": "Computed P(B given A) instead of P(A given B).",
+      "families": [
+        "qa.stats.probability"
+      ]
+    },
+    {
+      "id": "mutually_exclusive_vs_independent",
+      "name": "Mutually exclusive vs independent",
+      "description": "Confused mutually exclusive events with independent events.",
+      "families": [
+        "qa.stats.probability"
+      ]
+    },
+    {
+      "id": "mean_median_mode_confusion",
+      "name": "Wrong measure of central tendency",
+      "description": "Used the wrong average for the question.",
+      "families": [
+        "qa.stats.central_tendency_dispersion"
+      ]
+    },
+    {
+      "id": "population_sample_confusion",
+      "name": "Population vs sample",
+      "description": "Confused a population parameter with a sample statistic (for example the divisor n vs n-1).",
+      "families": [
+        "qa.stats.central_tendency_dispersion",
+        "qa.stats.data_representation"
+      ]
+    },
+    {
+      "id": "misread_quantity",
+      "name": "Solved the wrong quantity",
+      "description": "Solved for a different quantity than the one asked.",
+      "families": [
+        "*"
+      ]
+    },
+    {
+      "id": "off_by_one",
+      "name": "Off by one",
+      "description": "Off-by-one in counting, indexing, or number of periods.",
+      "families": [
+        "qa.bmath.permutations_combinations",
+        "qa.bmath.sequence_series",
+        "qa.bmath.finance"
+      ]
+    },
+    {
+      "id": "kinship_generation_error",
+      "name": "Kinship generation error",
+      "description": "Placed a family relation at the wrong generational distance, for example uncle vs grandfather or cousin vs sibling.",
+      "families": [
+        "qa.lr.blood_relations"
+      ]
+    },
+    {
+      "id": "kinship_direction_inverted",
+      "name": "Kinship direction inverted",
+      "description": "Reversed an ancestor or descendant relation, or took the relation from the wrong person's viewpoint.",
+      "families": [
+        "qa.lr.blood_relations"
+      ]
+    },
+    {
+      "id": "kinship_gender_error",
+      "name": "Kinship gender error",
+      "description": "Assigned the wrong gender to a relation, giving the wrong gendered term.",
+      "families": [
+        "qa.lr.blood_relations"
+      ]
+    },
+    {
+      "id": "direction_turn_error",
+      "name": "Direction turn error",
+      "description": "Turned the wrong way, left for right or the wrong sense of clockwise, at a step of a route or arrangement.",
+      "families": [
+        "qa.lr.direction_tests",
+        "qa.lr.seating"
+      ]
+    },
+    {
+      "id": "net_displacement_error",
+      "name": "Net displacement error",
+      "description": "Combined the legs of a route incorrectly, giving the wrong final position, distance, or heading.",
+      "families": [
+        "qa.lr.direction_tests"
+      ]
+    },
+    {
+      "id": "constraint_omitted",
+      "name": "Constraint omitted",
+      "description": "Reached an answer without applying one or more stated clues or constraints of the puzzle.",
+      "families": [
+        "qa.lr.seating",
+        "qa.lr.direction_tests",
+        "qa.lr.blood_relations"
+      ]
+    },
+    {
+      "id": "constraint_reversed",
+      "name": "Constraint reversed",
+      "description": "Applied a directional or ordering clue backwards, for example read left-of as right-of.",
+      "families": [
+        "qa.lr.seating",
+        "qa.lr.direction_tests"
+      ]
+    },
+    {
+      "id": "series_pattern_misidentified",
+      "name": "Series pattern misidentified",
+      "description": "Inferred the wrong generative rule for a number or letter series, for example linear growth instead of geometric.",
+      "families": [
+        "qa.lr.series_coding",
+        "qa.bmath.sequence_series"
+      ]
+    },
+    {
+      "id": "coding_rule_misapplied",
+      "name": "Coding rule misapplied",
+      "description": "Used the wrong shift or mapping when encoding or decoding, or applied it in the wrong direction.",
+      "families": [
+        "qa.lr.series_coding"
+      ]
+    },
+    {
+      "id": "invariance_property_confused",
+      "name": "Invariance property confused",
+      "description": "Wrong belief about whether a transformation changes a statistic, for example thinking an origin shift changes a quantity that only a scale change affects.",
+      "families": [
+        "qa.stats.correlation_regression",
+        "qa.stats.central_tendency_dispersion",
+        "qa.stats.index_numbers"
+      ]
+    },
+    {
+      "id": "relation_property_misidentified",
+      "name": "Relation property misidentified",
+      "description": "Misjudged which of reflexive, symmetric, transitive, or equivalence holds for a relation, by not testing it against a case.",
+      "families": [
+        "qa.bmath.sets_functions"
+      ]
+    },
+    {
+      "id": "set_operation_confused",
+      "name": "Set operation confused",
+      "description": "Swapped union and intersection, or AND and OR, in a set or probability statement.",
+      "families": [
+        "qa.bmath.sets_functions",
+        "qa.stats.probability"
+      ]
+    },
+    {
+      "id": "concept_definition_confused",
+      "name": "Concept definition confused",
+      "description": "Chose an answer reflecting a swapped or confused definition of the concept asked, for example which named index measures what, or which measure is which.",
+      "families": [
+        "qa.stats.index_numbers",
+        "qa.stats.central_tendency_dispersion",
+        "qa.stats.data_representation",
+        "qa.stats.distributions",
+        "qa.stats.correlation_regression",
+        "qa.bmath.calculus"
+      ]
+    },
+    {
+      "id": "power_rule_misapplied",
+      "name": "Power rule misapplied",
+      "description": "Differentiation or integration power rule applied with the wrong index step, for example d/dx of x^n given as x^(n-1) without the factor n, or n*x^(n+1) when integrating.",
+      "families": [
+        "qa.bmath.calculus"
+      ]
+    },
+    {
+      "id": "differentiation_rule_confused",
+      "name": "Differentiation rule confused",
+      "description": "Product, quotient, or chain rule replaced by a wrong shortcut, for example the derivative of a product taken as the product of the derivatives, or an inner function left undifferentiated.",
+      "families": [
+        "qa.bmath.calculus"
+      ]
+    },
+    {
+      "id": "integration_constant_dropped",
+      "name": "Integration constant mishandled",
+      "description": "The constant of integration omitted where it matters, or limits applied to an antiderivative incorrectly in a definite integral.",
+      "families": [
+        "qa.bmath.calculus"
+      ]
+    },
+    {
+      "id": "marginal_vs_average_confused",
+      "name": "Marginal versus average confused",
+      "description": "A rate question answered with an average, or the reverse: marginal cost or revenue computed as total divided by quantity instead of the derivative, the standard error in cost-function applications.",
+      "families": [
+        "qa.bmath.calculus"
+      ]
+    }
   ]
 }

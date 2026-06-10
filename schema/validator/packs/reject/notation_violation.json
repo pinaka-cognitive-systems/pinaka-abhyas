@@ -15,7 +15,7 @@
       },
       "tests": ["qa.bmath.finance.simple_interest"],
       "difficulty_label": "L1",
-      "taxonomy_version": 2,
+      "taxonomy_version": 3,
       "item_type": "single_best",
       "stem": "Compute $\\frac{P \\cdot R \\cdot T}{100}$ for P=5000, R=4, T=3.",
       "options": [

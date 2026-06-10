@@ -12,7 +12,7 @@
   },
   "tests": ["qa.bmath.permutations_combinations.combinations"],
   "difficulty_label": "L2",
-  "taxonomy_version": 2,
+  "taxonomy_version": 3,
   "item_type": "single_best",
   "expected_seconds": 75,
   "stem": "A project team needs to select a sub-group of 3 members from a pool of 8 candidates. In how many distinct ways can the sub-group be formed?",

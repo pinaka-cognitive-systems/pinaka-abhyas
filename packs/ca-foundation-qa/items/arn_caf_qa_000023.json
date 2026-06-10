@@ -12,7 +12,7 @@
   },
   "tests": ["qa.bmath.finance.annuity"],
   "difficulty_label": "L3",
-  "taxonomy_version": 2,
+  "taxonomy_version": 3,
   "item_type": "single_best",
   "expected_seconds": 110,
   "stem": "Rajan deposits Rs 2,000 at the end of every year into a savings scheme for 4 years. The scheme pays 10% interest per year compounded annually. Find the future value of this annuity at the end of 4 years. [Given: (1.1)^4 = 1.4641; (1.05)^4 = 1.2155]",

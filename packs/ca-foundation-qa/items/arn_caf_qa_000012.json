@@ -12,7 +12,7 @@
   },
   "tests": ["qa.lr.direction_tests"],
   "difficulty_label": "L2",
-  "taxonomy_version": 2,
+  "taxonomy_version": 3,
   "item_type": "single_best",
   "expected_seconds": 75,
   "stem": "Priya starts from point O facing North. She walks 6 km, then turns right and walks 8 km, then turns right again and walks 6 km. How far is she from O, and in which direction?",

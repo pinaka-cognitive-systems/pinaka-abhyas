@@ -17,7 +17,7 @@
         "qa.stats.probability.conditional"
       ],
       "difficulty_label": "L3",
-      "taxonomy_version": 2,
+      "taxonomy_version": 3,
       "item_type": "single_best",
       "stem": "Refer to the figure {{asset:vlt_caf_qa_000088_a1}}. Two events A and B satisfy P(A and B) = 1/6 and P(B) = 1/2. Find P(A given B).",
       "options": [

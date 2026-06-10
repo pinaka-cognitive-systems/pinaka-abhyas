@@ -15,7 +15,7 @@
       },
       "tests": ["qa.stats.probability.conditional"],
       "difficulty_label": "L2",
-      "taxonomy_version": 2,
+      "taxonomy_version": 3,
       "item_type": "single_best",
       "stem": "A bag contains 3 red and 2 blue balls. One ball is drawn at random. Find the probability of drawing a red ball.",
       "options": [

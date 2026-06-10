@@ -2,125 +2,572 @@
   "exam": "ca_foundation",
   "section": "quantitative_aptitude",
   "paper": "Paper 3 — Quantitative Aptitude",
-  "taxonomy_version": 2,
+  "taxonomy_version": 3,
   "status": "draft",
   "source": "Official ICAI CA Foundation Paper 3 syllabus (syllabus/CAF QA IP.pdf). Built from the printed chapter and unit structure. Node ids are stable; subtopic granularity may deepen at later taxonomy_versions.",
-  "difficulty_scale": ["L1", "L2", "L3"],
+  "difficulty_scale": [
+    "L1",
+    "L2",
+    "L3"
+  ],
   "difficulty_meaning": {
     "L1": "Single-step recall or direct formula application.",
     "L2": "Two to three steps, or a formula plus a setup decision.",
     "L3": "Multi-step, or a non-obvious method choice, or a common trap that must be avoided."
   },
   "parts": [
-    { "id": "qa.bmath", "name": "Business Mathematics", "marks": 40 },
-    { "id": "qa.lr", "name": "Logical Reasoning", "marks": 20 },
-    { "id": "qa.stats", "name": "Statistics", "marks": 40 }
+    {
+      "id": "qa.bmath",
+      "name": "Business Mathematics",
+      "marks": 40
+    },
+    {
+      "id": "qa.lr",
+      "name": "Logical Reasoning",
+      "marks": 20
+    },
+    {
+      "id": "qa.stats",
+      "name": "Statistics",
+      "marks": 40
+    }
   ],
   "nodes": [
-    { "id": "qa", "name": "Quantitative Aptitude", "parent": null, "abstract": true },
-
-    { "id": "qa.bmath", "name": "Business Mathematics", "parent": "qa", "abstract": true },
-
-    { "id": "qa.bmath.ratio_indices_log", "name": "Ratio and Proportion, Indices, Logarithms", "parent": "qa.bmath", "abstract": true },
-    { "id": "qa.bmath.ratio_indices_log.ratio", "name": "Ratio", "parent": "qa.bmath.ratio_indices_log", "v1_scope": true },
-    { "id": "qa.bmath.ratio_indices_log.proportion", "name": "Proportion", "parent": "qa.bmath.ratio_indices_log", "v1_scope": true },
-    { "id": "qa.bmath.ratio_indices_log.indices", "name": "Indices", "parent": "qa.bmath.ratio_indices_log", "v1_scope": true },
-    { "id": "qa.bmath.ratio_indices_log.logarithm", "name": "Logarithm", "parent": "qa.bmath.ratio_indices_log", "v1_scope": true },
-
-    { "id": "qa.bmath.equations", "name": "Equations", "parent": "qa.bmath", "abstract": true },
-    { "id": "qa.bmath.equations.simple", "name": "Simple equations", "parent": "qa.bmath.equations", "v1_scope": true },
-    { "id": "qa.bmath.equations.simultaneous_linear", "name": "Simultaneous linear equations", "parent": "qa.bmath.equations", "v1_scope": true },
-    { "id": "qa.bmath.equations.quadratic", "name": "Quadratic equations", "parent": "qa.bmath.equations", "v1_scope": true },
-    { "id": "qa.bmath.equations.cubic", "name": "Cubic equations", "parent": "qa.bmath.equations", "v1_scope": true },
-
-    { "id": "qa.bmath.inequalities", "name": "Linear Inequalities", "parent": "qa.bmath", "abstract": true },
-    { "id": "qa.bmath.inequalities.one_variable", "name": "Linear inequalities in one variable", "parent": "qa.bmath.inequalities", "v1_scope": true },
-    { "id": "qa.bmath.inequalities.solution_space", "name": "Solution space", "parent": "qa.bmath.inequalities", "v1_scope": true, "note": "Pose textually; do not require a plotted region in v1." },
-
-    { "id": "qa.bmath.finance", "name": "Mathematics of Finance", "parent": "qa.bmath", "abstract": true },
-    { "id": "qa.bmath.finance.simple_interest", "name": "Simple interest", "parent": "qa.bmath.finance", "v1_scope": true },
-    { "id": "qa.bmath.finance.compound_interest", "name": "Compound interest", "parent": "qa.bmath.finance", "v1_scope": true },
-    { "id": "qa.bmath.finance.effective_rate", "name": "Effective rate of interest", "parent": "qa.bmath.finance", "v1_scope": true },
-    { "id": "qa.bmath.finance.annuity", "name": "Annuity", "parent": "qa.bmath.finance", "v1_scope": true },
-    { "id": "qa.bmath.finance.present_value", "name": "Present value", "parent": "qa.bmath.finance", "v1_scope": true },
-    { "id": "qa.bmath.finance.future_value", "name": "Future value", "parent": "qa.bmath.finance", "v1_scope": true },
-    { "id": "qa.bmath.finance.sinking_fund", "name": "Sinking fund", "parent": "qa.bmath.finance", "v1_scope": true },
-    { "id": "qa.bmath.finance.perpetuity", "name": "Perpetuity", "parent": "qa.bmath.finance", "v1_scope": true },
-    { "id": "qa.bmath.finance.npv", "name": "Net present value", "parent": "qa.bmath.finance", "v1_scope": true },
-    { "id": "qa.bmath.finance.cagr", "name": "Compound annual growth rate", "parent": "qa.bmath.finance", "v1_scope": true },
-    { "id": "qa.bmath.finance.nominal_real_return", "name": "Nominal and real rate of return", "parent": "qa.bmath.finance", "v1_scope": true },
-
-    { "id": "qa.bmath.permutations_combinations", "name": "Permutations and Combinations", "parent": "qa.bmath", "abstract": true },
-    { "id": "qa.bmath.permutations_combinations.factorial", "name": "Factorial", "parent": "qa.bmath.permutations_combinations", "v1_scope": true },
-    { "id": "qa.bmath.permutations_combinations.permutations", "name": "Permutations", "parent": "qa.bmath.permutations_combinations", "v1_scope": true },
-    { "id": "qa.bmath.permutations_combinations.circular_permutations", "name": "Circular permutations", "parent": "qa.bmath.permutations_combinations", "v1_scope": true },
-    { "id": "qa.bmath.permutations_combinations.permutations_restrictions", "name": "Permutations with restrictions", "parent": "qa.bmath.permutations_combinations", "v1_scope": true },
-    { "id": "qa.bmath.permutations_combinations.combinations", "name": "Combinations", "parent": "qa.bmath.permutations_combinations", "v1_scope": true },
-
-    { "id": "qa.bmath.sequence_series", "name": "Sequence and Series", "parent": "qa.bmath", "abstract": true },
-    { "id": "qa.bmath.sequence_series.ap", "name": "Arithmetic progression", "parent": "qa.bmath.sequence_series", "v1_scope": true },
-    { "id": "qa.bmath.sequence_series.gp", "name": "Geometric progression", "parent": "qa.bmath.sequence_series", "v1_scope": true },
-    { "id": "qa.bmath.sequence_series.gm", "name": "Geometric mean", "parent": "qa.bmath.sequence_series", "v1_scope": true },
-
-    { "id": "qa.bmath.sets_functions", "name": "Sets, Relations and Functions, Limits and Continuity", "parent": "qa.bmath", "abstract": true },
-    { "id": "qa.bmath.sets_functions.sets", "name": "Sets", "parent": "qa.bmath.sets_functions", "v1_scope": true },
-    { "id": "qa.bmath.sets_functions.venn", "name": "Venn diagrams", "parent": "qa.bmath.sets_functions", "v1_scope": true, "note": "Pose as set-count word problems; do not require a drawn diagram in v1." },
-    { "id": "qa.bmath.sets_functions.relations_functions", "name": "Relations and functions", "parent": "qa.bmath.sets_functions", "v1_scope": true },
-    { "id": "qa.bmath.sets_functions.domain_range", "name": "Domain and range", "parent": "qa.bmath.sets_functions", "v1_scope": true },
-    { "id": "qa.bmath.sets_functions.limits", "name": "Limits", "parent": "qa.bmath.sets_functions", "v1_scope": true },
-    { "id": "qa.bmath.sets_functions.continuity", "name": "Continuity", "parent": "qa.bmath.sets_functions", "v1_scope": true },
-
-    { "id": "qa.bmath.calculus", "name": "Differential and Integral Calculus", "parent": "qa.bmath", "abstract": true, "v1_scope": true, "note": "Basic applications of differential and integral calculus in business and economics; excludes trigonometric applications. Pose textually." },
-    { "id": "qa.bmath.calculus.differentiation", "name": "Differentiation", "parent": "qa.bmath.calculus", "v1_scope": true },
-    { "id": "qa.bmath.calculus.integration", "name": "Integration", "parent": "qa.bmath.calculus", "v1_scope": true },
-    { "id": "qa.bmath.calculus.applications", "name": "Applications in business and economics", "parent": "qa.bmath.calculus", "v1_scope": true },
-
-    { "id": "qa.lr", "name": "Logical Reasoning", "parent": "qa", "abstract": true },
-    { "id": "qa.lr.series_coding", "name": "Number Series, Coding and Decoding, Odd Man Out", "parent": "qa.lr", "abstract": true },
-    { "id": "qa.lr.series_coding.number_series", "name": "Number series", "parent": "qa.lr.series_coding", "v1_scope": true },
-    { "id": "qa.lr.series_coding.coding_decoding", "name": "Coding and decoding", "parent": "qa.lr.series_coding", "v1_scope": true },
-    { "id": "qa.lr.series_coding.odd_man_out", "name": "Odd man out", "parent": "qa.lr.series_coding", "v1_scope": true },
-    { "id": "qa.lr.direction_tests", "name": "Direction Tests", "parent": "qa.lr", "v1_scope": true, "note": "Text-posed word problems; the ICAI sample paper confirms no diagram is required." },
-    { "id": "qa.lr.seating", "name": "Seating Arrangements", "parent": "qa.lr", "v1_scope": true, "note": "Text-posed word problems; no diagram required in v1." },
-    { "id": "qa.lr.blood_relations", "name": "Blood Relations", "parent": "qa.lr", "v1_scope": true, "note": "Text-posed only in v1." },
-
-    { "id": "qa.stats", "name": "Statistics", "parent": "qa", "abstract": true },
-
-    { "id": "qa.stats.data_representation", "name": "Statistical Representation of Data and Sampling", "parent": "qa.stats", "abstract": true },
-    { "id": "qa.stats.data_representation.frequency_distribution", "name": "Frequency distribution", "parent": "qa.stats.data_representation", "v1_scope": true },
-    { "id": "qa.stats.data_representation.graphical", "name": "Graphical representation", "parent": "qa.stats.data_representation", "v1_scope": true, "note": "Pose conceptually or as text-described distributions; the sample paper tests properties of histograms and ogives, not reading values off a rendered chart. No figure asset in v1." },
-    { "id": "qa.stats.data_representation.sampling", "name": "Sampling", "parent": "qa.stats.data_representation", "v1_scope": true },
-
-    { "id": "qa.stats.central_tendency_dispersion", "name": "Measures of Central Tendency and Dispersion", "parent": "qa.stats", "abstract": true },
-    { "id": "qa.stats.central_tendency_dispersion.mean", "name": "Arithmetic mean", "parent": "qa.stats.central_tendency_dispersion", "v1_scope": true },
-    { "id": "qa.stats.central_tendency_dispersion.median", "name": "Median", "parent": "qa.stats.central_tendency_dispersion", "v1_scope": true },
-    { "id": "qa.stats.central_tendency_dispersion.mode", "name": "Mode", "parent": "qa.stats.central_tendency_dispersion", "v1_scope": true },
-    { "id": "qa.stats.central_tendency_dispersion.gm_hm", "name": "Geometric and harmonic mean", "parent": "qa.stats.central_tendency_dispersion", "v1_scope": true },
-    { "id": "qa.stats.central_tendency_dispersion.range", "name": "Range", "parent": "qa.stats.central_tendency_dispersion", "v1_scope": true },
-    { "id": "qa.stats.central_tendency_dispersion.mean_deviation", "name": "Mean deviation", "parent": "qa.stats.central_tendency_dispersion", "v1_scope": true },
-    { "id": "qa.stats.central_tendency_dispersion.standard_deviation", "name": "Standard deviation", "parent": "qa.stats.central_tendency_dispersion", "v1_scope": true },
-    { "id": "qa.stats.central_tendency_dispersion.quartile_deviation", "name": "Quartile deviation", "parent": "qa.stats.central_tendency_dispersion", "v1_scope": true },
-
-    { "id": "qa.stats.probability", "name": "Probability", "parent": "qa.stats", "abstract": true },
-    { "id": "qa.stats.probability.classical", "name": "Classical probability", "parent": "qa.stats.probability", "v1_scope": true },
-    { "id": "qa.stats.probability.addition_theorem", "name": "Addition theorem", "parent": "qa.stats.probability", "v1_scope": true },
-    { "id": "qa.stats.probability.conditional", "name": "Conditional probability", "parent": "qa.stats.probability", "v1_scope": true },
-    { "id": "qa.stats.probability.independent_events", "name": "Independent events", "parent": "qa.stats.probability", "v1_scope": true },
-    { "id": "qa.stats.probability.random_variable", "name": "Random variable and probability distribution", "parent": "qa.stats.probability", "v1_scope": true },
-    { "id": "qa.stats.probability.expectation", "name": "Expected value", "parent": "qa.stats.probability", "v1_scope": true },
-
-    { "id": "qa.stats.distributions", "name": "Theoretical Distributions", "parent": "qa.stats", "abstract": true },
-    { "id": "qa.stats.distributions.binomial", "name": "Binomial distribution", "parent": "qa.stats.distributions", "v1_scope": true },
-    { "id": "qa.stats.distributions.poisson", "name": "Poisson distribution", "parent": "qa.stats.distributions", "v1_scope": true },
-    { "id": "qa.stats.distributions.normal", "name": "Normal distribution", "parent": "qa.stats.distributions", "v1_scope": true },
-
-    { "id": "qa.stats.correlation_regression", "name": "Correlation and Regression", "parent": "qa.stats", "abstract": true },
-    { "id": "qa.stats.correlation_regression.correlation", "name": "Correlation", "parent": "qa.stats.correlation_regression", "v1_scope": true },
-    { "id": "qa.stats.correlation_regression.regression", "name": "Regression", "parent": "qa.stats.correlation_regression", "v1_scope": true },
-
-    { "id": "qa.stats.index_numbers", "name": "Index Numbers", "parent": "qa.stats", "abstract": true },
-    { "id": "qa.stats.index_numbers.construction", "name": "Construction of index numbers", "parent": "qa.stats.index_numbers", "v1_scope": true },
-    { "id": "qa.stats.index_numbers.deflating", "name": "Deflating a time series", "parent": "qa.stats.index_numbers", "v1_scope": true },
-    { "id": "qa.stats.index_numbers.tests_adequacy", "name": "Tests of adequacy", "parent": "qa.stats.index_numbers", "v1_scope": true }
+    {
+      "id": "qa",
+      "name": "Quantitative Aptitude",
+      "parent": null,
+      "abstract": true
+    },
+    {
+      "id": "qa.bmath",
+      "name": "Business Mathematics",
+      "parent": "qa",
+      "abstract": true
+    },
+    {
+      "id": "qa.bmath.ratio_indices_log",
+      "name": "Ratio and Proportion, Indices, Logarithms",
+      "parent": "qa.bmath",
+      "abstract": true
+    },
+    {
+      "id": "qa.bmath.ratio_indices_log.ratio",
+      "name": "Ratio",
+      "parent": "qa.bmath.ratio_indices_log",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.ratio_indices_log.proportion",
+      "name": "Proportion",
+      "parent": "qa.bmath.ratio_indices_log",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.ratio_indices_log.indices",
+      "name": "Indices",
+      "parent": "qa.bmath.ratio_indices_log",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.ratio_indices_log.logarithm",
+      "name": "Logarithm",
+      "parent": "qa.bmath.ratio_indices_log",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.equations",
+      "name": "Equations",
+      "parent": "qa.bmath",
+      "abstract": true
+    },
+    {
+      "id": "qa.bmath.equations.simple",
+      "name": "Simple equations",
+      "parent": "qa.bmath.equations",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.equations.simultaneous_linear",
+      "name": "Simultaneous linear equations",
+      "parent": "qa.bmath.equations",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.equations.quadratic",
+      "name": "Quadratic equations",
+      "parent": "qa.bmath.equations",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.equations.cubic",
+      "name": "Cubic equations",
+      "parent": "qa.bmath.equations",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.inequalities",
+      "name": "Linear Inequalities",
+      "parent": "qa.bmath",
+      "abstract": true
+    },
+    {
+      "id": "qa.bmath.inequalities.one_variable",
+      "name": "Linear inequalities in one variable",
+      "parent": "qa.bmath.inequalities",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.inequalities.solution_space",
+      "name": "Solution space",
+      "parent": "qa.bmath.inequalities",
+      "v1_scope": true,
+      "note": "Pose textually; do not require a plotted region in v1."
+    },
+    {
+      "id": "qa.bmath.finance",
+      "name": "Mathematics of Finance",
+      "parent": "qa.bmath",
+      "abstract": true
+    },
+    {
+      "id": "qa.bmath.finance.simple_interest",
+      "name": "Simple interest",
+      "parent": "qa.bmath.finance",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.finance.compound_interest",
+      "name": "Compound interest",
+      "parent": "qa.bmath.finance",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.finance.effective_rate",
+      "name": "Effective rate of interest",
+      "parent": "qa.bmath.finance",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.finance.annuity",
+      "name": "Annuity",
+      "parent": "qa.bmath.finance",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.finance.present_value",
+      "name": "Present value",
+      "parent": "qa.bmath.finance",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.finance.future_value",
+      "name": "Future value",
+      "parent": "qa.bmath.finance",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.finance.sinking_fund",
+      "name": "Sinking fund",
+      "parent": "qa.bmath.finance",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.finance.perpetuity",
+      "name": "Perpetuity",
+      "parent": "qa.bmath.finance",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.finance.npv",
+      "name": "Net present value",
+      "parent": "qa.bmath.finance",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.finance.cagr",
+      "name": "Compound annual growth rate",
+      "parent": "qa.bmath.finance",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.finance.nominal_real_return",
+      "name": "Nominal and real rate of return",
+      "parent": "qa.bmath.finance",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.permutations_combinations",
+      "name": "Permutations and Combinations",
+      "parent": "qa.bmath",
+      "abstract": true
+    },
+    {
+      "id": "qa.bmath.permutations_combinations.factorial",
+      "name": "Factorial",
+      "parent": "qa.bmath.permutations_combinations",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.permutations_combinations.permutations",
+      "name": "Permutations",
+      "parent": "qa.bmath.permutations_combinations",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.permutations_combinations.circular_permutations",
+      "name": "Circular permutations",
+      "parent": "qa.bmath.permutations_combinations",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.permutations_combinations.permutations_restrictions",
+      "name": "Permutations with restrictions",
+      "parent": "qa.bmath.permutations_combinations",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.permutations_combinations.combinations",
+      "name": "Combinations",
+      "parent": "qa.bmath.permutations_combinations",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.sequence_series",
+      "name": "Sequence and Series",
+      "parent": "qa.bmath",
+      "abstract": true
+    },
+    {
+      "id": "qa.bmath.sequence_series.ap",
+      "name": "Arithmetic progression",
+      "parent": "qa.bmath.sequence_series",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.sequence_series.gp",
+      "name": "Geometric progression",
+      "parent": "qa.bmath.sequence_series",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.sequence_series.gm",
+      "name": "Geometric mean",
+      "parent": "qa.bmath.sequence_series",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.sets_functions",
+      "name": "Sets, Relations and Functions, Limits and Continuity",
+      "parent": "qa.bmath",
+      "abstract": true
+    },
+    {
+      "id": "qa.bmath.sets_functions.sets",
+      "name": "Sets",
+      "parent": "qa.bmath.sets_functions",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.sets_functions.venn",
+      "name": "Venn diagrams",
+      "parent": "qa.bmath.sets_functions",
+      "v1_scope": true,
+      "note": "Pose as set-count word problems; do not require a drawn diagram in v1."
+    },
+    {
+      "id": "qa.bmath.sets_functions.relations_functions",
+      "name": "Relations and functions",
+      "parent": "qa.bmath.sets_functions",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.sets_functions.domain_range",
+      "name": "Domain and range",
+      "parent": "qa.bmath.sets_functions",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.sets_functions.limits",
+      "name": "Limits",
+      "parent": "qa.bmath.sets_functions",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.sets_functions.continuity",
+      "name": "Continuity",
+      "parent": "qa.bmath.sets_functions",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.calculus",
+      "name": "Differential and Integral Calculus",
+      "parent": "qa.bmath",
+      "abstract": true,
+      "v1_scope": true,
+      "note": "Basic applications of differential and integral calculus in business and economics; excludes trigonometric applications. Pose textually."
+    },
+    {
+      "id": "qa.bmath.calculus.differentiation",
+      "name": "Differentiation",
+      "parent": "qa.bmath.calculus",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.calculus.integration",
+      "name": "Integration",
+      "parent": "qa.bmath.calculus",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.bmath.calculus.applications",
+      "name": "Applications in business and economics",
+      "parent": "qa.bmath.calculus",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.lr",
+      "name": "Logical Reasoning",
+      "parent": "qa",
+      "abstract": true
+    },
+    {
+      "id": "qa.lr.series_coding",
+      "name": "Number Series, Coding and Decoding, Odd Man Out",
+      "parent": "qa.lr",
+      "abstract": true
+    },
+    {
+      "id": "qa.lr.series_coding.number_series",
+      "name": "Number series",
+      "parent": "qa.lr.series_coding",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.lr.series_coding.coding_decoding",
+      "name": "Coding and decoding",
+      "parent": "qa.lr.series_coding",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.lr.series_coding.odd_man_out",
+      "name": "Odd man out",
+      "parent": "qa.lr.series_coding",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.lr.direction_tests",
+      "name": "Direction Tests",
+      "parent": "qa.lr",
+      "v1_scope": true,
+      "note": "Text-posed word problems; the ICAI sample paper confirms no diagram is required."
+    },
+    {
+      "id": "qa.lr.seating",
+      "name": "Seating Arrangements",
+      "parent": "qa.lr",
+      "v1_scope": true,
+      "note": "Text-posed word problems; no diagram required in v1."
+    },
+    {
+      "id": "qa.lr.blood_relations",
+      "name": "Blood Relations",
+      "parent": "qa.lr",
+      "v1_scope": true,
+      "note": "Text-posed only in v1."
+    },
+    {
+      "id": "qa.stats",
+      "name": "Statistics",
+      "parent": "qa",
+      "abstract": true
+    },
+    {
+      "id": "qa.stats.data_representation",
+      "name": "Statistical Representation of Data and Sampling",
+      "parent": "qa.stats",
+      "abstract": true
+    },
+    {
+      "id": "qa.stats.data_representation.frequency_distribution",
+      "name": "Frequency distribution",
+      "parent": "qa.stats.data_representation",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.stats.data_representation.graphical",
+      "name": "Graphical representation",
+      "parent": "qa.stats.data_representation",
+      "v1_scope": true,
+      "note": "Pose conceptually or as text-described distributions; the sample paper tests properties of histograms and ogives, not reading values off a rendered chart. No figure asset in v1."
+    },
+    {
+      "id": "qa.stats.data_representation.sampling",
+      "name": "Sampling",
+      "parent": "qa.stats.data_representation",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.stats.central_tendency_dispersion",
+      "name": "Measures of Central Tendency and Dispersion",
+      "parent": "qa.stats",
+      "abstract": true
+    },
+    {
+      "id": "qa.stats.central_tendency_dispersion.mean",
+      "name": "Arithmetic mean",
+      "parent": "qa.stats.central_tendency_dispersion",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.stats.central_tendency_dispersion.median",
+      "name": "Median",
+      "parent": "qa.stats.central_tendency_dispersion",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.stats.central_tendency_dispersion.mode",
+      "name": "Mode",
+      "parent": "qa.stats.central_tendency_dispersion",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.stats.central_tendency_dispersion.gm_hm",
+      "name": "Geometric and harmonic mean",
+      "parent": "qa.stats.central_tendency_dispersion",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.stats.central_tendency_dispersion.range",
+      "name": "Range",
+      "parent": "qa.stats.central_tendency_dispersion",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.stats.central_tendency_dispersion.mean_deviation",
+      "name": "Mean deviation",
+      "parent": "qa.stats.central_tendency_dispersion",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.stats.central_tendency_dispersion.standard_deviation",
+      "name": "Standard deviation",
+      "parent": "qa.stats.central_tendency_dispersion",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.stats.central_tendency_dispersion.quartile_deviation",
+      "name": "Quartile deviation",
+      "parent": "qa.stats.central_tendency_dispersion",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.stats.probability",
+      "name": "Probability",
+      "parent": "qa.stats",
+      "abstract": true
+    },
+    {
+      "id": "qa.stats.probability.classical",
+      "name": "Classical probability",
+      "parent": "qa.stats.probability",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.stats.probability.addition_theorem",
+      "name": "Addition theorem",
+      "parent": "qa.stats.probability",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.stats.probability.conditional",
+      "name": "Conditional probability",
+      "parent": "qa.stats.probability",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.stats.probability.independent_events",
+      "name": "Independent events",
+      "parent": "qa.stats.probability",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.stats.probability.random_variable",
+      "name": "Random variable and probability distribution",
+      "parent": "qa.stats.probability",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.stats.probability.expectation",
+      "name": "Expected value",
+      "parent": "qa.stats.probability",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.stats.distributions",
+      "name": "Theoretical Distributions",
+      "parent": "qa.stats",
+      "abstract": true
+    },
+    {
+      "id": "qa.stats.distributions.binomial",
+      "name": "Binomial distribution",
+      "parent": "qa.stats.distributions",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.stats.distributions.poisson",
+      "name": "Poisson distribution",
+      "parent": "qa.stats.distributions",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.stats.distributions.normal",
+      "name": "Normal distribution",
+      "parent": "qa.stats.distributions",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.stats.correlation_regression",
+      "name": "Correlation and Regression",
+      "parent": "qa.stats",
+      "abstract": true
+    },
+    {
+      "id": "qa.stats.correlation_regression.correlation",
+      "name": "Correlation",
+      "parent": "qa.stats.correlation_regression",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.stats.correlation_regression.regression",
+      "name": "Regression",
+      "parent": "qa.stats.correlation_regression",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.stats.index_numbers",
+      "name": "Index Numbers",
+      "parent": "qa.stats",
+      "abstract": true
+    },
+    {
+      "id": "qa.stats.index_numbers.construction",
+      "name": "Construction of index numbers",
+      "parent": "qa.stats.index_numbers",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.stats.index_numbers.deflating",
+      "name": "Deflating a time series",
+      "parent": "qa.stats.index_numbers",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.stats.index_numbers.tests_adequacy",
+      "name": "Tests of adequacy",
+      "parent": "qa.stats.index_numbers",
+      "v1_scope": true
+    }
   ]
 }

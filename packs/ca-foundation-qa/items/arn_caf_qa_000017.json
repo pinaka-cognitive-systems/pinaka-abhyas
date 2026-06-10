@@ -12,7 +12,7 @@
   },
   "tests": ["qa.stats.correlation_regression.regression"],
   "difficulty_label": "L2",
-  "taxonomy_version": 2,
+  "taxonomy_version": 3,
   "item_type": "single_best",
   "expected_seconds": 75,
   "stem": "For two variables X and Y, the regression coefficient of Y on X is b_yx = 0.6 and the regression coefficient of X on Y is b_xy = 0.8. New variables are defined as u = X + 2 and v = Y + 3. What are b_vu and b_uv?",

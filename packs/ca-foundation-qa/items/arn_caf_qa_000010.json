@@ -19,7 +19,7 @@
     "qa.lr.blood_relations"
   ],
   "difficulty_label": "L2",
-  "taxonomy_version": 2,
+  "taxonomy_version": 3,
   "item_type": "single_best",
   "expected_seconds": 75,
   "stem": "Ramesh introduces Kaveri to his friend saying, 'She is the daughter of the only son of my grandfather.' How is Kaveri related to Ramesh?",

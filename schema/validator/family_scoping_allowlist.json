@@ -1,17 +1,4 @@
 {
-  "_comment": "Explicit allowlist of known MISCONCEPTION_FAMILY_MISMATCH violations. This is a visible debt register; an empty allowlist is the end state. Date created: 2026-06-10. W4-2 retag applied 2026-06-10: nine of the original eleven entries resolved by retagging to in-family ids; the two below are genuine canon gaps, not tag errors.",
-  "allowlist": [
-    {
-      "item_id": "arn_caf_qa_000017",
-      "option_key": 3,
-      "misconception": "concept_definition_confused",
-      "note": "canon gap: the error path (swapping b_vu and b_uv definitions) is concept_definition_confused, but the id's families do not cover qa.stats.correlation_regression. Extend the id's families in the batched canon v3 bump at W4-3; the bundle doctrine forbids a second version bump before then."
-    },
-    {
-      "item_id": "arn_caf_qa_000024",
-      "option_key": 1,
-      "misconception": "concept_definition_confused",
-      "note": "canon gap: the error path (assuming b_YX equals b_XY) is concept_definition_confused, but the id's families do not cover qa.stats.correlation_regression. Extend the id's families in the batched canon v3 bump at W4-3; the bundle doctrine forbids a second version bump before then."
-    }
-  ]
+  "_comment": "Explicit allowlist of known MISCONCEPTION_FAMILY_MISMATCH violations. This is a visible debt register; an empty allowlist is the end state. Created 2026-06-10 with eleven entries; nine resolved by the W4-2 retag the same day; the final two resolved by the canon v3 family extension. EMPTY since 2026-06-10.",
+  "allowlist": []
 }

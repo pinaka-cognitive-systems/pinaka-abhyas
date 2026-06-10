@@ -19,7 +19,7 @@
     "qa.stats.correlation_regression.correlation"
   ],
   "difficulty_label": "L2",
-  "taxonomy_version": 2,
+  "taxonomy_version": 3,
   "item_type": "single_best",
   "expected_seconds": 75,
   "stem": "For two variables X and Y, Karl Pearson's correlation coefficient r = 0.6. The regression coefficient of X on Y (b_XY) is 0.9. What is the regression coefficient of Y on X (b_YX)?",

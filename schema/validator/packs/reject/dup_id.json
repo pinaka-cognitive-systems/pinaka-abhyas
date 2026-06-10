@@ -17,7 +17,7 @@
         "qa.stats.probability.conditional"
       ],
       "difficulty_label": "L3",
-      "taxonomy_version": 2,
+      "taxonomy_version": 3,
       "item_type": "single_best",
       "stem": "Two events A and B satisfy P(A and B) = 1/6 and P(B) = 1/2. Find P(A given B).",
       "options": [
@@ -64,7 +64,7 @@
         "qa.stats.probability.independent_events"
       ],
       "difficulty_label": "L1",
-      "taxonomy_version": 2,
+      "taxonomy_version": 3,
       "item_type": "single_best",
       "stem": "A fair die is rolled once. What is the probability of an even number?",
       "options": [

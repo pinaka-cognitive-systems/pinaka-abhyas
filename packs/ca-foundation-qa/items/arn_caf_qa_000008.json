@@ -12,7 +12,7 @@
   },
   "tests": ["qa.bmath.sequence_series.gp"],
   "difficulty_label": "L2",
-  "taxonomy_version": 2,
+  "taxonomy_version": 3,
   "item_type": "single_best",
   "expected_seconds": 75,
   "stem": "Find the sum of the first 5 terms of the geometric progression 2, 6, 18, 54, ...",

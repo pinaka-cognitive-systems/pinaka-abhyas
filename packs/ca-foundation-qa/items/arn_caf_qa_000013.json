@@ -12,7 +12,7 @@
   },
   "tests": ["qa.lr.seating"],
   "difficulty_label": "L2",
-  "taxonomy_version": 2,
+  "taxonomy_version": 3,
   "item_type": "single_best",
   "expected_seconds": 75,
   "stem": "Five people -- Ajay, Birju, Chhaya, Dhruv, and Esha -- sit in a row of five seats numbered 1 (leftmost) to 5 (rightmost). The following clues apply: (1) Esha sits at the rightmost seat. (2) Birju, Chhaya, and Dhruv occupy three consecutive seats in that left-to-right order. (3) Ajay does not sit in any of the last three seats (seats 3, 4, or 5). Who sits in the fourth seat from the left?",
