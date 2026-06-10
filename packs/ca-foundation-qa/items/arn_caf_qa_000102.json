@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000102",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b1",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000102.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.median"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A grouped frequency distribution has classes 10-20, 20-30, 30-40, 40-50, 50-60. The frequencies are 4, 8, 10, 6, 2. What is the median?",
+  "options": [
+    {
+      "key": 1,
+      "text": "35"
+    },
+    {
+      "key": 2,
+      "text": "33"
+    },
+    {
+      "key": 3,
+      "text": "30"
+    },
+    {
+      "key": 4,
+      "text": "34"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Total n = 30. n/2 = 15. Cumulative frequencies: up to 20 = 4, up to 30 = 12, up to 40 = 22. Median class is 30-40 (cumulative first exceeds 15). Median = 30 + ((15 - 12) / 10) * 10 = 30 + 3 = 33."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Stopping at the lower boundary of the median class gives 30. The interpolation step of the formula is left out.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Uses the midpoint of the median class (30-40 midpoint = 35) instead of the interpolation formula. Student confuses the median formula with mode formula or midpoint estimation.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Swapping the class frequency and the cumulative frequency gives 30 + ((15 - 10)/12) × 10 = 34.17, rounded to 34.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "1. Total frequency n = 4 + 8 + 10 + 6 + 2 = 30. n/2 = 15.\n2. Cumulative frequencies: 4, 12, 22, 28, 30. The median class is 30-40 (cumulative frequency first reaches or exceeds 15 here).\n3. KEY STEP: Median = L + ((n/2 - cf) / f) * h = 30 + ((15 - 12) / 10) * 10.\n4. Median = 30 + 3 = 33.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "8e9813662ba28f3d7700baa740568792a18fdc648125add3dfaa76ddcdf7f132"
+}

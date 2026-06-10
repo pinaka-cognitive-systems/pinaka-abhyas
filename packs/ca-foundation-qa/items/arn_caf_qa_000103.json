@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000103",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b1",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000103.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mode"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A grouped distribution has class intervals and frequencies: 20-30: 5, 30-40: 12, 40-50: 18, 50-60: 10, 60-70: 5. What is the mode using the grouping formula?",
+  "options": [
+    {
+      "key": 1,
+      "text": "40"
+    },
+    {
+      "key": 2,
+      "text": "45"
+    },
+    {
+      "key": 3,
+      "text": "45.71"
+    },
+    {
+      "key": 4,
+      "text": "44.29"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "Modal class is 40-50 (highest frequency 18). f1=18, f0=12, f2=10, L=40, h=10. Mode = 40 + ((18-12)/(2*18-12-10))*10 = 40 + (6/14)*10 = 40 + 4.29 = 44.29."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Uses the midpoint of the modal class (40-50 midpoint = 45) instead of applying the interpolation formula. Student takes a shortcut by picking the class midpoint as the mode.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Reports the lower class boundary L = 40 of the modal class without adding the interpolated fraction. Student identifies the correct modal class but stops before the interpolation step.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Computes (f1-f2)/(2*f1-f0-f2) instead of (f1-f0)/(2*f1-f0-f2): uses the wrong difference in the numerator. Mode = 40 + ((18-10)/14)*10 = 40 + (8/14)*10 = 40 + 5.71 = 45.71. Student swaps f0 and f2 in the numerator.",
+      "misconception": "sign_error"
+    }
+  ],
+  "explanation": "1. Identify the modal class: 40-50 has the highest frequency (18).\n2. Set L=40, h=10, f1=18 (modal class), f0=12 (class before), f2=10 (class after).\n3. KEY STEP: Mode = L + ((f1 - f0) / (2*f1 - f0 - f2)) * h = 40 + (6/14) * 10.\n4. Mode = 40 + 4.29 = 44.29.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "c2cdd0d90a73ed9103294078ecc1990ab4ae5511890343db14c64588d938039e"
+}

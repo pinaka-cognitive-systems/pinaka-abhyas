@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000111",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b1",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000111.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.sampling"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "A researcher selects every 10th name from an alphabetical list of 500 employees to form a sample of 50. What type of sampling method is this?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Stratified sampling"
+    },
+    {
+      "key": 2,
+      "text": "Cluster sampling"
+    },
+    {
+      "key": 3,
+      "text": "Systematic sampling"
+    },
+    {
+      "key": 4,
+      "text": "Simple random sampling"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Selecting every kth unit from a list after a random start is the definition of systematic sampling. Here k = 500/50 = 10."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Simple random sampling requires each unit to have an equal and independent chance of selection, typically using a random number table or lottery. Selecting every 10th name is not random because the selection of one unit determines all others.",
+      "misconception": "concept_definition_confused"
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Stratified sampling divides the population into non-overlapping groups (strata) and then draws samples from each. No stratification by any characteristic is done here.",
+      "misconception": "concept_definition_confused"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Cluster sampling divides the population into clusters and then selects entire clusters for study. Selecting individual names at regular intervals is not cluster sampling.",
+      "misconception": "concept_definition_confused"
+    }
+  ],
+  "explanation": "1. The sampling interval k = population size / sample size = 500 / 50 = 10.\n2. KEY STEP: Selecting every kth unit from a list is systematic sampling by definition.\n3. Simple random sampling needs equal independent chances. Stratified sampling needs groups. Cluster sampling needs whole groups selected.\n4. Only systematic sampling matches: a fixed interval applied to an ordered list.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "recall"
+  },
+  "content_hash": "7775994ebbcca9deec149daf74e0dd7afe855f36a59591faa234775b9364e301"
+}

@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000121",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000121.py"
+  },
+  "tests": [
+    "qa.stats.probability.conditional"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "In a batch of 100 items, 20 are defective. A quality inspector picks one item at random and finds it defective. What is the probability that a second item picked from the remaining 99 is also defective?",
+  "options": [
+    {
+      "key": 1,
+      "text": "19/100"
+    },
+    {
+      "key": 2,
+      "text": "19/99"
+    },
+    {
+      "key": 3,
+      "text": "20/99"
+    },
+    {
+      "key": 4,
+      "text": "1/5"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "After one defective is removed, 19 defectives remain in 99 items. P = 19/99."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Using 20 defectives out of 99 remaining ignores that the first draw removed one defective, giving 20/99.",
+      "misconception": "arithmetic_slip"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Using the original proportion 20/100 = 1/5 treats the draws as independent and ignores the conditioning.",
+      "misconception": "independence_assumed"
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Using 19 defectives out of the original 100 forgets to reduce the denominator after the first draw.",
+      "misconception": "arithmetic_slip"
+    }
+  ],
+  "explanation": "1. After the first draw, one defective item is removed. The batch has 99 items left, of which 19 are defective.\n2. The required probability is conditional on the first item being defective.\n3. KEY STEP: P(second defective | first defective) = 19/99.\n4. The denominator drops to 99, not 100, because one item has been removed.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "80bdcc52c52da3466d2f5cac120ced3c5e3516d9b46625465243cf7fdd9b0146"
+}

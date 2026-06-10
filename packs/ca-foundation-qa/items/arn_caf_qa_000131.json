@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000131",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000131.py"
+  },
+  "tests": [
+    "qa.stats.distributions.normal"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "The weights of packets follow a normal distribution with mean 500 g and standard deviation 20 g. Use P(0 < Z < 1) = 0.3413. What is the probability that a packet weighs between 480 g and 520 g?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.6826"
+    },
+    {
+      "key": 2,
+      "text": "0.1587"
+    },
+    {
+      "key": 3,
+      "text": "0.3413"
+    },
+    {
+      "key": 4,
+      "text": "0.8413"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "z = (520-500)/20 = 1 and z = (480-500)/20 = -1. P(-1<Z<1) = 2 × P(0<Z<1) = 2 × 0.3413 = 0.6826 by symmetry."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Using only one half of the symmetric interval, reporting P(0<Z<1) = 0.3413 instead of doubling it.",
+      "misconception": "complement_confusion"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Computing P(Z<1) = 0.5 + 0.3413 = 0.8413, answering the cumulative probability below z=1 instead of the two-sided interval.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Computing P(Z>1) = 1 - 0.8413 = 0.1587, finding the upper tail beyond one standard deviation instead of the central interval.",
+      "misconception": "complement_confusion"
+    }
+  ],
+  "explanation": "1. Standardise: z = (520 - 500)/20 = 1 and z = (480 - 500)/20 = -1.\n2. The stem gives P(0 < Z < 1) = 0.3413.\n3. KEY STEP: By symmetry of the normal distribution, P(-1 < Z < 1) = 2 × 0.3413 = 0.6826.\n4. The interval is symmetric about zero, so both halves contribute equally.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "recall"
+  },
+  "content_hash": "955745f1511c719c6010197259ced16b3900345293352fbf4d9be760d5a329bb"
+}

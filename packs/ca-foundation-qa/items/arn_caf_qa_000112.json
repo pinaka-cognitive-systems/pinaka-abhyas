@@ -1,0 +1,82 @@
+{
+  "id": "arn_caf_qa_000112",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b1",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000112.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.graphical",
+    "qa.stats.central_tendency_dispersion.median"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A less-than ogive and a more-than ogive are drawn for the same distribution. The two curves cross at one point. What does the x-coordinate of that point show?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Median"
+    },
+    {
+      "key": 2,
+      "text": "Mode"
+    },
+    {
+      "key": 3,
+      "text": "Arithmetic mean"
+    },
+    {
+      "key": 4,
+      "text": "First quartile"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "The less-than ogive and more-than ogive intersect at the point where cumulative frequency = n/2 for both curves. The x-coordinate of this intersection is the median by definition."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "The mode is found from a frequency histogram as the midpoint of the tallest bar, not from ogive intersection. Student confuses the graphical representation of mode with that of median.",
+      "misconception": "mean_median_mode_confusion"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "The arithmetic mean has no direct graphical counterpart on an ogive. There is no standard ogive construction that yields the mean at an intersection point. Student confuses median with mean.",
+      "misconception": "mean_median_mode_confusion"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "The first quartile Q1 corresponds to the x-value where the less-than ogive reaches n/4, not n/2. It does not coincide with the ogive intersection point. Student confuses the n/2 intersection with the n/4 quartile location.",
+      "misconception": "concept_definition_confused"
+    }
+  ],
+  "explanation": "1. The less-than ogive shows cumulative frequency up to each value. The more-than ogive shows cumulative frequency from each value downward.\n2. At any point x, the two ogives sum to n (total frequency).\n3. KEY STEP: They intersect where each ogive equals n/2. The x-value where cumulative frequency = n/2 is the median.\n4. So the x-coordinate of the intersection is the median.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "recall"
+  },
+  "content_hash": "b70255013f4ced10a16965f97fda434180e1ff09be22083bd45ba6f2c9f37a41"
+}

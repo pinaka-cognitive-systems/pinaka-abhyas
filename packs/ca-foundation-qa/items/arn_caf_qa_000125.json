@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000125",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000125.py"
+  },
+  "tests": [
+    "qa.stats.probability.expectation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A lucky draw gives Rs 1,000 with probability 1/10 and Rs 200 with probability 3/10. It gives no prize with probability 6/10. What is the expected prize amount in rupees?",
+  "options": [
+    {
+      "key": 1,
+      "text": "160"
+    },
+    {
+      "key": 2,
+      "text": "280"
+    },
+    {
+      "key": 3,
+      "text": "60"
+    },
+    {
+      "key": 4,
+      "text": "100"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "E = 1000 × (1/10) + 200 × (3/10) + 0 × (6/10) = 100 + 60 + 0 = 160."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Assigning the remaining probability 9/10 to the Rs 200 prize (ignoring the no-prize outcome): 1,000 × (1/10) + 200 × (9/10) = 100 + 180 = 280.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Computing only the first term and stopping: 1,000 × (1/10) = 100, treating the top prize as the entire expectation.",
+      "misconception": "arithmetic_slip"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Solving for the Rs 200 prize contribution only: 200 × (3/10) = 60, answering the wrong partial sum.",
+      "misconception": "misread_quantity"
+    }
+  ],
+  "explanation": "1. Expected value = sum of (value × probability) across all outcomes.\n2. KEY STEP: E = 1,000 × (1/10) + 200 × (3/10) + 0 × (6/10) = 100 + 60 = 160.\n3. Every outcome, including 'no prize' (value = 0), must be included.\n4. Ignoring either prize term, or misassigning probabilities, gives a wrong total.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "5f689bcff04db41621ffacbb23fdacb400947be64006aa01037b1ec25d2a2338"
+}

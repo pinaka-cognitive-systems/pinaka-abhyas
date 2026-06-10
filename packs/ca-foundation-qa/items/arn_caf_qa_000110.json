@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000110",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b1",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000110.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.frequency_distribution"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 120,
+  "stem": "The class intervals are 10-15, 15-20, 20-25, 25-30, 30-35. A student uses assumed mean A = 22.5 and class width h = 5. The total frequency is n = 40 and sum(f*u) = 2. What is the arithmetic mean?",
+  "options": [
+    {
+      "key": 1,
+      "text": "22.75"
+    },
+    {
+      "key": 2,
+      "text": "22.5"
+    },
+    {
+      "key": 3,
+      "text": "22.55"
+    },
+    {
+      "key": 4,
+      "text": "32.75"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Step-deviation formula: Mean = A + h * (sum(f*u)/n) = 22.5 + 5 * (2/40) = 22.5 + 5 * 0.05 = 22.5 + 0.25 = 22.75."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Reports the assumed mean A = 22.5 as the final answer, ignoring the correction term h*(sum(f*u)/n). Student stops at the assumed mean without applying the step-deviation adjustment.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Computes A + sum(f*u)/n without multiplying by h: 22.5 + 2/40 = 22.5 + 0.05 = 22.55. Student omits the class width h from the correction term.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Uses the formula with wrong sign or wrong value: takes the upper boundary of the last class (35) minus or plus something, giving 32.75. Or computes A + h*(sum(f*u)) without dividing by n: 22.5 + 5*2 = 32.5, then adds 0.25 via arithmetic slip to get 32.75.",
+      "misconception": "arithmetic_slip"
+    }
+  ],
+  "explanation": "1. The step-deviation method formula is: Mean = A + h * (sum(f*u) / n).\n2. Substitute: A = 22.5, h = 5, sum(f*u) = 2, n = 40.\n3. KEY STEP: Correction term = 5 * (2/40) = 5 * 0.05 = 0.25.\n4. Mean = 22.5 + 0.25 = 22.75.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "c50207458b0815b2a151acdfd61195a2cfdb1666ddb6568541c698db8260f5a0"
+}

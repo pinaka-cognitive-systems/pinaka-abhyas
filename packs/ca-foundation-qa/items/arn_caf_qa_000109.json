@@ -1,0 +1,82 @@
+{
+  "id": "arn_caf_qa_000109",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b1",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000109.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.frequency_distribution",
+    "qa.stats.central_tendency_dispersion.median"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A frequency distribution has class intervals 0-10, 10-20, 20-30, 30-40, 40-50 with frequencies 2, 8, 15, 10, 5 respectively. What is the arithmetic mean?",
+  "options": [
+    {
+      "key": 1,
+      "text": "25"
+    },
+    {
+      "key": 2,
+      "text": "27"
+    },
+    {
+      "key": 3,
+      "text": "216"
+    },
+    {
+      "key": 4,
+      "text": "1080"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Midpoints: 5, 15, 25, 35, 45. n = 2+8+15+10+5 = 40. Sum(f*m) = 2*5 + 8*15 + 15*25 + 10*35 + 5*45 = 10+120+375+350+225 = 1080. Mean = 1080/40 = 27."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Takes the midpoint of the middle class (20-30) as the mean, i.e. midpoint 25. Student uses the modal class midpoint or middle class midpoint as a shortcut instead of computing the weighted mean.",
+      "misconception": "mean_median_mode_confusion"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Reports sum(f*m) = 1080 without dividing by n=40. Student computes the numerator of the mean formula but stops before dividing by total frequency.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Divides sum(f*m) = 1080 by 5 (number of classes) instead of by n=40: 1080/5 = 216. Student confuses the divisor, using the count of class intervals rather than total frequency.",
+      "misconception": "population_sample_confusion"
+    }
+  ],
+  "explanation": "1. Find the midpoint of each class: 5, 15, 25, 35, 45.\n2. Compute f*m for each class: 10, 120, 375, 350, 225.\n3. KEY STEP: Mean = sum(f*m) / sum(f) = 1080 / 40 = 27.\n4. The divisor is the total frequency (40), not the number of classes (5).",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "ea58f8bc1486340bb33107c5fbf1258781b63b58c415ae2664e02a53556981e7"
+}

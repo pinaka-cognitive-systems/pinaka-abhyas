@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000122",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000122.py"
+  },
+  "tests": [
+    "qa.stats.probability.conditional"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 120,
+  "stem": "Events A and B are such that P(A) = 3/8, P(B) = 1/2, and P(A ∩ B) = 1/4. What is P(A | B)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "2/3"
+    },
+    {
+      "key": 2,
+      "text": "1/4"
+    },
+    {
+      "key": 3,
+      "text": "3/8"
+    },
+    {
+      "key": 4,
+      "text": "1/2"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "P(A | B) = P(A ∩ B) / P(B) = (1/4) / (1/2) = 1/2."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Computing P(B | A) = P(A ∩ B) / P(A) = (1/4) / (3/8) = 2/3, reversing which event is the condition.",
+      "misconception": "conditional_reversed"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Reading P(A ∩ B) = 1/4 directly as the conditional probability, without dividing by P(B).",
+      "misconception": "set_operation_confused"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Returning the prior P(A) = 3/8 unchanged, ignoring the conditioning event B entirely and solving for the unconditioned probability instead.",
+      "misconception": "misread_quantity"
+    }
+  ],
+  "explanation": "1. The definition: P(A | B) = P(A ∩ B) / P(B).\n2. KEY STEP: P(A | B) = (1/4) ÷ (1/2) = 1/2.\n3. A common error is computing P(B | A) = (1/4) / (3/8) = 2/3 instead, which reverses the condition.\n4. Using P(A ∩ B) directly without dividing by P(B) gives 1/4, another trap.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "abba5a2c0f5454133b9b88b85e987617808f23874ffca0a99b4de01c820a25bf"
+}

@@ -1,0 +1,170 @@
+[
+  {
+    "id": "arn_caf_qa_000101",
+    "computed_answer": "16",
+    "option_key": 4,
+    "confident": true,
+    "note": ""
+  },
+  {
+    "id": "arn_caf_qa_000102",
+    "computed_answer": "33",
+    "option_key": 2,
+    "confident": true,
+    "note": ""
+  },
+  {
+    "id": "arn_caf_qa_000103",
+    "computed_answer": "44.29",
+    "option_key": 4,
+    "confident": true,
+    "note": ""
+  },
+  {
+    "id": "arn_caf_qa_000104",
+    "computed_answer": "3.43",
+    "option_key": 1,
+    "confident": true,
+    "note": ""
+  },
+  {
+    "id": "arn_caf_qa_000105",
+    "computed_answer": "24",
+    "option_key": 3,
+    "confident": true,
+    "note": ""
+  },
+  {
+    "id": "arn_caf_qa_000106",
+    "computed_answer": "3150",
+    "option_key": 1,
+    "confident": true,
+    "note": ""
+  },
+  {
+    "id": "arn_caf_qa_000107",
+    "computed_answer": "7.5",
+    "option_key": 3,
+    "confident": true,
+    "note": ""
+  },
+  {
+    "id": "arn_caf_qa_000108",
+    "computed_answer": "7.2",
+    "option_key": 4,
+    "confident": true,
+    "note": ""
+  },
+  {
+    "id": "arn_caf_qa_000109",
+    "computed_answer": "27",
+    "option_key": 2,
+    "confident": true,
+    "note": ""
+  },
+  {
+    "id": "arn_caf_qa_000110",
+    "computed_answer": "22.75",
+    "option_key": 1,
+    "confident": true,
+    "note": ""
+  },
+  {
+    "id": "arn_caf_qa_000111",
+    "computed_answer": "Systematic sampling",
+    "option_key": 3,
+    "confident": true,
+    "note": ""
+  },
+  {
+    "id": "arn_caf_qa_000112",
+    "computed_answer": "Median",
+    "option_key": 1,
+    "confident": true,
+    "note": ""
+  },
+  {
+    "id": "arn_caf_qa_000121",
+    "computed_answer": "19/99",
+    "option_key": 2,
+    "confident": true,
+    "note": ""
+  },
+  {
+    "id": "arn_caf_qa_000122",
+    "computed_answer": "1/2",
+    "option_key": 4,
+    "confident": true,
+    "note": ""
+  },
+  {
+    "id": "arn_caf_qa_000123",
+    "computed_answer": "23/35",
+    "option_key": 2,
+    "confident": true,
+    "note": ""
+  },
+  {
+    "id": "arn_caf_qa_000124",
+    "computed_answer": "1/12",
+    "option_key": 3,
+    "confident": true,
+    "note": ""
+  },
+  {
+    "id": "arn_caf_qa_000125",
+    "computed_answer": "160",
+    "option_key": 1,
+    "confident": true,
+    "note": ""
+  },
+  {
+    "id": "arn_caf_qa_000126",
+    "computed_answer": "2",
+    "option_key": 3,
+    "confident": true,
+    "note": ""
+  },
+  {
+    "id": "arn_caf_qa_000127",
+    "computed_answer": "0.4",
+    "option_key": 1,
+    "confident": true,
+    "note": ""
+  },
+  {
+    "id": "arn_caf_qa_000128",
+    "computed_answer": "80/243",
+    "option_key": 2,
+    "confident": true,
+    "note": ""
+  },
+  {
+    "id": "arn_caf_qa_000129",
+    "computed_answer": "175/256",
+    "option_key": 4,
+    "confident": true,
+    "note": ""
+  },
+  {
+    "id": "arn_caf_qa_000130",
+    "computed_answer": "0.0668",
+    "option_key": 3,
+    "confident": true,
+    "note": ""
+  },
+  {
+    "id": "arn_caf_qa_000131",
+    "computed_answer": "0.6826",
+    "option_key": 1,
+    "confident": true,
+    "note": ""
+  },
+  {
+    "id": "arn_caf_qa_000132",
+    "computed_answer": "3 × e^(-2)",
+    "option_key": 3,
+    "confident": true,
+    "note": ""
+  }
+]

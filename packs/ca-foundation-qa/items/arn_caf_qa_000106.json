@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000106",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b1",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000106.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.range"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "The daily sales (in rupees) of a small shop over five days are: 1,200; 3,500; 2,800; 4,100; and 950. What is the range of the daily sales?",
+  "options": [
+    {
+      "key": 1,
+      "text": "3150"
+    },
+    {
+      "key": 2,
+      "text": "2510"
+    },
+    {
+      "key": 3,
+      "text": "4100"
+    },
+    {
+      "key": 4,
+      "text": "950"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Range = maximum - minimum = 4100 - 950 = 3150."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Computes the arithmetic mean of the five values: (1200+3500+2800+4100+950)/5 = 12550/5 = 2510. Student confuses the range formula with the mean formula.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Reports only the maximum value (4100) without subtracting the minimum. Student identifies the largest value but omits the subtraction step.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Reports only the minimum value (950) instead of computing maximum minus minimum. Student identifies the smallest value and treats it as the range.",
+      "misconception": "misread_quantity"
+    }
+  ],
+  "explanation": "1. Identify the maximum value: 4,100.\n2. Identify the minimum value: 950.\n3. KEY STEP: Range = maximum - minimum = 4,100 - 950 = 3,150.\n4. The range measures the total spread from lowest to highest.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "b084ecc132bdfb29f5f8f98c7f2a09d9160e195570481fd48e148acb99ef996f"
+}

@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000124",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000124.py"
+  },
+  "tests": [
+    "qa.stats.probability.independent_events"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "Two independent events A and B have P(A) = 1/3 and P(B) = 1/4. What is P(A ∩ B)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "1/7"
+    },
+    {
+      "key": 2,
+      "text": "7/12"
+    },
+    {
+      "key": 3,
+      "text": "1/12"
+    },
+    {
+      "key": 4,
+      "text": "1/2"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "For independent events, P(A ∩ B) = P(A) × P(B) = (1/3)(1/4) = 1/12."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Computing P(A ∪ B) = P(A) + P(B) - P(A ∩ B) = 1/3 + 1/4 - 1/12 = 1/2 and reporting the union instead of the intersection.",
+      "misconception": "set_operation_confused"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Using the mutually exclusive union formula P(A) + P(B) = 1/3 + 1/4 = 7/12, treating the problem as asking for P(A ∪ B) when the events cannot both occur.",
+      "misconception": "mutually_exclusive_vs_independent"
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Adding the probabilities as fractions with a common denominator of 7: 1/3 + 1/4 treated as 1/7 by an arithmetic slip on fraction addition.",
+      "misconception": "arithmetic_slip"
+    }
+  ],
+  "explanation": "1. The defining property of independent events: P(A ∩ B) = P(A) × P(B).\n2. KEY STEP: P(A ∩ B) = (1/3) × (1/4) = 1/12.\n3. P(A) + P(B) = 7/12 is P(A ∪ B) when A and B are mutually exclusive, not the intersection.\n4. Independence means the joint probability equals the product; it does not mean the events cannot both occur.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "recall"
+  },
+  "content_hash": "bf35a543ff0a3a98e8a067b392776a62c87111e33b69464a0c63a730b75c14f2"
+}

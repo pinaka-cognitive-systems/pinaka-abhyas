@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000108",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b1",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000108.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mean_deviation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The values in a dataset are 8, 12, 16, 22, 32. What is the mean deviation about the arithmetic mean?",
+  "options": [
+    {
+      "key": 1,
+      "text": "36"
+    },
+    {
+      "key": 2,
+      "text": "0"
+    },
+    {
+      "key": 3,
+      "text": "6.8"
+    },
+    {
+      "key": 4,
+      "text": "7.2"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "Mean = (8+12+16+22+32)/5 = 90/5 = 18. Absolute deviations from 18: 10, 6, 2, 4, 14. Sum = 36. MD = 36/5 = 7.2."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Computes the sum of absolute deviations (36) but does not divide by n=5. Student uses the sum of deviations as the final answer instead of the mean of the deviations.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Computes the mean deviation about the median (16) instead of the mean. Deviations from 16: 8, 4, 0, 6, 16. Sum = 34. MD from median = 34/5 = 6.8. Student uses median instead of arithmetic mean as the centre.",
+      "misconception": "mean_median_mode_confusion"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Takes the algebraic sum of deviations from the mean: (-10-6-2+4+14) = 0. Student omits the absolute value signs, using signed deviations which always sum to zero.",
+      "misconception": "wrong_formula"
+    }
+  ],
+  "explanation": "1. Find the arithmetic mean: (8+12+16+22+32)/5 = 90/5 = 18.\n2. Find absolute deviations from 18: |8-18|=10, |12-18|=6, |16-18|=2, |22-18|=4, |32-18|=14.\n3. KEY STEP: Sum the absolute deviations: 10+6+2+4+14 = 36.\n4. Mean deviation = 36/5 = 7.2.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "db68ebd358701e8b55506c387618a70ea9f8c55b141c8edc52e9bdcf192e703b"
+}

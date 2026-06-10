@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000105",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b1",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000105.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.gm_hm"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 120,
+  "stem": "The geometric mean of a set of 4 positive numbers is 6. Three of the numbers are 2, 3, and 9. What is the fourth number?",
+  "options": [
+    {
+      "key": 1,
+      "text": "18"
+    },
+    {
+      "key": 2,
+      "text": "1296"
+    },
+    {
+      "key": 3,
+      "text": "24"
+    },
+    {
+      "key": 4,
+      "text": "72"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "GM = (product of all 4 numbers)^(1/4) = 6. Product of all four = 6^4 = 1296. Known product: 2*3*9 = 54. Fourth number = 1296/54 = 24."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Divides the GM raised to n by the sum of the three known numbers: 1296 / (2+3+9) = 1296/14 = 92.57, or uses a shortcut like 6 * (sum of others)/something giving 18. Student replaces the product of known numbers with their arithmetic sum.",
+      "misconception": "mean_median_mode_confusion"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Stops after computing 6^4 = 1296, taking this total product as the answer without dividing by the three known values. Student solves for the product of all four instead of the missing one.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Computes 6^4 = 1296 but divides only by two of the three known numbers: 1296 / (3*9) = 1296/18 = 72, dropping the factor 2. An arithmetic slip in multiplying the known denominators.",
+      "misconception": "arithmetic_slip"
+    }
+  ],
+  "explanation": "1. By definition, GM of n numbers = (product of all n numbers)^(1/n).\n2. Here GM = 6 and n = 4. So product of all four numbers = 6^4 = 1296.\n3. KEY STEP: Isolate the fourth number. Product of known three: 2 * 3 * 9 = 54.\n4. Fourth number = 1296 / 54 = 24.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "10f38163ef688b47cefcfb7f17668cfd0ea5eb9ba840795be5f98e8338966ffa"
+}

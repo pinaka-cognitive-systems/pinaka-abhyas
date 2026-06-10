@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000130",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000130.py"
+  },
+  "tests": [
+    "qa.stats.distributions.normal"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The marks of students follow a normal distribution with mean 50 and standard deviation 10. Use P(Z < 1.5) = 0.9332. What is the probability that a student scores more than 65?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.4332"
+    },
+    {
+      "key": 2,
+      "text": "0.5000"
+    },
+    {
+      "key": 3,
+      "text": "0.0668"
+    },
+    {
+      "key": 4,
+      "text": "0.9332"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "z = (65 - 50)/10 = 1.5. P(X > 65) = P(Z > 1.5) = 1 - P(Z < 1.5) = 1 - 0.9332 = 0.0668."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Using P(Z < 1.5) = 0.9332 directly as the answer, reading the lower-tail probability instead of the upper-tail probability.",
+      "misconception": "complement_confusion"
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Computing P(0 < Z < 1.5) = P(Z < 1.5) - 0.5 = 0.9332 - 0.5 = 0.4332, which is the area between the mean and 65, not the upper tail.",
+      "misconception": "complement_confusion"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Using 0.5 because the mean is 50 and 65 is above it, believing the probability of exceeding the mean is always 0.5 regardless of the exact value.",
+      "misconception": "concept_definition_confused"
+    }
+  ],
+  "explanation": "1. Standardise: z = (65 - 50) / 10 = 1.5.\n2. The stem gives P(Z < 1.5) = 0.9332.\n3. KEY STEP: P(X > 65) = P(Z > 1.5) = 1 - 0.9332 = 0.0668.\n4. Reading the CDF value directly gives the lower tail, not the upper tail.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "dcd77db5fe2be01987b7910aa6312f3c86899d10ae9b5b41a49f37675abd06b3"
+}

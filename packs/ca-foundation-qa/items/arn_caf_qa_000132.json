@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000132",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000132.py"
+  },
+  "tests": [
+    "qa.stats.distributions.poisson"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 120,
+  "stem": "A call centre receives on average 2 calls per minute, following a Poisson distribution. What is the probability of receiving at most 1 call in a given minute? Express in terms of e.",
+  "options": [
+    {
+      "key": 1,
+      "text": "1 - e^(-2)"
+    },
+    {
+      "key": 2,
+      "text": "e^(-2)"
+    },
+    {
+      "key": 3,
+      "text": "3 × e^(-2)"
+    },
+    {
+      "key": 4,
+      "text": "2 × e^(-2)"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "P(X=0) = e^(-2). P(X=1) = 2 × e^(-2). P(X <= 1) = e^(-2) + 2 × e^(-2) = 3 × e^(-2)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Computing only P(X=0) = e^(-2), treating 'at most 1' as 'exactly 0'.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Computing only P(X=1) = lambda × e^(-lambda) = 2 × e^(-2), treating 'at most 1' as 'exactly 1'.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Computing P(X >= 1) = 1 - P(X=0) = 1 - e^(-2), finding the probability of 'at least 1' instead of 'at most 1'.",
+      "misconception": "complement_confusion"
+    }
+  ],
+  "explanation": "1. Poisson PMF: P(X=k) = (e^(-lambda) × lambda^k) / k! with lambda = 2.\n2. P(X=0) = e^(-2) × 2^0 / 0! = e^(-2). P(X=1) = e^(-2) × 2^1 / 1! = 2 × e^(-2).\n3. KEY STEP: P(X <= 1) = P(X=0) + P(X=1) = e^(-2) + 2 × e^(-2) = 3 × e^(-2).\n4. The event 'at most 1' includes both k=0 and k=1; omitting either case underestimates.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "1839c18c4c78dafea9c287d60e32dab6c40dd5231a8db1b256d6f3da59d5de73"
+}

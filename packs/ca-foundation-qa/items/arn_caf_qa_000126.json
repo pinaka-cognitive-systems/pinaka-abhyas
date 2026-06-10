@@ -1,0 +1,81 @@
+{
+  "id": "arn_caf_qa_000126",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_pilot_b2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-10"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000126.py"
+  },
+  "tests": [
+    "qa.stats.probability.expectation"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 120,
+  "stem": "A random variable X takes values 1, 3, and 5 with probabilities 1/4, 1/2, and 1/4 respectively. What is the variance of X?",
+  "options": [
+    {
+      "key": 1,
+      "text": "8"
+    },
+    {
+      "key": 2,
+      "text": "11"
+    },
+    {
+      "key": 3,
+      "text": "2"
+    },
+    {
+      "key": 4,
+      "text": "3"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "E[X] = 1(1/4) + 3(1/2) + 5(1/4) = 3. E[X²] = 1(1/4) + 9(1/2) + 25(1/4) = 11. Var(X) = 11 - 9 = 2."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Reporting E[X²] = 11 as the variance, forgetting to subtract (E[X])².",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Reporting E[X] = 3 as the variance, confusing the mean with the variance.",
+      "misconception": "mean_median_mode_confusion"
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Using E[X²] - E[X] = 11 - 3 = 8 instead of E[X²] - (E[X])², subtracting the mean rather than the square of the mean.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "1. Compute E[X] = 1×(1/4) + 3×(1/2) + 5×(1/4) = 0.25 + 1.5 + 1.25 = 3.\n2. Compute E[X²] = 1²×(1/4) + 3²×(1/2) + 5²×(1/4) = 0.25 + 4.5 + 6.25 = 11.\n3. KEY STEP: Var(X) = E[X²] - (E[X])² = 11 - 3² = 11 - 9 = 2.\n4. Subtracting E[X] instead of (E[X])² gives 11 - 3 = 8, a common formula error.",
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "1cb3cc419a2ce1a05de57fab34cb7a3d7209a7cf9f9ebfea63c6a537d9212f0a"
+}
