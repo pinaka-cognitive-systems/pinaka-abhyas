@@ -11,7 +11,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint src",
     "test": "vitest run",
-    "check-size": "node scripts/check-size.mjs"
+    "check-size": "node scripts/check-size.mjs",
+    "check-offline": "node scripts/check-offline.mjs"
   },
   "dependencies": {
     "@pinaka/engine": "file:../engine-ts",

@@ -109,3 +109,7 @@ jobs:
       - name: "Size check: enforce ADR 0008 byte budget"
         run: npm run check-size
         working-directory: app
+
+      - name: "Offline check: every precached shell asset resolves (W5-4)"
+        run: npm run check-offline
+        working-directory: app

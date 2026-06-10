@@ -42,3 +42,6 @@ crosscheck/cases.json
 
 # Pilot staging (transient; accepted items promote into the pack, reports persist to audit/)
 packs/ca-foundation-qa/staging/
+
+# Generated pack manifest (emitted by build_and_validate.py beside pack.json)
+packs/ca-foundation-qa/pack.manifest.json

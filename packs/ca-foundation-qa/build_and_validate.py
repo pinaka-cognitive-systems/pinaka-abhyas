@@ -8,12 +8,23 @@ schema. Writes the stamped pack to packs/ca-foundation-qa/pack.json. Idempotent:
 
 Run: python3 packs/ca-foundation-qa/build_and_validate.py   (exit 0 = clean, 1 = violations)
 """
+import datetime
 import json
 import pathlib
 import sys
 
 HERE = pathlib.Path(__file__).parent              # .../packs/ca-foundation-qa
 REPO_ROOT = HERE.parent.parent                     # repo root
+
+# Distribution-manifest identity (ADR 0009 "Pack identity and versioning").
+# This is the manifest the offline client fetches to learn of a new pack; it is
+# distinct from manifest.json (the prashna generation spike's input). Semantic
+# version: major = schema/Profile break, minor = new items, patch = errata batch.
+PACK_ID = "ca-foundation-qa"
+PACK_VERSION = "0.1.0"
+# Lowest app version that can render this pack's schema/Profile. The client
+# refuses an update whose min_app_version exceeds its own (ADR 0009 update flow).
+MIN_APP_VERSION = "0.1.0"
 SCHEMA_DIR = REPO_ROOT / "schema"                  # .../schema
 PROFILE_DIR = SCHEMA_DIR / "profiles" / "ca-foundation-qa"
 VALIDATOR_DIR = SCHEMA_DIR / "validator"
@@ -100,3 +111,31 @@ print("\nsolution harness:")
 harness_rc = run_solutions.run_pack(HERE)
 if harness_rc != 0:
     sys.exit(harness_rc)
+
+# Distribution manifest (ADR 0009). Emitted next to pack.json on a clean build so
+# the offline client can do its version handshake: pack_id, semantic version,
+# taxonomy_version, item_count, a per-item content-hash listing, creation date,
+# and min_app_version. Tombstones (verification_status == "retired") stay in the
+# pack for history but are excluded from the served/selectable item_count.
+served_items = [it for it in items if it.get("verification_status") != "retired"]
+content_hashes = {it["id"]: it["content_hash"] for it in items}
+taxonomy_versions = {it.get("taxonomy_version") for it in items}
+if len(taxonomy_versions) != 1:
+    print(f"FAIL  pack mixes taxonomy_versions {sorted(taxonomy_versions)}; manifest needs one")
+    sys.exit(1)
+
+dist_manifest = {
+    "pack_id": PACK_ID,
+    "version": PACK_VERSION,
+    "taxonomy_version": taxonomy_versions.pop(),
+    "item_count": len(served_items),
+    "min_app_version": MIN_APP_VERSION,
+    "created_at": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+    # Per-item content hashes, sorted by item id for a stable, diffable listing.
+    # The client re-scores history when an item's hash changes (ADR 0009).
+    "content_hashes": dict(sorted(content_hashes.items())),
+}
+manifest_out = HERE / "pack.manifest.json"
+manifest_out.write_text(json.dumps(dist_manifest, indent=2, ensure_ascii=False) + "\n")
+print(f"\ndistribution manifest: {manifest_out}  "
+      f"(v{PACK_VERSION}, {len(served_items)} served / {len(items)} total)")
