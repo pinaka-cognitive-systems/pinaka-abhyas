@@ -44,6 +44,13 @@ REJECTS = {
     "packs/reject/rationale_missing_misconception.json": "MISCONCEPTION_REQUIRED",
     "packs/reject/numeric_missing_common_errors.json": "MISSING_COMMON_ERRORS",
     "packs/reject/taxonomy_version_mismatch.json": "TAXONOMY_VERSION_MISMATCH",
+    "packs/reject/abstract_test_node.json": "ABSTRACT_TEST_NODE",
+    "packs/reject/misconception_family_mismatch.json": "MISCONCEPTION_FAMILY_MISMATCH",
+}
+
+# Rejects that need pack_root to fire (Tier-2 filesystem checks).
+REJECTS_WITH_PACK_ROOT = {
+    "packs/reject/solution_file_missing.json": "SOLUTION_FILE_MISSING",
 }
 
 
@@ -51,14 +58,41 @@ def load(rel):
     return json.loads((HERE / rel).read_text())
 
 
+def _build_node_ancestors(nodes):
+    """Build a dict mapping each node id to the set of all ancestor ids (including self)."""
+    parent = {n["id"]: n.get("parent") for n in nodes}
+    ancestors = {}
+    for node_id in parent:
+        chain = set()
+        cur = node_id
+        while cur:
+            chain.add(cur)
+            cur = parent.get(cur)
+        ancestors[node_id] = chain
+    return ancestors
+
+
 def load_taxonomy():
     tax = json.loads((PROFILE_DIR / "taxonomy.json").read_text())
     misc = json.loads((PROFILE_DIR / "misconceptions.json").read_text())
     # Support both the old "version" key and the aligned "taxonomy_version" key.
     misc_version = misc.get("taxonomy_version") or misc.get("version")
+    # Load family scoping allowlist.
+    allowlist_path = HERE / "family_scoping_allowlist.json"
+    family_scoping_allowlist = set()
+    if allowlist_path.exists():
+        allowlist_data = json.loads(allowlist_path.read_text())
+        for entry in allowlist_data.get("allowlist", []):
+            family_scoping_allowlist.add(
+                (entry["item_id"], entry["option_key"], entry["misconception"])
+            )
     return {
         "nodes": {n["id"] for n in tax["nodes"]},
+        "abstract_nodes": {n["id"] for n in tax["nodes"] if n.get("abstract")},
+        "node_ancestors": _build_node_ancestors(tax["nodes"]),
         "misconceptions": {m["id"] for m in misc["misconceptions"]},
+        "misconception_families": {m["id"]: m.get("families", []) for m in misc["misconceptions"]},
+        "family_scoping_allowlist": family_scoping_allowlist,
         "difficulty_scale": tax["difficulty_scale"],
         "taxonomy_version": tax.get("taxonomy_version"),
         "misconception_version": misc_version,
@@ -69,7 +103,9 @@ def main() -> int:
     tax = load_taxonomy()
     ok = True
 
-    good = pv.validate_pack(load("packs/good.json"), tax, SCHEMA, REGISTRY)
+    # pack_root is the packs/ directory so filesystem-backed checks (solution
+    # file existence) run for real against the exemplar pack.
+    good = pv.validate_pack(load("packs/good.json"), tax, SCHEMA, REGISTRY, pack_root=HERE / "packs")
     if good:
         ok = False
         print("FAIL  good pack produced violations:")
@@ -85,6 +121,19 @@ def main() -> int:
         else:
             ok = False
             print(f"FAIL  {pathlib.Path(path).name}: expected {code}, got {sorted(codes) or 'none'}")
+
+    # Rejects that need pack_root to trigger filesystem-backed checks.
+    # Use a temporary empty directory as pack root so the referenced paths don't exist.
+    import tempfile
+    with tempfile.TemporaryDirectory() as tmp_root:
+        tmp_path = pathlib.Path(tmp_root)
+        for path, code in REJECTS_WITH_PACK_ROOT.items():
+            codes = {v.code for v in pv.validate_pack(load(path), tax, SCHEMA, REGISTRY, pack_root=tmp_path)}
+            if code in codes:
+                print(f"PASS  {pathlib.Path(path).name}: fired {code}")
+            else:
+                ok = False
+                print(f"FAIL  {pathlib.Path(path).name}: expected {code}, got {sorted(codes) or 'none'}")
 
     v1 = load("packs/legacy/ca_v1_000088.json")
     migrated = migrate(v1)

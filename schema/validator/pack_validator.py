@@ -20,6 +20,7 @@ Cross-record checks:
 Note: SVG sanitization is svg_is_safe(); the build runs it before packing.
 Schema-level structure is delegated to the JSON Schema.
 """
+import pathlib
 import re
 from collections import namedtuple
 
@@ -41,12 +42,19 @@ def svg_is_safe(svg_text: str) -> bool:
     return SVG_FORBIDDEN.search(svg_text or "") is None
 
 
-def validate_pack(pack, taxonomy, schema, registry=None):
+def validate_pack(pack, taxonomy, schema, registry=None, pack_root=None):
     """taxonomy = {"nodes": set, "misconceptions": set, "difficulty_scale": list,
-                   "taxonomy_version": int (optional), "misconception_version": int (optional)}.
+                   "taxonomy_version": int (optional), "misconception_version": int (optional),
+                   "abstract_nodes": set (optional),
+                   "node_ancestors": dict (optional, node_id -> set of ancestor ids including self),
+                   "misconception_families": dict (optional, misconception_id -> list of family prefixes),
+                   "family_scoping_allowlist": set (optional, frozenset of (item_id, option_key, misconception_id) triples to skip)}.
 
     schema is the item schema to enforce (the CA Foundation QA Profile). When that
     schema composes the Core via $ref, pass a referencing registry that resolves it.
+
+    pack_root is an optional pathlib.Path; when provided, SOLUTION_FILE_MISSING fires
+    when an item's solution.path does not resolve to a non-empty file under pack_root.
 
     TAXONOMY_VERSION_MISMATCH fires when the taxonomy file's taxonomy_version, the
     misconception canon's version (if present), or any item's taxonomy_version disagree.
@@ -119,9 +127,18 @@ def validate_pack(pack, taxonomy, schema, registry=None):
                         f"bundle taxonomy_version={bundle_tax_version}",
                     )
                 )
+        abstract_nodes = taxonomy.get("abstract_nodes", set())
         for node in item.get("tests", []):
             if node not in taxonomy["nodes"]:
                 violations.append(Violation("UNKNOWN_TEST_NODE", iid, node))
+            elif node in abstract_nodes:
+                violations.append(
+                    Violation(
+                        "ABSTRACT_TEST_NODE",
+                        iid,
+                        f"{node} is an abstract (non-leaf) node and cannot be a test target",
+                    )
+                )
         if item.get("difficulty_label") not in taxonomy["difficulty_scale"]:
             violations.append(
                 Violation("DIFFICULTY_NOT_IN_SCALE", iid, str(item.get("difficulty_label")))
@@ -171,6 +188,28 @@ def validate_pack(pack, taxonomy, schema, registry=None):
                 violations.append(
                     Violation("MISCONCEPTION_REQUIRED", iid, f"incorrect option {okey} has no misconception")
                 )
+            # misconception family scoping: the misconception's declared families must
+            # intersect the item's tests[] ancestor chain. "*" means unrestricted.
+            if misc is not None and misc in taxonomy["misconceptions"]:
+                misc_families = taxonomy.get("misconception_families", {})
+                node_ancestors = taxonomy.get("node_ancestors", {})
+                families = misc_families.get(misc, [])
+                if families and families != ["*"] and "*" not in families and node_ancestors:
+                    item_ancestors = set()
+                    for node in item.get("tests", []):
+                        item_ancestors |= node_ancestors.get(node, set())
+                    if not any(fam in item_ancestors for fam in families):
+                        allowlist = taxonomy.get("family_scoping_allowlist", set())
+                        key = (iid, okey, misc)
+                        if key not in allowlist:
+                            violations.append(
+                                Violation(
+                                    "MISCONCEPTION_FAMILY_MISMATCH",
+                                    iid,
+                                    f"option {okey}: misconception {misc} (families {families}) "
+                                    f"does not apply to item test nodes {item.get('tests', [])}",
+                                )
+                            )
 
         # 6b. numeric items must carry common-error diagnosis
         if item.get("item_type") == "numeric_entry":
@@ -196,5 +235,34 @@ def validate_pack(pack, taxonomy, schema, registry=None):
                 violations.append(Violation("DANGLING_ASSET_REF", iid, ref))
             elif assets_by_id[ref].get("owner_id") != iid:
                 violations.append(Violation("ASSET_OWNER_MISMATCH", iid, ref))
+
+        # 8. license: LicenseRef-pinaka-internal-unreleased is forbidden when published
+        license_val = item.get("provenance", {}).get("license")
+        status_val = item.get("verification_status")
+        if (
+            license_val == "LicenseRef-pinaka-internal-unreleased"
+            and status_val == "published"
+        ):
+            violations.append(
+                Violation(
+                    "UNPUBLISHABLE_LICENSE",
+                    iid,
+                    "LicenseRef-pinaka-internal-unreleased is not permitted when verification_status is published",
+                )
+            )
+
+        # 9. solution file must exist and be non-empty when solution is present
+        solution = item.get("solution")
+        if solution is not None and pack_root is not None:
+            sol_path = pathlib.Path(solution.get("path", ""))
+            full_path = pack_root / sol_path
+            if not full_path.exists() or full_path.stat().st_size == 0:
+                violations.append(
+                    Violation(
+                        "SOLUTION_FILE_MISSING",
+                        iid,
+                        f"solution path {sol_path} does not exist or is empty under pack root",
+                    )
+                )
 
     return violations

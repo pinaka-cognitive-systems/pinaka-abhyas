@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "id": "vlt_caf_qa_000088",
+      "schema_version": "uqs-1",
+      "content_hash": "654a040a47df9c5e6fb43217bd839cc568bd91372542ab65bb197e18691ff1cd",
+      "exam": "ca_foundation",
+      "lang": "en",
+      "pool": "vault",
+      "verification_status": "model_audited",
+      "provenance": {
+        "source": "uqs_example_original",
+        "license": "CC-BY-NC-SA-4.0",
+        "parent_id": "sd_caf_qa_000088",
+        "created": "2026-06-10"
+      },
+      "tests": [
+        "qa.stats.probability"
+      ],
+      "difficulty_label": "L3",
+      "taxonomy_version": 2,
+      "item_type": "single_best",
+      "expected_seconds": 90,
+      "stem": "Two events A and B are such that P(A and B) = 3/20 and P(B) = 3/5. Find P(A given B).",
+      "options": [
+        { "key": 1, "text": "1/4" },
+        { "key": 2, "text": "1/5" },
+        { "key": 3, "text": "3/4" },
+        { "key": 4, "text": "1/2" }
+      ],
+      "answer_key": { "correct": 1 },
+      "per_option_rationale": [
+        { "option_key": 1, "verdict": "correct", "rationale": "Applies the conditional probability definition correctly: P(A given B) = P(A and B) / P(B) = (3/20) / (3/5) = 1/4." },
+        { "option_key": 2, "verdict": "incorrect", "rationale": "Divides P(A and B) by itself instead of by P(B).", "misconception": "conditional_reversed" },
+        { "option_key": 3, "verdict": "incorrect", "rationale": "Treats the events as mutually exclusive and subtracts rather than divides.", "misconception": "complement_confusion" },
+        { "option_key": 4, "verdict": "incorrect", "rationale": "Assumes independence and uses P(A) directly.", "misconception": "independence_assumed" }
+      ],
+      "explanation": "Use P(A given B) = P(A and B) / P(B). Substituting the given values: (3/20) / (3/5) = (3/20) * (5/3) = 1/4, which is option 1. The events are dependent, not independent.",
+      "empirical": { "calibration_status": "none", "n_responses": 0 },
+      "ext": { "icai_skill_bucket": "application" }
+    }
+  ],
+  "assets": []
+}
