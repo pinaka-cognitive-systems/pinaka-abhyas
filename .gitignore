@@ -33,3 +33,6 @@ syllabus/extracted/sa-may-2025-qa.md
 
 # Engine build output
 engine-ts/dist/
+
+# Cross-check generated cases (deterministic; regenerate via crosscheck/generate_cases.py)
+crosscheck/cases.json

@@ -61,25 +61,64 @@ function simulateStudent(
 describe("convergence (the ENG-01 regression class)", () => {
   // The audited failure: a true-55% student sank to p=0.03 and a true-80%
   // student saturated at 0.98. Neither may happen again.
-  const cases: Array<{ name: string; theta: number }> = [
-    { name: "strong student (~80% on L2)", theta: Math.log(0.8 / 0.2) },
-    { name: "borderline-pass student (~55% on L2)", theta: Math.log(0.55 / 0.45) },
-    { name: "struggling student (~45% on L2)", theta: Math.log(0.45 / 0.55) },
-    { name: "weak student (~30% on L2)", theta: Math.log(0.3 / 0.7) },
+  // Tolerances: the estimator is a TRACKER (per-event process noise, so a
+  // student who improves is followed instead of averaged; see scale.ts). The
+  // honest price is steady-state error near the anchor, where dp/dr peaks:
+  // 0.12 there, 0.1 elsewhere. The tracking suite below enforces the benefit
+  // side of the same trade.
+  const cases: Array<{ name: string; theta: number; tol: number }> = [
+    { name: "strong student (~80% on L2)", theta: Math.log(0.8 / 0.2), tol: 0.1 },
+    { name: "borderline-pass student (~55% on L2)", theta: Math.log(0.55 / 0.45), tol: 0.12 },
+    { name: "struggling student (~45% on L2)", theta: Math.log(0.45 / 0.55), tol: 0.12 },
+    { name: "weak student (~30% on L2)", theta: Math.log(0.3 / 0.7), tol: 0.1 },
   ];
-  for (const { name, theta } of cases) {
-    it(`${name}: estimate within 0.1 probability of truth at 200 events`, () => {
+  for (const { name, theta, tol } of cases) {
+    it(`${name}: estimate within ${tol} probability of truth at 200 events`, () => {
       const errs: number[] = [];
       for (const seed of [11, 22, 33, 44, 55]) {
         const s = simulateStudent(theta, 200, seed);
         errs.push(Math.abs(sigmoid(s.rating) - sigmoid(theta)));
       }
       const meanErr = errs.reduce((a, b) => a + b, 0) / errs.length;
-      expect(meanErr).toBeLessThan(0.1);
-      // No saturation: every run stays strictly inside the rating clamps.
-      expect(Math.max(...errs)).toBeLessThan(0.2);
+      expect(meanErr).toBeLessThan(tol);
+      // Saturation guard, not a tail bound: a saturated estimator produces
+      // errors of 0.5 and beyond (the audited prototype hit 0.5+); a tracker's
+      // worst seed can reach ~0.25 near the anchor and that is tail noise.
+      expect(Math.max(...errs)).toBeLessThan(0.3);
     });
   }
+
+  it("TRACKS an improving student (the W1-11 attack-O regression)", () => {
+    // Ability rises linearly from -1 to +2 over 300 events: the normal case of
+    // someone who studies. The estimate must follow the student's CURRENT
+    // ability, not the lifetime average (+0.5).
+    const finals: number[] = [];
+    for (const seed of [3, 13, 23, 43, 53]) {
+      const rng = mulberry32(seed);
+      let state: SkillState = { ...FRESH_SKILL };
+      let t = 1_700_000_000_000;
+      const n = 300;
+      for (let i = 0; i < n; i++) {
+        const theta = -1 + (3 * i) / (n - 1);
+        const label = LABELS[Math.floor(rng() * 3)]!;
+        const b = DIFFICULTY_ANCHOR[label];
+        const pTrue = 0.25 + 0.75 * sigmoid(theta - b);
+        state = updateSkill(state, {
+          correct: rng() < pTrue,
+          difficultyLabel: label,
+          itemType: "single_best",
+          occurredAtMs: t,
+        });
+        t += HOUR;
+      }
+      finals.push(state.rating);
+    }
+    const mean = finals.reduce((a, b) => a + b, 0) / finals.length;
+    // Final true ability is +2. A lifetime-averaging estimator lands near +0.5.
+    // The tracker must land much closer to the current truth than to the mean.
+    expect(mean).toBeGreaterThan(1.3);
+    expect(Math.abs(sigmoid(mean) - sigmoid(2))).toBeLessThan(0.15);
+  });
 
   it("does not saturate with long use (600 events, mid-ability)", () => {
     const theta = Math.log(0.6 / 0.4);
@@ -137,9 +176,10 @@ describe("forgetting: inactivity widens uncertainty and fades the claim", () => 
     const converged = simulateStudent(1.5, 200, 3);
     const after = applyIdleDrift(converged, converged.lastEventMs + 90 * 24 * HOUR);
     expect(after.deviation).toBeGreaterThan(PRIOR_DEVIATION * 0.9);
-    // exp(-90/120) = 0.472: a season of absence roughly halves the claim.
-    expect(Math.abs(after.rating)).toBeLessThan(Math.abs(converged.rating) * 0.5);
-    expect(Math.abs(after.rating)).toBeGreaterThan(Math.abs(converged.rating) * 0.4);
+    // 30-day grace, then exp(-60/120) = 0.607: a season of absence fades the
+    // claim toward the prior; normal practice rhythms carry no fade at all.
+    expect(Math.abs(after.rating)).toBeLessThan(Math.abs(converged.rating) * 0.65);
+    expect(Math.abs(after.rating)).toBeGreaterThan(Math.abs(converged.rating) * 0.55);
   });
 
   it("no drift for a skill never practised, or backwards in time", () => {

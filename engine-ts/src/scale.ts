@@ -44,10 +44,30 @@ export const IDLE_VARIANCE_PER_DAY = (MAX_DEVIATION ** 2 - MIN_DEVIATION ** 2) /
 
 /** Rating fade under inactivity, separate from variance growth by design:
  * process noise widens what we know; only prolonged absence weakens the claim
- * itself. Exponential fade toward the prior with this time constant: hours and
- * days between sessions are negligible, a season of absence roughly halves the
- * claim. Provisional until calibrated. */
+ * itself. Exponential fade toward the prior with this time constant, applied
+ * only to idle time BEYOND the grace period: normal practice rhythms (daily to
+ * fortnightly) must carry no fade at all, or spaced practice biases converged
+ * students low (W1-11 refutation, attack M). Provisional until calibrated. */
 export const RATING_FADE_DAYS = 120;
+export const FADE_GRACE_DAYS = 30;
+
+/** Per-event process noise (W1-11 refutation, attack O): a learner's ability is
+ * NON-STATIONARY; certainty must not accumulate without bound or the estimator
+ * anchors a student to their past self. Each observation adds this variance
+ * before updating, bounding the effective memory to roughly the last
+ * rd_ss^2/Q events. With typical MCQ information I ~ 0.12, the steady-state
+ * deviation is (Q/I)^(1/4) ~ 0.40 and the effective window ~ 53 events: the
+ * estimator TRACKS a changing ability instead of averaging a whole history.
+ * Tuned against both the stationary convergence suite and the non-stationary
+ * coverage attack; provisional until calibrated. */
+export const PROCESS_NOISE_PER_EVENT = 0.003;
+
+/** Time constant (in events) of the slow reference rating used to detect a
+ * moving ability. The gap between the current rating and this slow trace is
+ * the drift signal: readiness extends its band in the drift direction, because
+ * a practice-history estimate necessarily TRAILS a student who is improving
+ * (or declining), and the band must admit which way the truth likely sits. */
+export const SLOW_RATING_TAU_EVENTS = 80;
 
 /** Rating clamp: |r| = 4 corresponds to ~98% / ~2% pre-guessing success on an
  * anchor item; beyond that, MCQ data carries no information. */

@@ -47,6 +47,11 @@ export const LOW_DEVIATION_THRESHOLD = 0.8;
 export const MEDIUM_COVERAGE = 0.6;
 export const BAND_FLOOR_MARKS = 5;
 export const MOCK_WINDOW_DAYS = 21;
+/** A mock day below this answered count is no anchor at all: a handful of
+ * answers projected onto 100 questions is noise wearing a mock's clothes. */
+export const MIN_MOCK_ANSWERED = 25;
+/** Band extension factor on the drift signal (see computeReadiness). */
+export const DRIFT_EXTENSION_FACTOR = 1.5;
 
 /** Difficulty mix assumed when a section has no finer signal: ICAI Paper 3 is
  * classified 100% Level II (application). We model each exam question as an L2
@@ -64,6 +69,10 @@ interface PlanQuestion {
   /** Std of P from this node's rating deviation (shared across the node's
    * questions — a correlated source of error, aggregated per family). */
   readonly sigmaP: number;
+  /** P computed at the node's slow reference rating: p minus slowP is the
+   * per-question drift signal of a non-stationary (improving or declining)
+   * student. */
+  readonly slowP: number;
   readonly expectedSeconds: number;
 }
 
@@ -143,9 +152,13 @@ function buildPlan(
     const sig = sigmoid(skill.rating - DIFFICULTY_ANCHOR[label]);
     const dPdr = (1 - c) * sig * (1 - sig);
     const sigmaP = Math.abs(dPdr) * skill.deviation;
+    // Defensive: a state imported from before the slowRating field (or built by
+    // hand) must read as "no drift", never as NaN.
+    const slowR = Number.isFinite(skill.slowRating) ? skill.slowRating : skill.rating;
+    const slowP = c + (1 - c) * sigmoid(slowR - DIFFICULTY_ANCHOR[label]);
     const expectedSeconds = expectedSecondsFor(bank, fam.nodeId, label);
     for (let i = 0; i < fam.quota; i++) {
-      plan.push({ nodeId: fam.nodeId, label, p, ev, binomialVariance, sigmaP, expectedSeconds });
+      plan.push({ nodeId: fam.nodeId, label, p, ev, binomialVariance, sigmaP, slowP, expectedSeconds });
     }
   }
   return plan;
@@ -214,28 +227,34 @@ function mockAnchor(
     byDay.set(day, agg);
   }
   if (byDay.size === 0) return null;
-  // Scale each mock's net score to a full-paper-equivalent mark, weighted by
-  // recency (newer mocks weigh more) and by how complete the mock was.
-  let wSum = 0;
-  let wScore = 0;
+  // Scale each mock's net score to a full-paper-equivalent mark. Each day's
+  // anchor strength is its statistical precision: projecting an n-answer
+  // sample onto the full paper carries variance numQuestions^2 * perQVar / n,
+  // so a thin sample is a weak anchor BY CONSTRUCTION (W1-11 attack FF found
+  // the previous weighting let 1-2 answers dominate the model and push the
+  // band past 100 marks). Days below the minimum sample are no anchor at all.
+  const swing = marking.marksPerCorrect + marking.negativePerWrong;
+  let precisionSum = 0;
+  let weightedScore = 0;
   for (const agg of byDay.values()) {
     const answered = agg.correct + agg.wrong;
-    if (answered === 0) continue;
+    if (answered < MIN_MOCK_ANSWERED) continue;
     const net =
       agg.correct * marking.marksPerCorrect - agg.wrong * marking.negativePerWrong;
-    // Project the answered net rate onto the full paper.
-    const perQ = net / answered;
-    const projected = perQ * marking.numQuestions;
+    const projected = (net / answered) * marking.numQuestions;
     const age = nowMs - agg.t;
     const recency = Math.max(0, 1 - age / windowMs);
-    // Completeness weight: a fuller mock is a stronger anchor.
-    const completeness = Math.min(1, answered / marking.numQuestions);
-    const w = recency * completeness * answered;
-    wSum += w;
-    wScore += w * projected;
+    // Worst-case per-question marks variance (p=0.5) keeps the anchor honest.
+    const perQVar = 0.25 * swing * swing;
+    const projectionVariance =
+      (marking.numQuestions * marking.numQuestions * perQVar) / answered;
+    const precision = (recency * answered) > 0 ? recency / projectionVariance : 0;
+    precisionSum += precision;
+    weightedScore += precision * projected;
   }
-  if (wSum === 0) return null;
-  return { mean: wScore / wSum, weight: wSum };
+  if (precisionSum === 0) return null;
+  // weight is a true precision (1/marks^2), directly comparable to 1/variance.
+  return { mean: weightedScore / precisionSum, weight: precisionSum };
 }
 
 /**
@@ -323,13 +342,10 @@ export function computeReadiness(
   const mock = mockAnchor(events, bank, blueprint, marking, nowMs);
   let note = "";
   if (mock !== null) {
+    // mock.weight is already a precision in 1/marks^2 (see mockAnchor), so the
+    // blend is a plain precision-weighted mean. No unit conversion.
     const modelPrecision = variance > 0 ? 1 / variance : 1e6;
-    // Each unit of mock weight is worth roughly one observed answer; convert to
-    // a precision comparable to the model's by scaling against per-question
-    // marks variance (use the mean attempted variance as the unit).
-    const attemptedCount = attemptable.length - dropped.size;
-    const perQVar = attemptedCount > 0 ? variance / attemptedCount : 1;
-    const mockPrecision = mock.weight / Math.max(perQVar, 1e-9);
+    const mockPrecision = mock.weight;
     pointEstimate =
       (modelPrecision * ev + mockPrecision * mock.mean) /
       (modelPrecision + mockPrecision);
@@ -338,11 +354,38 @@ export function computeReadiness(
       `a precision-weighted blend with the model. `;
   }
 
-  // Band: +/- 1.645 sigma, floored at +/- 5 marks, rounded to whole marks.
+  // Drift extension (W1-11 attack O): a practice-history estimate TRAILS a
+  // student whose ability is moving. The drift signal is the marks gap between
+  // the plan at current ratings and the plan at the slow reference ratings;
+  // the band extends in the drift direction by that gap. No momentum is added
+  // to the point estimate: the trailing value stays the claim, the band admits
+  // which way the truth likely sits.
+  let driftMarks = 0;
+  for (const q of attemptable) {
+    if (dropped.has(q)) continue;
+    driftMarks += (q.p - q.slowP) * swing;
+  }
+  // The drift signal measures "now versus early", which by construction LAGS a
+  // move still in progress; the extension carries a factor for the unobserved
+  // continuation. Provisional until calibrated.
+  driftMarks *= DRIFT_EXTENSION_FACTOR;
+
+  // Band: +/- 1.645 sigma, floored at +/- 5 marks, extended by drift, rounded
+  // to whole marks, and structurally clamped to the achievable score range: no
+  // band may ever claim marks the paper cannot produce (W1-11 attack FF).
+  const maxMarks = marking.numQuestions * marking.marksPerCorrect;
+  const minMarks = -marking.numQuestions * marking.negativePerWrong;
+  const clampMarks = (x: number): number => Math.min(maxMarks, Math.max(minMarks, x));
   const halfWidth = Math.max(BAND_FLOOR_MARKS, Z90 * sigma);
-  const expectedMarks = Math.round(pointEstimate);
-  const low = Math.round(pointEstimate - halfWidth);
-  const high = Math.round(pointEstimate + halfWidth);
+  const expectedMarks = Math.round(clampMarks(pointEstimate));
+  const low = Math.round(clampMarks(pointEstimate - halfWidth + Math.min(0, driftMarks)));
+  const high = Math.round(clampMarks(pointEstimate + halfWidth + Math.max(0, driftMarks)));
+  if (Math.abs(driftMarks) >= BAND_FLOOR_MARKS) {
+    note +=
+      driftMarks > 0
+        ? "Your recent work is stronger than your history; the band extends upward. A fresh full mock will sharpen this estimate. "
+        : "Your recent work is weaker than your history; the band extends downward. A fresh full mock will sharpen this estimate. ";
+  }
 
   const confidence = confidenceLevel(state, cov, nowMs);
 
