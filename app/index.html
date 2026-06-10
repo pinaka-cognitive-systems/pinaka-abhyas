@@ -9,10 +9,33 @@
     -->
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <!--
-      theme-color: set to the brand primary as a placeholder.
-      Real value derives from the W6-2 token intake (docs/brand/design.md -> #6366F1).
+      theme-color: brand primary (updated from #6366F1 to #5558E8 per W5-6 contrast
+      fix; matches the --color-brand-primary token after the WCAG AA correction).
     -->
-    <meta name="theme-color" content="#6366f1" />
+    <meta name="theme-color" content="#5558e8" />
+    <!--
+      apple-mobile-web-app-capable: opt the installed PWA into standalone mode on
+      iOS so the system chrome is hidden and the viewport is the full screen. This
+      is the iOS equivalent of display: standalone in the web manifest.
+    -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!--
+      apple-mobile-web-app-status-bar-style: default keeps the status bar light.
+      black-translucent would let the app extend under it (needs extra top padding).
+    -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <!--
+      apple-mobile-web-app-title: short name shown under the icon on the home screen.
+      Matches the short_name in the web manifest.
+    -->
+    <meta name="apple-mobile-web-app-title" content="Pinaka Abhyas" />
+    <!--
+      apple-touch-icon: omitted in v1 — no icon assets ship yet (ADR 0008 byte
+      budget defers icon design). The meta tags above still opt the app into
+      standalone mode; Safari falls back to a screenshot thumbnail for the home
+      screen. Add <link rel="apple-touch-icon"> once icon-192.png lands in
+      public/icons/ (planned for v3 design intake).
+    -->
     <link rel="manifest" href="/manifest.webmanifest" />
     <title>Pinaka Abhyas</title>
   </head>

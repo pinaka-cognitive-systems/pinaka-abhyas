@@ -407,15 +407,20 @@ function FeedbackScreen({
         })}
       </div>
 
+      {/* aria-live="polite": announces the verdict and misconception to screen
+          readers when feedback replaces the question panel (same pattern as
+          PracticeFlow; W5-6). */}
       <div
         className={`pr-verdict${view.correct ? " pr-verdict--correct" : " pr-verdict--wrong"}`}
         role="status"
+        aria-live="polite"
+        aria-atomic="true"
       >
         <p className="pr-verdict__line">{view.outcomeLine}</p>
       </div>
 
       {!view.correct && view.misconceptionLine !== null && (
-        <section className="pr-mis">
+        <section className="pr-mis" aria-live="polite" aria-atomic="true">
           <p className="pr-mis__eyebrow">What happened</p>
           <p className="pr-mis__line">{view.misconceptionLine}</p>
         </section>

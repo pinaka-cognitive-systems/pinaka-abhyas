@@ -113,3 +113,7 @@ jobs:
       - name: "Offline check: every precached shell asset resolves (W5-4)"
         run: npm run check-offline
         working-directory: app
+
+      - name: "Accessibility: contrast, type floor, touch targets, focus, motion (W5-6)"
+        run: npm run check-a11y
+        working-directory: app

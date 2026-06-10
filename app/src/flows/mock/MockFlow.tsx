@@ -542,9 +542,18 @@ function Countdown({
   const low = rem <= 5 * 60_000;
   const label = `${mm}:${ss.toString().padStart(2, "0")}`;
   return (
+    // aria-live="polite" + aria-atomic: announces the countdown to screen
+    // readers. "polite" queues after the current utterance so it does not
+    // interrupt answer selection. The announcement fires every second but
+    // screen readers debounce rapidly changing live regions; the accessible
+    // label (minutes + seconds) is always current. When time is low (<= 5 min)
+    // aria-live stays polite — "assertive" would interrupt the student reading
+    // the question. (WCAG 4.1.3, W5-6)
     <span
       className={`mk-timer${low ? " mk-timer--low" : ""}`}
       aria-label={`Time remaining: ${mm} minutes ${ss} seconds`}
+      aria-live="polite"
+      aria-atomic="true"
     >
       {label}
     </span>
@@ -897,6 +906,7 @@ function SubmitDialog({
       <div
         className="mk-sheet"
         role="dialog"
+        aria-modal="true"
         aria-label="Submit mock"
         onClick={(e) => e.stopPropagation()}
       >

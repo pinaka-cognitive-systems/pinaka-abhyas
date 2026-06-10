@@ -549,7 +549,9 @@ function ImportSection({
       )}
 
       {report !== null && (
-        <div className="st-report" role="status" aria-live="polite">
+        /* aria-live="polite" + aria-atomic: announces the import report in full
+           when it appears after the student confirms import (W5-6). */
+        <div className="st-report" role="status" aria-live="polite" aria-atomic="true">
           <p className="st-preview__title">{c.reportTitle}</p>
           <ul className="st-preview__list">
             <li className="st-preview__item">{c.reportAdded(report.added)}</li>

@@ -92,7 +92,14 @@
     --color-accent:             #F4F4F5;
     --color-accent-foreground:  #09090B;
     --color-subtle:             #E4E4E7;
-    --color-text-subtle:        #71717A;
+    /*
+     * contrast fix: #71717A reads 4.40:1 on --color-muted (#F4F4F5), below the 4.5:1
+     * AA threshold for normal text. #6E6E76 reads 4.60:1 on muted, 4.84:1 on
+     * background, 5.05:1 on card — all passing. Perceptually imperceptible (2 steps
+     * darker on each channel).
+     * before: #71717A on muted = 4.40:1 (FAIL); after: #6E6E76 on muted = 4.60:1 (PASS)
+     */
+    --color-text-subtle:        #6E6E76;
 
     /* ------------------------------------------------------------------ */
     /* BORDERS                                                              */
@@ -106,12 +113,23 @@
     /* ------------------------------------------------------------------ */
     /* BRAND — indigo, one signal                                           */
     /* ------------------------------------------------------------------ */
-    --color-brand-primary:         #6366F1;
+    /*
+     * contrast fix: #6366F1 read 4.28:1 on --color-background (#FAFAFA) and 4.47:1
+     * on --color-card (#FFFFFF), both below the 4.5:1 AA threshold. White
+     * (--color-brand-text) on #6366F1 was also 4.47:1 (FAIL). #5558E8 reads 5.10:1
+     * on background, 5.32:1 on card, and 5.32:1 for white on it — all passing.
+     * Hue is preserved (same indigo family, ~4 steps darker on R/G channels).
+     * before: #6366F1 on background = 4.28:1 (FAIL), on card = 4.47:1 (FAIL),
+     *         white on #6366F1 = 4.47:1 (FAIL)
+     * after:  #5558E8 on background = 5.10:1 (PASS), on card = 5.32:1 (PASS),
+     *         white on #5558E8 = 5.32:1 (PASS)
+     */
+    --color-brand-primary:         #5558E8;
     --color-brand-primary-hover:   #4F46E5;   /* hover; also AA body-link color */
     --color-brand-primary-active:  #4338CA;
     --color-brand-secondary:       #818CF8;   /* accent on dark sections */
-    --color-brand-secondary-hover: #6366F1;
-    --color-brand-soft:            rgba(99, 102, 241, 0.10);   /* focus rings, selected */
+    --color-brand-secondary-hover: #5558E8;
+    --color-brand-soft:            rgba(85, 88, 232, 0.10);   /* focus rings, selected */
     --color-brand-text:            #FFFFFF;
 
     /* ------------------------------------------------------------------ */
@@ -124,7 +142,14 @@
     /* ------------------------------------------------------------------ */
     /* SEMANTIC — success (emerald)                                         */
     /* ------------------------------------------------------------------ */
-    --color-success:            #059669;
+    /*
+     * contrast fix: white (#FFFFFF) on #059669 = 3.77:1 (FAIL 4.5:1 for normal text).
+     * Darkened to #047857: white on #047857 = 5.48:1 (PASS). success-text (#065F46)
+     * on success-soft (#ECFDF5) remains 7.29:1 (PASS, unchanged).
+     * before: #FFFFFF on #059669 = 3.77:1 (FAIL)
+     * after:  #FFFFFF on #047857 = 5.48:1 (PASS)
+     */
+    --color-success:            #047857;
     --color-success-soft:       #ECFDF5;
     --color-success-text:       #065F46;
     --color-success-border:     #34D399;
@@ -133,11 +158,19 @@
     /* ------------------------------------------------------------------ */
     /* SEMANTIC — warning (amber)                                           */
     /* ------------------------------------------------------------------ */
+    /*
+     * contrast fix: #FFFFFF on #D97706 = 3.19:1 (FAIL 4.5:1). The warning fill
+     * (#D97706) is a bright amber; switching the foreground to near-black gives
+     * 6.24:1 (PASS). This is the correct pattern for light/mid amber fills: dark
+     * ink is always legible; white is not.
+     * before: #FFFFFF on #D97706 = 3.19:1 (FAIL)
+     * after:  #09090B on #D97706 = 6.24:1 (PASS)
+     */
     --color-warning:            #D97706;
     --color-warning-soft:       #FFFBEB;
     --color-warning-text:       #92400E;
     --color-warning-border:     #FBBF24;
-    --color-warning-foreground: #FFFFFF;
+    --color-warning-foreground: #09090B;
 
     /* ------------------------------------------------------------------ */
     /* SEMANTIC — danger (rose)                                             */
@@ -151,7 +184,14 @@
     /* ------------------------------------------------------------------ */
     /* SEMANTIC — info (indigo, matches brand)                              */
     /* ------------------------------------------------------------------ */
-    --color-info:            #6366F1;
+    /*
+     * contrast fix: #FFFFFF on #6366F1 = 4.47:1 (FAIL 4.5:1). Updated to match
+     * the brand-primary fix (#5558E8): white on #5558E8 = 5.32:1 (PASS).
+     * info-text (#4338CA) on info-soft (#EEF2FF) = 7.07:1 (PASS, unchanged).
+     * before: #FFFFFF on #6366F1 = 4.47:1 (FAIL)
+     * after:  #FFFFFF on #5558E8 = 5.32:1 (PASS)
+     */
+    --color-info:            #5558E8;
     --color-info-soft:       #EEF2FF;
     --color-info-text:       #4338CA;
     --color-info-border:     #A5B4FC;
@@ -256,3 +296,23 @@
     }
   }
 }
+
+/*
+ * FONT NOTE — v1 system font stack (ADR 0008, W5-6)
+ *
+ * The --font-sans and --font-mono tokens name IBM Plex Sans / IBM Plex Mono as
+ * the preferred faces, but index.html ships NO @font-face declarations and NO
+ * font files in dist/. v1 runs entirely on the OS/browser system-font cascade
+ * (ui-sans-serif, system-ui, -apple-system, sans-serif for sans; ui-monospace
+ * fallbacks for mono). This means:
+ *
+ *   - Zero extra bytes from font files at first load (ADR 0008 budget is fine).
+ *   - No OFL license text is required to ship (W5-6: "if system-only, record the
+ *     decision and update LICENSING.md only if something actually ships").
+ *   - LICENSING.md carries no font attribution line because nothing ships.
+ *
+ * IBM Plex Sans / Mono arrive with the v3 design intake (W6-2). At that point:
+ *   1. Subset the fonts to the used character ranges (OFL-1.1 allows this).
+ *   2. Add the OFL-1.1 license text to dist/ or reference it in LICENSING.md.
+ *   3. Remove this note and update the token values above.
+ */
