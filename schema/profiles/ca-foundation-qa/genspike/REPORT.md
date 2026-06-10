@@ -61,3 +61,28 @@ Two honest limits remain before Gate A can be called passed:
 
 Recruit a CA expert for the audit; scale generation to blueprint volume; then Gate A is
 certifiable. The pipeline and canon are proven on this spike.
+
+---
+
+## Addendum: 2026-06-10 honesty relabeling (W0-9)
+
+All 24 items have been relabeled from machine_verified to model_audited.
+
+Reason: verification was model-on-model (Haiku blind solve, two Sonnet adversarial
+auditors), not executable. ADR 0005 defines machine_verified to require an executable
+solution that reproduces the key in CI. No such executable solution was authored for any
+item in this spike. model_audited is the accurate status for verification that was
+rigorous but performed by models only, with no executable solution having reproduced the
+key.
+
+Item arn_caf_qa_000009 has been set to quarantined. The 2026-06-10 deep audit (finding
+CON-01) confirmed by brute-force enumeration over kinship assignments that this item's
+premises are logically self-contradictory. Both model auditors missed this. The item
+must not be served to students. A replacement will be authored at W4-1.
+
+The usable count from this spike is 23. The stamped pack.json includes all 24 records
+(including the quarantined item) so validators can inspect it, but the 23 non-quarantined
+items are the ones eligible for use.
+
+machine_verified labels are earned only through the W3-1 key-execution harness and the
+W3-2 LR verification harness.

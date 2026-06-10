@@ -73,7 +73,7 @@ Required unless marked optional. Types are logical.
 | `exam` | enum | yes | Exam code (full form), e.g. `ca_foundation`, `lsat`, `jee`. Selects taxonomy and extension schema. |
 | `lang` | string | yes | BCP-47. Default `en`. i18n hook; no i18n machinery in v1. |
 | `pool` | enum | yes | **Origin** pool, immutable. `seed` / `vault` / `arena`. Lifecycle changes live in `verification_status`, never in `id`. |
-| `verification_status` | enum | yes | Trust state from the pipeline. `draft` / `machine_verified` / `human_reviewed` / `published` / `quarantined`. |
+| `verification_status` | enum | yes | Trust state from the pipeline. `draft` / `model_audited` / `machine_verified` / `human_reviewed` / `published` / `quarantined`. `model_audited` means verified by model audit only; no executable solution has reproduced the key. |
 | `provenance` | object | yes | See 4.6. |
 
 #### 4.1.1 ID code registry
