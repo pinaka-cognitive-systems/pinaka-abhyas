@@ -1,0 +1,419 @@
+/*
+ * practice.css — the practice loop's screen styles (W5-5 flow a).
+ *
+ * Phone-first, 360px floor (ADR 0011). Tokens only (theme/tokens.css): no raw
+ * hex, no raw px outside the spacing/touch tokens. 44px touch targets, one
+ * visible focus style on every interactive element (v3-brief accessibility
+ * correction). Widening rules are additive at the 600px tablet breakpoint;
+ * never overwrite the narrow rules.
+ *
+ * Lives in the `components` layer so token values resolve under @layer order.
+ */
+
+@layer components {
+  /* ---------------------------------------------------------------- */
+  /* FRAME                                                             */
+  /* ---------------------------------------------------------------- */
+  .pr-screen {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    min-width: 360px;
+    background: var(--color-background);
+    color: var(--color-foreground);
+  }
+
+  .pr-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--touch-target);
+    padding: 0 var(--gutter);
+    border-bottom: 1px solid var(--color-border-hairline);
+    background: var(--color-background);
+  }
+
+  .pr-bar__title {
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--tracking-tight);
+    color: var(--color-muted-foreground);
+  }
+
+  .pr-bar__close {
+    min-height: var(--touch-target);
+    min-width: var(--touch-target);
+    padding: 0 var(--space-3);
+    border: 0;
+    background: transparent;
+    color: var(--color-text-subtle);
+    font: inherit;
+    font-size: var(--text-sm);
+    cursor: pointer;
+    border-radius: var(--radius-md);
+  }
+
+  .pr-body {
+    flex: 1;
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: var(--space-5) var(--gutter) var(--space-10);
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* CONTEXT + PROGRESS                                                */
+  /* ---------------------------------------------------------------- */
+  .pr-context {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+
+  .pr-context__node {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-subtle);
+    overflow-wrap: anywhere;
+  }
+
+  .pr-context__meta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .pr-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-1) var(--space-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    color: var(--color-muted-foreground);
+    background: var(--color-muted);
+  }
+
+  .pr-timer {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--text-sm);
+    color: var(--color-muted-foreground);
+  }
+
+  .pr-progress {
+    margin: 0 0 var(--space-3);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps);
+    color: var(--color-text-subtle);
+  }
+
+  .pr-stem {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    margin: 0 0 var(--space-6);
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* OPTIONS                                                           */
+  /* ---------------------------------------------------------------- */
+  .pr-options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+  }
+
+  .pr-opt {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    width: 100%;
+    min-height: var(--touch-target);
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-card);
+    color: var(--color-card-foreground);
+    font: inherit;
+    font-size: var(--text-base);
+    text-align: left;
+    cursor: pointer;
+    transition: border-color calc(var(--duration-fast) * var(--motion-duration-scalar))
+        var(--ease-standard),
+      background-color calc(var(--duration-fast) * var(--motion-duration-scalar))
+        var(--ease-standard);
+  }
+
+  .pr-opt:hover {
+    border-color: var(--color-border-strong);
+  }
+
+  .pr-opt--picked {
+    border-color: var(--color-brand-primary);
+    background: var(--color-brand-soft);
+  }
+
+  .pr-opt__key {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: var(--space-6);
+    height: var(--space-6);
+    border-radius: var(--radius-full);
+    background: var(--color-muted);
+    color: var(--color-muted-foreground);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+  }
+
+  .pr-opt__text {
+    flex: 1 1 auto;
+    line-height: var(--leading-normal);
+    overflow-wrap: anywhere;
+  }
+
+  .pr-opt__tag {
+    flex: 0 0 auto;
+    align-self: center;
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-medium);
+  }
+
+  /* Reviewed states (feedback): correct, chosen-wrong, neutral. */
+  .pr-opt--correct {
+    border-color: var(--color-success-border);
+    background: var(--color-success-soft);
+    color: var(--color-success-text);
+    cursor: default;
+  }
+  .pr-opt--correct .pr-opt__tag {
+    color: var(--color-success-text);
+  }
+
+  .pr-opt--wrong {
+    border-color: var(--color-danger-border);
+    background: var(--color-danger-soft);
+    color: var(--color-danger-text);
+    cursor: default;
+  }
+  .pr-opt--wrong .pr-opt__tag {
+    color: var(--color-danger-text);
+  }
+
+  .pr-opt--neutral {
+    cursor: default;
+    color: var(--color-muted-foreground);
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* VERDICT + MISCONCEPTION + WORKING                                 */
+  /* ---------------------------------------------------------------- */
+  .pr-verdict {
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-5);
+    border: 1px solid var(--color-border-hairline);
+  }
+  .pr-verdict--correct {
+    background: var(--color-success-soft);
+    border-color: var(--color-success-border);
+  }
+  .pr-verdict--wrong {
+    background: var(--color-warning-soft);
+    border-color: var(--color-warning-border);
+  }
+  .pr-verdict__line {
+    margin: 0;
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+  }
+
+  .pr-mis {
+    padding: var(--space-4);
+    border: 1px solid var(--color-border-hairline);
+    border-radius: var(--radius-lg);
+    background: var(--color-card);
+    margin-bottom: var(--space-5);
+  }
+  .pr-mis__eyebrow,
+  .pr-work__eyebrow {
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps);
+    color: var(--color-text-subtle);
+  }
+  .pr-mis__line {
+    margin: 0;
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+  }
+
+  .pr-work {
+    margin-bottom: var(--space-6);
+  }
+  .pr-work__steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .pr-work__step {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+  .pr-work__n {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: var(--space-6);
+    height: var(--space-6);
+    border-radius: var(--radius-full);
+    background: var(--color-brand-soft);
+    color: var(--color-brand-primary-active);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+  }
+  .pr-work__body {
+    flex: 1 1 auto;
+    line-height: var(--leading-relaxed);
+    overflow-wrap: anywhere;
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* NEXT ACTION + BUTTONS                                             */
+  /* ---------------------------------------------------------------- */
+  .pr-next {
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-border-hairline);
+  }
+  .pr-next__reason {
+    margin: 0 0 var(--space-4);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--color-muted-foreground);
+  }
+
+  .pr-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .pr-btn {
+    min-height: var(--touch-target);
+    padding: 0 var(--space-5);
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    font: inherit;
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: background-color calc(var(--duration-fast) * var(--motion-duration-scalar))
+      var(--ease-standard);
+  }
+  .pr-btn--primary {
+    background: var(--color-brand-primary);
+    color: var(--color-brand-text);
+  }
+  .pr-btn--primary:hover {
+    background: var(--color-brand-primary-hover);
+  }
+  .pr-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* STATUS (loading / error / empty) + SUMMARY                        */
+  /* ---------------------------------------------------------------- */
+  .pr-status {
+    padding: var(--space-6) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-card);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .pr-status--error {
+    border-color: var(--color-danger-border);
+    background: var(--color-danger-soft);
+  }
+  .pr-status__label {
+    margin: 0;
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-semibold);
+  }
+  .pr-status__body {
+    margin: 0;
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    color: var(--color-muted-foreground);
+  }
+
+  .pr-summary__eyebrow {
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps);
+    color: var(--color-text-subtle);
+  }
+  .pr-summary__title {
+    margin: 0 0 var(--space-5);
+    font-size: var(--text-2xl);
+  }
+  .pr-summary__readiness {
+    padding: var(--space-4);
+    border: 1px solid var(--color-border-hairline);
+    border-radius: var(--radius-lg);
+    background: var(--color-card);
+    margin-bottom: var(--space-6);
+  }
+  .pr-summary__band {
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-lg);
+  }
+  .pr-summary__note {
+    margin: 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--color-muted-foreground);
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* FOCUS — one visible style on every interactive element            */
+  /* (v3-brief: "Every interactive element needs one.")                */
+  /* ---------------------------------------------------------------- */
+  .pr-opt:focus-visible,
+  .pr-btn:focus-visible,
+  .pr-bar__close:focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* WIDEN — tablet/desktop best (>=600px), additive only              */
+  /* ---------------------------------------------------------------- */
+  @media (min-width: 600px) {
+    .pr-body {
+      padding: var(--space-8) var(--space-6) var(--space-12);
+    }
+    .pr-actions {
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+    .pr-btn {
+      min-width: 160px;
+    }
+  }
+}
