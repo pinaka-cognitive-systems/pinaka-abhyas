@@ -21,15 +21,21 @@ Free for students. App open-source. Works offline.
 
 Phase 0, foundations, is done. In place: the UQS Core and CA Profile schema, the CA
 QA taxonomy from the official ICAI syllabus, the misconception canon, the event-log
-record, the marking config, the Python reference engine, and the brand layer. Both
+record, the marking config, the TypeScript engine, and the brand layer. Both
 validator tiers are green. Next is content generation (Gate A).
 
 ## Layout
 
 - `schema/`: the UQS contract. `core/` is exam-agnostic; `profiles/ca-foundation-qa/`
-  is the CA Profile. Validators at `schema/validate.py` and `schema/validator/`.
-- `engine/`: the Python reference engine (mastery, scheduling, selection,
-  readiness). Ported to TypeScript for the PWA; see ADR 0003.
+  holds the CA Profile contracts (schema, taxonomy, misconceptions, marking, blueprint).
+  Validators at `schema/validate.py` and `schema/validator/`.
+- `packs/ca-foundation-qa/`: CA Foundation Paper 3 QA content (items, solutions,
+  manifest, REPORT, ERRATA, build script). Content lives here; contracts stay in schema/.
+- `engine-ts/`: the TypeScript engine (mastery, scheduling, selection, readiness).
+  This is the canonical engine; see ADR 0010.
+- `prototypes/engine-py/`: the archived Python engine prototype. Superseded by engine-ts/.
+  Kept as the historical reference; its tests do not run in CI.
+- `crosscheck/`: independent Python cross-check of the core engine math.
 - `specs/`: `foundation-plan.md` (the plan), `roadmap.md`, `unified-question-schema.md`
   (rationale).
 - `docs/adr/`: architecture decision records.

@@ -4,7 +4,7 @@
 Usage:
     python3 schema/validator/run_quality.py [ITEMS_DIR_OR_PACK_JSON]
 
-Defaults to the genspike items directory when no argument is given.
+Defaults to packs/ca-foundation-qa/items when no argument is given.
 Always exits 0 (advisory). Prints a structured WARN summary.
 """
 
@@ -21,10 +21,8 @@ _HERE = os.path.dirname(os.path.abspath(__file__))
 _REPO_ROOT = os.path.dirname(os.path.dirname(_HERE))  # two levels up from validator/
 _DEFAULT_ITEMS_DIR = os.path.join(
     _REPO_ROOT,
-    "schema",
-    "profiles",
+    "packs",
     "ca-foundation-qa",
-    "genspike",
     "items",
 )
 _BLUEPRINT_PATH = os.path.join(

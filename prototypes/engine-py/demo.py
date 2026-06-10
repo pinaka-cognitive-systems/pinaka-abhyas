@@ -2,8 +2,8 @@
 demo.py — run a synthetic student through the Pinaka engine v2 (score-driven).
 
 Usage:
-  python3 engine/demo.py          (from repo root)
-  python3 demo.py                 (from engine/ directory)
+  python3 prototypes/engine-py/demo.py   (from repo root)
+  python3 demo.py                        (from prototypes/engine-py/ directory)
 
 Output includes:
   - Predicted mark under smart-attempt policy
@@ -16,11 +16,31 @@ No arguments required.
 """
 import sys
 import os
+import importlib.util as _ilu
 
 _here = os.path.dirname(os.path.abspath(__file__))
-_repo = os.path.dirname(_here)
-if _repo not in sys.path:
-    sys.path.insert(0, _repo)
+_prototypes = os.path.dirname(_here)
+if _prototypes not in sys.path:
+    sys.path.insert(0, _prototypes)
+
+# Register modules under the "engine" namespace so this file can be run directly.
+# (The package directory is named engine-py, not engine, so we register manually.)
+if "engine" not in sys.modules:
+    _spec = _ilu.spec_from_file_location(
+        "engine", os.path.join(_here, "__init__.py"),
+        submodule_search_locations=[_here])
+    _pkg = _ilu.module_from_spec(_spec)
+    sys.modules["engine"] = _pkg
+    _spec.loader.exec_module(_pkg)
+    for _m in ["mastery", "scheduler", "selector", "readiness",
+               "synthetic", "types", "value"]:
+        _mp = os.path.join(_here, f"{_m}.py")
+        if os.path.exists(_mp):
+            _ms = _ilu.spec_from_file_location(f"engine.{_m}", _mp)
+            _mod = _ilu.module_from_spec(_ms)
+            sys.modules[f"engine.{_m}"] = _mod
+            _ms.loader.exec_module(_mod)
+            setattr(_pkg, _m, _mod)
 
 import engine.mastery as mastery_mod
 import engine.scheduler as sched_mod

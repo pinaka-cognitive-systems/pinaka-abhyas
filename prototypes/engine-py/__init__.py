@@ -23,16 +23,31 @@ Usage
 from engine import mastery, scheduler, value, selector, readiness, synthetic
 """
 
-from .types import (
-    Event,
-    ItemSchedule,
-    MasteryState,
-    MisconceptionSummary,
-    NextAction,
-    NodeMastery,
-    ReadinessEstimate,
-    SchedulerState,
-)
+try:
+    from .types import (
+        Event,
+        ItemSchedule,
+        MasteryState,
+        MisconceptionSummary,
+        NextAction,
+        NodeMastery,
+        ReadinessEstimate,
+        SchedulerState,
+    )
+except ImportError:
+    # Loaded as a standalone file (e.g. by pytest's importtestmodule during
+    # test discovery). Fall back to absolute import using engine.types which
+    # is registered via the conftest MetaPathFinder.
+    from engine.types import (  # noqa: F401
+        Event,
+        ItemSchedule,
+        MasteryState,
+        MisconceptionSummary,
+        NextAction,
+        NodeMastery,
+        ReadinessEstimate,
+        SchedulerState,
+    )
 
 __all__ = [
     "Event",

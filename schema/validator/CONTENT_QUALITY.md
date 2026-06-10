@@ -73,7 +73,7 @@ IS the useful output: it quantifies, per family, how far the bank is from produc
   answer-position packs; a length-tell pack; a near-duplicate pair; an overused
   misconception; assembler allocation and shortfall on a small bank; determinism (same
   seed yields the same paper).
-- Run `run_quality.py` on `schema/profiles/ca-foundation-qa/genspike/items` and surface the
+- Run `run_quality.py` on `packs/ca-foundation-qa/items` and surface the
   real findings.
 
 Constraints: Python 3 stdlib only. Pure-functional core. Named, documented, PROVISIONAL

@@ -4,17 +4,18 @@
 Reads every items/*.json, assembles a pack, stamps content_hash via the
 repo's canonical.py, then runs the Tier 2 pack validator (which also runs Tier 1
 JSON Schema per item) against the live taxonomy, misconception canon, and profile
-schema. Writes the stamped pack to pilot/pack.json. Idempotent: re-run after fixes.
+schema. Writes the stamped pack to packs/ca-foundation-qa/pack.json. Idempotent: re-run after fixes.
 
-Run: python3 build_and_validate.py   (exit 0 = clean, 1 = violations)
+Run: python3 packs/ca-foundation-qa/build_and_validate.py   (exit 0 = clean, 1 = violations)
 """
 import json
 import pathlib
 import sys
 
-HERE = pathlib.Path(__file__).parent              # .../pilot
-PROFILE_DIR = HERE.parent                          # .../ca-foundation-qa
-SCHEMA_DIR = PROFILE_DIR.parent.parent             # .../schema
+HERE = pathlib.Path(__file__).parent              # .../packs/ca-foundation-qa
+REPO_ROOT = HERE.parent.parent                     # repo root
+SCHEMA_DIR = REPO_ROOT / "schema"                  # .../schema
+PROFILE_DIR = SCHEMA_DIR / "profiles" / "ca-foundation-qa"
 VALIDATOR_DIR = SCHEMA_DIR / "validator"
 sys.path.insert(0, str(VALIDATOR_DIR))
 

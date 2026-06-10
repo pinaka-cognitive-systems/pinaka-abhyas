@@ -24,8 +24,8 @@ jobs:
       - name: "Tier 2: cross-record pack checks"
         run: python3 schema/validator/run_checks.py
 
-      - name: "Tests: engine and validator"
-        run: python3 -m pytest engine/tests schema/validator/tests -q
+      - name: "Tests: validator"
+        run: python3 -m pytest schema/validator/tests -q
 
   quality-report:
     name: Content quality report (advisory, never blocks merge)

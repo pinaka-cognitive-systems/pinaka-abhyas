@@ -52,10 +52,10 @@ Two honest limits remain before Gate A can be called passed:
 
 ## Artifacts
 
-- Items: `genspike/items/arn_caf_qa_*.json` (24). Stamped pack: `genspike/pack.json`.
-- Spec: `prashna/profiles/ca_abhyas/generation_spec.md`. Manifest: `genspike/manifest.json`.
-- Canon v2: `misconceptions.json` (version 2, 37 ids).
-- Re-run: `python3 genspike/build_and_validate.py`.
+- Items: `packs/ca-foundation-qa/items/arn_caf_qa_*.json` (24). Stamped pack: `packs/ca-foundation-qa/pack.json`.
+- Spec: `prashna/profiles/ca_abhyas/generation_spec.md`. Manifest: `packs/ca-foundation-qa/manifest.json`.
+- Canon v2: `schema/profiles/ca-foundation-qa/misconceptions.json` (version 2, 37 ids).
+- Re-run: `python3 packs/ca-foundation-qa/build_and_validate.py`.
 
 ## Next
 

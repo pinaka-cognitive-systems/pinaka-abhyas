@@ -38,9 +38,10 @@ Hosted free on GitHub Pages or Cloudflare Pages. No backend.
 
 ## Engine
 
-- The Python engine in `engine/` is the reference implementation. It is ported to
-  TypeScript for the PWA. The Python engine emits golden test vectors; CI requires
-  the TypeScript port to reproduce them exactly. See `docs/adr/0003-python-reference-engine-ts-port.md`.
+- The TypeScript engine in `engine-ts/` is the canonical implementation. The Python
+  prototype is archived at `prototypes/engine-py/` and its tests do not run in CI.
+  The independent Python cross-check of the core math lives in `crosscheck/`.
+  See `docs/adr/0010-single-typescript-engine.md`.
 
 ## Licensing
 
