@@ -73,8 +73,12 @@ Per item, binary outcomes only:
 
 ## 5. Selection (W1-5, W1-6, W1-7)
 
-`nextAction(state, bank, nowMs, examMs?, sessionLength=20)` returns a prioritized
-action with a reason string in marks terms. Priorities:
+`selectNextAction(state, bank, blueprint, nowMs, sessionLength=20, session?)` returns a
+prioritized action with a reason string in marks terms. The blueprint is a parameter
+(the engine holds no globals); the optional session-progress value is threaded between
+calls so the review budget is enforceable without mutation or a wall clock; examMs is
+not a selection input because the scheduler already applied exam capping when producing
+due dates. Priorities:
 
 1. **Misconception remediation.** A misconception with >= 2 occurrences whose last
    occurrence is recent (<= 14 days) and whose nodes carry blueprint weight: serve an
@@ -112,7 +116,9 @@ No dict-order dependence anywhere.
 - **Mock anchoring.** Completed mocks contribute their actual net scores: the readiness
   point estimate is a precision-weighted blend of the model EV and the recent-mock
   mean (mocks within 21 days, weight by recency). A model that disagrees with real
-  mocks loses, visibly.
+  mocks loses, visibly. Aggregation contract: mock events group by UTC calendar day;
+  each day's net-marks-per-answered-question rate projects onto the 100-question
+  paper; a day's weight is recency times completeness times answered count.
 - **Confidence.** insufficient_data below 20 events or below 25% blueprint coverage.
   Otherwise low when mean deviation > 0.8 or coverage < 60%; else medium. Never higher,
   structurally.
