@@ -1,7 +1,7 @@
 {
   "exam": "ca_foundation",
   "section": "quantitative_aptitude",
-  "version": 2,
+  "taxonomy_version": 2,
   "status": "draft",
   "tagging_rule": "Every wrong single_best option and every numeric_entry common_error must carry exactly one misconception id from this closed canon. Choose the most specific id that fits the actual wrong-answer path. Do not invent ids inline. If a genuine, recurring error has no id here, propose an addition and bump the version; this canon is designed upfront so generators never guess. arithmetic_slip is the fallback for a genuine computational slip only, never for a conceptual error. This canon was validated against a v1 pilot, which showed v1 covered only computational errors. Version 2 adds Logical Reasoning misconceptions (blood relations, direction and seating, series and coding) and conceptual or property misconceptions (invariance, relation properties, set operations, definitions).",
   "misconceptions": [

@@ -28,10 +28,14 @@ REGISTRY = Registry().with_resource(CORE["$id"], Resource.from_contents(CORE))
 
 tax_raw = json.loads((PROFILE_DIR / "taxonomy.json").read_text())
 misc_raw = json.loads((PROFILE_DIR / "misconceptions.json").read_text())
+# Support both the old "version" key and the aligned "taxonomy_version" key.
+misc_version = misc_raw.get("taxonomy_version") or misc_raw.get("version")
 TAX = {
     "nodes": {n["id"] for n in tax_raw["nodes"]},
     "misconceptions": {m["id"] for m in misc_raw["misconceptions"]},
     "difficulty_scale": tax_raw["difficulty_scale"],
+    "taxonomy_version": tax_raw.get("taxonomy_version"),
+    "misconception_version": misc_version,
 }
 
 items_dir = HERE / "items"

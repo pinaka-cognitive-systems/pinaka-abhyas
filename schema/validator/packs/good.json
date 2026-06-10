@@ -18,7 +18,7 @@
         "qa.stats.probability.conditional"
       ],
       "difficulty_label": "L3",
-      "taxonomy_version": 1,
+      "taxonomy_version": 2,
       "item_type": "single_best",
       "expected_seconds": 90,
       "stem": "Two events A and B satisfy P(A and B) = 1/6 and P(B) = 1/2. Find P(A given B).",
@@ -95,7 +95,7 @@
         "qa.bmath.finance.simple_interest"
       ],
       "difficulty_label": "L1",
-      "taxonomy_version": 1,
+      "taxonomy_version": 2,
       "item_type": "numeric_entry",
       "expected_seconds": 60,
       "stem": "Find the simple interest on 10000 rupees at 5% per annum for 2 years, in rupees.",

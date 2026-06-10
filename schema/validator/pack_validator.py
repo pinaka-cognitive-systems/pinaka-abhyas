@@ -42,10 +42,14 @@ def svg_is_safe(svg_text: str) -> bool:
 
 
 def validate_pack(pack, taxonomy, schema, registry=None):
-    """taxonomy = {"nodes": set, "misconceptions": set, "difficulty_scale": list}.
+    """taxonomy = {"nodes": set, "misconceptions": set, "difficulty_scale": list,
+                   "taxonomy_version": int (optional), "misconception_version": int (optional)}.
 
     schema is the item schema to enforce (the CA Foundation QA Profile). When that
     schema composes the Core via $ref, pass a referencing registry that resolves it.
+
+    TAXONOMY_VERSION_MISMATCH fires when the taxonomy file's taxonomy_version, the
+    misconception canon's version (if present), or any item's taxonomy_version disagree.
     """
     violations = []
     reg = registry if registry is not None else Registry()
@@ -55,6 +59,23 @@ def validate_pack(pack, taxonomy, schema, registry=None):
 
     seen_ids = set()
     seen_hash = {}
+
+    # 0. bundle version agreement: taxonomy, misconceptions, and all items must agree.
+    bundle_tax_version = taxonomy.get("taxonomy_version")
+    bundle_misc_version = taxonomy.get("misconception_version")
+    if (
+        bundle_tax_version is not None
+        and bundle_misc_version is not None
+        and bundle_tax_version != bundle_misc_version
+    ):
+        violations.append(
+            Violation(
+                "TAXONOMY_VERSION_MISMATCH",
+                "<pack>",
+                f"taxonomy taxonomy_version={bundle_tax_version} disagrees with "
+                f"misconception canon version={bundle_misc_version}",
+            )
+        )
 
     for item in items:
         iid = item.get("id", "<no-id>")
@@ -87,6 +108,17 @@ def validate_pack(pack, taxonomy, schema, registry=None):
             violations.append(Violation("HASH_ERROR", iid, str(exc)))
 
         # 4. taxonomy referential integrity
+        if bundle_tax_version is not None:
+            item_tax_version = item.get("taxonomy_version")
+            if item_tax_version != bundle_tax_version:
+                violations.append(
+                    Violation(
+                        "TAXONOMY_VERSION_MISMATCH",
+                        iid,
+                        f"item taxonomy_version={item_tax_version} does not match "
+                        f"bundle taxonomy_version={bundle_tax_version}",
+                    )
+                )
         for node in item.get("tests", []):
             if node not in taxonomy["nodes"]:
                 violations.append(Violation("UNKNOWN_TEST_NODE", iid, node))

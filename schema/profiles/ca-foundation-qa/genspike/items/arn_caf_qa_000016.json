@@ -8,7 +8,7 @@
   "provenance": { "source": "pinaka_synth_genspike_v1", "license": "CC-BY-NC-SA-4.0", "generator": "sonnet", "created": "2026-06-09" },
   "tests": ["qa.lr.series_coding.coding_decoding"],
   "difficulty_label": "L2",
-  "taxonomy_version": 1,
+  "taxonomy_version": 2,
   "item_type": "single_best",
   "expected_seconds": 75,
   "stem": "In a code language, the first letter of a word is shifted forward by 1 place in the alphabet, the second letter by 2 places, and the third letter by 3 places (A=1, B=2, ..., Z=26; wrapping is not needed for this word). Using this rule, how is the word RAJ written in code?",

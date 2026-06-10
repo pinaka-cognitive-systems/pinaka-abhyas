@@ -43,6 +43,7 @@ REJECTS = {
     "packs/reject/missing_rationale.json": "RATIONALE_COVERAGE",
     "packs/reject/rationale_missing_misconception.json": "MISCONCEPTION_REQUIRED",
     "packs/reject/numeric_missing_common_errors.json": "MISSING_COMMON_ERRORS",
+    "packs/reject/taxonomy_version_mismatch.json": "TAXONOMY_VERSION_MISMATCH",
 }
 
 
@@ -53,10 +54,14 @@ def load(rel):
 def load_taxonomy():
     tax = json.loads((PROFILE_DIR / "taxonomy.json").read_text())
     misc = json.loads((PROFILE_DIR / "misconceptions.json").read_text())
+    # Support both the old "version" key and the aligned "taxonomy_version" key.
+    misc_version = misc.get("taxonomy_version") or misc.get("version")
     return {
         "nodes": {n["id"] for n in tax["nodes"]},
         "misconceptions": {m["id"] for m in misc["misconceptions"]},
         "difficulty_scale": tax["difficulty_scale"],
+        "taxonomy_version": tax.get("taxonomy_version"),
+        "misconception_version": misc_version,
     }
 
 
@@ -85,11 +90,14 @@ def main() -> int:
     migrated = migrate(v1)
     pack = canonical.stamp_pack({"items": [migrated], "assets": []})
     residual = {v.code for v in pv.validate_pack(pack, tax, SCHEMA, REGISTRY)}
-    # CA v1 carries no per-option diagnosis. The migration maps every field; the
-    # only open item is the new per-option requirement, filled later by enrichment.
-    if residual <= {"RATIONALE_COVERAGE"} and migrated["id"] == "vlt_caf_qa_000088":
-        note = "needs per-option diagnosis enrichment before publish" if residual else "clean"
-        print(f"PASS  migration CA v1 -> UQS field-complete; id {migrated['id']} ({note})")
+    # CA v1 carries no per-option diagnosis and was tagged at taxonomy_version 1.
+    # Allowed residuals: RATIONALE_COVERAGE (per-option diagnosis not yet enriched),
+    # TAXONOMY_VERSION_MISMATCH (migrated item retains original taxonomy_version; the
+    # re-tag migration to the current bundle version is a separate enrichment step).
+    allowed_residual = {"RATIONALE_COVERAGE", "TAXONOMY_VERSION_MISMATCH"}
+    if residual <= allowed_residual and migrated["id"] == "vlt_caf_qa_000088":
+        notes = sorted(residual) if residual else ["clean"]
+        print(f"PASS  migration CA v1 -> UQS field-complete; id {migrated['id']} ({', '.join(notes)})")
     else:
         ok = False
         print(f"FAIL  migration: id {migrated['id']}, residual {sorted(residual)}")

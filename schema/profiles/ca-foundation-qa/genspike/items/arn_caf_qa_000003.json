@@ -8,7 +8,7 @@
   "provenance": { "source": "pinaka_synth_genspike_v1", "license": "CC-BY-NC-SA-4.0", "generator": "sonnet", "created": "2026-06-09" },
   "tests": ["qa.bmath.ratio_indices_log.ratio"],
   "difficulty_label": "L2",
-  "taxonomy_version": 1,
+  "taxonomy_version": 2,
   "item_type": "single_best",
   "expected_seconds": 75,
   "stem": "Asha, Bimal, and Chetan invest in a business in the ratio 4:5:6. The total profit at the end of the year is Rs 75,000. What is Chetan's share of the profit?",

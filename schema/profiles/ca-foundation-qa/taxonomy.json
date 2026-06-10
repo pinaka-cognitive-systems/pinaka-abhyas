@@ -2,7 +2,7 @@
   "exam": "ca_foundation",
   "section": "quantitative_aptitude",
   "paper": "Paper 3 — Quantitative Aptitude",
-  "taxonomy_version": 1,
+  "taxonomy_version": 2,
   "status": "draft",
   "source": "Official ICAI CA Foundation Paper 3 syllabus (syllabus/CAF QA IP.pdf). Built from the printed chapter and unit structure. Node ids are stable; subtopic granularity may deepen at later taxonomy_versions.",
   "difficulty_scale": ["L1", "L2", "L3"],
