@@ -39,3 +39,6 @@ app/dist/
 
 # Cross-check generated cases (deterministic; regenerate via crosscheck/generate_cases.py)
 crosscheck/cases.json
+
+# Pilot staging (transient; accepted items promote into the pack, reports persist to audit/)
+packs/ca-foundation-qa/staging/
