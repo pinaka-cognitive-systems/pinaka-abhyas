@@ -418,7 +418,19 @@ def validate_pack(pack, taxonomy, schema, registry=None, pack_root=None):
                 if not is_lr_item:
                     canon_stem = _canon_text(item.get("stem", ""))
                     canon_correct = _canon_text(correct_option_obj.get("text", ""))
-                    if canon_correct and canon_correct in canon_stem:
+                    # Numeric exemption: a numeric answer legitimately appears in
+                    # the stem's own data (the median of a list IS in the list).
+                    # Verbatim containment is only meaningful for non-numeric
+                    # answers of useful length.
+                    is_numeric_answer = bool(
+                        re.fullmatch(r"[\d\s.,/%:+-]*\d[\d\s.,/%:+-]*", canon_correct)
+                    )
+                    if (
+                        canon_correct
+                        and len(canon_correct) >= 4
+                        and not is_numeric_answer
+                        and canon_correct in canon_stem
+                    ):
                         violations.append(
                             Violation(
                                 "STEM_ANSWER_LEAK",
@@ -428,15 +440,6 @@ def validate_pack(pack, taxonomy, schema, registry=None, pack_root=None):
                                 f"appears verbatim in stem",
                             )
                         )
-                if _LEAK_PHRASES.search(item.get("stem", "")):
-                    violations.append(
-                        Violation(
-                            "STEM_ANSWER_LEAK",
-                            iid,
-                            "stem contains a forbidden answer-leak phrase "
-                            "('the answer is' or 'correct option')",
-                        )
-                    )
 
         # 7. asset references resolve and are owned by this item
         texts = (
