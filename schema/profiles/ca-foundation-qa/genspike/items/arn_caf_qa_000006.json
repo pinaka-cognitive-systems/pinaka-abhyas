@@ -11,6 +11,10 @@
     "generator": "sonnet",
     "created": "2026-06-09"
   },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000006.py"
+  },
   "tests": [
     "qa.stats.central_tendency_dispersion.standard_deviation"
   ],

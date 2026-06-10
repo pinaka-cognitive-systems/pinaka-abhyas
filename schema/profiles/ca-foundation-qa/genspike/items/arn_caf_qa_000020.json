@@ -11,6 +11,10 @@
     "generator": "sonnet",
     "created": "2026-06-09"
   },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000020.py"
+  },
   "tests": [
     "qa.stats.index_numbers.construction"
   ],

@@ -74,7 +74,7 @@ items = [json.loads(p.read_text()) for p in paths]
 pack = {"items": items, "assets": []}
 canonical.stamp_pack(pack)  # fills content_hash for every item
 
-violations = pv.validate_pack(pack, TAX, SCHEMA, REGISTRY)
+violations = pv.validate_pack(pack, TAX, SCHEMA, REGISTRY, pack_root=HERE)
 
 out = HERE / "pack.json"
 out.write_text(json.dumps(pack, indent=2, ensure_ascii=False) + "\n")
