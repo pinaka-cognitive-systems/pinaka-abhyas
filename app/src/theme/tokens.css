@@ -149,10 +149,17 @@
      * before: #FFFFFF on #059669 = 3.77:1 (FAIL)
      * after:  #FFFFFF on #047857 = 5.48:1 (PASS)
      */
+    /*
+     * contrast fix (non-text, WCAG 1.4.11 3:1): the border carries the
+     * correct/wrong state on option cards, so it must read against the soft
+     * fill it outlines.
+     * before: #34D399 vs #ECFDF5 = 1.82:1 (FAIL)
+     * after:  #059669 vs #ECFDF5 = 3.58:1, vs #FFFFFF = 3.77:1 (PASS)
+     */
     --color-success:            #047857;
     --color-success-soft:       #ECFDF5;
     --color-success-text:       #065F46;
-    --color-success-border:     #34D399;
+    --color-success-border:     #059669;
     --color-success-foreground: #FFFFFF;
 
     /* ------------------------------------------------------------------ */
@@ -166,19 +173,31 @@
      * before: #FFFFFF on #D97706 = 3.19:1 (FAIL)
      * after:  #09090B on #D97706 = 6.24:1 (PASS)
      */
+    /*
+     * contrast fix (non-text, WCAG 1.4.11 3:1): callout borders read against
+     * the soft fill.
+     * before: #FBBF24 vs #FFFBEB = 1.61:1 (FAIL)
+     * after:  #D97706 vs #FFFBEB = 3.07:1, vs #FFFFFF = 3.19:1 (PASS)
+     */
     --color-warning:            #D97706;
     --color-warning-soft:       #FFFBEB;
     --color-warning-text:       #92400E;
-    --color-warning-border:     #FBBF24;
+    --color-warning-border:     #D97706;
     --color-warning-foreground: #09090B;
 
     /* ------------------------------------------------------------------ */
     /* SEMANTIC — danger (rose)                                             */
     /* ------------------------------------------------------------------ */
+    /*
+     * contrast fix (non-text, WCAG 1.4.11 3:1): the border carries the wrong
+     * state on option cards.
+     * before: #FB7185 vs #FFF1F2 = 2.45:1 (FAIL)
+     * after:  #E11D48 vs #FFF1F2 = 4.28:1, vs #FFFFFF = 4.70:1 (PASS)
+     */
     --color-danger:            #E11D48;
     --color-danger-soft:       #FFF1F2;
     --color-danger-text:       #9F1239;
-    --color-danger-border:     #FB7185;
+    --color-danger-border:     #E11D48;
     --color-danger-foreground: #FFFFFF;
 
     /* ------------------------------------------------------------------ */
@@ -191,10 +210,16 @@
      * before: #FFFFFF on #6366F1 = 4.47:1 (FAIL)
      * after:  #FFFFFF on #5558E8 = 5.32:1 (PASS)
      */
+    /*
+     * contrast fix (non-text, WCAG 1.4.11 3:1):
+     * before: #A5B4FC vs #EEF2FF = 1.78:1 (FAIL)
+     * after:  #5558E8 vs #EEF2FF = 4.76:1, vs #FFFFFF = 5.32:1 (PASS);
+     *         matches brand-primary, one indigo everywhere.
+     */
     --color-info:            #5558E8;
     --color-info-soft:       #EEF2FF;
     --color-info-text:       #4338CA;
-    --color-info-border:     #A5B4FC;
+    --color-info-border:     #5558E8;
     --color-info-foreground: #FFFFFF;
 
     /* ------------------------------------------------------------------ */
