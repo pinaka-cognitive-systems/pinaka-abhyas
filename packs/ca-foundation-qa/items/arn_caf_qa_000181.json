@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "All members except 35 are perfect squares: 4=2², 9=3², 16=4², 25=5², 49=7². 35=5×7 is not a perfect square, so 35 is the odd one out.",
+  "explanation_sections": {
+    "punchline": "Every number in the group is a perfect square except 35. 35 = 5 × 7 has no integer square root, so it does not belong.",
+    "approach": "For odd-one-out number questions, test a single defining property across all members. Try: perfect squares, perfect cubes, primes, multiples of a fixed number. Write the root or factor of each number beside it. The one that fails the property is the answer.",
+    "lesson": "Not every odd number is a non-square, and not every large number is a non-square. Check each candidate against the integer square root, not just parity or size.",
+    "timing": "About 60 seconds. Computing square roots for each of the six numbers takes roughly 30 seconds. Confirm 35 is not a perfect square in under 10 seconds: 5² = 25, 6² = 36, so 35 falls between two squares."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

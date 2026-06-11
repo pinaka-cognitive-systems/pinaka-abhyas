@@ -49,6 +49,12 @@
     }
   ],
   "explanation": "The three partners' shares are proportional to 4, 5, and 6. Divide each share by the total number of parts (4+5+6 = 15) to get the fraction. Chetan's fraction is 6/15 = 2/5, so his share is (2/5) x 75,000 = 30,000.",
+  "explanation_sections": {
+    "punchline": "Total parts = 4+5+6 = 15. Chetan holds 6 parts, so his share is (6/15) x 75,000 = Rs 30,000.",
+    "approach": "For any ratio profit-sharing question: (1) add all ratio parts to get the denominator, (2) use the person's ratio number as the numerator, (3) multiply that fraction by total profit. Write the fraction before you touch the total. This prevents the denominator-error trap.",
+    "lesson": "The denominator in a ratio share is always the sum of all parts, not the sum of the other parties' parts. Getting this wrong inflates or deflates every share.",
+    "timing": "About 75 seconds. Sum the parts first: 4+5+6. If you get 16, recount. Then one multiplication. Identify which person is asked before computing to avoid reporting the wrong share."
+  },
   "empirical": { "calibration_status": "none", "n_responses": 0 },
   "ext": { "icai_skill_bucket": "application" }
 }

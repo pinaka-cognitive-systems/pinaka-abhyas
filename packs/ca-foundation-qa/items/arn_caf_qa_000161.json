@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "Because B is a subset of A, every element of B is already in A. The union A ∪ B equals A, so it contains 5 elements.",
+  "explanation_sections": {
+    "punchline": "B is a subset of A, so A ∪ B = A. The union adds nothing new and contains exactly 5 elements.",
+    "approach": "Union questions require checking subset relationships before applying the inclusion-exclusion formula. If one set is entirely inside the other, the union equals the larger set. Check subset status first, then decide whether a formula is even needed.",
+    "lesson": "When B is a subset of A, A ∪ B = A and |A ∪ B| = |A|. Adding the sizes only works when the sets share no elements at all.",
+    "timing": "About 60 seconds. Recognise the subset condition in the stem in under 10 seconds and write the answer. Eliminate option 8 first: it assumes zero overlap."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

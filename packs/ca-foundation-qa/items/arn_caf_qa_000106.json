@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "1. Identify the maximum value: 4,100.\n2. Identify the minimum value: 950.\n3. KEY STEP: Range = maximum - minimum = 4,100 - 950 = 3,150.\n4. The range measures the total spread from lowest to highest.",
+  "explanation_sections": {
+    "punchline": "Range is maximum minus minimum. Here 4,100 - 950 = 3,150.",
+    "approach": "Scan the data for the largest and smallest values. Write them down. Then subtract: range = max - min. Do not average or sum the values. One subtraction gives the answer.",
+    "lesson": "Range measures total spread. It requires exactly two numbers: the highest and the lowest. Everything else in the data is irrelevant.",
+    "timing": "About 60 seconds. Spot max and min in five seconds each. The single subtraction takes under ten seconds. Eliminate option (3) in five seconds because it is just the maximum, not a difference."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

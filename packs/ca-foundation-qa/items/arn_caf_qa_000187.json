@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "From MANGO to OCPIQ, each letter moves forward by 2 positions in the alphabet: M(13)+2=O(15), A(1)+2=C(3), N(14)+2=P(16), G(7)+2=I(9), O(15)+2=Q(17). Applying the same +2 rule to GRAPE: G(7)+2=I(9), R(18)+2=T(20), A(1)+2=C(3), P(16)+2=R(18), E(5)+2=G(7). Code = ITCRG.",
+  "explanation_sections": {
+    "punchline": "Each letter in MANGO shifts forward by exactly 2 to give OCPIQ. Applying the same shift to each letter of GRAPE gives ITCRG.",
+    "approach": "For letter-coding problems, derive the rule from the given example before touching the target word. Check the shift for at least two letters to confirm it is uniform. Then apply it letter by letter to the target word. Write each letter's position number if you are unsure: use A=1, B=2, ... Z=26.",
+    "lesson": "Always verify the coding rule on two or more letters from the example. A single-letter check can mislead if there is a position-based or mixed rule. Uniform shift and position-based shift produce different outputs.",
+    "timing": "About 90 seconds. Deriving the rule from MANGO takes 30 seconds. Applying it to five letters of GRAPE takes 40 seconds. Use the last 20 seconds to check the last letter, which is where arithmetic errors most often occur."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

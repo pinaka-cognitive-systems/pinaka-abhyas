@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "Effective annual rate = (1 + r/m)^m - 1, where r = 0.12 and m = 12. This gives (1.01) raised to the power 12 - 1 = 1.1268 - 1 = 12.68%. The nominal rate 12% ignores within-year compounding, so it understates the true cost.",
+  "explanation_sections": {
+    "punchline": "Monthly compounding means interest earns interest 12 times a year, pushing the effective rate above the 12% nominal figure to 12.68%.",
+    "approach": "Identify the nominal rate r and the number of compounding periods per year m. Compute the periodic rate r/m. Apply the formula (1 + r/m)^m minus 1. Subtract 1 at the very end, after computing the full power, to get the effective rate as a decimal.",
+    "lesson": "The effective rate always exceeds the nominal rate when compounding frequency is greater than once a year. More periods per year means a higher effective rate.",
+    "timing": "About 60 seconds. This is an L1 recall item. The stem provides (1.01)^12 = 1.1268. Subtract 1 to get 0.1268 = 12.68%. Reject option (2) in three seconds: 12% is just the nominal rate restated."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

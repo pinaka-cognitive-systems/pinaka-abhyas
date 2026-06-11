@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "1. Total frequency n = 4 + 8 + 10 + 6 + 2 = 30. n/2 = 15.\n2. Cumulative frequencies: 4, 12, 22, 28, 30. The median class is 30-40 (cumulative frequency first reaches or exceeds 15 here).\n3. KEY STEP: Median = L + ((n/2 - cf) / f) * h = 30 + ((15 - 12) / 10) * 10.\n4. Median = 30 + 3 = 33.",
+  "explanation_sections": {
+    "punchline": "The median class is 30-40 because cumulative frequency crosses n/2 = 15 there. Applying the interpolation formula gives 30 + 3 = 33.",
+    "approach": "Build a cumulative frequency column. Compute n/2. Find the first class where the cumulative frequency equals or exceeds n/2: that is the median class. Then apply: Median = L + ((n/2 - cf) / f) x h, where L is the lower boundary, cf is the cumulative frequency before the median class, f is the median class frequency, and h is the class width.",
+    "lesson": "The formula variable cf is the cumulative frequency of the class before the median class, not of the median class itself. Using the wrong cf shifts the answer by one class interval.",
+    "timing": "About 90 seconds. Building the cumulative frequency column takes 30 seconds. Identifying the median class takes 10 seconds. The interpolation formula takes 20 seconds. Eliminate option (3) in 5 seconds: 30 is just the lower boundary, no interpolation done."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

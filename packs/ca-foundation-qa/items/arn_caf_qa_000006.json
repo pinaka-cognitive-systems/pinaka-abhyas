@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "Mean = (4+4+4+8+8+8)/6 = 6. Each value deviates by 2 from the mean, so sum of squared deviations = 6 * 4 = 24. Population variance = 24/6 = 4. Population SD = sqrt(4) = 2.",
+  "explanation_sections": {
+    "punchline": "Population SD divides by n, not n-1. Mean = 6, variance = 24/6 = 4, SD = sqrt(4) = 2.",
+    "approach": "For standard deviation: (1) compute the mean, (2) find each deviation from the mean, (3) square and sum all deviations, (4) divide by n for population or n-1 for sample, (5) take the square root. Confirm at step 4 whether the question says population or sample before dividing.",
+    "lesson": "Population SD uses n in the denominator; sample SD uses n-1. Forgetting the square root in step 5 gives variance, not standard deviation.",
+    "timing": "About 75 seconds. Recognize the symmetry: three values at 4 and three at 8. Mean = 6 in two seconds. Each squared deviation = 4. Sum = 24. Variance = 4. SD = 2. Option (1) at 4 is the variance itself; eliminate it if you remember the square-root step."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

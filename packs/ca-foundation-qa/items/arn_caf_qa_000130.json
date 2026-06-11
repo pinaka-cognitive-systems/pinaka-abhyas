@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "1. Standardise: z = (65 - 50) / 10 = 1.5.\n2. The stem gives P(Z < 1.5) = 0.9332.\n3. KEY STEP: P(X > 65) = P(Z > 1.5) = 1 - 0.9332 = 0.0668.\n4. Reading the CDF value directly gives the lower tail, not the upper tail.",
+  "explanation_sections": {
+    "punchline": "The table gives the lower-tail area 0.9332. The question asks for the upper tail, so the answer is 1 minus 0.9332 = 0.0668.",
+    "approach": "Step one: standardise the value to get z = (x minus mean) divided by standard deviation. Step two: identify whether the question asks for the area below or above z. Step three: if above, subtract the given CDF value from 1. The stem always provides the lower-tail value, so any \"more than\" question needs the complement.",
+    "lesson": "A normal table gives P(Z < z). For P(X > x), always apply 1 minus that value. Confusing lower and upper tail is the single most common normal distribution error.",
+    "timing": "About 90 seconds. Compute z = 1.5 in 10 seconds. Reject option (4) immediately: the table value 0.9332 is the lower tail, not the answer. Reject option (2): 0.5 applies only when x equals the mean."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

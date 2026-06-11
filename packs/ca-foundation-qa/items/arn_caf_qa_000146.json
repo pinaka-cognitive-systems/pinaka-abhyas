@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "NPV = sum of present values of cash flows minus the initial cost. PV1 = 60,500 / 1.1 = 55,000. PV2 = 66,550 / (1.1)² = 66,550 / 1.21 = 55,000. NPV = 55,000 + 55,000 - 1,00,000 = Rs 10,000.",
+  "explanation_sections": {
+    "punchline": "Each cash flow discounts to Rs 55,000, so total PV is Rs 1,10,000 against an outlay of Rs 1,00,000, giving NPV = Rs 10,000.",
+    "approach": "Set up a column for each cash flow with its year, amount, and discount factor. PV = Cash flow divided by (1 + r)^year. Sum all present values, then subtract the initial investment. Never add undiscounted cash flows: every amount except the initial outlay must be discounted.",
+    "lesson": "In NPV problems, each future cash flow uses its own discount factor with the correct year as the exponent. Forgetting to discount year 2 is a partial-work error, not an algebra error.",
+    "timing": "About 90 seconds. Reject option (2) in five seconds: Rs 27,050 is the undiscounted surplus, not the NPV. Reject option (3): that result means year 2 was not discounted. Use the given factors 0.9091 and 0.8264 to check your PVs quickly."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

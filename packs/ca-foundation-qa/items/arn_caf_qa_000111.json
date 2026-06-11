@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "1. The sampling interval k = population size / sample size = 500 / 50 = 10.\n2. KEY STEP: Selecting every kth unit from a list is systematic sampling by definition.\n3. Simple random sampling needs equal independent chances. Stratified sampling needs groups. Cluster sampling needs whole groups selected.\n4. Only systematic sampling matches: a fixed interval applied to an ordered list.",
+  "explanation_sections": {
+    "punchline": "Selecting every kth unit from an ordered list is the definition of systematic sampling. No other method uses a fixed interval.",
+    "approach": "For sampling identification questions, check three things in sequence: Is there a fixed interval applied to a list? That is systematic. Are there predefined strata with separate draws? That is stratified. Are whole natural groups selected as units? That is cluster. Everything else with individual random draws is simple random.",
+    "lesson": "Systematic sampling is identified by one feature: a constant interval k between selected units. Once you see that pattern, the answer is certain regardless of what the interval value is.",
+    "timing": "About 60 seconds. Read the description and check for a fixed interval in 15 seconds. If you see it, mark systematic and move on. Do not spend time computing k = 500/50; the interval is already stated as 10."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

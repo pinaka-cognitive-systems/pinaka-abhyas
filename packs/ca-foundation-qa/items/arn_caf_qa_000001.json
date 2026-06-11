@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "Half-yearly compounding means r = 10%/2 = 5% per period and n = 2 periods. A = 20000 * (1.05)^2 = 22,050, so CI = 2,050. Dividing the rate by the number of periods per year is the key step; using the full annual rate per period overstates the interest.",
+  "explanation_sections": {
+    "punchline": "Half-yearly means two periods at 5% each, not one at 10%. That gives CI of Rs 2,050, not Rs 2,000.",
+    "approach": "When the question states a compounding frequency other than annual, convert the annual rate to a periodic rate and count the periods. For half-yearly: periodic rate = annual rate divided by 2, periods = years multiplied by 2. Then apply A = P * (1 + r)^n and subtract P.",
+    "lesson": "Always match the rate to the compounding period. An annual rate used as a half-yearly rate is a rate-period mismatch that inflates interest.",
+    "timing": "About 75 seconds. Compute (1.05)^2 = 1.1025 in one step. Option (2) is the simple-interest trap: eliminate it in five seconds if you already know compounding applies here."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

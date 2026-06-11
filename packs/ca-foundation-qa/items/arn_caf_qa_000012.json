@@ -49,6 +49,12 @@
     }
   ],
   "explanation": "Track coordinates: start at (0, 0) facing North. Walk 6 km North to (0, 6). Turn right (now East), walk 8 km to (8, 6). Turn right (now South), walk 6 km to (8, 0). Distance from O = 8 km, direction East.",
+  "explanation_sections": {
+    "punchline": "Two right turns from North give East then South. The northward and southward legs cancel, leaving 8 km due East.",
+    "approach": "Assign coordinates to each waypoint. Two consecutive right turns from North produce a Z-shape: North, East, South. The first and third legs are parallel and opposite. If they are equal, they cancel completely, leaving only the lateral (East-West) displacement as the net distance.",
+    "lesson": "When the first and last legs are equal and opposite, net displacement equals only the middle leg. Recognise this pattern to save computation.",
+    "timing": "About 75 seconds. Notice the first and third legs are both 6 km but in opposite directions: they cancel in five seconds. Net distance = 8 km East. Option (1) at 20 km is the scalar-sum trap; eliminate it immediately."
+  },
   "empirical": { "calibration_status": "none", "n_responses": 0 },
   "ext": { "icai_skill_bucket": "application" }
 }

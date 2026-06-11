@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "1. The defining property of independent events: P(A ∩ B) = P(A) × P(B).\n2. KEY STEP: P(A ∩ B) = (1/3) × (1/4) = 1/12.\n3. P(A) + P(B) = 7/12 is P(A ∪ B) when A and B are mutually exclusive, not the intersection.\n4. Independence means the joint probability equals the product; it does not mean the events cannot both occur.",
+  "explanation_sections": {
+    "punchline": "For independent events, the joint probability is the product of the individual probabilities. P(A intersection B) = 1/3 x 1/4 = 1/12.",
+    "approach": "When a question states two events are independent and asks for their intersection, multiply the two probabilities. Write: P(A intersection B) = P(A) x P(B). Then substitute and compute. Addition is for union, not intersection.",
+    "lesson": "Independence means P(A intersection B) = P(A) x P(B). Mutual exclusivity means P(A intersection B) = 0. The two properties are opposites when both probabilities are positive.",
+    "timing": "About 60 seconds. This is a single-step multiplication. Identify the independence condition in 10 seconds and multiply in 10 seconds. Eliminate option (2) in five seconds because 7/12 is a sum, not a product."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

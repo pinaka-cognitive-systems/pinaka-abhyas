@@ -48,7 +48,13 @@
       "misconception": "rounding_error"
     }
   ],
-  "explanation": "For an ordinary annuity (end-of-period payments), FV = PMT * [(1 + r)^n - 1] / r. With PMT = 2000, r = 0.10, n = 4: annuity factor = (1.4641 - 1) / 0.10 = 0.4641 / 0.10 = 4.641. FV = 2000 * 4.641 = Rs 9,282. Using the PV formula instead gives 3.170 * 2000 = Rs 6,340 -- a common trap at L3.",
+  "explanation": "For an ordinary annuity (end-of-period payments), FV = PMT * [(1 + r)^n - 1] / r. With PMT = 2000, r = 0.10, n = 4: annuity factor = (1.4641 - 1) / 0.10 = 0.4641 / 0.10 = 4.641. FV = 2000 * 4.641 = Rs 9,282. Using the PV formula instead gives 3.170 * 2000 = Rs 6,340, a common trap at L3.",
+  "explanation_sections": {
+    "punchline": "This is a future value ordinary annuity. Use FV = PMT x [(1+r)^n - 1] / r. Annuity factor = (1.4641 - 1) / 0.10 = 4.641, so FV = Rs 9,282.",
+    "approach": "Identify three things before writing any formula: is this future value or present value, ordinary annuity (end-of-period) or annuity due (start-of-period), and what given value to use for (1+r)^n. For FV ordinary annuity: multiply PMT by [(1+r)^n - 1] / r. Use the given table value for (1.1)^4 directly; do not compute it from scratch.",
+    "lesson": "The FV annuity formula uses [(1+r)^n - 1] in the numerator. The PV annuity formula uses [1 - (1+r)^(-n)]. Confusing these two produces a much smaller answer.",
+    "timing": "About 110 seconds. Spend 20 seconds identifying FV vs PV. Spend 30 seconds computing the annuity factor using the given hint. Spend 20 seconds on the final multiplication. Eliminate option (1) in 5 seconds: Rs 6,340 is clearly the PV result."
+  },
   "empirical": { "calibration_status": "none", "n_responses": 0 },
   "ext": { "icai_skill_bucket": "application" }
 }

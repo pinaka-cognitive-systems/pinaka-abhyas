@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "12 = 4 × 3 = 2² × 3. So log10(12) = log10(2²) + log10(3) = 2 × 0.3010 + 0.4771 = 0.6020 + 0.4771 = 1.0791.",
+  "explanation_sections": {
+    "punchline": "12 = 2² × 3, so log10(12) = 2 × log10(2) + log10(3) = 0.6020 + 0.4771 = 1.0791.",
+    "approach": "Logarithm evaluation problems require factoring the target number into primes whose logs are given. Write the prime factorisation first: 12 = 2² × 3. Then apply log(ab) = log(a) + log(b) and log(a^n) = n × log(a). Substitute the given values last.",
+    "lesson": "Always factorise before expanding. Log of a product equals sum of logs. Log of a power equals the exponent times the log.",
+    "timing": "About 90 seconds. Factorising 12 takes under 10 seconds. Eliminate option 0.7781 in five seconds: that is log10(6), not log10(12)."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

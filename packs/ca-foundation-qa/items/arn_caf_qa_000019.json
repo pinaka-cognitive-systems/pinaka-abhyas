@@ -49,6 +49,12 @@
     }
   ],
   "explanation": "The addition theorem gives P(A union B) = P(A) + P(B) - P(A intersection B). Substituting: 0.30 + 0.50 - 0.20 = 0.60. The events are not independent (0.30 * 0.50 = 0.15, which differs from the given 0.20), so assuming independence yields the wrong overlap.",
+  "explanation_sections": {
+    "punchline": "P(chess OR carrom) = P(chess) + P(carrom) - P(both) = 0.30 + 0.50 - 0.20 = 0.60. The addition theorem subtracts the overlap once.",
+    "approach": "When a question gives P(A), P(B), and P(A and B) and asks for P(A or B), apply the addition theorem directly: P(A or B) = P(A) + P(B) - P(A and B). Do not assume independence unless the problem states it. If independence were stated, you would compute P(A and B) = P(A) * P(B) yourself; here it is given, so use the given value.",
+    "lesson": "Always use the given P(A and B) in the addition theorem. Computing it from the product P(A)*P(B) is only valid when independence is explicitly stated.",
+    "timing": "About 75 seconds. Plug the three numbers into the formula in under 30 seconds. Use the remaining time to check that you subtracted the overlap, not added it."
+  },
   "empirical": { "calibration_status": "none", "n_responses": 0 },
   "ext": { "icai_skill_bucket": "application" }
 }

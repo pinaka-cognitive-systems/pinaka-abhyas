@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "The time reversal test requires P01 × P10 = 1. Periods 0 and 1 are swapped; the two index numbers must multiply to 1. Fisher Ideal Index satisfies this. Circular test covers three or more periods; factor reversal tests the product of price and quantity index numbers.",
+  "explanation_sections": {
+    "punchline": "P01 × P10 = 1 is the exact definition of the time reversal test. The formula names the test directly.",
+    "approach": "Questions on tests of adequacy ask you to match a formula or condition to its named test. Read the condition given in the stem first. Then check each option against the definition you have memorised, not the other way around. Eliminate by ruling out what each wrong test actually checks.",
+    "lesson": "Time reversal: P01 × P10 = 1. Circular: three or more periods chained. Factor reversal: price index × quantity index = value ratio. Unit test: result unchanged when units change.",
+    "timing": "About 60 seconds. This is pure recall. If the name time reversal does not come to you in 10 seconds, move on and return."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

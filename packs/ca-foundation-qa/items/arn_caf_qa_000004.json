@@ -49,6 +49,12 @@
     }
   ],
   "explanation": "Because the sub-group has no internal ordering, use combinations: C(8,3) = 8! / (3! x 5!) = (8 x 7 x 6) / 6 = 56. Dividing by 3! (not 2! or 1!) removes all orderings of the chosen 3 members.",
+  "explanation_sections": {
+    "punchline": "A sub-group has no order, so use C(8,3) = 56. Using P(8,3) = 336 counts ordered arrangements, which the question does not ask for.",
+    "approach": "Ask: does the arrangement or sequence matter? If not, use combinations. Compute C(n,r) = (n * (n-1) * ... down r terms) / r!. Write the r! denominator before you multiply the numerator to avoid dividing by the wrong factorial.",
+    "lesson": "Permutations count ordered arrangements; combinations count unordered groups. The word 'select' or 'choose' without mention of rank or role signals combinations.",
+    "timing": "About 75 seconds. Numerator: 8 x 7 x 6 = 336. Denominator: 3! = 6. Divide: 56. Option (3) at 336 is the permutation answer; eliminate it in five seconds once you confirm order does not matter."
+  },
   "empirical": { "calibration_status": "none", "n_responses": 0 },
   "ext": { "icai_skill_bucket": "application" }
 }

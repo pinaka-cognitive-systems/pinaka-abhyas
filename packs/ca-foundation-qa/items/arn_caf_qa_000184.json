@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "Start facing North. Turn CW 90 degrees: now facing East. Walk 8 m. Turn ACW 90 degrees from East: now facing North. Walk 6 m. Turn 180 degrees from North: now facing South.",
+  "explanation_sections": {
+    "punchline": "After two turns that cancel each other out, Meera is again facing North. A final 180-degree turn points her South.",
+    "approach": "For direction problems, track only the facing direction at each step. Write a short chain: N, CW 90 = E, ACW 90 from E = N, 180 from N = S. Distance walked does not change the facing direction. Apply turns in order and do not skip any.",
+    "lesson": "A clockwise 90-degree turn followed by an anticlockwise 90-degree turn returns you to the original direction. A 180-degree turn always points you in the exact opposite direction.",
+    "timing": "About 90 seconds. Each turn takes under 10 seconds to resolve. The entire chain has three turns. Read every turn before writing down the final answer to avoid missing the last step."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "1. Identify the modal class: 40-50 has the highest frequency (18).\n2. Set L=40, h=10, f1=18 (modal class), f0=12 (class before), f2=10 (class after).\n3. KEY STEP: Mode = L + ((f1 - f0) / (2*f1 - f0 - f2)) * h = 40 + (6/14) * 10.\n4. Mode = 40 + 4.29 = 44.29.",
+  "explanation_sections": {
+    "punchline": "The modal class is 40-50 with frequency 18. The numerator uses f1 - f0 (not f1 - f2), giving (6/14) x 10 = 4.29, so mode = 44.29.",
+    "approach": "Identify the modal class as the one with the highest frequency. Label f1 as the modal class frequency, f0 as the class before, f2 as the class after. Write the formula: Mode = L + ((f1 - f0) / (2*f1 - f0 - f2)) x h. The numerator is always f1 - f0, the difference with the class before. Writing f0 and f2 in the wrong positions is the most common error.",
+    "lesson": "In the mode formula, the numerator is f1 - f0, meaning the modal class minus the class immediately before it. Using f1 - f2 gives a different (wrong) numerator.",
+    "timing": "About 90 seconds. Identifying the modal class takes 10 seconds. Setting up the formula and substituting takes 30 seconds. Verify that your denominator 2*f1 - f0 - f2 is positive before computing."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

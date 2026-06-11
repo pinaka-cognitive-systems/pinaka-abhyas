@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "A sinking fund requires PMT = FV / [(( 1 + r)^n - 1) / r]. The annuity factor = ((1.1) raised to the power 4 - 1) / 0.10 = 0.4641 / 0.10 = 4.641. PMT = 5,00,000 / 4.641 = Rs 1,07,740.",
+  "explanation_sections": {
+    "punchline": "Dividing the target amount Rs 5,00,000 by the future-value annuity factor 4.641 gives the required annual deposit of Rs 1,07,740.",
+    "approach": "A sinking fund asks: what equal annual payment builds up to a target amount? The formula is PMT = FV divided by the future-value annuity factor. The factor is ((1 + r)^n minus 1) divided by r. The stem provides (1.1)^4 = 1.4641, so the factor = (1.4641 minus 1) / 0.10 = 4.641. Divide FV by this factor.",
+    "lesson": "For a sinking fund, always divide the future target by the FV annuity factor, not the PV annuity factor. Using the PV factor produces a higher deposit and is a common formula mix-up.",
+    "timing": "About 90 seconds. Reject option (4) in five seconds: Rs 1,25,000 is simply 5,00,000 divided by 4, ignoring the time value of money. Confirm you are using the FV factor 4.641, not a PV factor."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "Direct substitution gives 0/0. Factor the numerator: x² - 9 = (x - 3)(x + 3). Cancel the common factor (x - 3) to get lim(x -> 3)(x + 3) = 3 + 3 = 6.",
+  "explanation_sections": {
+    "punchline": "Direct substitution produces 0/0. Factor the numerator as (x - 3)(x + 3), cancel the common (x - 3), then substitute x = 3 to get 6.",
+    "approach": "When a limit gives 0/0, do not stop. Factor the numerator using the difference-of-squares or other identities. Cancel the common factor with the denominator. Only then substitute the limit value. This is the standard technique for removable discontinuities.",
+    "lesson": "A 0/0 form at a point does not mean the limit is 0. Factor and cancel first, then substitute. The limit may be a finite nonzero number.",
+    "timing": "About 90 seconds. Identifying the 0/0 form takes 10 seconds. Factoring x² - 9 takes 15 seconds. The rest is substitution. Do not waste time trying L'Hopital at this level."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

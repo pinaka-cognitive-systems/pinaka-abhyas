@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "Apply the power rule to each term. d/dx(3x³) = 9x², d/dx(-5x²) = -10x, d/dx(7) = 0. So dy/dx = 9x² - 10x.",
+  "explanation_sections": {
+    "punchline": "The power rule gives 9x² - 10x. Multiply by the exponent and reduce the power by 1 for each term. Constants disappear.",
+    "approach": "Polynomial differentiation applies the power rule term by term. For each term ax^n, the derivative is n × ax^(n-1). Do three steps in order: multiply coefficient by exponent, reduce the power by 1, drop constants. Write the results before combining.",
+    "lesson": "Power rule: d/dx(ax^n) = n × a × x^(n-1). The exponent comes down as a multiplier and the power drops by 1. Forgetting to reduce the power is the most common slip.",
+    "timing": "About 90 seconds. Three terms, three applications of the power rule. Eliminate option 3x² - 5x in 10 seconds: that result did not bring down the exponent as a multiplier."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

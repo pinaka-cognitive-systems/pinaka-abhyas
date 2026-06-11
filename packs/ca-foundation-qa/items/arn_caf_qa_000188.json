@@ -22,7 +22,7 @@
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 120,
-  "stem": "Six people -- P, Q, R, S, T, U -- sit in a row of seats 1 to 6 (left to right). Clue 1: P sits at seat 1. Clue 2: Q sits immediately to the right of P. Clue 3: R sits at seat 4. Clue 4: S does not sit at seat 6. Clue 5: T sits immediately to the right of R. Who sits at seat 6?",
+  "stem": "Six people sit in a row of seats 1 to 6 (left to right): P, Q, R, S, T, U. Clue 1: P sits at seat 1. Clue 2: Q sits immediately to the right of P. Clue 3: R sits at seat 4. Clue 4: S does not sit at seat 6. Clue 5: T sits immediately to the right of R. Who sits at seat 6?",
   "options": [
     {
       "key": 1,
@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "Clue 1: P=1. Clue 2: Q=P+1=2. Clue 3: R=4. Clue 5: T=R+1=5. Fixed seats: P=1, Q=2, R=4, T=5. Remaining people S and U fill seats 3 and 6. Clue 4: S not at seat 6. So S=3 and U=6. Seat 6 is U.",
+  "explanation_sections": {
+    "punchline": "Four clues fix P, Q, R, and T to seats 1, 2, 4, and 5. Only S and U remain for seats 3 and 6. Clue 4 bans S from seat 6, so U is at seat 6.",
+    "approach": "For six-person row-seating problems, apply fixed-position clues first to lock down as many seats as possible. Then apply adjacency clues to place blocks. List who remains and which seats are open. Use any negative clue (person not at seat X) to resolve the last ambiguity.",
+    "lesson": "After filling fixed and adjacent seats, the remaining people may have only two open seats. A single negative clue then decides which person goes where. Do not overlook negative clues: they are often the final step.",
+    "timing": "About 120 seconds. Four direct clues resolve in under 40 seconds. Identifying the two remaining people and two open seats takes 10 seconds. Applying the negative clue takes 5 seconds. Use remaining time to verify the full arrangement."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

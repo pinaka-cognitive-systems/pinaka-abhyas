@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "Arithmetic mean from a frequency distribution = (sum of f*x) / (sum of f). Here sum(f*x) = 20+20+45+20 = 105 and sum(f) = 10, giving mean = 10.5. Frequencies must be used as weights; simply averaging the distinct values without weighting gives the wrong answer.",
+  "explanation_sections": {
+    "punchline": "Multiply each value by its frequency, sum the products, then divide by the total frequency. Result: 105 / 10 = 10.5.",
+    "approach": "Set up a two-column table: value (x) and frequency (f). Add a third column for f*x. Sum the f column and the f*x column separately. Mean = sum(f*x) / sum(f). Never average the distinct values without weights: if one value appears four times, it counts four times.",
+    "lesson": "In a frequency distribution, each value must be weighted by its frequency before averaging. Skipping the weights is the most common error on this question type.",
+    "timing": "About 45 seconds. Building the f*x column takes 20 seconds for four rows. Eliminate option (4) in 5 seconds: it ignores frequencies."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

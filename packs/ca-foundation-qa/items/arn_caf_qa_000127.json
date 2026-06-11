@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "1. The probabilities of all values of a discrete random variable must sum to 1.\n2. Known values: 0.1 + 0.3 + 0.2 = 0.6.\n3. KEY STEP: k = 1 - 0.6 = 0.4.\n4. Omitting any known probability from the sum leads to an overestimate of k.",
+  "explanation_sections": {
+    "punchline": "All probabilities in a distribution sum to 1. Add the three known values and subtract from 1. Here 1 - 0.6 = 0.4.",
+    "approach": "List every given probability. Sum them. Subtract the total from 1 to find the missing value. Count the number of known terms and check that you have included all of them before subtracting.",
+    "lesson": "Missing-probability questions have one step: sum all known probabilities and subtract from 1. The only error source is omitting one of the known values from the sum, which inflates the answer.",
+    "timing": "About 90 seconds. Adding three decimals takes 15 seconds. The subtraction takes five seconds. Eliminate option (3) in five seconds because 0.6 results from summing only two of the three known probabilities."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

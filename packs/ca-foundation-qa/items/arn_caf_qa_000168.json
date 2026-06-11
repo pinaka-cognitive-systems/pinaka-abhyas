@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "Integrate term by term: ∫6x² dx = 2x³ and ∫4x dx = 2x². The general antiderivative is 2x³ + 2x² + C.",
+  "explanation_sections": {
+    "punchline": "Integration raises the power by 1 and divides by the new power: 6x²/3 = 2x³ and 4x/2 = 2x². The constant of integration C is mandatory.",
+    "approach": "Indefinite integration of polynomials applies the reverse power rule term by term. For each term ax^n, the integral is ax^(n+1) / (n+1). Raise the power by 1, divide the coefficient by the new power, and add C at the end. Always check: could the answer be verified by differentiating it?",
+    "lesson": "Reverse power rule: raise the power by 1, divide by the new power. An indefinite integral always needs + C. Omitting C is a mark-losing error.",
+    "timing": "About 90 seconds. Two terms, two integrations, one C. Eliminate option 12x + 4 in five seconds: that is the derivative of the integrand, not the integral."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

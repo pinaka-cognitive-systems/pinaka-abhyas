@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "Present value of a perpetuity = PMT / r. With PMT = 12,000 and r = 0.08: PV = 12,000 / 0.08 = Rs 1,50,000. A common error is using the wrong discount rate or applying a finite-period formula.",
+  "explanation_sections": {
+    "punchline": "For a perpetuity, PV = PMT / r. Rs 12,000 divided by 0.08 equals Rs 1,50,000.",
+    "approach": "Recognise the word \"forever\" or \"in perpetuity\" as the signal to use PV = PMT / r. There is no n and no annuity table needed. Convert the discount rate from percentage to decimal before dividing. The calculation is a single division.",
+    "lesson": "A perpetuity has only one formula: PMT divided by the decimal rate. Applying a finite-period annuity formula or using the wrong rate are the only two ways to go wrong here.",
+    "timing": "About 60 seconds. This is an L1 item. The division 12,000 / 0.08 = 1,50,000 takes 10 seconds. Reject option (1) in five seconds: that would require a rate of 10%, not 8%."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

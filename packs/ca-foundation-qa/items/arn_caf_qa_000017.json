@@ -30,6 +30,12 @@
     { "option_key": 4, "verdict": "incorrect", "rationale": "Uses the ratio of the shift constants (2 and 3) directly as the regression coefficients, misapplying the formula.", "misconception": "formula_misapplied" }
   ],
   "explanation": "Adding a constant to X or Y is a change of origin. Regression coefficients b_yx and b_xy depend only on deviations from means, so adding constants does not change them. A change of scale (multiplying by a constant) would change the coefficients, but an additive shift does not.",
+  "explanation_sections": {
+    "punchline": "Adding a constant only shifts the origin. Regression coefficients are based on deviations from means, so b_vu = b_yx = 0.6 and b_uv = b_xy = 0.8.",
+    "approach": "First classify the transformation: is it a change of origin (add or subtract a constant) or a change of scale (multiply or divide by a constant)? For origin changes, regression coefficients are unchanged. For scale changes, multiply or divide by the ratio of the scaling factors. Identify which case applies before computing anything.",
+    "lesson": "A change of origin leaves regression coefficients intact. Only a change of scale alters them. Keep these two rules separate.",
+    "timing": "About 75 seconds. Classify the transformation in the first 10 seconds. If it is an origin change, copy the original values and move on."
+  },
   "empirical": { "calibration_status": "none", "n_responses": 0 },
   "ext": { "icai_skill_bucket": "application" }
 }

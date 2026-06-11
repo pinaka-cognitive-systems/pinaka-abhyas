@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "The exact Fisher equation: (1 + real) = (1 + nominal) / (1 + inflation). With nominal = 0.12 and inflation = 0.05: (1 + real) = 1.12 / 1.05 = 1.0667. Real rate = 6.67%. The approximation (12% - 5% = 7%) overstates the real return slightly.",
+  "explanation_sections": {
+    "punchline": "The exact Fisher equation divides (1 + nominal) by (1 + inflation). 1.12 / 1.05 = 1.0667, so the real rate is 6.67%, not the approximate 7%.",
+    "approach": "Write (1 + real) = (1 + nominal) / (1 + inflation). Convert both given percentages to decimals first. Divide 1.12 by 1.05. Subtract 1 from the result to get the real rate. The stem says \"exact Fisher equation\", which is the signal to divide, not subtract.",
+    "lesson": "The exact Fisher formula requires division of the two gross return factors. Simple subtraction (12% minus 5% = 7%) is the approximation, and the stem explicitly rejects it here.",
+    "timing": "About 120 seconds. The word \"exact\" in the stem is a direct instruction: use the division formula, not subtraction. Reject option (3) = 7% in five seconds. Reject option (1) = 17.60%: that is the result of multiplying the factors instead of dividing."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

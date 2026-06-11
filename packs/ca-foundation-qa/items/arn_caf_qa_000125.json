@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "1. Expected value = sum of (value × probability) across all outcomes.\n2. KEY STEP: E = 1,000 × (1/10) + 200 × (3/10) + 0 × (6/10) = 100 + 60 = 160.\n3. Every outcome, including 'no prize' (value = 0), must be included.\n4. Ignoring either prize term, or misassigning probabilities, gives a wrong total.",
+  "explanation_sections": {
+    "punchline": "Expected value is the weighted sum of all outcomes. Each prize is weighted by its own probability. E = 100 + 60 + 0 = 160.",
+    "approach": "List every outcome and its probability. Multiply each value by its probability. Sum all the products. Include the zero-value outcome: it contributes zero to the sum but its probability must be accounted for. Verify that all probabilities add to 1 before starting.",
+    "lesson": "Every outcome in the probability distribution must appear in the expected value sum. Partial sums, such as computing only the top prize contribution, give a result that is too small.",
+    "timing": "About 90 seconds. Two multiplications take 20 seconds each. One addition takes 10 seconds. Eliminate option (4) in five seconds because 100 is only the first term and does not include the Rs 200 prize contribution."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

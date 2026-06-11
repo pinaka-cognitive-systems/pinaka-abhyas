@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "1. The definition: P(A | B) = P(A ∩ B) / P(B).\n2. KEY STEP: P(A | B) = (1/4) ÷ (1/2) = 1/2.\n3. A common error is computing P(B | A) = (1/4) / (3/8) = 2/3 instead, which reverses the condition.\n4. Using P(A ∩ B) directly without dividing by P(B) gives 1/4, another trap.",
+  "explanation_sections": {
+    "punchline": "P(A | B) = P(A intersection B) divided by P(B). The event after the bar is the denominator. Here (1/4) / (1/2) = 1/2.",
+    "approach": "Read the notation carefully. P(A | B) means A given B. The conditioning event is B, so P(B) goes in the denominator. Write the formula first: P(A | B) = P(A intersection B) / P(B). Then substitute. Do not reverse the two events.",
+    "lesson": "The event that follows the bar symbol is the denominator of the conditional probability formula. Reversing the events gives P(B | A), which is a different quantity entirely.",
+    "timing": "About 120 seconds. Identify the notation in 15 seconds. The single division of fractions takes 20 seconds. Eliminate option (2) in five seconds because 1/4 is the intersection probability, not a conditional probability."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

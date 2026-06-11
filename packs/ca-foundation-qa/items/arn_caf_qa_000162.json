@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "Inclusion-exclusion: |M ∪ S| = |M| + |S| - |M ∩ S|. Since every student studies at least one subject, |M ∪ S| = 60. So |M ∩ S| = 35 + 30 - 60 = 5.",
+  "explanation_sections": {
+    "punchline": "Inclusion-exclusion gives |M ∩ S| = 35 + 30 - 60 = 5. The phrase \"at least one subject\" tells you the union equals the total class size.",
+    "approach": "Two-set Venn problems give you the union and the two set sizes and ask for the intersection. Write: intersection = |A| + |B| - |A ∪ B|. Identify what plays the role of the union first. \"Every student studies at least one\" means nobody is outside both circles, so |M ∪ S| = total.",
+    "lesson": "\"Every element belongs to at least one set\" means the union equals the universal set. Plug that directly into the inclusion-exclusion formula to find the intersection.",
+    "timing": "About 90 seconds. This is one substitution. Eliminate option 65 in five seconds: it exceeds the class size and therefore cannot be correct."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

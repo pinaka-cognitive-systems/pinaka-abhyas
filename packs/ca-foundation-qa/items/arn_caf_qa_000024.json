@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "The two regression coefficients satisfy b_XY x b_YX = r^2. With b_XY = 0.9 and r = 0.6, we get b_YX = r^2 / b_XY = 0.36 / 0.9 = 0.4. Note that b_YX lies between 0 and 1 here, consistent with r = 0.6.",
+  "explanation_sections": {
+    "punchline": "The product of the two regression coefficients equals r squared. b_YX = r^2 / b_XY = 0.36 / 0.9 = 0.4.",
+    "approach": "Write the key identity first: b_XY x b_YX = r^2. You are given b_XY and r, so isolate b_YX by dividing r^2 by b_XY. Compute r^2 before dividing. As a quick check, both regression coefficients should have the same sign as r, and neither can exceed 1/r in magnitude.",
+    "lesson": "The product of the two regression coefficients always equals r^2. Knowing any two of the three values lets you find the third.",
+    "timing": "About 75 seconds. Write the identity and solve in 30 seconds. Sanity check: if b_YX came out greater than 1 here, something is wrong since r = 0.6."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

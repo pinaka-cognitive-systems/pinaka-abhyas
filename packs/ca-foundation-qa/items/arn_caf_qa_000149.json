@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "Deflating converts a nominal value to real terms using the price index. Real value = (Nominal value / Price index) × 100. Here: (42,000 / 140) × 100 = Rs 30,000. Multiplying instead of dividing inflates the value, a common reversal.",
+  "explanation_sections": {
+    "punchline": "To express a nominal value in base-year prices, divide by the current index and multiply by 100. Rs 42,000 / 140 times 100 = Rs 30,000.",
+    "approach": "Identify the nominal value, the current index, and the base-year index (always 100). Apply: Real = (Nominal / Current index) times base index. Dividing removes the effect of price inflation since the base year. Do not multiply by the index: that would scale up, not down.",
+    "lesson": "Deflating means dividing by the current index, then scaling back to base 100. Multiplying instead is the mirror-image error that produces the inflated distractor.",
+    "timing": "About 90 seconds. Reject option (1) Rs 58,800 in five seconds: that is the result of multiplying, not dividing. Reject option (3) Rs 300: that is the correct division result before multiplying by 100, so the multiplication step was simply forgotten."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

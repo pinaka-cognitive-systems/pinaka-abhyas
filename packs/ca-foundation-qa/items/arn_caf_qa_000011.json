@@ -49,6 +49,12 @@
     }
   ],
   "explanation": "From O, Vikram walks 4 km North to (0,4). He turns left (now facing West) and walks 3 km to (-3,4). He turns right (now facing North again) and walks 2 km to (-3,6). Relative to O, he is 3 km West and 6 km North, placing him in the North-West direction.",
+  "explanation_sections": {
+    "punchline": "Facing North, a left turn points West and a right turn then points North again. Final position: 3 km West, 6 km North of O, which is North-West.",
+    "approach": "For direction questions, use a coordinate grid. Set O at (0,0). After each segment write the new coordinates. Track the facing direction at every turn: left turns the compass 90 degrees counterclockwise, right turns it 90 degrees clockwise. Name the quadrant at the end.",
+    "lesson": "Always track which direction you are facing after each turn, not just which way you moved. A right turn from North faces East; a left turn from North faces West.",
+    "timing": "About 75 seconds. Three segments, two turns. Spend 15 seconds per segment updating coordinates. Check the final (x, y) sign: negative x means West, positive y means North."
+  },
   "empirical": { "calibration_status": "none", "n_responses": 0 },
   "ext": { "icai_skill_bucket": "application" }
 }

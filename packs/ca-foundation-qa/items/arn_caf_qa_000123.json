@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "1. For independent events, P(neither) = P(A does not solve) × P(B does not solve) = (3/5)(4/7) = 12/35.\n2. KEY STEP: P(at least one) = 1 - P(neither) = 1 - 12/35 = 23/35.\n3. Adding P(A) + P(B) directly gives 29/35. That double-counts the case in both solve.\n4. P(both solve) = 6/35 answers a different question.",
+  "explanation_sections": {
+    "punchline": "For independent events, P(at least one) = 1 - P(neither). Neither solves has probability (3/5)(4/7) = 12/35, so at least one = 23/35.",
+    "approach": "When you see 'at least one' with independent events, use the complement method. Find each person's failure probability. Multiply them for P(neither). Subtract from 1. This avoids the double-counting error that comes from adding P(A) + P(B) directly.",
+    "lesson": "P(at least one) = 1 - P(none). This complement route is faster and safer than the inclusion-exclusion addition formula when events are independent.",
+    "timing": "About 90 seconds. Compute two failure probabilities in 20 seconds. Multiply in 15 seconds. Subtract from 1 in five seconds. Eliminate option (4) in five seconds because 29/35 double-counts the case where both solve."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

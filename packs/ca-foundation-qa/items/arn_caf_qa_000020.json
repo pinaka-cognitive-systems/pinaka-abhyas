@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "The price relative expresses the current price as a percentage of the base price: Price relative = (P_current / P_base) x 100 = (50 / 40) x 100 = 125. A price relative of 125 means prices rose by 25%, not that the relative itself is 25.",
+  "explanation_sections": {
+    "punchline": "Price relative = (current price / base price) x 100 = (50 / 40) x 100 = 125. It is not the percentage change; it is the current price expressed as a percentage of the base.",
+    "approach": "Identify P0 (base year price) and P1 (current year price). Apply the formula: price relative = (P1 / P0) x 100. Do not subtract P0 from P1 first. The result will be 100 if prices are unchanged, above 100 if prices rose, below 100 if they fell.",
+    "lesson": "Price relative and percentage change are different. Price relative = (P1/P0) x 100. Percentage change = ((P1 - P0)/P0) x 100. The relative includes the base 100; the change does not.",
+    "timing": "About 45 seconds. This is a direct formula question. Write the formula, substitute, compute. If you get a value less than 100 for a price that clearly rose, you have inverted the ratio."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

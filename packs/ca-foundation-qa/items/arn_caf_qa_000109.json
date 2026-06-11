@@ -71,6 +71,12 @@
     }
   ],
   "explanation": "1. Find the midpoint of each class: 5, 15, 25, 35, 45.\n2. Compute f*m for each class: 10, 120, 375, 350, 225.\n3. KEY STEP: Mean = sum(f*m) / sum(f) = 1080 / 40 = 27.\n4. The divisor is the total frequency (40), not the number of classes (5).",
+  "explanation_sections": {
+    "punchline": "For grouped data, mean = sum(f x midpoint) divided by total frequency. The divisor is n = 40, not the count of classes.",
+    "approach": "Find the midpoint of each class interval. Multiply each midpoint by its frequency. Sum those products. Divide by the total of all frequencies. Write out the f x m column explicitly to avoid arithmetic errors.",
+    "lesson": "Divide by sum(f), the total number of observations. Dividing by the number of class intervals is a persistent error; the number of classes is irrelevant to the mean formula.",
+    "timing": "About 90 seconds. Setting up the f x m column takes 40 seconds. Summing and dividing takes 20 seconds. Eliminate option (3) in five seconds because 216 implies division by 5, not 40."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

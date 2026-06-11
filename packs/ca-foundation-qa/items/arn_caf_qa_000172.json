@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "Check each point against 2x + y ≤ 10. For (4, 3): 2(4) + 3 = 11 > 10. This violates the constraint. All other points satisfy it.",
+  "explanation_sections": {
+    "punchline": "Substituting (4, 3) gives 2(4) + 3 = 11, which exceeds 10 and breaks the constraint. Every other point gives a value of 10 or less.",
+    "approach": "For feasible region questions, test each option directly in the inequality. Substitute the x and y values, compute the left side, and compare with the right side. A point is outside if the inequality is violated. Do not try to sketch unless time permits.",
+    "lesson": "To check if a point is in a feasible region, substitute it into every constraint and verify each one holds. One violation is enough to place it outside.",
+    "timing": "About 90 seconds. Spend 10 seconds per option on arithmetic. If two options look close, check the boundary case first."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

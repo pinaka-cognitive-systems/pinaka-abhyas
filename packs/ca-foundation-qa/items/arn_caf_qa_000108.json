@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "1. Find the arithmetic mean: (8+12+16+22+32)/5 = 90/5 = 18.\n2. Find absolute deviations from 18: |8-18|=10, |12-18|=6, |16-18|=2, |22-18|=4, |32-18|=14.\n3. KEY STEP: Sum the absolute deviations: 10+6+2+4+14 = 36.\n4. Mean deviation = 36/5 = 7.2.",
+  "explanation_sections": {
+    "punchline": "Mean deviation about the mean requires absolute deviations, then their average. Signed deviations always cancel to zero and give a false result.",
+    "approach": "Step one: compute the arithmetic mean. Step two: find the absolute difference between each value and the mean. Step three: sum those absolute differences. Step four: divide by n. Never skip the absolute value signs.",
+    "lesson": "Mean deviation uses absolute values, not signed values. The sum of signed deviations from the mean is always zero. That zero is a trap option in every MD question.",
+    "timing": "About 90 seconds. Computing the mean takes 20 seconds. Five absolute deviations take 30 seconds. Summing and dividing takes 15 seconds. Eliminate option (2) instantly because zero is the signed-deviation sum, not MD."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

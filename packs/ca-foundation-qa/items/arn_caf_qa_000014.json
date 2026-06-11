@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "Fixed seats: C = 3, D = 4. Remaining seats {1, 2, 5} must hold A, B, E. A is immediately left of B, so AB must occupy a consecutive pair; only (1, 2) is consecutive in that set. Therefore A = 1, B = 2, E = 5, and the E-not-at-1 constraint is satisfied.",
+  "explanation_sections": {
+    "punchline": "C and D fix seats 3 and 4. Of the remaining seats 1, 2, 5, only (1, 2) is a consecutive pair for A-B. So B lands at seat 2.",
+    "approach": "Remove fixed-seat people first and list the open seats. Then apply adjacency clues: the pair AB must be consecutive and in left-to-right order. Scan the open seat list for the only valid consecutive pair. Place the pair, then assign the remaining person and check the final constraint.",
+    "lesson": "Adjacency clues in seating puzzles are most useful after fixed seats have been removed. The gap in the open seat list tells you where the pair cannot go.",
+    "timing": "About 75 seconds. Two fixed placements in 10 seconds. Scan three remaining seats for consecutive pairs: only (1,2) qualifies. Place A=1, B=2, E=5 in 20 seconds. Verify E not at seat 1: satisfied."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

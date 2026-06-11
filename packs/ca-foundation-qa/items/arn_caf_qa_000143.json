@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "Future value = P × (1 + r)^n. With P = 50,000, r = 0.08, n = 3: FV = 50,000 × 1.2597 = Rs 62,985. Using the given factor exactly is essential; rounding 1.2597 changes the answer.",
+  "explanation_sections": {
+    "punchline": "Rs 50,000 multiplied by the given factor 1.2597 equals Rs 62,985. Using any rounded version of the factor leads to a wrong option.",
+    "approach": "Write FV = P times (1 + r)^n. The stem provides the exact value of (1.08)^3 to use. Multiply the principal by that factor without rounding it. Always use the factor the stem gives you, not an approximation you compute in your head.",
+    "lesson": "When the stem provides a computed power, use that exact value. Rounding the factor is the trap that produces the nearby wrong options in future-value questions.",
+    "timing": "About 90 seconds. Reject option (1) instantly: Rs 60,000 would be simple interest for only two years at 8% on Rs 50,000. Multiply 50,000 by 1.2597 directly, keeping all four decimal places."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

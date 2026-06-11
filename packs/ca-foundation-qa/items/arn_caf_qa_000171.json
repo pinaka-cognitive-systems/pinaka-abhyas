@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "To link a:b = 3:4 and b:c = 6:5, make b equal. LCM(4, 6) = 12. Scale: a:b = 9:12 and b:c = 12:10. So a:c = 9:10.",
+  "explanation_sections": {
+    "punchline": "Make b common by scaling both ratios to b = 12. Then a:c = 9:10 follows directly from a:b:c = 9:12:10.",
+    "approach": "Compound ratio problems with two ratios sharing a common term require aligning that term. Find the LCM of the b-values (4 and 6), scale each ratio so b equals the LCM, then read off the outer terms. Write a:b:c as a single chain before extracting the required pair.",
+    "lesson": "To find a:c from a:b and b:c, make b equal in both ratios. Scale by LCM, not by multiplication of the outer terms.",
+    "timing": "About 90 seconds. LCM of 4 and 6 is 12. Two scaling steps, one ratio read-off. Eliminate option 3:4 in five seconds: that is the given a:b, not the asked a:c."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

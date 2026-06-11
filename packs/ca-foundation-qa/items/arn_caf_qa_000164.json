@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "Index law for multiplication: 2² × 2³ = 2 to the power (2+3) = 2 to the power 5 = 32. Index law for division: 32 ÷ 2³ = 32 ÷ 8 = 4, or equivalently 2 to the power (5-3) = 2² = 4.",
+  "explanation_sections": {
+    "punchline": "Add exponents when multiplying: 2 + 3 = 5. Subtract when dividing: 5 - 3 = 2. So the answer is 2² = 4.",
+    "approach": "Index simplification problems with a single base use two rules in sequence: multiply by adding exponents, divide by subtracting exponents. Write the running exponent at each step. Here: 2² × 2³ = 2^5, then 2^5 ÷ 2³ = 2² = 4.",
+    "lesson": "Same base, multiplication: add the exponents. Same base, division: subtract the exponents. Never multiply the exponents unless the operation is a power of a power.",
+    "timing": "About 60 seconds. The exponent arithmetic is two additions. Eliminate option 2 in five seconds: that would mean the net exponent is 1, which is 2+3-3-1 = 2, not 1."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "1. Sort the data in ascending order: 9, 12, 14, 16, 18, 21, 25.\n2. Count the values: n = 7 (odd).\n3. KEY STEP: Median position = (7 + 1) / 2 = 4th value.\n4. The 4th value in the sorted list is 16, so the median is 16.",
+  "explanation_sections": {
+    "punchline": "Sort first, then take the middle value. For n = 7, the median is the 4th value: 16.",
+    "approach": "Always sort the data in ascending order before doing anything else. Count the values (n). If n is odd, the median is the value at position (n + 1) / 2. If n is even, average the two middle values. Write the sorted list on paper: crossing out from both ends until one value remains is a fast alternative.",
+    "lesson": "The median position formula is (n + 1) / 2 for odd n. This gives the rank in the sorted list, not a calculation of the median value itself.",
+    "timing": "About 60 seconds. Spend 20 seconds sorting. Median position formula takes 5 seconds. Eliminate option (3) in 5 seconds: 16.43 is the mean."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "1. Poisson PMF: P(X=k) = (e^(-lambda) × lambda^k) / k! with lambda = 2.\n2. P(X=0) = e^(-2) × 2^0 / 0! = e^(-2). P(X=1) = e^(-2) × 2^1 / 1! = 2 × e^(-2).\n3. KEY STEP: P(X <= 1) = P(X=0) + P(X=1) = e^(-2) + 2 × e^(-2) = 3 × e^(-2).\n4. The event 'at most 1' includes both k=0 and k=1; omitting either case underestimates.",
+  "explanation_sections": {
+    "punchline": "\"At most 1\" covers k = 0 and k = 1. Both terms share e^(-2) as a factor, so they combine to (1 + 2) times e^(-2) = 3 times e^(-2).",
+    "approach": "For Poisson cumulative questions, list every value of k that satisfies the condition. Write the PMF for each k separately. Factor out e^(-lambda) and add the remaining coefficients. For \"at most 1\" that means two terms: k = 0 and k = 1.",
+    "lesson": "\"At most 1\" is not the same as \"exactly 1\" or \"at least 1\". Write out k = 0 and k = 1 explicitly every time to avoid missing a term.",
+    "timing": "About 120 seconds. Reject option (2) in five seconds: that is only k = 0. Reject option (4) in five seconds: that is only k = 1. Reject option (1): that form 1 minus e^(-2) equals P(X at least 1), the opposite event."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

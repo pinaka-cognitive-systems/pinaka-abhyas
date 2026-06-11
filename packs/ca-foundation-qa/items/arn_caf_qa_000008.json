@@ -49,6 +49,12 @@
     }
   ],
   "explanation": "The sequence 2, 6, 18, 54 has first term a = 2 and common ratio r = 3. Apply S_n = a(r^n - 1)/(r - 1): S_5 = 2(3^5 - 1)/(3 - 1) = 2(243 - 1)/2 = 242.",
+  "explanation_sections": {
+    "punchline": "Each term triples: common ratio r = 3. S_5 = 2*(3^5 - 1)/(3 - 1) = 2*242/2 = 242.",
+    "approach": "For a GP sum question: confirm r by dividing any term by the previous term. Write S_n = a*(r^n - 1)/(r - 1). Compute r^n first, subtract 1, then multiply by a and divide by (r - 1). Do not confuse this with the nth term formula a*r^(n-1).",
+    "lesson": "The GP sum formula needs (r^n - 1), not r^n alone. When r = 3 and n = 5, compute 3^5 = 243 first, then subtract 1 before anything else.",
+    "timing": "About 75 seconds. Compute 3^5 = 243 in 15 seconds. Subtract 1, multiply by 2, divide by 2: the twos cancel, leaving 242. Option (1) at 486 is 2 * 3^5 without the subtraction; eliminate it if you applied the formula correctly."
+  },
   "empirical": { "calibration_status": "none", "n_responses": 0 },
   "ext": { "icai_skill_bucket": "application" }
 }

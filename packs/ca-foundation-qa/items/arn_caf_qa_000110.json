@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "1. The step-deviation method formula is: Mean = A + h * (sum(f*u) / n).\n2. Substitute: A = 22.5, h = 5, sum(f*u) = 2, n = 40.\n3. KEY STEP: Correction term = 5 * (2/40) = 5 * 0.05 = 0.25.\n4. Mean = 22.5 + 0.25 = 22.75.",
+  "explanation_sections": {
+    "punchline": "The step-deviation formula is A + h x (sum(f x u) / n). All three factors, h, sum(f x u), and n, must appear. The correction term here is 0.25, giving 22.75.",
+    "approach": "When a question gives you A, h, sum(f x u), and n directly, plug into Mean = A + h x (sum(f x u) / n). Compute the fraction sum(f x u) / n first. Then multiply by h. Then add to A. Do not skip the multiplication by h.",
+    "lesson": "The step-deviation correction term is h x (sum(f x u) / n). Omitting h gives a value too close to A. Forgetting to divide by n gives a value far too large. Both are trap options.",
+    "timing": "About 120 seconds. The substitution is mechanical once you identify the four given values. Spend 30 seconds confirming each of A, h, sum(f x u), and n before substituting. Eliminate option (4) in five seconds because 32.75 is far above all class boundaries."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

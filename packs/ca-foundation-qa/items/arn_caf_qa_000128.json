@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "1. Binomial formula: P(X=k) = C(n,k) × p^k × (1-p)^(n-k).\n2. Here n=5, k=2, p=1/3, q=2/3.\n3. KEY STEP: P(X=2) = C(5,2) × (1/3)² × (2/3)³ = 10 × (1/9) × (8/27) = 80/243.\n4. The complementary probability q=2/3 must appear to the power (n-k)=3, not k.",
+  "explanation_sections": {
+    "punchline": "C(5,2) gives 10 combinations, and the three non-defective items each contribute a factor of 2/3, making the numerator 80.",
+    "approach": "Identify n, k, p, and q from the stem. Write out C(n,k) first, then multiply p^k and q^(n-k) separately. Keep the two exponents distinct: k goes with p, and (n minus k) goes with q. Combine all three factors at the end.",
+    "lesson": "The exponent on q is (n minus k), not k. Swapping those two exponents is the most common error in binomial probability.",
+    "timing": "About 90 seconds. Write C(5,2) = 10 in five seconds. Reject option (1) instantly because it is missing the factor of 10. If stuck between (2) and (3), check which power belongs to p = 1/3."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "1. Standardise: z = (520 - 500)/20 = 1 and z = (480 - 500)/20 = -1.\n2. The stem gives P(0 < Z < 1) = 0.3413.\n3. KEY STEP: By symmetry of the normal distribution, P(-1 < Z < 1) = 2 × 0.3413 = 0.6826.\n4. The interval is symmetric about zero, so both halves contribute equally.",
+  "explanation_sections": {
+    "punchline": "480 and 520 are each 20 g away from the mean 500, so the z-scores are -1 and +1. By symmetry, the total probability is simply 2 times 0.3413 = 0.6826.",
+    "approach": "For a two-sided interval around the mean, standardise both limits first. If the two z-scores are mirror images (one positive, one negative with the same magnitude), the probability is 2 times P(0 < Z < z). The stem always gives the one-sided area, so doubling is the only extra step.",
+    "lesson": "When an interval is symmetric about the mean, double the one-sided table value. Do not add 0.5 and do not look up a two-sided entry: just multiply by 2.",
+    "timing": "About 60 seconds. This is an L1 item. Compute both z-scores in 10 seconds, confirm they are plus and minus 1, then double the given value. Reject option (3) in five seconds: it is the one-sided area, not the two-sided answer."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

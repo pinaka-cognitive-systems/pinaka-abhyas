@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "Marginal revenue is d(TR)/dq. TR = 50q - 2q², so MR = 50 - 4q. At q = 8: MR = 50 - 4(8) = 50 - 32 = 18.",
+  "explanation_sections": {
+    "punchline": "Marginal revenue is d(TR)/dq = 50 - 4q. Substituting q = 8 gives 50 - 32 = 18.",
+    "approach": "Revenue-function calculus problems work the same way as cost-function problems. Identify: marginal revenue means derivative of TR; average revenue means TR/q. Differentiate TR term by term, then substitute q. The derivative of 2q² is 4q, not 2q.",
+    "lesson": "Marginal revenue = d(TR)/dq. Apply the power rule carefully: d(2q²)/dq = 4q. Dropping the factor of 2 from the exponent is the standard slip.",
+    "timing": "About 120 seconds. One differentiation, one substitution. Eliminate option 34 in five seconds: that is the average revenue at q = 8, not the marginal revenue."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

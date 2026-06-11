@@ -30,6 +30,12 @@
     { "option_key": 4, "verdict": "incorrect", "rationale": "Reads 10% as 1% (decimal place shifted): 10000 * 0.01 * 3 = 300.", "misconception": "decimal_place_error" }
   ],
   "explanation": "Simple interest is SI = P * r * t = 10000 * 0.10 * 3 = 3,000. The full time period of 3 years must be used; compounding does not apply here.",
+  "explanation_sections": {
+    "punchline": "SI = P * r * t = 10000 * 0.10 * 3 = Rs 3,000. The word 'simple' rules out compounding entirely.",
+    "approach": "Read the question for three things: principal, rate, and time. Write SI = P * r * t immediately. Confirm the question says simple interest before computing. Multiply the three values directly, no exponents needed.",
+    "lesson": "Simple interest grows linearly with time. Use the full period; never compound. If the question says 'simple interest', the answer cannot come from a compound formula.",
+    "timing": "About 45 seconds. One multiplication: 10000 * 0.10 * 3. Option (1) at Rs 3,310 is the compound-interest answer; if you see a number with 310 in it, you used the wrong formula."
+  },
   "empirical": { "calibration_status": "none", "n_responses": 0 },
   "ext": { "icai_skill_bucket": "application" }
 }

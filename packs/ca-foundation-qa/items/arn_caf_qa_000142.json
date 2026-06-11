@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "Present value = Future value / (1 + r)^n. With FV = 1,21,000, r = 0.10, n = 2: PV = 1,21,000 / 1.21 = 1,00,000. Discounting only one year gives 1,10,000, a common error when n is misread.",
+  "explanation_sections": {
+    "punchline": "Dividing Rs 1,21,000 by (1.1)^2 = 1.21 gives exactly Rs 1,00,000, the present value two years back.",
+    "approach": "Read the number of years carefully from the stem before touching numbers. Write PV = FV divided by (1 + r)^n. The stem provides (1.1)^2 = 1.21, so the division is straightforward. Confirm the exponent matches the number of years stated, not one less.",
+    "lesson": "The exponent in the discounting formula equals the number of periods between now and the cash flow. Using n = 1 instead of n = 2 is an off-by-one error that produces a nearby distractor.",
+    "timing": "About 90 seconds. Reject option (4) in three seconds: the future amount is never the present value. Reject option (3) in five seconds: subtracting 10% twice as a flat deduction is not discounting."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

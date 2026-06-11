@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "1. When equal amounts are spent at different rates, the harmonic mean is the correct average.\n2. HM = n / (sum of reciprocals) = 3 / (1/2 + 1/4 + 1/8).\n3. KEY STEP: 1/2 + 1/4 + 1/8 = 4/8 + 2/8 + 1/8 = 7/8.\n4. HM = 3 / (7/8) = 24/7 = 3.43 kg per rupee.",
+  "explanation_sections": {
+    "punchline": "Equal money spent at different rates calls for the harmonic mean. HM = 3 / (1/2 + 1/4 + 1/8) = 24/7 = 3.43 kg per rupee.",
+    "approach": "When equal amounts of money (or time, or distance) are spent and the variable is a rate, use the harmonic mean. HM = n / (sum of 1/x_i). List the reciprocals, find a common denominator, sum them, then divide n by that sum. Do not use arithmetic or geometric mean here.",
+    "lesson": "Use harmonic mean when equal investment buys varying quantities. Use arithmetic mean when quantities are equal. Mixing these up is the primary error on rate-averaging questions.",
+    "timing": "About 90 seconds. Deciding which mean applies takes 10 seconds. Computing the sum of reciprocals over a common denominator takes 30 seconds. Eliminate option (4) in 5 seconds: 4.67 is the arithmetic mean."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

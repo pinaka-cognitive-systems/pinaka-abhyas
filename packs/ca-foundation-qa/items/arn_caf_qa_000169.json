@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "Marginal cost is the derivative of total cost. MC = d(TC)/dq = 6q² - 12q + 10. Substituting q = 2: MC = 6(4) - 12(2) + 10 = 24 - 24 + 10 = 10.",
+  "explanation_sections": {
+    "punchline": "Marginal cost is dTC/dq, not TC/q. Differentiate first, then substitute q = 2 to get 24 - 24 + 10 = 10.",
+    "approach": "Cost-function calculus problems require you to identify which concept is asked: marginal cost means the derivative of TC, average cost means TC/q. Differentiate the full TC function term by term. Then substitute the given q value. Do not substitute first and then divide.",
+    "lesson": "Marginal cost = d(TC)/dq. Average cost = TC/q. These are not the same. Differentiate to find marginal; divide to find average.",
+    "timing": "About 120 seconds. Differentiation takes 30 seconds, substitution takes 30 seconds. Eliminate option 31 in five seconds: that is the average cost at q = 2, not the marginal cost."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0

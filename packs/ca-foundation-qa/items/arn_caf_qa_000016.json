@@ -49,6 +49,12 @@
     }
   ],
   "explanation": "The rule assigns shift n to the nth letter of the word: position 1 gets +1, position 2 gets +2, position 3 gets +3. R(18)+1=19=S, A(1)+2=3=C, J(10)+3=13=M, yielding SCM.",
+  "explanation_sections": {
+    "punchline": "Each letter gets a shift equal to its position number: +1, +2, +3. Applying that to R, A, J gives S, C, M.",
+    "approach": "Read the rule once and write down the shift for each position before touching the letters. For a 3-letter word the shifts are always 1, 2, 3. Convert each letter to its alphabet number, add the shift, convert back. Work left to right and do not mix up the shift order.",
+    "lesson": "In positional coding problems the shift sequence is tied to position, not to the letter itself. Write the position-shift table first, then encode.",
+    "timing": "About 75 seconds. Spend 15 seconds mapping each letter, 10 seconds checking. If you see an option that matches the first encoded letter only, keep going before picking."
+  },
   "empirical": { "calibration_status": "none", "n_responses": 0 },
   "ext": { "icai_skill_bucket": "application" }
 }

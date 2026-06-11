@@ -70,6 +70,12 @@
     }
   ],
   "explanation": "1. Direct addition of all cases with one or more sixes is tedious. Use the complement.\n2. P(no six in 4 rolls) = (3/4)^4 = 81/256.\n3. KEY STEP: P(at least one six) = 1 - 81/256 = 175/256.\n4. The complement method is the efficient route for 'at least one' binomial problems.",
+  "explanation_sections": {
+    "punchline": "The complement of \"at least one six\" is \"no six at all\", and (3/4)^4 = 81/256, so the answer is 1 minus 81/256 = 175/256.",
+    "approach": "Whenever a stem says \"at least one\", reach for the complement immediately. Compute P(zero successes) = q^n first. Then subtract from 1. Counting each case with one or more successes separately takes far longer and risks missing a case.",
+    "lesson": "\"At least one\" always means 1 minus P(none). Learn this reflex and apply it before writing anything else.",
+    "timing": "About 120 seconds. You can reject option (1) in under 10 seconds: (1/4)^4 is the probability of all four rolls showing a six, not at least one. Compute (3/4)^4 = 81/256 and subtract from 256/256."
+  },
   "empirical": {
     "calibration_status": "none",
     "n_responses": 0
