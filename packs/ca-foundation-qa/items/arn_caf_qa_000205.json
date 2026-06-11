@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000205",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_scale_b6",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-11"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000205.py"
+  },
+  "tests": [
+    "qa.bmath.finance.simple_interest"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 120,
+  "stem": "Rajan lends Rs 12000 to a friend. For the first 3 years the rate of simple interest is 5% per annum. For the next 2 years the rate increases to 7% per annum. What is the total interest earned over the full 5 years?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 3480"
+    },
+    {
+      "key": 2,
+      "text": "Rs 3600"
+    },
+    {
+      "key": 3,
+      "text": "Rs 3000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 3380"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "SI for years 1-3: 12000 x 5/100 x 3 = 1800. SI for years 4-5: 12000 x 7/100 x 2 = 1680. Total = 3480."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "The student applies a single average rate of (5+7)/2 = 6% for all 5 years using SI = 12000 x 6/100 x 5 = 3600. This is the wrong formula: arithmetic mean of rates is not a valid substitute for segment-by-segment calculation when periods differ.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "The student ignores the rate change and applies 5% for all 5 years: 12000 x 5/100 x 5 = 3000. The SI formula is technically correct but is misapplied to the full duration instead of only the first segment.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "The student computes SI for period 1 as 1800 correctly but makes an arithmetic slip on period 2: 12000 x 7/100 = 840, then 840 x 2 = 1580 instead of 1680. Total = 1800 + 1580 = 3380.",
+      "misconception": "arithmetic_slip"
+    }
+  ],
+  "explanation": "Split the loan into two periods. Period 1 (3 years at 5%): SI = 12000 x 0.05 x 3 = 1800. Period 2 (2 years at 7%): SI = 12000 x 0.07 x 2 = 1680. Total interest = 1800 + 1680 = 3480.",
+  "explanation_sections": {
+    "punchline": "The total interest is Rs 3480. The principal stays fixed at Rs 12000 for both periods; only the rate changes. Compute SI separately for each period and add.",
+    "approach": "Whenever a simple-interest problem mentions a rate that changes partway through, split the total duration into segments at each rate change. Compute SI = P x r x t for each segment using the same principal (SI never changes the principal). Sum the segment interests.",
+    "lesson": "In simple interest, a rate change mid-period does not change the principal. Each segment uses the original principal, not an accumulated amount. Applying a single average rate for the full duration gives the wrong answer whenever the time periods are unequal.",
+    "timing": "120 seconds. Setting up two separate SI calculations takes about 30 seconds. Each multiplication (12000 x 0.05 x 3 and 12000 x 0.07 x 2) takes under 20 seconds each. Adding the two results takes under 10 seconds. Reserve the final 20 seconds to check that both periods are covered and no period is counted twice."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "018d108ba3df0fba81a65205fe269cab94800a62ff6b4f4c35d58bb1f60544fe"
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000207",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_scale_b6",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-11"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000207.py"
+  },
+  "tests": [
+    "qa.lr.blood_relations"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 45,
+  "stem": "Pointing to a girl, Rajan says, 'She is the daughter of the only son of my father's father.' How is the girl related to Rajan?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Cousin"
+    },
+    {
+      "key": 2,
+      "text": "Aunt"
+    },
+    {
+      "key": 3,
+      "text": "Sister"
+    },
+    {
+      "key": 4,
+      "text": "Brother"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Father's father's only son is Rajan's own father. Father's daughter is Rajan's sister."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student treats 'father's father's only son' as Rajan's uncle (father's brother) rather than Rajan's father. Uncle's daughter is a cousin, which is one generational branch removed from the correct path.",
+      "misconception": "kinship_generation_error"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student skips the 'only son' link and reads the chain as 'father's father's daughter', giving grandfather's daughter, which is Rajan's aunt.",
+      "misconception": "constraint_omitted"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student correctly traces the path to 'sister' but applies the wrong gendered term for a female, saying 'brother' instead.",
+      "misconception": "kinship_gender_error"
+    }
+  ],
+  "explanation": "Step 1: 'my father's father' = Rajan's grandfather. Step 2: 'only son of grandfather' = Rajan's father (the grandfather's unique male child). Step 3: 'daughter of Rajan's father' = Rajan's sister. The key step is recognising that 'only son of grandfather' refers to Rajan's own father, not a separate uncle.",
+  "explanation_sections": {
+    "punchline": "The girl is Rajan's sister. Grandfather's only son is Rajan's father, and the girl is that man's daughter.",
+    "approach": "Draw the kinship chain as a path: person A is related to B who is related to C. Follow each link in order, writing the relationship from Rajan's viewpoint at each step. The last link gives the answer.",
+    "lesson": "When a chain contains 'only son of grandfather', that person is the father of the speaker, not an uncle. If the grandfather had more than one son the relationship could branch, but 'only' collapses it to one path.",
+    "timing": "About 45 seconds. Two links to trace. Write each link in 10 seconds. If stuck, replace names with generic terms: grandfather, father, sibling."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "52af159f89a3113c6fea207e513f5ccb9218286e25f976df2824d00d62de2d16"
+}

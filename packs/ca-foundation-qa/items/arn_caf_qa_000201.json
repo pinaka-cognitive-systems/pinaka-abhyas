@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000201",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_scale_b6",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-11"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000201.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.graphical"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "A wage record for 40 workers gives cumulative counts at each upper class boundary. Up to Rs 10: 4 workers. Up to Rs 20: 12. Up to Rs 30: 25. Up to Rs 40: 36. Up to Rs 50: 40. How many workers earned wages in the class interval (30, 40]?",
+  "options": [
+    {
+      "key": 1,
+      "text": "11"
+    },
+    {
+      "key": 2,
+      "text": "10"
+    },
+    {
+      "key": 3,
+      "text": "36"
+    },
+    {
+      "key": 4,
+      "text": "24"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Frequency in (30, 40] = cumulative frequency at 40 minus cumulative frequency at 30 = 36 - 25 = 11."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "The student reads the cumulative frequency at 30 as 26 instead of 25, giving 36 - 26 = 10. This is a one-unit arithmetic slip when reading the table.",
+      "misconception": "arithmetic_slip"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "The student reads off the cumulative frequency at the upper boundary 40, which is 36, and reports that as the frequency of the class rather than computing the difference. This treats cumulative frequency as class frequency.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "The student subtracts the cumulative frequency at 20 from the one at 40, spanning two intervals: 36 - 12 = 24. This uses the wrong lower reference point in the ogive.",
+      "misconception": "wrong_formula"
+    }
+  ],
+  "explanation": "In a cumulative frequency table, a class frequency is the difference of two cumulative counts. Subtract the count at the lower boundary from the count at the upper boundary. For (30, 40]: cf(40) - cf(30) = 36 - 25 = 11.",
+  "explanation_sections": {
+    "punchline": "The count in (30, 40] is 36 - 25 = 11. The class frequency equals the difference of two successive cumulative frequencies, not the cumulative value at the upper boundary.",
+    "approach": "Read off the cumulative frequency at the upper and lower class boundaries. Subtract the lower from the upper. The result is the frequency (count) for that specific class. Do not report the cumulative value directly.",
+    "lesson": "A cumulative frequency (ogive) value at any point gives the total count up to that boundary. The count inside one class is always the difference between two adjacent cumulative values.",
+    "timing": "75 seconds. Identifying the two boundaries takes about 15 seconds. The subtraction takes under 10 seconds. Spend the remaining time checking you used 25 and not 12 as the lower reference."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "1a1cd30e88f78d9ce4a55c99ead5ca98f7f149e2aca363f534a3d2e6e6617c86"
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000203",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_scale_b6",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-11"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000203.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.correlation"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "For four pairs of observations the ranks assigned are: X ranks 1, 2, 3, 4 and Y ranks 2, 1, 4, 3. Find the Spearman rank correlation coefficient.",
+  "options": [
+    {
+      "key": 1,
+      "text": "-0.4"
+    },
+    {
+      "key": 2,
+      "text": "0.5"
+    },
+    {
+      "key": 3,
+      "text": "0.6"
+    },
+    {
+      "key": 4,
+      "text": "-0.2"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "d values are -1, 1, -1, 1; sum of d^2 = 4; r_s = 1 - 6*4 / (4*15) = 1 - 24/60 = 0.6."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "The student computes 6*sum(d^2)/(n(n^2-1)) = 24/60 = 0.4 and then subtracts from zero instead of 1, treating the formula as -(6*sum(d^2)/denominator) and getting -0.4.",
+      "misconception": "sign_error"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "The student computes three of the four d^2 values correctly as 1 each but writes d^2 = 2 for one pair (arithmetic slip), giving sum(d^2) = 5. Then r_s = 1 - 6*5/60 = 1 - 0.5 = 0.5.",
+      "misconception": "arithmetic_slip"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "The student uses n*(n+1) = 20 as the denominator instead of n*(n^2-1) = 60: 1 - 6*4/20 = 1 - 24/20 = 1 - 1.2 = -0.2.",
+      "misconception": "wrong_formula"
+    }
+  ],
+  "explanation": "Compute d_i = rank(X_i) - rank(Y_i): (-1, 1, -1, 1). Square each: (1, 1, 1, 1). Sum = 4. Apply Spearman formula: r_s = 1 - 6 x sum(d^2) / (n(n^2 - 1)) = 1 - 24/60 = 0.6.",
+  "explanation_sections": {
+    "punchline": "The answer is 0.6. The rank differences are all 1 in magnitude, giving sum(d^2) = 4, and the formula yields 1 - 24/60 = 0.6.",
+    "approach": "List the rank difference d_i for each pair, square each d_i, and sum. Then substitute into r_s = 1 - 6*sum(d^2) / (n*(n^2 - 1)). Expand n*(n^2-1) carefully: for n=4 this is 4*15 = 60, not 4*5 = 20.",
+    "lesson": "The denominator in Spearman formula is n*(n^2 - 1), not n*(n+1) or n*(n-1). Confusing these changes the answer sign for small n. Always compute n^2 - 1 first.",
+    "timing": "60 seconds. Computing four differences and squaring takes about 20 seconds. The denominator 4*15 = 60 can be recalled directly. The subtraction 1 - 0.4 = 0.6 is immediate."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "579130c0d299a6f5df23f65863cd34ab6a6ffcb1b4665f85dac5e65b0593b75a"
+}

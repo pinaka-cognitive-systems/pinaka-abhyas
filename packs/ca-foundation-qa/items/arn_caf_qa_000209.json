@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000209",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_scale_b6",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-11"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000209.py"
+  },
+  "tests": [
+    "qa.bmath.sequence_series.ap"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 120,
+  "stem": "In an arithmetic progression, the 5th term is 22 and the 12th term is 50. Find the sum of the first 15 terms.",
+  "options": [
+    {
+      "key": 1,
+      "text": "510"
+    },
+    {
+      "key": 2,
+      "text": "450"
+    },
+    {
+      "key": 3,
+      "text": "540"
+    },
+    {
+      "key": 4,
+      "text": "495"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "d = 4, a = 6. S_15 = 15/2 * (2*6 + 14*4) = 15/2 * 68 = 510."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student uses T_n = a + n*d (adds n*d instead of (n-1)*d), giving a + 5*4 = 22, so a = 2. S_15 = 15/2*(4 + 56) = 450.",
+      "misconception": "off_by_one"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student applies the sum formula using the two given terms as the first and last term of a 15-term span: S = 15*(22 + 50)/2 = 540, ignoring that 22 and 50 are not the 1st and 15th terms.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student finds a = 6 and d = 4 correctly but adds 2a + 14d as 12 + 54 = 66 instead of 68. S_15 = 15/2 * 66 = 495.",
+      "misconception": "arithmetic_slip"
+    }
+  ],
+  "explanation": "Step 1: T_5 = a + 4d = 22 and T_12 = a + 11d = 50. Subtract the first from the second: 7d = 28, so d = 4. Step 2: a = 22 - 4*4 = 6. Step 3: S_15 = 15/2 * (2*6 + 14*4) = 15/2 * (12 + 56) = 15/2 * 68 = 15 * 34 = 510. The common traps: using T_n = a + n*d, which is off by one. Or treating the two given terms as the first and last of the 15-term series.",
+  "explanation_sections": {
+    "punchline": "The sum is 510. Subtract the two term equations to get d = 4, then back-substitute to get a = 6, then apply S_n = n/2 * (2a + (n-1)d).",
+    "approach": "When the first term and common difference are not given directly, write two T_n equations using the given terms and solve simultaneously. Then substitute a and d into the sum formula. Keep the formula T_n = a + (n-1)d in front of you to avoid the common off-by-one of writing a + nd.",
+    "lesson": "T_n = a + (n-1)d, not a + nd. Using a + nd shifts the value of a by one step, causing a chain error in every subsequent calculation.",
+    "timing": "About 120 seconds. Solving the two equations for d and a takes 40 seconds. Applying the sum formula takes 30 seconds. Check 15*34 as 15*30 + 15*4 = 450 + 60 = 510."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "62c977a01af2588755eaa609a21807835bdce0da4bd256e004ad4bd489b7e395"
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000210",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_scale_b6",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-11"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000210.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Five people sit in a row of seats numbered 1 to 5 from left to right: Farhan, Gargi, Hetal, Ishan, and Jaya. The following clues apply. Clue 1: Farhan sits at seat 1. Clue 2: Gargi sits immediately to the right of Hetal. Clue 3: Jaya does not sit at seat 2 or seat 3. Clue 4: Ishan sits at seat 5. Who sits at seat 2?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Gargi"
+    },
+    {
+      "key": 2,
+      "text": "Hetal"
+    },
+    {
+      "key": 3,
+      "text": "Jaya"
+    },
+    {
+      "key": 4,
+      "text": "Ishan"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Farhan=1, Ishan=5. Hetal-Gargi block at (2,3): Jaya=4, satisfying clue 3. Block at (3,4): Jaya=2, violating clue 3. Unique solution: seat 2 = Hetal."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student reads clue 2 as 'Gargi immediately to the LEFT of Hetal' (reversed adjacency). Block (Gargi, Hetal) = (2, 3): Jaya=4, satisfying clue 3. Seat 2 = Gargi.",
+      "misconception": "constraint_reversed"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student ignores clue 3 and accepts the second arrangement (Hetal=3, Gargi=4, Jaya=2), placing Jaya at seat 2.",
+      "misconception": "constraint_omitted"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student misreads the question as asking who sits at seat 5, and answers Ishan from clue 4 instead of identifying the occupant of seat 2.",
+      "misconception": "misread_quantity"
+    }
+  ],
+  "explanation": "Fix the anchors: Farhan=1 (clue 1), Ishan=5 (clue 4). Remaining people Gargi, Hetal, Jaya fill seats 2, 3, 4. The Hetal-Gargi block (clue 2, Gargi one step right of Hetal) can sit at positions (2,3) or (3,4). If (3,4): Jaya gets seat 2, violating clue 3 (Jaya not at 2 or 3). So the block must be at (2,3), giving Hetal=2, Gargi=3, Jaya=4. Seat 2 = Hetal.",
+  "explanation_sections": {
+    "punchline": "Seat 2 is Hetal. Placing the Hetal-Gargi block at seats 3 and 4 forces Jaya to seat 2, which clue 3 bans. The block must go to seats 2 and 3.",
+    "approach": "Fix any person with an absolute seat first (clues 1 and 4 here). List the remaining seats. For each adjacency block, enumerate the possible positions and eliminate those that violate any other clue.",
+    "lesson": "Test each candidate placement against all remaining constraints before recording it. A placement that looks valid from one clue may fail another.",
+    "timing": "About 90 seconds. Placing anchors takes 10 seconds. Testing two block positions takes 30 seconds each. Once one position is eliminated, the other is the answer."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "aaeb92eef61ae979a58ae778a749d1091088e6e7f44cb0f13bd0e3afff926dd8"
+}

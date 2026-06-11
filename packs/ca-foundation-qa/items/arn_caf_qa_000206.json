@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000206",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_scale_b6",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-11"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000206.py"
+  },
+  "tests": [
+    "qa.lr.direction_tests"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Kavya starts at point P facing North. She walks 5 m, then turns right and walks 7 m, then turns right and walks 3 m, then turns right and walks 7 m. In which direction is Kavya now facing?",
+  "options": [
+    {
+      "key": 1,
+      "text": "East"
+    },
+    {
+      "key": 2,
+      "text": "West"
+    },
+    {
+      "key": 3,
+      "text": "North"
+    },
+    {
+      "key": 4,
+      "text": "South"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "North, right = East, right = South, right = West. Three right turns from North give West as the final facing direction."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Treats the last right turn as a left turn: from South a left turn gives East, not West.",
+      "misconception": "direction_turn_error"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Reports the direction from P to the final point instead of the facing direction. Net position is 2 m North of P, so the student reports North.",
+      "misconception": "net_displacement_error"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Stops the route after the third leg and reads the current facing direction as South, ignoring the fourth turn.",
+      "misconception": "constraint_omitted"
+    }
+  ],
+  "explanation": "Track facing direction at each turn. Start: North. Turn right = East (walk 7 m). Turn right = South (walk 3 m). Turn right = West (walk 7 m). Final facing: West. Net displacement check: 5 N - 3 S = 2 m North, 7 E - 7 W = 0. The final point is 2 m due North of P, which is a different quantity from the facing direction.",
+  "explanation_sections": {
+    "punchline": "Three consecutive right turns from North rotate the compass by 270 degrees clockwise, which gives West. The answer is West.",
+    "approach": "For direction-test questions, track facing direction step by step. Write the current heading after each turn before moving to the next leg. Do not mix up the facing direction with the direction from the start point to the final position.",
+    "lesson": "Right turn rotates facing clockwise by 90 degrees; left turn rotates anticlockwise by 90 degrees. Three right turns equal one left turn (270 degrees clockwise = 90 degrees anticlockwise).",
+    "timing": "About 90 seconds. Writing four headings (one per leg) takes under 30 seconds. If the route has more than three turns, a quick 90-degree rotation diagram saves time."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "ee4afebaff4bb84a39ddaaa5e3530e1ae357ff80fc6d290c5097c32c83c4dab6"
+}

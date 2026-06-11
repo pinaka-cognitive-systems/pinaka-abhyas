@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000202",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_scale_b6",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-11"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000202.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.factorial"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "Evaluate: (n + 2)! / n!, where n = 7.",
+  "options": [
+    {
+      "key": 1,
+      "text": "17"
+    },
+    {
+      "key": 2,
+      "text": "72"
+    },
+    {
+      "key": 3,
+      "text": "9"
+    },
+    {
+      "key": 4,
+      "text": "8"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "(n+2)! / n! = (n+2)(n+1) = 9 x 8 = 72 when n = 7."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "The student adds (n+2) + (n+1) = 9 + 8 = 17 instead of multiplying the two consecutive factors.",
+      "misconception": "arithmetic_slip"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "The student cancels all terms and keeps only the last remaining factor n+2 = 9, missing that one full factor of (n+1) = 8 also survives the cancellation.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "The student treats (n+2)! / n! as (n+1)! / n! = n+1 = 8, reducing the expression by one step too few and losing the (n+2) factor.",
+      "misconception": "off_by_one"
+    }
+  ],
+  "explanation": "Cancel n! from numerator and denominator: (n+2)! / n! = (n+2) x (n+1) x n! / n! = (n+2)(n+1). With n = 7: 9 x 8 = 72.",
+  "explanation_sections": {
+    "punchline": "The answer is 72. Cancelling n! leaves exactly two uncancelled factors: (n+2) and (n+1). With n = 7 these are 9 and 8, whose product is 72.",
+    "approach": "Write out the factorial expansion just far enough to see what survives after cancellation. For k! / n! with k > n, exactly k - n factors remain: from n+1 up to k. Identify those factors first, then multiply.",
+    "lesson": "(n+r)! / n! = (n+r)(n+r-1)...(n+1). The number of surviving factors equals r. For r = 2 the result is always (n+1)(n+2), never a sum or a single term.",
+    "timing": "75 seconds. Writing out the cancellation takes about 20 seconds. Multiplying two two-digit numbers takes under 15 seconds. If unsure, verify by computing 9! / 7! = (9 x 8 x 7!) / 7! directly."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "1610af301a19d56a84b18d57d7a485e519bbccd143489f36f20f5ab5aed9eb1d"
+}
