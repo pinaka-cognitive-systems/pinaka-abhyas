@@ -62,14 +62,29 @@ describe("assembleMock — blueprint proportionality", () => {
     expect(mock.order.length).toBe(sum);
   });
 
-  it("surfaces the honest shortfall against the full paper", () => {
+  it("assembles the full paper from the shipped bank with zero shortfall", () => {
     const mock = assembleMock(7, realPack.bank, realPack.blueprint, fullSize);
-    // The shipped bank holds 81 selectable items against a 100-question paper,
-    // so the honest mock is SHORTER than 100 and the shortfall is positive.
+    // Since batch B7 the bank fills every blueprint family at quota, so the
+    // honest mock IS the full 100-question paper. Shortfall behavior itself
+    // stays covered by the synthetic reduced-bank cases below.
     expect(mock.fullPaperSize).toBe(100);
-    expect(mock.size).toBeLessThan(100);
-    expect(mock.shortfall).toBe(mock.fullPaperSize - mock.size);
-    expect(mock.shortfall).toBeGreaterThan(0);
+    expect(mock.size).toBe(100);
+    expect(mock.shortfall).toBe(0);
+  });
+
+  it("surfaces the honest shortfall when a bank cannot fill the quotas", () => {
+    // Synthetic bank: one selectable finance item against the full blueprint.
+    const raw: RawPack = {
+      items: [
+        { id: "only1", tests: ["qa.bmath.finance.simple_interest"], difficulty_label: "L2", item_type: "single_best", expected_seconds: 60, verification_status: "verified" },
+      ],
+    };
+    const bank = buildBank(raw);
+    const bp = buildBlueprint(blueprintJson as unknown as RawBlueprint);
+    const mock = assembleMock(7, bank, bp, 100);
+    expect(mock.fullPaperSize).toBe(100);
+    expect(mock.size).toBe(1);
+    expect(mock.shortfall).toBe(99);
   });
 });
 
@@ -115,7 +130,15 @@ describe("scaleMarking — proportional budget and bar", () => {
     const ratio = mock.size / realPack.marking.numQuestions;
     expect(scaled.durationMinutes).toBe(Math.round(realPack.marking.durationMinutes * ratio));
     expect(scaled.passMark).toBe(Math.round(realPack.marking.passMark * ratio));
-    // The shorter paper has a shorter clock and a lower bar than the full paper.
+    // The real bank now fills the paper: full clock, full bar.
+    expect(scaled.durationMinutes).toBe(realPack.marking.durationMinutes);
+    expect(scaled.passMark).toBe(realPack.marking.passMark);
+  });
+
+  it("scales the clock and the bar down for a shorter paper", () => {
+    const scaled = scaleMarking(realPack.marking, 50);
+    expect(scaled.durationMinutes).toBe(Math.round(realPack.marking.durationMinutes * 0.5));
+    expect(scaled.passMark).toBe(Math.round(realPack.marking.passMark * 0.5));
     expect(scaled.durationMinutes).toBeLessThan(realPack.marking.durationMinutes);
     expect(scaled.passMark).toBeLessThan(realPack.marking.passMark);
   });
