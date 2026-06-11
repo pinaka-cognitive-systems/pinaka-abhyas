@@ -25,7 +25,15 @@ in place as the historical record.
 | [0014](0014-anonymous-telemetry-dpdp.md) | Telemetry is anonymous by construction | Accepted |
 | [0015](0015-notation-unicode-first.md) | Notation: unicode-first, KaTeX pre-approved escape | Accepted |
 | [0016](0016-stimulus-group-and-multi-select-reserved.md) | Stimulus groups and multi-select reserved for pack 2 | Accepted |
+| [0017](0017-structured-explanation-sections.md) | Structured explanation sections in the Core | Accepted |
 
 ADRs 0001 through 0007 record the project's founding
 decisions and share the founding date; their order within that date is the numeric
 order.
+
+Some ADR bodies cite working documents (the deep audit, planning records) that have
+since moved out of the tracked tree into the operator-internal `internal/` area. ADRs
+are immutable, so those citations stand as written: they record the basis a decision
+rested on at the time. The artifacts still exist; they are simply not part of the
+public doc surface. ADR-to-ADR references (supersession, partial supersession) remain
+valid regardless of where superseded planning docs now live.

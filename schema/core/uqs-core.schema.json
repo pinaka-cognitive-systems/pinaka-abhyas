@@ -42,6 +42,18 @@
     "answer_key": { "type": "object" },
     "stem": { "type": "string", "minLength": 1 },
     "explanation": { "type": "string", "minLength": 50 },
+    "explanation_sections": {
+      "description": "Structured teaching sections shown after an answer (ADR 0017). Optional; when present, all four sections are present. punchline: one or two sentences naming why the keyed answer wins, always visible in the UI. approach: how to attack this question type from a cold read. lesson: the transferable take-home rule. timing: how long this should take and what to cut first. Per-option teaching lives in per_option_rationale, not here. None of these fields enter the content hash; identity is the problem, not the teaching.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["punchline", "approach", "lesson", "timing"],
+      "properties": {
+        "punchline": { "type": "string", "minLength": 20 },
+        "approach": { "type": "string", "minLength": 20 },
+        "lesson": { "type": "string", "minLength": 20 },
+        "timing": { "type": "string", "minLength": 10 }
+      }
+    },
     "expected_seconds": { "type": "integer", "minimum": 1 },
     "per_option_rationale": {
       "type": "array",
