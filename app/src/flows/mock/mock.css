@@ -694,6 +694,183 @@
     color: var(--color-text-subtle);
   }
 
+  /* ---------------------------------------------------------------- */
+  /* MARKS WATERFALL                                                   */
+  /* ---------------------------------------------------------------- */
+  /* A CSS-only column chart. The chart area is 160px tall plus room  */
+  /* for value labels above and category labels below. The pass-bar   */
+  /* line is absolute-positioned over the bar area. role="img" makes  */
+  /* the entire chart supplementary; the tally above carries the      */
+  /* accessible numbers.                                              */
+  .mk-waterfall {
+    position: relative;
+    margin-bottom: var(--space-6);
+  }
+  .mk-waterfall__bars {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-2);
+    height: 216px;
+    align-items: flex-end;
+    padding-bottom: 28px;
+  }
+  .mk-waterfall__col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    gap: var(--space-1);
+  }
+  .mk-waterfall__val {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--text-xs);
+    color: var(--color-muted-foreground);
+    white-space: nowrap;
+  }
+  .mk-waterfall__bar {
+    width: 100%;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    background: var(--color-muted);
+    min-height: 4px;
+    transition: height calc(var(--duration-base) * var(--motion-duration-scalar)) var(--ease-default);
+  }
+  .mk-waterfall__col:first-child .mk-waterfall__bar {
+    background: var(--color-brand-soft);
+    border: 1px solid var(--color-brand-primary);
+  }
+  .mk-waterfall__col--net .mk-waterfall__bar {
+    background: var(--color-brand-primary);
+  }
+  .mk-waterfall__col:nth-child(2) .mk-waterfall__bar,
+  .mk-waterfall__col:nth-child(3) .mk-waterfall__bar {
+    background: var(--color-warning-soft);
+    border: 1px solid var(--color-warning-border);
+  }
+  .mk-waterfall__col:nth-child(4) .mk-waterfall__bar {
+    background: var(--color-danger-soft);
+    border: 1px solid var(--color-danger-border);
+  }
+  .mk-waterfall__lbl {
+    font-size: var(--text-xs);
+    color: var(--color-text-subtle);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    position: absolute;
+    bottom: 0;
+  }
+  /* Re-anchor the label inside the column */
+  .mk-waterfall__col {
+    position: relative;
+    padding-bottom: 20px;
+  }
+  .mk-waterfall__pass {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-top: 1px dashed var(--color-border-strong);
+    pointer-events: none;
+  }
+  .mk-waterfall__pass-lbl {
+    font-size: var(--text-xs);
+    font-family: var(--font-mono);
+    color: var(--color-muted-foreground);
+    position: absolute;
+    right: 0;
+    top: -18px;
+    white-space: nowrap;
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* MISCONCEPTIONS TABLE                                              */
+  /* ---------------------------------------------------------------- */
+  .mk-mis {
+    margin-bottom: var(--space-6);
+  }
+  .mk-mis__eyebrow {
+    margin: 0 0 var(--space-3);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps);
+    color: var(--color-text-subtle);
+  }
+  .mk-misbrk {
+    border: 1px solid var(--color-border-hairline);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .mk-misbrk__row {
+    display: grid;
+    grid-template-columns: 1fr auto auto 80px;
+    gap: var(--space-3);
+    align-items: center;
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--color-border-hairline);
+  }
+  .mk-misbrk__row:last-child {
+    border-bottom: 0;
+  }
+  .mk-misbrk__row--head {
+    background: var(--color-card);
+    padding: var(--space-2) var(--space-4);
+  }
+  .mk-misbrk__h {
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps);
+    color: var(--color-text-subtle);
+  }
+  .mk-misbrk__h--r {
+    text-align: right;
+  }
+  .mk-misbrk__name {
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+  }
+  .mk-misbrk__num {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+  .mk-misbrk__num--neg {
+    color: var(--color-danger);
+  }
+  .mk-misbrk__minibar {
+    height: 8px;
+    background: var(--color-muted);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+  }
+  .mk-misbrk__minibar span {
+    display: block;
+    height: 100%;
+    background: var(--color-warning);
+    border-radius: var(--radius-full);
+    min-width: 4px;
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* INSIGHT BOX                                                       */
+  /* ---------------------------------------------------------------- */
+  .mk-insight {
+    margin-bottom: var(--space-6);
+    padding: var(--space-4);
+    border: 1px solid var(--color-border-hairline);
+    border-radius: var(--radius-lg);
+    background: var(--color-card);
+  }
+  .mk-insight__text {
+    margin: 0;
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+    color: var(--color-muted-foreground);
+  }
+
   .mk-parts {
     margin-bottom: var(--space-6);
   }
@@ -802,7 +979,8 @@
   .mk-hallbar__exit:focus-visible,
   .mk-pcell:focus-visible,
   .mk-shortfall__summary:focus-visible,
-  .mk-opt__strike:focus-visible {
+  .mk-opt__strike:focus-visible,
+  .mk-misbrk__row:focus-visible {
     outline: 2px solid var(--color-ring);
     outline-offset: 2px;
   }

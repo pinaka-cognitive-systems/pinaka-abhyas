@@ -22,7 +22,12 @@ import {
   buildSubmissionBatch,
   scoreMock,
   partOfItem,
+  waterfall,
+  misconceptionsByShare,
+  insightText,
   type FamilyRef,
+  type WaterfallModel,
+  type MisconceptionRow,
 } from "../../src/flows/mock/scoring.js";
 import type { MockSession } from "../../src/flows/mock/state.js";
 import type { MarkingScheme } from "@pinaka/engine";
@@ -87,6 +92,7 @@ function session(over: Partial<MockSession> = {}): MockSession {
     startedAtMs: NOW,
     answers: {},
     flagged: [],
+    struck: {},
     activeMs: 0,
     formFactor: "phone",
     viewportWidth: 360,
@@ -212,5 +218,179 @@ describe("buildSubmissionBatch — complete, mode mock, skipped events", () => {
     // Mocks are measurement: mode "mock" events never create item schedules
     // (engine SPEC 4). So no schedule entries are produced by this batch.
     expect(state.schedules.size).toBe(0);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// waterfall
+// ---------------------------------------------------------------------------
+
+describe("waterfall", () => {
+  const s = session({
+    answers: {
+      q_bm: { selectedOption: 1, timeMs: 1000 }, // correct
+      q_lr: { selectedOption: 2, timeMs: 1000 }, // wrong
+      // q_st skipped
+    },
+  });
+  let wf: WaterfallModel;
+
+  it("produces five columns in order", () => {
+    const score = scoreMock(s, CONTENT, MARKING, FAMILIES);
+    wf = waterfall(score);
+    const ids = wf.columns.map((c) => c.id);
+    expect(ids).toEqual(["full", "blank", "wrong", "penalty", "net"]);
+  });
+
+  it("full column value equals maxMarks", () => {
+    const score = scoreMock(s, CONTENT, MARKING, FAMILIES);
+    const w = waterfall(score);
+    expect(w.columns[0]!.value).toBe(score.maxMarks);
+  });
+
+  it("blank column value equals skipped * (maxMarks / total)", () => {
+    const score = scoreMock(s, CONTENT, MARKING, FAMILIES);
+    const w = waterfall(score);
+    const expected = Math.round(score.skipped * (score.maxMarks / score.total) * 100) / 100;
+    expect(w.columns[1]!.value).toBe(expected);
+  });
+
+  it("net column value equals score.net clamped to 0", () => {
+    const score = scoreMock(s, CONTENT, MARKING, FAMILIES);
+    const w = waterfall(score);
+    expect(w.columns[4]!.value).toBe(Math.max(0, score.net));
+    expect(w.columns[4]!.isNet).toBe(true);
+  });
+
+  it("passBarRatio equals passMark / maxMarks", () => {
+    const score = scoreMock(s, CONTENT, MARKING, FAMILIES);
+    const w = waterfall(score);
+    expect(w.passBarRatio).toBeCloseTo(score.passMark / score.maxMarks, 10);
+  });
+
+  it("ariaLabel mentions all the key numbers", () => {
+    const score = scoreMock(s, CONTENT, MARKING, FAMILIES);
+    const w = waterfall(score);
+    expect(w.ariaLabel).toContain(String(score.maxMarks));
+    expect(w.ariaLabel).toContain(String(score.net.toFixed(2)));
+    expect(w.ariaLabel).toContain(String(score.passMark));
+  });
+
+  it("heightRatio is always 0..1", () => {
+    const score = scoreMock(s, CONTENT, MARKING, FAMILIES);
+    const w = waterfall(score);
+    for (const col of w.columns) {
+      expect(col.heightRatio).toBeGreaterThanOrEqual(0);
+      expect(col.heightRatio).toBeLessThanOrEqual(1);
+    }
+  });
+});
+
+// ---------------------------------------------------------------------------
+// misconceptionsByShare
+// ---------------------------------------------------------------------------
+
+describe("misconceptionsByShare", () => {
+  const marking = { marksPerCorrect: 1, negativePerWrong: 0.25 };
+
+  it("returns an empty array when there are no wrong answers", () => {
+    expect(misconceptionsByShare([], marking)).toHaveLength(0);
+  });
+
+  it("omits wrong answers with no misconception", () => {
+    const noMis = [{ itemId: "x", partId: null, nodeId: null, chosenOption: 2, correctOption: 1, misconception: null }];
+    expect(misconceptionsByShare(noMis, marking)).toHaveLength(0);
+  });
+
+  it("aggregates by misconception id and sorts by lostMarks descending", () => {
+    const answers = [
+      { itemId: "a1", partId: null, nodeId: null, chosenOption: 2, correctOption: 1, misconception: "mis.a" },
+      { itemId: "a2", partId: null, nodeId: null, chosenOption: 2, correctOption: 1, misconception: "mis.a" },
+      { itemId: "b1", partId: null, nodeId: null, chosenOption: 2, correctOption: 1, misconception: "mis.b" },
+    ];
+    const rows = misconceptionsByShare(answers, marking) as MisconceptionRow[];
+    expect(rows).toHaveLength(2);
+    expect(rows[0]!.id).toBe("mis.a");
+    expect(rows[0]!.count).toBe(2);
+    // lostMarks = 2 * (1 + 0.25) = 2.5
+    expect(rows[0]!.lostMarks).toBe(2.5);
+    expect(rows[1]!.id).toBe("mis.b");
+    expect(rows[1]!.lostMarks).toBe(1.25);
+  });
+
+  it("shareRatio of the top row is 1.0", () => {
+    const answers = [
+      { itemId: "a1", partId: null, nodeId: null, chosenOption: 2, correctOption: 1, misconception: "mis.a" },
+    ];
+    const rows = misconceptionsByShare(answers, marking);
+    expect(rows[0]!.shareRatio).toBe(1);
+  });
+
+  it("lostMarks = count * (marksPerCorrect + negativePerWrong) mirrors the design table", () => {
+    // Design sample: 5 questions on a misconception => lost 6.25 (5 * 1.25)
+    const answers = Array.from({ length: 5 }, (_, i) => ({
+      itemId: `q${i}`,
+      partId: null,
+      nodeId: null,
+      chosenOption: 2,
+      correctOption: 1,
+      misconception: "mis.design",
+    }));
+    const rows = misconceptionsByShare(answers, { marksPerCorrect: 1, negativePerWrong: 0.25 });
+    expect(rows[0]!.lostMarks).toBe(6.25);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// insightText
+// ---------------------------------------------------------------------------
+
+describe("insightText", () => {
+  const marking = { marksPerCorrect: 1, negativePerWrong: 0.25 };
+
+  it("no wrong answers: returns a correct-answers variant", () => {
+    const s = session({ answers: {
+      q_bm: { selectedOption: 1, timeMs: 1 },
+      q_lr: { selectedOption: 3, timeMs: 1 },
+      q_st: { selectedOption: 2, timeMs: 1 },
+    }});
+    const score = scoreMock(s, CONTENT, MARKING, FAMILIES);
+    const rows = misconceptionsByShare(score.wrongAnswers, marking);
+    const insight = insightText(score, rows, null);
+    expect(insight.text).toMatch(/correct/i);
+  });
+
+  it("penalty > top misconception lost marks: names negative marking", () => {
+    // Make penalty dominant: one wrong answer with no misconception costs 0.25
+    // penalty but 0 misconception lost marks, so penalty > 0.
+    const answers = Array.from({ length: 4 }, (_, i) => ({
+      itemId: `q${i}`,
+      partId: null,
+      nodeId: null,
+      chosenOption: 2,
+      correctOption: 1,
+      misconception: null, // no misconception => table is empty
+    }));
+    // Build a mock score with these answers directly using a high penalty.
+    const s = session({ answers: { q_bm: { selectedOption: 2, timeMs: 1 }, q_lr: { selectedOption: 2, timeMs: 1 }, q_st: { selectedOption: 1, timeMs: 1 } } });
+    const score = scoreMock(s, CONTENT, MARKING, FAMILIES);
+    // score.wrong >= 1, misconception table is empty for mis.st since q_st has mis.st on option2 but q_st chose option1 which is wrong (correct is 2)
+    const rows = misconceptionsByShare(score.wrongAnswers, marking);
+    // Force the penalty-dominant path by passing empty rows
+    const insight = insightText(score, [], null);
+    expect(insight.text).toMatch(/negative marking/i);
+  });
+
+  it("top misconception lost marks >= penalty: names the top misconception", () => {
+    // 5 wrong answers on mis.design = lost 6.25, penalty = 5 * 0.25 = 1.25
+    // 6.25 >= 1.25 so the misconception path fires.
+    const rows: MisconceptionRow[] = [{ id: "mis.design", count: 5, lostMarks: 6.25, shareRatio: 1 }];
+    const score = scoreMock(session({ answers: { q_lr: { selectedOption: 2, timeMs: 1 } } }), CONTENT, MARKING, FAMILIES);
+    // Override penalty to be less than lostMarks
+    const fakePenalty = 1.25;
+    const fakeScore = { ...score, penalty: fakePenalty, wrong: 5 };
+    const insight = insightText(fakeScore, rows, "Simple vs compound interest");
+    expect(insight.text).toContain("Simple vs compound interest");
+    expect(insight.text).toContain("5");
   });
 });

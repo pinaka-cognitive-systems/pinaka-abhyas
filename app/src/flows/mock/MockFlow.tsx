@@ -63,9 +63,21 @@ export const MARKING_REMINDER = "Wrong -0.25 - unanswered 0" as const;
 import {
   buildSubmissionBatch,
   scoreMock,
+  waterfall,
+  misconceptionsByShare,
+  insightText,
   type FamilyRef,
   type MockScore,
+  type WaterfallModel,
+  type MisconceptionRow,
+  type InsightModel,
 } from "./scoring.js";
+import {
+  loadTopicNames,
+  loadMisconceptionNames,
+  topicLabel,
+  fallbackTopicLabel,
+} from "../../engine/topics.js";
 import {
   deviceNote,
   formFactor,
@@ -381,6 +393,7 @@ export function MockFlow({ onExit }: MockFlowProps): JSX.Element {
       <MockFrame onExit={onExit} title="Mock breakdown">
         <MockBreakdown
           score={phase.score}
+          marking={loaded.marking}
           before={phase.before}
           after={phase.after}
           content={loaded.content}
@@ -1038,21 +1051,40 @@ function ScoreReveal({
 
 function MockBreakdown({
   score,
+  marking,
   before,
   after,
   content,
   onExit,
 }: {
   readonly score: MockScore;
+  readonly marking: ScaledMarking;
   readonly before: Readiness;
   readonly after: Readiness;
   readonly content: ReadonlyMap<string, ContentItem>;
   readonly onExit: () => void;
 }): JSX.Element {
+  const [topicNames, setTopicNames] = useState<ReadonlyMap<string, string> | null>(null);
+  const [misNames, setMisNames] = useState<ReadonlyMap<string, string> | null>(null);
+
+  useEffect(() => {
+    void loadTopicNames().then(setTopicNames);
+    void loadMisconceptionNames().then(setMisNames);
+  }, []);
+
+  const wf: WaterfallModel = waterfall(score);
+  const misRows: readonly MisconceptionRow[] = misconceptionsByShare(score.wrongAnswers, marking);
+  const topMisName: string | null =
+    misRows.length > 0
+      ? (misNames?.get(misRows[0]!.id) ?? misRows[0]!.id)
+      : null;
+  const insight: InsightModel = insightText(score, misRows, topMisName);
+
   return (
     <section className="mk-breakdown">
       <h2 className="mk-breakdown__title">Where the marks went.</h2>
 
+      {/* Accessible tally: screen readers use this; the waterfall is supplementary */}
       <div className="mk-tally" role="group" aria-label="Outcome tally">
         <div className="mk-tally__cell">
           <span className="mk-tally__n">{score.correct}</span>
@@ -1072,6 +1104,37 @@ function MockBreakdown({
         </div>
       </div>
 
+      {/* Marks waterfall: five columns showing how full marks became net */}
+      <div
+        className="mk-waterfall"
+        role="img"
+        aria-label={wf.ariaLabel}
+      >
+        <div className="mk-waterfall__bars">
+          {wf.columns.map((col) => (
+            <div
+              key={col.id}
+              className={`mk-waterfall__col${col.isNet ? " mk-waterfall__col--net" : ""}`}
+            >
+              <span className="mk-waterfall__val">{col.display}</span>
+              <div
+                className="mk-waterfall__bar"
+                style={{ height: `${Math.round(col.heightRatio * 100)}%` }}
+              />
+              <span className="mk-waterfall__lbl">{col.label}</span>
+            </div>
+          ))}
+        </div>
+        {/* Pass bar: an absolutely-positioned line at the pass-mark height */}
+        <div
+          className="mk-waterfall__pass"
+          style={{ bottom: `calc(${Math.round(wf.passBarRatio * 100)}% + 28px)` }}
+          aria-hidden="true"
+        >
+          <span className="mk-waterfall__pass-lbl">Pass {score.passMark}</span>
+        </div>
+      </div>
+
       <section className="mk-parts" aria-label="Marks by part">
         <p className="mk-parts__eyebrow">Marks by part</p>
         <table className="mk-parttab">
@@ -1087,7 +1150,7 @@ function MockBreakdown({
           <tbody>
             {score.parts.map((p) => (
               <tr key={p.partId}>
-                <td className="mk-mono">{p.partId}</td>
+                <td>{topicLabel(topicNames, p.partId) ?? p.partId}</td>
                 <td>{p.correct}</td>
                 <td>{p.wrong}</td>
                 <td>{p.skipped}</td>
@@ -1098,20 +1161,59 @@ function MockBreakdown({
         </table>
       </section>
 
+      {misRows.length > 0 && (
+        <section className="mk-mis" aria-label="Marks by misconception">
+          <p className="mk-mis__eyebrow">By misconception</p>
+          <div className="mk-misbrk">
+            <div className="mk-misbrk__row mk-misbrk__row--head">
+              <span className="mk-misbrk__h">Misconception</span>
+              <span className="mk-misbrk__h mk-misbrk__h--r">Questions</span>
+              <span className="mk-misbrk__h mk-misbrk__h--r">Lost</span>
+              <span className="mk-misbrk__h">Share</span>
+            </div>
+            {misRows.map((row) => {
+              const name = misNames?.get(row.id) ?? row.id;
+              return (
+                <div className="mk-misbrk__row" key={row.id}>
+                  <span className="mk-misbrk__name">{name}</span>
+                  <span className="mk-misbrk__num">{row.count}</span>
+                  <span className="mk-misbrk__num mk-misbrk__num--neg">-{row.lostMarks.toFixed(2)}</span>
+                  <span className="mk-misbrk__minibar">
+                    <span style={{ width: `${Math.round(row.shareRatio * 100)}%` }} />
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      <div className="mk-insight" role="note">
+        <p className="mk-insight__text">{insight.text}</p>
+      </div>
+
       {score.wrongAnswers.length > 0 && (
         <section className="mk-wrong" aria-label="Wrong answers">
           <p className="mk-wrong__eyebrow">The wrong answers, and why</p>
           <ul className="mk-wrong__list">
             {score.wrongAnswers.map((w) => {
               const item = content.get(w.itemId);
+              const nodeName = w.nodeId !== null
+                ? (topicNames?.get(w.nodeId) ?? fallbackTopicLabel(w.nodeId))
+                : null;
+              const misName = w.misconception !== null
+                ? (misNames?.get(w.misconception) ?? w.misconception)
+                : null;
               return (
                 <li key={w.itemId} className="mk-wrong__row">
-                  <span className="mk-wrong__node mk-mono">{w.nodeId ?? w.itemId}</span>
+                  {nodeName !== null && (
+                    <span className="mk-wrong__node">{nodeName}</span>
+                  )}
                   <span className="mk-wrong__detail">
                     You chose option {w.chosenOption}
                     {w.correctOption !== null ? `; the answer was option ${w.correctOption}.` : "."}
-                    {w.misconception !== null && (
-                      <span className="mk-wrong__mis"> Named misconception: {w.misconception}.</span>
+                    {misName !== null && (
+                      <span className="mk-wrong__mis"> Named misconception: {misName}.</span>
                     )}
                   </span>
                   {item !== undefined && <span className="mk-wrong__stem">{item.stem}</span>}

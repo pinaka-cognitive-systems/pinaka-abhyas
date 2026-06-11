@@ -195,6 +195,189 @@ function round2(x: number): number {
   return Math.round(x * 100) / 100;
 }
 
+// ---------------------------------------------------------------------------
+// Waterfall: how maxMarks became net.
+// ---------------------------------------------------------------------------
+
+/** One column in the marks waterfall. */
+export interface WaterfallColumn {
+  /** Column identifier. */
+  readonly id: "full" | "blank" | "wrong" | "penalty" | "net";
+  /** Human label. */
+  readonly label: string;
+  /** The marks value this column represents (raw, may be negative for penalty). */
+  readonly value: number;
+  /** Height of this column as a fraction of maxMarks (0..1), used for CSS height. */
+  readonly heightRatio: number;
+  /** Display value string, e.g. "+51.00" or "-7.75". */
+  readonly display: string;
+  /** True when this column is the final net (used for pass-bar styling). */
+  readonly isNet: boolean;
+}
+
+/** The full waterfall model derived from a MockScore. Pure. */
+export interface WaterfallModel {
+  readonly columns: readonly WaterfallColumn[];
+  /** Pass bar as a fraction of maxMarks (0..1). */
+  readonly passBarRatio: number;
+  /** Prose aria-label that narrates the same numbers for screen readers. */
+  readonly ariaLabel: string;
+}
+
+/**
+ * Derive the marks waterfall model from a MockScore.
+ *
+ * Columns: full marks, minus blank (skipped) marks, minus wrong marks (the
+ * forgone correct marks), minus penalty (the negative-marking deduction),
+ * equals net. Each column's heightRatio is its absolute mark value as a
+ * fraction of maxMarks so CSS can size the bar proportionally.
+ */
+export function waterfall(score: MockScore): WaterfallModel {
+  const mpc = score.maxMarks / score.total; // marks per correct question
+  const fullMarks = score.maxMarks;
+  const blankLost = round2(score.skipped * mpc);
+  const wrongLost = round2(score.wrong * mpc);
+  const penaltyLost = score.penalty;
+  const net = score.net;
+
+  function col(
+    id: WaterfallColumn["id"],
+    label: string,
+    value: number,
+    sign: "+" | "-" | "",
+    isNet: boolean,
+  ): WaterfallColumn {
+    const abs = Math.abs(value);
+    const display = sign === "" ? value.toFixed(2) : `${sign}${abs.toFixed(2)}`;
+    return { id, label, value: abs, heightRatio: Math.max(0, abs / fullMarks), display, isNet };
+  }
+
+  const columns: WaterfallColumn[] = [
+    col("full",    "Full marks",  fullMarks,   "+", false),
+    col("blank",   "Blank",       blankLost,   "-", false),
+    col("wrong",   "Wrong",       wrongLost,   "-", false),
+    col("penalty", "Penalty",     penaltyLost, "-", false),
+    col("net",     "Net",         Math.max(0, net), "",  true),
+  ];
+
+  const ariaLabel =
+    `Marks waterfall: ${fullMarks} full marks, minus ${blankLost} for ${score.skipped} blank, ` +
+    `minus ${wrongLost} for ${score.wrong} wrong, minus ${penaltyLost} penalty, equals ` +
+    `${net.toFixed(2)} net. Pass bar is at ${score.passMark}.`;
+
+  return {
+    columns,
+    passBarRatio: Math.min(1, score.passMark / fullMarks),
+    ariaLabel,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Misconceptions by share.
+// ---------------------------------------------------------------------------
+
+/** One row in the misconceptions-by-share table. */
+export interface MisconceptionRow {
+  /** Raw misconception id. */
+  readonly id: string;
+  /** Number of wrong answers tied to this misconception. */
+  readonly count: number;
+  /**
+   * Lost marks: count * (marksPerCorrect + negativePerWrong).
+   *
+   * Semantics (mirrored from design-team/v2/mockbreakdown.jsx MisBreakdown):
+   * The design's "lost" column totals both the mark that was not earned AND
+   * the penalty deducted. For each wrong answer attributed to this
+   * misconception, the full cost is one forgone correct mark plus the negative
+   * penalty: count * (marksPerCorrect + negativePerWrong). At 1 mark correct
+   * and 0.25 penalty, a 5-question misconception shows "lost 6.25", which
+   * exactly matches the design's sample data. This combined figure is what a
+   * student could have recovered had every wrong answer been left blank instead.
+   */
+  readonly lostMarks: number;
+  /** Share as a fraction of the highest lostMarks in the table (0..1). */
+  readonly shareRatio: number;
+}
+
+/**
+ * Aggregate wrongAnswers by misconception id, sorted by lostMarks descending.
+ * Items with no misconception (null) are omitted.
+ *
+ * @param wrongAnswers  the wrongAnswers array from a MockScore.
+ * @param marking       the scaled marking scheme for this mock.
+ */
+export function misconceptionsByShare(
+  wrongAnswers: readonly WrongAnswer[],
+  marking: Pick<ScaledMarking, "marksPerCorrect" | "negativePerWrong">,
+): readonly MisconceptionRow[] {
+  const counts = new Map<string, number>();
+  for (const w of wrongAnswers) {
+    if (w.misconception === null) continue;
+    counts.set(w.misconception, (counts.get(w.misconception) ?? 0) + 1);
+  }
+  if (counts.size === 0) return [];
+
+  const costPerWrong = marking.marksPerCorrect + marking.negativePerWrong;
+  const rows: MisconceptionRow[] = Array.from(counts.entries()).map(([id, count]) => ({
+    id,
+    count,
+    lostMarks: round2(count * costPerWrong),
+    shareRatio: 0,
+  }));
+  rows.sort((a, b) => b.lostMarks - a.lostMarks);
+
+  const maxLost = rows[0]?.lostMarks ?? 0;
+  return rows.map((r) => ({ ...r, shareRatio: maxLost > 0 ? r.lostMarks / maxLost : 0 }));
+}
+
+// ---------------------------------------------------------------------------
+// Insight box.
+// ---------------------------------------------------------------------------
+
+/** The derived insight paragraph. */
+export interface InsightModel {
+  readonly text: string;
+}
+
+/**
+ * Derive one insight from the mock data.
+ *
+ * Logic (mirrored from design-team/v2/mockbreakdown.jsx InsightClose):
+ * If the total negative-marking penalty exceeds the lost marks of the top
+ * single misconception, the insight calls that out. Otherwise it names the
+ * top misconception with its display name and count.
+ *
+ * @param score    the full mock score.
+ * @param rows     the result of misconceptionsByShare (sorted, resolved).
+ * @param topName  the display name for rows[0].id (or null when the table is
+ *                 empty or the name is not yet resolved).
+ */
+export function insightText(
+  score: MockScore,
+  rows: readonly MisconceptionRow[],
+  topName: string | null,
+): InsightModel {
+  if (score.wrong === 0) {
+    return { text: `You answered every question you attempted correctly. The blank questions cost ${score.skipped} marks.` };
+  }
+
+  const top = rows[0];
+  if (top === undefined || score.penalty > top.lostMarks) {
+    return {
+      text:
+        `You lost more to negative marking than to any single misconception. ` +
+        `${score.wrong} of your wrong answers cost ${score.penalty.toFixed(2)} marks in total.`,
+    };
+  }
+
+  const name = topName ?? top.id;
+  return {
+    text:
+      `${name} cost you the most: ${top.count} ${top.count === 1 ? "question" : "questions"}, ` +
+      `${top.lostMarks.toFixed(2)} marks lost.`,
+  };
+}
+
 /**
  * Score a submitted mock: net marks under negative marking, the counts, and the
  * per-part and per-misconception breakdown. Pure; reads the same answer key as
