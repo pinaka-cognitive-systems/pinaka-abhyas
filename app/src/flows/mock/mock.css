@@ -233,8 +233,15 @@
   /* ---------------------------------------------------------------- */
   /* HALL                                                              */
   /* ---------------------------------------------------------------- */
+  /* The hall takes the whole viewport, covering the app shell's rail and tab
+   * bar: a timed paper deserves an exam room, not a browsing frame. Fixed
+   * takeover instead of a route change keeps the phase machine intact. */
   .mk-screen--hall {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
     min-height: 100dvh;
+    overflow: hidden;
   }
 
   .mk-hallbar {
@@ -279,12 +286,16 @@
   .mk-hall {
     display: flex;
     flex-direction: column;
+    /* Inside the fixed hall takeover the body scrolls, not the page. */
+    flex: 1;
+    min-height: 0;
   }
   .mk-hall__main {
     width: 100%;
     max-width: 760px;
     margin: 0 auto;
     padding: var(--space-5) var(--gutter) var(--space-10);
+    overflow-y: auto;
   }
 
   .mk-resume {
@@ -1521,15 +1532,15 @@
       flex: 1 1 auto;
       max-width: none;
       padding: var(--space-6) 0 var(--space-12);
+      height: 100%;
+      overflow-y: auto;
     }
     .mk-palette {
       flex: 0 0 280px;
-      position: sticky;
-      top: var(--touch-target);
       border-top: 0;
       border-left: 1px solid var(--color-border-hairline);
       align-self: stretch;
-      max-height: calc(100dvh - var(--touch-target));
+      max-height: 100%;
       overflow-y: auto;
     }
     .mk-palette__scroll {

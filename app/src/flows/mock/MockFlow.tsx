@@ -127,6 +127,8 @@ interface Loaded {
   readonly adapter: StorageAdapter;
   readonly mock: AssembledMock;
   readonly marking: ScaledMarking;
+  /** Taxonomy node id to display name ("Simple interest"), engine/topics.ts. */
+  readonly names: ReadonlyMap<string, string>;
 }
 
 type Phase =
@@ -181,9 +183,10 @@ export function MockFlow({ onExit }: MockFlowProps): JSX.Element {
     let cancelled = false;
 
     async function boot(): Promise<void> {
-      const [{ loadCaPack }, content] = await Promise.all([
+      const [{ loadCaPack }, content, names] = await Promise.all([
         import("../../engine/caPack.js"),
         loadCaContent(),
+        loadTopicNames(),
       ]);
       const pack = await loadCaPack();
       const { adapter } = await getSharedStorage();
@@ -200,7 +203,7 @@ export function MockFlow({ onExit }: MockFlowProps): JSX.Element {
       if (stored !== null) {
         const marking = scaleMarking(pack.marking, stored.order.length);
         const mock: AssembledMock = assembleMock(stored.seed, pack.bank, pack.blueprint, stored.fullPaperSize);
-        loadedRef.current = { pack, content, adapter, mock, marking };
+        loadedRef.current = { pack, content, adapter, mock, marking, names };
         sessionRef.current = stored;
         acquireMockGuard();
         guardHeldRef.current = true;
@@ -224,7 +227,7 @@ export function MockFlow({ onExit }: MockFlowProps): JSX.Element {
         pack.marking.numQuestions,
       );
       const marking = scaleMarking(pack.marking, mock.size);
-      loadedRef.current = { pack, content, adapter, mock, marking };
+      loadedRef.current = { pack, content, adapter, mock, marking, names };
       const battery = await readBattery();
       if (cancelled) return;
       setPhase({ kind: "premock", battery, ff: formFactor(viewportWidth()) });
@@ -784,7 +787,7 @@ function Hall({
     );
   }
 
-  const nodeLeaf = item.tests[0] ?? "";
+  const topic = topicLabel(loaded.names, item.tests[0] ?? null) ?? "";
   return (
     <div className="mk-screen mk-screen--hall">
       <header className="mk-hallbar">
@@ -808,7 +811,7 @@ function Hall({
             <span className="mk-qmeta__num">
               Q {idx + 1} of {live.order.length}
             </span>
-            <span className="mk-qmeta__node mk-mono">{nodeLeaf}</span>
+            <span className="mk-qmeta__node">{topic}</span>
           </div>
           <p className="mk-stem">{item.stem}</p>
 
@@ -880,6 +883,7 @@ function Hall({
           session={live}
           parts={partOf}
           content={loaded.content}
+          names={loaded.names}
           current={idx}
           answeredTotal={answered}
           onJump={goTo}
@@ -910,6 +914,7 @@ function Palette({
   session,
   parts,
   content,
+  names,
   current,
   answeredTotal,
   onJump,
@@ -919,6 +924,8 @@ function Palette({
   readonly session: MockSession;
   readonly parts: readonly FamilyRef[];
   readonly content: ReadonlyMap<string, ContentItem>;
+  /** Taxonomy display names; the palette groups read as part names, not ids. */
+  readonly names: ReadonlyMap<string, string>;
   readonly current: number;
   readonly answeredTotal: number;
   readonly onJump: (idx: number) => void;
@@ -961,7 +968,7 @@ function Palette({
       <div className="mk-palette__scroll">
         {order.map((partId) => (
           <div className="mk-psec" key={partId}>
-            <p className="mk-psec__name mk-mono">{partId}</p>
+            <p className="mk-psec__name">{topicLabel(names, partId) ?? partId}</p>
             <div className="mk-psec__grid">
               {groups.get(partId)!.map((i) => {
                 const id = session.order[i]!;
