@@ -28,6 +28,10 @@ syllabus/extracted/sa-may-2025-qa.md
 # Design-team working area (vendor inbox; ported artifacts land in docs/brand/ and app/)
 /design-team/
 
+# Internal working docs: operator and build-agent material (audit, master plan,
+# design intake, session bridges). Not part of the public doc surface. See internal/MOVES.md.
+/internal/
+
 # Python packaging artifact (pip install . in repo root)
 *.egg-info/
 
