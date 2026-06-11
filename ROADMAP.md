@@ -74,8 +74,6 @@ Next:
   paper (mock rotation needs roughly three papers of headroom), with a human
   expert audit at the 5 to 10 percent rate.
 - Replace the quarantined item with an original equivalent.
-- Persist completed mock results so the review walkthrough survives leaving
-  the page (today it is reachable only directly after the mock).
 - Harden the app for accessibility and performance on a low-end Android phone.
 - Run the closed beta with real aspirants to settle Gate B.
 - Public release: app under AGPL-3.0, shipped questions under CC BY-NC-SA 4.0; the
