@@ -87,6 +87,7 @@ import {
   type BatteryReading,
 } from "./premock.js";
 import { acquireMockGuard, releaseMockGuard } from "./guard.js";
+import { MockReview } from "./MockReview.js";
 import "./mock.css";
 
 /** Read the live viewport width at the boundary; phone floor when window absent. */
@@ -148,6 +149,12 @@ type Phase =
       readonly score: MockScore;
       readonly before: Readiness;
       readonly after: Readiness;
+    }
+  | {
+      readonly kind: "review";
+      readonly score: MockScore;
+      readonly before: Readiness;
+      readonly after: Readiness;
     };
 
 export interface MockFlowProps {
@@ -161,6 +168,9 @@ export function MockFlow({ onExit }: MockFlowProps): JSX.Element {
   const loadedRef = useRef<Loaded | null>(null);
   const examMsRef = useRef<number | undefined>(undefined);
   const sessionRef = useRef<MockSession | null>(null);
+  // Holds the completed session (answers + flagged) so the review phase can read
+  // it after submit() has cleared sessionRef.current.
+  const completedSessionRef = useRef<MockSession | null>(null);
   const questionStartRef = useRef<number>(0);
   // True once the guard is held, so cleanup releases exactly once.
   const guardHeldRef = useRef<boolean>(false);
@@ -322,6 +332,9 @@ export function MockFlow({ onExit }: MockFlowProps): JSX.Element {
     const afterState = buildEngineState(afterEvents, loaded.pack.bank, nowMs, examMsRef.current);
     const after = computeReadinessSelector(afterState, afterEvents, loaded.pack, nowMs);
 
+    // Preserve the completed session for the review phase before clearing it.
+    completedSessionRef.current = session;
+
     // Clear the in-progress mock and release the guard (a swap may now apply).
     await loaded.adapter.setMeta(MOCK_SESSION_META_KEY, "");
     sessionRef.current = null;
@@ -398,8 +411,48 @@ export function MockFlow({ onExit }: MockFlowProps): JSX.Element {
           after={phase.after}
           content={loaded.content}
           onExit={onExit}
+          onReview={() =>
+            setPhase({ kind: "review", score: phase.score, before: phase.before, after: phase.after })
+          }
         />
       </MockFrame>
+    );
+  }
+
+  if (phase.kind === "review") {
+    const loaded = loadedRef.current!;
+    const reviewSession = completedSessionRef.current;
+    if (reviewSession === null) {
+      return (
+        <MockFrame onExit={onExit} title="Mock review">
+          <section className="mk-status mk-status--error" role="alert">
+            <p className="mk-status__label">Review unavailable</p>
+            <p className="mk-status__body">
+              The session data was not available for review. Return to the breakdown.
+            </p>
+            <button
+              type="button"
+              className="mk-btn mk-btn--primary"
+              onClick={() =>
+                setPhase({ kind: "breakdown", score: phase.score, before: phase.before, after: phase.after })
+              }
+            >
+              Back to breakdown
+            </button>
+          </section>
+        </MockFrame>
+      );
+    }
+    return (
+      <MockReview
+        session={reviewSession}
+        score={phase.score}
+        content={loaded.content}
+        onBack={() =>
+          setPhase({ kind: "breakdown", score: phase.score, before: phase.before, after: phase.after })
+        }
+        onExit={onExit}
+      />
     );
   }
 
@@ -1056,6 +1109,7 @@ function MockBreakdown({
   after,
   content,
   onExit,
+  onReview,
 }: {
   readonly score: MockScore;
   readonly marking: ScaledMarking;
@@ -1063,6 +1117,7 @@ function MockBreakdown({
   readonly after: Readiness;
   readonly content: ReadonlyMap<string, ContentItem>;
   readonly onExit: () => void;
+  readonly onReview: () => void;
 }): JSX.Element {
   const [topicNames, setTopicNames] = useState<ReadonlyMap<string, string> | null>(null);
   const [misNames, setMisNames] = useState<ReadonlyMap<string, string> | null>(null);
@@ -1227,7 +1282,10 @@ function MockBreakdown({
       <ReadinessShift before={before} after={after} />
 
       <div className="mk-actions">
-        <button type="button" className="mk-btn mk-btn--primary" onClick={onExit}>
+        <button type="button" className="mk-btn mk-btn--primary" onClick={onReview}>
+          Review the answers
+        </button>
+        <button type="button" className="mk-btn mk-btn--ghost" onClick={onExit}>
           Back to home
         </button>
       </div>

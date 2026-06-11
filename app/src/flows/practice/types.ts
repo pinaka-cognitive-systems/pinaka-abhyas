@@ -65,6 +65,8 @@ export interface ContentItem {
   readonly tests: readonly string[];
   readonly difficulty_label: DifficultyLabel;
   readonly item_type: ItemType;
+  /** Authored time budget in seconds. Used for pacing words in review. */
+  readonly expected_seconds: number;
   readonly stem: string;
   readonly options: readonly ContentOption[];
   readonly answer_key: {
@@ -92,6 +94,7 @@ export interface RawContentItem {
   readonly tests: readonly string[];
   readonly difficulty_label: DifficultyLabel;
   readonly item_type: ItemType;
+  readonly expected_seconds?: number;
   readonly stem: string;
   readonly options?: readonly ContentOption[];
   readonly answer_key?: {
@@ -120,6 +123,7 @@ export function toContentItem(raw: RawContentItem): ContentItem {
     tests: [...raw.tests],
     difficulty_label: raw.difficulty_label,
     item_type: raw.item_type,
+    expected_seconds: raw.expected_seconds ?? 90,
     stem: raw.stem,
     options: raw.options ? [...raw.options] : [],
     answer_key: raw.answer_key ?? {},
