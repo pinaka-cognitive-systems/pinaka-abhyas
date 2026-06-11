@@ -17,6 +17,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
+import { BrandMark } from "../../components/BrandMark.js";
 import {
   AlreadyOpenError,
   detectCapabilities,
@@ -206,12 +207,16 @@ export function FirstRunFlow({ onComplete }: FirstRunFlowProps): JSX.Element {
 // Step views. Each is a pure function of its props (no storage, no logic).
 // ---------------------------------------------------------------------------
 
-/** Shared card frame. */
+/** Shared card frame. The lockup leads every step: first-run is the one place
+ * a student meets the product with no surrounding chrome to name it. */
 function Frame({ children }: { readonly children: React.ReactNode }): JSX.Element {
   return (
     <div className="fr-screen">
       <main className="fr-body">
-        <section className="fr-card">{children}</section>
+        <section className="fr-card">
+          <BrandMark />
+          {children}
+        </section>
       </main>
     </div>
   );
