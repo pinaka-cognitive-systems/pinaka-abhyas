@@ -59,6 +59,9 @@ function selectShell(distDir, allFiles) {
   for (const f of allFiles) {
     if (f.endsWith(".webmanifest")) shell.add(f);
     if (f.startsWith("/icons/")) shell.add(f);
+    // Font subsets (~31 KB total): precache so offline text renders in Plex,
+    // not the swap fallback. OFL.txt stays out; it is not a runtime asset.
+    if (f.startsWith("/fonts/") && f.endsWith(".woff2")) shell.add(f);
     // Top-level CSS emitted by Vite (the entry stylesheet) — referenced above,
     // but include any css the entry imports to be safe; css files are small.
     if (f.startsWith("/assets/") && f.endsWith(".css")) shell.add(f);

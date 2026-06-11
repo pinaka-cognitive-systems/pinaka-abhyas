@@ -9,6 +9,7 @@
  * Component rules below consume those tokens.
  */
 
+@import "./theme/fonts.css";
 @import "./theme/tokens.css";
 
 @layer reset, tokens, components;

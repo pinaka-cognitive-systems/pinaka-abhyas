@@ -298,21 +298,13 @@
 }
 
 /*
- * FONT NOTE — v1 system font stack (ADR 0008, W5-6)
+ * FONT NOTE — IBM Plex ships subset (ADR 0008)
  *
- * The --font-sans and --font-mono tokens name IBM Plex Sans / IBM Plex Mono as
- * the preferred faces, but index.html ships NO @font-face declarations and NO
- * font files in dist/. v1 runs entirely on the OS/browser system-font cascade
- * (ui-sans-serif, system-ui, -apple-system, sans-serif for sans; ui-monospace
- * fallbacks for mono). This means:
- *
- *   - Zero extra bytes from font files at first load (ADR 0008 budget is fine).
- *   - No OFL license text is required to ship (W5-6: "if system-only, record the
- *     decision and update LICENSING.md only if something actually ships").
- *   - LICENSING.md carries no font attribution line because nothing ships.
- *
- * IBM Plex Sans / Mono arrive with the v3 design intake (W6-2). At that point:
- *   1. Subset the fonts to the used character ranges (OFL-1.1 allows this).
- *   2. Add the OFL-1.1 license text to dist/ or reference it in LICENSING.md.
- *   3. Remove this note and update the token values above.
+ * The --font-sans and --font-mono tokens resolve to real IBM Plex faces:
+ * theme/fonts.css declares @font-face rules over the ~31 KB subset set in
+ * public/fonts/ (built by app/scripts/make-fonts.py from the design-team
+ * drop; OFL.txt ships alongside as the license requires). The system-font
+ * names that follow Plex in each token are the font-display: swap fallback
+ * while the subsets load, and the rendering for any glyph outside the
+ * subset ranges.
  */

@@ -1,0 +1,50 @@
+/*
+ * fonts.css — self-hosted IBM Plex subsets (ADR 0008: "Fonts ship subset with
+ * the OFL license text; the full design-drop font set does not ship").
+ *
+ * Files are built by app/scripts/make-fonts.py from the design-team drop:
+ *   PlexSansVar.woff2     variable, wght 400..600 (brand weight ceiling), one
+ *                         file serves normal/medium/semibold via interpolation
+ *   PlexMono-{400,500,600}.woff2   numeric data and scores only
+ *   OFL.txt               license text, shipped alongside per the OFL
+ *
+ * Whole set is ~31 KB transferred, inside the ADR 0008 first-load budget.
+ * font-display: swap — text renders immediately in the system cascade
+ * (--font-sans fallbacks) and reflows once when Plex arrives; offline-cached
+ * thereafter by the app-shell service worker.
+ *
+ * @font-face rules are unlayered on purpose: layered rules cannot define
+ * font faces in some engines, and they need no cascade position.
+ */
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("/fonts/PlexSansVar.woff2") format("woff2");
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/PlexMono-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/PlexMono-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/PlexMono-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}

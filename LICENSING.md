@@ -32,6 +32,13 @@ Pinaka owns what it ships, which is what lets us grant the content license.
 
 The content generator (prashna) is not released.
 
+## Fonts: SIL OFL 1.1
+
+The app ships subset builds of IBM Plex Sans and IBM Plex Mono (Copyright IBM
+Corp.), licensed under the SIL Open Font License 1.1. The full license text
+ships with the fonts at `app/public/fonts/OFL.txt`. Subsetting is permitted by
+the OFL; the subsets are built by `app/scripts/make-fonts.py`.
+
 ## Per-item license field
 
 Every question carries `provenance.license`, an SPDX identifier:
