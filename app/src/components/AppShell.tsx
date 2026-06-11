@@ -1,16 +1,21 @@
 /**
  * AppShell.tsx — persistent navigation shell for the Pinaka Abhyas PWA.
  *
- * Desktop (min-width 1024px): a 224px left rail with brand lockup at the top,
- * five nav destinations, a divider after Practice, and a Settings item at the
- * foot. The content area to the right fills the remaining space and scrolls
- * independently.
+ * Three tiers (all driven by shell.css, additive media queries):
  *
- * Below 1024px: a fixed bottom tab bar with the same five destinations (icons
- * plus 11-12px labels), 44px minimum touch targets, a hairline border-top, and
- * env(safe-area-inset-bottom) padding for notched devices. The content area
- * must reserve height equal to the tab bar so flow content and any pinned dock
- * (.pr-dock) are not covered.
+ *   >= 1200px (full rail): 224px left rail, brand lockup with wordmark and
+ *   tag, item labels visible, review-count badge inline, storage status line.
+ *
+ *   1024px to 1199px (icon rail): 64px left rail, icons centered, item labels
+ *   visually hidden (CSS clip-path pattern) but still in the a11y tree, the
+ *   brand area shows the chevron mark only, the review-count badge appears as
+ *   a small dot/count in the corner of the icon, and the storage status line
+ *   is hidden. Native title tooltips on each button provide visible labels on
+ *   hover.
+ *
+ *   Below 1024px: a fixed bottom tab bar with the same five destinations (icons
+ *   plus 11-12px labels), 44px minimum touch targets, a hairline border-top,
+ *   and env(safe-area-inset-bottom) padding for notched devices.
  *
  * The shell never scrolls as a page; the content area uses the same
  * 100dvh-based flex pattern the existing flows use.
@@ -19,6 +24,8 @@
  * tab bar is hidden (display: none via CSS) so only the rail appears in the
  * accessibility tree. On mobile the rail is hidden and the tab bar is visible.
  * Keeping one element visible at a time avoids duplicate landmark confusion.
+ * At the icon tier, aria-label and title are both present on each button; the
+ * visually-hidden label span is the accessible name source.
  *
  * Icons: inline SVG recreated from the design-team Icon set geometry
  * (design-team/v2/app-shell.jsx). Stroke currentColor, strokeWidth 1.75,
