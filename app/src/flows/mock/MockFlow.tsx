@@ -47,10 +47,19 @@ import {
   resumeNote,
   serializeSession,
   withAnswer,
+  withAnswerAndUnstrike,
   withClearedAnswer,
   withToggledFlag,
+  withToggledStrike,
   type MockSession,
 } from "./state.js";
+
+/**
+ * The one-line marking reminder shown in the hall bar, palette header, and
+ * submit dialog. Single source of truth: extracted here so the three surfaces
+ * always read identically and a change propagates everywhere at once.
+ */
+export const MARKING_REMINDER = "Wrong -0.25 - unanswered 0" as const;
 import {
   buildSubmissionBatch,
   scoreMock,
@@ -239,6 +248,7 @@ export function MockFlow({ onExit }: MockFlowProps): JSX.Element {
       startedAtMs: nowMs,
       answers: {},
       flagged: [],
+      struck: {},
       activeMs: 0,
       formFactor: formFactor(viewportWidth()),
       viewportWidth: viewportWidth(),
@@ -620,7 +630,7 @@ function Hall({
   const pick = useCallback(
     (key: number): void => {
       setPicked(key);
-      const next = withAnswer(
+      const next = withAnswerAndUnstrike(
         live,
         itemId,
         key,
@@ -646,7 +656,21 @@ function Hall({
     onMutate(next);
   }, [live, itemId, onMutate]);
 
-  // Keyboard: 1-4 select, F flag, C clear, arrows move. Secondary to the buttons.
+  const toggleStrike = useCallback(
+    (optionKey: number): void => {
+      const next = withToggledStrike(live, itemId, optionKey, picked);
+      // If the strike cleared the selection (striking the picked option), sync it.
+      if (picked !== null && optionKey === picked && next.answers[itemId] === undefined) {
+        setPicked(null);
+      }
+      setLive(next);
+      onMutate(next);
+    },
+    [live, itemId, picked, onMutate],
+  );
+
+  // Keyboard: 1-4 select, Shift+1-4 strike, F flag, C clear, arrows move.
+  // Secondary to the buttons; Shift+digit toggles strike without selecting.
   useEffect(() => {
     const handler = (e: KeyboardEvent): void => {
       const target = e.target as HTMLElement | null;
@@ -657,7 +681,11 @@ function Hall({
         const opt = item.options[n - 1];
         if (opt) {
           e.preventDefault();
-          pick(opt.key);
+          if (e.shiftKey) {
+            toggleStrike(opt.key);
+          } else {
+            pick(opt.key);
+          }
         }
         return;
       }
@@ -669,11 +697,12 @@ function Hall({
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [item, pick, toggleFlag, clear, goTo, idx]);
+  }, [item, pick, toggleStrike, toggleFlag, clear, goTo, idx]);
 
   const answered = answeredCount(live);
   const flagged = new Set(live.flagged);
   const partOf = familyRefs(loaded.pack);
+  const struckForItem = new Set(live.struck[itemId] ?? []);
 
   if (item === undefined) {
     return (
@@ -694,8 +723,8 @@ function Hall({
     <div className="mk-screen mk-screen--hall">
       <header className="mk-hallbar">
         <Countdown session={live} onTimeUp={onSubmit} />
-        <span className="mk-hallbar__neg" aria-label="Marking">
-          Wrong costs {loaded.marking.negativePerWrong}, blank costs nothing
+        <span className="mk-hallbar__neg" aria-label="Marking scheme">
+          {MARKING_REMINDER}
         </span>
         <button type="button" className="mk-hallbar__exit" onClick={onExitHall}>
           Save and exit
@@ -720,19 +749,36 @@ function Hall({
           <div className="mk-options" role="radiogroup" aria-label="Answer options">
             {item.options.map((o, i) => {
               const sel = picked === o.key;
+              const isStruck = struckForItem.has(o.key);
               return (
-                <button
+                <div
                   key={o.key}
-                  type="button"
-                  role="radio"
-                  aria-checked={sel}
-                  className={`mk-opt${sel ? " mk-opt--picked" : ""}`}
-                  onClick={() => pick(o.key)}
+                  className={`mk-optrow${isStruck ? " mk-optrow--struck" : ""}`}
                 >
-                  <span className="mk-opt__key">{o.key}</span>
-                  <span className="mk-opt__text">{o.text}</span>
-                  <kbd className="mk-opt__kbd">{i + 1}</kbd>
-                </button>
+                  <button
+                    type="button"
+                    role="radio"
+                    aria-checked={sel}
+                    className={`mk-opt${sel ? " mk-opt--picked" : ""}${isStruck ? " mk-opt--struck" : ""}`}
+                    onClick={() => pick(o.key)}
+                  >
+                    <span className="mk-opt__key">{o.key}</span>
+                    <span className="mk-opt__text">{o.text}</span>
+                    <kbd className="mk-opt__kbd">{i + 1}</kbd>
+                  </button>
+                  <button
+                    type="button"
+                    className="mk-opt__strike"
+                    aria-pressed={isStruck}
+                    aria-label={isStruck ? `Restore option ${o.key}` : `Rule out option ${o.key}`}
+                    title={isStruck ? `Restore (Shift+${i + 1})` : `Rule out (Shift+${i + 1})`}
+                    onClick={() => toggleStrike(o.key)}
+                  >
+                    <span className="mk-opt__strike-icon" aria-hidden="true">
+                      {isStruck ? "+" : "x"}
+                    </span>
+                  </button>
+                </div>
               );
             })}
           </div>
@@ -772,6 +818,7 @@ function Hall({
           answeredTotal={answered}
           onJump={goTo}
           onSubmit={() => setShowSubmit(true)}
+          markingReminder={MARKING_REMINDER}
         />
       </div>
 
@@ -781,6 +828,7 @@ function Hall({
           flagged={live.flagged.length}
           total={live.order.length}
           negativePerWrong={loaded.marking.negativePerWrong}
+          markingReminder={MARKING_REMINDER}
           onCancel={() => setShowSubmit(false)}
           onConfirm={onSubmit}
         />
@@ -800,6 +848,7 @@ function Palette({
   answeredTotal,
   onJump,
   onSubmit,
+  markingReminder,
 }: {
   readonly session: MockSession;
   readonly parts: readonly FamilyRef[];
@@ -808,6 +857,7 @@ function Palette({
   readonly answeredTotal: number;
   readonly onJump: (idx: number) => void;
   readonly onSubmit: () => void;
+  readonly markingReminder: string;
 }): JSX.Element {
   const flagged = new Set(session.flagged);
   // Group question indices by part (paper order keeps each part contiguous).
@@ -839,6 +889,9 @@ function Palette({
           {answeredTotal} of {session.order.length} answered
         </span>
       </div>
+      <p className="mk-palette__marking" aria-label="Marking scheme">
+        {markingReminder}
+      </p>
       <div className="mk-palette__scroll">
         {order.map((partId) => (
           <div className="mk-psec" key={partId}>
@@ -890,6 +943,7 @@ function SubmitDialog({
   flagged,
   total,
   negativePerWrong,
+  markingReminder,
   onCancel,
   onConfirm,
 }: {
@@ -897,6 +951,7 @@ function SubmitDialog({
   readonly flagged: number;
   readonly total: number;
   readonly negativePerWrong: number;
+  readonly markingReminder: string;
   readonly onCancel: () => void;
   readonly onConfirm: () => void;
 }): JSX.Element {
@@ -911,6 +966,9 @@ function SubmitDialog({
         onClick={(e) => e.stopPropagation()}
       >
         <p className="mk-sheet__eyebrow">Submit mock</p>
+        <p className="mk-sheet__marking" aria-label="Marking scheme">
+          {markingReminder}
+        </p>
         <ul className="mk-sheet__sum">
           <li>
             <span>Answered</span>

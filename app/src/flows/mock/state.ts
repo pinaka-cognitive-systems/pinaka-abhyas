@@ -11,6 +11,20 @@
  *
  * All functions here are pure and DOM-free: every clock value is a parameter.
  * The state is serialized to a single storage meta key by storage.ts.
+ *
+ * Storage versioning: the key is MOCK_SESSION_META_KEY ("mock_session_v1").
+ * The shape is forward-compatible: new optional fields added here are absent in
+ * sessions written by older builds, and parseSession fills defaults so the
+ * session is still usable. The key does not change for additive fields because
+ * the session is ephemeral (one paper, one sitting); a breaking reshape would
+ * require a new key, at which point the old key is simply ignored and the
+ * student starts fresh.
+ *
+ * v1 (initial): id, seed, order, fullPaperSize, budgetMs, startedAtMs,
+ *   answers, flagged, activeMs, formFactor, viewportWidth.
+ * v1 + strike addendum: adds `struck` (Record<itemId, number[]>): option keys
+ *   the student ruled out per item. Absent on sessions written before this
+ *   addendum; parseSession defaults to {}.
  */
 
 /** One recorded answer within a mock, before submission scoring. The raw
@@ -46,6 +60,15 @@ export interface MockSession {
   readonly answers: Readonly<Record<string, MockAnswer>>;
   /** Item ids the student flagged for review. */
   readonly flagged: readonly string[];
+  /**
+   * Ruled-out option keys per item id. A student may mark options they have
+   * eliminated without changing their selection. Absent in sessions written
+   * before the strike addendum; parseSession defaults to {}. A struck option
+   * that is subsequently selected is automatically un-struck (the selection
+   * implies reconsideration). Striking the currently selected option clears the
+   * selection first (handled in the Hall component, not here).
+   */
+  readonly struck: Readonly<Record<string, readonly number[]>>;
   /**
    * Accumulated ACTIVE time, in milliseconds: the sum of foreground time the
    * student has actually spent in the hall across all sessions of this mock.
@@ -100,7 +123,13 @@ export function parseSession(raw: string | null): MockSession | null {
   ) {
     return null;
   }
-  return v as MockSession;
+  // Strike addendum: sessions written before this field existed lack `struck`.
+  // Default to an empty record so older sessions resume without any struck state.
+  const struck: Readonly<Record<string, readonly number[]>> =
+    typeof o.struck === "object" && o.struck !== null && !Array.isArray(o.struck)
+      ? (o.struck as Readonly<Record<string, readonly number[]>>)
+      : {};
+  return { ...(v as Omit<MockSession, "struck">), struck };
 }
 
 /**
@@ -178,4 +207,67 @@ export function withToggledFlag(session: MockSession, itemId: string): MockSessi
   if (set.has(itemId)) set.delete(itemId);
   else set.add(itemId);
   return { ...session, flagged: [...set].sort() };
+}
+
+/**
+ * Toggle a struck (ruled-out) option key on an item, returning the next session.
+ *
+ * Rules (per spec):
+ *   - Striking does not clear or block selection.
+ *   - If `optionKey` is the currently selected option, the selection is cleared
+ *     first (pass `currentSelected` as the currently picked key, or null).
+ *   - Selecting a struck option un-strikes it automatically: that is handled
+ *     in withAnswerAndUnstrike; callers should use that function when recording
+ *     a pick rather than the bare withAnswer.
+ */
+export function withToggledStrike(
+  session: MockSession,
+  itemId: string,
+  optionKey: number,
+  currentSelected: number | null,
+): MockSession {
+  const existing = session.struck[itemId] ?? [];
+  const set = new Set(existing);
+  let next: MockSession = session;
+  if (set.has(optionKey)) {
+    // Un-striking: just remove.
+    set.delete(optionKey);
+  } else {
+    // Striking: if the option is currently selected, clear the selection first.
+    if (currentSelected === optionKey) {
+      next = withClearedAnswer(session, itemId);
+    }
+    set.add(optionKey);
+  }
+  const struckForItem = [...set].sort((a, b) => a - b);
+  const struck: Record<string, readonly number[]> = { ...next.struck };
+  if (struckForItem.length === 0) {
+    delete struck[itemId];
+  } else {
+    struck[itemId] = struckForItem;
+  }
+  return { ...next, struck };
+}
+
+/**
+ * Record an answer and automatically un-strike the chosen option if it was
+ * struck. Combines withAnswer + strike cleanup in one immutable step.
+ */
+export function withAnswerAndUnstrike(
+  session: MockSession,
+  itemId: string,
+  selectedOption: number,
+  visitMs: number,
+): MockSession {
+  const next = withAnswer(session, itemId, selectedOption, visitMs);
+  const existing = next.struck[itemId];
+  if (existing === undefined || !existing.includes(selectedOption)) return next;
+  const filtered = existing.filter((k) => k !== selectedOption);
+  const struck: Record<string, readonly number[]> = { ...next.struck };
+  if (filtered.length === 0) {
+    delete struck[itemId];
+  } else {
+    struck[itemId] = filtered;
+  }
+  return { ...next, struck };
 }

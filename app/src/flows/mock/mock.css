@@ -326,28 +326,52 @@
     gap: var(--space-3);
     margin-bottom: var(--space-6);
   }
+
+  /* Each option is a row wrapper that holds the clickable option + the strike
+     toggle side by side. The wrapper carries the struck visual state so the
+     struck modifier can dim the whole row at once. */
+  .mk-optrow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-card);
+    overflow: hidden;
+  }
+  .mk-optrow:hover {
+    border-color: var(--color-border-strong);
+  }
+  .mk-optrow--struck {
+    opacity: 0.5;
+  }
+
   .mk-opt {
     display: flex;
     align-items: flex-start;
     gap: var(--space-3);
-    width: 100%;
+    flex: 1 1 auto;
     min-height: var(--touch-target);
     padding: var(--space-3) var(--space-4);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    background: var(--color-card);
+    border: 0;
+    border-radius: 0;
+    background: transparent;
     color: var(--color-card-foreground);
     font: inherit;
     font-size: var(--text-base);
     text-align: left;
     cursor: pointer;
   }
-  .mk-opt:hover {
-    border-color: var(--color-border-strong);
-  }
   .mk-opt--picked {
+    background: var(--color-brand-soft);
+  }
+  .mk-optrow:has(.mk-opt--picked) {
     border-color: var(--color-brand-primary);
     background: var(--color-brand-soft);
+  }
+  .mk-opt--struck .mk-opt__text {
+    text-decoration: line-through;
+    color: var(--color-text-subtle);
   }
   .mk-opt__key {
     display: inline-flex;
@@ -378,6 +402,46 @@
     padding: 0 var(--space-1);
   }
 
+  /* Strike toggle: a 44px touch target on the trailing edge of the option row.
+     Visually separated by a hairline border on the left. The icon is a plain
+     text x (strike) or + (restore) rendered in a small circle. aria-pressed
+     communicates the current state to assistive technology. */
+  .mk-opt__strike {
+    flex: 0 0 var(--touch-target);
+    min-height: var(--touch-target);
+    min-width: var(--touch-target);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-left: 1px solid var(--color-border-hairline);
+    background: transparent;
+    color: var(--color-text-subtle);
+    cursor: pointer;
+    transition: background-color calc(var(--duration-fast) * var(--motion-duration-scalar))
+      var(--ease-standard);
+  }
+  .mk-opt__strike:hover {
+    background: var(--color-muted);
+    color: var(--color-muted-foreground);
+  }
+  .mk-opt__strike[aria-pressed="true"] {
+    color: var(--color-foreground);
+    background: var(--color-muted);
+  }
+  .mk-opt__strike-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: var(--radius-full);
+    border: 1px solid currentColor;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    line-height: 1;
+  }
+
   .mk-hallactions {
     display: flex;
     flex-wrap: wrap;
@@ -400,7 +464,7 @@
     align-items: baseline;
     justify-content: space-between;
     gap: var(--space-3);
-    margin-bottom: var(--space-3);
+    margin-bottom: var(--space-2);
   }
   .mk-palette__title {
     font-size: var(--text-sm);
@@ -409,6 +473,14 @@
   .mk-palette__count {
     font-size: var(--text-xs);
     color: var(--color-text-subtle);
+  }
+  /* Marking reminder line in the palette header: same text as the hall bar,
+     shown here so it is visible when the main bar scrolls off on narrow
+     viewports or when the palette is the only surface visible. */
+  .mk-palette__marking {
+    margin: 0 0 var(--space-3);
+    font-size: var(--text-xs);
+    color: var(--color-warning-text);
   }
   .mk-palette__scroll {
     display: flex;
@@ -514,11 +586,18 @@
     padding: var(--space-5);
   }
   .mk-sheet__eyebrow {
-    margin: 0 0 var(--space-4);
+    margin: 0 0 var(--space-3);
     font-size: var(--text-xs);
     text-transform: uppercase;
     letter-spacing: var(--tracking-caps);
     color: var(--color-text-subtle);
+  }
+  /* Marking reminder in the submit dialog: same single-source string. */
+  .mk-sheet__marking {
+    margin: 0 0 var(--space-4);
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-warning-text);
   }
   .mk-sheet__sum {
     list-style: none;
@@ -722,7 +801,8 @@
   .mk-bar__close:focus-visible,
   .mk-hallbar__exit:focus-visible,
   .mk-pcell:focus-visible,
-  .mk-shortfall__summary:focus-visible {
+  .mk-shortfall__summary:focus-visible,
+  .mk-opt__strike:focus-visible {
     outline: 2px solid var(--color-ring);
     outline-offset: 2px;
   }

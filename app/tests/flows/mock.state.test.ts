@@ -18,8 +18,10 @@ import {
   resumeNote,
   serializeSession,
   withAnswer,
+  withAnswerAndUnstrike,
   withClearedAnswer,
   withToggledFlag,
+  withToggledStrike,
   type MockSession,
 } from "../../src/flows/mock/state.js";
 
@@ -37,6 +39,7 @@ function freshSession(over: Partial<MockSession> = {}): MockSession {
     startedAtMs: START,
     answers: {},
     flagged: [],
+    struck: {},
     activeMs: 0,
     formFactor: "phone",
     viewportWidth: 360,
@@ -128,5 +131,93 @@ describe("answer / clear / flag mutations are immutable", () => {
     expect(s1.flagged).toEqual(["a", "c"]);
     const s2 = withToggledFlag(s1, "a");
     expect(s2.flagged).toEqual(["c"]);
+  });
+});
+
+describe("strike mutations are immutable and persist", () => {
+  it("withToggledStrike adds a struck option and leaves the original untouched", () => {
+    const s0 = freshSession();
+    const s1 = withToggledStrike(s0, "a", 2, null);
+    expect(s0.struck).toEqual({}); // original untouched
+    expect(s1.struck["a"]).toEqual([2]);
+  });
+
+  it("withToggledStrike removes a struck option when toggled a second time", () => {
+    const s0 = freshSession();
+    const s1 = withToggledStrike(s0, "a", 2, null);
+    const s2 = withToggledStrike(s1, "a", 2, null);
+    expect(s2.struck["a"]).toBeUndefined();
+  });
+
+  it("withToggledStrike keeps the struck list sorted and accumulates across options", () => {
+    const s0 = freshSession();
+    const s1 = withToggledStrike(s0, "a", 3, null);
+    const s2 = withToggledStrike(s1, "a", 1, null);
+    expect(s2.struck["a"]).toEqual([1, 3]);
+  });
+
+  it("striking the currently selected option clears the selection", () => {
+    const s0 = withAnswer(freshSession(), "a", 2, 1000);
+    // Option 2 is currently selected; striking it should deselect it.
+    const s1 = withToggledStrike(s0, "a", 2, 2);
+    expect(s1.answers["a"]).toBeUndefined();
+    expect(s1.struck["a"]).toEqual([2]);
+  });
+
+  it("striking a non-selected option does not change the selection", () => {
+    const s0 = withAnswer(freshSession(), "a", 1, 1000);
+    const s1 = withToggledStrike(s0, "a", 3, 1);
+    // Selection (option 1) is preserved; option 3 is struck.
+    expect(s1.answers["a"]?.selectedOption).toBe(1);
+    expect(s1.struck["a"]).toEqual([3]);
+  });
+
+  it("withAnswerAndUnstrike removes the selected option from struck when it was struck", () => {
+    const s0 = withToggledStrike(freshSession(), "a", 2, null);
+    expect(s0.struck["a"]).toEqual([2]);
+    // Now the student picks option 2 (reconsidering) -- it should be un-struck.
+    const s1 = withAnswerAndUnstrike(s0, "a", 2, 500);
+    expect(s1.answers["a"]?.selectedOption).toBe(2);
+    expect(s1.struck["a"]).toBeUndefined();
+  });
+
+  it("withAnswerAndUnstrike leaves other struck options in place", () => {
+    let s = freshSession();
+    s = withToggledStrike(s, "a", 2, null);
+    s = withToggledStrike(s, "a", 3, null);
+    // Pick option 2 (un-strike 2), option 3 remains struck.
+    const s1 = withAnswerAndUnstrike(s, "a", 2, 500);
+    expect(s1.struck["a"]).toEqual([3]);
+  });
+
+  it("struck state round-trips through storage serialization", () => {
+    let s = freshSession();
+    s = withToggledStrike(s, "a", 2, null);
+    s = withToggledStrike(s, "b", 1, null);
+    const parsed = parseSession(serializeSession(s));
+    expect(parsed).not.toBeNull();
+    expect(parsed!.struck["a"]).toEqual([2]);
+    expect(parsed!.struck["b"]).toEqual([1]);
+  });
+
+  it("parseSession defaults struck to {} for sessions written before the strike addendum", () => {
+    // Simulate a session stored by an older build that has no struck field.
+    const legacy = {
+      id: "old-1",
+      seed: 1,
+      order: ["a"],
+      fullPaperSize: 100,
+      budgetMs: 5_400_000,
+      startedAtMs: START,
+      answers: {},
+      flagged: [],
+      activeMs: 0,
+      formFactor: "phone",
+      viewportWidth: 360,
+      // no struck field
+    };
+    const parsed = parseSession(JSON.stringify(legacy));
+    expect(parsed).not.toBeNull();
+    expect(parsed!.struck).toEqual({});
   });
 });
