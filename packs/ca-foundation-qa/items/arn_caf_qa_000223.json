@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000223",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_scale_b7",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-11"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000223.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.sampling"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 45,
+  "stem": "A survey manager divides the country into 8 geographic zones. She then randomly selects 3 of those zones and surveys every person living within the selected zones. Which sampling method does this describe?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Cluster sampling"
+    },
+    {
+      "key": 2,
+      "text": "Stratified sampling"
+    },
+    {
+      "key": 3,
+      "text": "Systematic sampling"
+    },
+    {
+      "key": 4,
+      "text": "Simple random sampling"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "The population is divided into geographic groups called clusters. Whole clusters are randomly selected and all members within those clusters are surveyed."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Stratified sampling selects a random sample from within each group, not all members from selected groups. The student confuses cluster with stratified.",
+      "misconception": "concept_definition_confused"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "The student focuses on 'every person within selected zones' and misidentifies the regular coverage as a systematic interval pattern.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "The student fixates on 'randomly selects' and concludes simple random sampling, ignoring the group-selection structure that defines clustering.",
+      "misconception": "wrong_formula"
+    }
+  ],
+  "explanation": "In cluster sampling, the population is divided into groups called clusters. A random sample of clusters is chosen and every unit in the selected clusters is surveyed. Here the zones are clusters, so this is cluster sampling.",
+  "explanation_sections": {
+    "punchline": "The answer is cluster sampling. The zones are the clusters. Whole zones are selected at random, then every member in those zones is surveyed.",
+    "approach": "Check whether subgroups are formed and whether the whole subgroup or a sample from it is taken. Whole subgroup selected = cluster. Sample from each subgroup = stratified.",
+    "lesson": "Cluster sampling selects entire groups. Stratified sampling selects from within each group. The distinguishing step is whether you survey all members of the selected groups.",
+    "timing": "45 seconds. Read the two key facts: groups are formed, then entire groups are selected. Match these to the cluster definition and move on."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "3d97696101c11a28cb37fd00ca4cda1888b4c64f18dd5e1180608635a9e594f3"
+}

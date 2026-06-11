@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000211",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_scale_b7",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-11"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000211.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.sampling"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 110,
+  "stem": "A quality inspector at a textile mill needs to test fabric from 5 production shifts. Each shift produces 200 rolls. The inspector randomly selects 8 rolls from each shift using a lottery draw within that shift. Which sampling method does this describe?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Stratified sampling"
+    },
+    {
+      "key": 2,
+      "text": "Systematic sampling"
+    },
+    {
+      "key": 3,
+      "text": "Cluster sampling"
+    },
+    {
+      "key": 4,
+      "text": "Simple random sampling"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "The population is divided into 5 non-overlapping strata (shifts). A random draw is made within each stratum. That is stratified random sampling by definition."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Systematic sampling selects every kth unit from a single ordered list. No fixed interval is used here; each stratum has its own separate lottery.",
+      "misconception": "concept_definition_confused"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Cluster sampling selects entire naturally occurring groups as the sampling unit. Here, individual rolls are drawn from within each shift, not whole shifts selected intact.",
+      "misconception": "concept_definition_confused"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Simple random sampling treats the entire population as one pool with no sub-grouping. The inspector enforces a mandatory draw from each shift, which is a stratification constraint not present in SRS.",
+      "misconception": "concept_definition_confused"
+    }
+  ],
+  "explanation": "The 5 shifts act as strata: non-overlapping sub-groups defined before sampling. A random selection is made inside each stratum. This two-step structure (define strata, then draw randomly within each) is the defining feature of stratified random sampling.",
+  "explanation_sections": {
+    "punchline": "Dividing the population into shifts first, then drawing randomly inside each shift, is stratified random sampling. Cluster sampling would select entire shifts; systematic sampling would use a fixed interval across one combined list.",
+    "approach": "For sampling-method questions, check in order: Is the population first split into meaningful sub-groups? If yes, and random draws occur inside each sub-group, the method is stratified. If entire groups are picked as units, it is cluster. If a fixed interval is used on a list, it is systematic. If no sub-grouping occurs at all, it is simple random.",
+    "lesson": "The key distinction between stratified and cluster sampling is what gets selected. Stratified: individual units from inside each sub-group. Cluster: whole sub-groups selected intact. The word per shift signals stratification when random draws follow within each shift.",
+    "timing": "110 seconds. Read the stem and identify the two-step structure in 20 seconds. Check whether whole shifts are selected (cluster) or individual rolls from within each shift (stratified). Decide in 30 seconds and verify against each distractor before marking."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "a932525ea083f8ad09fccc4fd99c81725c6f5f0db7143347eafb9f5a7a0429c8"
+}

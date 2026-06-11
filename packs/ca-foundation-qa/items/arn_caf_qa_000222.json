@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000222",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_scale_b7",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-11"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000222.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.graphical"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "A histogram is drawn for marks scored by 100 students. The class interval 0-20 has a frequency density of 3 per mark. The interval 20-30 has a frequency density of 2 per mark. The interval 30-40 has a frequency density of 1 per mark. The interval 40-50 has a frequency density of 1 per mark. How many students scored marks in the class 0-20?",
+  "options": [
+    {
+      "key": 1,
+      "text": "30"
+    },
+    {
+      "key": 2,
+      "text": "40"
+    },
+    {
+      "key": 3,
+      "text": "15"
+    },
+    {
+      "key": 4,
+      "text": "60"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "The student multiplies frequency density 3 by width 10 instead of the correct width 20, giving 3 * 10 = 30.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "The student uses the density of the adjacent class (2 per mark for 20-30) and multiplies by the correct width 20, giving 2 * 20 = 40.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "The student divides frequency density by class width instead of multiplying: 3 / 20 = 0.15, then scales by 100, giving 15.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "Frequency = frequency density * class width = 3 * 20 = 60 students."
+    }
+  ],
+  "explanation": "In a histogram with unequal class widths, frequency = frequency density * class width. The class 0-20 has width 20 and density 3, so frequency = 3 * 20 = 60.",
+  "explanation_sections": {
+    "punchline": "The answer is 60. Frequency = frequency density * class width = 3 * 20 = 60. The class width is 20, not 10.",
+    "approach": "Read the class width from the interval boundaries. Multiply density by that width to recover frequency. For unequal-width classes, each class has its own width.",
+    "lesson": "A histogram bar height represents frequency density, not frequency. To get frequency, always multiply density by the specific class width. Equal-width shortcuts fail when widths differ.",
+    "timing": "75 seconds. Identify the class width (20 - 0 = 20) in about 10 seconds. Multiply by density (3) for the answer. Check that your total across all classes sums to 100."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "4498a11660271884deadc90961d94e4fe66e6ed0f2f06cbade87cf5c0af4f442"
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000221",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_scale_b7",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-11"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000221.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.correlation"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 110,
+  "stem": "The correlation coefficient between two variables X and Y is 0.6. Two new variables U and V are defined as U = 3X + 7 and V = -4Y + 2. What is the value of the correlation coefficient between U and V?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.6"
+    },
+    {
+      "key": 2,
+      "text": "-0.8"
+    },
+    {
+      "key": 3,
+      "text": "-0.6"
+    },
+    {
+      "key": 4,
+      "text": "-0.06"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "The student ignores the effect of the negative scale factor in V = -4Y + 2 and reports r(X, Y) unchanged as 0.6.",
+      "misconception": "invariance_property_confused"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "The student uses b/a as a multiplier: (-4/3) * 0.6 = -0.8, treating the ratio of scale constants as the transformation factor for r.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "r(U, V) = sign(3) * sign(-4) * r(X, Y) = (+1)(-1)(0.6) = -0.6. Linear shifts do not change r; only the sign of each scale factor matters."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "The student computes -1 * 0.6 correctly but misplaces the decimal, writing -0.06 instead of -0.6.",
+      "misconception": "decimal_place_error"
+    }
+  ],
+  "explanation": "Correlation is invariant under linear transformations of the form aX + b and cY + d. The new r equals sign(a) * sign(c) * r(X, Y). Here a = 3 (positive) and c = -4 (negative), so r(U, V) = (+1)(-1)(0.6) = -0.6.",
+  "explanation_sections": {
+    "punchline": "The answer is -0.6. Only the signs of the scale factors matter: sign(3) * sign(-4) = -1, so r(U, V) = -0.6.",
+    "approach": "Identify the scale constants a and c in U = aX + b and V = cY + d. Ignore the additive constants and the magnitudes of a and c. Multiply r(X, Y) by sign(a) * sign(c).",
+    "lesson": "Correlation is invariant under changes of origin and under changes of scale. A negative scale constant flips the sign of r; a positive scale constant leaves the sign unchanged.",
+    "timing": "110 seconds. Spend about 20 seconds writing U = 3X + 7 and V = -4Y + 2, then extracting a = 3 and c = -4. The remaining time is sign arithmetic and checking the four options."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "1f7334e7f2250f33d7469b6b2be02e31fc8e6d585408b2351aaa48095c42dd55"
+}

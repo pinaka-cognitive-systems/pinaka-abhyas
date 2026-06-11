@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000220",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_scale_b7",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-11"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000220.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.circular_permutations"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 120,
+  "stem": "Eight people are to be seated around a circular table. Among them, Trilok, Uma, and Veda must always sit together as a group. In how many ways can all eight people be seated?",
+  "options": [
+    {
+      "key": 1,
+      "text": "4320"
+    },
+    {
+      "key": 2,
+      "text": "720"
+    },
+    {
+      "key": 3,
+      "text": "120"
+    },
+    {
+      "key": 4,
+      "text": "5040"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Treat the block of 3 as one unit, giving 6 units in a circle: (6-1)! = 120 ways. Arrange the 3 within the block: 3! = 6. Total = 120 x 6 = 720."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student counts the 6 units as a linear sequence (6! = 720) instead of a circular one, then multiplies by 3! = 6 to get 720 x 6 = 4320, ignoring the circular reduction.",
+      "misconception": "permutation_combination_confusion"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Computes (6-1)! = 120 for the circle of 6 units, then stops. Ignores that order inside the block of three matters, so the 3! internal arrangements are lost.",
+      "misconception": "permutation_combination_confusion"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student ignores the block constraint entirely and computes (8-1)! = 5040, treating all eight people as if no restriction applies.",
+      "misconception": "off_by_one"
+    }
+  ],
+  "explanation": "Group Trilok, Uma, and Veda into a single block. This creates 6 units (block + 5 others). Circular arrangements of 6 units: (6-1)! = 5! = 120. Internal arrangements of the 3-person block: 3! = 6. Total = 120 x 6 = 720.",
+  "explanation_sections": {
+    "punchline": "The answer is 720. Treating the three constrained people as a block reduces 8 seats to 6 circular units (5! = 120), and multiplying by the 3! internal arrangements gives 720.",
+    "approach": "When people must stay together in a circular arrangement, bundle them as a block. Count the number of units (n - group_size + 1). Apply (units - 1)! for the circular arrangement and multiply by (group_size)! for internal order.",
+    "lesson": "Circular permutations differ from linear ones by a factor of n. For a group constraint, the circular formula applies to the total number of units after bundling, not to the original count. Never use n! for circular arrangements.",
+    "timing": "120 seconds. Identifying the block and counting units takes about 20 seconds. Computing 5! = 120 takes 15 seconds. Computing 3! = 6 takes 5 seconds. Multiplying and verifying takes under 10 seconds. Reserve remaining time to confirm you subtracted 1 for the circular formula."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "9235b8b98ca57c48ae452b862d6d9f9aa933128b8a8a7d15cfc2b96aa9b35f09"
+}

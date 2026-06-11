@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000212",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_scale_b7",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-11"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000212.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.permutations"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 110,
+  "stem": "Seven students are arranged in a row for a photograph. Two of them, Arjun and Meena, must not stand next to each other. In how many ways can this arrangement be done?",
+  "options": [
+    {
+      "key": 1,
+      "text": "4320"
+    },
+    {
+      "key": 2,
+      "text": "3600"
+    },
+    {
+      "key": 3,
+      "text": "4800"
+    },
+    {
+      "key": 4,
+      "text": "2520"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Total arrangements = 7! = 5040. Adjacent arrangements: treat Arjun-Meena as one block, giving 6! x 2! = 1440. Not-adjacent = 5040 - 1440 = 3600."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "The student subtracts 6! = 720 from 5040, forgetting that Arjun and Meena can swap within the pair, which doubles the adjacent count to 1440.",
+      "misconception": "arithmetic_slip"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "The student subtracts only 2! x 5! = 240 from 5040, using 5! for the remaining students instead of treating the pair as a block in a row of 6.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "The student computes P(7, 5) = 7! / 2! = 2520, applying a falling-factorial formula for choosing 5 from 7, which does not address the adjacency constraint.",
+      "misconception": "permutation_combination_confusion"
+    }
+  ],
+  "explanation": "Use complementary counting. Total ways = 7! = 5040. Count arrangements where Arjun and Meena are adjacent by treating them as a single block: 6! arrangements of 6 units, times 2! internal arrangements = 720 x 2 = 1440. Subtract: 5040 - 1440 = 3600.",
+  "explanation_sections": {
+    "punchline": "The answer is 3600. Subtracting adjacent arrangements (6! x 2! = 1440) from the total (7! = 5040) gives 3600. The factor of 2! for internal swaps within the pair is the step most students miss.",
+    "approach": "For not-adjacent problems, use complementary counting: compute total arrangements, then subtract arrangements where the two people are adjacent. When treating two people as one block, count the block-arrangements (n-1)! and then multiply by 2! because the two people can swap inside the block.",
+    "lesson": "Treating two adjacent people as a block reduces n elements to n-1 units. Always multiply by 2! to account for the two orders within the block. Forgetting that factor undercounts the adjacent cases and overcounts the answer.",
+    "timing": "110 seconds. Write 7! = 5040 and 6! x 2! = 1440 directly. Subtract in one step. If pressed for time, eliminate options less than 7! / 2 = 2520 as implausibly small for an arrangement of 7 with only one pair excluded."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "24cd961502db7d7252e380490209c969626631af1a3cca3fdf2b29338a6db257"
+}

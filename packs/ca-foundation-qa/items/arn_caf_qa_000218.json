@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000218",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_scale_b7",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-11"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000218.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.construction"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 120,
+  "stem": "A survey records data for two commodities. Commodity Cloth: base year price Rs 5, base year quantity 10, current year price Rs 7, current year quantity 12. Commodity Sugar: base year price Rs 10, base year quantity 5, current year price Rs 12, current year quantity 4. What is the Paasche price index for the current year, with the base year = 100?",
+  "options": [
+    {
+      "key": 1,
+      "text": "130"
+    },
+    {
+      "key": 2,
+      "text": "131"
+    },
+    {
+      "key": 3,
+      "text": "144"
+    },
+    {
+      "key": 4,
+      "text": "132"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "Paasche = Sum(P1 x Q1) / Sum(P0 x Q1) x 100 = (7x12 + 12x4) / (5x12 + 10x4) x 100 = 132/100 x 100 = 132."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student computes the Laspeyres index (uses base-year quantities throughout): (7x10+12x5)/(5x10+10x5)x100=130/100x100=130, confusing Laspeyres with Paasche.",
+      "misconception": "concept_definition_confused"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student applies Fisher's Ideal Index (geometric mean of Laspeyres and Paasche), computing sqrt(130x132)=sqrt(17160)=131 (rounded), using the wrong formula for the quantity asked.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student correctly sets up the Paasche formula but misreads Sugar's current quantity as 5 instead of 4, computing (7x12+12x5)/(5x12+10x5)x100=144/100x100=144.",
+      "misconception": "arithmetic_slip"
+    }
+  ],
+  "explanation": "Paasche uses current-year quantities throughout. Numerator: Sum(P1 x Q1) = 7x12+12x4 = 132. Denominator: Sum(P0 x Q1) = 5x12+10x4 = 100. Paasche = 132/100 x 100 = 132.",
+  "explanation_sections": {
+    "punchline": "Paasche = 132. The denominator uses the same current-year quantities as the numerator, and both sums evaluate to 132 and 100 respectively, giving an index of 132.",
+    "approach": "Write the Paasche formula: Sum(P1 x Q1) / Sum(P0 x Q1) x 100. The key distinction is that both numerator and denominator use current-year quantities. Compute each product, sum separately, then divide and scale by 100.",
+    "lesson": "Laspeyres weights by base-year quantities; Paasche weights by current-year quantities. Mixing these yields a third index (Marshall-Edgeworth or Fisher), not either of the two. Memorise which formula uses which year's quantities.",
+    "timing": "120 seconds. Compute four products (under 30 seconds total). Sum numerator and denominator (under 20 seconds). Divide and multiply by 100 (under 10 seconds). Spend remaining time verifying you used Q1 in the denominator, not Q0."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "b239767e0824ec6c93fd24603d61326c8bc8321f499e93802f78c189a0708ac3"
+}

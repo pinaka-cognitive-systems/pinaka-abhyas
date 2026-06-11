@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000224",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_scale_b7",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-11"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000224.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.frequency_distribution"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "A frequency distribution of marks scored by 60 students has five class intervals. Four of the five class counts are known. Class 0-10 has 5 students, class 20-30 has 18, class 30-40 has 14, and class 40-50 has 7. The frequency of class 10-20 is missing. What is the missing frequency?",
+  "options": [
+    {
+      "key": 1,
+      "text": "17"
+    },
+    {
+      "key": 2,
+      "text": "16"
+    },
+    {
+      "key": 3,
+      "text": "12"
+    },
+    {
+      "key": 4,
+      "text": "44"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "The student reads the frequency of class 20-30 as 17 instead of 18, slipping by one unit, and computes 60 - (5 + 17 + 14 + 7) = 17.",
+      "misconception": "arithmetic_slip"
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Sum of known frequencies = 5 + 18 + 14 + 7 = 44. Missing frequency = 60 - 44 = 16."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "The student assumes equal distribution across all 5 classes: 60 / 5 = 12, ignoring the known frequencies entirely.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "The student computes the sum of the four known frequencies (44) and reports that sum as the answer instead of subtracting from the total.",
+      "misconception": "misread_quantity"
+    }
+  ],
+  "explanation": "The total frequency is 60. The sum of the four known frequencies is 5 + 18 + 14 + 7 = 44. The missing frequency is 60 - 44 = 16.",
+  "explanation_sections": {
+    "punchline": "The answer is 16. Sum the four known frequencies to get 44, then subtract from the total: 60 - 44 = 16.",
+    "approach": "Add all known frequencies. Subtract from the stated total. This gives the one missing frequency. Always check that the result is positive and less than the total.",
+    "lesson": "In a frequency distribution, all frequencies must sum to the total number of observations. Use this constraint to find any single missing value.",
+    "timing": "75 seconds. Add the four known values in about 20 seconds, then subtract. Verify the subtraction before marking your answer."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "a399745546e8420076296c790a48d79da11f34cdc8bd3ad750792a736b446fd0"
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000213",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_scale_b7",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-11"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000213.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.regression"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 45,
+  "stem": "For two variables X and Y, the regression coefficient of Y on X is 0.8 and the regression coefficient of X on Y is 0.2. What is the coefficient of correlation between X and Y?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.50"
+    },
+    {
+      "key": 2,
+      "text": "0.16"
+    },
+    {
+      "key": 3,
+      "text": "0.40"
+    },
+    {
+      "key": 4,
+      "text": "0.71"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "r = sqrt(byx x bxy) = sqrt(0.8 x 0.2) = sqrt(0.16) = 0.40."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "The student takes the arithmetic mean (0.8 + 0.2) / 2 = 0.50 instead of the geometric mean of the two regression coefficients.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "The student computes byx x bxy = 0.8 x 0.2 = 0.16 but omits the square root step, returning the product instead of its square root.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "The student computes sqrt((byx + bxy) / 2) = sqrt(0.50) = 0.71, applying the square root to the arithmetic mean rather than to the product.",
+      "misconception": "wrong_formula"
+    }
+  ],
+  "explanation": "The coefficient of correlation is r = sqrt(byx x bxy). Here byx = 0.8 and bxy = 0.2. Product = 0.16. Square root = 0.40. Both regression coefficients are positive, so r is positive.",
+  "explanation_sections": {
+    "punchline": "r = sqrt(0.8 x 0.2) = sqrt(0.16) = 0.40. The formula uses the geometric mean of the two regression coefficients, not their arithmetic mean.",
+    "approach": "Write r = sqrt(byx x bxy). Multiply the two coefficients first, then take the square root. Check the sign: r has the same sign as the regression coefficients. If both are positive, r is positive.",
+    "lesson": "Correlation equals the geometric mean of the two regression coefficients. A common error is to use the arithmetic mean or to forget the square root. The product alone is r squared, not r.",
+    "timing": "45 seconds. Multiply 0.8 x 0.2 = 0.16 mentally. sqrt(0.16) = 0.4 directly. Write the answer and move on."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "7ec8aec613cd2f0b9a1a88fec1dc641a8a3bc69e96ef535e4cc51b1f78787e0a"
+}

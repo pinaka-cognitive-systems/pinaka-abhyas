@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000214",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_scale_b7",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-11"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000214.py"
+  },
+  "tests": [
+    "qa.bmath.equations.simultaneous_linear"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 110,
+  "stem": "A stationery shop sells pens and notebooks. The cost of 2 pens and 3 notebooks is Rs 17. The cost of 1 pen and 1 notebook is Rs 7. What is the total cost of 2 pens and 1 notebook?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 17"
+    },
+    {
+      "key": 2,
+      "text": "Rs 4"
+    },
+    {
+      "key": 3,
+      "text": "Rs 7"
+    },
+    {
+      "key": 4,
+      "text": "Rs 11"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "From a + b = 7: b = 7 - a. Substitute: 2a + 3(7 - a) = 17 gives a = 4, b = 3. So 2a + b = 8 + 3 = 11."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "The student returns the value of the first equation (Rs 17) instead of evaluating 2a + b after solving for a and b.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "The student solves for the price of a single pen (a = 4) and reports that value instead of computing the asked expression 2a + b.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "The student confuses the question with the second equation and returns the cost of 1 pen plus 1 notebook (Rs 7) as the answer.",
+      "misconception": "misread_quantity"
+    }
+  ],
+  "explanation": "Let a = price of one pen, b = price of one notebook. Equations: 2a + 3b = 17 and a + b = 7. From the second equation, a = 7 - b. Substitute: 2(7 - b) + 3b = 17 gives 14 + b = 17, so b = 3 and a = 4. The question asks for 2a + b = 8 + 3 = 11.",
+  "explanation_sections": {
+    "punchline": "The answer is Rs 11. Solving the system gives pen = Rs 4, notebook = Rs 3. The question asks for 2 pens plus 1 notebook = 8 + 3 = 11, not the price of one item or a re-statement of either equation.",
+    "approach": "Define variables for each unknown. Write the two equations. Substitute or eliminate to find both values. Then evaluate only the specific expression the question asks for. Do not stop after finding one variable.",
+    "lesson": "In word problems with simultaneous equations, the final step is to evaluate the expression the question names. Reporting a variable value or an equation value instead is a misread of the question, not a calculation error.",
+    "timing": "110 seconds. Writing and solving the system takes about 60 seconds. The substitution 2(7-b)+3b=17 simplifies in one step. Reserve 20 seconds to re-read the question and confirm you evaluate 2a+b, not a or b alone."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "8d51fcf592b6b84e015506ec98f2f09e4c749bd97663b18cafe42a7c34cf74ab"
+}

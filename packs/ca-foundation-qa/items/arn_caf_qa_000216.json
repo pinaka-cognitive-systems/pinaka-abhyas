@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000216",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_scale_b7",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-11"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000216.py"
+  },
+  "tests": [
+    "qa.lr.direction_tests"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 120,
+  "stem": "Nitin starts at point P facing South. He walks 5 m South, then turns right and walks 12 m. He then turns right again and walks 5 m. What is the straight-line distance from P to Nitin's current position?",
+  "options": [
+    {
+      "key": 1,
+      "text": "22 m"
+    },
+    {
+      "key": 2,
+      "text": "12 m"
+    },
+    {
+      "key": 3,
+      "text": "13 m"
+    },
+    {
+      "key": 4,
+      "text": "17 m"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "South 5 m, right turn to West, West 12 m, right turn to North, North 5 m. The two 5 m legs cancel. Net displacement = 12 m West from P."
+    },
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Student adds all three leg lengths (5+12+5=22) to get the path length, not the straight-line distance from P.",
+      "misconception": "net_displacement_error"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student ignores the third 5 m leg and treats the endpoint as (12 m West, 5 m South), giving sqrt(144+25)=13 via the 5-12-13 triple.",
+      "misconception": "constraint_omitted"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student adds only the first and second leg lengths (5+12=17), treating the path as a straight two-leg sum without any geometry.",
+      "misconception": "arithmetic_slip"
+    }
+  ],
+  "explanation": "Starting at P facing South: walk 5 m to (0,-5). Turn right (now West): walk 12 m to (-12,-5). Turn right (now North): walk 5 m to (-12,0). The North and South legs cancel (5 m South then 5 m North). The net position is 12 m due West of P. Distance = 12 m.",
+  "explanation_sections": {
+    "punchline": "The answer is 12 m. Two right turns from South give West then North, and the two 5 m vertical legs cancel perfectly, leaving only the 12 m horizontal displacement.",
+    "approach": "Plot each leg as a vector. Assign coordinates: right = positive x, up = positive y. Sum the x components and y components separately. Final distance = sqrt(x^2 + y^2). Check for cancellation before computing.",
+    "lesson": "Legs on the same axis but in opposite directions cancel. Always sum displacement vectors, not path lengths. The 5-12-13 trap appears if any leg is ignored.",
+    "timing": "120 seconds. Tracking three direction changes takes about 40 seconds. Checking cancellation takes 20 seconds. Computing sqrt(144+0) takes under 10 seconds. Reserve remaining time to verify the turn directions."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "f049b1c3bc5d836ab2b494b3c0042d8794a8857b7684eb52f00c672159ae188e"
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000219",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_scale_b7",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-11"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000219.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.frequency_distribution"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 120,
+  "stem": "A frequency distribution has class intervals 0-10, 10-20, 20-30, and 30-40, with frequencies 6, f, 10, and 4 respectively. The total frequency is 20+f and the arithmetic mean is 18. What is the value of f?",
+  "options": [
+    {
+      "key": 1,
+      "text": "20"
+    },
+    {
+      "key": 2,
+      "text": "68"
+    },
+    {
+      "key": 3,
+      "text": "10"
+    },
+    {
+      "key": 4,
+      "text": "15"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Midpoints are 5, 15, 25, 35. Sum(f x x) = 30+15f+250+140 = 420+15f. Setting (420+15f)/(20+f) = 18 gives 3f = 60, so f = 20."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Student divides the sum of (f x midpoint) products by the sum of the midpoints (80) instead of the total frequency, using the wrong denominator: (420+15f)/80 = 18 gives f = 68.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Student reads the stated mean as 19 instead of 18, solving (420+15f)/(20+f)=19 which gives 4f=40 and f=10.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Student correctly reaches 3f = 60 but divides by 4 instead of 3, computing 60/4 = 15 through an arithmetic slip.",
+      "misconception": "arithmetic_slip"
+    }
+  ],
+  "explanation": "Use midpoints: 5, 15, 25, 35. The weighted sum is 5x6 + 15xf + 25x10 + 35x4 = 420+15f. Set mean = weighted sum / total frequency: (420+15f)/(20+f)=18. Cross-multiplying gives 420+15f = 360+18f, so 3f=60 and f=20.",
+  "explanation_sections": {
+    "punchline": "f = 20. Setting up mean = Sum(f x midpoint)/Sum(f) and solving the resulting linear equation in f is the only correct method.",
+    "approach": "Assign midpoints to each class, form the equation mean = Sum(f_i x x_i)/N where N includes f, then cross-multiply and isolate f. Always use total frequency N as the denominator, never the sum of midpoints.",
+    "lesson": "The denominator in the mean formula is total frequency, not the number of classes or the sum of midpoints. Any denominator error changes the equation completely. Verify by substituting f back to confirm the mean.",
+    "timing": "120 seconds. Computing the known part of the weighted sum (30+250+140=420) takes about 20 seconds. Setting up and cross-multiplying the equation takes 30 seconds. Solving 3f=60 takes under 10 seconds. Use remaining time to substitute f=20 back and confirm mean=18."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  },
+  "content_hash": "e41868ca3006520d5471cd7eed327bab486faeca2561b4f9af3e095cf8d61db7"
+}
