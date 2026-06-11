@@ -40,6 +40,23 @@
     gap: var(--space-4);
   }
 
+  /* Inset card variant: used by commitment cards on the baseline close screen. */
+  .fr-card--inset {
+    padding: var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-card);
+  }
+
+  /* Heading inside a card (not the top-level fr-title). */
+  .fr-card__heading {
+    margin: 0;
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--tracking-heading);
+    line-height: var(--leading-snug);
+  }
+
   /* ---------------------------------------------------------------- */
   /* TEXT                                                              */
   /* ---------------------------------------------------------------- */

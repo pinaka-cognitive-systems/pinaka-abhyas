@@ -27,24 +27,23 @@ export const COPY = {
     copiedNote: "Link copied. Paste it into your browser.",
   },
 
-  // --- Welcome (the Fellow voice; what this is). ----------------------------
+  // --- Welcome (one screen; the Fellow voice; value-first). -----------------
+  // The three old bullet points collapse into one quiet assurance line.
+  // The primary CTA sets the expectation plainly; the secondary action mirrors
+  // the old baseline intro skip (marks baseline done, exits to practice).
   welcome: {
     eyebrow: "Welcome",
     title: "Practice that tells you what you do not know",
-    points: [
-      "Free for students. No account, no sign-in.",
-      "Works offline once it has loaded.",
-      "Your data stays on this device. Sharing is optional and collects no personal data.",
-    ],
-    body:
-      "You practise verified questions. The app diagnoses what you do not know, " +
-      "topic by topic, and tells you the next thing to do.",
-    cta: "Get started",
+    assurance: "Free. Works offline. No account. Your data stays on this device.",
+    cta: "Start: 24 questions, about 30 minutes",
+    skip: "I would rather just practise",
   },
 
-  // --- Install (Android/Chromium prompt path). ------------------------------
+  // --- Install (Android/Chromium prompt path). Used by InstallCard shared
+  //     component which the baseline close screen imports. Kept here as the
+  //     single string source so the voice-check test still covers these lines.
   installPrompt: {
-    eyebrow: "Install",
+    eyebrow: "Add to home screen",
     title: "Add this to your home screen",
     // Brand table line, verbatim.
     body: "Install to study offline. Your progress stays on your device.",
@@ -54,9 +53,10 @@ export const COPY = {
     dismissedNote: "No problem. You can install it later from the browser menu.",
   },
 
-  // --- Install (iOS Safari manual path + honest eviction warning). ----------
+  // --- Install (iOS Safari manual path + honest eviction warning). Used by
+  //     InstallCard shared component (baseline close screen). -----------------
   installIos: {
-    eyebrow: "Install",
+    eyebrow: "Add to home screen",
     title: "Add this to your home screen",
     body: "Install to study offline. Your progress stays on your device.",
     steps: [
@@ -70,44 +70,22 @@ export const COPY = {
       "clear your saved progress after seven days without use. Adding it to " +
       "your home screen keeps your progress safe. You can also export your " +
       "progress at any time.",
-    skip: "Skip for now",
+    skip: "Skip",
   },
 
-  // --- Exam attempt (optional). ---------------------------------------------
+  // --- Exam attempt picker. Used by AttemptPicker shared component which the
+  //     baseline close screen imports. ----------------------------------------
   exam: {
-    eyebrow: "Your attempt",
-    title: "Which attempt are you sitting",
-    body:
-      "This helps the app plan your review around your exam. You can change it " +
-      "later, and you can skip it for now.",
+    eyebrow: "Your exam",
+    title: "When are you sitting?",
+    body: "This plans your review around your exam.",
     options: {
       september: "September 2026",
       january: "January 2027",
       undecided: "I have not decided yet",
     },
-    cta: "Continue",
-    skip: "Skip for now",
-  },
-
-  // --- Storage status (the honest close). -----------------------------------
-  storage: {
-    eyebrow: "Your data",
-    titlePersistent: "Your progress is saved on this device",
-    bodyPersistent:
-      "This browser has granted lasting storage. Your progress stays on this " +
-      "device. You can export it at any time to move it or back it up.",
-    titleNotPersisted: "Your progress is saved on this device",
-    bodyNotPersisted:
-      "Your progress is saved in this browser. The browser may clear it if " +
-      "storage runs low. Adding the app to your home screen makes it lasting. " +
-      "You can export your progress at any time.",
-    titleDegraded: "Saving is limited in this browser",
-    bodyDegraded:
-      "This browser cannot store your progress between sessions. You can still " +
-      "practise now. Export your progress before you close the tab, or open " +
-      "this page in Chrome, Safari, or Firefox for lasting storage.",
-    exportPromote: "Export keeps a copy you control. Use it any time.",
-    cta: "Start practising",
+    cta: "Save",
+    skip: "Skip",
   },
 
   // --- Second tab (AlreadyOpenError). ---------------------------------------

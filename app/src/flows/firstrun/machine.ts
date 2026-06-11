@@ -5,27 +5,25 @@
  * React component (FirstRunFlow.tsx) is a thin renderer and the sequencing is
  * tested DOM-free (the repo convention; see app/tests/flows/machine.test.ts).
  *
- * The first run leads the student through, at most:
+ * Value-first order (value before commitment):
  *
  *   webview   -> the in-app-browser escape (ADR 0008: open in a real browser
  *                BEFORE anything is stored; it leads, ahead of everything else).
- *   welcome   -> what this is, in the Fellow voice.
- *   install   -> install-to-home-screen. The mechanism, not a courtesy (ADR
- *                0008). Android/Chrome captures beforeinstallprompt; iOS Safari
- *                gets the share-sheet instruction and the honest seven-day
- *                eviction warning. Either path is skippable.
- *   exam      -> optional: which attempt are you sitting (Sep / Jan / undecided).
- *   storage   -> the honest storage-status readout after requestPersistence():
- *                persistent / not persistent / degraded memory mode. Plain,
- *                never alarmist. The close of the run.
+ *   welcome   -> one screen: what this is, what to expect, two actions.
+ *                Primary CTA routes into the baseline (24 questions, ~30 min).
+ *                Secondary action skips the baseline entirely and goes to practice.
  *
- * The platform shapes the install step and whether the webview escape leads;
- * the capabilities shape the storage readout. Both are computed here, not in
- * the component.
+ * The install, exam, and storage commitment steps have moved to the baseline
+ * close screen, where they appear AFTER the student has seen their first map.
+ * Nothing in first-run asks for a commitment before value is shown.
+ *
+ * The platform shapes whether the webview escape leads; install affordance
+ * detection (installVariant) is still exported because the baseline close
+ * screen uses it to decide whether to show the install card.
  */
 
 /** The discrete screens the first run can show, in canonical order. */
-export type FirstRunStep = "webview" | "welcome" | "install" | "exam" | "storage";
+export type FirstRunStep = "webview" | "welcome";
 
 /** The install affordance to render, decided by platform (ADR 0008). */
 export type InstallVariant =
@@ -94,19 +92,15 @@ export function storageState(sahpoolViable: boolean, persisted: boolean): Storag
  *   - A webview leads with the escape and shows NOTHING else: storage is not
  *     reliable there, so we do not pretend install or persistence mean anything
  *     until the student is in a real browser.
- *   - Otherwise the run is welcome -> install (only if there is something to
- *     install) -> exam -> storage.
+ *   - Otherwise the run is a single welcome screen. The install, exam, and
+ *     storage commitment steps have moved to the baseline close screen so
+ *     commitments are asked only after value is shown.
  */
 export function firstRunSequence(platform: FirstRunPlatform): FirstRunStep[] {
   if (platform.inAppWebview) {
     return ["webview"];
   }
-  const steps: FirstRunStep[] = ["welcome"];
-  if (installVariant(platform) !== "none") {
-    steps.push("install");
-  }
-  steps.push("exam", "storage");
-  return steps;
+  return ["welcome"];
 }
 
 /** The step after `current` in the sequence, or null when `current` is last

@@ -5,27 +5,16 @@
  * tone can be reviewed in one place (matching firstrun/copy.ts). Plain text
  * only (ADR 0015): no HTML, no markdown. The voice is calm and honest; the
  * baseline is framed as a map, not a test; wrong answers are useful, not costly.
+ *
+ * The intro phase has been removed (value-first order: baseline starts at
+ * question 1). The close screen is now the commitment moment: it carries the
+ * readiness payoff first, then the attempt card, then the install card.
  */
 
 export const COPY = {
-  /** The one-screen intro shown before the first question. */
-  intro: {
-    eyebrow: "First session",
-    title: "Your first map starts here.",
-    body:
-      "About 30 minutes of questions across the paper. This is not a test and " +
-      "nothing here counts against you. It just shows us, and you, where you " +
-      "stand right now.",
-    /** Why wrong answers are fine here. */
-    reassure:
-      "Wrong answers are useful, not costly. A miss now tells us exactly what to " +
-      "work on. Answer honestly; guess only if you would guess on the exam.",
-    cta: "Start",
-    skip: "I would rather just practise",
-  },
   /** The persistent header label while the baseline runs. */
   header: "First session",
-  /** The closing screen, leading into the first diagnosis map. */
+  /** The closing screen: payoff, then commitment cards (attempt + install). */
   close: {
     eyebrow: "First map ready",
     title: "That is your starting point.",

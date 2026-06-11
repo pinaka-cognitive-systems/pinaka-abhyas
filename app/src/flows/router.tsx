@@ -161,7 +161,7 @@ export function Router(): JSX.Element {
   if (route === "firstrun") {
     return (
       <Suspense fallback={<BootScreen label="Loading" />}>
-        <FirstRunFlow onComplete={goBaseline} />
+        <FirstRunFlow onComplete={goBaseline} onSkipToPractice={goPractice} />
       </Suspense>
     );
   }
@@ -260,7 +260,7 @@ export function Router(): JSX.Element {
   if (defaultTarget === "firstrun") {
     return (
       <Suspense fallback={<BootScreen label="Loading" />}>
-        <FirstRunFlow onComplete={goBaseline} />
+        <FirstRunFlow onComplete={goBaseline} onSkipToPractice={goPractice} />
       </Suspense>
     );
   }

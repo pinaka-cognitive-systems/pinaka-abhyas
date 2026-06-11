@@ -8,16 +8,17 @@
  *   - the readiness selector (engine/selectors.ts: readiness),
  *   - the practice CSS class system (practice/practice.css) for the question and
  *     feedback panels, so the baseline looks and behaves exactly like practice.
+ *   - the AttemptPicker and InstallCard shared components (components/).
  *
- * It differs from practice in exactly three places (requirement 2):
- *   1. a one-screen intro framing the session as an honest map, not a test;
- *   2. progression through a FIXED plan (buildBaselinePlan) instead of the
- *      engine's per-question selection — the engine still receives EVERY event in
- *      mode "practice", so the closing diagnosis is real;
- *   3. a closing screen that links into the first diagnosis map (#/diagnosis),
- *      showing the engine's readiness band with its OWN honesty wording — 24
- *      events clears the 20-event gate, so the band may render with low /
- *      insufficient confidence exactly as the engine emits it.
+ * It differs from practice in exactly two places (requirement 2):
+ *   1. progression through a FIXED plan (buildBaselinePlan) instead of the
+ *      engine's per-question selection; the engine still receives EVERY event
+ *      in mode "practice", so the closing diagnosis is real;
+ *   2. a closing screen that is the commitment moment: readiness payoff FIRST,
+ *      then the attempt picker, then the install card (only when installable).
+ *
+ * The intro phase has been removed. Baseline starts at question 1 immediately
+ * (value-first order).
  *
  * On completion OR skip, the baseline flag is set so it never reappears
  * (meta.ts). The component owns only the unavoidable side effects: the storage
@@ -28,9 +29,8 @@
  * tokens only. Plain text plus unicode glyphs (ADR 0015): no HTML in any stem.
  */
 
-import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 
-import { BrandMark } from "../../components/BrandMark.js";
 import { buildEngineState, readiness as computeReadiness, type LoadedPack } from "../../engine/index.js";
 import type { EngineState, Readiness } from "@pinaka/engine";
 import { getSharedStorage, type StorageAdapter, type StoredEvent } from "../../storage/index.js";
@@ -40,6 +40,10 @@ import { RevealSection } from "../practice/reveals.js";
 import { loadCaContent } from "../practice/content.js";
 import type { ContentItem } from "../practice/types.js";
 import { getExamMs } from "../firstrun/meta.js";
+import { setExamAttempt } from "../firstrun/meta.js";
+import { installVariant } from "../firstrun/machine.js";
+import { hasInstallPrompt, isIosSafari, isStandalone } from "../firstrun/platform.js";
+import { detectCapabilities } from "../../storage/index.js";
 import { loadTopicNames, topicLabel } from "../../engine/topics.js";
 import { buildBaselinePlan, type BaselinePlan } from "./plan.js";
 import {
@@ -50,11 +54,25 @@ import {
 } from "./machine.js";
 import { markBaselineDone } from "./meta.js";
 import { COPY } from "./copy.js";
+import { AttemptPicker } from "../../components/AttemptPicker.js";
+import { InstallCard } from "../../components/InstallCard.js";
+import type { ExamAttempt } from "../firstrun/machine.js";
 import "../practice/practice.css";
 
 /** Read the live viewport width at the app boundary (ADR 0011 phone floor). */
 function viewportWidth(): number {
   return typeof window === "undefined" ? 360 : window.innerWidth;
+}
+
+/** Probe the install variant at mount (same logic as first-run platform probe). */
+function probeInstallVariant(): "prompt" | "ios-manual" | "none" {
+  const caps = detectCapabilities();
+  return installVariant({
+    inAppWebview: caps.inAppWebview,
+    installPromptAvailable: hasInstallPrompt(),
+    iosSafari: isIosSafari(),
+    standalone: isStandalone(),
+  });
 }
 
 /** A loaded baseline session: the pack, the screen content, the open adapter,
@@ -71,7 +89,6 @@ interface Loaded {
 type Phase =
   | { readonly kind: "loading" }
   | { readonly kind: "error"; readonly message: string }
-  | { readonly kind: "intro" }
   | { readonly kind: "question"; readonly q: ServedBaselineQuestion; readonly picked: number | null }
   | { readonly kind: "feedback"; readonly q: ServedBaselineQuestion; readonly view: FeedbackView }
   | { readonly kind: "close"; readonly readiness: Readiness; readonly answered: number };
@@ -85,6 +102,7 @@ export interface BaselineFlowProps {
 
 export function BaselineFlow({ onExitToPractice, onSeeDiagnosis }: BaselineFlowProps): JSX.Element {
   const [phase, setPhase] = useState<Phase>({ kind: "loading" });
+  const installVar = useMemo(probeInstallVariant, []);
 
   const loadedRef = useRef<Loaded | null>(null);
   const examMsRef = useRef<number | undefined>(undefined);
@@ -93,7 +111,7 @@ export function BaselineFlow({ onExitToPractice, onSeeDiagnosis }: BaselineFlowP
   const answeredRef = useRef<number>(0);
   const questionStartRef = useRef<number>(0);
 
-  // ---- Load: pack + content + storage, build the fixed plan, show the intro. ----
+  // ---- Load: pack + content + storage, build the fixed plan, start at q1. ----
   useEffect(() => {
     let cancelled = false;
     async function boot(): Promise<void> {
@@ -105,10 +123,8 @@ export function BaselineFlow({ onExitToPractice, onSeeDiagnosis }: BaselineFlowP
       const pack = await loadCaPack();
       const { adapter } = await getSharedStorage();
       if (cancelled) {
-        // Shared page-level connection: flows never close it (storage/index.ts).
         return;
       }
-      // The plan only names ids we have content for and that are selectable.
       const plan = buildBaselinePlan(pack.bank, pack.blueprint, undefined, (id) => content.has(id));
       loadedRef.current = { pack, content, adapter, plan, names };
 
@@ -118,8 +134,26 @@ export function BaselineFlow({ onExitToPractice, onSeeDiagnosis }: BaselineFlowP
       const events = await adapter.readAllEvents();
       stateRef.current = buildEngineState(events, pack.bank, nowMs, examMs);
       if (cancelled) return;
-      setPhase({ kind: "intro" });
+      // Start at question 1 immediately: no intro phase.
+      serveNextAfterLoad(nowMs);
     }
+
+    function serveNextAfterLoad(nowMs: number): void {
+      const loaded = loadedRef.current;
+      if (loaded === null) return;
+      if (isBaselineComplete(loaded.plan, cursorRef.current)) {
+        setPhase({ kind: "error", message: "The first session has no questions." });
+        return;
+      }
+      const q = serveAt(loaded.plan, loaded.content, cursorRef.current);
+      if (q === null) {
+        setPhase({ kind: "error", message: "The first session has no questions." });
+        return;
+      }
+      questionStartRef.current = nowMs;
+      setPhase({ kind: "question", q, picked: null });
+    }
+
     boot().catch((err: unknown) => {
       if (cancelled) return;
       setPhase({
@@ -129,7 +163,6 @@ export function BaselineFlow({ onExitToPractice, onSeeDiagnosis }: BaselineFlowP
     });
     return () => {
       cancelled = true;
-      // Shared page-level connection stays open for the page lifetime.
     };
   }, []);
 
@@ -155,7 +188,6 @@ export function BaselineFlow({ onExitToPractice, onSeeDiagnosis }: BaselineFlowP
     const loaded = loadedRef.current;
     const state = stateRef.current;
     if (loaded === null || state === null) {
-      // Nothing loaded: still mark done so the baseline does not reappear.
       if (loaded !== null) void markBaselineDone(loaded.adapter);
       onExitToPractice();
       return;
@@ -184,8 +216,8 @@ export function BaselineFlow({ onExitToPractice, onSeeDiagnosis }: BaselineFlowP
       occurredAtMs,
       timeMs,
       viewportWidth: viewportWidth(),
-      resurfaced: false, // a baseline item is always fresh (requirement 2)
-      mode: "practice", // the engine receives every event in practice mode
+      resurfaced: false,
+      mode: "practice",
     });
 
     await loaded.adapter.appendEvents([event]);
@@ -198,8 +230,7 @@ export function BaselineFlow({ onExitToPractice, onSeeDiagnosis }: BaselineFlowP
     setPhase({ kind: "feedback", q, view });
   }, [phase]);
 
-  /** Skip the whole baseline ("I would rather just practise"): mark done so it
-   * never reappears, then hand off to practice. */
+  /** Skip the whole baseline: mark done so it never reappears, then go to practice. */
   const skip = useCallback((): void => {
     const adapter = loadedRef.current?.adapter;
     if (adapter !== undefined) void markBaselineDone(adapter);
@@ -232,20 +263,17 @@ export function BaselineFlow({ onExitToPractice, onSeeDiagnosis }: BaselineFlowP
     );
   }
 
-  if (phase.kind === "intro") {
-    return (
-      <Frame>
-        <IntroScreen onStart={() => serveNext(Date.now())} onSkip={skip} />
-      </Frame>
-    );
-  }
-
   if (phase.kind === "close") {
     return (
       <Frame>
         <CloseScreen
           answered={phase.answered}
           readiness={phase.readiness}
+          installVariant={installVar}
+          onExamSave={async (attempt: ExamAttempt) => {
+            const adapter = loadedRef.current?.adapter;
+            if (adapter !== undefined) await setExamAttempt(adapter, attempt);
+          }}
           onSeeDiagnosis={onSeeDiagnosis}
           onPractise={onExitToPractice}
         />
@@ -307,10 +335,7 @@ export function BaselineFlow({ onExitToPractice, onSeeDiagnosis }: BaselineFlowP
 // Presentational pieces. Thin functions over props, reusing practice CSS.
 // ---------------------------------------------------------------------------
 
-/** The persistent baseline frame. No close affordance mid-session — the only
- * exits are the intro skip and the closing screen — so a student cannot abandon
- * a half-finished map by accident. When `dock` is provided it renders as
- * .pr-dock at the viewport bottom; absent for intro and close screens. */
+/** The persistent baseline frame. No close affordance mid-session. */
 function Frame({
   children,
   dock,
@@ -333,33 +358,6 @@ function Frame({
   );
 }
 
-function IntroScreen({
-  onStart,
-  onSkip,
-}: {
-  readonly onStart: () => void;
-  readonly onSkip: () => void;
-}): JSX.Element {
-  const c = COPY.intro;
-  return (
-    <section className="pr-summary">
-      <BrandMark lead />
-      <p className="pr-summary__eyebrow">{c.eyebrow}</p>
-      <h2 className="pr-summary__title">{c.title}</h2>
-      <p className="pr-summary__note">{c.body}</p>
-      <p className="pr-summary__note">{c.reassure}</p>
-      <div className="pr-actions">
-        <button type="button" className="pr-btn pr-btn--primary" onClick={onStart}>
-          {c.cta}
-        </button>
-        <button type="button" className="pr-bar__close" onClick={onSkip}>
-          {c.skip}
-        </button>
-      </div>
-    </section>
-  );
-}
-
 function QuestionScreen({
   q,
   topic,
@@ -367,7 +365,6 @@ function QuestionScreen({
   onPick,
 }: {
   readonly q: ServedBaselineQuestion;
-  /** Display name of the node under test ("Simple interest"), never a raw id. */
   readonly topic: string;
   readonly picked: number | null;
   readonly onPick: (key: number) => void;
@@ -415,14 +412,12 @@ function FeedbackScreen({
   view,
 }: {
   readonly q: ServedBaselineQuestion;
-  /** Display name of the node under test ("Simple interest"), never a raw id. */
   readonly topic: string;
   readonly view: FeedbackView;
 }): JSX.Element {
   const item = q.content;
   const hasSections = view.sections !== undefined;
 
-  // Build reviewed options list for use inside reveal 01 or the plain fallback.
   const reviewedOptions = item.options.map((o) => {
     const isCorrect = o.key === view.correctKey;
     const isChosenWrong = o.key === view.chosenKey && !view.correct;
@@ -449,9 +444,6 @@ function FeedbackScreen({
       </div>
 
       <div className="pr-2col__right">
-        {/* aria-live="polite": announces the verdict to screen readers when
-            feedback replaces the question panel (same pattern as PracticeFlow;
-            W5-6). */}
         <div
           className={`pr-verdict${view.correct ? " pr-verdict--correct" : " pr-verdict--wrong"}`}
           role="status"
@@ -461,12 +453,10 @@ function FeedbackScreen({
           <p className="pr-verdict__line">{view.outcomeLine}</p>
         </div>
 
-        {/* Punchline: always visible when sections are present. */}
         {hasSections && (
           <p className="pr-punchline">{view.sections.punchline}</p>
         )}
 
-        {/* Wrong-answer misconception line stays visible, never inside a reveal. */}
         {!view.correct && view.misconceptionLine !== null && (
           <section className="pr-mis" aria-live="polite" aria-atomic="true">
             <p className="pr-mis__eyebrow">What happened</p>
@@ -474,7 +464,6 @@ function FeedbackScreen({
           </section>
         )}
 
-        {/* Numbered reveals when sections are present. */}
         {hasSections ? (
           <div className="pr-reveals">
             <RevealSection num="01" label="Why each option">
@@ -521,7 +510,6 @@ function FeedbackScreen({
             </RevealSection>
           </div>
         ) : (
-          /* Graceful fallback: pre-sections layout for items without sections. */
           <>
             <div className="pr-options" aria-label="Reviewed options">
               {reviewedOptions.map(({ o, isCorrect, isChosenWrong, cls }) => (
@@ -557,19 +545,27 @@ function FeedbackScreen({
 function CloseScreen({
   answered,
   readiness,
+  installVariant: installVar,
+  onExamSave,
   onSeeDiagnosis,
   onPractise,
 }: {
   readonly answered: number;
   readonly readiness: Readiness;
+  readonly installVariant: "prompt" | "ios-manual" | "none";
+  readonly onExamSave: (attempt: ExamAttempt) => Promise<void>;
   readonly onSeeDiagnosis: () => void;
   readonly onPractise: () => void;
 }): JSX.Element {
   const c = COPY.close;
-  // The engine's honest readiness line: show the band only above the data gate;
-  // 24 events clears the 20-event gate, but the engine may still emit low /
-  // insufficient confidence (thin blueprint coverage) — render its wording as-is.
+  const [attemptDone, setAttemptDone] = useState(false);
+  const [installDone, setInstallDone] = useState(false);
+
   const gated = readiness.confidence === "insufficient_data" || readiness.expectedMarks === null;
+
+  const showAttempt = !attemptDone;
+  const showInstall = !installDone && installVar !== "none";
+
   return (
     <section className="pr-summary">
       <p className="pr-summary__eyebrow">{c.eyebrow}</p>
@@ -590,6 +586,23 @@ function CloseScreen({
           </>
         )}
       </div>
+
+      {showAttempt && (
+        <AttemptPicker
+          onSave={(attempt) => {
+            void onExamSave(attempt).then(() => setAttemptDone(true));
+          }}
+          onSkip={() => setAttemptDone(true)}
+        />
+      )}
+
+      {showInstall && (installVar === "prompt" || installVar === "ios-manual") && (
+        <InstallCard
+          variant={installVar}
+          onDone={() => setInstallDone(true)}
+        />
+      )}
+
       <div className="pr-actions">
         <button type="button" className="pr-btn pr-btn--primary" onClick={onSeeDiagnosis}>
           {c.cta}

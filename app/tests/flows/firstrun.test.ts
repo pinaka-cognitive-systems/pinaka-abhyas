@@ -1,12 +1,14 @@
 /**
- * First-run sequencing logic (W5-5 flow d, task requirement 5).
+ * First-run sequencing logic (W5-5 flow d).
  *
  * The "which step shows when" logic, tested directly without a DOM (the repo
- * convention): the webview path leads with the escape and shows nothing else,
- * the iOS path shows the manual install step, the standard Android path shows
- * the prompt install step, the degraded path reports honest degraded storage,
- * the second-tab takeover round-trips, and the exam attempt persists and reads
- * back as examMs. DOM-free (node environment).
+ * convention). Value-first order: the run is one screen (welcome) after
+ * booting in a real browser. The webview path leads with the escape and shows
+ * nothing else. Install, exam, and storage steps have moved to the baseline
+ * close screen; installVariant is still tested here because the baseline close
+ * screen uses it to decide whether to show the install card. The honest storage
+ * state, exam-attempt persistence, and second-tab takeover contract are
+ * unchanged. DOM-free (node environment).
  */
 
 import { describe, expect, it } from "vitest";
@@ -45,7 +47,7 @@ function platform(over: Partial<FirstRunPlatform> = {}): FirstRunPlatform {
   };
 }
 
-describe("first-run sequencing", () => {
+describe("first-run sequencing (value-first: one screen before baseline)", () => {
   it("webview path: leads with the escape and shows nothing else", () => {
     const seq = firstRunSequence(platform({ inAppWebview: true }));
     expect(seq).toEqual(["webview"]);
@@ -56,40 +58,41 @@ describe("first-run sequencing", () => {
     expect(seq2).toEqual(["webview"]);
   });
 
-  it("standard Android (Chromium prompt) path: welcome, install(prompt), exam, storage", () => {
-    const p = platform({ installPromptAvailable: true });
-    expect(installVariant(p)).toBe("prompt");
-    expect(firstRunSequence(p)).toEqual(["welcome", "install", "exam", "storage"]);
+  it("standard path (any non-webview platform): single welcome screen", () => {
+    expect(firstRunSequence(platform())).toEqual(["welcome"]);
+    expect(firstRunSequence(platform({ installPromptAvailable: true }))).toEqual(["welcome"]);
+    expect(firstRunSequence(platform({ iosSafari: true }))).toEqual(["welcome"]);
+    expect(firstRunSequence(platform({ standalone: true }))).toEqual(["welcome"]);
   });
 
-  it("iOS Safari path: welcome, install(ios-manual), exam, storage", () => {
-    const p = platform({ iosSafari: true });
-    expect(installVariant(p)).toBe("ios-manual");
-    expect(firstRunSequence(p)).toEqual(["welcome", "install", "exam", "storage"]);
+  it("welcome is the last step; nextStep returns null from it", () => {
+    const seq = firstRunSequence(platform());
+    expect(nextStep(seq, "welcome")).toBeNull();
+    expect(isLastStep(seq, "welcome")).toBe(true);
   });
 
-  it("no install path (desktop browser, no prompt): install step is skipped", () => {
-    const p = platform();
-    expect(installVariant(p)).toBe("none");
-    expect(firstRunSequence(p)).toEqual(["welcome", "exam", "storage"]);
-  });
-
-  it("already standalone: nothing to install, install step skipped", () => {
-    const p = platform({ standalone: true, installPromptAvailable: true, iosSafari: true });
-    expect(installVariant(p)).toBe("none");
-    expect(firstRunSequence(p)).toEqual(["welcome", "exam", "storage"]);
-  });
-
-  it("nextStep walks the sequence and ends with null; isLastStep agrees", () => {
-    const seq = firstRunSequence(platform({ iosSafari: true }));
-    expect(nextStep(seq, "welcome")).toBe("install");
-    expect(nextStep(seq, "install")).toBe("exam");
-    expect(nextStep(seq, "exam")).toBe("storage");
-    expect(nextStep(seq, "storage")).toBeNull();
-    expect(isLastStep(seq, "storage")).toBe(true);
-    expect(isLastStep(seq, "welcome")).toBe(false);
-    // A step not in the sequence has no next.
+  it("nextStep returns null for a step not in the sequence", () => {
+    const seq = firstRunSequence(platform());
     expect(nextStep(seq, "webview")).toBeNull();
+  });
+});
+
+describe("installVariant (used by baseline close screen to show install card)", () => {
+  it("standalone: nothing to install", () => {
+    expect(installVariant(platform({ standalone: true }))).toBe("none");
+    expect(installVariant(platform({ standalone: true, installPromptAvailable: true }))).toBe("none");
+  });
+
+  it("Chromium prompt path: returns prompt", () => {
+    expect(installVariant(platform({ installPromptAvailable: true }))).toBe("prompt");
+  });
+
+  it("iOS Safari path: returns ios-manual", () => {
+    expect(installVariant(platform({ iosSafari: true }))).toBe("ios-manual");
+  });
+
+  it("no install path (desktop browser, no prompt): returns none", () => {
+    expect(installVariant(platform())).toBe("none");
   });
 });
 
@@ -173,11 +176,9 @@ describe("second-tab takeover contract", () => {
     expect(err.name).toBe("AlreadyOpenError");
   });
 
-  it("a takeover is a steal reopen: the sequence resumes, not restarts", () => {
+  it("a takeover does not change the sequence (same platform, same steps)", () => {
     // The takeover does not change which step the run is on: the sequence is a
-    // pure function of the platform, unchanged by a connection takeover. This
-    // documents the contract the component relies on (steal reopen, then resume
-    // the same step) at the logic layer.
+    // pure function of the platform, unchanged by a connection takeover.
     const p = platform({ iosSafari: true });
     const before = firstRunSequence(p);
     const after = firstRunSequence(p);
