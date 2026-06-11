@@ -23,6 +23,9 @@ Cross-record checks:
                              "the answer is" or "correct option" — highest-harm defect
   NEAR_DUPLICATE             two stems have word-shingle Jaccard similarity at or above
                              NEAR_DUP_THRESHOLD — reskin masquerading as a distinct item
+  DASH_VIOLATION             '--' in stem/options/explanation/rationale; the voice rule
+                             bans dashes, and em/en dashes are already rejected by the
+                             ADR 0015 allowlist — this catches the ASCII stand-in
 
 Note: SVG sanitization is svg_is_safe(); the build runs it before packing.
 Schema-level structure is delegated to the JSON Schema.
@@ -316,6 +319,9 @@ def validate_pack(pack, taxonomy, schema, registry=None, pack_root=None):
             [item.get("stem", "") or ""]
             + [o.get("text", "") or "" for o in item.get("options", [])]
             + [item.get("explanation", "") or ""]
+            # explanation_sections (ADR 0017): same notation and voice rules
+            # as every other student-facing string.
+            + [v or "" for v in (item.get("explanation_sections") or {}).values()]
             + [
                 r.get("rationale", "") or ""
                 for r in item.get("per_option_rationale", [])
@@ -365,6 +371,20 @@ def validate_pack(pack, taxonomy, schema, registry=None, pack_root=None):
             else:
                 continue
             break
+
+        # 9c. DASH_VIOLATION: the voice rule bans dashes in student-facing prose.
+        #     Em/en dashes are outside the ADR 0015 allowlist and already fail
+        #     NOTATION_VIOLATION; the ASCII double hyphen would slip through it.
+        for field_text in notation_texts:
+            if field_text and "--" in field_text:
+                violations.append(
+                    Violation(
+                        "DASH_VIOLATION",
+                        iid,
+                        "double hyphen '--' found; rewrite the sentence without dashes",
+                    )
+                )
+                break
 
         # 10. DISTRACTOR_EQUALS_KEY (W3-3): any incorrect option's canonical text must
         #     not equal the correct option's canonical text — highest-harm defect.

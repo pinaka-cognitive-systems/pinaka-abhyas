@@ -116,6 +116,10 @@ REJECTS: dict[str, frozenset[str]] = {
     # NOTATION_VIOLATION (W3-5): stem/options/explanation/rationale contain LaTeX, HTML,
     #   control characters, or characters outside the ADR 0015 allowlist.
     "packs/reject/notation_violation.json": frozenset({"NOTATION_VIOLATION"}),
+
+    # DASH_VIOLATION: stem/options/explanation/rationale contain an ASCII double
+    #   hyphen; the voice rule bans dashes in student-facing prose.
+    "packs/reject/dash_violation.json": frozenset({"DASH_VIOLATION"}),
 }
 
 # Rejects that need pack_root to fire (Tier-2 filesystem checks).
