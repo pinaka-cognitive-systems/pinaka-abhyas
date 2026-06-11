@@ -1550,4 +1550,85 @@
       grid-template-columns: repeat(4, 1fr);
     }
   }
+
+  /* ---------------------------------------------------------------- */
+  /* LANDING — past results list shown when stored results exist       */
+  /* ---------------------------------------------------------------- */
+  .mk-landing__eyebrow {
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps);
+    color: var(--color-text-subtle);
+  }
+  .mk-landing__title {
+    margin: 0 0 var(--space-6);
+    font-size: var(--text-2xl);
+  }
+
+  .mk-pastlist {
+    list-style: none;
+    margin: 0 0 var(--space-6);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .mk-pastitem {
+    border: 1px solid var(--color-border-hairline);
+    border-radius: var(--radius-lg);
+    background: var(--color-card);
+  }
+  .mk-pastitem__btn {
+    width: 100%;
+    min-height: var(--touch-target);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    border: 0;
+    background: transparent;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    border-radius: var(--radius-lg);
+    transition: background-color calc(var(--duration-fast) * var(--motion-duration-scalar))
+      var(--ease-standard);
+  }
+  .mk-pastitem__btn:hover {
+    background: var(--color-muted);
+  }
+  .mk-pastitem__date {
+    font-size: var(--text-sm);
+    color: var(--color-muted-foreground);
+    flex: 0 0 auto;
+  }
+  .mk-pastitem__score {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-semibold);
+    flex: 1 1 auto;
+  }
+  .mk-pastitem__meta {
+    font-size: var(--text-xs);
+    color: var(--color-text-subtle);
+    flex: 0 0 auto;
+  }
+  .mk-pastitem__cta {
+    font-size: var(--text-sm);
+    color: var(--color-brand-primary);
+    flex: 0 0 auto;
+  }
+  .mk-pastitem__btn:focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+
+  /* Honesty rider: the extra sentence inside mk-note shown when history exists. */
+  .mk-note__rider {
+    margin: var(--space-2) 0 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--color-muted-foreground);
+  }
 }

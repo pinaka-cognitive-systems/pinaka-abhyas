@@ -53,13 +53,6 @@ import {
   withToggledStrike,
   type MockSession,
 } from "./state.js";
-
-/**
- * The one-line marking reminder shown in the hall bar, palette header, and
- * submit dialog. Single source of truth: extracted here so the three surfaces
- * always read identically and a change propagates everywhere at once.
- */
-export const MARKING_REMINDER = "Wrong -0.25 - unanswered 0" as const;
 import {
   buildSubmissionBatch,
   scoreMock,
@@ -72,6 +65,14 @@ import {
   type MisconceptionRow,
   type InsightModel,
 } from "./scoring.js";
+import {
+  appendResult,
+  formatResultDate,
+  parseResults,
+  serializeResults,
+  MOCK_RESULTS_META_KEY,
+  type MockResultRecord,
+} from "./results.js";
 import {
   loadTopicNames,
   loadMisconceptionNames,
@@ -89,6 +90,21 @@ import {
 import { acquireMockGuard, releaseMockGuard } from "./guard.js";
 import { MockReview } from "./MockReview.js";
 import "./mock.css";
+
+/**
+ * The one-line marking reminder shown in the hall bar, palette header, and
+ * submit dialog. Single source of truth: extracted here so the three surfaces
+ * always read identically and a change propagates everywhere at once.
+ */
+export const MARKING_REMINDER = "Wrong -0.25 - unanswered 0" as const;
+
+/**
+ * Honesty rider shown on the pre-mock screen when at least one stored result
+ * exists. Explains that the bank currently holds exactly one paper of headroom,
+ * so a new mock draws the same 100 questions in a fresh order.
+ */
+const SAME_QUESTIONS_RIDER =
+  "Until the next pack update, a new mock draws the same 100 questions in a fresh order." as const;
 
 /** Read the live viewport width at the boundary; phone floor when window absent. */
 function viewportWidth(): number {
@@ -135,9 +151,17 @@ type Phase =
   | { readonly kind: "loading" }
   | { readonly kind: "error"; readonly message: string }
   | {
+      readonly kind: "landing";
+      readonly results: readonly MockResultRecord[];
+      readonly battery: BatteryReading | null;
+      readonly ff: "phone" | "tablet" | "desktop";
+    }
+  | {
       readonly kind: "premock";
       readonly battery: BatteryReading | null;
       readonly ff: "phone" | "tablet" | "desktop";
+      /** True when at least one stored result exists: shows the honesty rider. */
+      readonly hasHistory: boolean;
     }
   | { readonly kind: "hall"; readonly current: number; readonly resume: string | null }
   | {
@@ -219,7 +243,7 @@ export function MockFlow({ onExit }: MockFlowProps): JSX.Element {
         return;
       }
 
-      // Fresh path: assemble against the live bank, scale the marking, pre-mock.
+      // Fresh path: assemble against the live bank, scale the marking.
       const mock = assembleMock(
         nextSeed(),
         pack.bank,
@@ -229,8 +253,17 @@ export function MockFlow({ onExit }: MockFlowProps): JSX.Element {
       const marking = scaleMarking(pack.marking, mock.size);
       loadedRef.current = { pack, content, adapter, mock, marking, names };
       const battery = await readBattery();
+
+      // Load any previously stored results.
+      const storedResults = parseResults(await adapter.getMeta(MOCK_RESULTS_META_KEY));
       if (cancelled) return;
-      setPhase({ kind: "premock", battery, ff: formFactor(viewportWidth()) });
+
+      if (storedResults.length > 0) {
+        // Landing phase: show past results before offering a new mock.
+        setPhase({ kind: "landing", results: storedResults, battery, ff: formFactor(viewportWidth()) });
+      } else {
+        setPhase({ kind: "premock", battery, ff: formFactor(viewportWidth()), hasHistory: false });
+      }
     }
 
     boot().catch((err: unknown) => {
@@ -338,6 +371,18 @@ export function MockFlow({ onExit }: MockFlowProps): JSX.Element {
     // Preserve the completed session for the review phase before clearing it.
     completedSessionRef.current = session;
 
+    // Persist the finished result so it survives leaving the page.
+    const newRecord: MockResultRecord = {
+      schema: 1,
+      finishedAtMs: nowMs,
+      session,
+      before,
+      after,
+    };
+    const existingResults = parseResults(await loaded.adapter.getMeta(MOCK_RESULTS_META_KEY));
+    const updatedResults = appendResult(existingResults, newRecord);
+    await loaded.adapter.setMeta(MOCK_RESULTS_META_KEY, serializeResults(updatedResults));
+
     // Clear the in-progress mock and release the guard (a swap may now apply).
     await loaded.adapter.setMeta(MOCK_SESSION_META_KEY, "");
     sessionRef.current = null;
@@ -375,6 +420,32 @@ export function MockFlow({ onExit }: MockFlowProps): JSX.Element {
     );
   }
 
+  if (phase.kind === "landing") {
+    const loaded = loadedRef.current!;
+    return (
+      <MockFrame onExit={onExit} title="Mock">
+        <LandingScreen
+          results={phase.results}
+          pack={loaded.pack}
+          content={loaded.content}
+          onOpenResult={(record) => {
+            const score = scoreMock(
+              record.session,
+              loaded.content,
+              scaleMarking(loaded.pack.marking, record.session.order.length),
+              familyRefs(loaded.pack),
+            );
+            completedSessionRef.current = record.session;
+            setPhase({ kind: "breakdown", score, before: record.before, after: record.after });
+          }}
+          onNewMock={() =>
+            setPhase({ kind: "premock", battery: phase.battery, ff: phase.ff, hasHistory: true })
+          }
+        />
+      </MockFrame>
+    );
+  }
+
   if (phase.kind === "premock") {
     const loaded = loadedRef.current!;
     return (
@@ -384,6 +455,7 @@ export function MockFlow({ onExit }: MockFlowProps): JSX.Element {
           marking={loaded.marking}
           battery={phase.battery}
           ff={phase.ff}
+          hasHistory={phase.hasHistory}
           onStart={() => void start()}
         />
       </MockFrame>
@@ -529,17 +601,81 @@ function MockFrame({
   );
 }
 
+// ---------------------------------------------------------------------------
+// Landing screen: past results list + new-mock entry point.
+// ---------------------------------------------------------------------------
+
+function LandingScreen({
+  results,
+  pack,
+  content,
+  onOpenResult,
+  onNewMock,
+}: {
+  readonly results: readonly MockResultRecord[];
+  readonly pack: LoadedPack;
+  readonly content: ReadonlyMap<string, ContentItem>;
+  readonly onOpenResult: (record: MockResultRecord) => void;
+  readonly onNewMock: () => void;
+}): JSX.Element {
+  return (
+    <section className="mk-landing">
+      <p className="mk-landing__eyebrow">Your mocks</p>
+      <h2 className="mk-landing__title">Past results.</h2>
+
+      <ul className="mk-pastlist">
+        {results.map((record, idx) => {
+          const score = scoreMock(
+            record.session,
+            content,
+            scaleMarking(pack.marking, record.session.order.length),
+            familyRefs(pack),
+          );
+          const dateStr = formatResultDate(record.finishedAtMs);
+          const size = record.session.order.length;
+          return (
+            <li key={record.session.id ?? idx} className="mk-pastitem">
+              <button
+                type="button"
+                className="mk-pastitem__btn"
+                onClick={() => onOpenResult(record)}
+              >
+                <span className="mk-pastitem__date">{dateStr}</span>
+                <span className="mk-pastitem__score mk-mono">
+                  {score.net.toFixed(2)} / {score.maxMarks}
+                </span>
+                <span className="mk-pastitem__meta">
+                  {size} {size === 1 ? "question" : "questions"}
+                </span>
+                <span className="mk-pastitem__cta">See breakdown</span>
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+
+      <div className="mk-actions">
+        <button type="button" className="mk-btn mk-btn--primary" onClick={onNewMock}>
+          Sit a new mock
+        </button>
+      </div>
+    </section>
+  );
+}
+
 function PreMockScreen({
   mock,
   marking,
   battery,
   ff,
+  hasHistory,
   onStart,
 }: {
   readonly mock: AssembledMock;
   readonly marking: ScaledMarking;
   readonly battery: BatteryReading | null;
   readonly ff: "phone" | "tablet" | "desktop";
+  readonly hasHistory: boolean;
   readonly onStart: () => void;
 }): JSX.Element {
   const shield = shieldChecklist(battery);
@@ -551,6 +687,9 @@ function PreMockScreen({
 
       <div className="mk-note" role="note">
         <p className="mk-note__body">{deviceNote(ff)}</p>
+        {hasHistory && (
+          <p className="mk-note__rider">{SAME_QUESTIONS_RIDER}</p>
+        )}
       </div>
 
       <p className="mk-premock__length">{lengthSummary(mock, marking)}</p>
