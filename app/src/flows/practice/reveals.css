@@ -1,0 +1,125 @@
+/*
+ * reveals.css — the numbered collapsible teaching sections (ADR 0017).
+ *
+ * Owned by reveals.tsx so every consumer (practice feedback, baseline
+ * feedback, mock review) carries the styles with the component instead of
+ * depending on practice.css being loaded first. Tokens only, components layer.
+ */
+
+@layer components {
+  .pr-reveals {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+  }
+
+  .pr-reveal {
+    border: 1px solid var(--color-border-hairline);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  /* The trigger row: mono number, label, chevron. */
+  .pr-reveal__trigger {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    width: 100%;
+    min-height: var(--touch-target);
+    padding: var(--space-3) var(--space-4);
+    border: 0;
+    background: var(--color-card);
+    color: var(--color-foreground);
+    font: inherit;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    text-align: left;
+    cursor: pointer;
+  }
+  .pr-reveal__trigger:hover {
+    background: var(--color-muted);
+  }
+  .pr-reveal__trigger:focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: -2px;
+  }
+
+  .pr-reveal__num {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--space-6);
+    height: var(--space-6);
+    border-radius: var(--radius-full);
+    background: var(--color-muted);
+    color: var(--color-muted-foreground);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+  }
+
+  .pr-reveal__label {
+    flex: 1 1 auto;
+  }
+
+  /* Chevron: a plain CSS triangle that flips when expanded. */
+  .pr-reveal__chevron {
+    flex: 0 0 auto;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-subtle);
+    transition: transform calc(var(--duration-fast) * var(--motion-duration-scalar))
+      var(--ease-standard);
+  }
+  .pr-reveal__chevron::after {
+    content: "";
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translateY(-2px);
+  }
+  /* When the reveal is open, the chevron points up. */
+  .pr-reveal--open .pr-reveal__chevron::after {
+    transform: rotate(225deg) translateY(-2px);
+  }
+
+  /* The collapsible body. */
+  .pr-reveal__body {
+    padding: var(--space-4);
+    border-top: 1px solid var(--color-border-hairline);
+    background: var(--color-background);
+  }
+
+  /* Hidden state: display none so it is excluded from tab order and screen
+   * reader output when collapsed. */
+  .pr-reveal__body[hidden] {
+    display: none;
+  }
+
+  /* Option rows inside reveal 01 carry the rationale below the option. */
+  .pr-reveal-row {
+    margin-bottom: var(--space-3);
+  }
+  .pr-reveal-row:last-child {
+    margin-bottom: 0;
+  }
+  .pr-reveal-row__rationale {
+    margin: var(--space-2) 0 0 calc(var(--space-6) + var(--space-3));
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--color-muted-foreground);
+  }
+
+  /* Section prose (approach, lesson, timing). */
+  .pr-reveal__prose {
+    margin: 0;
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+  }
+}

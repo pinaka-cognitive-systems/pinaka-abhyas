@@ -149,7 +149,7 @@ export function MockReview({
             Back
           </button>
           <span className="rv-bar__title">
-            <span className="rv-bar__label">[Mock] review</span>
+            <span className="rv-bar__label">Mock review</span>
             <span className="rv-bar__score rv-mono">{netDisplay}</span>
           </span>
         </div>

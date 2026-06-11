@@ -1,13 +1,16 @@
 /**
  * RevealSection — accessible collapsible numbered reveal (ADR 0017).
  *
- * Shared between PracticeFlow and BaselineFlow. A button element carries
- * aria-expanded and aria-controls; the body uses the hidden attribute so it is
- * excluded from tab order and screen reader output when collapsed. No new
- * dependencies — uses only React primitives. Styles in practice.css (.pr-reveal).
+ * Shared between PracticeFlow, BaselineFlow, and the mock review. A button
+ * element carries aria-expanded and aria-controls; the body uses the hidden
+ * attribute so it is excluded from tab order and screen reader output when
+ * collapsed. No new dependencies. Styles travel with the component
+ * (reveals.css) so no consumer depends on another flow's stylesheet.
  */
 
 import { useState, type ReactNode } from "react";
+
+import "./reveals.css";
 
 /** A numbered, labelled collapsible section. `num` is the displayed mono number
  * (e.g. "01"). `defaultOpen` defaults to false. */
