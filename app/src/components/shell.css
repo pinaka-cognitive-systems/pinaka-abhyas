@@ -1,0 +1,330 @@
+/*
+ * shell.css — AppShell: persistent left rail (desktop) and bottom tab bar
+ * (mobile). The shell never scrolls; the content area scrolls internally.
+ *
+ * Phone-first, 360px floor (ADR 0011). Tokens only (theme/tokens.css): no raw
+ * hex, no raw px outside the spacing/touch tokens. 44px touch targets, one
+ * visible focus style on every interactive element. Desktop widening is additive
+ * at min-width 1024px; it never overwrites the narrow rules (ADR 0011).
+ *
+ * Lives in the `components` layer so token values resolve under @layer order.
+ */
+
+@layer components {
+  /* ---------------------------------------------------------------- */
+  /* SHELL FRAME                                                       */
+  /* ---------------------------------------------------------------- */
+
+  /*
+   * Full viewport height, no page scroll. The content area scrolls
+   * independently. This is the same dvh pattern the practice and
+   * diagnosis flows use.
+   */
+  .app-shell {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    min-width: 360px;
+    overflow: hidden;
+    background: var(--color-background);
+    color: var(--color-foreground);
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* NAV WRAPPER                                                       */
+  /* ---------------------------------------------------------------- */
+
+  /*
+   * The nav element wraps both the rail (desktop) and the tab bar (mobile).
+   * CSS toggling via the breakpoint keeps one visible and removes the other
+   * from layout; both remain in the DOM for a clean progressive enhancement.
+   */
+  .app-shell__nav {
+    /* No styles on the wrapper itself; layout handled by children. */
+    /* The rail is positioned as a flex sibling to .app-shell__content. */
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* CONTENT AREA                                                      */
+  /* ---------------------------------------------------------------- */
+
+  /*
+   * Fills the remaining vertical space. The padding-bottom reserves room for
+   * the tab bar on mobile so content and any pinned .pr-dock are not covered.
+   *
+   * --shell-tab-bar-height is set here and consumed by the content padding.
+   * The tab bar is 56px tall (44px touch target + 12px label area) plus the
+   * safe-area inset. We use a fixed reference height for the static padding
+   * reservation; the actual bar uses env() which only the browser resolves.
+   */
+  .app-shell__content {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    /* Reserve tab bar height at the bottom on narrow viewports. */
+    padding-bottom: calc(56px + env(safe-area-inset-bottom, 0px));
+  }
+
+  /*
+   * Shell-hosted screens (.hm-screen, .dg-screen, .st-screen, and any future
+   * shell-hosted flow) use min-height: 100dvh to fill the viewport. Inside the
+   * shell content area this overshoots; cap it to 100% of the content container
+   * so the flows lay out correctly without editing each one individually.
+   */
+  .app-shell__content > * {
+    min-height: 100%;
+    height: 100%;
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* RAIL (hidden on mobile, shown on desktop via the widening rule)  */
+  /* ---------------------------------------------------------------- */
+
+  .app-shell__rail {
+    display: none; /* shown at 1024px */
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* TAB BAR (mobile / tablet, < 1024px)                             */
+  /* ---------------------------------------------------------------- */
+
+  .app-shell__tabs {
+    display: flex;
+    align-items: center;
+    justify-content: stretch;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--color-card);
+    border-top: 1px solid var(--color-border-hairline);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .app-shell__tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    min-height: var(--touch-target);
+    gap: 2px;
+    padding: var(--space-1) 0;
+    border: 0;
+    background: transparent;
+    color: var(--color-muted-foreground);
+    font: inherit;
+    font-family: var(--font-sans);
+    cursor: pointer;
+    border-radius: 0;
+    transition: color calc(var(--duration-fast) * var(--motion-duration-scalar)) var(--ease-linear);
+  }
+
+  .app-shell__tab:hover {
+    color: var(--color-foreground);
+  }
+
+  .app-shell__tab--active {
+    color: var(--color-info-text);
+  }
+
+  .app-shell__tab-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* Badge dot on Practice icon when reviews are due. */
+  .app-shell__tab-badge::after {
+    content: "";
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 7px;
+    height: 7px;
+    border-radius: var(--radius-full);
+    background: var(--color-brand-primary);
+    border: 1.5px solid var(--color-card);
+  }
+
+  .app-shell__tab-label {
+    font-size: var(--text-xs); /* 12px — the type floor */
+    font-weight: var(--font-weight-medium);
+    line-height: 1;
+    letter-spacing: var(--tracking-normal);
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* FOCUS — visible ring on every interactive element                */
+  /* ---------------------------------------------------------------- */
+
+  .app-shell__tab:focus-visible,
+  .app-shell__rail-item:focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* WIDEN — desktop (>= 1024px): persistent left rail                */
+  /* Additive only; the narrow tab-bar rules above are not touched.   */
+  /* ---------------------------------------------------------------- */
+
+  @media (min-width: 1024px) {
+    /* The shell becomes a row: rail on the left, content on the right. */
+    .app-shell {
+      flex-direction: row;
+    }
+
+    /* Remove the bottom padding reserved for the tab bar. */
+    .app-shell__content {
+      padding-bottom: 0;
+      overflow-y: auto; /* the content area itself scrolls on desktop */
+    }
+
+    /* Reset the content height cap: on desktop the rail handles framing. */
+    .app-shell__content > * {
+      min-height: 100%;
+      height: auto; /* flows can be taller than the viewport and scroll */
+    }
+
+    /* Show the rail. */
+    .app-shell__rail {
+      display: flex;
+      flex-direction: column;
+      width: 224px;
+      flex-shrink: 0;
+      height: 100%;
+      background: var(--color-card);
+      border-right: 1px solid var(--color-border-hairline);
+      padding: var(--space-5) var(--space-3);
+      gap: var(--space-2);
+      overflow-y: auto;
+    }
+
+    /* Hide the tab bar on desktop. Removing from layout with display:none also
+       removes it from the accessibility tree, so there is no duplicate nav. */
+    .app-shell__tabs {
+      display: none;
+    }
+
+    /* ---- Rail brand lockup ---- */
+    .app-shell__rail-brand {
+      padding: var(--space-1) var(--space-2) var(--space-4);
+    }
+
+    /* ---- Rail nav groups ---- */
+    .app-shell__rail-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+    }
+
+    /* ---- Rail items ---- */
+    .app-shell__rail-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      width: 100%;
+      padding: 9px 10px;
+      border: 0;
+      border-radius: var(--radius-md);
+      background: transparent;
+      color: var(--color-foreground);
+      font: inherit;
+      font-family: var(--font-sans);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-medium);
+      text-align: left;
+      cursor: pointer;
+      transition: background-color
+        calc(var(--duration-fast) * var(--motion-duration-scalar)) var(--ease-linear);
+    }
+
+    .app-shell__rail-item svg {
+      color: var(--color-muted-foreground);
+      flex-shrink: 0;
+    }
+
+    .app-shell__rail-item:hover {
+      background: var(--color-muted);
+    }
+
+    .app-shell__rail-item--active {
+      background: var(--color-brand-soft);
+      color: var(--color-info-text);
+    }
+
+    .app-shell__rail-item--active svg {
+      color: var(--color-info-text);
+    }
+
+    .app-shell__rail-label {
+      flex: 1;
+    }
+
+    /* ---- Review count badge ---- */
+    .app-shell__rail-count {
+      margin-left: auto;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      font-weight: var(--font-weight-medium);
+      font-variant-numeric: tabular-nums;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 var(--space-1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-brand-soft);
+      color: var(--color-info-text);
+      border-radius: var(--radius-full);
+    }
+
+    /* ---- Divider after Practice ---- */
+    .app-shell__rail-divider {
+      height: 1px;
+      background: var(--color-border-hairline);
+      margin: var(--space-3) var(--space-2);
+    }
+
+    /* ---- Rail foot: Settings + device status ---- */
+    .app-shell__rail-foot {
+      margin-top: auto;
+      padding-top: var(--space-2);
+      border-top: 1px solid var(--color-border-hairline);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .app-shell__rail-device {
+      padding: var(--space-2) var(--space-2) var(--space-1);
+    }
+
+    .app-shell__rail-device-line {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-xs);
+      color: var(--color-muted-foreground);
+    }
+
+    .app-shell__rail-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: var(--radius-full);
+      background: var(--color-success);
+      flex-shrink: 0;
+    }
+
+    .app-shell__rail-device-sub {
+      font-size: var(--text-xs);
+      color: var(--color-text-subtle);
+      margin-top: 2px;
+      padding-left: 15px;
+    }
+  }
+}

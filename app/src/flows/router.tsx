@@ -12,11 +12,17 @@
  * student then gets the cold-start baseline once; thereafter the default sends
  * the returning student to the HOME surface (the honest-adherence today card,
  * delta, and re-entry, W5-9), not straight into practice. "First visit" is the
- * storage meta flag `firstrun_completed`, read once at boot — so it survives
+ * storage meta flag `firstrun_completed`, read once at boot -- so it survives
  * reloads and is not a fragile guess. While that read is in flight the router
  * shows a neutral boot screen, never a flash of the wrong flow. The home surface
  * also has an explicit `#/home` route; the old engine-demo Shell now lives at
  * the explicit `#/demo` route.
+ *
+ * Shell-hosted routes (#/home, #/diagnosis, #/settings, #/mock, #/syllabus):
+ * rendered inside the AppShell so the persistent left rail (desktop) or bottom
+ * tab bar (mobile) remains visible. Full-bleed routes (#/firstrun, #/baseline,
+ * #/practice, #/demo) render without the shell to preserve the exam-hall and
+ * onboarding focus environments.
  *
  * The flows are loaded lazily so their code and the pack content chunk stay off
  * the entry chunk until needed.
@@ -25,6 +31,7 @@
 import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 
 import { Shell } from "../Shell.js";
+import { AppShell } from "../components/AppShell.js";
 import { isFirstRunComplete } from "./firstrun/meta.js";
 import { isBaselineDone, shouldShowBaseline } from "./baseline/meta.js";
 import { AlreadyOpenError, getSharedStorage } from "../storage/index.js";
@@ -128,6 +135,8 @@ export function Router(): JSX.Element {
   const goDiagnosis = useCallback(() => navigate("diagnosis"), []);
   const goSettings = useCallback(() => navigate("settings"), []);
 
+  // Full-bleed flows: no shell, focus environment preserved.
+
   if (route === "practice") {
     return (
       <Suspense fallback={<BootScreen label="Loading practice" />}>
@@ -147,58 +156,11 @@ export function Router(): JSX.Element {
     );
   }
 
-  if (route === "diagnosis") {
-    return (
-      <Suspense
-        fallback={
-          <div className="dg-screen">
-            <main className="dg-body">
-              <section className="dg-status" aria-busy="true">
-                <p className="dg-status__label">Loading your diagnosis</p>
-              </section>
-            </main>
-          </div>
-        }
-      >
-        <DiagnosisFlow onExit={goDefault} />
-      </Suspense>
-    );
-  }
-
-  // Mock (flow b / W5-7): blueprint-assembled timed mock, hall, resume,
-  // negative-marking score reveal, breakdown, readiness anchoring.
-  if (route === "mock") {
-    return (
-      <Suspense fallback={<BootScreen label="Loading mock" />}>
-        <MockFlow onExit={goDefault} />
-      </Suspense>
-    );
-  }
-
-  // Settings (flow e): import/export, status, telemetry, update, danger zone.
-  if (route === "settings") {
-    return (
-      <Suspense fallback={<BootScreen label="Loading settings" />}>
-        <SettingsFlow onExit={goDefault} />
-      </Suspense>
-    );
-  }
-
   // Explicit first-run route (a student can revisit it via #/firstrun).
   if (route === "firstrun") {
     return (
       <Suspense fallback={<BootScreen label="Loading" />}>
         <FirstRunFlow onComplete={goBaseline} />
-      </Suspense>
-    );
-  }
-
-  // The home surface (W5-9), also reachable at the explicit #/home route. Begin
-  // goes into practice; the settings and diagnosis links route accordingly.
-  if (route === "home") {
-    return (
-      <Suspense fallback={<BootScreen label="Loading" />}>
-        <HomeFlow onBegin={goPractice} onSettings={goSettings} onDiagnosis={goDiagnosis} />
       </Suspense>
     );
   }
@@ -232,6 +194,63 @@ export function Router(): JSX.Element {
     );
   }
 
+  // Shell-hosted routes: persistent nav (rail on desktop, tab bar on mobile).
+
+  if (route === "diagnosis") {
+    return (
+      <AppShell route={route}>
+        <Suspense
+          fallback={
+            <div className="dg-screen">
+              <main className="dg-body">
+                <section className="dg-status" aria-busy="true">
+                  <p className="dg-status__label">Loading your diagnosis</p>
+                </section>
+              </main>
+            </div>
+          }
+        >
+          <DiagnosisFlow onExit={goDefault} />
+        </Suspense>
+      </AppShell>
+    );
+  }
+
+  // Mock (flow b / W5-7): blueprint-assembled timed mock, hall, resume,
+  // negative-marking score reveal, breakdown, readiness anchoring.
+  if (route === "mock") {
+    return (
+      <AppShell route={route}>
+        <Suspense fallback={<BootScreen label="Loading mock" />}>
+          <MockFlow onExit={goDefault} />
+        </Suspense>
+      </AppShell>
+    );
+  }
+
+  // Settings (flow e): import/export, status, telemetry, update, danger zone.
+  if (route === "settings") {
+    return (
+      <AppShell route={route}>
+        <Suspense fallback={<BootScreen label="Loading settings" />}>
+          <SettingsFlow onExit={goDefault} />
+        </Suspense>
+      </AppShell>
+    );
+  }
+
+  // The home surface (W5-9), also reachable at the explicit #/home route. Begin
+  // goes into practice; the settings and diagnosis links route accordingly.
+  if (route === "home") {
+    return (
+      <AppShell route={route}>
+        <Suspense fallback={<BootScreen label="Loading" />}>
+          <HomeFlow onBegin={goPractice} onSettings={goSettings} onDiagnosis={goDiagnosis} />
+        </Suspense>
+      </AppShell>
+    );
+  }
+
   // Default route (empty hash): resolve first-run, baseline, or practice from
   // the meta flags and the event count.
   if (defaultTarget === null) {
@@ -251,11 +270,13 @@ export function Router(): JSX.Element {
       </Suspense>
     );
   }
-  // Returning student: the home surface (W5-9).
+  // Returning student: the home surface (W5-9), wrapped in the app shell.
   return (
-    <Suspense fallback={<BootScreen label="Loading" />}>
-      <HomeFlow onBegin={goPractice} onSettings={goSettings} onDiagnosis={goDiagnosis} />
-    </Suspense>
+    <AppShell route="home">
+      <Suspense fallback={<BootScreen label="Loading" />}>
+        <HomeFlow onBegin={goPractice} onSettings={goSettings} onDiagnosis={goDiagnosis} />
+      </Suspense>
+    </AppShell>
   );
 }
 
