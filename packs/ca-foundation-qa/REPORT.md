@@ -1,4 +1,10 @@
-# ca_abhyas generation spike v1 — report
+# ca_abhyas generation spike v1: report
+
+Note on currency: this file is the historical record of the first 24-item generation
+spike that proved the Gate A pipeline. The bank has since scaled through a content
+pilot to 82 items, 81 usable. For the current bank state and the pilot funnel numbers,
+see `audit/pilot/PILOT_REPORT.md` and the pack manifest. The spike numbers below are
+preserved as written.
 
 Goal: prove we can generate ORIGINAL CA QA questions, from the public syllabus, with
 accurate per-option misconception tags, cheaply. This is the real Gate A path (the v1
@@ -64,7 +70,7 @@ certifiable. The pipeline and canon are proven on this spike.
 
 ---
 
-## Addendum: 2026-06-10 honesty relabeling (W0-9)
+## Addendum: 2026-06-10 honesty relabeling
 
 All 24 items have been relabeled from machine_verified to model_audited.
 
@@ -75,17 +81,17 @@ item in this spike. model_audited is the accurate status for verification that w
 rigorous but performed by models only, with no executable solution having reproduced the
 key.
 
-Item arn_caf_qa_000009 has been set to quarantined. The 2026-06-10 deep audit (finding
-CON-01) confirmed by brute-force enumeration over kinship assignments that this item's
-premises are logically self-contradictory. Both model auditors missed this. The item
-must not be served to students. A replacement will be authored at W4-1.
+Item arn_caf_qa_000009 has been set to quarantined. A project audit confirmed by
+brute-force enumeration over kinship assignments that this item's premises are
+logically self-contradictory. Both model auditors missed this. The item must not be
+served to students. A replacement is pending; the defect is recorded in ERRATA.md.
 
 The usable count from this spike is 23. The stamped pack.json includes all 24 records
 (including the quarantined item) so validators can inspect it, but the 23 non-quarantined
 items are the ones eligible for use.
 
-machine_verified labels are earned only through the W3-1 key-execution harness and the
-W3-2 LR verification harness.
+machine_verified labels are earned only through the key-execution harness and the
+logical-reasoning verification harness.
 
 ## Promotion to machine_verified (2026-06-10)
 

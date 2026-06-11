@@ -19,28 +19,38 @@ Free for students. App open-source. Works offline.
 
 ## Status
 
-Phase 0, foundations, is done. In place: the UQS Core and CA Profile schema, the CA
-QA taxonomy from the official ICAI syllabus, the misconception canon, the event-log
-record, the marking config, the TypeScript engine, and the brand layer. Both
-validator tiers are green. Next is content generation (Gate A).
+The foundations are in place and the app is built. The UQS Core and CA Profile
+schema, the CA QA taxonomy from the official ICAI syllabus, the misconception canon,
+the event-log record, and the marking config are locked, and both validator tiers are
+green. The TypeScript engine computes mastery, scheduling, selection, and readiness,
+pinned by committed golden vectors. The content pipeline ran a pilot to completion:
+the CA Foundation pack holds 82 items, 81 usable, each shipping an executable solution
+that re-derives its key in CI. The PWA is built, with the loop decomposed into seven
+flows. Next is scaling the verified bank with expert audit, then the closed beta. See
+`ROADMAP.md`.
 
 ## Layout
 
+- `app/`: the PWA. Vite, React, TypeScript, sqlite-wasm on OPFS, a service worker for
+  full offline, an installable manifest, and one-click progress export and import.
+- `engine-ts/`: the canonical TypeScript engine (mastery, scheduling, selection,
+  readiness), pinned by committed golden vectors. See ADR 0010.
+- `packs/ca-foundation-qa/`: CA Foundation Paper 3 QA content (items, solutions,
+  manifest, REPORT, ERRATA, verification artifacts under `audit/`, build script).
+  Content lives here; contracts stay in `schema/`.
 - `schema/`: the UQS contract. `core/` is exam-agnostic; `profiles/ca-foundation-qa/`
   holds the CA Profile contracts (schema, taxonomy, misconceptions, marking, blueprint).
   Validators at `schema/validate.py` and `schema/validator/`.
-- `packs/ca-foundation-qa/`: CA Foundation Paper 3 QA content (items, solutions,
-  manifest, REPORT, ERRATA, build script). Content lives here; contracts stay in schema/.
-- `engine-ts/`: the TypeScript engine (mastery, scheduling, selection, readiness).
-  This is the canonical engine; see ADR 0010.
-- `prototypes/engine-py/`: the archived Python engine prototype. Superseded by engine-ts/.
-  Kept as the historical reference; its tests do not run in CI.
+- `prototypes/engine-py/`: the archived Python engine prototype. Superseded by
+  `engine-ts/`. Kept as the historical reference; its tests do not run in CI.
 - `crosscheck/`: independent Python cross-check of the core engine math.
-- `specs/`: `foundation-plan.md` (the plan), `roadmap.md`, `unified-question-schema.md`
-  (rationale).
-- `docs/adr/`: architecture decision records.
-- `docs/brand/`: `brand-core.md` (voice and principles) and `positioning-ca.md`
-  (CA positioning).
+- `tools/`: local development and CI helpers (the local CI battery, the dev launcher,
+  the funnel reporter).
+- `docs/`: architecture decision records (`adr/`), the brand layer (`brand/`), the
+  engineering build spec and adherence spec (`design/`), and the content authoring
+  guide (`contributing/`).
+- `specs/`: `unified-question-schema.md` (the schema rationale) and
+  `content-pipeline.md` (how items are generated, verified, and accepted).
 - `syllabus/`: the official ICAI source (local-only; gitignored; ICAI source materials not distributed).
 
 ## Validate

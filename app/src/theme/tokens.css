@@ -3,7 +3,7 @@
  *
  * Source: design-team/v2/colors_and_type.css (primary source of truth).
  * Reconciled with: docs/brand/design.md (the repo-canonical brand spec).
- * Intake record: docs/design/intake-v2.md.
+ * Intake record: internal/design/intake-v2.md (operator-internal, untracked).
  *
  * Reconciliation decisions:
  *   - The v2 drop ships three overlapping CSS files: colors_and_type.css,

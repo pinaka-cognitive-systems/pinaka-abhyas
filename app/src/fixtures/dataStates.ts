@@ -3,7 +3,7 @@
  * copy strings.
  *
  * Source: design-team/v2/data.jsx (PROFILES constant and copy strings).
- * Intake record: docs/design/intake-v2.md.
+ * Intake record: internal/design/intake-v2.md (operator-internal, untracked).
  *
  * Copy text is reproduced exactly as written in the v2 source; it passed brand
  * review. Structural data is typed against the engine's honest vocabulary.

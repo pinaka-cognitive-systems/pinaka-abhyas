@@ -71,8 +71,13 @@ old one and references it; the old ADR stays in place as the historical record.
 
 ## Pointers
 
-- Session handoff: `handoff.md` (read first in every new session)
 - Decisions: `docs/adr/`
-- Plan: `specs/foundation-plan.md` and `specs/roadmap.md`
+- Roadmap: `ROADMAP.md` (current phase, what is done, what is next)
+- Schema rationale: `specs/unified-question-schema.md`
+- Content pipeline: `specs/content-pipeline.md`
+- Build spec: `docs/design/build-spec.md`; adherence spec: `docs/design/adherence-spec.md`
 - Brand: `docs/brand/brand-core.md` (voice, principles), `docs/brand/design.md` (visual system), and `docs/brand/positioning-ca.md` (CA)
 - Syllabus source: `syllabus/` (local-only; gitignored; ICAI source materials not distributed)
+- Internal working docs (audit, master plan, design intake, session bridges) live in
+  `internal/`, which is untracked and gitignored. They are operator and build-agent
+  material, not part of the public doc surface.

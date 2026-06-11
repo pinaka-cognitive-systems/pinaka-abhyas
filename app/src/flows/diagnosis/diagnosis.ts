@@ -9,7 +9,7 @@
  * recurring-misconceptions list with marks framing, and the empty/early state
  * selection.
  *
- * HONESTY RULES (docs/design/v3-brief.md, the inventory's "Honesty lints"):
+ * HONESTY RULES (docs/design/build-spec.md section 3; engine-ts/SPEC.md section 6):
  *   - The string "predicted score" must never appear. Readiness is a band, not a
  *     number; `formatBand` always emits a low-to-high range, never a bare point.
  *   - No number is rendered below the attempt/data threshold: when confidence is

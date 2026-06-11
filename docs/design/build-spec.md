@@ -224,6 +224,7 @@ refinements) remain good design intent. The Component and State Inventory
 (`design-team/v2/Component & State Inventory.html`) is the acceptance checklist
 for W5-5 per-flow review verbatim. The Signature Screens document
 (`design-team/v2/Signature Screens.html`) and the visual token system survive
-intact; both are consumed by the intake process (`docs/design/intake-v2.md`).
+intact; both are consumed by the intake process (the intake record is
+operator-internal, at `internal/design/intake-v2.md`).
 The Content Authoring Guide is ported to `docs/contributing/content-authoring.md`
 (W6-3). Nothing in those documents is overridden here.

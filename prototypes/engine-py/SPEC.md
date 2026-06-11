@@ -81,5 +81,5 @@ Keep the v1 assertions that still hold, plus:
 
 - Updated `engine/` modules (+ new `value.py`); keep `scheduler.py` (SM-2, it is retention).
 - `engine/tests/` updated, all passing under `python3 -m pytest engine/tests` (or unittest).
-- `engine/demo.py` prints recommendations framed in marks (predicted mark, what to do next and why, time feasibility, top recurring misconception).
-- `engine/README.md` updated: the score-driven design and the provisional-parameter caveat.
+- `prototypes/engine-py/demo.py` prints recommendations framed in marks (predicted mark, what to do next and why, time feasibility, top recurring misconception).
+- `prototypes/engine-py/README.md` updated: the score-driven design and the provisional-parameter caveat.
