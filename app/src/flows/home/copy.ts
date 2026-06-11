@@ -27,8 +27,6 @@ export const COPY = {
     title: "Today",
     settings: "Settings",
     settingsAria: "Open settings",
-    diagnosis: "See your diagnosis",
-    diagnosisAria: "Open your diagnosis and readiness",
   },
 
   // --- Today card (mechanism 1): bounded and finite. ------------------------
@@ -96,6 +94,26 @@ export const COPY = {
     eyebrow: "Welcome back",
     // The spec's exact lead line. Literally true (deviation growth, ADR 0012).
     lead: "Welcome back. Your estimates have widened while you were away; a short session will sharpen them.",
+  },
+
+  // --- Mock entry card ------------------------------------------------------
+  mock: {
+    eyebrow: "Mock",
+    title: "Full paper practice",
+    lede: "100 questions, 2 hours, negative marking. Sit this to get your first diagnosis.",
+    start: "Start a mock",
+    startAria: "Start a full mock exam",
+    resume: "Resume your mock",
+    resumeAria: "Resume your in-progress mock exam",
+    resumeLede: "A mock is in progress. Pick up where you left off.",
+  },
+
+  // --- Diagnosis card -------------------------------------------------------
+  diagnosis: {
+    eyebrow: "Diagnosis",
+    lede: "See which topics and misconceptions are costing you marks.",
+    action: "See your diagnosis",
+    actionAria: "Open your diagnosis and readiness",
   },
 
   // NOTE: the reminder (mechanism 4) copy lives in settings/copy.ts, because the

@@ -133,6 +133,7 @@ export function Router(): JSX.Element {
   const goPractice = useCallback(() => navigate("practice"), []);
   const goBaseline = useCallback(() => navigate("baseline"), []);
   const goDiagnosis = useCallback(() => navigate("diagnosis"), []);
+  const goMock = useCallback(() => navigate("mock"), []);
   const goSettings = useCallback(() => navigate("settings"), []);
 
   // Full-bleed flows: no shell, focus environment preserved.
@@ -245,7 +246,7 @@ export function Router(): JSX.Element {
     return (
       <AppShell route={route}>
         <Suspense fallback={<BootScreen label="Loading" />}>
-          <HomeFlow onBegin={goPractice} onSettings={goSettings} onDiagnosis={goDiagnosis} />
+          <HomeFlow onBegin={goPractice} onSettings={goSettings} onDiagnosis={goDiagnosis} onMock={goMock} />
         </Suspense>
       </AppShell>
     );
@@ -274,7 +275,7 @@ export function Router(): JSX.Element {
   return (
     <AppShell route="home">
       <Suspense fallback={<BootScreen label="Loading" />}>
-        <HomeFlow onBegin={goPractice} onSettings={goSettings} onDiagnosis={goDiagnosis} />
+        <HomeFlow onBegin={goPractice} onSettings={goSettings} onDiagnosis={goDiagnosis} onMock={goMock} />
       </Suspense>
     </AppShell>
   );

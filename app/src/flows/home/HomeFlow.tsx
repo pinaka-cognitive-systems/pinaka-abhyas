@@ -31,6 +31,7 @@ import {
 } from "../../engine/index.js";
 import type { EngineState } from "@pinaka/engine";
 import { getSharedStorage, type StorageAdapter, type StoredEvent } from "../../storage/index.js";
+import { MOCK_SESSION_META_KEY, parseSession } from "../mock/state.js";
 import { getExamMs } from "../firstrun/meta.js";
 import {
   deriveTodayCard,
@@ -55,6 +56,8 @@ interface Snapshot {
   readonly delta: { readonly model: Delta; readonly weekday: string } | null;
   readonly reentry: boolean;
   readonly done: boolean;
+  /** True when a parseable in-progress mock session exists in meta. */
+  readonly mockInProgress: boolean;
 }
 
 type Phase =
@@ -69,6 +72,8 @@ export interface HomeFlowProps {
   readonly onSettings: () => void;
   /** Open the diagnosis + readiness surface. */
   readonly onDiagnosis: () => void;
+  /** Navigate to the mock flow (start or resume). */
+  readonly onMock: () => void;
 }
 
 /** The local weekday name of an epoch-ms instant, e.g. "Tuesday". Uses the
@@ -115,7 +120,7 @@ function browserReminderEnv(onFired: () => void): ReminderEnv {
   };
 }
 
-export function HomeFlow({ onBegin, onSettings, onDiagnosis }: HomeFlowProps): JSX.Element {
+export function HomeFlow({ onBegin, onSettings, onDiagnosis, onMock }: HomeFlowProps): JSX.Element {
   const [phase, setPhase] = useState<Phase>({ kind: "loading" });
   const adapterRef = useRef<StorageAdapter | null>(null);
   const cancelReminderRef = useRef<(() => void) | null>(null);
@@ -128,7 +133,10 @@ export function HomeFlow({ onBegin, onSettings, onDiagnosis }: HomeFlowProps): J
 
     const nowMs = Date.now();
     const examMs = await getExamMs(adapter);
-    const events: StoredEvent[] = await adapter.readAllEvents();
+    const [events, mockMetaRaw]: [StoredEvent[], string | null] = await Promise.all([
+      adapter.readAllEvents(),
+      adapter.getMeta(MOCK_SESSION_META_KEY),
+    ]);
 
     // "Now" state: the full log replayed at nowMs.
     const now: EngineState = buildEngineState(events, pack.bank, nowMs, examMs);
@@ -178,7 +186,9 @@ export function HomeFlow({ onBegin, onSettings, onDiagnosis }: HomeFlowProps): J
       body: "Time to study. A short session is ready.",
     });
 
-    setPhase({ kind: "loaded", snap: { card, delta, reentry, done } });
+    const mockInProgress = parseSession(mockMetaRaw) !== null;
+
+    setPhase({ kind: "loaded", snap: { card, delta, reentry, done, mockInProgress } });
   }, []);
 
   useEffect(() => {
@@ -199,7 +209,7 @@ export function HomeFlow({ onBegin, onSettings, onDiagnosis }: HomeFlowProps): J
 
   if (phase.kind === "loading") {
     return (
-      <Frame onSettings={onSettings} onDiagnosis={onDiagnosis}>
+      <Frame onSettings={onSettings}>
         <section className="hm-status" aria-busy="true">
           <p className="hm-status__label">Loading</p>
         </section>
@@ -209,7 +219,7 @@ export function HomeFlow({ onBegin, onSettings, onDiagnosis }: HomeFlowProps): J
 
   if (phase.kind === "error") {
     return (
-      <Frame onSettings={onSettings} onDiagnosis={onDiagnosis}>
+      <Frame onSettings={onSettings}>
         <section className="hm-status hm-status--error" role="alert">
           <p className="hm-status__label">Home could not load</p>
           <p className="hm-status__body">{phase.message}</p>
@@ -223,9 +233,9 @@ export function HomeFlow({ onBegin, onSettings, onDiagnosis }: HomeFlowProps): J
     );
   }
 
-  const { card, delta, reentry, done } = phase.snap;
+  const { card, delta, reentry, done, mockInProgress } = phase.snap;
   return (
-    <Frame onSettings={onSettings} onDiagnosis={onDiagnosis}>
+    <Frame onSettings={onSettings}>
       {reentry && (
         <section className="hm-reentry" aria-label={COPY.reentry.eyebrow}>
           <p className="hm-reentry__eyebrow">{COPY.reentry.eyebrow}</p>
@@ -276,33 +286,60 @@ export function HomeFlow({ onBegin, onSettings, onDiagnosis }: HomeFlowProps): J
           </div>
         </section>
       )}
+
+      <section className="hm-block" aria-label={COPY.mock.eyebrow}>
+        <div className="hm-block__head">
+          <p className="hm-block__eyebrow">{COPY.mock.eyebrow}</p>
+          <h2 className="hm-block__title">{COPY.mock.title}</h2>
+        </div>
+        <p className="hm-block__lede">
+          {mockInProgress ? COPY.mock.resumeLede : COPY.mock.lede}
+        </p>
+        <div className="hm-actions">
+          <button
+            type="button"
+            className="hm-btn hm-btn--secondary"
+            aria-label={mockInProgress ? COPY.mock.resumeAria : COPY.mock.startAria}
+            onClick={onMock}
+          >
+            {mockInProgress ? COPY.mock.resume : COPY.mock.start}
+          </button>
+        </div>
+      </section>
+
+      <section className="hm-block hm-block--diagnosis" aria-label={COPY.diagnosis.eyebrow}>
+        <div className="hm-block__head">
+          <p className="hm-block__eyebrow">{COPY.diagnosis.eyebrow}</p>
+        </div>
+        <p className="hm-block__lede">{COPY.diagnosis.lede}</p>
+        <div className="hm-actions">
+          <button
+            type="button"
+            className="hm-btn hm-btn--ghost"
+            aria-label={COPY.diagnosis.actionAria}
+            onClick={onDiagnosis}
+          >
+            {COPY.diagnosis.action}
+          </button>
+        </div>
+      </section>
     </Frame>
   );
 }
 
-/** The persistent home frame: title bar with settings and diagnosis links. */
+/** The persistent home frame: title bar with the settings link. */
 function Frame({
   children,
   onSettings,
-  onDiagnosis,
 }: {
   readonly children: React.ReactNode;
   readonly onSettings: () => void;
-  readonly onDiagnosis: () => void;
 }): JSX.Element {
   return (
     <div className="hm-screen">
       <header className="hm-bar">
         <span className="hm-bar__title">{COPY.frame.title}</span>
         <span className="hm-bar__actions">
-          <button
-            type="button"
-            className="hm-bar__link"
-            aria-label={COPY.frame.diagnosisAria}
-            onClick={onDiagnosis}
-          >
-            {COPY.frame.diagnosis}
-          </button>
           <button
             type="button"
             className="hm-bar__link"
