@@ -18,7 +18,8 @@
  * and the end-of-session summary with the engine's honest readiness line.
  */
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { RevealSection } from "./reveals.js";
 
 import {
   buildEngineState,
@@ -45,6 +46,7 @@ import {
   type SessionProgress,
 } from "./machine.js";
 import { getExamMs } from "../firstrun/meta.js";
+import { loadTopicNames, topicLabel } from "../../engine/topics.js";
 import { loadCaContent } from "./content.js";
 import type { ContentItem } from "./types.js";
 import "./practice.css";
@@ -60,6 +62,8 @@ interface Loaded {
   readonly pack: LoadedPack;
   readonly content: ReadonlyMap<string, ContentItem>;
   readonly adapter: StorageAdapter;
+  /** Taxonomy node id to display name ("Simple interest"), engine/topics.ts. */
+  readonly names: ReadonlyMap<string, string>;
 }
 
 type Phase =
@@ -97,9 +101,10 @@ export function PracticeFlow({ onExit }: PracticeFlowProps): JSX.Element {
 
     async function boot(): Promise<void> {
       // Pack content and engine inputs load lazily (own chunk; ADR 0008).
-      const [{ loadCaPack }, content] = await Promise.all([
+      const [{ loadCaPack }, content, names] = await Promise.all([
         import("../../engine/caPack.js"),
         loadCaContent(),
+        loadTopicNames(),
       ]);
       const pack = await loadCaPack();
       const { adapter } = await getSharedStorage();
@@ -107,7 +112,7 @@ export function PracticeFlow({ onExit }: PracticeFlowProps): JSX.Element {
         // Shared page-level connection: flows never close it (storage/index.ts).
         return;
       }
-      loadedRef.current = { pack, content, adapter };
+      loadedRef.current = { pack, content, adapter, names };
 
       const nowMs = Date.now();
       // Exam horizon from first-run capture: switches on exam-aware scheduling
@@ -298,13 +303,27 @@ export function PracticeFlow({ onExit }: PracticeFlowProps): JSX.Element {
 
   if (phase.kind === "question") {
     return (
-      <FlowFrame onExit={onExit}>
+      <FlowFrame
+        onExit={onExit}
+        dock={
+          <div className="pr-dock__inner">
+            <button
+              type="button"
+              className="pr-btn pr-btn--primary"
+              disabled={phase.picked === null}
+              onClick={() => void confirm()}
+            >
+              Confirm answer
+            </button>
+          </div>
+        }
+      >
         <QuestionScreen
           q={phase.q}
+          topic={topicLabel(loadedRef.current?.names ?? null, phase.q.content.tests[0] ?? null) ?? "Practice"}
           picked={phase.picked}
           start={questionStartRef.current}
           onPick={(key) => setPhase({ kind: "question", q: phase.q, picked: key })}
-          onConfirm={() => void confirm()}
         />
       </FlowFrame>
     );
@@ -312,11 +331,24 @@ export function PracticeFlow({ onExit }: PracticeFlowProps): JSX.Element {
 
   // feedback
   return (
-    <FlowFrame onExit={onExit}>
+    <FlowFrame
+      onExit={onExit}
+      dock={
+        <div className="pr-dock__inner">
+          <button
+            type="button"
+            className="pr-btn pr-btn--primary"
+            onClick={() => serveNext(Date.now())}
+          >
+            Next question
+          </button>
+        </div>
+      }
+    >
       <FeedbackScreen
         q={phase.q}
+        topic={topicLabel(loadedRef.current?.names ?? null, phase.q.content.tests[0] ?? null) ?? "Practice"}
         view={phase.view}
-        onNext={() => serveNext(Date.now())}
       />
     </FlowFrame>
   );
@@ -327,13 +359,18 @@ export function PracticeFlow({ onExit }: PracticeFlowProps): JSX.Element {
 // ---------------------------------------------------------------------------
 
 /** The persistent flow frame: a header with progress context and a close
- * affordance, plus the scrollable body. */
+ * affordance, a scrollable body, and an optional pinned dock.
+ * When `dock` is provided it renders as .pr-dock at the viewport bottom so
+ * actions never scroll away. When absent the screen uses no dock (intro,
+ * summary, error, empty). */
 function FlowFrame({
   children,
   onExit,
+  dock,
 }: {
-  readonly children: React.ReactNode;
+  readonly children: ReactNode;
   readonly onExit: () => void;
+  readonly dock?: ReactNode;
 }): JSX.Element {
   return (
     <div className="pr-screen">
@@ -349,6 +386,11 @@ function FlowFrame({
         </button>
       </header>
       <main className="pr-body">{children}</main>
+      {dock !== undefined && (
+        <div className="pr-dock" role="group" aria-label="Question actions">
+          {dock}
+        </div>
+      )}
     </div>
   );
 }
@@ -375,143 +417,207 @@ function ElapsedTimer({ start }: { readonly start: number }): JSX.Element {
 
 function QuestionScreen({
   q,
+  topic,
   picked,
   start,
   onPick,
-  onConfirm,
 }: {
   readonly q: ServedQuestion;
+  /** Display name of the node under test ("Simple interest"), never a raw id. */
+  readonly topic: string;
   readonly picked: number | null;
   readonly start: number;
   readonly onPick: (key: number) => void;
-  readonly onConfirm: () => void;
 }): JSX.Element {
   const item = q.content;
   return (
-    <>
-      <div className="pr-context">
-        <span className="pr-context__node">{item.tests[0] ?? "practice"}</span>
-        <span className="pr-context__meta">
-          <span className="pr-chip">{item.difficulty_label}</span>
-          <ElapsedTimer start={start} />
-        </span>
+    <div className="pr-2col">
+      <div className="pr-2col__left">
+        <div className="pr-context">
+          <span className="pr-context__node">{topic}</span>
+          <span className="pr-context__meta">
+            <span className="pr-chip">{item.difficulty_label}</span>
+            <ElapsedTimer start={start} />
+          </span>
+        </div>
+        <p className="pr-progress">Question {q.ordinal} of {SESSION_LENGTH}</p>
+        <p className="pr-stem">{item.stem}</p>
       </div>
-      <p className="pr-progress">Question {q.ordinal} of {SESSION_LENGTH}</p>
-      <p className="pr-stem">{item.stem}</p>
-      <div className="pr-options" role="radiogroup" aria-label="Answer options">
-        {item.options.map((o) => {
-          const selected = picked === o.key;
-          return (
-            <button
-              key={o.key}
-              type="button"
-              role="radio"
-              aria-checked={selected}
-              className={`pr-opt${selected ? " pr-opt--picked" : ""}`}
-              onClick={() => onPick(o.key)}
-            >
-              <span className="pr-opt__key">{o.key}</span>
-              <span className="pr-opt__text">{o.text}</span>
-            </button>
-          );
-        })}
+      <div className="pr-2col__right">
+        <div className="pr-options" role="radiogroup" aria-label="Answer options">
+          {item.options.map((o) => {
+            const selected = picked === o.key;
+            return (
+              <button
+                key={o.key}
+                type="button"
+                role="radio"
+                aria-checked={selected}
+                className={`pr-opt${selected ? " pr-opt--picked" : ""}`}
+                onClick={() => onPick(o.key)}
+              >
+                <span className="pr-opt__key">{o.key}</span>
+                <span className="pr-opt__text">{o.text}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
-      <div className="pr-actions">
-        <button
-          type="button"
-          className="pr-btn pr-btn--primary"
-          disabled={picked === null}
-          onClick={onConfirm}
-        >
-          Confirm answer
-        </button>
-      </div>
-    </>
+    </div>
   );
 }
 
 function FeedbackScreen({
   q,
+  topic,
   view,
-  onNext,
 }: {
   readonly q: ServedQuestion;
+  /** Display name of the node under test ("Simple interest"), never a raw id. */
+  readonly topic: string;
   readonly view: FeedbackView;
-  readonly onNext: () => void;
 }): JSX.Element {
   const item = q.content;
+  const hasSections = view.sections !== undefined;
+
+  // Build reviewed options list for use inside reveal 01 or the plain fallback.
+  const reviewedOptions = item.options.map((o) => {
+    const isCorrect = o.key === view.correctKey;
+    const isChosenWrong = o.key === view.chosenKey && !view.correct;
+    const cls = isCorrect
+      ? "pr-opt pr-opt--correct"
+      : isChosenWrong
+        ? "pr-opt pr-opt--wrong"
+        : "pr-opt pr-opt--neutral";
+    const entry = view.optionEntries.find((e) => e.optionKey === o.key);
+    return { o, isCorrect, isChosenWrong, cls, rationale: entry?.rationale ?? null };
+  });
+
   return (
-    <>
-      <div className="pr-context">
-        <span className="pr-context__node">{item.tests[0] ?? "practice"}</span>
-        <span className="pr-chip">{item.difficulty_label}</span>
-      </div>
-      <p className="pr-progress">Question {q.ordinal} of {SESSION_LENGTH}</p>
-      <p className="pr-stem">{item.stem}</p>
-
-      <div className="pr-options" aria-label="Reviewed options">
-        {item.options.map((o) => {
-          const isCorrect = o.key === view.correctKey;
-          const isChosenWrong = o.key === view.chosenKey && !view.correct;
-          const cls = isCorrect
-            ? "pr-opt pr-opt--correct"
-            : isChosenWrong
-              ? "pr-opt pr-opt--wrong"
-              : "pr-opt pr-opt--neutral";
-          return (
-            <div key={o.key} className={cls}>
-              <span className="pr-opt__key">{o.key}</span>
-              <span className="pr-opt__text">{o.text}</span>
-              {isCorrect && <span className="pr-opt__tag">Correct</span>}
-              {isChosenWrong && <span className="pr-opt__tag">Your answer</span>}
-            </div>
-          );
-        })}
-      </div>
-
-      {/* aria-live="polite": announces the verdict and misconception to screen
-          readers when feedback replaces the question panel. role="status" alone
-          does not guarantee announcement on all browsers; the explicit aria-live
-          makes it unambiguous (WCAG 4.1.3, W5-6). */}
-      <div
-        className={`pr-verdict${view.correct ? " pr-verdict--correct" : " pr-verdict--wrong"}`}
-        role="status"
-        aria-live="polite"
-        aria-atomic="true"
-      >
-        <p className="pr-verdict__line">{view.outcomeLine}</p>
-      </div>
-
-      {!view.correct && view.misconceptionLine !== null && (
-        <section className="pr-mis" aria-live="polite" aria-atomic="true">
-          <p className="pr-mis__eyebrow">What happened</p>
-          <p className="pr-mis__line">{view.misconceptionLine}</p>
-        </section>
-      )}
-
-      {view.steps.length > 0 && (
-        <section className="pr-work">
-          <p className="pr-work__eyebrow">The working</p>
-          <ol className="pr-work__steps">
-            {view.steps.map((s, i) => (
-              <li key={i} className="pr-work__step">
-                <span className="pr-work__n">{i + 1}</span>
-                <span className="pr-work__body">{s}</span>
-              </li>
-            ))}
-          </ol>
-        </section>
-      )}
-
-      <section className="pr-next">
-        <p className="pr-next__reason">{q.action.reason}</p>
-        <div className="pr-actions">
-          <button type="button" className="pr-btn pr-btn--primary" onClick={onNext}>
-            Next question
-          </button>
+    <div className="pr-2col">
+      <div className="pr-2col__left">
+        <div className="pr-context">
+          <span className="pr-context__node">{topic}</span>
+          <span className="pr-chip">{item.difficulty_label}</span>
         </div>
-      </section>
-    </>
+        <p className="pr-progress">Question {q.ordinal} of {SESSION_LENGTH}</p>
+        <p className="pr-stem">{item.stem}</p>
+      </div>
+
+      <div className="pr-2col__right">
+        {/* aria-live="polite": announces the verdict to screen readers when
+            feedback replaces the question panel. role="status" alone does not
+            guarantee announcement on all browsers; the explicit aria-live makes
+            it unambiguous (WCAG 4.1.3, W5-6). */}
+        <div
+          className={`pr-verdict${view.correct ? " pr-verdict--correct" : " pr-verdict--wrong"}`}
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          <p className="pr-verdict__line">{view.outcomeLine}</p>
+        </div>
+
+        {/* Punchline: always visible when sections are present. */}
+        {hasSections && (
+          <p className="pr-punchline">{view.sections.punchline}</p>
+        )}
+
+        {/* Wrong-answer misconception line stays visible, never inside a reveal,
+            so the most actionable diagnosis is immediately scannable. */}
+        {!view.correct && view.misconceptionLine !== null && (
+          <section className="pr-mis" aria-live="polite" aria-atomic="true">
+            <p className="pr-mis__eyebrow">What happened</p>
+            <p className="pr-mis__line">{view.misconceptionLine}</p>
+          </section>
+        )}
+
+        {/* Numbered reveals when sections are present. */}
+        {hasSections ? (
+          <div className="pr-reveals">
+            {/* 01 — Why each option */}
+            <RevealSection num="01" label="Why each option">
+              <div aria-label="Reviewed options">
+                {reviewedOptions.map(({ o, isCorrect, isChosenWrong, cls, rationale }) => (
+                  <div key={o.key} className="pr-reveal-row">
+                    <div className={cls}>
+                      <span className="pr-opt__key">{o.key}</span>
+                      <span className="pr-opt__text">{o.text}</span>
+                      {isCorrect && <span className="pr-opt__tag">Correct</span>}
+                      {isChosenWrong && <span className="pr-opt__tag">Your answer</span>}
+                    </div>
+                    {rationale !== null && (
+                      <p className="pr-reveal-row__rationale">{rationale}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </RevealSection>
+
+            {/* 02 — The working (explanation steps) */}
+            {view.steps.length > 0 && (
+              <RevealSection num="02" label="The working">
+                <ol className="pr-work__steps">
+                  {view.steps.map((s, i) => (
+                    <li key={i} className="pr-work__step">
+                      <span className="pr-work__n">{i + 1}</span>
+                      <span className="pr-work__body">{s}</span>
+                    </li>
+                  ))}
+                </ol>
+              </RevealSection>
+            )}
+
+            {/* 03 — How to approach this */}
+            <RevealSection num="03" label="How to approach this">
+              <p className="pr-reveal__prose">{view.sections.approach}</p>
+            </RevealSection>
+
+            {/* 04 — Take-home lesson */}
+            <RevealSection num="04" label="Take-home lesson">
+              <p className="pr-reveal__prose">{view.sections.lesson}</p>
+            </RevealSection>
+
+            {/* 05 — Timing */}
+            <RevealSection num="05" label="Timing">
+              <p className="pr-reveal__prose">{view.sections.timing}</p>
+            </RevealSection>
+          </div>
+        ) : (
+          /* Graceful fallback: pre-sections layout for items without sections. */
+          <>
+            <div className="pr-options" aria-label="Reviewed options">
+              {reviewedOptions.map(({ o, isCorrect, isChosenWrong, cls }) => (
+                <div key={o.key} className={cls}>
+                  <span className="pr-opt__key">{o.key}</span>
+                  <span className="pr-opt__text">{o.text}</span>
+                  {isCorrect && <span className="pr-opt__tag">Correct</span>}
+                  {isChosenWrong && <span className="pr-opt__tag">Your answer</span>}
+                </div>
+              ))}
+            </div>
+
+            {view.steps.length > 0 && (
+              <section className="pr-work">
+                <p className="pr-work__eyebrow">The working</p>
+                <ol className="pr-work__steps">
+                  {view.steps.map((s, i) => (
+                    <li key={i} className="pr-work__step">
+                      <span className="pr-work__n">{i + 1}</span>
+                      <span className="pr-work__body">{s}</span>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            )}
+          </>
+        )}
+
+        <section className="pr-next">
+          <p className="pr-next__reason">{q.action.reason}</p>
+        </section>
+      </div>
+    </div>
   );
 }
 

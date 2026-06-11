@@ -33,6 +33,7 @@ import {
   type NodeMastery,
 } from "../../engine/index.js";
 import { NUM_QUESTIONS, type EngineState, type Readiness } from "@pinaka/engine";
+import { loadMisconceptionNames, loadTopicNames } from "../../engine/topics.js";
 import { getSharedStorage, type StorageAdapter } from "../../storage/index.js";
 import {
   groupByBlueprint,
@@ -59,6 +60,10 @@ interface Snapshot {
   readonly pack: LoadedPack;
   readonly readiness: Readiness;
   readonly mastery: readonly NodeMastery[];
+  /** Taxonomy node id to display name ("Simple interest"), engine/topics.ts. */
+  readonly topicNames: ReadonlyMap<string, string>;
+  /** Misconception id to display name ("Arithmetic slip"). */
+  readonly misconceptionNames: ReadonlyMap<string, string>;
 }
 
 type Phase =
@@ -76,7 +81,11 @@ export function DiagnosisFlow({ onExit }: DiagnosisFlowProps): JSX.Element {
   const adapterRef = useRef<StorageAdapter | null>(null);
 
   const load = useCallback(async (): Promise<void> => {
-    const [{ loadCaPack }] = await Promise.all([import("../../engine/caPack.js")]);
+    const [{ loadCaPack }, topicNames, misconceptionNames] = await Promise.all([
+      import("../../engine/caPack.js"),
+      loadTopicNames(),
+      loadMisconceptionNames(),
+    ]);
     const pack = await loadCaPack();
     const { adapter } = await getSharedStorage();
     adapterRef.current = adapter;
@@ -86,7 +95,10 @@ export function DiagnosisFlow({ onExit }: DiagnosisFlowProps): JSX.Element {
     const state = buildEngineState(events, pack.bank, nowMs);
     const r = computeReadinessSelector(state, events, pack, nowMs);
     const mastery = masteryByNode(state, nowMs);
-    setPhase({ kind: "loaded", snap: { state, pack, readiness: r, mastery } });
+    setPhase({
+      kind: "loaded",
+      snap: { state, pack, readiness: r, mastery, topicNames, misconceptionNames },
+    });
   }, []);
 
   useEffect(() => {
@@ -168,8 +180,13 @@ export function DiagnosisFlow({ onExit }: DiagnosisFlowProps): JSX.Element {
   // early state the band is withheld and the engine note carries the honesty
   // wording; the map and misconceptions render with whatever signal exists.
   const view = readinessView(snap.readiness, NUM_QUESTIONS);
-  const parts = groupByBlueprint(snap.mastery, snap.pack.blueprint);
-  const misconceptions = recurringMisconceptions(snap.state);
+  const parts = groupByBlueprint(snap.mastery, snap.pack.blueprint, snap.topicNames);
+  const misconceptions = recurringMisconceptions(
+    snap.state,
+    undefined,
+    undefined,
+    snap.misconceptionNames,
+  );
 
   return (
     <Frame onExit={onExit}>

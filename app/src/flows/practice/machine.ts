@@ -32,7 +32,7 @@ import {
   type SessionProgress,
 } from "@pinaka/engine";
 import type { LoadedPack } from "../../engine/pack.js";
-import type { ContentItem } from "./types.js";
+import type { ContentItem, ExplanationSections } from "./types.js";
 import { DEFAULT_SESSION_LENGTH, nextAction } from "../../engine/selectors.js";
 
 /** A served question: the engine's action (for the reason + resurfaced flag)
@@ -150,6 +150,14 @@ export type { SessionProgress };
 // Feedback derivation (pure).
 // ---------------------------------------------------------------------------
 
+/** A per-option entry for the feedback panel: the option key, its rationale
+ * text (for all options), and the misconception id for wrong choices. */
+export interface FeedbackOptionEntry {
+  readonly optionKey: number;
+  readonly rationale: string;
+  readonly misconception?: string;
+}
+
 /** The data the feedback panel renders, derived from the item, the response,
  * and the scored outcome. No JSX, no engine call — just the strings. */
 export interface FeedbackView {
@@ -166,6 +174,12 @@ export interface FeedbackView {
   readonly steps: readonly string[];
   /** The marks-framed line summarising the outcome. */
   readonly outcomeLine: string;
+  /** Structured teaching sections (ADR 0017). Absent when the pack item does
+   * not carry them; the feedback screen degrades to its pre-sections layout. */
+  readonly sections?: ExplanationSections;
+  /** Rationale for every option, so reveal 01 can show all diagnoses.
+   * Populated from per_option_rationale; empty array when none present. */
+  readonly optionEntries: readonly FeedbackOptionEntry[];
 }
 
 /**
@@ -201,12 +215,27 @@ export function buildFeedback(
       ? `Not correct. The answer was option ${correctKey}. A wrong answer costs a quarter mark on the paper, so the habit to build is to skip when unsure.`
       : "Not correct. A wrong answer costs a quarter mark on the paper, so the habit to build is to skip when unsure.";
 
-  return {
+  // Build per-option entries so the feedback panel can show every option's
+  // rationale inside reveal 01, not just the chosen wrong option's misconception.
+  // exactOptionalPropertyTypes: omit the optional key when absent rather than
+  // assigning undefined, which the strict mode rejects.
+  const optionEntries: FeedbackOptionEntry[] = item.per_option_rationale.map((r) =>
+    r.misconception !== undefined
+      ? { optionKey: r.option_key, rationale: r.rationale, misconception: r.misconception }
+      : { optionKey: r.option_key, rationale: r.rationale },
+  );
+
+  // Omit optional fields when absent (exactOptionalPropertyTypes strict mode).
+  const base = {
     correct: args.correct,
     correctKey,
     chosenKey: args.chosenKey,
     misconceptionLine,
     steps: explanationSteps(item.explanation),
     outcomeLine,
+    optionEntries,
   };
+  return item.explanationSections !== undefined
+    ? { ...base, sections: item.explanationSections }
+    : base;
 }

@@ -249,6 +249,51 @@ describe("feedback derivation", () => {
     ]);
     expect(explanationSteps("")).toEqual([]);
   });
+
+  it("optionEntries carries rationale for every option", () => {
+    const fb = buildFeedback(item, { correct: true, chosenKey: 1 });
+    // fam_1 has two per_option_rationale entries.
+    expect(fb.optionEntries).toHaveLength(2);
+    const entry1 = fb.optionEntries.find((e) => e.optionKey === 1);
+    expect(entry1?.rationale).toBe("It is right.");
+    expect(entry1?.misconception).toBeUndefined();
+    const entry2 = fb.optionEntries.find((e) => e.optionKey === 2);
+    expect(entry2?.rationale).toBe("You made the classic slip.");
+    expect(entry2?.misconception).toBe("classic_slip");
+  });
+
+  it("sections is undefined when the item has no explanation_sections", () => {
+    const fb = buildFeedback(item, { correct: true, chosenKey: 1 });
+    // The synthetic rawItem does not include explanation_sections.
+    expect(fb.sections).toBeUndefined();
+  });
+
+  it("sections is populated when the item carries explanation_sections", async () => {
+    // Build an item with explanation_sections; toContentItem maps the raw field.
+    const { toContentItem } = await import("../../src/flows/practice/types.js");
+    const rawWithSections = {
+      ...rawItem("sec_1", ["qa.bmath.finance"], "L1"),
+      explanation_sections: {
+        punchline: "Option 1 wins because it applies compound growth correctly.",
+        approach: "Read for the compounding period first, then apply the formula.",
+        lesson: "Always identify whether the question compounds annually or semi-annually.",
+        timing: "Under two minutes. If it takes longer, skip and return.",
+      },
+    };
+    const itemWithSections = toContentItem(rawWithSections as Parameters<typeof toContentItem>[0]);
+    const fb = buildFeedback(itemWithSections, { correct: true, chosenKey: 1 });
+    expect(fb.sections).not.toBeUndefined();
+    expect(fb.sections!.punchline).toBe(
+      "Option 1 wins because it applies compound growth correctly.",
+    );
+    expect(fb.sections!.approach).toBe(
+      "Read for the compounding period first, then apply the formula.",
+    );
+    expect(fb.sections!.lesson).toBe(
+      "Always identify whether the question compounds annually or semi-annually.",
+    );
+    expect(fb.sections!.timing).toBe("Under two minutes. If it takes longer, skip and return.");
+  });
 });
 
 describe("readiness honesty for a fresh student", () => {

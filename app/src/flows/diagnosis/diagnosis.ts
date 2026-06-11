@@ -207,8 +207,13 @@ export function nodeLabel(nodeId: string): string {
 }
 
 /** Map an engine NodeMastery to its view: probability + interval against the L2
- * anchor, and the too-few-attempts flag from the deviation heuristic. */
-export function nodeMasteryView(node: NodeMastery): NodeMasteryView {
+ * anchor, and the too-few-attempts flag from the deviation heuristic. `names`
+ * (taxonomy display names, engine/topics.ts) wins over the leaf-derived label
+ * when it knows the node. */
+export function nodeMasteryView(
+  node: NodeMastery,
+  names?: ReadonlyMap<string, string>,
+): NodeMasteryView {
   const b = DIFFICULTY_ANCHOR.L2;
   const z = 1.645; // 90% interval, matching the engine's masteryProbability.
   const p = sigmoid(node.rating - b);
@@ -217,7 +222,14 @@ export function nodeMasteryView(node: NodeMastery): NodeMasteryView {
   const tooFew =
     !node.observed ||
     node.deviation >= PRIOR_DEVIATION * TOO_FEW_DEVIATION_FRACTION;
-  return { nodeId: node.nodeId, label: nodeLabel(node.nodeId), p, low, high, tooFew };
+  return {
+    nodeId: node.nodeId,
+    label: names?.get(node.nodeId) ?? nodeLabel(node.nodeId),
+    p,
+    low,
+    high,
+    tooFew,
+  };
 }
 
 /** One blueprint section's nodes, for the grouped diagnosis view. */
@@ -245,6 +257,7 @@ export interface PartGroup {
 export function groupByBlueprint(
   mastery: readonly NodeMastery[],
   blueprint: Blueprint,
+  names?: ReadonlyMap<string, string>,
 ): PartGroup[] {
   const byNode = new Map<string, NodeMastery>();
   for (const m of mastery) byNode.set(m.nodeId, m);
@@ -258,7 +271,7 @@ export function groupByBlueprint(
         // Attribute the family node itself and any deeper-leaf descendant of it.
         for (const [nodeId, m] of byNode) {
           if (nodeId === fam.nodeId || nodeId.startsWith(fam.nodeId + ".")) {
-            nodes.push(nodeMasteryView(m));
+            nodes.push(nodeMasteryView(m, names));
           }
         }
       }
@@ -301,6 +314,7 @@ export function recurringMisconceptions(
   state: EngineState,
   negativePerWrong: number = NEGATIVE_PER_WRONG,
   minOccurrences = 2,
+  names?: ReadonlyMap<string, string>,
 ): MisconceptionView[] {
   const out: MisconceptionView[] = [];
   for (const [id, hits] of state.misconceptions) {
@@ -308,7 +322,7 @@ export function recurringMisconceptions(
     if (count < minOccurrences) continue;
     out.push({
       id,
-      label: nodeLabel(id),
+      label: names?.get(id) ?? nodeLabel(id),
       count,
       marks: round2(count * negativePerWrong),
     });

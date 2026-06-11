@@ -34,6 +34,19 @@ export interface ContentRationale {
   readonly misconception?: string;
 }
 
+/** Structured teaching sections shown after an answer (ADR 0017). Optional;
+ * when present, all four sections are present. */
+export interface ExplanationSections {
+  /** Why the keyed answer wins, one or two sentences; always visible. */
+  readonly punchline: string;
+  /** How to attack this question type from a cold read. */
+  readonly approach: string;
+  /** The transferable take-home rule. */
+  readonly lesson: string;
+  /** How long it should take and what to cut first. */
+  readonly timing: string;
+}
+
 /**
  * A pack item as the SCREEN sees it: engine fields plus the human content the
  * engine ignores. Every field needed to render the question, score it, build a
@@ -64,6 +77,9 @@ export interface ContentItem {
   };
   readonly per_option_rationale: readonly ContentRationale[];
   readonly explanation: string;
+  /** Structured teaching sections (ADR 0017). Absent for older pack items;
+   * the feedback screen degrades gracefully when missing. */
+  readonly explanationSections?: ExplanationSections;
 }
 
 /** The raw item shape as it sits in pack.json (a superset of ContentItem with
@@ -85,6 +101,12 @@ export interface RawContentItem {
   };
   readonly per_option_rationale?: readonly ContentRationale[];
   readonly explanation?: string;
+  readonly explanation_sections?: {
+    readonly punchline: string;
+    readonly approach: string;
+    readonly lesson: string;
+    readonly timing: string;
+  };
 }
 
 /** Narrow a raw pack item into the screen's ContentItem, defaulting the human
@@ -103,6 +125,17 @@ export function toContentItem(raw: RawContentItem): ContentItem {
     answer_key: raw.answer_key ?? {},
     per_option_rationale: raw.per_option_rationale ? [...raw.per_option_rationale] : [],
     explanation: raw.explanation ?? "",
+    // Omit explanationSections when absent (exactOptionalPropertyTypes strict mode).
+    ...(raw.explanation_sections !== undefined
+      ? {
+          explanationSections: {
+            punchline: raw.explanation_sections.punchline,
+            approach: raw.explanation_sections.approach,
+            lesson: raw.explanation_sections.lesson,
+            timing: raw.explanation_sections.timing,
+          },
+        }
+      : {}),
   };
 }
 

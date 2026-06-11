@@ -28,16 +28,19 @@
  * tokens only. Plain text plus unicode glyphs (ADR 0015): no HTML in any stem.
  */
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 
+import { BrandMark } from "../../components/BrandMark.js";
 import { buildEngineState, readiness as computeReadiness, type LoadedPack } from "../../engine/index.js";
 import type { EngineState, Readiness } from "@pinaka/engine";
 import { getSharedStorage, type StorageAdapter, type StoredEvent } from "../../storage/index.js";
 import { buildEvent, type Response } from "../practice/event.js";
 import { buildFeedback, type FeedbackView } from "../practice/machine.js";
+import { RevealSection } from "../practice/reveals.js";
 import { loadCaContent } from "../practice/content.js";
 import type { ContentItem } from "../practice/types.js";
 import { getExamMs } from "../firstrun/meta.js";
+import { loadTopicNames, topicLabel } from "../../engine/topics.js";
 import { buildBaselinePlan, type BaselinePlan } from "./plan.js";
 import {
   advanceCursor,
@@ -61,6 +64,8 @@ interface Loaded {
   readonly content: ReadonlyMap<string, ContentItem>;
   readonly adapter: StorageAdapter;
   readonly plan: BaselinePlan;
+  /** Taxonomy node id to display name ("Simple interest"), engine/topics.ts. */
+  readonly names: ReadonlyMap<string, string>;
 }
 
 type Phase =
@@ -92,9 +97,10 @@ export function BaselineFlow({ onExitToPractice, onSeeDiagnosis }: BaselineFlowP
   useEffect(() => {
     let cancelled = false;
     async function boot(): Promise<void> {
-      const [{ loadCaPack }, content] = await Promise.all([
+      const [{ loadCaPack }, content, names] = await Promise.all([
         import("../../engine/caPack.js"),
         loadCaContent(),
+        loadTopicNames(),
       ]);
       const pack = await loadCaPack();
       const { adapter } = await getSharedStorage();
@@ -104,7 +110,7 @@ export function BaselineFlow({ onExitToPractice, onSeeDiagnosis }: BaselineFlowP
       }
       // The plan only names ids we have content for and that are selectable.
       const plan = buildBaselinePlan(pack.bank, pack.blueprint, undefined, (id) => content.has(id));
-      loadedRef.current = { pack, content, adapter, plan };
+      loadedRef.current = { pack, content, adapter, plan, names };
 
       const nowMs = Date.now();
       const examMs = await getExamMs(adapter);
@@ -249,12 +255,25 @@ export function BaselineFlow({ onExitToPractice, onSeeDiagnosis }: BaselineFlowP
 
   if (phase.kind === "question") {
     return (
-      <Frame>
+      <Frame
+        dock={
+          <div className="pr-dock__inner">
+            <button
+              type="button"
+              className="pr-btn pr-btn--primary"
+              disabled={phase.picked === null}
+              onClick={() => void confirm()}
+            >
+              Confirm answer
+            </button>
+          </div>
+        }
+      >
         <QuestionScreen
           q={phase.q}
+          topic={topicLabel(loadedRef.current?.names ?? null, phase.q.content.tests[0] ?? null) ?? "First session"}
           picked={phase.picked}
           onPick={(key) => setPhase({ kind: "question", q: phase.q, picked: key })}
-          onConfirm={() => void confirm()}
         />
       </Frame>
     );
@@ -262,8 +281,24 @@ export function BaselineFlow({ onExitToPractice, onSeeDiagnosis }: BaselineFlowP
 
   // feedback
   return (
-    <Frame>
-      <FeedbackScreen q={phase.q} view={phase.view} onNext={() => serveNext(Date.now())} />
+    <Frame
+      dock={
+        <div className="pr-dock__inner">
+          <button
+            type="button"
+            className="pr-btn pr-btn--primary"
+            onClick={() => serveNext(Date.now())}
+          >
+            Next question
+          </button>
+        </div>
+      }
+    >
+      <FeedbackScreen
+        q={phase.q}
+        topic={topicLabel(loadedRef.current?.names ?? null, phase.q.content.tests[0] ?? null) ?? "First session"}
+        view={phase.view}
+      />
     </Frame>
   );
 }
@@ -274,14 +309,26 @@ export function BaselineFlow({ onExitToPractice, onSeeDiagnosis }: BaselineFlowP
 
 /** The persistent baseline frame. No close affordance mid-session — the only
  * exits are the intro skip and the closing screen — so a student cannot abandon
- * a half-finished map by accident. */
-function Frame({ children }: { readonly children: React.ReactNode }): JSX.Element {
+ * a half-finished map by accident. When `dock` is provided it renders as
+ * .pr-dock at the viewport bottom; absent for intro and close screens. */
+function Frame({
+  children,
+  dock,
+}: {
+  readonly children: ReactNode;
+  readonly dock?: ReactNode;
+}): JSX.Element {
   return (
     <div className="pr-screen">
       <header className="pr-bar">
         <span className="pr-bar__title">{COPY.header}</span>
       </header>
       <main className="pr-body">{children}</main>
+      {dock !== undefined && (
+        <div className="pr-dock" role="group" aria-label="Question actions">
+          {dock}
+        </div>
+      )}
     </div>
   );
 }
@@ -296,6 +343,7 @@ function IntroScreen({
   const c = COPY.intro;
   return (
     <section className="pr-summary">
+      <BrandMark lead />
       <p className="pr-summary__eyebrow">{c.eyebrow}</p>
       <h2 className="pr-summary__title">{c.title}</h2>
       <p className="pr-summary__note">{c.body}</p>
@@ -314,140 +362,195 @@ function IntroScreen({
 
 function QuestionScreen({
   q,
+  topic,
   picked,
   onPick,
-  onConfirm,
 }: {
   readonly q: ServedBaselineQuestion;
+  /** Display name of the node under test ("Simple interest"), never a raw id. */
+  readonly topic: string;
   readonly picked: number | null;
   readonly onPick: (key: number) => void;
-  readonly onConfirm: () => void;
 }): JSX.Element {
   const item = q.content;
   return (
-    <>
-      <div className="pr-context">
-        <span className="pr-context__node">{item.tests[0] ?? "baseline"}</span>
-        <span className="pr-chip">{item.difficulty_label}</span>
+    <div className="pr-2col">
+      <div className="pr-2col__left">
+        <div className="pr-context">
+          <span className="pr-context__node">{topic}</span>
+          <span className="pr-chip">{item.difficulty_label}</span>
+        </div>
+        <p className="pr-progress">
+          Question {q.ordinal} of {q.total}
+        </p>
+        <p className="pr-stem">{item.stem}</p>
       </div>
-      <p className="pr-progress">
-        Question {q.ordinal} of {q.total}
-      </p>
-      <p className="pr-stem">{item.stem}</p>
-      <div className="pr-options" role="radiogroup" aria-label="Answer options">
-        {item.options.map((o) => {
-          const selected = picked === o.key;
-          return (
-            <button
-              key={o.key}
-              type="button"
-              role="radio"
-              aria-checked={selected}
-              className={`pr-opt${selected ? " pr-opt--picked" : ""}`}
-              onClick={() => onPick(o.key)}
-            >
-              <span className="pr-opt__key">{o.key}</span>
-              <span className="pr-opt__text">{o.text}</span>
-            </button>
-          );
-        })}
+      <div className="pr-2col__right">
+        <div className="pr-options" role="radiogroup" aria-label="Answer options">
+          {item.options.map((o) => {
+            const selected = picked === o.key;
+            return (
+              <button
+                key={o.key}
+                type="button"
+                role="radio"
+                aria-checked={selected}
+                className={`pr-opt${selected ? " pr-opt--picked" : ""}`}
+                onClick={() => onPick(o.key)}
+              >
+                <span className="pr-opt__key">{o.key}</span>
+                <span className="pr-opt__text">{o.text}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
-      <div className="pr-actions">
-        <button
-          type="button"
-          className="pr-btn pr-btn--primary"
-          disabled={picked === null}
-          onClick={onConfirm}
-        >
-          Confirm answer
-        </button>
-      </div>
-    </>
+    </div>
   );
 }
 
 function FeedbackScreen({
   q,
+  topic,
   view,
-  onNext,
 }: {
   readonly q: ServedBaselineQuestion;
+  /** Display name of the node under test ("Simple interest"), never a raw id. */
+  readonly topic: string;
   readonly view: FeedbackView;
-  readonly onNext: () => void;
 }): JSX.Element {
   const item = q.content;
+  const hasSections = view.sections !== undefined;
+
+  // Build reviewed options list for use inside reveal 01 or the plain fallback.
+  const reviewedOptions = item.options.map((o) => {
+    const isCorrect = o.key === view.correctKey;
+    const isChosenWrong = o.key === view.chosenKey && !view.correct;
+    const cls = isCorrect
+      ? "pr-opt pr-opt--correct"
+      : isChosenWrong
+        ? "pr-opt pr-opt--wrong"
+        : "pr-opt pr-opt--neutral";
+    const entry = view.optionEntries.find((e) => e.optionKey === o.key);
+    return { o, isCorrect, isChosenWrong, cls, rationale: entry?.rationale ?? null };
+  });
+
   return (
-    <>
-      <div className="pr-context">
-        <span className="pr-context__node">{item.tests[0] ?? "baseline"}</span>
-        <span className="pr-chip">{item.difficulty_label}</span>
-      </div>
-      <p className="pr-progress">
-        Question {q.ordinal} of {q.total}
-      </p>
-      <p className="pr-stem">{item.stem}</p>
-
-      <div className="pr-options" aria-label="Reviewed options">
-        {item.options.map((o) => {
-          const isCorrect = o.key === view.correctKey;
-          const isChosenWrong = o.key === view.chosenKey && !view.correct;
-          const cls = isCorrect
-            ? "pr-opt pr-opt--correct"
-            : isChosenWrong
-              ? "pr-opt pr-opt--wrong"
-              : "pr-opt pr-opt--neutral";
-          return (
-            <div key={o.key} className={cls}>
-              <span className="pr-opt__key">{o.key}</span>
-              <span className="pr-opt__text">{o.text}</span>
-              {isCorrect && <span className="pr-opt__tag">Correct</span>}
-              {isChosenWrong && <span className="pr-opt__tag">Your answer</span>}
-            </div>
-          );
-        })}
-      </div>
-
-      {/* aria-live="polite": announces the verdict and misconception to screen
-          readers when feedback replaces the question panel (same pattern as
-          PracticeFlow; W5-6). */}
-      <div
-        className={`pr-verdict${view.correct ? " pr-verdict--correct" : " pr-verdict--wrong"}`}
-        role="status"
-        aria-live="polite"
-        aria-atomic="true"
-      >
-        <p className="pr-verdict__line">{view.outcomeLine}</p>
-      </div>
-
-      {!view.correct && view.misconceptionLine !== null && (
-        <section className="pr-mis" aria-live="polite" aria-atomic="true">
-          <p className="pr-mis__eyebrow">What happened</p>
-          <p className="pr-mis__line">{view.misconceptionLine}</p>
-        </section>
-      )}
-
-      {view.steps.length > 0 && (
-        <section className="pr-work">
-          <p className="pr-work__eyebrow">The working</p>
-          <ol className="pr-work__steps">
-            {view.steps.map((s, i) => (
-              <li key={i} className="pr-work__step">
-                <span className="pr-work__n">{i + 1}</span>
-                <span className="pr-work__body">{s}</span>
-              </li>
-            ))}
-          </ol>
-        </section>
-      )}
-
-      <section className="pr-next">
-        <div className="pr-actions">
-          <button type="button" className="pr-btn pr-btn--primary" onClick={onNext}>
-            Next question
-          </button>
+    <div className="pr-2col">
+      <div className="pr-2col__left">
+        <div className="pr-context">
+          <span className="pr-context__node">{topic}</span>
+          <span className="pr-chip">{item.difficulty_label}</span>
         </div>
-      </section>
-    </>
+        <p className="pr-progress">
+          Question {q.ordinal} of {q.total}
+        </p>
+        <p className="pr-stem">{item.stem}</p>
+      </div>
+
+      <div className="pr-2col__right">
+        {/* aria-live="polite": announces the verdict to screen readers when
+            feedback replaces the question panel (same pattern as PracticeFlow;
+            W5-6). */}
+        <div
+          className={`pr-verdict${view.correct ? " pr-verdict--correct" : " pr-verdict--wrong"}`}
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          <p className="pr-verdict__line">{view.outcomeLine}</p>
+        </div>
+
+        {/* Punchline: always visible when sections are present. */}
+        {hasSections && (
+          <p className="pr-punchline">{view.sections.punchline}</p>
+        )}
+
+        {/* Wrong-answer misconception line stays visible, never inside a reveal. */}
+        {!view.correct && view.misconceptionLine !== null && (
+          <section className="pr-mis" aria-live="polite" aria-atomic="true">
+            <p className="pr-mis__eyebrow">What happened</p>
+            <p className="pr-mis__line">{view.misconceptionLine}</p>
+          </section>
+        )}
+
+        {/* Numbered reveals when sections are present. */}
+        {hasSections ? (
+          <div className="pr-reveals">
+            <RevealSection num="01" label="Why each option">
+              <div aria-label="Reviewed options">
+                {reviewedOptions.map(({ o, isCorrect, isChosenWrong, cls, rationale }) => (
+                  <div key={o.key} className="pr-reveal-row">
+                    <div className={cls}>
+                      <span className="pr-opt__key">{o.key}</span>
+                      <span className="pr-opt__text">{o.text}</span>
+                      {isCorrect && <span className="pr-opt__tag">Correct</span>}
+                      {isChosenWrong && <span className="pr-opt__tag">Your answer</span>}
+                    </div>
+                    {rationale !== null && (
+                      <p className="pr-reveal-row__rationale">{rationale}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </RevealSection>
+
+            {view.steps.length > 0 && (
+              <RevealSection num="02" label="The working">
+                <ol className="pr-work__steps">
+                  {view.steps.map((s, i) => (
+                    <li key={i} className="pr-work__step">
+                      <span className="pr-work__n">{i + 1}</span>
+                      <span className="pr-work__body">{s}</span>
+                    </li>
+                  ))}
+                </ol>
+              </RevealSection>
+            )}
+
+            <RevealSection num="03" label="How to approach this">
+              <p className="pr-reveal__prose">{view.sections.approach}</p>
+            </RevealSection>
+
+            <RevealSection num="04" label="Take-home lesson">
+              <p className="pr-reveal__prose">{view.sections.lesson}</p>
+            </RevealSection>
+
+            <RevealSection num="05" label="Timing">
+              <p className="pr-reveal__prose">{view.sections.timing}</p>
+            </RevealSection>
+          </div>
+        ) : (
+          /* Graceful fallback: pre-sections layout for items without sections. */
+          <>
+            <div className="pr-options" aria-label="Reviewed options">
+              {reviewedOptions.map(({ o, isCorrect, isChosenWrong, cls }) => (
+                <div key={o.key} className={cls}>
+                  <span className="pr-opt__key">{o.key}</span>
+                  <span className="pr-opt__text">{o.text}</span>
+                  {isCorrect && <span className="pr-opt__tag">Correct</span>}
+                  {isChosenWrong && <span className="pr-opt__tag">Your answer</span>}
+                </div>
+              ))}
+            </div>
+
+            {view.steps.length > 0 && (
+              <section className="pr-work">
+                <p className="pr-work__eyebrow">The working</p>
+                <ol className="pr-work__steps">
+                  {view.steps.map((s, i) => (
+                    <li key={i} className="pr-work__step">
+                      <span className="pr-work__n">{i + 1}</span>
+                      <span className="pr-work__body">{s}</span>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            )}
+          </>
+        )}
+      </div>
+    </div>
   );
 }
 
