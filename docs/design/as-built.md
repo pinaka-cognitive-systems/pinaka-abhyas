@@ -15,13 +15,13 @@ otherwise followed as drawn.
 | IBM Plex Sans/Mono | fonts/ | built | Subset woff2 via app/scripts/make-fonts.py, OFL shipped, preloaded, precached. |
 | Brand lockup + chevron mark | app-shell.jsx | built | BrandMark.tsx; favicon + PWA icons via app/scripts/make-icons.py. |
 | App shell: left rail, nav, mobile nav | app-shell.jsx, app.css | deviated | Built: rail at 1024px+ with lockup, divider, review badge, settings foot; bottom tab bar below 1024px. Deviations: the handout's collapsed icon-rail (64px at <=1199px) is replaced by the tab bar (phone floor ergonomics, ADR 0011); Syllabus rail item withheld until its flow lands. Session surfaces (practice, baseline, firstrun) stay full-bleed. |
-| Today / core hub | scr-core.jsx | partial | HomeFlow exists with today card and delta; visual redesign to mockup pending shell. |
-| Practice hub (difficulty, length, solve-before-options) | scr-practice.jsx | missing | App goes straight into a session; hub screen not built. |
-| Practice drill (question, feedback) | scr-practice.jsx, feedback.jsx | partial | Two-column desktop, pinned dock, numbered explanation reveals built; visual polish against mockup pending. |
-| Diagnosis map | scr-diagnosis.jsx | partial | DiagnosisFlow exists (readiness, node bars, misconceptions, real taxonomy names); mockup fidelity pass pending. |
-| Mock: exam hall (full-screen) | scr-mock.jsx | partial | MockFlow exists with negative marking and honest sizing; exam-hall full-screen treatment pending. |
-| Mock: reveal + breakdown | scr-mock.jsx, mockbreakdown.jsx | partial | Scoring exists; designed reveal/breakdown surfaces pending. |
-| Mock: review walkthrough | scr-review-mock.jsx | missing | Decision: design-team visuals plus navigator interaction pattern (result-colored question pills, All/Wrong/Marked filters, per-question reveals). Pattern only; no code from other products. |
+| Today / core hub | scr-core.jsx | built | Today card, mock entry card (resume-aware), diagnosis re-entry, inside the shell. Deeper scr-core composition (delta strips, review queue) still ahead. |
+| Practice hub (difficulty, length, solve-before-options) | scr-practice.jsx | missing | App goes straight into a session; hub screen not built. Post-beta. |
+| Practice drill (question, feedback) | scr-practice.jsx, feedback.jsx | built | Two-column desktop, pinned dock, numbered teaching reveals (reveals.tsx + reveals.css), taxonomy display names. |
+| Diagnosis map | scr-diagnosis.jsx | partial | DiagnosisFlow exists (readiness, node bars, misconceptions, real taxonomy and canon names); mockup fidelity pass pending. |
+| Mock: exam hall (full-screen) | scr-mock.jsx | deviated | Built: fixed viewport takeover, palette by part with display names, strike-to-eliminate (Shift+1-4), flags, honest wall-clock resume, marking reminder at hall, palette, and submit. Deviation: light theme kept where the drop sketches a dark hall (dark sections are reserved; ADR token rules). |
+| Mock: reveal + breakdown | scr-mock.jsx, mockbreakdown.jsx | built | Reveal with honest verdict prose; breakdown with tally, marks waterfall and pass bar, marks by part, misconceptions by share with recoverable-marks accounting, insight line, readiness shift. |
+| Mock: review walkthrough | scr-review-mock.jsx | built | Filter tabs with counts, navigator with outcome words and j/k keys, detail pane with tagged options, per-option rationales, the five teaching reveals, honest pacing chips (rushed, slow). One-shot today: reachable only after the mock; persistence is on the roadmap. |
 | Settings | Component inventory | built | SettingsFlow (export/import, telemetry, update). Fidelity unreviewed. |
 | First-run / welcome | (not in drop) | deviated | Design drop never specced first-run visuals; built in-system with the lockup. |
 | Feedback/toast patterns | feedback.jsx | missing | No global toast system; flows use inline status. |

@@ -45,26 +45,37 @@ Done:
   band. Behaviour is pinned by committed golden vectors that CI replays on every
   change. See `engine-ts/SPEC.md` and `docs/adr/0010-single-typescript-engine.md`.
   An independent Python cross-check of the core math lives in `crosscheck/`.
-- Content pipeline and pilot. The generate, solve, verify, audit pipeline
-  (`specs/content-pipeline.md`) ran a pilot to completion. The CA Foundation pack now
-  holds 82 items, 81 usable, with one item quarantined for a known defect recorded in
-  `packs/ca-foundation-qa/ERRATA.md`. Every usable item ships an executable solution
-  that re-derives its key in CI. The pilot report and verification artifacts are in
-  `packs/ca-foundation-qa/audit/`.
+- Content pipeline, pilot, and full-mock scale. The generate, solve, verify, audit
+  pipeline (`specs/content-pipeline.md`) ran a pilot to completion and two scale
+  batches (B6, B7) through the same gates plus independent blind solves. The CA
+  Foundation pack holds 106 items, 105 usable, one quarantined with the defect
+  recorded in `packs/ca-foundation-qa/ERRATA.md`. Every blueprint family is at
+  quota, so a zero-shortfall 100-question mock assembles; difficulty mix is
+  22/55/23 against the 20/55/25 target. Every usable item ships an executable
+  solution that re-derives its key in CI, and (since ADR 0017) the four
+  structured teaching sections. Gap targeting lives in `tools/gap_analysis.py`.
 - App. The PWA is built in `app/`: a static client-side Vite, React, TypeScript app
   with sqlite-wasm on OPFS, a service worker for full offline, an installable
-  manifest, and one-click progress export and import. The loop is decomposed into
-  seven flows: first-run, baseline, home, practice, diagnosis, mock, and settings.
-  See `docs/design/build-spec.md`.
+  manifest with real icons, self-hosted IBM Plex subsets, and one-click progress
+  export and import. A persistent shell (rail on desktop, tab bar on phones) hosts
+  the hub flows; sessions run full-bleed. The loop is decomposed into seven flows:
+  first-run, baseline, home, practice, diagnosis, mock, and settings. The mock
+  cycle runs end to end: exam hall (palette, strikes, flags, honest resume),
+  score reveal, marks waterfall breakdown with misconception shares, and a
+  per-question review walkthrough that reuses the structured teaching reveals.
+  See `docs/design/build-spec.md` and `docs/design/as-built.md`.
 - CI. Every push runs schema Tier 1 and Tier 2, key execution, engine typecheck and
   tests, and app typecheck, lint, and tests, plus byte-budget and offline checks.
   See `.github/workflows/ci.yml`.
 
 Next:
 
-- Close the remaining taxonomy leaves and scale the verified bank by blueprint
-  weight, with a human expert audit at the 5 to 10 percent rate.
+- Close the last four uncovered taxonomy leaves and deepen the bank past one
+  paper (mock rotation needs roughly three papers of headroom), with a human
+  expert audit at the 5 to 10 percent rate.
 - Replace the quarantined item with an original equivalent.
+- Persist completed mock results so the review walkthrough survives leaving
+  the page (today it is reachable only directly after the mock).
 - Harden the app for accessibility and performance on a low-end Android phone.
 - Run the closed beta with real aspirants to settle Gate B.
 - Public release: app under AGPL-3.0, shipped questions under CC BY-NC-SA 4.0; the
