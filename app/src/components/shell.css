@@ -104,7 +104,7 @@
     align-items: center;
     justify-content: center;
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 11px;
     font-weight: var(--font-weight-medium);
     font-variant-numeric: tabular-nums;
     background: var(--color-brand-soft);
@@ -113,7 +113,7 @@
   }
 
   .app-shell__tab-label {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: var(--font-weight-medium);
     line-height: 1;
     letter-spacing: var(--tracking-normal);

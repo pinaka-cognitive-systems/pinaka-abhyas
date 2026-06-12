@@ -13,13 +13,21 @@
  *    token vars) are audited; hard-coded hex values are also flagged.
  *
  * 2. Type floor: reports any font-size declaration below 12px (0.75rem at
- *    root 16px, or an equivalent px value).
+ *    root 16px, or an equivalent px value). Exception (design-parity ruling,
+ *    2026-06-12): a rule that declares micro-LABEL intent — text-transform:
+ *    uppercase, the mono face, or caps tracking — may sit at 11px, never
+ *    lower. Plain readable text keeps the 12px floor.
  *
  * 3. Touch targets: reports interactive selectors (button, [role=button], a,
  *    input, select, textarea) that lack a min-height or min-width of 44px.
+ *    A rule with no 44px dimension also passes when a companion ::before/
+ *    ::after rule extends the hit area (position: absolute with negative
+ *    vertical offsets) — the drawn box stays small, the target does not.
  *
  * 4. Focus visibility: reports interactive selectors that have no
- *    :focus-visible rule in the same CSS file.
+ *    :focus-visible rule in the same CSS file. Comments are stripped before
+ *    matching so a header that merely names shared classes does not count
+ *    as interactive content.
  *
  * 5. Reduced motion: reports any transition or animation declaration whose
  *    duration is hard-coded in ms/s rather than using the
@@ -277,10 +285,24 @@ function runContrastAudit(tokens) {
 // ---------------------------------------------------------------------------
 
 const PX_FLOOR = 12;
+/** Micro-label floor: uppercase/mono/caps-tracked labels may sit at 11px
+ * (design-parity ruling, 2026-06-12). Nothing renders below this. */
+const PX_LABEL_FLOOR = 11;
 const ROOT_PX = 16; // assumed root font-size
 
 function remToPx(remVal) {
   return parseFloat(remVal) * ROOT_PX;
+}
+
+/** True when a rule declares micro-label intent: uppercase transform, the
+ * mono face, caps tracking, or a selector targeting the .mono utility. */
+function isMicroLabelRule(selector, body) {
+  return (
+    /text-transform\s*:\s*uppercase/.test(body) ||
+    body.includes("--font-mono") ||
+    body.includes("--tracking-caps") ||
+    /\.mono\b/.test(selector)
+  );
 }
 
 function runTypeSizeAudit(tokens) {
@@ -288,40 +310,49 @@ function runTypeSizeAudit(tokens) {
 
   for (const cssFile of cssFiles) {
     const text = readFileSync(cssFile, "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
-    const re = /font-size\s*:\s*([^;]+);/g;
-    let m;
-    while ((m = re.exec(text)) !== null) {
-      const raw = m[1].trim();
-      let px = null;
+    // Walk rule blocks so the floor can depend on the rule's own intent.
+    const ruleRe = /([^{}]+)\{([^}]*)\}/g;
+    let rm;
+    while ((rm = ruleRe.exec(text)) !== null) {
+      const selector = rm[1].trim();
+      const body = rm[2];
+      const floor = isMicroLabelRule(selector, body) ? PX_LABEL_FLOOR : PX_FLOOR;
+      const re = /font-size\s*:\s*([^;]+);/g;
+      let m;
+      while ((m = re.exec(body)) !== null) {
+        const raw = m[1].trim();
+        let px = null;
 
-      // Direct px value
-      const pxMatch = /^([\d.]+)px$/.exec(raw);
-      if (pxMatch) px = parseFloat(pxMatch[1]);
+        // Direct px value
+        const pxMatch = /^([\d.]+)px$/.exec(raw);
+        if (pxMatch) px = parseFloat(pxMatch[1]);
 
-      // rem value
-      const remMatch = /^([\d.]+)rem$/.exec(raw);
-      if (remMatch) px = remToPx(remMatch[1]);
+        // rem value
+        const remMatch = /^([\d.]+)rem$/.exec(raw);
+        if (remMatch) px = remToPx(remMatch[1]);
 
-      // em value — relative; we approximate against root 16px as worst case
-      const emMatch = /^([\d.]+)em$/.exec(raw);
-      if (emMatch) px = parseFloat(emMatch[1]) * ROOT_PX;
+        // em value — relative; we approximate against root 16px as worst case
+        const emMatch = /^([\d.]+)em$/.exec(raw);
+        if (emMatch) px = parseFloat(emMatch[1]) * ROOT_PX;
 
-      // var(--token) reference
-      const varMatch = /^var\((--[\w-]+)\)$/.exec(raw);
-      if (varMatch) {
-        const tokenVal = tokens.get(varMatch[1]);
-        if (tokenVal) {
-          const tpxM = /^([\d.]+)px$/.exec(tokenVal.trim());
-          if (tpxM) px = parseFloat(tpxM[1]);
+        // var(--token) reference
+        const varMatch = /^var\((--[\w-]+)\)$/.exec(raw);
+        if (varMatch) {
+          const tokenVal = tokens.get(varMatch[1]);
+          if (tokenVal) {
+            const tpxM = /^([\d.]+)px$/.exec(tokenVal.trim());
+            if (tpxM) px = parseFloat(tpxM[1]);
+          }
         }
-      }
 
-      if (px !== null && px < PX_FLOOR) {
-        failures.push({
-          file: cssFile.replace(srcDir + "/", ""),
-          declaration: raw,
-          px: px.toFixed(1),
-        });
+        if (px !== null && px < floor) {
+          failures.push({
+            file: cssFile.replace(srcDir + "/", ""),
+            declaration: raw,
+            px: px.toFixed(1),
+            floor,
+          });
+        }
       }
     }
   }
@@ -359,6 +390,16 @@ const INTERACTIVE_SELECTOR_PATTERNS = [
   /\binput\b/,     // form inputs
 ];
 
+/** Selectors the patterns above match by name but that are not themselves
+ * tap targets: layout containers and static labels around the real controls.
+ * Each entry names why it is excluded; the controls inside them stay audited. */
+const NON_INTERACTIVE_SELECTORS = new Set([
+  ".btn-row",        // flex row that lays out .sa-btn children
+  ".opt-grp",        // option-group wrapper (margin only)
+  ".opt-grp__label", // static caps label above an option group
+  ".opt-pick",       // flex column that lays out .pick rows
+]);
+
 /**
  * Returns true if the selector is a state-modifier variant (inherits size from
  * its base class) and therefore should not be independently audited for size.
@@ -368,6 +409,9 @@ const INTERACTIVE_SELECTOR_PATTERNS = [
 function isStateModifier(selector) {
   // BEM modifier: .some-class--variant (or .some-class--variant .descendant)
   if (/\.\w[\w-]*--[\w-]+/.test(selector)) return true;
+  // Chained state class: .base.is-selected / .base.has-error — the box comes
+  // from .base; the chained rule only recolours it.
+  if (/\.[\w-]+\.(?:is|has)-[\w-]+/.test(selector)) return true;
   // Compound descendant selectors (the tag selector itself is already covered)
   if (selector.includes(" ") && !selector.includes(">") && !selector.includes("~")) return true;
   return false;
@@ -395,6 +439,7 @@ function runTouchTargetAudit(tokens) {
       if (selector.includes(":") || selector.includes("@")) continue;
       const isInteractive = INTERACTIVE_SELECTOR_PATTERNS.some((p) => p.test(selector));
       if (!isInteractive) continue;
+      if (NON_INTERACTIVE_SELECTORS.has(selector)) continue;
       // Skip state modifier classes — they inherit size from their base class
       if (isStateModifier(selector)) continue;
 
@@ -433,6 +478,20 @@ function runTouchTargetAudit(tokens) {
       // (An option row might be wide/flex and relies on natural height; a close button
       //  might be square. One dimension >= 44 is the minimum.)
       if (!hasEither) {
+        // Hit-area pattern: a companion ::before/::after with position:absolute
+        // and negative vertical offsets extends the tap target past the drawn
+        // box (the visual stays compact; the target does not).
+        const base = selector.split(",")[0].trim();
+        const extRe = new RegExp(
+          base.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") +
+            "::(?:before|after)\\s*\\{([^}]*)\\}",
+        );
+        const ext = extRe.exec(stripped);
+        const extendsHit =
+          ext !== null &&
+          /position\s*:\s*absolute/.test(ext[1]) &&
+          /(?:top|bottom|inset)\s*:\s*-/.test(ext[1]);
+        if (extendsHit) continue;
         failures.push({
           file: cssFile.replace(srcDir + "/", ""),
           selector: selector.slice(0, 80),
@@ -469,7 +528,10 @@ function runFocusAudit() {
     return rel === "base.css" || rel.startsWith("flows/");
   });
   for (const cssFile of auditFiles) {
-    const text = readFileSync(cssFile, "utf8");
+    const raw = readFileSync(cssFile, "utf8");
+    // Strip comments first: a header that merely NAMES shared interactive
+    // classes (styled elsewhere) is not interactive content in this file.
+    const text = raw.replace(/\/\*[\s\S]*?\*\//g, "");
     const hasFocusVisible = text.includes(":focus-visible");
     // Count interactive class/element selectors (not inside custom-property values)
     // Strip the :root { ... } token blocks first so --touch-target etc. don't match.
