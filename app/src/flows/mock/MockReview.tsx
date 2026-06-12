@@ -1,33 +1,30 @@
 /**
- * MockReview — per-question walkthrough after the mock breakdown (W5 mock review).
+ * MockReview — question-by-question, triage-first walkthrough
+ * (design scr-review-mock.jsx, transcribed).
  *
- * Reached from the breakdown via "Review the answers" and back again via the
- * context bar back button. Stays inside MockFlow's phase machine: no new hash
- * route. The component is read-only: the mock is already scored; nothing here
- * writes to storage or mutates the session.
+ * Anatomy: 48px fb-context bar (Breakdown back, "{Mock NN} · review · net N",
+ * X close), the six-filter pill row, then rv-body: a 300px navigator and the
+ * detail split (question column + 360px rv-diag panel). The diagnosis panel
+ * leads with the speed x correctness verdict (insights.timeVerdict, cutoffs
+ * declared provisional), names the misconception behind a wrong answer, shows
+ * the working with the key step ringed, and states when the item is queued
+ * back into Review.
  *
- * Layout:
- *   context bar (back, title, score, close)
- *   filter tab row (To review / Wrong / Skipped / Correct / Marked / All)
- *   two-column body at >=1024px (navigator left, detail right),
- *   single-column on mobile (list then detail)
- *
- * The page never scrolls as a whole on desktop. The navigator and the detail
- * pane each scroll internally (overflow-y: auto, min-height: 0). On mobile the
- * page scrolls once and the detail pane flows below the list.
- *
- * Keyboard: arrow-up/down and j/k navigate the filtered list.
- * The navigator entry for the selected question carries aria-current="true".
- *
- * Styles live in mock.css under the rv- prefix (review).
+ * Read-only: the mock is already scored; nothing here writes to storage.
+ * Keyboard: ArrowUp/Down and j/k move through the filtered list.
  */
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { RevealSection } from "../practice/reveals.js";
+import { useCallback, useEffect, useState } from "react";
+
+import { Icon } from "../../components/ui.js";
+import { navigate } from "../../components/navigate.js";
+import { loadAppSnapshot } from "../../state/appData.js";
 import {
-  loadTopicNames,
-  fallbackTopicLabel,
-} from "../../engine/topics.js";
+  timeVerdict,
+  fallbackName,
+  PACE_CAVEAT,
+  type TimeVerdict,
+} from "../../engine/insights.js";
 import type { ContentItem } from "../practice/types.js";
 import type { MockSession } from "./state.js";
 import type { MockScore } from "./scoring.js";
@@ -35,35 +32,36 @@ import {
   applyFilter,
   buildFilterCounts,
   buildReviewEntries,
-  formatMs,
-  pacingWord,
   type FilterCounts,
   type ReviewEntry,
   type ReviewFilterId,
 } from "./reviewFilter.js";
 
-// ---------------------------------------------------------------------------
-// Props.
-// ---------------------------------------------------------------------------
+/* ------------------------------------------------------------------ */
+/* Props                                                                */
+/* ------------------------------------------------------------------ */
 
 export interface MockReviewProps {
   readonly session: MockSession;
   readonly score: MockScore;
   readonly content: ReadonlyMap<string, ContentItem>;
+  /** "Mock 03" — the device-numbered name of this mock. */
+  readonly mockLabel?: string;
   readonly onBack: () => void;
   readonly onExit: () => void;
 }
 
-// ---------------------------------------------------------------------------
-// Filter tab configuration.
-// ---------------------------------------------------------------------------
+/* ------------------------------------------------------------------ */
+/* Display helpers (design scr-review-mock.jsx:5-23)                    */
+/* ------------------------------------------------------------------ */
 
-interface FilterTab {
-  readonly id: ReviewFilterId;
-  readonly label: string;
-}
+const OUTCOME_DOT: Record<ReviewEntry["outcome"], string> = {
+  correct: "var(--color-success)",
+  wrong: "var(--color-danger)",
+  skipped: "var(--color-border-strong)",
+};
 
-const FILTER_TABS: readonly FilterTab[] = [
+const FILTER_TABS: readonly { readonly id: ReviewFilterId; readonly label: string }[] = [
   { id: "toReview", label: "To review" },
   { id: "wrong",    label: "Wrong" },
   { id: "skipped",  label: "Skipped" },
@@ -72,14 +70,36 @@ const FILTER_TABS: readonly FilterTab[] = [
   { id: "all",      label: "All" },
 ];
 
-// ---------------------------------------------------------------------------
-// MockReview component.
-// ---------------------------------------------------------------------------
+/** "2m 1s" / "38s" / em-dash for no data (design fmtTime). */
+function fmtTime(timeMs: number): string {
+  const s = Math.round(timeMs / 1000);
+  if (s <= 0) return "—";
+  const m = Math.floor(s / 60);
+  const ss = s % 60;
+  return m > 0 ? `${m}m ${ss}s` : `${ss}s`;
+}
+
+const LETTERS = ["A", "B", "C", "D", "E"] as const;
+
+function letterFor(key: number | null): string {
+  if (key === null) return "—";
+  return LETTERS[key - 1] ?? String(key);
+}
+
+/** "Business Mathematics" -> "Business Maths" in the navigator (design). */
+function shortPart(name: string): string {
+  return name === "Business Mathematics" ? "Business Maths" : name;
+}
+
+/* ------------------------------------------------------------------ */
+/* Component                                                            */
+/* ------------------------------------------------------------------ */
 
 export function MockReview({
   session,
   score,
   content,
+  mockLabel,
   onBack,
   onExit,
 }: MockReviewProps): JSX.Element {
@@ -89,27 +109,43 @@ export function MockReview({
   const [filterId, setFilterId] = useState<ReviewFilterId>("toReview");
   const filtered = applyFilter(allEntries, filterId);
 
-  // Selected item: default to the first entry in the current filter.
   const [selectedItemId, setSelectedItemId] = useState<string | null>(
     () => filtered[0]?.itemId ?? null,
   );
 
-  // When the filter changes, keep selection if it's still visible; else reset
-  // to the first item in the new filter.
+  // Part names + review-queue intervals come from the shared snapshot.
+  const [partNames, setPartNames] = useState<ReadonlyMap<string, string> | null>(null);
+  const [misNames, setMisNames] = useState<ReadonlyMap<string, string> | null>(null);
+  const [queueDays, setQueueDays] = useState<ReadonlyMap<string, number> | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    void loadAppSnapshot()
+      .then((snap) => {
+        if (cancelled) return;
+        setPartNames(snap.topicNames);
+        setMisNames(snap.misNames);
+        const days = new Map<string, number>();
+        const nowMs = Date.now();
+        for (const [itemId, s] of snap.engineState.schedules) {
+          days.set(itemId, Math.max(1, Math.round((s.dueAtMs - nowMs) / 86_400_000)));
+        }
+        setQueueDays(days);
+      })
+      .catch(() => undefined); // panel extras degrade silently
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // Keep selection valid when the filter changes.
   useEffect(() => {
     if (selectedItemId === null || !filtered.some((e) => e.itemId === selectedItemId)) {
       setSelectedItemId(filtered[0]?.itemId ?? null);
     }
-  }, [filterId]); // intentionally omit selectedItemId and filtered to avoid loops
+    // Mirror of the design effect: the selection reset is filter-driven only.
+  }, [filterId]);
 
-  const selectedEntry = selectedItemId !== null
-    ? (allEntries.find((e) => e.itemId === selectedItemId) ?? null)
-    : null;
-
-  // Navigator ref for focus management.
-  const navRef = useRef<HTMLElement>(null);
-
-  // Keyboard: arrow-up/down and j/k navigate the filtered list.
+  // Keyboard: up/down and j/k through the filtered list.
   useEffect(() => {
     const handler = (e: KeyboardEvent): void => {
       if (!["ArrowDown", "ArrowUp", "j", "k"].includes(e.key)) return;
@@ -129,323 +165,270 @@ export function MockReview({
     return () => window.removeEventListener("keydown", handler);
   }, [filtered, selectedItemId]);
 
-  const selectEntry = useCallback((itemId: string) => {
-    setSelectedItemId(itemId);
-  }, []);
+  const selectEntry = useCallback((itemId: string) => setSelectedItemId(itemId), []);
 
-  const netDisplay = score.net.toFixed(2);
+  const entry = selectedItemId !== null
+    ? (allEntries.find((e) => e.itemId === selectedItemId) ?? null)
+    : null;
+
+  const partNameFor = (e: ReviewEntry): string => {
+    const node = content.get(e.itemId)?.tests[0];
+    if (node === undefined) return "";
+    const part = node.split(".").slice(0, 2).join(".");
+    return partNames?.get(part) ?? fallbackName(part);
+  };
 
   return (
-    <div className="rv-screen">
+    // Full-window frame: the page never scrolls; the navigator and the two
+    // detail panes scroll internally (design scr-review-mock layout).
+    <main
+      className="screen flow-screen"
+      style={{ display: "flex", flexDirection: "column", height: "100dvh", overflow: "hidden" }}
+    >
       {/* Context bar */}
-      <header className="rv-bar">
-        <div className="rv-bar__left">
+      <div className="fb-context" style={{ height: 48 }}>
+        <div className="fb-context__left">
           <button
+            className="sa-btn sa-btn--ghost"
+            style={{ fontSize: 13, paddingLeft: 0 }}
             type="button"
-            className="rv-bar__back"
             onClick={onBack}
-            aria-label="Back to breakdown"
           >
-            Back
+            <Icon name="arrow-left" size={14} />Breakdown
           </button>
-          <span className="rv-bar__title">
-            <span className="rv-bar__label">Mock review</span>
-            <span className="rv-bar__score rv-mono">{netDisplay}</span>
+          <span className="eyebrow">
+            {mockLabel ?? "Mock"} · review · net <span className="mono">{score.net.toFixed(2)}</span>
           </span>
         </div>
-        <button
-          type="button"
-          className="rv-bar__close"
-          onClick={onExit}
-          aria-label="Close and return home"
-        >
-          Close
-        </button>
-      </header>
+        <div className="fb-context__right">
+          <button className="win__ctrl" type="button" aria-label="Close review" onClick={onExit}>
+            <Icon name="x" size={16} />
+          </button>
+        </div>
+      </div>
 
-      {/* Filter tabs */}
+      {/* Filter pills */}
       <div className="rv-filters" role="tablist" aria-label="Question filter">
-        {FILTER_TABS.map((tab) => {
-          const count = counts[tab.id];
-          const isOn = filterId === tab.id;
-          return (
+        {FILTER_TABS.map((f) => (
+          <button
+            key={f.id}
+            className={`rv-filter ${filterId === f.id ? "is-on" : ""}`}
+            type="button"
+            role="tab"
+            aria-selected={filterId === f.id}
+            onClick={() => setFilterId(f.id)}
+          >
+            {f.label}
+            <span className="rv-filter__n">{counts[f.id]}</span>
+          </button>
+        ))}
+      </div>
+
+      <div className="rv-body">
+        {/* Navigator */}
+        <aside className="rv-nav" aria-label="Questions">
+          {filtered.length === 0 && (
+            <div className="empty-note" style={{ margin: "var(--space-4)" }}>
+              <div className="empty-note__text">Nothing in this filter.</div>
+            </div>
+          )}
+          {filtered.map((e) => (
             <button
-              key={tab.id}
+              key={e.itemId}
+              className={`rv-item ${selectedItemId === e.itemId ? "is-sel" : ""}`}
               type="button"
-              role="tab"
-              aria-selected={isOn}
-              aria-pressed={isOn}
-              className={`rv-filter${isOn ? " rv-filter--on" : ""}`}
-              onClick={() => setFilterId(tab.id)}
+              aria-current={selectedItemId === e.itemId ? "true" : undefined}
+              onClick={() => selectEntry(e.itemId)}
             >
-              {tab.label}
-              <span className="rv-filter__n rv-mono">{count}</span>
+              <span className="rv-item__dot" style={{ background: OUTCOME_DOT[e.outcome] }} />
+              <span className="rv-item__n mono">{e.num}</span>
+              <span className="rv-item__body">
+                <span className="rv-item__top">
+                  {shortPart(partNameFor(e))}
+                  {e.marked && (
+                    <Icon name="flag" size={11} style={{ color: "var(--color-warning)", marginLeft: 4 }} />
+                  )}
+                </span>
+                <span className="rv-item__sub">
+                  {e.outcome === "skipped" ? (
+                    "skipped"
+                  ) : (
+                    <>
+                      you <b className={e.outcome === "wrong" ? "rv-x" : "rv-ok"}>{letterFor(e.yourPick)}</b>
+                      {e.outcome === "wrong" && (
+                        <> · ans <b className="rv-ok">{letterFor(e.correctKey)}</b></>
+                      )}
+                    </>
+                  )}{" "}
+                  · {fmtTime(e.timeMs)}
+                </span>
+              </span>
             </button>
+          ))}
+        </aside>
+
+        {/* Detail */}
+        {entry !== null && (
+          <ReviewDetail
+            key={entry.itemId}
+            entry={entry}
+            item={content.get(entry.itemId)}
+            partName={partNameFor(entry)}
+            total={session.order.length}
+            misNames={misNames}
+            queueDays={queueDays?.get(entry.itemId) ?? null}
+          />
+        )}
+      </div>
+    </main>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Detail split: question column + the 360px diagnosis panel            */
+/* ------------------------------------------------------------------ */
+
+function ReviewDetail({
+  entry,
+  item,
+  partName,
+  total,
+  misNames,
+  queueDays,
+}: {
+  readonly entry: ReviewEntry;
+  readonly item: ContentItem | undefined;
+  readonly partName: string;
+  readonly total: number;
+  readonly misNames: ReadonlyMap<string, string> | null;
+  readonly queueDays: number | null;
+}): JSX.Element {
+  const v: TimeVerdict = timeVerdict(entry.outcome, entry.timeMs / 1000);
+
+  // The misconception behind the chosen wrong option, with its rationale line.
+  const chosenRationale =
+    entry.outcome === "wrong" && item !== undefined && entry.yourPick !== null
+      ? item.per_option_rationale.find((r) => r.option_key === entry.yourPick)
+      : undefined;
+  const misId = chosenRationale?.misconception ?? null;
+  const misName =
+    misId !== null ? (misNames?.get(misId) ?? fallbackName(misId)) : null;
+
+  // Working steps: structured explanation when present, else sentences.
+  const steps: readonly { readonly body: string; readonly key: boolean }[] =
+    item === undefined
+      ? []
+      : item.explanation
+          .split(/(?<=\.)\s+/)
+          .map((s) => s.trim())
+          .filter((s) => s.length > 0)
+          .map((s, i, arr) => ({ body: s, key: arr.length > 1 && i === 1 }));
+
+  return (
+    <div className="rv-detail">
+      <div className="rv-detail__scroll">
+        <div className="q-num">
+          Q {entry.num} / {total}
+          <span>·</span>
+          {partName}
+          <span className="rv-time-chip" data-kind={v.kind}>
+            <Icon name="clock" size={11} />
+            {v.label} · {fmtTime(entry.timeMs)}
+          </span>
+        </div>
+        {item !== undefined && (
+          <p className="q-stem" style={{ fontSize: "var(--text-lg)" }}>{item.stem}</p>
+        )}
+        {item?.options.map((o) => {
+          const isCorrect = o.key === entry.correctKey;
+          const isYour = o.key === entry.yourPick && !isCorrect;
+          const cls = isCorrect ? "opt opt--correct" : isYour ? "opt opt--chosen" : "opt";
+          return (
+            <div className={cls} key={o.key}>
+              <span className="opt__letter">{letterFor(o.key)}</span>
+              <span className="opt__body">{o.text}</span>
+              <span className="opt__spacer" />
+              {isCorrect && (
+                <span className="opt__tag"><Icon name="check" size={14} />Correct</span>
+              )}
+              {isYour && (
+                <span className="opt__tag"><Icon name="x" size={14} />Your answer</span>
+              )}
+            </div>
           );
         })}
       </div>
 
-      {/* Body: navigator + detail */}
-      <div className="rv-body">
-        <nav
-          ref={navRef}
-          className="rv-nav"
-          aria-label="Question navigator"
-        >
-          {filtered.length === 0 ? (
-            <p className="rv-empty">Nothing in this filter.</p>
-          ) : (
-            filtered.map((entry) => (
-              <NavigatorEntry
-                key={entry.itemId}
-                entry={entry}
-                content={content}
-                isSelected={entry.itemId === selectedItemId}
-                onSelect={selectEntry}
-              />
-            ))
-          )}
-        </nav>
-
-        <div className="rv-detail" aria-label="Question detail">
-          {selectedEntry !== null ? (
-            <DetailPane
-              entry={selectedEntry}
-              content={content}
-              total={session.order.length}
-            />
-          ) : (
-            <p className="rv-empty rv-empty--detail">Select a question to review it.</p>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// NavigatorEntry.
-// ---------------------------------------------------------------------------
-
-function NavigatorEntry({
-  entry,
-  content,
-  isSelected,
-  onSelect,
-}: {
-  readonly entry: ReviewEntry;
-  readonly content: ReadonlyMap<string, ContentItem>;
-  readonly isSelected: boolean;
-  readonly onSelect: (itemId: string) => void;
-}): JSX.Element {
-  const item = content.get(entry.itemId);
-  const topicName = item
-    ? (item.tests[0] !== undefined ? fallbackTopicLabel(item.tests[0]) : null)
-    : null;
-
-  const outcomeWord =
-    entry.outcome === "correct" ? "Correct"
-    : entry.outcome === "wrong"   ? "Wrong"
-    : "Skipped";
-
-  const timeLabel = entry.timeMs > 0 ? formatMs(entry.timeMs) : null;
-
-  return (
-    <button
-      type="button"
-      className={`rv-item${isSelected ? " rv-item--sel" : ""}`}
-      aria-current={isSelected ? "true" : undefined}
-      onClick={() => onSelect(entry.itemId)}
-    >
-      {/* Outcome dot + accessible word */}
-      <span
-        className={`rv-item__dot rv-item__dot--${entry.outcome}`}
-        aria-label={outcomeWord}
-        role="img"
-      />
-      <span className="rv-item__n rv-mono">{entry.num}</span>
-      <span className="rv-item__body">
-        <span className="rv-item__top">
-          {topicName ?? entry.itemId}
-          {entry.marked && (
-            <span className="rv-item__flag" aria-label="Marked for review">
-              F
-            </span>
-          )}
-        </span>
-        <span className="rv-item__sub">
-          <span className={`rv-item__outcome rv-item__outcome--${entry.outcome}`}>
-            {outcomeWord}
-          </span>
-          {entry.outcome === "wrong" && entry.yourPick !== null && (
-            <span className="rv-item__picks">
-              {" "}you {entry.yourPick}
-              {entry.correctKey !== null ? ` · ans ${entry.correctKey}` : ""}
-            </span>
-          )}
-          {timeLabel !== null && (
-            <span className="rv-item__time"> · {timeLabel}</span>
-          )}
-        </span>
-      </span>
-    </button>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// DetailPane.
-// ---------------------------------------------------------------------------
-
-function DetailPane({
-  entry,
-  content,
-  total,
-}: {
-  readonly entry: ReviewEntry;
-  readonly content: ReadonlyMap<string, ContentItem>;
-  readonly total: number;
-}): JSX.Element {
-  const item = content.get(entry.itemId);
-  const [topicNames, setTopicNames] = useState<ReadonlyMap<string, string> | null>(null);
-
-  useEffect(() => {
-    void loadTopicNames().then(setTopicNames);
-  }, []);
-
-  const nodeId = item?.tests[0] ?? null;
-  const topicName = nodeId !== null
-    ? (topicNames?.get(nodeId) ?? fallbackTopicLabel(nodeId))
-    : null;
-
-  const pacing = pacingWord(entry);
-  const timeDisplay = entry.timeMs > 0 ? formatMs(entry.timeMs) : null;
-
-  return (
-    <div className="rv-detail__scroll">
-      {/* Question header */}
-      <div className="rv-q-meta">
-        <span className="rv-q-num rv-mono">
-          Q {entry.num} / {total}
-        </span>
-        {topicName !== null && (
-          <span className="rv-q-topic">{topicName}</span>
-        )}
-        {timeDisplay !== null && (
-          <span
-            className={`rv-time-chip${pacing !== null ? ` rv-time-chip--${pacing.toLowerCase()}` : ""}`}
-          >
-            {timeDisplay}
-            {pacing !== null && <span className="rv-time-chip__word">{pacing}</span>}
-          </span>
-        )}
-      </div>
-
-      {/* Stem */}
-      {item !== undefined && (
-        <p className="rv-stem">{item.stem}</p>
-      )}
-
-      {/* Options in review state */}
-      {item !== undefined && item.options.length > 0 && (
-        <div className="rv-options">
-          {item.options.map((opt) => {
-            const isCorrect = opt.key === entry.correctKey;
-            const isYourWrong = opt.key === entry.yourPick && !isCorrect && entry.outcome === "wrong";
-            const cls =
-              `rv-opt` +
-              (isCorrect ? " rv-opt--correct" : "") +
-              (isYourWrong ? " rv-opt--wrong" : "");
-
-            const rationale = item.per_option_rationale.find(
-              (r) => r.option_key === opt.key,
-            );
-
-            return (
-              <div key={opt.key} className="rv-opt-row">
-                <div className={cls}>
-                  <span className="rv-opt__key">{opt.key}</span>
-                  <span className="rv-opt__text">{opt.text}</span>
-                  {isCorrect && (
-                    <span className="rv-opt__tag rv-opt__tag--correct">Correct</span>
-                  )}
-                  {isYourWrong && (
-                    <span className="rv-opt__tag rv-opt__tag--wrong">Your answer</span>
-                  )}
-                </div>
-                {rationale !== undefined && (
-                  <p className="rv-opt__rationale">{rationale.rationale}</p>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      )}
-
-      {/* Structured teaching via RevealSection (reuse from practice). */}
-      {item !== undefined && (
-        <ReviewTeaching item={item} />
-      )}
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// ReviewTeaching — structured reveals, graceful fallback.
-// ---------------------------------------------------------------------------
-
-function ReviewTeaching({ item }: { readonly item: ContentItem }): JSX.Element {
-  const sections = item.explanationSections;
-
-  if (sections !== undefined) {
-    // Full structured path: five numbered reveals.
-    return (
-      <div className="rv-reveals">
-        <RevealSection num="01" label="Why each option">
-          <div className="rv-reveal-rationale">
-            {item.per_option_rationale.map((r) => (
-              <p key={r.option_key} className="rv-reveal-rationale__line">
-                <span className="rv-reveal-rationale__key rv-mono">{r.option_key}</span>
-                {r.rationale}
-              </p>
-            ))}
+      <aside className="rv-diag">
+        <div className="rv-diag__scroll">
+          <div className={`rv-verdict rv-verdict--${v.kind}`}>
+            <div className="rv-verdict__label">{v.label}</div>
+            <p className="rv-verdict__note">{v.note}</p>
+            {entry.timeMs > 0 && <p className="rv-cal">{PACE_CAVEAT}</p>}
           </div>
-        </RevealSection>
-        <RevealSection num="02" label="The working">
-          <p className="pr-reveal__prose">{item.explanation}</p>
-        </RevealSection>
-        <RevealSection num="03" label="How to approach this">
-          <p className="pr-reveal__prose">{sections.approach}</p>
-        </RevealSection>
-        <RevealSection num="04" label="Take-home lesson">
-          <p className="pr-reveal__prose">{sections.lesson}</p>
-        </RevealSection>
-        <RevealSection num="05" label="Timing">
-          <p className="pr-reveal__prose">{sections.timing}</p>
-        </RevealSection>
-      </div>
-    );
-  }
 
-  // Graceful fallback: verdict line + explanation working steps.
-  const steps = item.explanation
-    .split(/(?<=\.)\s+/)
-    .map((s) => s.trim())
-    .filter((s) => s.length > 0);
+          {entry.outcome === "wrong" && misName !== null ? (
+            <>
+              <div className="mis-card__eyebrow" style={{ marginTop: "var(--space-6)" }}>
+                <Icon name="crosshair" size={13} />Named misconception
+              </div>
+              <h3
+                className="mis-card__name"
+                style={{ fontSize: "var(--text-xl)", marginBottom: "var(--space-2)" }}
+              >
+                {misName}
+              </h3>
+              {chosenRationale !== undefined && (
+                <p className="mis-card__line" style={{ marginBottom: "var(--space-5)" }}>
+                  {chosenRationale.rationale}
+                </p>
+              )}
+            </>
+          ) : (
+            chosenRationale !== undefined && (
+              <p
+                className="mis-card__line"
+                style={{ marginTop: "var(--space-6)", marginBottom: "var(--space-5)" }}
+              >
+                {chosenRationale.rationale}
+              </p>
+            )
+          )}
 
-  return (
-    <div className="rv-fallback">
-      {steps.length > 0 && (
-        <div className="rv-work">
-          <p className="rv-work__eyebrow">The working</p>
-          <ol className="rv-work__steps">
-            {steps.map((s, i) => (
-              <li key={i} className="rv-work__step">
-                {s}
-              </li>
-            ))}
-          </ol>
+          {steps.length > 0 && (
+            <>
+              <div className="eyebrow" style={{ marginBottom: "var(--space-3)" }}>The working</div>
+              <div className="work__steps" style={{ marginTop: 0 }}>
+                {steps.map((s, i) => (
+                  <div className={`work__step ${s.key ? "work__step--key" : ""}`} key={i}>
+                    <span className="work__step-n">{i + 1}</span>
+                    <span className="work__step-body">{s.body}</span>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+
+          {entry.outcome === "wrong" && queueDays !== null && (
+            <div className="rv-queue">
+              <Icon name="repeat" size={14} />
+              <span>
+                Queued in Review · returns in <span className="mono">{queueDays} {queueDays === 1 ? "day" : "days"}</span>
+              </span>
+              {misId !== null && (
+                <button
+                  className="sa-btn sa-btn--ghost"
+                  style={{ marginLeft: "auto", fontSize: 12, padding: "4px 8px" }}
+                  type="button"
+                  onClick={() => navigate(`misconception/${misId}`)}
+                >
+                  Pattern
+                </button>
+              )}
+            </div>
+          )}
         </div>
-      )}
+      </aside>
     </div>
   );
 }

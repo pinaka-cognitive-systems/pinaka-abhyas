@@ -16,9 +16,6 @@ import {
   nextAction,
   readiness,
   type LoadedPack,
-  type RawBlueprint,
-  type RawMarking,
-  type RawPack,
 } from "../../src/engine/index.js";
 import {
   advanceSession,
@@ -82,9 +79,9 @@ function rawItem(id: string, tests: string[], diff: "L1" | "L2" | "L3") {
 
 function familyPack(): LoadedPack {
   return loadPack(
-    { items: FAMILY_ITEMS } as unknown as RawPack,
-    blueprintJson as unknown as RawBlueprint,
-    markingJson as unknown as RawMarking,
+    { items: FAMILY_ITEMS },
+    blueprintJson,
+    markingJson,
   );
 }
 const familyContent: ReadonlyMap<string, ContentItem> = buildContentMap(FAMILY_ITEMS);
@@ -103,7 +100,7 @@ describe("engine-consistent serving (family-node pack)", () => {
     expect(served!.action.reason).toBe(engineAction.reason);
   });
 
-  it("answering wrong, then continuing, serves the engine's next action", async () => {
+  it("answering wrong, then continuing, serves the engine's next action", () => {
     const pack = familyPack();
     let events: StoredEvent[] = [];
     let session = EMPTY_SESSION;
@@ -182,9 +179,9 @@ describe("shipped pack serving + fallback safety", () => {
     // serve and return none, so the fallback must keep practice alive.
     const offItems = [rawItem("off_1", ["qa.unweighted.misc.topic"], "L1")];
     const offPack = loadPack(
-      { items: offItems } as unknown as RawPack,
-      blueprintJson as unknown as RawBlueprint,
-      markingJson as unknown as RawMarking,
+      { items: offItems },
+      blueprintJson,
+      markingJson,
     );
     const offContent = buildContentMap(offItems);
     const state = buildEngineState([], offPack.bank, NOW);
@@ -280,7 +277,7 @@ describe("feedback derivation", () => {
         timing: "Under two minutes. If it takes longer, skip and return.",
       },
     };
-    const itemWithSections = toContentItem(rawWithSections as Parameters<typeof toContentItem>[0]);
+    const itemWithSections = toContentItem(rawWithSections);
     const fb = buildFeedback(itemWithSections, { correct: true, chosenKey: 1 });
     expect(fb.sections).not.toBeUndefined();
     expect(fb.sections!.punchline).toBe(

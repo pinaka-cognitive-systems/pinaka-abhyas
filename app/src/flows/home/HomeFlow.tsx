@@ -1,356 +1,484 @@
 /**
- * Home surface — the default route for a returning student (W5-9).
+ * HomeFlow — the Today screen, rebuilt to pixel parity with the design prototype.
  *
- * The thin React renderer over the pure logic in logic.ts, delta.ts, reminder.ts,
- * and instrument.ts. It owns only the side effects it cannot avoid: the storage
- * adapter, the rebuilt engine state, the clock (Date.now read once at the
- * boundary), and the reminder scheduler's browser env. Every decision — what
- * today holds, whether to lead with re-entry, what the delta says, the done
- * state — is delegated to tested functions so nothing load-bearing lives in JSX.
+ * Ground truth: design-team/v2/scr-core.jsx:43-173 (Today component) and
+ * design-team/v2/data.jsx:173-283 (PROFILES). All JSX structure, class names, copy,
+ * and inline styles are transcribed verbatim from those sources. Data comes from
+ * loadAppSnapshot() and the insights selectors; no math lives here.
  *
- * Spec (docs/design/adherence-spec.md):
- *   - Mechanism 1: a single decision-bearing today card, sized to the engine's
- *     session, with what it contains drawn from the engine's selection tiers,
- *     one begin action into #/practice, and the DONE close.
- *   - Mechanism 2: the delta line above the card, on a new calendar day with
- *     prior history.
- *   - Mechanism 3: the re-entry lead past the 7-day gap; never the gap length.
- *   - Instrumentation: per-day mechanism-on-screen flags recorded into meta on
- *     session start; the reminder is armed on open.
+ * The six design data states (empty / early / returning / progressing / plateau /
+ * error-recovery) are expressed entirely through the snapshot fields, matching the
+ * PROFILES shape one-to-one.
  *
- * Layout (ADR 0011): 360px-first, 44px touch targets, one visible focus ring,
- * tokens only (home.css). Copy lives in copy.ts and is voice-checked there.
+ * Props (onBegin/onSettings/onDiagnosis/onMock) are kept optional so the router
+ * compiles unchanged; navigation is done via navigate() from the shared layer.
  */
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
-  buildEngineState,
-  DEFAULT_SESSION_LENGTH,
-  type LoadedPack,
-} from "../../engine/index.js";
-import type { EngineState } from "@pinaka/engine";
-import { getSharedStorage, type StorageAdapter, type StoredEvent } from "../../storage/index.js";
-import { MOCK_SESSION_META_KEY, parseSession } from "../mock/state.js";
-import { getExamMs } from "../firstrun/meta.js";
-import {
-  deriveTodayCard,
-  eventsBefore,
-  eventsSince,
-  isReentry,
-  isTodayDone,
-  priorDayBoundaryMs,
-  type TodayCard,
-} from "./logic.js";
-import { buildDelta, deltaLine, type Delta } from "./delta.js";
-import { armReminder, readReminder, type ReminderEnv } from "./reminder.js";
-import { recordSessionStart } from "./instrument.js";
-import { COPY } from "./copy.js";
+  Icon,
+  ReadinessBand,
+  ScreenHead,
+  Toast,
+  UNDO_TOAST_MS,
+} from "../../components/ui.js";
+import { navigate } from "../../components/navigate.js";
+import { loadAppSnapshot, invalidateAppSnapshot } from "../../state/appData.js";
+import { PLATEAU_BELIEF, META_DISCARDED_SESSION } from "../../engine/insights.js";
+import { MOCK_SESSION_META_KEY } from "../mock/state.js";
+import type { AppSnapshot } from "../../state/appData.js";
+import type { Recommendation } from "../../engine/insights.js";
 import "./home.css";
 
-/** A loaded home snapshot: everything the views read, computed once per load. */
-interface Snapshot {
-  readonly card: TodayCard;
-  /** The delta view model and the prior-day weekday label, or null when there
-   * is no prior-day history to compare against. */
-  readonly delta: { readonly model: Delta; readonly weekday: string } | null;
-  readonly reentry: boolean;
-  readonly done: boolean;
-  /** True when a parseable in-progress mock session exists in meta. */
-  readonly mockInProgress: boolean;
-}
+/* ------------------------------------------------------------------ */
+/* Props — kept for router compat; navigation uses navigate() directly  */
+/* ------------------------------------------------------------------ */
+
+
+/* ------------------------------------------------------------------ */
+/* Phase type                                                            */
+/* ------------------------------------------------------------------ */
 
 type Phase =
   | { readonly kind: "loading" }
   | { readonly kind: "error"; readonly message: string }
-  | { readonly kind: "loaded"; readonly snap: Snapshot };
+  | { readonly kind: "loaded"; readonly snap: AppSnapshot };
 
-export interface HomeFlowProps {
-  /** Begin today's session (the router navigates to #/practice). */
-  readonly onBegin: () => void;
-  /** Open settings. */
-  readonly onSettings: () => void;
-  /** Open the diagnosis + readiness surface. */
-  readonly onDiagnosis: () => void;
-  /** Navigate to the mock flow (start or resume). */
-  readonly onMock: () => void;
+/* ------------------------------------------------------------------ */
+/* Helpers                                                              */
+/* ------------------------------------------------------------------ */
+
+function zeroPad(n: number): string {
+  return String(n).padStart(2, "0");
 }
 
-/** The local weekday name of an epoch-ms instant, e.g. "Tuesday". Uses the
- * device locale; it names a calendar day, never a count of days. */
-function weekdayLabel(ms: number): string {
-  return new Date(ms).toLocaleDateString(undefined, { weekday: "long" });
-}
-
-/** Build the reminder's browser env from the live Notification API. Isolated
- * here so the pure scheduler in reminder.ts stays DOM-free and testable.
- * `onFired` records the per-day "reminder fired" instrumentation flag. */
-function browserReminderEnv(onFired: () => void): ReminderEnv {
+/** The fallback recommendation used when the interrupted session is discarded
+ * and the primary recommendation was "resume" (verbatim from scr-core.jsx:55-59). */
+function buildFallbackRec(reviewsDue: number): Recommendation {
   return {
-    caps() {
-      const hasNotificationApi =
-        typeof window !== "undefined" && "Notification" in window;
-      return {
-        hasNotificationApi,
-        permission: hasNotificationApi ? Notification.permission : null,
-      };
-    },
-    async requestPermission() {
-      if (typeof window === "undefined" || !("Notification" in window)) return "denied";
-      return Notification.requestPermission();
-    },
-    schedule(delayMs, fire) {
-      const id = window.setTimeout(fire, delayMs);
-      return () => window.clearTimeout(id);
-    },
-    notify(title, body) {
-      if (typeof window === "undefined" || !("Notification" in window)) return;
-      if (Notification.permission !== "granted") return;
-      // Construct the notification for its side effect (showing the alarm).
-      void new Notification(title, { body });
-      onFired();
-    },
-    localNow() {
-      const now = new Date();
-      const localMsIntoDay =
-        ((now.getHours() * 60 + now.getMinutes()) * 60 + now.getSeconds()) * 1000 +
-        now.getMilliseconds();
-      return { nowMs: now.getTime(), localMsIntoDay };
-    },
+    kind: "review",
+    title: `${reviewsDue} reviews are due`,
+    icon: "repeat",
+    detail:
+      "Past mistakes have resurfaced on schedule. Clear these first; they are the cheapest marks you will find today.",
+    cta: "Start review",
+    dest: "review",
+    evidence: "review",
   };
 }
 
-export function HomeFlow({ onBegin, onSettings, onDiagnosis, onMock }: HomeFlowProps): JSX.Element {
+/* ------------------------------------------------------------------ */
+/* Main component                                                        */
+/* ------------------------------------------------------------------ */
+
+export function HomeFlow(): JSX.Element {
   const [phase, setPhase] = useState<Phase>({ kind: "loading" });
-  const adapterRef = useRef<StorageAdapter | null>(null);
-  const cancelReminderRef = useRef<(() => void) | null>(null);
+  const [discarded, setDiscarded] = useState(false);
+  const [savedMeta, setSavedMeta] = useState<string>("");
+  const [showUndo, setShowUndo] = useState(false);
 
-  const load = useCallback(async (): Promise<void> => {
-    const [{ loadCaPack }] = await Promise.all([import("../../engine/caPack.js")]);
-    const pack: LoadedPack = await loadCaPack();
-    const { adapter } = await getSharedStorage();
-    adapterRef.current = adapter;
+  // Auto-hide undo toast after UNDO_TOAST_MS (6 s), verbatim from scr-core.jsx:50-53.
+  useEffect(() => {
+    if (!showUndo) return;
+    const t = setTimeout(() => setShowUndo(false), UNDO_TOAST_MS);
+    return () => clearTimeout(t);
+  }, [showUndo]);
 
-    const nowMs = Date.now();
-    const examMs = await getExamMs(adapter);
-    const [events, mockMetaRaw]: [StoredEvent[], string | null] = await Promise.all([
-      adapter.readAllEvents(),
-      adapter.getMeta(MOCK_SESSION_META_KEY),
-    ]);
-
-    // "Now" state: the full log replayed at nowMs.
-    const now: EngineState = buildEngineState(events, pack.bank, nowMs, examMs);
-
-    // Mechanism 1: the today card from the engine's actual tiers.
-    const card = deriveTodayCard(now, pack, nowMs);
-
-    // Done state: traceable to engine plan + today's answered count.
-    const boundary = priorDayBoundaryMs(nowMs);
-    const answeredToday = eventsSince(events, boundary);
-    const done = isTodayDone(card, answeredToday, DEFAULT_SESSION_LENGTH);
-
-    // Mechanism 3: re-entry past the 7-day gap (never the gap length).
-    const reentry = isReentry(now, nowMs);
-
-    // Mechanism 2: the delta, from the "then" state replayed up to the prior
-    // boundary. Built only when there IS prior-day history to compare against.
-    const before = eventsBefore(events, boundary);
-    let delta: Snapshot["delta"] = null;
-    if (before.length > 0) {
-      const then = buildEngineState(before, pack.bank, boundary, examMs);
-      const since = answeredToday;
-      const model = buildDelta(then, now, since, pack.marking.negativePerWrong);
-      // Weekday of the prior session: the last activity before the boundary.
-      const priorLast = before[before.length - 1]!.occurredAtMs;
-      delta = { model, weekday: weekdayLabel(priorLast) };
-    }
-
-    // Instrumentation: record which mechanisms are on the screen as the student
-    // lands on the home surface (the session-start observation; the reminder
-    // flag is folded by the practice loop when it fires, not here).
-    void recordSessionStart(adapter, nowMs, {
-      todayCard: !done,
-      deltaLine: delta !== null,
-      reentry,
-    });
-
-    // Mechanism 4: arm the next reminder on open (no background sync). The
-    // env's onFired records the per-day "reminder fired" instrumentation flag.
-    const setting = await readReminder(adapter);
-    cancelReminderRef.current?.();
-    const env = browserReminderEnv(() => {
-      void recordSessionStart(adapter, Date.now(), { reminderFired: true });
-    });
-    cancelReminderRef.current = armReminder(setting, env, {
-      title: "Pinaka Abhyas",
-      body: "Time to study. A short session is ready.",
-    });
-
-    const mockInProgress = parseSession(mockMetaRaw) !== null;
-
-    setPhase({ kind: "loaded", snap: { card, delta, reentry, done, mockInProgress } });
+  // Load the snapshot once on mount.
+  useEffect(() => {
+    loadAppSnapshot()
+      .then((snap) => setPhase({ kind: "loaded", snap }))
+      .catch((err: unknown) => {
+        setPhase({
+          kind: "error",
+          message: err instanceof Error ? err.message : "The home screen could not load.",
+        });
+      });
   }, []);
 
-  useEffect(() => {
-    let cancelled = false;
-    load().catch((err: unknown) => {
-      if (cancelled) return;
-      setPhase({
-        kind: "error",
-        message: err instanceof Error ? err.message : "The home screen could not load.",
-      });
-    });
-    return () => {
-      cancelled = true;
-      cancelReminderRef.current?.();
-      // Shared page-level connection stays open for the page lifetime.
-    };
-  }, [load]);
-
+  /* ---- loading ---- */
   if (phase.kind === "loading") {
     return (
-      <Frame onSettings={onSettings}>
-        <section className="hm-status" aria-busy="true">
-          <p className="hm-status__label">Loading</p>
-        </section>
-      </Frame>
+      <main className="screen">
+        <div className="screen__scroll">
+          <div className="screen__pad">
+            <ScreenHead
+              eyebrow="CA Foundation · Paper 3 QA"
+              title="One thing, first."
+              lede="Loading"
+            />
+          </div>
+        </div>
+      </main>
     );
   }
 
+  /* ---- error ---- */
   if (phase.kind === "error") {
     return (
-      <Frame onSettings={onSettings}>
-        <section className="hm-status hm-status--error" role="alert">
-          <p className="hm-status__label">Home could not load</p>
-          <p className="hm-status__body">{phase.message}</p>
-          <div className="hm-actions">
-            <button type="button" className="hm-btn hm-btn--primary" onClick={onBegin}>
-              {COPY.today.begin}
-            </button>
+      <main className="screen">
+        <div className="screen__scroll">
+          <div className="screen__pad">
+            <ScreenHead
+              eyebrow="CA Foundation · Paper 3 QA"
+              title="One thing, first."
+              lede="Your data is on this device and nothing was lost. Reload the page to try again."
+            />
           </div>
-        </section>
-      </Frame>
+        </div>
+      </main>
     );
   }
 
-  const { card, delta, reentry, done, mockInProgress } = phase.snap;
+  /* ---- loaded ---- */
+  const { snap } = phase;
+  const isEmpty = snap.dataState === "empty";
+  const isEarly = snap.dataState === "early";
+  const isPlateau = snap.dataState === "plateau";
+
+  // Exam date eyebrow (verbatim scr-core.jsx:81).
+  const eyebrow = snap.examDate != null
+    ? `${snap.examDate.display} · ${snap.examDate.daysLeft} days out`
+    : "CA Foundation · Paper 3 QA";
+
+  // Recommendation: if the interrupted session was just discarded, fall back
+  // to the design's reviews-due card (scr-core.jsx:60) while the fresh
+  // snapshot loads — but only when reviews are actually due; an honest "0
+  // reviews are due" card is a contradiction. The discard handler reloads the
+  // snapshot, which recomputes the recommendation without the session.
+  const rec: Recommendation =
+    snap.recommendation.kind === "resume" && discarded && snap.reviewsDue > 0
+      ? buildFallbackRec(snap.reviewsDue)
+      : snap.recommendation;
+
+  // Interrupted session metadata for the banner.
+  const session = snap.interrupted;
+  const mockCountForBanner = snap.mockCount + 1;
+  const answeredCount = session != null ? Object.keys(session.answers).length : 0;
+  const totalCount = session != null ? session.order.length : 0;
+
+  // Diagnosis card: number of distinct families across all misconception costs.
+  const diagnosedFamilySet = new Set(snap.costs.flatMap((c) => c.families));
+  const diagnosedCount = diagnosedFamilySet.size;
+
+  // Discard handler: moves session meta to META_DISCARDED_SESSION, clears the key,
+  // invalidates snapshot, shows undo toast.
+  async function handleDiscard(): Promise<void> {
+    const raw = await snap.adapter.getMeta(MOCK_SESSION_META_KEY);
+    const saved = raw ?? "";
+    setSavedMeta(saved);
+    await snap.adapter.setMeta(META_DISCARDED_SESSION, saved);
+    await snap.adapter.setMeta(MOCK_SESSION_META_KEY, "");
+    invalidateAppSnapshot();
+    setDiscarded(true);
+    setShowUndo(true);
+    // Recompute the recommendation without the interrupted session.
+    loadAppSnapshot()
+      .then((s) => setPhase({ kind: "loaded", snap: s }))
+      .catch(() => undefined);
+  }
+
+  // Undo discard: restores the meta value and invalidates.
+  async function handleUndo(): Promise<void> {
+    await snap.adapter.setMeta(MOCK_SESSION_META_KEY, savedMeta);
+    await snap.adapter.setMeta(META_DISCARDED_SESSION, "");
+    invalidateAppSnapshot();
+    setDiscarded(false);
+    setShowUndo(false);
+    // Reload the snapshot to reflect restored session.
+    loadAppSnapshot()
+      .then((s) => setPhase({ kind: "loaded", snap: s }))
+      .catch(() => {});
+  }
+
   return (
-    <Frame onSettings={onSettings}>
-      {reentry && (
-        <section className="hm-reentry" aria-label={COPY.reentry.eyebrow}>
-          <p className="hm-reentry__eyebrow">{COPY.reentry.eyebrow}</p>
-          <p className="hm-reentry__lead">{COPY.reentry.lead}</p>
-        </section>
-      )}
+    <main className="screen">
+      <div className="screen__scroll">
+        <div className="screen__pad">
 
-      {delta !== null && (
-        <p className="hm-delta" role="status">
-          {deltaLine(delta.model, delta.weekday)}
-        </p>
-      )}
+          {/* Recovery banner (verbatim scr-core.jsx:66-78, banner copy from design data.jsx:277-281). */}
+          {session !== null && !discarded && (
+            <div className="banner" role="alert">
+              <Icon name="alert" size={20} className="banner__icon" />
+              <div>
+                <div className="banner__title">
+                  Mock {zeroPad(mockCountForBanner)} did not finish saving
+                </div>
+                <div className="banner__detail">
+                  The app closed with {answeredCount} of {totalCount} answers written to this
+                  device. Nothing was sent anywhere. You can resume the mock or discard it.
+                </div>
+              </div>
+              <div className="banner__actions">
+                <button
+                  type="button"
+                  className="sa-btn sa-btn--secondary"
+                  onClick={() => navigate("mock/hall")}
+                >
+                  Resume
+                </button>
+                <button
+                  type="button"
+                  className="sa-btn sa-btn--ghost"
+                  onClick={() => { void handleDiscard(); }}
+                >
+                  Discard
+                </button>
+              </div>
+            </div>
+          )}
 
-      {done ? (
-        <section className="hm-card" aria-label={COPY.today.doneEyebrow}>
-          <p className="hm-done__eyebrow">{COPY.today.doneEyebrow}</p>
-          <h1 className="hm-done__title">{COPY.today.doneTitle}</h1>
-          <p className="hm-done__body">{COPY.today.doneBody}</p>
-        </section>
-      ) : (
-        <section className="hm-card" aria-label={COPY.today.eyebrow}>
-          <p className="hm-card__eyebrow">{COPY.today.eyebrow}</p>
-          <h1 className="hm-card__title">{COPY.today.title(card.total)}</h1>
-          <p className="hm-card__lead">{COPY.today.lead}</p>
-          <ul className="hm-card__contents">
-            {card.reviews > 0 && (
-              <li className="hm-card__item">{COPY.today.reviews(card.reviews)}</li>
-            )}
-            {card.remediation > 0 && (
-              <li className="hm-card__item">{COPY.today.remediation(card.remediation)}</li>
-            )}
-            {card.practice > 0 && (
-              <li className="hm-card__item">{COPY.today.practice(card.practice)}</li>
-            )}
-            {card.coverage > 0 && (
-              <li className="hm-card__item">{COPY.today.coverage(card.coverage)}</li>
-            )}
-          </ul>
-          <div className="hm-actions">
-            <button
-              type="button"
-              className="hm-btn hm-btn--primary"
-              aria-label={COPY.today.beginAria}
-              onClick={onBegin}
-            >
-              {COPY.today.begin}
-            </button>
+          {/* ScreenHead (verbatim scr-core.jsx:80-84). */}
+          <ScreenHead
+            eyebrow={eyebrow}
+            title={isEmpty ? "Welcome. Start with one mock." : "One thing, first."}
+            lede={
+              isEmpty
+                ? "There is nothing to recommend until there is data. A full mock under real timing is where the diagnosis begins."
+                : "The single most useful thing you can do right now, chosen from your own data."
+            }
+          />
+
+          {/* Plateau belief callout (scr-core.jsx:86-91). */}
+          {isPlateau && (
+            <div className="belief">
+              <Icon name="trend-down" size={18} className="belief__icon" />
+              <p className="belief__text">{PLATEAU_BELIEF}</p>
+            </div>
+          )}
+
+          {/* Recommended card (scr-core.jsx:93-106). */}
+          <div
+            className="next next--accent"
+            style={
+              rec.kind === "resume"
+                ? { borderColor: "var(--color-warning-border)", background: "var(--color-warning-soft)" }
+                : {}
+            }
+          >
+            <div className="next__eyebrow">
+              <Icon name="dot" size={9} />
+              Recommended now
+            </div>
+            <div className="next__row">
+              <div
+                className="next__icon"
+                style={
+                  rec.kind === "resume"
+                    ? { background: "var(--color-warning)", color: "var(--color-warning-foreground)" }
+                    : {}
+                }
+              >
+                <Icon name={rec.icon} size={22} />
+              </div>
+              <div style={{ flex: 1 }}>
+                <h2 className="next__title">{rec.title}</h2>
+                <p className="next__detail">{rec.detail}</p>
+                <div className="next__actions">
+                  <button
+                    type="button"
+                    className="sa-btn sa-btn--primary"
+                    onClick={() => navigate(rec.dest)}
+                  >
+                    {rec.cta}
+                    <Icon name="arrow-right" size={15} />
+                  </button>
+                  {!isEmpty && rec.kind !== "resume" && rec.evidence !== null && (
+                    <button
+                      type="button"
+                      className="sa-btn sa-btn--ghost"
+                      onClick={() => navigate(rec.evidence!)}
+                    >
+                      See the evidence
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
-        </section>
-      )}
 
-      <section className="hm-block" aria-label={COPY.mock.eyebrow}>
-        <div className="hm-block__head">
-          <p className="hm-block__eyebrow">{COPY.mock.eyebrow}</p>
-          <h2 className="hm-block__title">{COPY.mock.title}</h2>
-        </div>
-        <p className="hm-block__lede">
-          {mockInProgress ? COPY.mock.resumeLede : COPY.mock.lede}
-        </p>
-        <div className="hm-actions">
-          <button
-            type="button"
-            className="hm-btn hm-btn--secondary"
-            aria-label={mockInProgress ? COPY.mock.resumeAria : COPY.mock.startAria}
-            onClick={onMock}
-          >
-            {mockInProgress ? COPY.mock.resume : COPY.mock.start}
-          </button>
-        </div>
-      </section>
+          {/* Today grid: left = ReadinessBand + recent mocks; right = .today-side (scr-core.jsx:108-162). */}
+          <div className="today-grid" style={{ marginTop: "var(--space-6)" }}>
+            {/* Left column */}
+            <div className="stack-6">
+              <ReadinessBand readiness={snap.readinessView} />
 
-      <section className="hm-block hm-block--diagnosis" aria-label={COPY.diagnosis.eyebrow}>
-        <div className="hm-block__head">
-          <p className="hm-block__eyebrow">{COPY.diagnosis.eyebrow}</p>
-        </div>
-        <p className="hm-block__lede">{COPY.diagnosis.lede}</p>
-        <div className="hm-actions">
-          <button
-            type="button"
-            className="hm-btn hm-btn--ghost"
-            aria-label={COPY.diagnosis.actionAria}
-            onClick={onDiagnosis}
-          >
-            {COPY.diagnosis.action}
-          </button>
-        </div>
-      </section>
-    </Frame>
-  );
-}
+              {!isEmpty && (
+                <div>
+                  <div
+                    className="row"
+                    style={{ justifyContent: "space-between", marginBottom: "var(--space-3)" }}
+                  >
+                    <h3 className="section-title" style={{ margin: 0 }}>Recent mocks</h3>
+                    {snap.history.length > 0 && (
+                      <button
+                        type="button"
+                        className="sa-btn sa-btn--ghost"
+                        style={{ fontSize: 13 }}
+                        onClick={() => navigate("mock")}
+                      >
+                        Take another
+                      </button>
+                    )}
+                  </div>
+                  {snap.history.length > 0 && (
+                    <div className="sa-card minihist">
+                      {snap.history.map((m, i) => (
+                        <button
+                          key={m.name}
+                          type="button"
+                          className="minihist__row"
+                          style={{
+                            width: "100%",
+                            font: "inherit",
+                            textAlign: "left",
+                            background: "none",
+                            border: "none",
+                            borderBottom: "1px solid var(--color-border-hairline)",
+                            cursor: "pointer",
+                          }}
+                          onClick={() =>
+                            navigate(i === 0 ? "mock/review" : `mock/review/${i}`)
+                          }
+                        >
+                          <div>
+                            <div className="minihist__name">
+                              {m.name}{" "}
+                              <span className="minihist__type">{m.type}</span>
+                            </div>
+                            <div className="minihist__date">{m.date}</div>
+                          </div>
+                          <div className="minihist__net">{m.net.toFixed(2)}</div>
+                          <Icon
+                            name="chevron-right"
+                            size={16}
+                            style={{ color: "var(--color-text-subtle)" }}
+                          />
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
 
-/** The persistent home frame: title bar with the settings link. */
-function Frame({
-  children,
-  onSettings,
-}: {
-  readonly children: React.ReactNode;
-  readonly onSettings: () => void;
-}): JSX.Element {
-  return (
-    <div className="hm-screen">
-      <header className="hm-bar">
-        <span className="hm-bar__title">{COPY.frame.title}</span>
-        <span className="hm-bar__actions">
-          <button
-            type="button"
-            className="hm-bar__link"
-            aria-label={COPY.frame.settingsAria}
-            onClick={onSettings}
-          >
-            {COPY.frame.settings}
-          </button>
-        </span>
-      </header>
-      <main className="hm-body">{children}</main>
-    </div>
+            {/* Right column (.today-side) */}
+            <div className="today-side">
+              {isEmpty ? (
+                <div className="empty-note">
+                  <div className="empty-note__icon">
+                    <Icon name="layers" size={20} />
+                  </div>
+                  <div className="empty-note__text">
+                    Your diagnosis, review queue, and readiness estimate all unlock after your
+                    first mock.
+                  </div>
+                </div>
+              ) : (
+                <>
+                  {snap.reviewsDue > 0 && rec.kind !== "review" && (
+                    <button
+                      type="button"
+                      className="sa-card row"
+                      style={{
+                        justifyContent: "space-between",
+                        cursor: "pointer",
+                        font: "inherit",
+                        textAlign: "left",
+                        width: "100%",
+                      }}
+                      onClick={() => navigate("review")}
+                    >
+                      <span
+                        style={{
+                          fontSize: "var(--text-sm)",
+                          fontWeight: "var(--font-weight-medium)",
+                        }}
+                      >
+                        Reviews due
+                      </span>
+                      <span
+                        className="mono"
+                        style={{
+                          fontSize: "var(--text-lg)",
+                          fontWeight: "var(--font-weight-semibold)",
+                        }}
+                      >
+                        {snap.reviewsDue}
+                      </span>
+                    </button>
+                  )}
+
+                  {isEarly && (
+                    <div
+                      className="empty-note"
+                      style={{ borderColor: "var(--color-warning-border)" }}
+                    >
+                      <div
+                        className="empty-note__icon"
+                        style={{
+                          background: "var(--color-warning-soft)",
+                          color: "var(--color-warning-text)",
+                        }}
+                      >
+                        <Icon name="alert" size={20} />
+                      </div>
+                      <div className="empty-note__text">
+                        One mock is thin evidence. The diagnosis below is provisional and will
+                        firm up after your second mock.
+                      </div>
+                    </div>
+                  )}
+
+                  <button
+                    type="button"
+                    className="sa-card"
+                    style={{ textAlign: "left", cursor: "pointer", font: "inherit" }}
+                    onClick={() => navigate("diagnosis")}
+                  >
+                    <div
+                      className="next__eyebrow"
+                      style={{ marginBottom: "var(--space-2)" }}
+                    >
+                      <Icon name="layers" size={13} />
+                      Diagnosis
+                    </div>
+                    <p
+                      style={{
+                        margin: 0,
+                        fontSize: "var(--text-sm)",
+                        color: "var(--color-muted-foreground)",
+                      }}
+                    >
+                      {diagnosedCount} topics diagnosed. Weakest:{" "}
+                      <b
+                        style={{
+                          color: "var(--color-foreground)",
+                          fontWeight: 600,
+                        }}
+                      >
+                        {snap.weakest?.name ?? "none yet"}
+                      </b>
+                      .
+                    </p>
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* Undo toast (scr-core.jsx:163-168). */}
+          {showUndo && (
+            <Toast
+              actionLabel="Undo"
+              onAction={() => { void handleUndo(); }}
+            >
+              Mock {zeroPad(mockCountForBanner)} discarded.
+            </Toast>
+          )}
+        </div>
+      </div>
+    </main>
   );
 }

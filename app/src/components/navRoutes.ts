@@ -1,59 +1,73 @@
 /**
  * navRoutes.ts — pure mapping between hash routes and nav item ids.
  *
- * Shell-hosted routes have a corresponding nav item; full-bleed routes do not.
- * This module is the single registration point so the shell and any tests stay
- * in sync without importing each other.
+ * The single registration point for the shell/route contract, mirroring the
+ * design canvas RAIL_FOR map (design-team/v2/App.html:44-49): shell-hosted
+ * routes keep the persistent rail (or the mobile tab bar) visible; full-bleed
+ * flows hide it to preserve the focus environment.
+ *
+ *   today        -> rail Today        (canonical; "home" is a legacy alias)
+ *   practice     -> rail Practice     (the hub; the drill itself is full-bleed)
+ *   review       -> rail Practice     (the queue walks under Practice)
+ *   diagnosis    -> rail Diagnosis
+ *   misconception/* -> rail Diagnosis (the drill-through detail)
+ *   syllabus     -> rail Syllabus
+ *   mock         -> rail Mocks        (the hub; mock/* phases are full-bleed)
+ *   settings     -> rail Settings
+ *
+ * Full-bleed (no rail): drill, mock/* (hall, reveal, breakdown, review),
+ * firstrun, testday, demo, and the empty boot route.
  *
  * Exported functions are stateless and side-effect-free so they are testable
  * without a DOM or React context.
  */
 
-/** Nav item identifiers, matching the RAIL_ITEMS order in the design drop. */
+/** Nav item identifiers, matching the design RAIL_ITEMS order. */
 export type NavId = "today" | "practice" | "diagnosis" | "mock" | "syllabus" | "settings";
 
-/** Routes that live inside the shell (persistent rail or tab bar visible). */
+/** First-segment lookup for shell-hosted routes. */
 const SHELL_ROUTE_MAP: Record<string, NavId> = {
-  home:      "today",
-  diagnosis: "diagnosis",
-  mock:      "mock",
-  settings:  "settings",
-  // "syllabus" route reserved; nav item present, flow not yet landed.
-  syllabus:  "syllabus",
+  today:         "today",
+  home:          "today",      // legacy alias; the router redirects to #/today
+  practice:      "practice",
+  review:        "practice",
+  diagnosis:     "diagnosis",
+  misconception: "diagnosis",
+  syllabus:      "syllabus",
+  mock:          "mock",
+  settings:      "settings",
 };
+
+/** The route's first path segment ("misconception/x" -> "misconception"). */
+function head(route: string): string {
+  const i = route.indexOf("/");
+  return i === -1 ? route : route.slice(0, i);
+}
 
 /**
  * Resolve the active nav id for a given hash route fragment (the part after
  * `#/`). Returns the nav id when the route is shell-hosted, or null when the
- * route is full-bleed (practice, baseline, firstrun, demo, or the boot default).
+ * route is full-bleed. Mock sub-routes (mock/hall, mock/reveal, ...) are the
+ * full-window exam phases and return null; the bare "mock" hub keeps the rail.
  */
 export function navIdForRoute(route: string): NavId | null {
-  return SHELL_ROUTE_MAP[route] ?? null;
+  const h = head(route);
+  if (h === "mock" && route !== "mock") return null;
+  return SHELL_ROUTE_MAP[h] ?? null;
 }
 
 /**
- * Resolve the hash route fragment for a given nav id. Returns the canonical
- * route so the shell can call navigate() on item click.
+ * Resolve the canonical hash route fragment for a nav id, used by the shell
+ * to navigate on item click and by the keyboard layer (1-5, comma).
  */
 export function routeForNavId(id: NavId): string {
-  switch (id) {
-    case "today":     return "home";
-    case "diagnosis": return "diagnosis";
-    case "mock":      return "mock";
-    case "settings":  return "settings";
-    case "syllabus":  return "syllabus";
-    // Practice is a full-bleed flow; the nav item navigates into it.
-    case "practice":  return "practice";
-  }
+  return id;
 }
 
 /**
  * Returns true when the given route should be rendered inside the app shell
  * (persistent nav visible). Returns false for full-bleed routes.
- *
- * Full-bleed: firstrun, baseline, practice (active question session), demo,
- * and the empty-hash boot screen while the default target is resolving.
  */
 export function isShellRoute(route: string): boolean {
-  return route in SHELL_ROUTE_MAP;
+  return navIdForRoute(route) !== null;
 }

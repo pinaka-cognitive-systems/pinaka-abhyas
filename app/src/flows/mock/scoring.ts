@@ -1,23 +1,19 @@
 /**
  * Mock submission scoring + event batch (W5-7).
  *
- * On submit, every question on the paper becomes one uqs-event-2 event with
- * mode "mock": answered questions are scored against the key, skipped questions
- * become skipped events (recorded so the engine and the breakdown both see the
- * full paper, not just the attempted part). The whole batch is appended in one
- * write (the caller's job); this module builds the batch and the score reveal
- * purely.
+ * On submit, every question on the paper becomes one uqs-event-2 event. For a
+ * standard mock the mode is "mock" (anchors readiness, SPEC 6). For hard and
+ * pace mocks the mode is "drill" so the engine keeps them out of readiness
+ * anchoring while mastery still learns from them (Handout §10: "only standard
+ * mocks feed readiness"; the drill mode ensures the engine treats these as
+ * practice, not measurement). Device context records the mock_type so telemetry
+ * can distinguish them. — RULING 2026-06-12.
  *
  * SCORING. Net marks under negative marking (marking.json): +marksPerCorrect for
  * a correct answer, -negativePerWrong for a wrong one, marksPerUnattempted for a
  * skip (zero on this paper). The per-part breakdown groups by the blueprint part
  * an item's family belongs to, and the wrong answers list carries each item's
  * named misconception so the breakdown can show where the marks went.
- *
- * Mocks are MEASUREMENT, not practice: mode "mock" events update mastery but
- * never create or advance item schedules (engine SPEC 4), and they anchor the
- * readiness estimate (SPEC 6). This module does not touch schedules; it only
- * emits the events and the score, and the engine does the rest on replay.
  *
  * Pure and DOM-free: the event ids and the occurredAt clock are parameters
  * (SPEC 9). The event construction reuses the practice flow's buildEvent /
@@ -29,7 +25,7 @@ import type { Event } from "@pinaka/engine";
 import { buildEvent, scoreResponse, type Response } from "../practice/event.js";
 import type { ContentItem } from "../practice/types.js";
 import type { MockSession } from "./state.js";
-import type { ScaledMarking } from "./assembler.js";
+import type { MockAssemblyType, ScaledMarking } from "./assembler.js";
 
 /** The blueprint family attribution helper, mirrored from the assembler: an
  * item belongs to the first family whose node id its tests match. Kept here so
@@ -87,6 +83,12 @@ export function buildSubmissionBatch(
   const events: Event[] = [];
   const answeredFlags = new Map<string, boolean>();
 
+  // Handout §10 ruling: standard mocks use mode "mock" (anchor readiness);
+  // hard and pace mocks use mode "drill" (mastery learns, readiness does not
+  // anchor). Device context records mock_type for telemetry.
+  const mockType: MockAssemblyType = session.mockType ?? "standard";
+  const eventMode: Event["mode"] = mockType === "standard" ? "mock" : "drill";
+
   session.order.forEach((itemId, i) => {
     const item = content.get(itemId);
     if (item === undefined) return; // a paper item with no content: cannot score, skip emitting.
@@ -104,11 +106,11 @@ export function buildSubmissionBatch(
           timeMs,
           viewportWidth: session.viewportWidth,
           resurfaced: false,
-          mode: "mock",
+          mode: eventMode,
         }),
       );
     } else {
-      // Skipped: a recorded mock event, correct=false, no misconception, raw
+      // Skipped: a recorded event, correct=false, no misconception, raw
       // response flagged as a skip so a re-key never re-scores it as an attempt.
       answeredFlags.set(itemId, false);
       events.push({
@@ -120,13 +122,17 @@ export function buildSubmissionBatch(
         tests: [...item.tests],
         difficulty_label: item.difficulty_label,
         item_type: item.item_type,
-        mode: "mock",
+        mode: eventMode,
         correct: false,
         selected_misconception: null,
         response: { skipped: true },
         time_ms: timeMs,
         resurfaced: false,
-        device_context: { form_factor: session.formFactor, viewport_width: session.viewportWidth },
+        device_context: {
+          form_factor: session.formFactor,
+          viewport_width: session.viewportWidth,
+          mock_type: mockType,
+        },
       });
     }
   });

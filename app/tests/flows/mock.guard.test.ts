@@ -58,8 +58,8 @@ const CANDIDATE: PackManifest = {
 
 function rig(): { updater: PackUpdater; staging: FakeStaging } {
   const network: PackNetworkPort = {
-    fetchManifest: async () => CANDIDATE,
-    fetchPackBody: async () => '{"items":[]}',
+    fetchManifest: () => Promise.resolve(CANDIDATE),
+    fetchPackBody: () => Promise.resolve('{"items":[]}'),
   };
   const staging = new FakeStaging();
   const updater = new PackUpdater({
@@ -75,22 +75,25 @@ class FakeStaging implements PackStagingPort {
   live: PackManifest | null = { ...CANDIDATE, version: "1.0.0", item_count: 81 };
   staged: StagedPack | null = null;
   committed = false;
-  async readLiveManifest(): Promise<PackManifest | null> {
-    return this.live;
+  readLiveManifest(): Promise<PackManifest | null> {
+    return Promise.resolve(this.live);
   }
-  async readStaging(): Promise<StagedPack | null> {
-    return this.staged;
+  readStaging(): Promise<StagedPack | null> {
+    return Promise.resolve(this.staged);
   }
-  async writeStaging(s: StagedPack): Promise<void> {
+  writeStaging(s: StagedPack): Promise<void> {
     this.staged = s;
+    return Promise.resolve();
   }
-  async commitStaging(): Promise<void> {
+  commitStaging(): Promise<void> {
     this.committed = true;
     if (this.staged) this.live = this.staged.manifest;
     this.staged = null;
+    return Promise.resolve();
   }
-  async clearStaging(): Promise<void> {
+  clearStaging(): Promise<void> {
     this.staged = null;
+    return Promise.resolve();
   }
 }
 

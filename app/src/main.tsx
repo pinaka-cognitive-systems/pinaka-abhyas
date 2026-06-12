@@ -55,6 +55,14 @@ requestAnimationFrame(() => {
   void getSharedStorage()
     .then(async ({ adapter }) => {
       await stampVersions(adapter, APP_VERSION);
+      // Apply the persisted accessibility settings (reduce motion, contrast,
+      // text size) as body classes as soon as storage is up. The import is
+      // dynamic so the settings flow stays off the entry chunk.
+      const [{ applyA11ySettings, parseA11ySettings }, raw] = await Promise.all([
+        import("./flows/settings/a11y.js"),
+        adapter.getMeta("a11y_v1"),
+      ]);
+      applyA11ySettings(parseA11ySettings(raw));
       // Shared page-level connection: not closed here.
     })
     .catch((err: unknown) => {

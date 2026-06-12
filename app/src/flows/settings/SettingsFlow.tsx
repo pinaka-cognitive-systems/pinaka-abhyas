@@ -1,20 +1,19 @@
 /**
- * Settings flow — import/export, status, telemetry, update, danger zone
- * (W5-5 flow e; ADR 0008, ADR 0009, ADR 0014).
+ * SettingsFlow — design-parity rebuild per scr-core.jsx:230-331.
  *
- * The thin React renderer over the pure logic in logic.ts and the side-effects
- * in io.ts. It owns only what it must: the storage adapter (read meta, export,
- * import, clearAll), the PackUpdater instance (W5-4), and the local UI cursors
- * (import preview, share/download results, the danger-zone confirm text). Every
- * decision — status mapping, import preview math, update-state mapping, the
- * delete confirmation — is delegated to tested functions so nothing load-bearing
- * lives inline in JSX.
+ * Rail-hosted (.screen > .screen__scroll > .screen__pad maxWidth 760).
+ * ScreenHead "Settings" + lede. Three design groups plus kept enhancements:
  *
- * Layout: 360px-first (ADR 0011), 44px touch targets, visible focus rings,
- * tokens only (settings.css). Copy lives in copy.ts and is voice-checked there.
+ *   Privacy and data  — telemetry, export, import (kept), delete
+ *   Accessibility     — reduce motion, increase contrast, text size
+ *   Exam              — exam date, readiness target (app additions, design voice)
+ *   About             — version, storage status, install affordance, update
  *
- * Second-tab: opening storage here can throw AlreadyOpenError; we render the
- * shared SecondTabScreen with a takeover that reopens with { steal: true }.
+ * Closing Caveat (dot icon). No Back header bar — the rail handles navigation.
+ * Reminder card is REMOVED per the 2026-06-12 product ruling.
+ *
+ * Boot-time a11y hook: call applyA11ySettings() in main.tsx BEFORE first
+ * render, reading META_A11Y from the adapter. See a11y.ts.
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -22,7 +21,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import {
   AlreadyOpenError,
   isPersisted,
-  getSharedStorage, takeoverSharedStorage,
+  getSharedStorage,
+  takeoverSharedStorage,
   type StorageAdapter,
 } from "../../storage/index.js";
 import { META_KEYS } from "../../storage/index.js";
@@ -35,31 +35,31 @@ import {
   type MockGuard,
   type UpdaterState,
 } from "../../sw/index.js";
-import { getExamAttempt } from "../firstrun/meta.js";
 import { isStandalone } from "../firstrun/platform.js";
 import { SecondTabScreen } from "../firstrun/SecondTabScreen.js";
+import { invalidateAppSnapshot } from "../../state/appData.js";
 import {
-  readReminder,
-  reminderAvailability,
-  writeReminder,
-  type ReminderAvailability,
-  type ReminderSetting,
-} from "../home/reminder.js";
-import { COPY } from "./copy.js";
+  META_EXAM_DATE,
+  META_TARGET,
+  META_A11Y,
+} from "../../engine/insights.js";
+import { ScreenHead, Icon } from "../../components/ui.js";
+import {
+  applyA11ySettings,
+  parseA11ySettings,
+  type A11ySettings,
+} from "./a11y.js";
 import {
   canShareFile,
   exportEventCount,
   exportFilename,
-  isDeleteConfirmed,
   isFileError,
   parseEnvelopeText,
   previewImport,
   serializeEnvelope,
-  settingsStatus,
   updateView,
   type ImportFileError,
   type ImportPreview,
-  type StatusView,
   type UpdateView,
 } from "./logic.js";
 import {
@@ -72,73 +72,70 @@ import {
 import type { ImportReport } from "../../storage/index.js";
 import "./settings.css";
 
-/** Where the deployed pack manifest and body live, relative to the app origin
- * (ADR 0009 "the service worker fetches the pack manifest"). Offline or in dev
- * these 404/fail, which the updater treats as "no update right now". */
 const PACK_LOCATION = { manifestUrl: "pack.manifest.json", packUrl: "pack.json" } as const;
 
-// Compile-time app version, injected by Vite's `define` from package.json
-// (same source as main.tsx; ADR 0009 version stamping / min-app-version handshake).
 declare const __APP_VERSION__: string;
 const APP_VERSION =
   typeof __APP_VERSION__ !== "undefined" ? __APP_VERSION__ : "0.0.0";
 
 export interface SettingsFlowProps {
-  /** Return to the previous screen (the practice loop / hub). */
+  /** Unused — rail handles navigation — kept for router compatibility. */
   readonly onExit: () => void;
-  /**
-   * Optional mock guard. When a mock is in progress it holds this, so a staged
-   * update defers rather than swapping under the student (ADR 0009). Defaults to
-   * never-block. Injected so a test can hold the guard and assert the deferred
-   * state without a running mock.
-   */
+  /** Optional mock guard for testing. */
   readonly mockGuard?: MockGuard;
 }
 
-export function SettingsFlow({ onExit, mockGuard }: SettingsFlowProps): JSX.Element {
+export function SettingsFlow({ onExit: _onExit, mockGuard }: SettingsFlowProps): JSX.Element {
+  void _onExit; // rail owns navigation; kept in props for router compatibility
+
   const adapterRef = useRef<StorageAdapter | null>(null);
   const updaterRef = useRef<PackUpdater | null>(null);
 
   const [secondTab, setSecondTab] = useState(false);
   const [takingOver, setTakingOver] = useState(false);
-  const [status, setStatus] = useState<StatusView | null>(null);
-  const [eventCount, setEventCount] = useState<number | null>(null);
 
-  // Export feedback.
+  // Privacy and data
+  const [telemetry, setTelemetry] = useState(false);
   const [exportNote, setExportNote] = useState<string | null>(null);
-  const showShare = canShareFile(shareProbe());
-
-  // Import: file error, preview, and the committed report.
   const [importError, setImportError] = useState<ImportFileError | null>(null);
   const [preview, setPreview] = useState<ImportPreview | null>(null);
   const [report, setReport] = useState<ImportReport | null>(null);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [deleted, setDeleted] = useState(false);
 
-  // Update surface.
+  const showShare = canShareFile(shareProbe());
+
+  // Accessibility
+  const [a11y, setA11y] = useState<A11ySettings>({
+    reduceMotion: false,
+    contrast: false,
+    textSize: "regular",
+  });
+
+  // Exam
+  const [examDate, setExamDate] = useState("");
+  const [target, setTarget] = useState("");
+
+  // About / status
+  const [storageStatus, setStorageStatus] = useState<"persistent" | "not-persisted" | "degraded" | null>(null);
+  const [installed, setInstalled] = useState(false);
+  const [packVersion, setPackVersion] = useState<string | null>(null);
+
+  // Update surface
   const [updaterState, setUpdaterState] = useState<UpdaterState>({ phase: "idle" });
   const [hasChecked, setHasChecked] = useState(false);
 
-  // Reminder (W5-9 mechanism 4). Off by default; availability read at mount.
-  const [reminder, setReminder] = useState<ReminderSetting | null>(null);
-  const [reminderAvail, setReminderAvail] = useState<ReminderAvailability>("unavailable");
+  // --- Storage setup -------------------------------------------------------
 
-  // Danger zone.
-  const [dangerOpen, setDangerOpen] = useState(false);
-  const [confirmText, setConfirmText] = useState("");
-  const [deleted, setDeleted] = useState(false);
-
-  // --- Open storage + build the updater + read status, once at mount. -------
   const ensureAdapter = useCallback(async (steal = false): Promise<StorageAdapter | null> => {
     if (adapterRef.current !== null) return adapterRef.current;
     try {
       const { adapter } = await (steal ? takeoverSharedStorage() : getSharedStorage());
       adapterRef.current = adapter;
-      // Build the updater over the live ports the moment we have an adapter.
       updaterRef.current = new PackUpdater({
         network: createHttpPort(PACK_LOCATION),
         staging: createStoragePort(adapter),
         appVersion: APP_VERSION,
-        // Production default: the real mock guard, so an update can never swap
-        // the pack mid-mock (ADR 0009). Tests inject their own guard via props.
         mockGuard: mockGuard ?? realMockGuard,
         extractErrata: extractErrataFromBody,
       });
@@ -152,121 +149,118 @@ export function SettingsFlow({ onExit, mockGuard }: SettingsFlowProps): JSX.Elem
     }
   }, [mockGuard]);
 
-  const refreshStatus = useCallback(async (adapter: StorageAdapter): Promise<void> => {
-    const [persisted, appVersion, packVersion, examAttempt, events] = await Promise.all([
-      isPersisted(),
-      adapter.getMeta(META_KEYS.appVersion),
-      adapter.getMeta(META_KEYS.packVersion),
-      getExamAttempt(adapter),
-      adapter.readAllEvents(),
-    ]);
-    setStatus(
-      settingsStatus({
-        backend: adapter.backend,
-        persisted,
-        standalone: isStandalone(),
-        appVersion,
-        packVersion,
-        examAttempt,
-      }),
-    );
-    setEventCount(events.length);
-  }, []);
+  // --- Mount: read all stored values ---------------------------------------
 
   useEffect(() => {
     let cancelled = false;
     void (async () => {
       const adapter = await ensureAdapter();
       if (cancelled || adapter === null) return;
-      // Subscribe to updater state so the surface re-renders as it progresses.
+
+      // Subscribe to updater state.
       const updater = updaterRef.current;
       if (updater !== null) {
         setUpdaterState(updater.getState());
-        updater.subscribe((s) => {
-          if (!cancelled) setUpdaterState(s);
-        });
+        updater.subscribe((s) => { if (!cancelled) setUpdaterState(s); });
       }
-      await refreshStatus(adapter);
-      // Reminder (W5-9): read the persisted setting and the current availability.
-      const setting = await readReminder(adapter);
-      if (!cancelled) {
-        setReminder(setting);
-        const hasApi = typeof window !== "undefined" && "Notification" in window;
-        setReminderAvail(
-          reminderAvailability({
-            hasNotificationApi: hasApi,
-            permission: hasApi ? Notification.permission : null,
-          }),
-        );
-      }
+
+      const [
+        persisted,
+        a11yRaw,
+        examDateRaw,
+        targetRaw,
+        pv,
+        telRaw,
+      ] = await Promise.all([
+        isPersisted(),
+        adapter.getMeta(META_A11Y),
+        adapter.getMeta(META_EXAM_DATE),
+        adapter.getMeta(META_TARGET),
+        adapter.getMeta(META_KEYS.packVersion),
+        adapter.getMeta("telemetry_v1"),
+      ]);
+
+      if (cancelled) return;
+
+      // Storage status
+      const backend = adapter.backend;
+      const status =
+        backend === "memory" ? "degraded" : persisted ? "persistent" : "not-persisted";
+      setStorageStatus(status);
+      setInstalled(isStandalone());
+      setPackVersion(pv);
+
+      // A11y
+      const parsed = parseA11ySettings(a11yRaw);
+      setA11y(parsed);
+      applyA11ySettings(parsed);
+
+      // Exam date (stored as "YYYY-MM")
+      setExamDate(examDateRaw ?? "");
+
+      // Target (stored as number string or empty)
+      setTarget(targetRaw ?? "");
+
+      // Telemetry
+      setTelemetry(telRaw === "true");
     })();
-    return () => {
-      cancelled = true;
-      // Shared page-level connection stays open for the page lifetime.
-    };
-  }, [ensureAdapter, refreshStatus]);
+    return () => { cancelled = true; };
+  }, [ensureAdapter]);
 
-  // --- Reminder handlers (W5-9 mechanism 4). --------------------------------
-  const onToggleReminder = useCallback(async (): Promise<void> => {
+  // --- A11y toggling: apply to body + persist ------------------------------
+
+  const updateA11y = useCallback(async (next: A11ySettings): Promise<void> => {
+    setA11y(next);
+    applyA11ySettings(next);
     const adapter = adapterRef.current;
-    if (adapter === null || reminder === null) return;
-    if (reminder.enabled) {
-      const next = { ...reminder, enabled: false };
-      await writeReminder(adapter, next);
-      setReminder(next);
-      return;
+    if (adapter !== null) {
+      await adapter.setMeta(META_A11Y, JSON.stringify(next));
     }
-    // Turning on: request permission first (the permission flow). Only persist
-    // enabled when granted, so the setting never lies about being on.
-    const hasApi = typeof window !== "undefined" && "Notification" in window;
-    if (!hasApi) {
-      setReminderAvail("unavailable");
-      return;
-    }
-    const permission = await Notification.requestPermission();
-    if (permission !== "granted") {
-      setReminderAvail(reminderAvailability({ hasNotificationApi: true, permission }));
-      return;
-    }
-    const next = { ...reminder, enabled: true };
-    await writeReminder(adapter, next);
-    setReminder(next);
-    setReminderAvail("available");
-  }, [reminder]);
+  }, []);
 
-  const onChangeReminderTime = useCallback(async (time: string): Promise<void> => {
+  // --- Telemetry -----------------------------------------------------------
+
+  const onToggleTelemetry = useCallback(async (): Promise<void> => {
+    const next = !telemetry;
+    setTelemetry(next);
     const adapter = adapterRef.current;
-    if (adapter === null || reminder === null) return;
-    const next = { ...reminder, time };
-    await writeReminder(adapter, next);
-    setReminder(next);
-  }, [reminder]);
+    if (adapter !== null) {
+      await adapter.setMeta("telemetry_v1", next ? "true" : "false");
+    }
+  }, [telemetry]);
 
-  // --- Export ---------------------------------------------------------------
+  // --- Export --------------------------------------------------------------
+
   const onExport = useCallback(async (share: boolean): Promise<void> => {
     const adapter = adapterRef.current;
     if (adapter === null) return;
     const env = await adapter.exportEnvelope();
     if (exportEventCount(env) === 0) {
-      setExportNote(COPY.export.empty);
+      setExportNote("You have nothing to back up yet. Practise a few questions, then export.");
       return;
     }
     const text = serializeEnvelope(env);
     const name = exportFilename(env.exported_at);
     if (share) {
       const result: ShareResult = await shareTextFile(text, name);
-      if (result === "shared") setExportNote(COPY.export.shared);
+      if (result === "shared") setExportNote("Shared. Keep the file somewhere safe.");
       else if (result === "cancelled") setExportNote(null);
-      else if (result === "unsupported") {
-        // Fall back to download if the platform cannot share files.
-        setExportNote(downloadTextFile(text, name) ? COPY.export.done : COPY.export.failed);
-      } else setExportNote(COPY.export.failed);
+      else {
+        setExportNote(downloadTextFile(text, name)
+          ? "Your progress file is ready."
+          : "The export could not be saved. Try again, or use Share if it is shown.");
+      }
       return;
     }
-    setExportNote(downloadTextFile(text, name) ? COPY.export.done : COPY.export.failed);
+    setExportNote(downloadTextFile(text, name)
+      ? "Your progress file is ready."
+      : "The export could not be saved. Try again.");
   }, []);
 
-  // --- Import ---------------------------------------------------------------
+  // --- Import --------------------------------------------------------------
+
+  const importInputRef = useRef<HTMLInputElement>(null);
+
   const onPickFile = useCallback(async (file: File): Promise<void> => {
     setImportError(null);
     setReport(null);
@@ -276,12 +270,12 @@ export function SettingsFlow({ onExit, mockGuard }: SettingsFlowProps): JSX.Elem
     try {
       text = await readFileText(file);
     } catch {
-      setImportError({ reason: COPY.import.badFile });
+      setImportError({ reason: "This file could not be read as a progress file. Check that you chose the right file, then try again." });
       return;
     }
     const parsed = parseEnvelopeText(text);
     if (isFileError(parsed)) {
-      setImportError({ reason: COPY.import.badFile });
+      setImportError({ reason: "This file could not be read as a progress file. Check that you chose the right file, then try again." });
       return;
     }
     const existing = await adapter.readAllEvents();
@@ -294,49 +288,77 @@ export function SettingsFlow({ onExit, mockGuard }: SettingsFlowProps): JSX.Elem
     const result = await adapter.importEnvelope(preview.envelope);
     setReport(result);
     setPreview(null);
-    await refreshStatus(adapter);
-  }, [preview, refreshStatus]);
+    invalidateAppSnapshot();
+  }, [preview]);
 
-  const onCancelImport = useCallback((): void => {
-    setPreview(null);
+  const onCancelImport = useCallback((): void => { setPreview(null); }, []);
+
+  // --- Exam date -----------------------------------------------------------
+
+  const onExamDateChange = useCallback(async (val: string): Promise<void> => {
+    setExamDate(val);
+    const adapter = adapterRef.current;
+    if (adapter === null) return;
+    if (val.trim() === "") {
+      await adapter.setMeta(META_EXAM_DATE, "");
+    } else {
+      await adapter.setMeta(META_EXAM_DATE, val.trim());
+    }
+    invalidateAppSnapshot();
   }, []);
 
-  // --- Update ---------------------------------------------------------------
+  // --- Readiness target ----------------------------------------------------
+
+  const onTargetChange = useCallback(async (val: string): Promise<void> => {
+    setTarget(val);
+    const adapter = adapterRef.current;
+    if (adapter === null) return;
+    if (val.trim() === "") {
+      await adapter.setMeta(META_TARGET, "");
+    } else {
+      const n = Number(val);
+      if (!Number.isNaN(n) && n >= 40 && n <= 100) {
+        await adapter.setMeta(META_TARGET, String(n));
+        invalidateAppSnapshot();
+      }
+    }
+  }, []);
+
+  // --- Update --------------------------------------------------------------
+
   const onCheckUpdate = useCallback((): void => {
     const updater = updaterRef.current;
     if (updater === null) return;
     setHasChecked(true);
-    void updater.checkForUpdate().then(() => {
-      const adapter = adapterRef.current;
-      if (adapter !== null) void refreshStatus(adapter);
-    });
-  }, [refreshStatus]);
+    void updater.checkForUpdate();
+  }, []);
 
-  // --- Danger zone ----------------------------------------------------------
-  const onDelete = useCallback(async (): Promise<void> => {
+  // --- Delete all ----------------------------------------------------------
+
+  const onDeleteAll = useCallback(async (): Promise<void> => {
     const adapter = adapterRef.current;
     if (adapter === null) return;
-    if (!isDeleteConfirmed(confirmText, COPY.danger.confirmWord)) return;
     await adapter.clearAll();
     setDeleted(true);
-    setDangerOpen(false);
-    setConfirmText("");
-    await refreshStatus(adapter);
-  }, [confirmText, refreshStatus]);
+    setConfirmDelete(false);
+    invalidateAppSnapshot();
+    // Navigate to empty hash so the router restarts first-run.
+    if (typeof window !== "undefined") {
+      window.location.hash = "";
+    }
+  }, []);
 
-  // --- Second-tab takeover --------------------------------------------------
+  // --- Second-tab takeover -------------------------------------------------
+
   const onTakeover = useCallback((): void => {
     setTakingOver(true);
     void (async () => {
       adapterRef.current = null;
       const adapter = await ensureAdapter(true);
       setTakingOver(false);
-      if (adapter !== null) {
-        setSecondTab(false);
-        await refreshStatus(adapter);
-      }
+      if (adapter !== null) setSecondTab(false);
     })();
-  }, [ensureAdapter, refreshStatus]);
+  }, [ensureAdapter]);
 
   if (secondTab) {
     return <SecondTabScreen onTakeover={onTakeover} takingOver={takingOver} />;
@@ -345,509 +367,420 @@ export function SettingsFlow({ onExit, mockGuard }: SettingsFlowProps): JSX.Elem
   const update: UpdateView = updateView(updaterState, hasChecked);
 
   return (
-    <div className="st-screen">
-      <header className="st-bar">
-        <button
-          type="button"
-          className="st-bar__back"
-          aria-label={COPY.frame.closeAria}
-          onClick={onExit}
-        >
-          {COPY.frame.close}
-        </button>
-        <span className="st-bar__title">{COPY.frame.title}</span>
-      </header>
-
-      <main className="st-body">
-        <ExportSection
-          eventCount={eventCount}
-          showShare={showShare}
-          note={exportNote}
-          onExport={(share) => void onExport(share)}
-        />
-
-        <ImportSection
-          error={importError}
-          preview={preview}
-          report={report}
-          onPick={(f) => void onPickFile(f)}
-          onConfirm={() => void onConfirmImport()}
-          onCancel={onCancelImport}
-        />
-
-        <StatusSection status={status} deleted={deleted} />
-
-        <UpdateSection
-          view={update}
-          onCheck={onCheckUpdate}
-        />
-
-        <TelemetrySection />
-
-        <ReminderSection
-          setting={reminder}
-          availability={reminderAvail}
-          onToggle={() => void onToggleReminder()}
-          onChangeTime={(t) => void onChangeReminderTime(t)}
-        />
-
-        <DangerSection
-          open={dangerOpen}
-          confirmText={confirmText}
-          deleted={deleted}
-          onOpen={() => setDangerOpen(true)}
-          onCancel={() => {
-            setDangerOpen(false);
-            setConfirmText("");
-          }}
-          onConfirmTextChange={setConfirmText}
-          onExportFirst={() => void onExport(false)}
-          onDelete={() => void onDelete()}
-        />
-      </main>
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// Sections. Each is a pure function of its props (no storage, no logic).
-// ---------------------------------------------------------------------------
-
-function Card({
-  eyebrow,
-  title,
-  children,
-  tone,
-}: {
-  readonly eyebrow: string;
-  readonly title: string;
-  readonly children: React.ReactNode;
-  readonly tone?: "danger";
-}): JSX.Element {
-  return (
-    <section className={`st-card${tone === "danger" ? " st-card--danger" : ""}`}>
-      <p className="st-eyebrow">{eyebrow}</p>
-      <h2 className="st-card__title">{title}</h2>
-      {children}
-    </section>
-  );
-}
-
-function ExportSection({
-  eventCount,
-  showShare,
-  note,
-  onExport,
-}: {
-  readonly eventCount: number | null;
-  readonly showShare: boolean;
-  readonly note: string | null;
-  readonly onExport: (share: boolean) => void;
-}): JSX.Element {
-  const c = COPY.export;
-  return (
-    <Card eyebrow={c.eyebrow} title={c.title}>
-      <p className="st-text">{c.body}</p>
-      <p className="st-text st-text--muted">{c.explain}</p>
-      {eventCount !== null && (
-        <p className="st-metric" aria-live="polite">
-          {c.countLabel(eventCount)}
-        </p>
-      )}
-      <div className="st-actions">
-        <button type="button" className="st-btn st-btn--primary" onClick={() => onExport(false)}>
-          {c.cta}
-        </button>
-        {showShare && (
-          <button type="button" className="st-btn st-btn--ghost" onClick={() => onExport(true)}>
-            {c.shareCta}
-          </button>
-        )}
-      </div>
-      {note !== null && (
-        <p className="st-note" role="status">
-          {note}
-        </p>
-      )}
-    </Card>
-  );
-}
-
-function ImportSection({
-  error,
-  preview,
-  report,
-  onPick,
-  onConfirm,
-  onCancel,
-}: {
-  readonly error: ImportFileError | null;
-  readonly preview: ImportPreview | null;
-  readonly report: ImportReport | null;
-  readonly onPick: (file: File) => void;
-  readonly onConfirm: () => void;
-  readonly onCancel: () => void;
-}): JSX.Element {
-  const c = COPY.import;
-  const inputRef = useRef<HTMLInputElement>(null);
-  return (
-    <Card eyebrow={c.eyebrow} title={c.title}>
-      <p className="st-text">{c.body}</p>
-
-      <input
-        ref={inputRef}
-        type="file"
-        accept="application/json,.json"
-        className="st-file"
-        aria-label={c.pick}
-        onChange={(e) => {
-          const file = e.target.files?.[0];
-          if (file) onPick(file);
-          // Reset so picking the same file again re-fires onChange.
-          e.target.value = "";
-        }}
-      />
-      <div className="st-actions">
-        <button
-          type="button"
-          className="st-btn st-btn--ghost"
-          onClick={() => inputRef.current?.click()}
-        >
-          {c.pick}
-        </button>
-      </div>
-
-      {error !== null && (
-        <p className="st-note st-note--danger" role="alert">
-          {c.badFile}
-        </p>
-      )}
-
-      {preview !== null && (
-        <div className="st-preview" role="group" aria-label={c.previewTitle}>
-          <p className="st-preview__title">{c.previewTitle}</p>
-          <ul className="st-preview__list">
-            <li className="st-preview__item">{c.previewFound(preview.total)}</li>
-            <li className="st-preview__item">{c.previewNew(preview.added)}</li>
-            {preview.duplicate > 0 && (
-              <li className="st-preview__item">{c.previewDup(preview.duplicate)}</li>
-            )}
-            {preview.invalid > 0 && (
-              <li className="st-preview__item">{c.previewInvalid(preview.invalid)}</li>
-            )}
-          </ul>
-          {preview.added === 0 && <p className="st-text st-text--muted">{c.previewNothing}</p>}
-          <div className="st-actions">
-            <button type="button" className="st-btn st-btn--primary" onClick={onConfirm}>
-              {c.confirm}
-            </button>
-            <button type="button" className="st-btn st-btn--ghost" onClick={onCancel}>
-              {c.cancel}
-            </button>
-          </div>
-        </div>
-      )}
-
-      {report !== null && (
-        /* aria-live="polite" + aria-atomic: announces the import report in full
-           when it appears after the student confirms import (W5-6). */
-        <div className="st-report" role="status" aria-live="polite" aria-atomic="true">
-          <p className="st-preview__title">{c.reportTitle}</p>
-          <ul className="st-preview__list">
-            <li className="st-preview__item">{c.reportAdded(report.added)}</li>
-            <li className="st-preview__item">{c.reportDuplicate(report.duplicate)}</li>
-            {report.invalid > 0 && (
-              <li className="st-preview__item">{c.reportInvalid(report.invalid)}</li>
-            )}
-          </ul>
-          {report.invalidReasons.length > 0 && (
-            <details className="st-report__reasons">
-              <summary>{c.reportReasonsTitle}</summary>
-              <ul className="st-preview__list">
-                {report.invalidReasons.map((r) => (
-                  <li key={`${r.index}:${r.reason}`} className="st-preview__item st-text--muted">
-                    {r.reason}
-                  </li>
-                ))}
-              </ul>
-            </details>
-          )}
-        </div>
-      )}
-    </Card>
-  );
-}
-
-function StatusSection({
-  status,
-  deleted,
-}: {
-  readonly status: StatusView | null;
-  readonly deleted: boolean;
-}): JSX.Element {
-  const c = COPY.status;
-  if (status === null) {
-    return (
-      <Card eyebrow={c.eyebrow} title={c.title}>
-        <p className="st-text st-text--muted" aria-busy="true">
-          Reading the status of this device.
-        </p>
-      </Card>
-    );
-  }
-  const storageText =
-    status.storage === "persistent"
-      ? c.storagePersistent
-      : status.storage === "not-persisted"
-        ? c.storageNotPersisted
-        : c.storageDegraded;
-  const examText =
-    status.examAttempt === "september"
-      ? c.examSeptember
-      : status.examAttempt === "january"
-        ? c.examJanuary
-        : c.examUndecided;
-  return (
-    <Card eyebrow={c.eyebrow} title={c.title}>
-      {deleted && (
-        <p className="st-note" role="status">
-          {COPY.danger.done}
-        </p>
-      )}
-      <dl className="st-rows">
-        <Row label={c.storageLabel} value={storageText} />
-        <Row label={c.installLabel} value={status.installed ? c.installYes : c.installNo} />
-        <Row label={c.appVersionLabel} value={status.appVersion ?? "—"} mono />
-        <Row label={c.packVersionLabel} value={status.packVersion ?? c.packNone} mono />
-        <Row label={c.examLabel} value={examText} />
-      </dl>
-    </Card>
-  );
-}
-
-function Row({
-  label,
-  value,
-  mono,
-}: {
-  readonly label: string;
-  readonly value: string;
-  readonly mono?: boolean;
-}): JSX.Element {
-  return (
-    <div className="st-row">
-      <dt className="st-row__label">{label}</dt>
-      <dd className={`st-row__value${mono ? " st-row__value--mono" : ""}`}>{value}</dd>
-    </div>
-  );
-}
-
-function UpdateSection({
-  view,
-  onCheck,
-}: {
-  readonly view: UpdateView;
-  readonly onCheck: () => void;
-}): JSX.Element {
-  const c = COPY.update;
-  const busy = view.kind === "checking" || view.kind === "downloading";
-  return (
-    <Card eyebrow={c.eyebrow} title={c.title}>
-      <p className="st-text">{c.body}</p>
-      <div className="st-actions">
-        <button type="button" className="st-btn st-btn--primary" onClick={onCheck} disabled={busy}>
-          {view.kind === "checking" ? c.checking : c.check}
-        </button>
-      </div>
-      <div className="st-update__state" aria-live="polite">
-        {view.kind === "downloading" && <p className="st-note">{c.downloading}</p>}
-        {view.kind === "up-to-date" && <p className="st-note">{c.upToDate}</p>}
-        {view.kind === "offline" && <p className="st-note st-note--muted">{c.offline}</p>}
-        {view.kind === "incompatible-app" && (
-          <p className="st-note st-note--muted">{c.incompatibleApp}</p>
-        )}
-        {view.kind === "deferred" && <p className="st-note">{c.deferred}</p>}
-        {view.kind === "applied" && (
-          <div className="st-errata" role="status">
-            <p className="st-note">{c.appliedTo(view.note.toVersion)}</p>
-            <p className="st-errata__title">{c.errataTitle}</p>
-            {view.note.errata.length === 0 ? (
-              <p className="st-text st-text--muted">{c.errataNone}</p>
-            ) : (
-              <ul className="st-preview__list">
-                {view.note.errata.map((line) => (
-                  <li key={line} className="st-preview__item">
-                    {line}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        )}
-      </div>
-    </Card>
-  );
-}
-
-function TelemetrySection(): JSX.Element {
-  const c = COPY.telemetry;
-  return (
-    <Card eyebrow={c.eyebrow} title={c.title}>
-      <div className="st-toggle">
-        {/* Inert per ADR 0014: collection does not exist yet, so the control is
-            disabled and reads OFF. No state, no handler. */}
-        <span className="st-toggle__track" aria-hidden="true">
-          <span className="st-toggle__knob" />
-        </span>
-        <span className="st-toggle__state">{c.stateOff}</span>
-        <input
-          type="checkbox"
-          className="st-toggle__input"
-          checked={false}
-          disabled
-          readOnly
-          aria-label={c.title}
-        />
-      </div>
-      <p className="st-text st-text--muted">{c.body}</p>
-    </Card>
-  );
-}
-
-function ReminderSection({
-  setting,
-  availability,
-  onToggle,
-  onChangeTime,
-}: {
-  readonly setting: ReminderSetting | null;
-  readonly availability: ReminderAvailability;
-  readonly onToggle: () => void;
-  readonly onChangeTime: (time: string) => void;
-}): JSX.Element {
-  const c = COPY.reminder;
-  const on = setting?.enabled === true;
-  const time = setting?.time ?? "19:00";
-  // The honest unavailability path: no Notification API (e.g. iOS uninstalled).
-  if (availability === "unavailable") {
-    return (
-      <Card eyebrow={c.eyebrow} title={c.title}>
-        <p className="st-text">{c.body}</p>
-        <p className="st-text st-text--muted">{c.unavailable}</p>
-      </Card>
-    );
-  }
-  return (
-    <Card eyebrow={c.eyebrow} title={c.title}>
-      <p className="st-text">{c.body}</p>
-      <p className="st-text st-text--muted">{c.limitation}</p>
-
-      <div className="st-toggle">
-        <span className="st-toggle__track" aria-hidden="true">
-          <span className="st-toggle__knob" />
-        </span>
-        <span className="st-toggle__state">{on ? c.stateOn(time) : c.stateOff}</span>
-        <input
-          type="checkbox"
-          className="st-toggle__input"
-          checked={on}
-          onChange={onToggle}
-          aria-label={on ? c.disable : c.enable}
-        />
-      </div>
-
-      {on && (
-        <label className="st-field">
-          <span className="st-field__label">{c.timeLabel}</span>
-          <input
-            type="time"
-            className="st-field__input"
-            value={time}
-            onChange={(e) => onChangeTime(e.target.value)}
+    <main className="screen">
+      <div className="screen__scroll">
+        <div className="screen__pad" style={{ maxWidth: 760 }}>
+          <ScreenHead
+            title="Settings"
+            lede="Pinaka runs entirely on this device. There is little to configure, by design."
           />
-        </label>
-      )}
 
-      {availability === "denied" && (
-        <p className="st-note st-note--muted">{c.permissionDenied}</p>
-      )}
-      <p className="st-note" role="status">
-        {on ? c.onNote : c.offNote}
-      </p>
-    </Card>
-  );
-}
+          {/* ---- Privacy and data ---- */}
+          <h3 className="set-group">Privacy and data</h3>
+          <div className="sa-card">
+            {/* Telemetry */}
+            <div className="set-row">
+              <div>
+                <div className="set-row__title">Anonymous telemetry</div>
+                <div className="set-row__detail">
+                  Off by default. If you turn this on, Pinaka may send anonymised, aggregate
+                  usage counts to improve question quality. Never your answers, never anything
+                  that identifies you. You can read exactly what would be sent before it is.
+                </div>
+              </div>
+              <button
+                type="button"
+                className={`toggle${telemetry ? " is-on" : ""}`}
+                role="switch"
+                aria-checked={telemetry}
+                aria-label="Anonymous telemetry"
+                onClick={() => void onToggleTelemetry()}
+              >
+                <span className="toggle__thumb" />
+              </button>
+            </div>
 
-function DangerSection({
-  open,
-  confirmText,
-  deleted,
-  onOpen,
-  onCancel,
-  onConfirmTextChange,
-  onExportFirst,
-  onDelete,
-}: {
-  readonly open: boolean;
-  readonly confirmText: string;
-  readonly deleted: boolean;
-  readonly onOpen: () => void;
-  readonly onCancel: () => void;
-  readonly onConfirmTextChange: (value: string) => void;
-  readonly onExportFirst: () => void;
-  readonly onDelete: () => void;
-}): JSX.Element {
-  const c = COPY.danger;
-  const confirmed = isDeleteConfirmed(confirmText, c.confirmWord);
-  return (
-    <Card eyebrow={c.eyebrow} title={c.title} tone="danger">
-      <p className="st-text">{c.body}</p>
-      {!open ? (
-        <div className="st-actions">
-          <button type="button" className="st-btn st-btn--danger-ghost" onClick={onOpen}>
-            {c.open}
-          </button>
-        </div>
-      ) : (
-        <div className="st-danger__confirm">
-          <div className="st-warning" role="note">
-            <p className="st-warning__body">{c.nudge}</p>
-            <button type="button" className="st-btn st-btn--ghost" onClick={onExportFirst}>
-              {c.nudgeCta}
-            </button>
-          </div>
-          <label className="st-field">
-            <span className="st-field__label">{c.confirmLabel}</span>
+            {/* Export */}
+            <div className="set-row">
+              <div>
+                <div className="set-row__title">Export my data</div>
+                <div className="set-row__detail">
+                  Download everything on this device as a single anonymised file: your
+                  attempts, diagnosis, and review schedule. Yours to keep or move.
+                </div>
+              </div>
+              <div style={{ display: "flex", gap: "var(--space-2)", flexWrap: "wrap" }}>
+                <button
+                  type="button"
+                  className="sa-btn sa-btn--secondary"
+                  onClick={() => void onExport(false)}
+                >
+                  <Icon name="download" size={15} />
+                  Export
+                </button>
+                {showShare && (
+                  <button
+                    type="button"
+                    className="sa-btn sa-btn--secondary"
+                    onClick={() => void onExport(true)}
+                  >
+                    Share
+                  </button>
+                )}
+              </div>
+            </div>
+            {exportNote !== null && (
+              <p className="set-row__detail" role="status" style={{ paddingBottom: "var(--space-3)" }}>
+                {exportNote}
+              </p>
+            )}
+
+            {/* Import (app enhancement kept with design voice) */}
+            <div className="set-row">
+              <div>
+                <div className="set-row__title">Import a progress file</div>
+                <div className="set-row__detail">
+                  Choose a file you exported before. Importing only adds attempts you do not
+                  already have, so it is safe to repeat.
+                </div>
+              </div>
+              <button
+                type="button"
+                className="sa-btn sa-btn--secondary"
+                onClick={() => importInputRef.current?.click()}
+              >
+                Choose a file
+              </button>
+            </div>
             <input
-              type="text"
-              className="st-field__input"
-              value={confirmText}
-              placeholder={c.confirmPlaceholder}
-              autoComplete="off"
-              autoCapitalize="characters"
-              onChange={(e) => onConfirmTextChange(e.target.value)}
+              ref={importInputRef}
+              type="file"
+              accept="application/json,.json"
+              style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)", whiteSpace: "nowrap" }}
+              aria-label="Choose a progress file to import"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) void onPickFile(file);
+                e.target.value = "";
+              }}
             />
-          </label>
-          <div className="st-actions">
-            <button
-              type="button"
-              className="st-btn st-btn--danger"
-              disabled={!confirmed}
-              onClick={onDelete}
-            >
-              {c.cta}
-            </button>
-            <button type="button" className="st-btn st-btn--ghost" onClick={onCancel}>
-              {c.cancel}
-            </button>
+            {importError !== null && (
+              <p className="set-row__detail" role="alert" style={{ color: "var(--color-danger-text)", paddingBottom: "var(--space-3)" }}>
+                {importError.reason}
+              </p>
+            )}
+            {preview !== null && (
+              <div style={{ paddingBottom: "var(--space-3)", display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
+                <p className="set-row__detail" style={{ fontWeight: "var(--font-weight-medium)" }}>
+                  Here is what this file will add
+                </p>
+                <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "var(--space-1)" }}>
+                  <li className="set-row__detail">{preview.total === 1 ? "1 event found in the file" : `${preview.total} events found in the file`}</li>
+                  <li className="set-row__detail">{preview.added === 1 ? "1 event is new and will be added" : `${preview.added} events are new and will be added`}</li>
+                  {preview.duplicate > 0 && (
+                    <li className="set-row__detail">{preview.duplicate === 1 ? "1 event already here, will be skipped" : `${preview.duplicate} events already here, will be skipped`}</li>
+                  )}
+                </ul>
+                <div style={{ display: "flex", gap: "var(--space-2)" }}>
+                  <button type="button" className="sa-btn sa-btn--primary" onClick={() => void onConfirmImport()}>
+                    Add these events
+                  </button>
+                  <button type="button" className="sa-btn sa-btn--secondary" onClick={onCancelImport}>
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+            {report !== null && (
+              <p className="set-row__detail" role="status" style={{ paddingBottom: "var(--space-3)" }}>
+                Import finished.{" "}
+                {report.added === 1 ? "1 event added." : `${report.added} events added.`}{" "}
+                {report.duplicate === 1 ? "1 already here, skipped." : `${report.duplicate} already here, skipped.`}
+              </p>
+            )}
+
+            {/* Delete all */}
+            <div className="set-row" style={{ borderBottom: "none" }}>
+              <div>
+                <div className="set-row__title" style={{ color: "var(--color-danger-text)" }}>
+                  Delete all data
+                </div>
+                <div className="set-row__detail">
+                  Erase everything from this device. There is no cloud copy and no undo.
+                  You would start from an empty app.
+                </div>
+              </div>
+              <button
+                type="button"
+                className="sa-btn sa-btn--secondary"
+                style={{ borderColor: "var(--color-danger-border)", color: "var(--color-danger-text)" }}
+                onClick={() => setConfirmDelete(true)}
+              >
+                Delete
+              </button>
+            </div>
+            {deleted && (
+              <p className="set-row__detail" role="status" style={{ paddingBottom: "var(--space-3)" }}>
+                Everything on this device has been deleted.
+              </p>
+            )}
+          </div>
+
+          {/* ---- Accessibility ---- */}
+          <h3 className="set-group">Accessibility</h3>
+          <div className="sa-card">
+            {/* Reduce motion */}
+            <div className="set-row">
+              <div>
+                <div className="set-row__title">Reduce motion</div>
+                <div className="set-row__detail">
+                  Turn off the score-reveal fade and other transitions. Follows your system
+                  setting by default.
+                </div>
+              </div>
+              <button
+                type="button"
+                className={`toggle${a11y.reduceMotion ? " is-on" : ""}`}
+                role="switch"
+                aria-checked={a11y.reduceMotion}
+                aria-label="Reduce motion"
+                onClick={() => void updateA11y({ ...a11y, reduceMotion: !a11y.reduceMotion })}
+              >
+                <span className="toggle__thumb" />
+              </button>
+            </div>
+
+            {/* Increase contrast */}
+            <div className="set-row">
+              <div>
+                <div className="set-row__title">Increase contrast</div>
+                <div className="set-row__detail">
+                  Darken borders and dividers for a sharper read.
+                </div>
+              </div>
+              <button
+                type="button"
+                className={`toggle${a11y.contrast ? " is-on" : ""}`}
+                role="switch"
+                aria-checked={a11y.contrast}
+                aria-label="Increase contrast"
+                onClick={() => void updateA11y({ ...a11y, contrast: !a11y.contrast })}
+              >
+                <span className="toggle__thumb" />
+              </button>
+            </div>
+
+            {/* Text size */}
+            <div className="set-row" style={{ borderBottom: "none" }}>
+              <div>
+                <div className="set-row__title">Text size</div>
+                <div className="set-row__detail">Scale question and explanation text.</div>
+              </div>
+              <div className="seg">
+                {(
+                  [
+                    ["small", 13],
+                    ["regular", 15],
+                    ["large", 18],
+                  ] as const
+                ).map(([id, sz]) => (
+                  <button
+                    key={id}
+                    type="button"
+                    className={a11y.textSize === id ? "is-on" : ""}
+                    aria-label={`${id} text`}
+                    style={{ fontSize: sz }}
+                    onClick={() => void updateA11y({ ...a11y, textSize: id })}
+                  >
+                    A
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* ---- Exam (app addition, design voice) ---- */}
+          <h3 className="set-group">Exam</h3>
+          <div className="sa-card">
+            <div className="set-row">
+              <div>
+                <div className="set-row__title">Exam date</div>
+                <div className="set-row__detail">
+                  Sets the countdown on Today and caps the review schedule before the paper.
+                </div>
+              </div>
+              <input
+                type="month"
+                className="fr__date-input mono"
+                value={examDate}
+                onChange={(e) => void onExamDateChange(e.target.value)}
+                aria-label="Exam date"
+              />
+            </div>
+            <div className="set-row" style={{ borderBottom: "none" }}>
+              <div>
+                <div className="set-row__title">Readiness target</div>
+                <div className="set-row__detail">
+                  A second marker on the readiness band. The pass bar stays at 40 either
+                  way. Enter a number between 40 and 100, or leave blank to clear.
+                </div>
+              </div>
+              <input
+                type="number"
+                className="fr__date-input mono"
+                min={40}
+                max={100}
+                value={target}
+                placeholder="—"
+                onChange={(e) => void onTargetChange(e.target.value)}
+                aria-label="Readiness target, 40 to 100"
+                style={{ width: 64 }}
+              />
+            </div>
+          </div>
+
+          {/* ---- About ---- */}
+          <h3 className="set-group">About</h3>
+          <div className="sa-card">
+            <div className="set-row">
+              <div>
+                <div className="set-row__title">Pinaka abhyas</div>
+                <div className="set-row__detail">
+                  Local build · CA Foundation Paper 3 (Quantitative Aptitude). Taxonomy v1,
+                  misconception canon v2. An exam analytics tool, not a course.
+                </div>
+              </div>
+              <span className="mono subtle" style={{ fontSize: 12 }}>{APP_VERSION}</span>
+            </div>
+
+            {/* Storage status */}
+            <div className="set-row">
+              <div>
+                <div className="set-row__title">Storage</div>
+                <div className="set-row__detail">
+                  {storageStatus === null
+                    ? "Reading storage status."
+                    : storageStatus === "persistent"
+                    ? "Saved on this device, with lasting storage granted."
+                    : storageStatus === "not-persisted"
+                    ? "Saved in this browser. Adding the app to your home screen makes it lasting."
+                    : "Limited. This browser cannot store your progress between sessions. Export often."}
+                </div>
+              </div>
+              <span className="mono subtle" style={{ fontSize: 12 }}>
+                {storageStatus ?? ""}
+              </span>
+            </div>
+
+            {/* Install status */}
+            <div className="set-row">
+              <div>
+                <div className="set-row__title">Install</div>
+                <div className="set-row__detail">
+                  {installed
+                    ? "Running from your home screen. Progress is protected."
+                    : "Running in the browser. Add to home screen for lasting storage."}
+                </div>
+              </div>
+              <span className="mono subtle" style={{ fontSize: 12 }}>
+                {installed ? "installed" : "browser"}
+              </span>
+            </div>
+
+            {/* Update */}
+            <div className="set-row" style={{ borderBottom: "none" }}>
+              <div>
+                <div className="set-row__title">Update</div>
+                <div className="set-row__detail">
+                  {packVersion !== null && packVersion.length > 0
+                    ? `Question pack ${packVersion} installed.`
+                    : "No question pack installed yet."}{" "}
+                  Updates add new questions and fix any that were wrong.
+                  {update.kind === "up-to-date" && " Your questions are up to date."}
+                  {update.kind === "offline" && " Could not check right now — try when online."}
+                  {update.kind === "deferred" && " An update is ready and will apply when your mock ends."}
+                  {update.kind === "applied" && ` Updated to pack ${(update as { kind: "applied"; note: { toVersion: string } }).note.toVersion}.`}
+                </div>
+              </div>
+              <button
+                type="button"
+                className="sa-btn sa-btn--secondary"
+                disabled={update.kind === "checking" || update.kind === "downloading"}
+                onClick={onCheckUpdate}
+              >
+                {update.kind === "checking" ? "Checking" : "Check"}
+              </button>
+            </div>
+          </div>
+
+          {/* ---- Closing caveat ---- */}
+          <p className="caveat" style={{ marginTop: "var(--space-5)" }}>
+            <Icon name="dot" size={10} />
+            No login, no sync, no notifications. Closing the app loses nothing; it is all
+            on disk here.
+          </p>
+
+        </div>
+      </div>
+
+      {/* ---- Delete confirm sheet ---- */}
+      {confirmDelete && (
+        <div
+          className="sheet-dim"
+          onClick={() => setConfirmDelete(false)}
+          role="presentation"
+        >
+          <div
+            className="sheet"
+            style={{ width: 440 }}
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-label="Delete all data"
+            aria-modal="true"
+          >
+            <div className="sheet__head">
+              <span className="eyebrow" style={{ color: "var(--color-danger-text)" }}>
+                <Icon name="alert" size={14} style={{ verticalAlign: "-2px", marginRight: 6 }} />
+                Delete all data
+              </span>
+              <button
+                type="button"
+                className="sheet__close"
+                aria-label="Close"
+                onClick={() => setConfirmDelete(false)}
+              >
+                <Icon name="x" size={15} />
+              </button>
+            </div>
+            <div className="sheet__body">
+              <p style={{ fontSize: "var(--text-sm)", lineHeight: "var(--leading-normal)", color: "var(--color-muted-foreground)", margin: "0 0 var(--space-5)" }}>
+                This erases every attempt, your diagnosis, and your review schedule from
+                this device. It cannot be undone, and there is no cloud copy. You will
+                start from an empty app.
+              </p>
+              <div className="btn-row" style={{ justifyContent: "flex-end" }}>
+                {/* autoFocus on the safe action per design */}
+                <button
+                  type="button"
+                  className="sa-btn sa-btn--ghost"
+                    autoFocus
+                  onClick={() => setConfirmDelete(false)}
+                >
+                  Keep my data
+                </button>
+                <button
+                  type="button"
+                  className="sa-btn"
+                  style={{ background: "var(--color-danger)", color: "var(--color-danger-foreground)" }}
+                  onClick={() => void onDeleteAll()}
+                >
+                  Delete everything
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
-      {deleted && (
-        <p className="st-note" role="status">
-          {c.done}
-        </p>
-      )}
-    </Card>
+    </main>
   );
 }

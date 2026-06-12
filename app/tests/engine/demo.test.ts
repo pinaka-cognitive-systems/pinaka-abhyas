@@ -18,8 +18,6 @@ import {
   loadPack,
   nextAction,
   readiness,
-  type RawBlueprint,
-  type RawMarking,
   type RawPack,
 } from "../../src/engine/index.js";
 
@@ -31,8 +29,8 @@ const NOW = Date.UTC(2026, 5, 10, 9, 0, 0); // fixed clock for a deterministic t
 
 const pack = loadPack(
   packJson as unknown as RawPack,
-  blueprintJson as unknown as RawBlueprint,
-  markingJson as unknown as RawMarking,
+  blueprintJson,
+  markingJson,
 );
 
 describe("fresh-student demo flow", () => {

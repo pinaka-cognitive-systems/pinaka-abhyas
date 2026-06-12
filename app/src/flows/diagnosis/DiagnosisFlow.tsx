@@ -1,418 +1,635 @@
 /**
- * Diagnosis + readiness — the signature view (W5-5 flow c).
+ * DiagnosisFlow — the topic x misconception matrix and the MisconceptionDetail
+ * drill-through, per design-team/v2/scr-diagnosis.jsx.
  *
- * The thin React renderer over the pure logic in diagnosis.ts and the typed
- * engine selectors (app/src/engine/selectors.ts). It owns only the side effects
- * it cannot avoid: the storage adapter, the rebuilt engine state, and the clock
- * (Date.now read once at the boundary). Every decision — band formatting, the
- * honesty gate, mastery grouping, the too-few-attempts heuristic, the
- * misconception ranking, and the screen-state choice — is delegated to the
- * tested logic functions so nothing load-bearing lives inline in JSX.
+ * Routing: #/diagnosis renders the matrix; #/misconception/{id} renders the
+ * detail. Both routes are passed to DiagnosisFlow by the shell (router.tsx is
+ * already wired). The component reads window.location.hash itself and listens
+ * for hashchange so it can switch between the two views without remounting.
  *
- * Layout (ADR 0011): 360px-first, 44px touch targets, one visible focus ring on
- * every interactive element, tokens only (diagnosis.css via theme/tokens.css).
- * The desktop enhancement is a two-column layout at min-width 900px (readiness +
- * next-step beside the diagnosis map); everything is fully usable on the phone.
+ * Data: both views load once via loadAppSnapshot() (the shared cached loader).
+ * The misconception detail additionally calls loadCaContent() to resolve item
+ * stems and options for the instance ledger.
  *
- * States (Component & State Inventory): loading, error (with recovery), empty
- * (no events — route to practice, no fake zeros), early (provisional, band
- * withheld), ready (full band + map).
- *
- * Honesty: the band is a low-to-high range, never a bare number; the words
- * "predicted score" never appear; no number renders below the data threshold;
- * confidence is only low / medium / insufficient.
+ * Shared layers (READ-ONLY from this file):
+ *   - app/src/theme/design.css  (mx-*, md-*, empty-note, early-flag, caveat …)
+ *   - app/src/components/ui.tsx (Icon, Caveat, ScreenHead)
+ *   - app/src/components/navigate.ts (navigate)
+ *   - app/src/state/appData.ts (loadAppSnapshot, AppSnapshot)
+ *   - app/src/engine/insights.ts (misconceptionMatrix, matrixCellStyle,
+ *       MATRIX_SCALE_MAX, relativeDate, fallbackName, MisconceptionCost)
  */
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
+import { Caveat, Icon, ScreenHead } from "../../components/ui.js";
+import { navigate } from "../../components/navigate.js";
+import { loadAppSnapshot, type AppSnapshot } from "../../state/appData.js";
 import {
-  buildEngineState,
-  masteryByNode,
-  readiness as computeReadinessSelector,
-  type LoadedPack,
-  type NodeMastery,
-} from "../../engine/index.js";
-import { NUM_QUESTIONS, type EngineState, type Readiness } from "@pinaka/engine";
-import { loadMisconceptionNames, loadTopicNames } from "../../engine/topics.js";
-import { getSharedStorage, type StorageAdapter } from "../../storage/index.js";
-import {
-  groupByBlueprint,
-  readinessView,
-  recurringMisconceptions,
-  selectDiagnosisState,
-  type MisconceptionView,
-  type NodeMasteryView,
-  type PartGroup,
-  type ReadinessView,
-} from "./diagnosis.js";
+  misconceptionMatrix,
+  matrixCellStyle,
+  MATRIX_SCALE_MAX,
+  relativeDate,
+  fallbackName,
+  type MisconceptionCost,
+} from "../../engine/insights.js";
+import { loadCaContent } from "../practice/content.js";
+import type { ContentItem } from "../practice/types.js";
+import type { Event } from "@pinaka/engine";
 import "./diagnosis.css";
 
-/** Navigate into the practice loop (hash route). */
-function goPractice(): void {
-  if (typeof window === "undefined") return;
-  window.location.hash = "/practice";
-}
-
-/** A loaded diagnosis snapshot: everything the views read, computed once per
- * load from the event log so the render is a pure function of this. */
-interface Snapshot {
-  readonly state: EngineState;
-  readonly pack: LoadedPack;
-  readonly readiness: Readiness;
-  readonly mastery: readonly NodeMastery[];
-  /** Taxonomy node id to display name ("Simple interest"), engine/topics.ts. */
-  readonly topicNames: ReadonlyMap<string, string>;
-  /** Misconception id to display name ("Arithmetic slip"). */
-  readonly misconceptionNames: ReadonlyMap<string, string>;
-}
-
-type Phase =
-  | { readonly kind: "loading" }
-  | { readonly kind: "error"; readonly message: string }
-  | { readonly kind: "loaded"; readonly snap: Snapshot };
-
 export interface DiagnosisFlowProps {
-  /** Exit back to the hub/home. */
   readonly onExit: () => void;
 }
 
-export function DiagnosisFlow({ onExit }: DiagnosisFlowProps): JSX.Element {
-  const [phase, setPhase] = useState<Phase>({ kind: "loading" });
-  const adapterRef = useRef<StorageAdapter | null>(null);
+// ---------------------------------------------------------------------------
+// Route helpers
+// ---------------------------------------------------------------------------
 
-  const load = useCallback(async (): Promise<void> => {
-    const [{ loadCaPack }, topicNames, misconceptionNames] = await Promise.all([
-      import("../../engine/caPack.js"),
-      loadTopicNames(),
-      loadMisconceptionNames(),
-    ]);
-    const pack = await loadCaPack();
-    const { adapter } = await getSharedStorage();
-    adapterRef.current = adapter;
+function currentRoute(): string {
+  if (typeof window === "undefined") return "diagnosis";
+  return window.location.hash.replace(/^#\/?/, "");
+}
 
-    const nowMs = Date.now();
-    const events = await adapter.readAllEvents();
-    const state = buildEngineState(events, pack.bank, nowMs);
-    const r = computeReadinessSelector(state, events, pack, nowMs);
-    const mastery = masteryByNode(state, nowMs);
-    setPhase({
-      kind: "loaded",
-      snap: { state, pack, readiness: r, mastery, topicNames, misconceptionNames },
-    });
+function misconceptionIdFromRoute(route: string): string | null {
+  const m = /^misconception\/(.+)$/.exec(route);
+  return m ? m[1]! : null;
+}
+
+// ---------------------------------------------------------------------------
+// Top-level component
+// ---------------------------------------------------------------------------
+
+export function DiagnosisFlow({ onExit: _unused }: DiagnosisFlowProps): JSX.Element {
+  void _unused;
+  const [route, setRoute] = useState<string>(currentRoute);
+  const [snap, setSnap] = useState<AppSnapshot | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
+
+  // Reread the hash whenever it changes (the router already handles this flow's
+  // routes; we just need to switch sub-views on hashchange).
+  useEffect(() => {
+    const handler = (): void => setRoute(currentRoute());
+    window.addEventListener("hashchange", handler);
+    return () => window.removeEventListener("hashchange", handler);
   }, []);
+
+  // Load the shared snapshot once.
+  useEffect(() => {
+    let cancelled = false;
+    loadAppSnapshot()
+      .then((s) => { if (!cancelled) setSnap(s); })
+      .catch((err: unknown) => {
+        if (!cancelled) {
+          setLoadError(err instanceof Error ? err.message : "Could not load the diagnosis.");
+        }
+      });
+    return () => { cancelled = true; };
+  }, []);
+
+  if (loadError !== null) {
+    return (
+      <main className="screen">
+        <div className="screen__scroll">
+          <div className="screen__pad">
+            <p style={{ color: "var(--color-danger-text)", marginTop: "var(--space-8)" }}>
+              {loadError}
+            </p>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  if (snap === null) {
+    return (
+      <main className="screen">
+        <div className="screen__scroll">
+          <div className="screen__pad">
+            <p className="subtle" style={{ marginTop: "var(--space-8)" }}>Loading…</p>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  const misId = misconceptionIdFromRoute(route);
+  if (misId !== null) {
+    return <MisconceptionDetail id={misId} snap={snap} />;
+  }
+  return <DiagnosisScreen snap={snap} />;
+}
+
+// ---------------------------------------------------------------------------
+// Diagnosis screen — the matrix view
+// ---------------------------------------------------------------------------
+
+function DiagnosisScreen({ snap }: { readonly snap: AppSnapshot }): JSX.Element {
+  const dataState = snap.dataState;
+  const empty = dataState === "empty" || snap.costs.length === 0;
+  const early = dataState === "early";
+  const progressing = dataState === "progressing";
+
+  if (empty) {
+    return (
+      <main className="screen">
+        <div className="screen__scroll">
+          <div className="screen__pad">
+            <ScreenHead
+              eyebrow="Diagnosis · Paper 3 QA"
+              eyebrowIcon="layers"
+              title="Nothing to diagnose yet"
+              lede="The diagnosis reads your wrong answers and names the misconception behind each one. It needs a mock first."
+            />
+            <div className="empty-note" style={{ alignItems: "flex-start" }}>
+              <div className="empty-note__icon"><Icon name="lock" size={20} /></div>
+              <div className="empty-note__text">
+                After one full mock, this becomes a map of every topic against the specific
+                errors costing you marks, weakest first. A number with nothing behind it would
+                be a guess.
+                <div style={{ marginTop: "var(--space-4)" }}>
+                  <button
+                    type="button"
+                    className="sa-btn sa-btn--primary"
+                    onClick={() => navigate("mock")}
+                  >
+                    Take your first mock
+                    <Icon name="arrow-right" size={15} />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  const matrix = misconceptionMatrix(snap.events, snap.pack, snap.costs, snap.topicNames);
+
+  // Early state: cap to 2 rows x 3 cols and scale = 1 (no progressing scale).
+  const rows = early ? matrix.rows.slice(0, 2) : matrix.rows;
+  const cols = early ? matrix.cols.slice(0, 3) : matrix.cols;
+  const cells = early
+    ? matrix.cells.slice(0, 2).map((row) => row.slice(0, 3))
+    : matrix.cells;
+  const scale = progressing ? 0.55 : 1;
+
+  const sidebarTitle = progressing ? "Shrinking, recurring first" : "Recurring first";
+  const misList = snap.costs.slice(0, 6);
+
+  const lede = early
+    ? "Provisional after one mock. Rows are topics, columns are the misconceptions behind your wrong answers. It will deepen as you attempt more."
+    : "One map, two axes. Rows are topics, columns are the misconceptions behind your wrong answers. Darker means more marks lost. Open any misconception at right to see the pattern.";
+
+  const hiddenNote = early
+    ? "Most topics still below the attempt threshold"
+    : `${matrix.hiddenCount} topics below threshold hidden`;
+
+  return (
+    <main className="screen">
+      <div className="screen__scroll">
+        <div className="screen__pad">
+          <ScreenHead
+            eyebrow="Diagnosis · Paper 3 QA"
+            eyebrowIcon="layers"
+            title="Where you are losing points"
+            lede={lede}
+            right={early
+              ? <span className="early-flag"><Icon name="alert" size={12} />Provisional · 1 mock</span>
+              : undefined}
+          />
+          <div className="mx-wrap">
+            <div>
+              <div className="mx">
+                <div
+                  className="mx__grid"
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: `132px repeat(${cols.length}, 1fr)`,
+                  }}
+                >
+                  <div className="mx__corner" />
+                  {cols.map((c) => (
+                    <div className="mx__colhead" key={c.id}>{c.name}</div>
+                  ))}
+                  {rows.map((r, ri) => (
+                    <CellRow
+                      key={r.id}
+                      rowName={r.name}
+                      cellValues={(cells[ri] ?? []).map((v) => v * scale)}
+                      cols={cols}
+                    />
+                  ))}
+                </div>
+              </div>
+              <div className="mx__legend">
+                <span>Marks lost</span>
+                <div className="mx__legend-scale">
+                  {([0.5, 2, 3.5, 5, 7] as const).map((v) => (
+                    <span
+                      key={v}
+                      className="mx__legend-chip"
+                      style={matrixCellStyle(v)}
+                    />
+                  ))}
+                </div>
+                <span>none → {MATRIX_SCALE_MAX.toFixed(1)}</span>
+                <span style={{ marginLeft: "auto" }}>
+                  <Caveat icon="lock">{hiddenNote}</Caveat>
+                </span>
+              </div>
+              {progressing && (
+                <p className="caveat" style={{ marginTop: "var(--space-4)" }}>
+                  <Icon name="trend-down" size={12} />
+                  Every misconception is costing less than a month ago.
+                </p>
+              )}
+            </div>
+            <aside className="mx-side">
+              <h3 className="mx-side__title">{sidebarTitle}</h3>
+              {misList.map((m) => (
+                <button
+                  key={m.id}
+                  type="button"
+                  className="mx-mis"
+                  style={{
+                    width: "100%",
+                    textAlign: "left",
+                    background: "none",
+                    border: "none",
+                    borderBottom: "1px solid var(--color-border-hairline)",
+                    cursor: "pointer",
+                    font: "inherit",
+                    display: "block",
+                    padding: "var(--space-3) 0",
+                  }}
+                  onClick={() => navigate(`misconception/${m.id}`)}
+                >
+                  <div className="mx-mis__name">
+                    <span>{m.name}</span>
+                    <span className="mx-mis__cost mono">
+                      {"−"}{formatCost(m.marksLost)}
+                    </span>
+                  </div>
+                  <div className="mx-mis__meta">{m.count} questions · {m.topics}</div>
+                </button>
+              ))}
+            </aside>
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Matrix cell row
+// ---------------------------------------------------------------------------
+
+function CellRow({
+  rowName,
+  cellValues,
+  cols,
+}: {
+  readonly rowName: string;
+  readonly cellValues: readonly number[];
+  readonly cols: readonly { readonly id: string }[];
+}): JSX.Element {
+  return (
+    <>
+      <div className="mx__rowhead">{rowName}</div>
+      {cols.map((c, ci) => {
+        const v = cellValues[ci] ?? 0;
+        const style = matrixCellStyle(v);
+        return (
+          <div className="mx__cell" key={c.id} style={style}>
+            <span
+              className="mono"
+              style={{ fontSize: 11, fontWeight: 500, opacity: v > 0 ? 1 : 0.25 }}
+            >
+              {v > 0 ? formatCellValue(v) : "·"}
+            </span>
+          </div>
+        );
+      })}
+    </>
+  );
+}
+
+/** Format a cell value: integer shows as integer, else 2 dp. */
+function formatCellValue(v: number): string {
+  return v % 1 === 0 ? String(v) : v.toFixed(2);
+}
+
+/** Format marks cost for the sidebar: same rule as cell. */
+function formatCost(v: number): string {
+  return v % 1 === 0 ? String(v) : v.toFixed(2);
+}
+
+// ---------------------------------------------------------------------------
+// MisconceptionDetail
+// ---------------------------------------------------------------------------
+
+interface DetailData {
+  readonly cost: MisconceptionCost;
+  readonly schema: SchemaEntry | null;
+  readonly instances: InstanceRow[];
+}
+
+interface SchemaEntry {
+  readonly id: string;
+  readonly name: string;
+  readonly description: string;
+}
+
+interface InstanceRow {
+  readonly event: Event;
+  readonly ctxLabel: string;
+  readonly dateLabel: string;
+  readonly stem: string | null;
+  readonly chosenText: string;
+  readonly correctText: string;
+  readonly lost: number;
+}
+
+function MisconceptionDetail({
+  id,
+  snap,
+}: {
+  readonly id: string;
+  readonly snap: AppSnapshot;
+}): JSX.Element {
+  const [detail, setDetail] = useState<DetailData | null>(null);
 
   useEffect(() => {
     let cancelled = false;
-    load().catch((err: unknown) => {
-      if (cancelled) return;
-      setPhase({
-        kind: "error",
-        message:
-          err instanceof Error ? err.message : "The diagnosis could not be loaded.",
-      });
+    void buildDetail(id, snap).then((d) => {
+      if (!cancelled) setDetail(d);
     });
-    return () => {
-      cancelled = true;
-      // Shared page-level connection stays open for the page lifetime.
-    };
-  }, [load]);
+    return () => { cancelled = true; };
+  }, [id, snap]);
 
-  if (phase.kind === "loading") {
+  if (detail === null) {
     return (
-      <Frame onExit={onExit}>
-        <section className="dg-status" aria-busy="true">
-          <p className="dg-status__label">Loading your diagnosis</p>
-          <p className="dg-status__body">Reading your practice history.</p>
-        </section>
-      </Frame>
+      <main className="screen">
+        <div className="screen__scroll">
+          <div className="screen__pad">
+            <p className="subtle" style={{ marginTop: "var(--space-8)" }}>Loading…</p>
+          </div>
+        </div>
+      </main>
     );
   }
 
-  if (phase.kind === "error") {
-    return (
-      <Frame onExit={onExit}>
-        <section className="dg-status dg-status--error" role="alert">
-          <p className="dg-status__label">Diagnosis could not load</p>
-          <p className="dg-status__body">{phase.message}</p>
+  const { cost, schema, instances } = detail;
+
+  // Primary family name for the eyebrow (first family, display-resolved).
+  const familyName = cost.families.length > 0
+    ? (snap.topicNames.get(cost.families[0]!) ?? fallbackName(cost.families[0]!))
+    : "Mixed";
+
+  // Attempt count: total events carrying this misconception id (wrong + right
+  // for items that have ever had this id selected).
+  const totalAttempts = snap.events.filter(
+    (e) => e.selected_misconception === id,
+  ).length;
+  const wrongCount = instances.length; // all instances are wrong events
+
+  const trendText =
+    cost.trend === "up"
+      ? "getting more frequent"
+      : cost.trend === "down"
+        ? "getting rarer"
+        : null;
+
+  return (
+    <main className="screen">
+      <div className="screen__scroll">
+        <div className="screen__pad">
           <button
             type="button"
-            className="dg-btn dg-btn--primary"
-            onClick={() => {
-              setPhase({ kind: "loading" });
-              load().catch((err: unknown) =>
-                setPhase({
-                  kind: "error",
-                  message:
-                    err instanceof Error ? err.message : "Recovery failed. Reopen the app.",
-                }),
-              );
-            }}
+            className="sa-btn sa-btn--ghost"
+            style={{ marginBottom: "var(--space-5)", fontSize: 13, paddingLeft: 0 }}
+            onClick={() => navigate("diagnosis")}
           >
-            Try again
+            <Icon name="arrow-left" size={15} />Back to diagnosis
           </button>
-        </section>
-      </Frame>
-    );
-  }
 
-  const { snap } = phase;
-  const screen = selectDiagnosisState(snap.state.eventCount, snap.readiness.confidence);
-
-  if (screen === "empty") {
-    return (
-      <Frame onExit={onExit}>
-        <section className="dg-status">
-          <p className="dg-status__eyebrow">Diagnosis</p>
-          <h2 className="dg-status__label">Nothing to diagnose yet</h2>
-          <p className="dg-status__body">
-            The diagnosis reads your answers and names where you are losing marks. It needs
-            some practice first — there is no number to show until there is evidence behind it.
-          </p>
-          <button type="button" className="dg-btn dg-btn--primary" onClick={goPractice}>
-            Start practising
-          </button>
-        </section>
-      </Frame>
-    );
-  }
-
-  // early or ready: render the full view. The readiness band self-gates: in the
-  // early state the band is withheld and the engine note carries the honesty
-  // wording; the map and misconceptions render with whatever signal exists.
-  const view = readinessView(snap.readiness, NUM_QUESTIONS);
-  const parts = groupByBlueprint(snap.mastery, snap.pack.blueprint, snap.topicNames);
-  const misconceptions = recurringMisconceptions(
-    snap.state,
-    undefined,
-    undefined,
-    snap.misconceptionNames,
-  );
-
-  return (
-    <Frame onExit={onExit}>
-      <div className="dg-grid">
-        <div className="dg-aside">
-          <ReadinessPanel view={view} provisional={screen === "early"} />
-          <NextStepStrip
-            reason={snap.readiness.note}
-            gated={view.gated}
-          />
-        </div>
-        <div className="dg-main">
-          <DiagnosisMap parts={parts} provisional={screen === "early"} />
-          <MisconceptionList misconceptions={misconceptions} />
-        </div>
-      </div>
-    </Frame>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// Presentational pieces. Each is a pure function of its props.
-// ---------------------------------------------------------------------------
-
-function Frame({
-  children,
-  onExit,
-}: {
-  readonly children: React.ReactNode;
-  readonly onExit: () => void;
-}): JSX.Element {
-  return (
-    <div className="dg-screen">
-      <header className="dg-bar">
-        <span className="dg-bar__title">Diagnosis</span>
-        <button
-          type="button"
-          className="dg-bar__close"
-          aria-label="Close diagnosis and return home"
-          onClick={onExit}
-        >
-          Close
-        </button>
-      </header>
-      <main className="dg-body">{children}</main>
-    </div>
-  );
-}
-
-/** The readiness band panel. Renders a band (a range), never a single score; the
- * pass mark and the band sit on a shared marks axis. When gated, the band is
- * withheld and only the engine note shows. */
-function ReadinessPanel({
-  view,
-  provisional,
-}: {
-  readonly view: ReadinessView;
-  readonly provisional: boolean;
-}): JSX.Element {
-  return (
-    <section className="dg-rb" aria-label="Readiness estimate">
-      <div className="dg-rb__head">
-        <p className="dg-rb__eyebrow">How close to ready</p>
-        {provisional && <span className="dg-flag">Provisional</span>}
-      </div>
-
-      {view.gated ? (
-        <p className="dg-rb__withheld">{view.note}</p>
-      ) : (
-        <>
-          <p className="dg-rb__band">{view.band}</p>
-          {view.distanceToPass !== null && (
-            <p className="dg-rb__distance">{view.distanceToPass}</p>
-          )}
-          <p
-            className={`dg-rb__confidence dg-rb__confidence--${view.confidence}`}
-          >
-            {view.confidenceLabel}
-          </p>
-          {view.timeLine !== null && <p className="dg-rb__time">{view.timeLine}</p>}
-          <p className="dg-rb__note">{view.note}</p>
-        </>
-      )}
-    </section>
-  );
-}
-
-/** The next-step strip: the engine's note (which carries its guidance verbatim)
- * with a link into practice. When gated, the strip nudges toward practice; once
- * the band is live, the same evidence-backed link still leads to practice. */
-function NextStepStrip({
-  reason,
-  gated,
-}: {
-  readonly reason: string;
-  readonly gated: boolean;
-}): JSX.Element {
-  return (
-    <section className="dg-next" aria-label="Recommended next step">
-      <p className="dg-next__eyebrow">Next step</p>
-      <p className="dg-next__reason">
-        {gated
-          ? "Keep practising — the diagnosis sharpens with every answer, and the band appears once there is enough evidence behind it."
-          : reason}
-      </p>
-      <a className="dg-btn dg-btn--primary dg-next__cta" href="#/practice">
-        Practise now
-      </a>
-    </section>
-  );
-}
-
-/** The mastery-by-node map, grouped by blueprint part and section. Each node is
- * a bar (the probability) with an uncertainty whisker (the 90% interval), or the
- * "too few attempts" state below the per-node threshold. */
-function DiagnosisMap({
-  parts,
-  provisional,
-}: {
-  readonly parts: readonly PartGroup[];
-  readonly provisional: boolean;
-}): JSX.Element {
-  return (
-    <section className="dg-map" aria-label="Mastery by topic">
-      <div className="dg-map__head">
-        <h2 className="dg-map__title">Where you stand, topic by topic</h2>
-        {provisional && (
-          <p className="dg-map__hint">
-            Provisional after a little practice — it deepens as you attempt more.
-          </p>
-        )}
-      </div>
-      {parts.length === 0 ? (
-        <p className="dg-map__empty">
-          No topic has enough attempts to read yet. Each one needs a few answers
-          before its mastery can be shown without guessing.
-        </p>
-      ) : (
-        parts.map((part) => (
-          <section className="dg-part" key={part.partId}>
-            <div className="dg-part__head">
-              <span className="dg-part__name">{part.partId}</span>
-              <span className="dg-part__marks">{part.marks} marks</span>
+          <div className="md-hero">
+            <div>
+              <div className="screen__eyebrow" style={{ marginBottom: 0 }}>
+                <Icon name="crosshair" size={13} />
+                Misconception · {familyName}
+              </div>
+              <h1 className="md-hero__name">{cost.name}</h1>
+              <div className="md-hero__fam">
+                Seen in {wrongCount} of your {totalAttempts} attempts on this pattern
+                {trendText !== null && (
+                  <span className="subtle"> · {trendText}</span>
+                )}
+              </div>
             </div>
-            {part.sections.map((section) => (
-              <div className="dg-section" key={section.sectionId}>
-                <p className="dg-section__id">Section {section.sectionId}</p>
-                {section.nodes.map((node) => (
-                  <NodeBar key={node.nodeId} node={node} />
-                ))}
+            <div className="md-hero__stat">
+              <div className="md-hero__stat-num mono">{formatCost(cost.marksLost)}</div>
+              <div className="md-hero__stat-label">Marks lost</div>
+            </div>
+          </div>
+
+          {schema !== null && (
+            <div
+              className="md-cards"
+              style={{ marginTop: "var(--space-6)" }}
+            >
+              <div className="md-card md-card--what">
+                <div className="md-card__label">
+                  <Icon name="x" size={13} />What happens
+                </div>
+                <p className="md-card__text">{schema.description}</p>
+              </div>
+            </div>
+          )}
+
+          <h3 className="section-title" style={{ marginTop: "var(--space-8)" }}>
+            Every time it bit you
+          </h3>
+          <div className="brk">
+            {instances.map((inst, i) => (
+              <div className="md-inst" key={i}>
+                <div>
+                  <div className="md-inst__ctx">{inst.ctxLabel}</div>
+                  <div className="md-inst__ctx-date">{inst.dateLabel}</div>
+                </div>
+                <div className="md-inst__stem">
+                  {inst.stem !== null ? truncate(inst.stem, 80) : "(item not found)"}
+                </div>
+                <div className="md-inst__ans">
+                  <span className="md-inst__wrong">{inst.chosenText}</span>
+                  {" → "}
+                  <span className="md-inst__right">{inst.correctText}</span>
+                </div>
+                <div className="md-inst__ans">
+                  {"−"}{inst.lost.toFixed(2)}
+                </div>
               </div>
             ))}
-          </section>
-        ))
-      )}
-    </section>
+            {instances.length === 0 && (
+              <div style={{ padding: "var(--space-5)", color: "var(--color-muted-foreground)", fontSize: "var(--text-sm)" }}>
+                No recorded instances yet.
+              </div>
+            )}
+          </div>
+
+          <div className="btn-row" style={{ marginTop: "var(--space-6)", justifyContent: "space-between" }}>
+            <Caveat icon="repeat">
+              These questions resurface in your review queue on a spaced schedule.
+            </Caveat>
+            <button
+              type="button"
+              className="sa-btn sa-btn--primary"
+              onClick={() => navigate("drill")}
+            >
+              Drill this pattern<Icon name="arrow-right" size={15} />
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 }
 
-/** One node row: a bar with an uncertainty whisker, or the too-few state. */
-function NodeBar({ node }: { readonly node: NodeMasteryView }): JSX.Element {
-  if (node.tooFew) {
-    return (
-      <div className="dg-node dg-node--toofew">
-        <span className="dg-node__name">{node.label}</span>
-        <span className="dg-node__toofew">Too few attempts</span>
-      </div>
-    );
-  }
-  const pct = (x: number): string => `${(x * 100).toFixed(0)}%`;
-  const lowPct = node.low * 100;
-  const highPct = node.high * 100;
-  return (
-    <div className="dg-node">
-      <span className="dg-node__name">{node.label}</span>
-      <div
-        className="dg-node__track"
-        role="img"
-        aria-label={`${node.label}: about ${pct(node.p)}, between ${pct(node.low)} and ${pct(node.high)}`}
-      >
-        {/* The fill: the point estimate. */}
-        <span className="dg-node__fill" style={{ width: pct(node.p) }} />
-        {/* The uncertainty whisker: the 90% interval span. */}
-        <span
-          className="dg-node__whisker"
-          style={{ left: `${lowPct}%`, width: `${highPct - lowPct}%` }}
-        />
-      </div>
-      <span className="dg-node__pct mono">{pct(node.p)}</span>
-    </div>
-  );
+// ---------------------------------------------------------------------------
+// Detail builder (async, called once per id+snap)
+// ---------------------------------------------------------------------------
+
+async function buildDetail(
+  id: string,
+  snap: AppSnapshot,
+): Promise<DetailData> {
+  // Find the cost entry.
+  const cost = snap.costs.find((c) => c.id === id) ?? buildFallbackCost(id, snap);
+
+  // Load the schema entry (description, canonical name).
+  const schema = await loadSchemaEntry(id);
+
+  // Load content for stems/options.
+  const content = await loadCaContent();
+
+  // Filter wrong events for this misconception, newest first, cap 6.
+  const wrongEvents = snap.events
+    .filter((e) => !e.correct && e.selected_misconception === id)
+    .slice()
+    .sort((a, b) => b.occurredAtMs - a.occurredAtMs)
+    .slice(0, 6);
+
+  const nowMs = Date.now();
+  const instances: InstanceRow[] = wrongEvents.map((e) => {
+    const item = content.get(e.item_id) ?? null;
+    const ctxLabel = buildCtxLabel(e);
+    const dateLabel = relativeDate(e.occurredAtMs, nowMs);
+
+    // Resolve chosen / correct option texts.
+    const { chosenText, correctText } = resolveOptions(e, item);
+
+    // Marks lost per event: mock = 1.25, practice = 1.0.
+    const lost = e.mode === "mock" ? 1 + snap.pack.marking.negativePerWrong : 1.0;
+
+    return {
+      event: e,
+      ctxLabel,
+      dateLabel,
+      stem: item?.stem ?? null,
+      chosenText,
+      correctText,
+      lost,
+    };
+  });
+
+  return { cost, schema, instances };
 }
 
-/** The recurring-misconceptions list, ranked by marks lost, with marks framing. */
-function MisconceptionList({
-  misconceptions,
-}: {
-  readonly misconceptions: readonly MisconceptionView[];
-}): JSX.Element {
-  if (misconceptions.length === 0) {
-    return (
-      <section className="dg-mis" aria-label="Recurring misconceptions">
-        <h2 className="dg-mis__title">Recurring misconceptions</h2>
-        <p className="dg-mis__empty">
-          No error has recurred yet. A pattern shows here once the same
-          misconception has cost you marks more than once.
-        </p>
-      </section>
-    );
-  }
-  return (
-    <section className="dg-mis" aria-label="Recurring misconceptions">
-      <h2 className="dg-mis__title">Recurring misconceptions, costliest first</h2>
-      <ul className="dg-mis__list">
-        {misconceptions.map((m) => (
-          <li className="dg-mis__row" key={m.id}>
-            <span className="dg-mis__name">{m.label}</span>
-            <span className="dg-mis__meta">
-              {m.count} time{m.count === 1 ? "" : "s"}
-            </span>
-            <span className="dg-mis__cost mono">
-              &minus;{m.marks.toFixed(2)} marks
-            </span>
-          </li>
-        ))}
-      </ul>
-    </section>
+/** Build a minimal cost record when the id is not in snap.costs (e.g. never
+ * met the minOccurrences threshold but was navigated to directly). */
+function buildFallbackCost(id: string, snap: AppSnapshot): MisconceptionCost {
+  const wrongEvents = snap.events.filter(
+    (e) => !e.correct && e.selected_misconception === id,
   );
+  const marksLost = wrongEvents.reduce(
+    (sum, e) => sum + (e.mode === "mock" ? 1 + snap.pack.marking.negativePerWrong : 1.0),
+    0,
+  );
+  return {
+    id,
+    name: snap.misNames.get(id) ?? fallbackName(id),
+    count: wrongEvents.length,
+    marksLost: Math.round(marksLost * 100) / 100,
+    families: [],
+    topics: "",
+    trend: "flat",
+  };
+}
+
+/** Load the canon description from the misconceptions JSON. */
+let schemaCache: Map<string, SchemaEntry> | null = null;
+
+async function loadSchemaEntry(id: string): Promise<SchemaEntry | null> {
+  if (schemaCache === null) {
+    const mod = await import(
+      "../../../../schema/profiles/ca-foundation-qa/misconceptions.json"
+    );
+    const data = mod.default as {
+      misconceptions: Array<{ id: string; name: string; description: string }>;
+    };
+    schemaCache = new Map(data.misconceptions.map((m) => [m.id, m]));
+  }
+  return schemaCache.get(id) ?? null;
+}
+
+/** Build the context label ("Mock · Q14" or "Drill · Finance"). */
+function buildCtxLabel(e: Event): string {
+  if (e.mode === "mock") return "Mock";
+  const topicHint = e.tests[0];
+  if (topicHint !== undefined) {
+    const leaf = topicHint.slice(topicHint.lastIndexOf(".") + 1).replace(/_/g, " ");
+    const short = leaf.charAt(0).toUpperCase() + leaf.slice(1);
+    return `Drill · ${short}`;
+  }
+  return "Drill";
+}
+
+/** Resolve the chosen and correct option texts. Falls back to letter labels.
+ * Event.response is stored as { kind: "single_best", selected_option: number }
+ * (see flows/practice/event.ts). */
+function resolveOptions(
+  e: Event,
+  item: ContentItem | null,
+): { chosenText: string; correctText: string } {
+  // Extract chosen option key from the stored response.
+  const responseObj = e.response as { selected_option?: number } | null | undefined;
+  const chosenKey = responseObj?.selected_option ?? null;
+
+  // Correct option key lives in the content item.
+  const correctKey = item?.answer_key?.correct ?? null;
+
+  if (item === null || item.options.length === 0) {
+    return {
+      chosenText: chosenKey !== null ? optionLetter(chosenKey) : "?",
+      correctText: correctKey !== null ? optionLetter(correctKey) : "?",
+    };
+  }
+
+  const chosenOpt = chosenKey !== null ? item.options.find((o) => o.key === chosenKey) : null;
+  const correctOpt = correctKey !== null ? item.options.find((o) => o.key === correctKey) : null;
+  return {
+    chosenText: chosenOpt?.text ?? (chosenKey !== null ? optionLetter(chosenKey) : "?"),
+    correctText: correctOpt?.text ?? (correctKey !== null ? optionLetter(correctKey) : "?"),
+  };
+}
+
+function optionLetter(key: number): string {
+  return String.fromCharCode(64 + key); // 1->"A", 2->"B", …
+}
+
+function truncate(s: string, max: number): string {
+  return s.length <= max ? s : `${s.slice(0, max)}…`;
 }

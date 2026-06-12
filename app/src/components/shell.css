@@ -1,27 +1,18 @@
 /*
- * shell.css — AppShell: persistent left rail (desktop) and bottom tab bar
- * (mobile). The shell never scrolls; the content area scrolls internally.
+ * shell.css — AppShell frame: viewport layout, content scrolling, and the
+ * mobile bottom tab bar. The rail itself is the design team's (.rail family
+ * in theme/design.css); this file owns only what the design drop does not
+ * cover: the phone tier and the shell's flex frame.
  *
- * Phone-first, 360px floor (ADR 0011). Tokens only (theme/tokens.css): no raw
- * hex, no raw px outside the spacing/touch tokens. 44px touch targets, one
- * visible focus style on every interactive element. Desktop widening is additive:
- *   >=1024px: icon-only rail (64px)
- *   >=1200px: full rail (224px, labels, storage line)
- * Narrow rules are never overwritten (ADR 0011).
- *
- * Lives in the `components` layer so token values resolve under @layer order.
+ * Tiers (ruling 2026-06-12): tab bar < 900px, icon rail 900-1199px, full
+ * rail >= 1200px. Tokens only; 44px touch targets; safe-area padding.
  */
 
 @layer components {
   /* ---------------------------------------------------------------- */
-  /* SHELL FRAME                                                       */
+  /* SHELL FRAME — no page scroll; content scrolls internally          */
   /* ---------------------------------------------------------------- */
 
-  /*
-   * Full viewport height, no page scroll. The content area scrolls
-   * independently. This is the same dvh pattern the practice and
-   * diagnosis flows use.
-   */
   .app-shell {
     display: flex;
     flex-direction: column;
@@ -32,62 +23,24 @@
     color: var(--color-foreground);
   }
 
-  /* ---------------------------------------------------------------- */
-  /* NAV WRAPPER                                                       */
-  /* ---------------------------------------------------------------- */
-
-  /*
-   * The nav element wraps both the rail (desktop) and the tab bar (mobile).
-   * CSS toggling via the breakpoint keeps one visible and removes the other
-   * from layout; both remain in the DOM for a clean progressive enhancement.
-   */
-  .app-shell__nav {
-    /* No styles on the wrapper itself; layout handled by children. */
-    /* The rail is positioned as a flex sibling to .app-shell__content. */
-  }
-
-  /* ---------------------------------------------------------------- */
-  /* CONTENT AREA                                                      */
-  /* ---------------------------------------------------------------- */
-
-  /*
-   * Fills the remaining vertical space. The padding-bottom reserves room for
-   * the tab bar on mobile so content and any pinned .pr-dock are not covered.
-   *
-   * --shell-tab-bar-height is set here and consumed by the content padding.
-   * The tab bar is 56px tall (44px touch target + 12px label area) plus the
-   * safe-area inset. We use a fixed reference height for the static padding
-   * reservation; the actual bar uses env() which only the browser resolves.
-   */
   .app-shell__content {
     flex: 1;
     min-height: 0;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
     /* Reserve tab bar height at the bottom on narrow viewports. */
     padding-bottom: calc(56px + env(safe-area-inset-bottom, 0px));
   }
 
-  /*
-   * Shell-hosted screens (.hm-screen, .dg-screen, .st-screen, and any future
-   * shell-hosted flow) use min-height: 100dvh to fill the viewport. Inside the
-   * shell content area this overshoots; cap it to 100% of the content container
-   * so the flows lay out correctly without editing each one individually.
-   */
+  /* Shell-hosted flows fill the content area and scroll inside it. */
   .app-shell__content > * {
-    min-height: 100%;
-    height: 100%;
+    flex: 1;
+    min-height: 0;
   }
 
   /* ---------------------------------------------------------------- */
-  /* RAIL (hidden on mobile, shown on desktop via the widening rule)  */
-  /* ---------------------------------------------------------------- */
-
-  .app-shell__rail {
-    display: none; /* shown at 1024px */
-  }
-
-  /* ---------------------------------------------------------------- */
-  /* TAB BAR (mobile / tablet, < 1024px)                             */
+  /* TAB BAR (< 900px)                                                 */
   /* ---------------------------------------------------------------- */
 
   .app-shell__tabs {
@@ -138,310 +91,67 @@
     position: relative;
   }
 
-  /* Badge dot on Practice icon when reviews are due. */
-  .app-shell__tab-badge::after {
-    content: "";
+  /* The reviews-due numeral on the Practice tab, mirroring the icon-rail
+     pill (design screens.css:393): the count stays visible on phones. */
+  .app-shell__tab-count {
     position: absolute;
-    top: -2px;
-    right: -2px;
-    width: 7px;
-    height: 7px;
+    top: -4px;
+    right: -10px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: var(--font-weight-medium);
+    font-variant-numeric: tabular-nums;
+    background: var(--color-brand-soft);
+    color: var(--color-info-text);
     border-radius: var(--radius-full);
-    background: var(--color-brand-primary);
-    border: 1.5px solid var(--color-card);
   }
 
   .app-shell__tab-label {
-    font-size: var(--text-xs); /* 12px — the type floor */
+    font-size: 11px;
     font-weight: var(--font-weight-medium);
     line-height: 1;
     letter-spacing: var(--tracking-normal);
   }
 
-  /* ---------------------------------------------------------------- */
-  /* FOCUS — visible ring on every interactive element                */
-  /* ---------------------------------------------------------------- */
+  .app-shell__tab:focus-visible {
+    outline: 3px solid var(--color-brand-soft);
+    outline-offset: -3px;
+  }
 
-  .app-shell__tab:focus-visible,
-  .app-shell__rail-item:focus-visible {
-    outline: 2px solid var(--color-ring);
-    outline-offset: 2px;
+  /* The shortcut hint is a pointer-keyboard affordance; hide it on phones. */
+  @media (max-width: 899px) {
+    .app-shell__kbd-hint {
+      display: none;
+    }
   }
 
   /* ---------------------------------------------------------------- */
-  /* VISUALLY HIDDEN — screen-reader text, no layout impact          */
-  /* Scoped to the shell to avoid polluting the global class space.  */
+  /* WIDEN (>= 900px): rail replaces the tab bar                       */
   /* ---------------------------------------------------------------- */
 
-  .app-shell__sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-    border: 0;
-  }
-
-  /* ---------------------------------------------------------------- */
-  /* WIDEN — icon-only rail (1024px to 1199px, 64px wide)            */
-  /* Additive only; the narrow tab-bar rules above are not touched.   */
-  /* ---------------------------------------------------------------- */
-
-  @media (min-width: 1024px) {
-    /* The shell becomes a row: rail on the left, content on the right. */
+  @media (min-width: 900px) {
     .app-shell {
       flex-direction: row;
     }
 
-    /* Remove the bottom padding reserved for the tab bar. */
+    .app-shell__nav {
+      display: flex;
+      height: 100%;
+    }
+
     .app-shell__content {
       padding-bottom: 0;
       overflow-y: auto;
     }
 
-    /* Reset the content height cap: on desktop the rail handles framing. */
-    .app-shell__content > * {
-      min-height: 100%;
-      height: auto;
-    }
-
-    /* Icon-only rail: 64px, icons centered, labels visually hidden. */
-    .app-shell__rail {
-      display: flex;
-      flex-direction: column;
-      width: 64px;
-      flex-shrink: 0;
-      height: 100%;
-      background: var(--color-card);
-      border-right: 1px solid var(--color-border-hairline);
-      padding: var(--space-5) var(--space-1);
-      gap: var(--space-2);
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
-
-    /* Hide the tab bar on desktop. Removing from layout with display:none also
-       removes it from the accessibility tree, so there is no duplicate nav. */
     .app-shell__tabs {
       display: none;
-    }
-
-    /* ---- Rail brand: show chevron mark only at this tier. ---- */
-    .app-shell__rail-brand {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: var(--space-1) 0 var(--space-4);
-    }
-
-    /* Hide wordmark and tag in the icon-rail tier. */
-    .app-shell__rail-brand .brand-lockup__name,
-    .app-shell__rail-brand .brand-lockup__tag {
-      display: none;
-    }
-
-    /* ---- Rail nav groups ---- */
-    .app-shell__rail-nav {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      flex: 1;
-    }
-
-    /* ---- Rail items: 44px min touch target, icon centered ---- */
-    .app-shell__rail-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0;
-      width: 100%;
-      min-height: var(--touch-target);
-      padding: var(--space-2) 0;
-      border: 0;
-      border-radius: var(--radius-md);
-      background: transparent;
-      color: var(--color-foreground);
-      font: inherit;
-      font-family: var(--font-sans);
-      font-size: var(--text-sm);
-      font-weight: var(--font-weight-medium);
-      text-align: center;
-      cursor: pointer;
-      transition: background-color
-        calc(var(--duration-fast) * var(--motion-duration-scalar)) var(--ease-linear);
-      position: relative;
-    }
-
-    .app-shell__rail-item svg {
-      color: var(--color-muted-foreground);
-      flex-shrink: 0;
-    }
-
-    .app-shell__rail-item:hover {
-      background: var(--color-muted);
-    }
-
-    .app-shell__rail-item--active {
-      background: var(--color-brand-soft);
-      color: var(--color-info-text);
-    }
-
-    .app-shell__rail-item--active svg {
-      color: var(--color-info-text);
-    }
-
-    /* Labels are visually hidden at this tier but remain in the a11y tree. */
-    .app-shell__rail-label {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip-path: inset(50%);
-      white-space: nowrap;
-      border: 0;
-    }
-
-    /* ---- Review count badge: compact dot at the icon tier ---- */
-    /* Text content is clipped via overflow + fixed dimensions; no sub-floor
-       font-size is set. The surrounding button's title and aria-label carry
-       the count for screen readers. */
-    .app-shell__rail-count {
-      position: absolute;
-      top: 5px;
-      right: 6px;
-      width: 8px;
-      height: 8px;
-      min-width: unset;
-      padding: 0;
-      overflow: hidden;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--color-brand-primary);
-      color: transparent;
-      border-radius: var(--radius-full);
-      border: 1.5px solid var(--color-card);
-    }
-
-    /* ---- Divider after Practice ---- */
-    .app-shell__rail-divider {
-      height: 1px;
-      background: var(--color-border-hairline);
-      margin: var(--space-3) var(--space-2);
-    }
-
-    /* ---- Rail foot: Settings icon only, storage line hidden ---- */
-    .app-shell__rail-foot {
-      margin-top: auto;
-      padding-top: var(--space-2);
-      border-top: 1px solid var(--color-border-hairline);
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-2);
-    }
-
-    /* Storage status is hidden at the icon tier. */
-    .app-shell__rail-device {
-      display: none;
-    }
-
-    .app-shell__rail-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: var(--radius-full);
-      background: var(--color-success);
-      flex-shrink: 0;
-    }
-  }
-
-  /* ---------------------------------------------------------------- */
-  /* WIDEN FURTHER — full rail (>= 1200px, 224px wide)               */
-  /* Restores labels, storage line, full brand lockup, inline badge.  */
-  /* ---------------------------------------------------------------- */
-
-  @media (min-width: 1200px) {
-    /* Full-width rail. */
-    .app-shell__rail {
-      width: 224px;
-      padding: var(--space-5) var(--space-3);
-      overflow-x: visible;
-    }
-
-    /* Restore brand lockup: mark plus wordmark and tag. */
-    .app-shell__rail-brand {
-      justify-content: flex-start;
-      padding: var(--space-1) var(--space-2) var(--space-4);
-    }
-
-    .app-shell__rail-brand .brand-lockup__name,
-    .app-shell__rail-brand .brand-lockup__tag {
-      display: inline;
-    }
-
-    /* Rail items: row layout with label text visible. */
-    .app-shell__rail-item {
-      flex-direction: row;
-      gap: var(--space-3);
-      padding: 9px 10px;
-      text-align: left;
-    }
-
-    /* Labels become visible again. */
-    .app-shell__rail-label {
-      position: static;
-      width: auto;
-      height: auto;
-      padding: 0;
-      margin: 0;
-      overflow: visible;
-      clip-path: none;
-      white-space: normal;
-      border: 0;
-      flex: 1;
-    }
-
-    /* Badge reverts to inline chip with count text. */
-    .app-shell__rail-count {
-      position: static;
-      top: auto;
-      right: auto;
-      margin-left: auto;
-      width: auto;
-      min-width: 18px;
-      height: 18px;
-      padding: 0 var(--space-1);
-      overflow: visible;
-      font-size: var(--text-xs);
-      color: var(--color-info-text);
-      background: var(--color-brand-soft);
-      border: none;
-    }
-
-    /* Restore storage status line. */
-    .app-shell__rail-device {
-      display: block;
-      padding: var(--space-2) var(--space-2) var(--space-1);
-    }
-
-    .app-shell__rail-device-line {
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-      font-size: var(--text-xs);
-      color: var(--color-muted-foreground);
-    }
-
-    .app-shell__rail-device-sub {
-      font-size: var(--text-xs);
-      color: var(--color-text-subtle);
-      margin-top: 2px;
-      padding-left: 15px;
     }
   }
 }

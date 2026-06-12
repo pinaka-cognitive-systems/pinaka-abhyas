@@ -55,3 +55,4 @@ packs/ca-foundation-qa/pack.manifest.json
 .vite/
 **/.vite/
 coverage/
+docs/audit/

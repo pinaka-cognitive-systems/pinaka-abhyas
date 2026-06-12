@@ -1,9 +1,9 @@
 /**
  * navRoutes.test.ts — unit tests for the route-to-nav-id mapping module.
  *
- * The module is pure (no I/O, no DOM) so these tests need no environment
- * setup. They mirror the convention in machine.test.ts: no jsdom, no
- * @testing-library, no third-party fixtures.
+ * Pins the design RAIL_FOR contract (design-team/v2/App.html:44-49): which
+ * routes keep the persistent rail and which are full-window flows. The
+ * module is pure (no I/O, no DOM) so these tests need no environment setup.
  */
 
 import { describe, expect, it } from "vitest";
@@ -16,44 +16,45 @@ import {
 } from "../../src/components/navRoutes.js";
 
 describe("navIdForRoute", () => {
-  it("maps 'home' to 'today'", () => {
+  it("maps the canonical 'today' route", () => {
+    expect(navIdForRoute("today")).toBe("today");
+  });
+
+  it("maps the legacy 'home' alias to 'today'", () => {
     expect(navIdForRoute("home")).toBe("today");
   });
 
-  it("maps 'diagnosis' to 'diagnosis'", () => {
+  it("keeps the rail on the practice hub", () => {
+    expect(navIdForRoute("practice")).toBe("practice");
+  });
+
+  it("keeps Practice active on the review queue (RAIL_FOR review -> practice)", () => {
+    expect(navIdForRoute("review")).toBe("practice");
+  });
+
+  it("keeps Diagnosis active on the misconception detail", () => {
+    expect(navIdForRoute("misconception")).toBe("diagnosis");
+    expect(navIdForRoute("misconception/compound_interest_confusion")).toBe("diagnosis");
+  });
+
+  it("maps the remaining destinations", () => {
     expect(navIdForRoute("diagnosis")).toBe("diagnosis");
-  });
-
-  it("maps 'mock' to 'mock'", () => {
-    expect(navIdForRoute("mock")).toBe("mock");
-  });
-
-  it("maps 'settings' to 'settings'", () => {
+    expect(navIdForRoute("syllabus")).toBe("syllabus");
     expect(navIdForRoute("settings")).toBe("settings");
   });
 
-  it("maps 'syllabus' to 'syllabus'", () => {
-    expect(navIdForRoute("syllabus")).toBe("syllabus");
+  it("keeps the rail on the mocks hub but not the mock phases", () => {
+    expect(navIdForRoute("mock")).toBe("mock");
+    expect(navIdForRoute("mock/hall")).toBeNull();
+    expect(navIdForRoute("mock/reveal")).toBeNull();
+    expect(navIdForRoute("mock/breakdown")).toBeNull();
+    expect(navIdForRoute("mock/review/1")).toBeNull();
   });
 
-  it("returns null for full-bleed route 'practice'", () => {
-    expect(navIdForRoute("practice")).toBeNull();
-  });
-
-  it("returns null for full-bleed route 'firstrun'", () => {
-    expect(navIdForRoute("firstrun")).toBeNull();
-  });
-
-  it("returns null for full-bleed route 'baseline'", () => {
-    expect(navIdForRoute("baseline")).toBeNull();
-  });
-
-  it("returns null for full-bleed route 'demo'", () => {
-    expect(navIdForRoute("demo")).toBeNull();
-  });
-
-  it("returns null for the empty-hash boot route", () => {
-    expect(navIdForRoute("")).toBeNull();
+  it("returns null for the full-window flows", () => {
+    for (const r of ["drill", "firstrun", "testday", "demo", ""]) {
+      expect(navIdForRoute(r)).toBeNull();
+    }
   });
 
   it("returns null for an unknown route", () => {
@@ -63,12 +64,12 @@ describe("navIdForRoute", () => {
 
 describe("routeForNavId", () => {
   const cases: Array<[NavId, string]> = [
-    ["today",     "home"],
+    ["today",     "today"],
+    ["practice",  "practice"],
     ["diagnosis", "diagnosis"],
     ["mock",      "mock"],
-    ["settings",  "settings"],
     ["syllabus",  "syllabus"],
-    ["practice",  "practice"],
+    ["settings",  "settings"],
   ];
 
   for (const [id, expected] of cases) {
@@ -79,53 +80,24 @@ describe("routeForNavId", () => {
 });
 
 describe("isShellRoute", () => {
-  it("returns true for 'home'", () => {
-    expect(isShellRoute("home")).toBe(true);
+  it("is true for every rail destination", () => {
+    for (const r of ["today", "home", "practice", "review", "diagnosis", "misconception/x", "syllabus", "mock", "settings"]) {
+      expect(isShellRoute(r)).toBe(true);
+    }
   });
 
-  it("returns true for 'diagnosis'", () => {
-    expect(isShellRoute("diagnosis")).toBe(true);
-  });
-
-  it("returns true for 'mock'", () => {
-    expect(isShellRoute("mock")).toBe(true);
-  });
-
-  it("returns true for 'settings'", () => {
-    expect(isShellRoute("settings")).toBe(true);
-  });
-
-  it("returns true for 'syllabus'", () => {
-    expect(isShellRoute("syllabus")).toBe(true);
-  });
-
-  it("returns false for full-bleed 'practice'", () => {
-    expect(isShellRoute("practice")).toBe(false);
-  });
-
-  it("returns false for full-bleed 'firstrun'", () => {
-    expect(isShellRoute("firstrun")).toBe(false);
-  });
-
-  it("returns false for full-bleed 'baseline'", () => {
-    expect(isShellRoute("baseline")).toBe(false);
-  });
-
-  it("returns false for the empty-hash boot route", () => {
-    expect(isShellRoute("")).toBe(false);
+  it("is false for every full-window flow", () => {
+    for (const r of ["drill", "mock/hall", "mock/review/0", "firstrun", "testday", "demo", ""]) {
+      expect(isShellRoute(r)).toBe(false);
+    }
   });
 });
 
 describe("round-trip consistency", () => {
-  const shellRoutes = ["home", "diagnosis", "mock", "settings", "syllabus"];
-
-  for (const r of shellRoutes) {
-    it(`navIdForRoute -> routeForNavId round-trips for '${r}'`, () => {
-      const id = navIdForRoute(r);
-      expect(id).not.toBeNull();
-      // The canonical route for the nav id must map back to the same route.
-      // (home is the canonical shell route for the 'today' nav id.)
-      expect(routeForNavId(id!)).toBe(r === "home" ? "home" : r);
-    });
-  }
+  it("every nav id's canonical route maps back to itself", () => {
+    const ids: NavId[] = ["today", "practice", "diagnosis", "mock", "syllabus", "settings"];
+    for (const id of ids) {
+      expect(navIdForRoute(routeForNavId(id))).toBe(id);
+    }
+  });
 });

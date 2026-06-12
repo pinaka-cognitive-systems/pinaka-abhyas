@@ -1,51 +1,67 @@
 /**
- * Minimal hash router (W5-5 flow a + flow d).
+ * Router — minimal hash router with the design canvas's interaction layer.
  *
- * No dependency: the app is a static PWA and other flows land alongside this
- * one. A hash route (`#/practice`) keeps deep links working on GitHub/Cloudflare
- * Pages with no server rewrite, and survives offline reloads. Other agents add
- * their routes here as their flows land; the map is the single registration
- * point.
+ * Route vocabulary follows the design drop (design-team/v2/App.html):
+ * shell-hosted destinations (today, practice, review, diagnosis,
+ * misconception/*, syllabus, mock, settings) render inside AppShell;
+ * full-window flows (drill, mock/* phases, firstrun, testday) render bare to
+ * preserve the focus environment. navRoutes.ts is the single registration
+ * point for that mapping.
  *
- * Default route (flow d / W5-9): the FIRST visit on a device runs the first-run
- * flow (welcome, install, persistence honesty, exam capture); a zero-history
- * student then gets the cold-start baseline once; thereafter the default sends
- * the returning student to the HOME surface (the honest-adherence today card,
- * delta, and re-entry, W5-9), not straight into practice. "First visit" is the
- * storage meta flag `firstrun_completed`, read once at boot -- so it survives
- * reloads and is not a fragile guess. While that read is in flight the router
- * shows a neutral boot screen, never a flash of the wrong flow. The home surface
- * also has an explicit `#/home` route; the old engine-demo Shell now lives at
- * the explicit `#/demo` route.
+ * Ported interaction contracts:
+ *   - Route changes run through document.startViewTransition (180ms root
+ *     crossfade, design App.html:92-105) with the reduced-motion bypass, the
+ *     aborted-transition swallow, and the 250ms throttled-rendering fallback.
+ *   - Global keyboard (App.html:126-138): 1-5/comma navigate between
+ *     destinations (suppressed inside full-window flows and form fields),
+ *     "?" toggles the shortcut sheet anywhere, Esc closes the sheet or exits
+ *     a flow to Today.
+ *   - Per-route document.title replaces the prototype's window-chrome title
+ *     (the browser provides the window; ruling 2026-06-12).
  *
- * Shell-hosted routes (#/home, #/diagnosis, #/settings, #/mock, #/syllabus):
- * rendered inside the AppShell so the persistent left rail (desktop) or bottom
- * tab bar (mobile) remains visible. Full-bleed routes (#/firstrun, #/baseline,
- * #/practice, #/demo) render without the shell to preserve the exam-hall and
- * onboarding focus environments.
+ * Default route: first visit runs first-run (welcome, paper, exam date);
+ * thereafter the empty hash lands on Today, whose empty state carries the
+ * "take your first mock" recommendation (the design's cold start — the
+ * baseline flow was removed by the same ruling).
  *
- * The flows are loaded lazily so their code and the pack content chunk stay off
- * the entry chunk until needed.
+ * Flows load lazily so their code and the pack chunk stay off the entry
+ * chunk until needed.
  */
 
+import { flushSync } from "react-dom";
 import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 
 import { Shell } from "../Shell.js";
 import { AppShell } from "../components/AppShell.js";
+import { ShortcutSheet } from "../components/ui.js";
+import { navIdForRoute, routeForNavId, type NavId } from "../components/navRoutes.js";
+import { navigate, readRoute } from "../components/navigate.js";
 import { isFirstRunComplete } from "./firstrun/meta.js";
-import { isBaselineDone, shouldShowBaseline } from "./baseline/meta.js";
 import { AlreadyOpenError, getSharedStorage } from "../storage/index.js";
+import { loadAppSnapshot } from "../state/appData.js";
+
+const PracticeHub = lazy(() =>
+  import("./practice/PracticeHub.js").then((m) => ({ default: m.PracticeHub })),
+);
 
 const PracticeFlow = lazy(() =>
   import("./practice/PracticeFlow.js").then((m) => ({ default: m.PracticeFlow })),
 );
 
-const BaselineFlow = lazy(() =>
-  import("./baseline/BaselineFlow.js").then((m) => ({ default: m.BaselineFlow })),
+const ReviewFlow = lazy(() =>
+  import("./review/ReviewFlow.js").then((m) => ({ default: m.ReviewFlow })),
 );
 
 const DiagnosisFlow = lazy(() =>
   import("./diagnosis/DiagnosisFlow.js").then((m) => ({ default: m.DiagnosisFlow })),
+);
+
+const SyllabusFlow = lazy(() =>
+  import("./syllabus/SyllabusFlow.js").then((m) => ({ default: m.SyllabusFlow })),
+);
+
+const TestDayFlow = lazy(() =>
+  import("./testday/TestDayFlow.js").then((m) => ({ default: m.TestDayFlow })),
 );
 
 const FirstRunFlow = lazy(() =>
@@ -60,68 +76,103 @@ const MockFlow = lazy(() =>
   import("./mock/MockFlow.js").then((m) => ({ default: m.MockFlow })),
 );
 
-const HomeFlow = lazy(() =>
+const TodayFlow = lazy(() =>
   import("./home/HomeFlow.js").then((m) => ({ default: m.HomeFlow })),
 );
 
-/** Read the current route from the URL hash. The empty hash is the default
- * route, which the router resolves to first-run or practice at boot. */
-function readRoute(): string {
-  if (typeof window === "undefined") return "";
-  return window.location.hash.replace(/^#\/?/, "");
+/** Per-route document titles (design App.html WINDOW_TITLE). */
+const WINDOW_TITLE: Record<string, string> = {
+  "today": "Today", "practice": "Practice", "drill": "Practice",
+  "review": "Review", "diagnosis": "Diagnosis", "misconception": "Diagnosis",
+  "syllabus": "Syllabus", "mock": "Mocks", "mock/hall": "Mock in progress",
+  "mock/reveal": "Mock complete", "mock/breakdown": "Mock breakdown",
+  "mock/review": "Mock review", "settings": "Settings",
+  "firstrun": "Welcome", "testday": "Test day",
+};
+
+function titleFor(route: string): string {
+  const exact = WINDOW_TITLE[route];
+  if (exact !== undefined) return exact;
+  const head = route.split("/")[0] ?? "";
+  return WINDOW_TITLE[head] ?? "Pinaka";
 }
 
-/** Navigate by setting the hash (records a history entry, so Back works). */
-function navigate(route: string): void {
-  if (typeof window === "undefined") return;
-  window.location.hash = route === "" ? "" : `/${route}`;
+/** Swap routes through the View Transitions API where supported: a 180ms
+ * crossfade (design.css ::view-transition rules). Skipped under reduced
+ * motion; aborted transitions are swallowed; throttled rendering falls back
+ * to a direct apply after 250ms (design App.html:92-105). */
+function applyRouteTransition(apply: () => void): void {
+  const reduced =
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const start = (
+    document as Document & {
+      startViewTransition?: (cb: () => void) => {
+        finished: Promise<void>;
+        ready: Promise<void>;
+        updateCallbackDone: Promise<void>;
+      };
+    }
+  ).startViewTransition;
+  if (typeof start !== "function" || reduced) {
+    apply();
+    return;
+  }
+  let applied = false;
+  const applyOnce = (): void => {
+    if (applied) return;
+    applied = true;
+    flushSync(apply);
+  };
+  try {
+    const t = start.call(document, applyOnce);
+    // Aborted transitions (rapid navigation) reject these promises — expected.
+    for (const p of [t.finished, t.ready, t.updateCallbackDone]) {
+      void p.catch(() => undefined);
+    }
+    // Throttled rendering (background tab) can stall the callback.
+    setTimeout(applyOnce, 250);
+  } catch {
+    applyOnce();
+  }
 }
 
-/** The default-route decision: first-run for a new device, then the cold-start
- * baseline for a student with no history who has not done it, the HOME surface
- * for a returning student otherwise (W5-9). null while the meta read is in
- * flight. */
-type DefaultTarget = "firstrun" | "baseline" | "home" | null;
+type DefaultTarget = "firstrun" | "today" | null;
 
 export function Router(): JSX.Element {
   const [route, setRoute] = useState<string>(readRoute);
   const [defaultTarget, setDefaultTarget] = useState<DefaultTarget>(null);
+  const [sheet, setSheet] = useState(false);
+  const [reviewCount, setReviewCount] = useState(0);
 
+  // Hash navigation, wrapped in the route crossfade.
   useEffect(() => {
-    const onHash = (): void => setRoute(readRoute());
+    const onHash = (): void => applyRouteTransition(() => setRoute(readRoute()));
     window.addEventListener("hashchange", onHash);
     return () => window.removeEventListener("hashchange", onHash);
   }, []);
 
-  // Resolve the default target once, by reading the first-run completion flag
-  // from storage. Done lazily off the entry path. A failure (or second-tab)
-  // falls back sensibly: an AlreadyOpenError means another tab already holds
-  // the connection, so the device is not new (go to practice, which renders the
-  // second-tab screen itself); any other failure treats the device as fresh and
-  // runs first-run. We open and release immediately so the flows own their own
-  // connection.
+  // Legacy alias: #/home was the pre-parity name for Today.
+  useEffect(() => {
+    if (route === "home" || route.startsWith("home/")) navigate("today");
+  }, [route]);
+
+  // Per-route document title (replaces the prototype's window chrome).
+  useEffect(() => {
+    document.title = `${titleFor(route)} · Pinaka abhyas`;
+  }, [route]);
+
+  // Resolve the default target once: first-run for a new device, else Today.
   useEffect(() => {
     let cancelled = false;
     void (async () => {
       try {
         const { adapter } = await getSharedStorage();
         const firstRunDone = await isFirstRunComplete(adapter);
-        if (!firstRunDone) {
-          // Shared page-level connection: flows never close it (storage/index.ts).
-          if (!cancelled) setDefaultTarget("firstrun");
-          return;
-        }
-        // First run is done: a student with no history who has not seen the
-        // baseline gets it once; the returning student lands on the home surface.
-        const baselineDone = await isBaselineDone(adapter);
-        const eventCount = (await adapter.readAllEvents()).length;
-        // Shared page-level connection: flows never close it (storage/index.ts).
-        if (!cancelled) {
-          setDefaultTarget(shouldShowBaseline({ baselineDone, eventCount }) ? "baseline" : "home");
-        }
+        if (!cancelled) setDefaultTarget(firstRunDone ? "today" : "firstrun");
       } catch (err) {
         if (cancelled) return;
-        setDefaultTarget(err instanceof AlreadyOpenError ? "home" : "firstrun");
+        setDefaultTarget(err instanceof AlreadyOpenError ? "today" : "firstrun");
       }
     })();
     return () => {
@@ -129,40 +180,106 @@ export function Router(): JSX.Element {
     };
   }, []);
 
-  const goDefault = useCallback(() => navigate(""), []);
-  const goPractice = useCallback(() => navigate("practice"), []);
-  const goBaseline = useCallback(() => navigate("baseline"), []);
-  const goDiagnosis = useCallback(() => navigate("diagnosis"), []);
-  const goMock = useCallback(() => navigate("mock"), []);
-  const goSettings = useCallback(() => navigate("settings"), []);
+  // Reviews-due badge: refresh from the shared snapshot on shell routes.
+  useEffect(() => {
+    if (navIdForRoute(route) === null) return;
+    let cancelled = false;
+    void loadAppSnapshot()
+      .then((snap) => {
+        if (!cancelled) setReviewCount(snap.reviewsDue);
+      })
+      .catch(() => undefined); // badge is best-effort; flows surface errors
+    return () => {
+      cancelled = true;
+    };
+  }, [route]);
 
-  // Full-bleed flows: no shell, focus environment preserved.
+  // Global keyboard: nav keys on destinations, "?" sheet, Esc exits a flow.
+  useEffect(() => {
+    const NAV_KEYS: Record<string, NavId> = {
+      "1": "today", "2": "practice", "3": "diagnosis",
+      "4": "mock", "5": "syllabus", ",": "settings",
+    };
+    const h = (e: KeyboardEvent): void => {
+      const t = e.target as HTMLElement | null;
+      if (t && (/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.isContentEditable)) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const inFlow = navIdForRoute(readRoute()) === null;
+      if (e.key === "?") {
+        setSheet((s) => !s);
+        return;
+      }
+      if (e.key === "Escape") {
+        setSheet((s) => {
+          if (s) return false;
+          if (inFlow) navigate("today");
+          return s;
+        });
+        return;
+      }
+      if (inFlow) return; // flow screens own their number keys
+      const id = NAV_KEYS[e.key];
+      if (id !== undefined) navigate(routeForNavId(id));
+    };
+    window.addEventListener("keydown", h);
+    return () => window.removeEventListener("keydown", h);
+  }, []);
 
-  if (route === "practice") {
+  const goToday = useCallback(() => navigate("today"), []);
+  const openSheet = useCallback(() => setSheet(true), []);
+  const closeSheet = useCallback(() => setSheet(false), []);
+
+  function shell(content: JSX.Element, activeRoute: string = route): JSX.Element {
     return (
+      <>
+        <AppShell route={activeRoute} reviewCount={reviewCount} onShortcuts={openSheet}>
+          {content}
+        </AppShell>
+        <ShortcutSheet open={sheet} onClose={closeSheet} />
+      </>
+    );
+  }
+
+  function fullBleed(content: JSX.Element): JSX.Element {
+    return (
+      <>
+        {content}
+        <ShortcutSheet open={sheet} onClose={closeSheet} />
+      </>
+    );
+  }
+
+  // ---- Full-window flows (rail hidden) ----
+
+  if (route === "drill") {
+    return fullBleed(
       <Suspense fallback={<BootScreen label="Loading practice" />}>
-        <PracticeFlow onExit={goDefault} />
-      </Suspense>
+        <PracticeFlow onExit={goToday} />
+      </Suspense>,
     );
   }
 
-  // Cold-start baseline (flow / W5-8): the guided first session. First-run
-  // finishes here for a zero-event student; the flow marks itself done so it
-  // never reappears, then hands off to practice or the diagnosis map.
-  if (route === "baseline") {
-    return (
-      <Suspense fallback={<BootScreen label="Loading your first session" />}>
-        <BaselineFlow onExitToPractice={goPractice} onSeeDiagnosis={goDiagnosis} />
-      </Suspense>
+  if (route.startsWith("mock/")) {
+    return fullBleed(
+      <Suspense fallback={<BootScreen label="Loading mock" />}>
+        <MockFlow onExit={goToday} />
+      </Suspense>,
     );
   }
 
-  // Explicit first-run route (a student can revisit it via #/firstrun).
   if (route === "firstrun") {
-    return (
+    return fullBleed(
       <Suspense fallback={<BootScreen label="Loading" />}>
-        <FirstRunFlow onComplete={goBaseline} onSkipToPractice={goPractice} />
-      </Suspense>
+        <FirstRunFlow onComplete={goToday} onSkipToPractice={goToday} />
+      </Suspense>,
+    );
+  }
+
+  if (route === "testday") {
+    return fullBleed(
+      <Suspense fallback={<BootScreen label="Loading" />}>
+        <TestDayFlow />
+      </Suspense>,
     );
   }
 
@@ -171,125 +288,98 @@ export function Router(): JSX.Element {
     return (
       <div>
         <Shell />
-        <div style={{ padding: "var(--gutter)" }}>
-          <button
-            type="button"
-            onClick={() => navigate("practice")}
-            style={{
-              minHeight: "var(--touch-target)",
-              padding: "0 var(--space-5)",
-              borderRadius: "var(--radius-md)",
-              border: "1px solid transparent",
-              background: "var(--color-brand-primary)",
-              color: "var(--color-brand-text)",
-              font: "inherit",
-              fontSize: "var(--text-base)",
-              fontWeight: "var(--font-weight-medium)",
-              cursor: "pointer",
-            }}
-          >
-            Start practice
-          </button>
-        </div>
       </div>
     );
   }
 
-  // Shell-hosted routes: persistent nav (rail on desktop, tab bar on mobile).
+  // ---- Shell-hosted destinations ----
 
-  if (route === "diagnosis") {
-    return (
-      <AppShell route={route}>
-        <Suspense
-          fallback={
-            <div className="dg-screen">
-              <main className="dg-body">
-                <section className="dg-status" aria-busy="true">
-                  <p className="dg-status__label">Loading your diagnosis</p>
-                </section>
-              </main>
-            </div>
-          }
-        >
-          <DiagnosisFlow onExit={goDefault} />
-        </Suspense>
-      </AppShell>
+  if (route === "today" || route === "home") {
+    return shell(
+      <Suspense fallback={<BootScreen label="Loading" />}>
+        <TodayFlow />
+      </Suspense>,
+      "today",
     );
   }
 
-  // Mock (flow b / W5-7): blueprint-assembled timed mock, hall, resume,
-  // negative-marking score reveal, breakdown, readiness anchoring.
+  if (route === "practice") {
+    return shell(
+      <Suspense fallback={<BootScreen label="Loading practice" />}>
+        <PracticeHub />
+      </Suspense>,
+    );
+  }
+
+  if (route === "review") {
+    return shell(
+      <Suspense fallback={<BootScreen label="Loading review" />}>
+        <ReviewFlow />
+      </Suspense>,
+    );
+  }
+
+  if (route === "diagnosis" || route === "misconception" || route.startsWith("misconception/")) {
+    return shell(
+      <Suspense fallback={<BootScreen label="Loading your diagnosis" />}>
+        <DiagnosisFlow onExit={goToday} />
+      </Suspense>,
+    );
+  }
+
+  if (route === "syllabus") {
+    return shell(
+      <Suspense fallback={<BootScreen label="Loading syllabus" />}>
+        <SyllabusFlow />
+      </Suspense>,
+    );
+  }
+
   if (route === "mock") {
-    return (
-      <AppShell route={route}>
-        <Suspense fallback={<BootScreen label="Loading mock" />}>
-          <MockFlow onExit={goDefault} />
-        </Suspense>
-      </AppShell>
+    return shell(
+      <Suspense fallback={<BootScreen label="Loading mock" />}>
+        <MockFlow onExit={goToday} />
+      </Suspense>,
     );
   }
 
-  // Settings (flow e): import/export, status, telemetry, update, danger zone.
   if (route === "settings") {
-    return (
-      <AppShell route={route}>
-        <Suspense fallback={<BootScreen label="Loading settings" />}>
-          <SettingsFlow onExit={goDefault} />
-        </Suspense>
-      </AppShell>
+    return shell(
+      <Suspense fallback={<BootScreen label="Loading settings" />}>
+        <SettingsFlow onExit={goToday} />
+      </Suspense>,
     );
   }
 
-  // The home surface (W5-9), also reachable at the explicit #/home route. Begin
-  // goes into practice; the settings and diagnosis links route accordingly.
-  if (route === "home") {
-    return (
-      <AppShell route={route}>
-        <Suspense fallback={<BootScreen label="Loading" />}>
-          <HomeFlow onBegin={goPractice} onSettings={goSettings} onDiagnosis={goDiagnosis} onMock={goMock} />
-        </Suspense>
-      </AppShell>
-    );
-  }
+  // ---- Default route (empty hash) ----
 
-  // Default route (empty hash): resolve first-run, baseline, or practice from
-  // the meta flags and the event count.
   if (defaultTarget === null) {
     return <BootScreen label="Loading" />;
   }
   if (defaultTarget === "firstrun") {
-    return (
+    return fullBleed(
       <Suspense fallback={<BootScreen label="Loading" />}>
-        <FirstRunFlow onComplete={goBaseline} onSkipToPractice={goPractice} />
-      </Suspense>
+        <FirstRunFlow onComplete={goToday} onSkipToPractice={goToday} />
+      </Suspense>,
     );
   }
-  if (defaultTarget === "baseline") {
-    return (
-      <Suspense fallback={<BootScreen label="Loading your first session" />}>
-        <BaselineFlow onExitToPractice={goPractice} onSeeDiagnosis={goDiagnosis} />
-      </Suspense>
-    );
-  }
-  // Returning student: the home surface (W5-9), wrapped in the app shell.
-  return (
-    <AppShell route="home">
-      <Suspense fallback={<BootScreen label="Loading" />}>
-        <HomeFlow onBegin={goPractice} onSettings={goSettings} onDiagnosis={goDiagnosis} onMock={goMock} />
-      </Suspense>
-    </AppShell>
+  return shell(
+    <Suspense fallback={<BootScreen label="Loading" />}>
+      <TodayFlow />
+    </Suspense>,
+    "today",
   );
 }
 
-/** Neutral boot screen, reusing the practice status shell tokens. */
+/** Neutral boot screen: never a flash of the wrong flow. */
 function BootScreen({ label }: { readonly label: string }): JSX.Element {
   return (
-    <div className="pr-screen">
-      <main className="pr-body">
-        <section className="pr-status" aria-busy="true">
-          <p className="pr-status__label">{label}</p>
-        </section>
-      </main>
-    </div>
+    <main className="screen" aria-busy="true">
+      <div className="screen__scroll">
+        <div className="screen__pad">
+          <p className="screen__lede">{label}</p>
+        </div>
+      </div>
+    </main>
   );
 }

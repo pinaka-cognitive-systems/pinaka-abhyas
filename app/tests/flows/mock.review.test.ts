@@ -1,12 +1,12 @@
 /**
- * Mock review filter, count, and pacing logic (W5 mock review phase).
+ * Mock review filter and entry logic (design parity).
  *
  * DOM-free. Asserts:
- *   - filter membership for all six filters across correct/wrong/skipped/marked
+ *   - filter membership for all six filters (design scr-review-mock.jsx:25-32)
  *   - filter counts match independent membership checks
- *   - pacing word emits Rushed, Slow, or null under the two specified rules only
  *   - buildReviewEntries maps session + score + content correctly
- *   - formatMs produces the expected "m:ss" shape
+ * The time verdict lives in engine/insights.ts and is tested in
+ * tests/engine/insights.test.ts.
  */
 
 import { describe, expect, it } from "vitest";
@@ -15,8 +15,6 @@ import {
   buildFilterCounts,
   applyFilter,
   passesFilter,
-  pacingWord,
-  formatMs,
   type ReviewEntry,
   type ReviewOutcome,
 } from "../../src/flows/mock/reviewFilter.js";
@@ -61,8 +59,8 @@ describe("passesFilter — toReview", () => {
   it("correct unmarked is NOT in toReview", () => {
     expect(passesFilter(entry(1, "correct", false, 0, 75), "toReview")).toBe(false);
   });
-  it("correct but marked IS in toReview", () => {
-    expect(passesFilter(entry(1, "correct", true, 0, 75), "toReview")).toBe(true);
+  it("correct but marked is NOT in toReview (the Marked filter owns it)", () => {
+    expect(passesFilter(entry(1, "correct", true, 0, 75), "toReview")).toBe(false);
   });
 });
 
@@ -128,10 +126,9 @@ describe("buildFilterCounts", () => {
     const counts = buildFilterCounts(entries);
     expect(counts.marked).toBe(2);
   });
-  it("toReview = wrong + skipped + marked-correct (union)", () => {
-    // wrong (2) + skipped (1) + marked-correct (1) = 4 unique entries
+  it("toReview = wrong + skipped (design membership)", () => {
     const counts = buildFilterCounts(entries);
-    expect(counts.toReview).toBe(4);
+    expect(counts.toReview).toBe(3);
   });
   it("counts match applyFilter lengths", () => {
     const counts = buildFilterCounts(entries);
@@ -139,62 +136,6 @@ describe("buildFilterCounts", () => {
     for (const f of filters) {
       expect(counts[f]).toBe(applyFilter(entries, f).length);
     }
-  });
-});
-
-// ---------------------------------------------------------------------------
-// Pacing word rules.
-// ---------------------------------------------------------------------------
-
-describe("pacingWord", () => {
-  it("Rushed: under half expected_seconds AND wrong", () => {
-    // expected 75s -> threshold is 37.5s -> under is < 37500ms
-    const e = entry(1, "wrong", false, 30_000, 75);
-    expect(pacingWord(e)).toBe("Rushed");
-  });
-  it("NOT Rushed when under half expected but correct (no chip)", () => {
-    const e = entry(1, "correct", false, 30_000, 75);
-    expect(pacingWord(e)).toBeNull();
-  });
-  it("NOT Rushed when under half expected but skipped (no chip)", () => {
-    const e = entry(1, "skipped", false, 0, 75);
-    expect(pacingWord(e)).toBeNull();
-  });
-  it("Slow: over double expected_seconds, wrong", () => {
-    // expected 75s -> 2x = 150s -> over is > 150000ms
-    const e = entry(1, "wrong", false, 200_000, 75);
-    expect(pacingWord(e)).toBe("Slow");
-  });
-  it("Slow: over double expected_seconds, correct (any outcome)", () => {
-    const e = entry(1, "correct", false, 200_000, 75);
-    expect(pacingWord(e)).toBe("Slow");
-  });
-  it("Slow takes precedence over Rushed threshold (over double is always Slow)", () => {
-    // If somehow timeMs > 2x expected AND < half expected (impossible, but the
-    // code evaluates Slow first): this test verifies the Slow branch fires first.
-    // In practice Slow check runs first in the code, so test the boundary.
-    const e = entry(1, "wrong", false, 160_000, 75);
-    expect(pacingWord(e)).toBe("Slow");
-  });
-  it("null: normal pace, correct", () => {
-    const e = entry(1, "correct", false, 60_000, 75);
-    expect(pacingWord(e)).toBeNull();
-  });
-  it("null: normal pace, wrong", () => {
-    const e = entry(1, "wrong", false, 60_000, 75);
-    expect(pacingWord(e)).toBeNull();
-  });
-  it("null: timeMs is 0 (skipped, no time data)", () => {
-    const e = entry(1, "skipped", false, 0, 75);
-    expect(pacingWord(e)).toBeNull();
-  });
-  it("null: exactly at half expected (not under), wrong", () => {
-    const e = entry(1, "wrong", false, 37_500, 75);
-    expect(pacingWord(e)).toBeNull();
-  });
-  it("null: exactly at double expected (not over), any", () => {
-    const e = entry(1, "wrong", false, 150_000, 75);
-    expect(pacingWord(e)).toBeNull();
   });
 });
 
@@ -313,14 +254,3 @@ describe("buildReviewEntries", () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// formatMs.
-// ---------------------------------------------------------------------------
-
-describe("formatMs", () => {
-  it("formats 0 as 0:00", () => expect(formatMs(0)).toBe("0:00"));
-  it("formats 75 000 ms as 1:15", () => expect(formatMs(75_000)).toBe("1:15"));
-  it("formats 3600 000 ms as 60:00", () => expect(formatMs(3_600_000)).toBe("60:00"));
-  it("formats 599 000 ms as 9:59", () => expect(formatMs(599_000)).toBe("9:59"));
-  it("pads seconds with leading zero", () => expect(formatMs(5_000)).toBe("0:05"));
-});

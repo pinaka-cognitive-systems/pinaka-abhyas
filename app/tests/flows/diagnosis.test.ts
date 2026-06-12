@@ -31,9 +31,6 @@ import {
   masteryByNode,
   type LoadedPack,
   type NodeMastery,
-  type RawBlueprint,
-  type RawMarking,
-  type RawPack,
 } from "../../src/engine/index.js";
 import {
   confidenceLabel,
@@ -272,9 +269,9 @@ describe("nodeMasteryView — too-few-attempts heuristic (deviation near prior)"
 
 function caBlueprint(): Blueprint {
   return loadPack(
-    { items: [] } as unknown as RawPack,
-    blueprintJson as unknown as RawBlueprint,
-    markingJson as unknown as RawMarking,
+    { items: [] },
+    blueprintJson,
+    markingJson,
   ).blueprint;
 }
 
@@ -378,9 +375,9 @@ describe("recurringMisconceptions", () => {
 
 function caPack(): LoadedPack {
   return loadPack(
-    { items: [] } as unknown as RawPack,
-    blueprintJson as unknown as RawBlueprint,
-    markingJson as unknown as RawMarking,
+    { items: [] },
+    blueprintJson,
+    markingJson,
   );
 }
 

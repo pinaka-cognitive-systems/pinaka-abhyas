@@ -1,18 +1,19 @@
 /*
- * firstrun.css — the first-run, install, and persistence-honesty styles
- * (W5-5 flow d, ADR 0008 + ADR 0011).
+ * firstrun.css — first-run and second-tab screen styles.
  *
- * Phone-first, 360px floor (ADR 0011). Tokens only (theme/tokens.css): no raw
- * hex, no raw px outside the spacing/touch tokens. 44px touch targets, one
- * visible focus style on every interactive element. Widening rules are additive
- * at the 600px breakpoint; never overwrite the narrow rules.
+ * The .fr__* and .fr-chip classes are shared design-system classes already
+ * ported to theme/design.css. This file adds only the flow-unique rules not
+ * present in the shared layer:
+ *   - the fr-screen / fr-body / fr-card card wrapper (second-tab screen)
+ *   - fr-eyebrow / fr-title / fr-text / fr-note text classes (second-tab)
+ *   - fr-btn action buttons (second-tab and webview escape)
  *
- * Lives in the `components` layer so token values resolve under @layer order.
+ * Phone-first, 360px floor. Tokens only.
  */
 
 @layer components {
   /* ---------------------------------------------------------------- */
-  /* FRAME                                                             */
+  /* FRAME (second-tab + webview escape use this wrapper)             */
   /* ---------------------------------------------------------------- */
   .fr-screen {
     display: flex;
@@ -40,7 +41,7 @@
     gap: var(--space-4);
   }
 
-  /* Inset card variant: used by commitment cards on the baseline close screen. */
+  /* Inset card variant: used by commitment cards. */
   .fr-card--inset {
     padding: var(--space-5);
     border: 1px solid var(--color-border);
@@ -48,7 +49,7 @@
     background: var(--color-card);
   }
 
-  /* Heading inside a card (not the top-level fr-title). */
+  /* Heading inside a card. */
   .fr-card__heading {
     margin: 0;
     font-size: var(--text-lg);
@@ -58,7 +59,7 @@
   }
 
   /* ---------------------------------------------------------------- */
-  /* TEXT                                                              */
+  /* TEXT (second-tab + webview escape)                               */
   /* ---------------------------------------------------------------- */
   .fr-eyebrow {
     margin: 0;
@@ -87,137 +88,22 @@
     color: var(--color-text-subtle);
   }
 
+  /* Neutral status note (no success-green for informational text). */
   .fr-note {
     margin: 0;
     font-size: var(--text-sm);
     line-height: var(--leading-normal);
-    color: var(--color-success-text);
-  }
-
-  .fr-status {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
+    color: var(--color-muted-foreground);
   }
 
   /* ---------------------------------------------------------------- */
-  /* WELCOME POINTS                                                    */
-  /* ---------------------------------------------------------------- */
-  .fr-points {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-  .fr-points__item {
-    position: relative;
-    padding-left: var(--space-5);
-    font-size: var(--text-base);
-    line-height: var(--leading-normal);
-  }
-  .fr-points__item::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.55em;
-    width: 6px;
-    height: 6px;
-    border-radius: var(--radius-full);
-    background: var(--color-brand-primary);
-  }
-
-  /* ---------------------------------------------------------------- */
-  /* iOS STEPS                                                         */
-  /* ---------------------------------------------------------------- */
-  .fr-steps {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-  .fr-steps__item {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-3);
-    font-size: var(--text-base);
-    line-height: var(--leading-normal);
-  }
-  .fr-steps__n {
-    flex: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    border-radius: var(--radius-full);
-    background: var(--color-brand-soft);
-    color: var(--color-brand-primary-hover);
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    font-weight: var(--font-weight-semibold);
-  }
-  .fr-steps__body {
-    flex: 1;
-  }
-
-  /* ---------------------------------------------------------------- */
-  /* WARNING (eviction / export promotion) — amber, not alarmist       */
-  /* ---------------------------------------------------------------- */
-  .fr-warning {
-    padding: var(--space-4);
-    border: 1px solid var(--color-warning-border);
-    border-radius: var(--radius-lg);
-    background: var(--color-warning-soft);
-  }
-  .fr-warning__body {
-    margin: 0;
-    font-size: var(--text-sm);
-    line-height: var(--leading-relaxed);
-    color: var(--color-warning-text);
-  }
-
-  /* ---------------------------------------------------------------- */
-  /* EXAM CHOICES                                                      */
-  /* ---------------------------------------------------------------- */
-  .fr-choices {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-  .fr-choice {
-    min-height: var(--touch-target);
-    padding: var(--space-3) var(--space-4);
-    text-align: left;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    background: var(--color-card);
-    color: var(--color-foreground);
-    font: inherit;
-    font-size: var(--text-base);
-    cursor: pointer;
-    transition: border-color calc(var(--duration-fast) * var(--motion-duration-scalar))
-      var(--ease-standard);
-  }
-  .fr-choice--picked {
-    border-color: var(--color-brand-primary);
-    background: var(--color-brand-soft);
-  }
-
-  /* ---------------------------------------------------------------- */
-  /* ACTIONS + BUTTONS                                                 */
+  /* ACTIONS + BUTTONS (second-tab + webview escape)                  */
   /* ---------------------------------------------------------------- */
   .fr-actions {
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
     margin-top: var(--space-2);
-  }
-  .fr-actions--stack {
-    flex-direction: column;
   }
 
   .fr-btn {
@@ -253,16 +139,15 @@
   }
 
   /* ---------------------------------------------------------------- */
-  /* FOCUS — one visible style on every interactive element            */
+  /* FOCUS                                                             */
   /* ---------------------------------------------------------------- */
-  .fr-btn:focus-visible,
-  .fr-choice:focus-visible {
+  .fr-btn:focus-visible {
     outline: 2px solid var(--color-ring);
     outline-offset: 2px;
   }
 
   /* ---------------------------------------------------------------- */
-  /* WIDEN — tablet/desktop best (>=600px), additive only              */
+  /* WIDEN                                                             */
   /* ---------------------------------------------------------------- */
   @media (min-width: 600px) {
     .fr-body {
@@ -271,10 +156,6 @@
     .fr-actions {
       flex-direction: row;
       justify-content: flex-end;
-    }
-    .fr-actions--stack {
-      flex-direction: column;
-      align-items: stretch;
     }
     .fr-btn {
       min-width: 160px;

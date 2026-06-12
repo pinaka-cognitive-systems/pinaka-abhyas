@@ -25,6 +25,13 @@
  * v1 + strike addendum: adds `struck` (Record<itemId, number[]>): option keys
  *   the student ruled out per item. Absent on sessions written before this
  *   addendum; parseSession defaults to {}.
+ * v1 + visited addendum: adds `visited` (string[]): item ids that have been
+ *   rendered to the student (regardless of whether answered). Required for the
+ *   palette's "seen, not answered" state. Absent in older sessions; parseSession
+ *   defaults to [].
+ * v1 + mockType addendum: adds `mockType` ("standard"|"hard"|"pace"): the
+ *   type of mock this session represents. Absent in older sessions; parseSession
+ *   defaults to "standard". Only standard mocks feed readiness (Handout §10).
  */
 
 /** One recorded answer within a mock, before submission scoring. The raw
@@ -81,6 +88,18 @@ export interface MockSession {
   readonly formFactor: string;
   /** Viewport width at start (CSS px), for the device-context event field. */
   readonly viewportWidth: number;
+  /**
+   * Item ids the student has viewed at least once (palette "seen, not answered"
+   * state). Absent in sessions written before this addendum; parseSession
+   * defaults to [].
+   */
+  readonly visited?: readonly string[];
+  /**
+   * Mock type: "standard" | "hard" | "pace". Absent in older sessions;
+   * parseSession defaults to "standard". Only standard mocks feed readiness
+   * anchoring (Handout §10); hard and pace mocks emit mode "drill" events.
+   */
+  readonly mockType?: "standard" | "hard" | "pace";
 }
 
 /** The single storage meta key the in-progress mock is persisted under. A mock
@@ -129,7 +148,13 @@ export function parseSession(raw: string | null): MockSession | null {
     typeof o.struck === "object" && o.struck !== null && !Array.isArray(o.struck)
       ? (o.struck as Readonly<Record<string, readonly number[]>>)
       : {};
-  return { ...(v as Omit<MockSession, "struck">), struck };
+  // Visited addendum: default to [] so older sessions do not show visited state.
+  const visited: readonly string[] =
+    Array.isArray(o.visited) ? (o.visited as string[]) : [];
+  // MockType addendum: default to "standard" for older sessions.
+  const mockType: "standard" | "hard" | "pace" =
+    o.mockType === "hard" || o.mockType === "pace" ? o.mockType : "standard";
+  return { ...(v as Omit<MockSession, "struck" | "visited" | "mockType">), struck, visited, mockType };
 }
 
 /**
@@ -247,6 +272,17 @@ export function withToggledStrike(
     struck[itemId] = struckForItem;
   }
   return { ...next, struck };
+}
+
+/**
+ * Record that the student has visited (viewed) an item. Idempotent: if the item
+ * is already in visited, the session is returned unchanged. Used to track the
+ * palette "seen, not answered" state.
+ */
+export function withVisited(session: MockSession, itemId: string): MockSession {
+  const existing = session.visited ?? [];
+  if (existing.includes(itemId)) return session;
+  return { ...session, visited: [...existing, itemId] };
 }
 
 /**

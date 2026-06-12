@@ -2,8 +2,11 @@
  * Completed mock result persistence tests (results.ts).
  *
  * Covers: round-trip serialize/parse, cap enforcement (newest-first, max 3),
- * invalid input returning [], wrong-schema records being skipped, and date
- * formatting.
+ * invalid input returning [], schema-1 records being skipped (schema 2
+ * required), and date formatting.
+ *
+ * Updated for schema 2: makeRecord now emits schema 2 with a summary field.
+ * Schema-1 records (missing summary) are correctly skipped by the parser.
  */
 
 import { describe, expect, it } from "vitest";
@@ -14,6 +17,7 @@ import {
   parseResults,
   serializeResults,
   type MockResultRecord,
+  type MockSummary,
 } from "../../src/flows/mock/results.js";
 import type { MockSession } from "../../src/flows/mock/state.js";
 
@@ -66,15 +70,26 @@ const READINESS_AFTER = {
   note: "Anchored to this mock.",
 };
 
+const SUMMARY: MockSummary = {
+  net: 51.75,
+  correct: 57,
+  wrong: 31,
+  skipped: 12,
+  penalty: 7.75,
+  denominator: 100,
+  type: "standard",
+};
+
 function makeRecord(
   overrides: Partial<MockResultRecord> = {},
 ): MockResultRecord {
   return {
-    schema: 1,
+    schema: 2,
     finishedAtMs: START + 91 * 60_000,
     session: freshSession(),
     before: READINESS_BEFORE,
     after: READINESS_AFTER,
+    summary: SUMMARY,
     ...overrides,
   };
 }
@@ -123,24 +138,42 @@ describe("parseResults — invalid input returns []", () => {
   });
 
   it("returns [] when the top-level value is not an array", () => {
-    expect(parseResults(JSON.stringify({ schema: 1 }))).toEqual([]);
+    expect(parseResults(JSON.stringify({ schema: 2 }))).toEqual([]);
     expect(parseResults(JSON.stringify(42))).toEqual([]);
   });
 
-  it("skips records with wrong schema version", () => {
-    const badSchema = { ...makeRecord(), schema: 2 };
+  it("skips schema-1 records (missing summary) gracefully", () => {
+    // Schema-1 record: no summary field. Parser skips it without throwing.
+    const schema1 = {
+      schema: 1,
+      finishedAtMs: START + 5,
+      session: freshSession("old"),
+      before: READINESS_BEFORE,
+      after: READINESS_AFTER,
+    };
+    const good = makeRecord({ finishedAtMs: START + 10 });
+    const parsed = parseResults(JSON.stringify([schema1, good]));
+    // The schema-1 record is skipped; only the schema-2 record survives.
+    expect(parsed).toHaveLength(1);
+    expect(parsed[0]).toEqual(good);
+  });
+
+  it("skips records with an unrecognised schema version", () => {
+    const unknown = { ...makeRecord(), schema: 99 };
     const good = makeRecord({ finishedAtMs: START + 5 });
-    const raw = JSON.stringify([badSchema, good]);
+    const raw = JSON.stringify([unknown, good]);
     const parsed = parseResults(raw);
     expect(parsed).toHaveLength(1);
     expect(parsed[0]).toEqual(good);
   });
 
   it("skips records missing required fields", () => {
-    const missingSession = { schema: 1, finishedAtMs: START, before: READINESS_BEFORE, after: READINESS_AFTER };
-    const missingBefore = { schema: 1, finishedAtMs: START, session: freshSession(), after: READINESS_AFTER };
+    const missingSession = { schema: 2, finishedAtMs: START, before: READINESS_BEFORE, after: READINESS_AFTER, summary: SUMMARY };
+    const missingBefore = { schema: 2, finishedAtMs: START, session: freshSession(), after: READINESS_AFTER, summary: SUMMARY };
+    const missingSummary = { schema: 2, finishedAtMs: START, session: freshSession(), before: READINESS_BEFORE, after: READINESS_AFTER };
     expect(parseResults(JSON.stringify([missingSession]))).toEqual([]);
     expect(parseResults(JSON.stringify([missingBefore]))).toEqual([]);
+    expect(parseResults(JSON.stringify([missingSummary]))).toEqual([]);
   });
 });
 

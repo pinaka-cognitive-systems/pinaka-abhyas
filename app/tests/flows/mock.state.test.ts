@@ -43,6 +43,10 @@ function freshSession(over: Partial<MockSession> = {}): MockSession {
     activeMs: 0,
     formFactor: "phone",
     viewportWidth: 360,
+    // Include the addendum fields so round-trip tests work correctly:
+    // parseSession always defaults these, so the fixture must include them.
+    visited: [],
+    mockType: "standard",
     ...over,
   };
 }

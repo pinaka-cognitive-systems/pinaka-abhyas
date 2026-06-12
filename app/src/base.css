@@ -11,6 +11,7 @@
 
 @import "./theme/fonts.css";
 @import "./theme/tokens.css";
+@import "./theme/design.css";
 
 @layer reset, tokens, components;
 
@@ -50,50 +51,117 @@
 
 @layer components {
   /* ------------------------------------------------------------------ */
-  /* HEADINGS                                                             */
+  /* TYPE RAMP — ported from design-team/v2/colors_and_type.css:238-354. */
+  /* The design's semantic element rules plus the pn-* utilities, exact. */
   /* ------------------------------------------------------------------ */
-  h1 {
-    font-size: var(--text-4xl);       /* responsive floor; 6xl on wider viewports */
+
+  /* Hero — 60px ceiling */
+  h1, .pn-h1 {
+    font-family: var(--font-sans);
+    font-size: var(--text-6xl);
     font-weight: var(--font-weight-semibold);
-    line-height: var(--leading-tight);
+    line-height: var(--leading-none);
     letter-spacing: var(--tracking-tight);
-    margin: 0 0 var(--space-4);
+    margin: 0 0 var(--space-6);
   }
 
-  h2 {
-    font-size: var(--text-3xl);
+  /* Sub-hero */
+  h2, .pn-h2 {
+    font-family: var(--font-sans);
+    font-size: var(--text-4xl);
     font-weight: var(--font-weight-semibold);
     line-height: var(--leading-tight);
     letter-spacing: var(--tracking-heading);
-    margin: 0 0 var(--space-4);
+    margin: 0 0 var(--space-5);
   }
 
-  h3 {
-    font-size: var(--text-xl);
+  /* Section heading */
+  h3, .pn-h3 {
+    font-family: var(--font-sans);
+    font-size: var(--text-3xl);
     font-weight: var(--font-weight-semibold);
     line-height: var(--leading-snug);
     letter-spacing: var(--tracking-heading);
+    margin: 0 0 var(--space-4);
+  }
+
+  /* Card title */
+  h4, .pn-h4 {
+    font-family: var(--font-sans);
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-normal);
     margin: 0 0 var(--space-3);
   }
 
-  h4, h5, h6 {
+  h5, .pn-h5 {
+    font-family: var(--font-sans);
     font-size: var(--text-lg);
     font-weight: var(--font-weight-semibold);
     line-height: var(--leading-snug);
     margin: 0 0 var(--space-2);
   }
 
-  p {
+  h6, .pn-h6 {
+    font-family: var(--font-sans);
     font-size: var(--text-base);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--leading-snug);
+    margin: 0 0 var(--space-2);
+  }
+
+  p, .pn-body {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-normal);
     line-height: var(--leading-normal);
     margin: 0 0 var(--space-4);
   }
 
-  /* Mono elements: numbers, scores, data tables, code. */
-  code, kbd, samp {
+  .pn-body-lg {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+  }
+
+  .pn-caption {
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+    color: var(--color-muted-foreground);
+  }
+
+  .pn-eyebrow {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-medium);
+    letter-spacing: var(--tracking-caps);
+    line-height: var(--leading-snug);
+    text-transform: uppercase;
+    color: var(--color-muted-foreground);
+  }
+
+  /* Mono numeric */
+  .pn-mono, code, kbd, samp {
     font-family: var(--font-mono);
     font-variant-numeric: lining-nums tabular-nums;
-    font-size: 0.875em;
+  }
+
+  .pn-metric {
+    font-family: var(--font-mono);
+    font-weight: var(--font-weight-semibold);
+    font-variant-numeric: lining-nums tabular-nums;
+    font-size: var(--text-metric-hero);
+    letter-spacing: var(--tracking-normal);
+    line-height: var(--leading-tight);
+  }
+
+  .pn-metric-display {
+    font-family: var(--font-mono);
+    font-weight: var(--font-weight-semibold);
+    font-variant-numeric: lining-nums tabular-nums;
+    font-size: var(--text-metric-display);
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-none);
   }
 
   /* Links: body-size color uses -hover for AA contrast. */

@@ -3,24 +3,17 @@
  *
  * No DOM, no React. All inputs are plain values so tests run without jsdom.
  *
- * FILTER MEMBERSHIP. Six filter ids mirror the design tab row:
- *   toReview  wrong + skipped + marked (the default; union, not intersection)
+ * FILTER MEMBERSHIP. Six filter ids mirror the design tab row
+ * (design-team/v2/scr-review-mock.jsx:25-32):
+ *   toReview  wrong + skipped (the default)
  *   wrong     answered with the wrong option
  *   skipped   no answer recorded
  *   correct   answered correctly
  *   marked    flagged by the student during the hall
  *   all       every question on the paper
  *
- * PACING WORD. Two honest verdicts, no others:
- *   Rushed    spent under half of expected_seconds AND answered wrong
- *   Slow      spent over double expected_seconds (any outcome)
- *   (none)    everything else — correct at normal pace, or insufficient data
- *
- * The design reference carries more verdicts ("Solid", "Inefficient", etc.).
- * Per the house rules we honour only the two conditions the spec names
- * (under-half-wrong = Rushed, over-double = Slow) and emit nothing otherwise.
- * timeMs is 0 for skipped questions; that is below any real threshold, so we
- * only apply the Rushed verdict when there is a wrong answer.
+ * The time verdict (speed x correctness, six labels) lives in
+ * engine/insights.ts timeVerdict — one implementation, design-verbatim.
  */
 
 import type { MockSession, MockAnswer } from "./state.js";
@@ -37,8 +30,6 @@ export type ReviewOutcome = "correct" | "wrong" | "skipped";
 /** Filter id matching the tab row. */
 export type ReviewFilterId = "toReview" | "wrong" | "skipped" | "correct" | "marked" | "all";
 
-/** Pacing verdict: only these two honest words, or null for no chip. */
-export type PacingWord = "Rushed" | "Slow" | null;
 
 /** The flattened record for one question used by the navigator and detail pane. */
 export interface ReviewEntry {
@@ -117,7 +108,7 @@ export function buildReviewEntries(
 export function passesFilter(entry: ReviewEntry, filterId: ReviewFilterId): boolean {
   switch (filterId) {
     case "toReview":
-      return entry.outcome !== "correct" || entry.marked;
+      return entry.outcome !== "correct";
     case "wrong":
       return entry.outcome === "wrong";
     case "skipped":
@@ -165,35 +156,3 @@ export function buildFilterCounts(entries: readonly ReviewEntry[]): FilterCounts
   };
 }
 
-// ---------------------------------------------------------------------------
-// Pacing word.
-// ---------------------------------------------------------------------------
-
-/**
- * Derive the pacing word for one review entry.
- *
- * Rules per spec (house rules):
- *   "Rushed"  timeMs < (expectedSeconds / 2 * 1000) AND outcome is wrong
- *   "Slow"    timeMs > (expectedSeconds * 2 * 1000) (any outcome)
- *   null      everything else, or when timeMs is 0 (skipped: no data)
- */
-export function pacingWord(entry: ReviewEntry): PacingWord {
-  const ms = entry.timeMs;
-  if (ms <= 0) return null;
-  const expectedMs = entry.expectedSeconds * 1000;
-  if (ms > expectedMs * 2) return "Slow";
-  if (ms < expectedMs / 2 && entry.outcome === "wrong") return "Rushed";
-  return null;
-}
-
-// ---------------------------------------------------------------------------
-// Time formatting helper (pure, shareable).
-// ---------------------------------------------------------------------------
-
-/** Format milliseconds as "m:ss". */
-export function formatMs(ms: number): string {
-  const totalSec = Math.max(0, Math.floor(ms / 1000));
-  const m = Math.floor(totalSec / 60);
-  const s = totalSec % 60;
-  return `${m}:${s.toString().padStart(2, "0")}`;
-}
