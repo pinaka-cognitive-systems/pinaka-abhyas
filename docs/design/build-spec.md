@@ -1,11 +1,15 @@
 # Build specification
 
-Date: 2026-06-10. Status: authoritative. Supersedes sections 02, 07, 08, 09, and
-17 of `design-team/v2/Engineering Handout.html` for all engineering decisions.
+Date: 2026-06-10; revised 2026-06-12 after the design-parity rebuild (ADR 0018).
+Status: authoritative. Supersedes sections 02, 07, 08, 09, and 17 of
+`design-team/v2/Engineering Handout.html` for all engineering decisions.
 Generated from the ADR record and the engine SPEC; updated by new ADRs, never by
 hand. Sections 13 through 16 and the addendum (craft, voice, Signature Screens,
 Component and State Inventory, accessibility completion) of the Handout remain
-useful design intent and are not superseded here.
+the design contract; their implementation status per surface is tracked in
+`docs/design/as-built.md`, and the complete sanctioned-deviation set is
+ADR 0018. The design drop itself stays operator-local (gitignored): the design
+team owns look and interaction intent, engineering owns all shipped code.
 
 ---
 
@@ -48,9 +52,12 @@ holds a rating `r` and a deviation `rd` (Glicko-lite, ADR 0012). Deviation shrin
 with evidence and grows with inactivity. Order is signal: improvement is tracked to
 the current state, not averaged over a lifetime. (`SPEC.md` section 3)
 
-**Binary outcomes only.** An answer is correct or wrong. The scheduler uses this
-binary result. There are no again/hard/good/easy grades, no Leitner boxes, no SM-2
-four-tier grading. The UI must never display grade buttons or box badges.
+**Binary outcomes only.** An answer is correct or wrong. The scheduler (FSRS-4.5
+memory model, ADR 0020) maps wrong to again and correct to good internally; the
+hard/easy grades are structurally unreachable. The UI must never display grade
+buttons or box badges — the review badge shows the live interval ("6d"), which is
+what is true. Every answered question advances its schedule, mocks included, and
+replay spreads due dates at no more than 12 a day, most fragile first.
 (`SPEC.md` section 4)
 
 **Two confidence tiers only.** The engine emits `insufficient_data`, `low`, or
@@ -117,21 +124,38 @@ chunk until needed.
 
 **Router** (`app/src/flows/router.tsx`): a minimal hand-rolled hash router. Hash
 routes (`#/practice`) survive static hosting and offline reloads with no server
-rewrite. The default route resolves to `firstrun`, `baseline`, or `home` by reading
-the `firstrun_completed` and `baseline_done` storage meta flags once at boot. A
-`null` default target while the async read is in flight shows a neutral boot screen,
-never a flash of the wrong flow.
+rewrite. Route vocabulary follows the design RAIL_FOR contract;
+`app/src/components/navRoutes.ts` is the single registration point for which
+routes keep the persistent shell and which render full-window. The default
+route resolves to `firstrun` (new device) or `today` by reading the
+`firstrun_completed` meta flag once at boot; the cold start is Today's empty
+state recommending the first mock (ADR 0018 ruling 3 removed the baseline
+flow). A `null` default target while the async read is in flight shows a
+neutral boot screen, never a flash of the wrong flow. Route changes run
+through `document.startViewTransition` (180ms crossfade, reduced-motion
+bypass); a global keyboard layer provides 1-5/comma navigation, the `?`
+shortcut sheet, and Esc-exits-a-flow.
 
 | Route | Flow | One-liner |
 |---|---|---|
-| `#/` (default) | firstrun / baseline / home | Resolved from meta flags at boot |
-| `#/firstrun` | firstrun (`app/src/flows/firstrun/`) | Welcome, install prompt, storage warning, exam capture (W5-5 flow d) |
-| `#/baseline` | baseline (`app/src/flows/baseline/`) | Guided cold-start session that seeds the first honest diagnosis map (W5-8) |
-| `#/home` | home (`app/src/flows/home/`) | Returning-student surface: today card, what-changed delta, re-entry without shame (W5-9, adherence-spec.md) |
-| `#/practice` | practice (`app/src/flows/practice/`) | Engine-driven drill and review loop, phone-native (W5-5 flow a) |
-| `#/diagnosis` | diagnosis (`app/src/flows/diagnosis/`) | Mastery map and readiness band, desktop-best, phone-capable (W5-5 flow c) |
-| `#/mock` | mock (`app/src/flows/mock/`) | Blueprint-assembled timed mock, interruption recovery, negative-marking reveal (W5-5 flow b, W5-7) |
-| `#/settings` | settings (`app/src/flows/settings/`) | Export, import, storage status, update flow, danger zone (W5-5 flow e) |
+| `#/` (default) | firstrun / today | Resolved from the meta flag at boot |
+| `#/firstrun` | firstrun (`app/src/flows/firstrun/`) | "Taught by testing." welcome, paper chip, optional exam date |
+| `#/today` (alias `#/home`) | home (`app/src/flows/home/`) | The one recommended action, readiness band, recent mocks, recovery banner |
+| `#/practice` | practice hub (`app/src/flows/practice/PracticeHub.tsx`) | Review half + drill setup (topic, difficulty, length, method) |
+| `#/drill` | practice (`app/src/flows/practice/PracticeFlow.tsx`) | Full-window question loop with the split feedback and drill close |
+| `#/review` | review (`app/src/flows/review/`) | The spaced review queue: why each item is back, coming up |
+| `#/diagnosis` | diagnosis (`app/src/flows/diagnosis/`) | Topic x misconception heat matrix, recurring-cost sidebar |
+| `#/misconception/{id}` | diagnosis (detail view) | The drill-through pattern detail with the instance ledger |
+| `#/syllabus` | syllabus (`app/src/flows/syllabus/`) | 18-chapter coverage map, coverage only |
+| `#/mock` | mock hub (`app/src/flows/mock/`) | Three mock types, past mocks; `mock/start`, `mock/hall`, `mock/reveal`, `mock/breakdown[/i]`, `mock/review[/i]` are the full-window phases |
+| `#/testday` | testday (`app/src/flows/testday/`) | The calm exam-day receipts screen |
+| `#/settings` | settings (`app/src/flows/settings/`) | Privacy and data, accessibility, exam, about (export/import/update kept) |
+
+The shared view-model layer (`app/src/engine/insights.ts` +
+`app/src/state/appData.ts`) derives the design's profile contract — the six
+data states, the recommendation ladder, misconception costs and the matrix,
+review-queue reasons, syllabus coverage, time triage — from the event log;
+screens read the snapshot and hold no math.
 
 All layouts are built at 360px first, then widened. The practice loop, first-run,
 and baseline flows are phone-native by design. Mocks and diagnosis are desktop-best
@@ -218,13 +242,25 @@ in the following sections:
 | 09 Readiness: three confidence tiers including "good" | The engine caps at medium by construction | Two tiers: low and medium. `SPEC.md` section 6. |
 | 17 Build phasing: "M1 Tauri shell, SQLite" | Tauri and native SQLite are not the stack | PWA scaffold, sqlite-wasm, opfs-sahpool. ADR 0001, ADR 0008. |
 
-**What the handout still speaks accurately.** Sections 13 through 16 and the
-addendum craft pass (continuity, responsive reflow, forgiveness, honesty
-refinements) remain good design intent. The Component and State Inventory
-(`design-team/v2/Component & State Inventory.html`) is the acceptance checklist
-for W5-5 per-flow review verbatim. The Signature Screens document
-(`design-team/v2/Signature Screens.html`) and the visual token system survive
-intact; both are consumed by the intake process (the intake record is
-operator-internal, at `internal/design/intake-v2.md`).
-The Content Authoring Guide is ported to `docs/contributing/content-authoring.md`
-(W6-3). Nothing in those documents is overridden here.
+**Design parity (2026-06-12).** The remaining handout sections (03 IA, 11 hall
+behaviour, 13-16, the addendum) are implemented per the parity rebuild; the
+per-surface record is `docs/design/as-built.md` and the sanctioned deviations
+are ADR 0018 (WCAG-corrected palette including brand `#5558E8`, bottom tab bar
+under 900px, no baseline flow, restyled pre-mock interstitial, no imitation
+window chrome, no reminder setting, interval-badge review copy, hard/pace
+mocks logged as drill-mode events). The Component and State Inventory remains
+the per-flow acceptance checklist. The Content Authoring Guide is ported to
+`docs/contributing/content-authoring.md` (W6-3).
+
+**Mock mistakes and the review queue (resolved, ADR 0020; supersedes the
+ADR 0019 pool).** Handout section 08 says a question enters the review pool
+when answered wrong in any source. The engine now does exactly that: every
+graded event advances its item's schedule, mock mode included — a missed mock
+question resurfaces as a lapse, a recalled one earns its review. The due-flood
+concern that once justified the interim pool is handled by deterministic
+workload balancing (12 dues a day, most fragile first), so the "From your
+mocks" pool surface is removed. Two further engine upgrades ride with it:
+read-time hierarchical pooling (ADR 0021) gives family-level readiness and
+selection real estimates from leaf-tagged practice, and the mock assembler
+(ADR 0022) holds a fixed difficulty mix per form and avoids re-serving items
+from the last two mocks, declaring any forced reuse on the pre-mock screen.
