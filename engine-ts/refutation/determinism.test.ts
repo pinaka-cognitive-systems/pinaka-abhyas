@@ -64,7 +64,7 @@ function stateFingerprint(s: EngineState): string {
   const skills = [...s.skills.entries()].sort((a, b) => (a[0] < b[0] ? -1 : 1))
     .map(([k, v]) => `${k}:${v.rating.toFixed(12)},${v.deviation.toFixed(12)},${v.attempts}`).join("|");
   const sched = [...s.schedules.entries()].sort((a, b) => (a[0] < b[0] ? -1 : 1))
-    .map(([k, v]) => `${k}:${v.intervalDays},${v.ease.toFixed(6)},${v.dueAtMs},${v.consecutiveCorrect},${v.lapsed}`).join("|");
+    .map(([k, v]) => `${k}:${v.intervalDays},${v.stability.toFixed(6)},${v.difficulty.toFixed(6)},${v.dueAtMs},${v.consecutiveCorrect},${v.lapsed}`).join("|");
   const misc = [...s.misconceptions.entries()].sort((a, b) => (a[0] < b[0] ? -1 : 1))
     .map(([k, v]) => `${k}:${v.map((h) => h.eventId).join(",")}`).join("|");
   return `S[${skills}]C[${sched}]M[${misc}]E${s.eventCount}`;

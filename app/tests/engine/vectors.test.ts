@@ -107,11 +107,11 @@ function round9(x: number): number {
 
 function sortKeys<T>(value: T): T {
   if (Array.isArray(value)) {
-    return value.map((v) => sortKeys(v)) as unknown as T;
+    return value.map((v: unknown) => sortKeys(v)) as unknown as T;
   }
   if (value !== null && typeof value === "object") {
     const out: Record<string, unknown> = {};
-    for (const key of Object.keys(value as Record<string, unknown>).sort()) {
+    for (const key of Object.keys(value).sort()) {
       out[key] = sortKeys((value as Record<string, unknown>)[key]);
     }
     return out as unknown as T;
@@ -133,7 +133,8 @@ function serializeSchedule(s: ItemSchedule): unknown {
   return {
     itemId: s.itemId,
     intervalDays: round9(s.intervalDays),
-    ease: round9(s.ease),
+    stability: round9(s.stability),
+    difficulty: round9(s.difficulty),
     lastSeenMs: s.lastSeenMs,
     dueAtMs: round9(s.dueAtMs),
     consecutiveCorrect: s.consecutiveCorrect,

@@ -21,7 +21,7 @@
  */
 
 import { applyIdleDrift, FRESH_SKILL, type SkillState, updateSkill } from "./mastery.js";
-import { applyEventToSchedules, reconcileSchedules } from "./scheduler.js";
+import { applyEventToSchedules, balanceSchedules, reconcileSchedules } from "./scheduler.js";
 import { orderEvents } from "./time.js";
 import type {
   Bank,
@@ -137,12 +137,15 @@ export function replay(
       misconceptions.set(mid, list);
     }
 
-    // Scheduler: mock-mode and post-exam events are ignored inside the fold.
+    // Scheduler: every mode advances schedules (ADR 0020); only post-exam
+    // events are ignored inside the fold.
     schedules = applyEventToSchedules(schedules, event, examMs);
   }
 
-  // Pack transition: reconcile schedules against the current bank.
-  schedules = reconcileSchedules(schedules, bank);
+  // Pack transition: reconcile schedules against the current bank, then
+  // spread the due-day workload (ADR 0020). Both passes are clock-free, so
+  // the same event log lands every item on the same day on every load.
+  schedules = balanceSchedules(reconcileSchedules(schedules, bank), examMs);
 
   // Sort all hit lists by (occurredAtMs, eventId) so order is canonical.
   for (const [mid, list] of misconceptions) {

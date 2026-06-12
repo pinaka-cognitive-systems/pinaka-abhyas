@@ -19,7 +19,9 @@
  *   pack_removal         — scheduled item absent from bank drops (SPEC 4, ADR 0009).
  *   pack_supersession    — schedule transfers to successor (SPEC 4, ADR 0009).
  *   pack_rekey           — re-score from raw response on key change (SPEC 7, ADR 0009).
- *   mock_anchor          — a 100-Q mock day anchors; a 20-answer day does NOT (SPEC 6).
+ *   mock_anchor          — a 100-Q mock day anchors; a 20-answer day does NOT (SPEC 6);
+ *                          mock answers seed item schedules (ADR 0020).
+ *   leaf_tagged_pooling  — leaf-tagged events pool to family reads (ADR 0021).
  */
 
 import type { RescoreRule } from "../src/replay.js";
@@ -590,7 +592,7 @@ function buildScenarios(): Scenario[] {
     const nowMs = tinyDayT + DAY; // both mock days within the 21-day window
     scenarios.push({
       name: "mock_anchor",
-      pins: "100-answer mock day anchors the readiness estimate; a 20-answer day is below the 25-answer floor and does NOT anchor (SPEC 6, W1-11 attack FF)",
+      pins: "100-answer mock day anchors the readiness estimate; a 20-answer day is below the 25-answer floor and does NOT anchor (SPEC 6, W1-11 attack FF); mock answers seed item schedules (ADR 0020)",
       seed: 1010,
       events,
       bank: defaultBank(),
@@ -602,10 +604,69 @@ function buildScenarios(): Scenario[] {
     });
   }
 
+  // --- hierarchical pooling: leaf-tagged events (production pack shape). ---
+  {
+    // Real packs tag leaf nodes one level below the blueprint families. The
+    // family-level reads in readiness and selection must see the leaves'
+    // pooled evidence, not a fresh prior (ADR 0021).
+    const fam: Family = "qa.bmath.finance";
+    const leaves = [`${fam}.si`, `${fam}.ci`] as const;
+    const bank = defaultBank();
+    for (const leaf of leaves) {
+      for (const label of LABELS) {
+        const id = `${leaf}#${label.toLowerCase()}`;
+        bank.set(id, {
+          id,
+          tests: [leaf],
+          difficulty_label: label,
+          item_type: "single_best",
+          expected_seconds: label === "L1" ? 45 : label === "L2" ? 75 : 110,
+          verification_status: "verified",
+        });
+      }
+    }
+    const rng = mulberry32(1212);
+    const events: Event[] = [];
+    let t = T0;
+    for (let i = 0; i < 28; i++) {
+      const leaf = leaves[i % 2]!;
+      const theta = leaf === leaves[0] ? 1.0 : 0.2; // si stronger than ci
+      const label = LABELS[Math.floor(rng() * 3)]!;
+      events.push({
+        event_id: `lv${i.toString().padStart(3, "0")}`,
+        occurredAtMs: t,
+        item_id: `${leaf}#${label.toLowerCase()}`,
+        item_content_hash: "v1",
+        taxonomy_version: 2,
+        tests: [leaf],
+        difficulty_label: label,
+        item_type: "single_best",
+        mode: "practice",
+        correct: rng() < trueP(theta, label),
+        selected_misconception: null,
+        time_ms: 60_000,
+        resurfaced: false,
+      });
+      t += 5 * HOUR;
+    }
+    scenarios.push({
+      name: "leaf_tagged_pooling",
+      pins: "leaf-tagged events (production pack shape) pool to family-level reads (ADR 0021): readiness reflects descendant evidence instead of a fresh prior; the family counts as seen for selection tiers",
+      seed: 1212,
+      events,
+      bank,
+      blueprint: BLUEPRINT,
+      marking: MARKING,
+      nowMs: t + DAY,
+      examMs: undefined,
+      applyRekey: false,
+    });
+  }
+
   return scenarios;
 }
 
 export const SCENARIOS: readonly Scenario[] = buildScenarios();
 
-export const SPEC_VERSION = "0.2";
-export const EMITTED_AT = "2026-06-10";
+export const SPEC_VERSION = "0.3";
+export const EMITTED_AT = "2026-06-12";

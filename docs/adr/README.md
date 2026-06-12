@@ -26,6 +26,11 @@ in place as the historical record.
 | [0015](0015-notation-unicode-first.md) | Notation: unicode-first, KaTeX pre-approved escape | Accepted |
 | [0016](0016-stimulus-group-and-multi-select-reserved.md) | Stimulus groups and multi-select reserved for pack 2 | Accepted |
 | [0017](0017-structured-explanation-sections.md) | Structured explanation sections in the Core | Accepted |
+| [0018](0018-design-parity-rulings.md) | Design parity rulings (the eleven decisions) | Accepted |
+| [0019](0019-mock-mistakes-review-pool.md) | Mock mistakes reach Review as a drill-to-schedule pool | Superseded by 0020 |
+| [0020](0020-fsrs-scheduler-mock-ingestion.md) | FSRS-4.5 scheduler, mock ingestion, workload balancing | Accepted |
+| [0021](0021-hierarchical-shrinkage-reads.md) | Read-time hierarchical shrinkage for skill estimates | Accepted |
+| [0022](0022-mock-form-comparability.md) | Mock form comparability: difficulty mix and exposure control | Accepted |
 
 ADRs 0001 through 0007 record the project's founding
 decisions and share the founding date; their order within that date is the numeric

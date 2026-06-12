@@ -15,7 +15,7 @@
 import { describe, expect, it } from "vitest";
 
 import { buildEngineState } from "../../src/engine/index.js";
-import { buildBank, type RawPack } from "../../src/engine/pack.js";
+import { buildBank } from "../../src/engine/pack.js";
 import { toContentItem, type ContentItem } from "../../src/flows/practice/types.js";
 import { scaleMarking, type ScaledMarking } from "../../src/flows/mock/assembler.js";
 import {
@@ -200,7 +200,13 @@ describe("buildSubmissionBatch — complete, mode mock, skipped events", () => {
 
   it("every event carries the device context recorded at start", () => {
     for (const e of batch.events) {
-      expect(e.device_context).toEqual({ form_factor: "phone", viewport_width: 360 });
+      // Answered events go through buildEvent (shared layer): device_context is
+      // { form_factor, viewport_width }. Skipped events are built inline and
+      // also carry mock_type for telemetry (Handout §10). Either way,
+      // form_factor and viewport_width are always present.
+      const ctx = e.device_context as Record<string, unknown>;
+      expect(ctx["form_factor"]).toBe("phone");
+      expect(ctx["viewport_width"]).toBe(360);
     }
   });
 
@@ -212,12 +218,14 @@ describe("buildSubmissionBatch — complete, mode mock, skipped events", () => {
       item_type: c.item_type,
       expected_seconds: 60,
       verification_status: "verified",
-    })) } as unknown as RawPack);
+    })) });
     const state = buildEngineState(batch.events, bank, NOW);
     expect(state.eventCount).toBe(3);
-    // Mocks are measurement: mode "mock" events never create item schedules
-    // (engine SPEC 4). So no schedule entries are produced by this batch.
-    expect(state.schedules.size).toBe(0);
+    // Mock answers are real reviews (ADR 0020, engine SPEC 4): all three
+    // items enter the spaced system. The skip is correct=false, so it
+    // schedules as a lapse — it cost marks, and resurfacing it is the point
+    // (drill-mode mocks already behaved this way).
+    expect(state.schedules.size).toBe(3);
   });
 });
 
@@ -363,19 +371,10 @@ describe("insightText", () => {
   it("penalty > top misconception lost marks: names negative marking", () => {
     // Make penalty dominant: one wrong answer with no misconception costs 0.25
     // penalty but 0 misconception lost marks, so penalty > 0.
-    const answers = Array.from({ length: 4 }, (_, i) => ({
-      itemId: `q${i}`,
-      partId: null,
-      nodeId: null,
-      chosenOption: 2,
-      correctOption: 1,
-      misconception: null, // no misconception => table is empty
-    }));
     // Build a mock score with these answers directly using a high penalty.
     const s = session({ answers: { q_bm: { selectedOption: 2, timeMs: 1 }, q_lr: { selectedOption: 2, timeMs: 1 }, q_st: { selectedOption: 1, timeMs: 1 } } });
     const score = scoreMock(s, CONTENT, MARKING, FAMILIES);
     // score.wrong >= 1, misconception table is empty for mis.st since q_st has mis.st on option2 but q_st chose option1 which is wrong (correct is 2)
-    const rows = misconceptionsByShare(score.wrongAnswers, marking);
     // Force the penalty-dominant path by passing empty rows
     const insight = insightText(score, [], null);
     expect(insight.text).toMatch(/negative marking/i);

@@ -15,11 +15,17 @@
  *      and whose deviation is still high, weighted by blueprint marks.
  *   4. Coverage — unseen blueprint nodes by descending mark weight; L1 first.
  *
+ * Skill reads go through the hierarchical pools (ADR 0021): a family node the
+ * student has only touched through leaf items reads its descendants' pooled
+ * evidence instead of a fresh prior, and "seen" for the tier-3/tier-4 boundary
+ * means any evidence — own or descendant.
+ *
  * Determinism: every candidate ordering ends with (score desc, node_id asc,
  * item_id asc). No dependence on Map/object iteration order anywhere.
  */
 
-import { applyIdleDrift, FRESH_SKILL, type SkillState } from "./mastery.js";
+import { buildSkillPools, effectiveSkill, hasEvidence, type SkillPools } from "./hierarchy.js";
+import type { SkillState } from "./mastery.js";
 import { DIFFICULTY_ANCHOR } from "./scale.js";
 import { dueItems } from "./scheduler.js";
 import { MS_PER_DAY } from "./time.js";
@@ -90,20 +96,8 @@ function nodeWeight(nodeId: string, weights: Map<string, number>): number {
   return best;
 }
 
-function skillFor(state: EngineState, nodeId: string, nowMs: number): SkillState {
-  const s = state.skills.get(nodeId);
-  if (s === undefined) return { ...FRESH_SKILL };
-  return applyIdleDrift(s, nowMs);
-}
-
-/** Predicted P(correct) for an item, averaged over its nodes' drifted ratings
- * against the item's difficulty anchor (pre-blend with the guessing floor is
- * unnecessary for ranking; we rank on the rating-vs-difficulty gap). */
-function predictedRating(item: BankItem, state: EngineState, nowMs: number): number {
-  if (item.tests.length === 0) return 0;
-  let sum = 0;
-  for (const node of item.tests) sum += skillFor(state, node, nowMs).rating;
-  return sum / item.tests.length;
+function skillFor(state: EngineState, pools: SkillPools, nodeId: string): SkillState {
+  return effectiveSkill(state, pools, nodeId);
 }
 
 function lastSeen(state: EngineState, itemId: string): number | undefined {
@@ -272,9 +266,9 @@ function pickReview(
 /** Learnable-band practice pick, or null. */
 function pickLearnable(
   state: EngineState,
+  pools: SkillPools,
   bank: Bank,
   weights: Map<string, number>,
-  nowMs: number,
   session: SessionProgress,
 ): NextAction | null {
   const l2 = DIFFICULTY_ANCHOR.L2;
@@ -282,11 +276,12 @@ function pickLearnable(
   const cands: Cand[] = [];
   for (const [node, weight] of weights) {
     if (weight <= 0) continue;
-    // Learnable-band practice is for SEEN nodes; never-touched nodes are the
-    // job of tier 4 (coverage). A fresh skill sits at the L2 anchor and would
-    // otherwise masquerade as learnable, collapsing the tier distinction.
-    if (!state.skills.has(node)) continue;
-    const skill = skillFor(state, node, nowMs);
+    // Learnable-band practice is for nodes with EVIDENCE (own or descendant,
+    // ADR 0021); never-touched nodes are the job of tier 4 (coverage). A fresh
+    // skill sits at the L2 anchor and would otherwise masquerade as learnable,
+    // collapsing the tier distinction.
+    if (!hasEvidence(state, pools, node)) continue;
+    const skill = skillFor(state, pools, node);
     const rel = skill.rating - l2;
     if (rel < BAND_LOW || rel > BAND_HIGH) continue;
     if (skill.deviation <= BAND_MIN_DEVIATION) continue;
@@ -298,7 +293,7 @@ function pickLearnable(
   });
   for (const { node } of cands) {
     // Serve the difficulty label nearest the student's rating.
-    const skill = skillFor(state, node, nowMs);
+    const skill = skillFor(state, pools, node);
     const target = nearestLabel(skill.rating);
     const items = itemsForNode(node, bank).filter((it) => !session.servedItems.has(it.id));
     if (items.length === 0) continue;
@@ -319,6 +314,7 @@ function pickLearnable(
 /** Coverage pick over unseen weighted nodes, or null. */
 function pickCoverage(
   state: EngineState,
+  pools: SkillPools,
   bank: Bank,
   weights: Map<string, number>,
   session: SessionProgress,
@@ -327,7 +323,9 @@ function pickCoverage(
   const cands: Cand[] = [];
   for (const [node, weight] of weights) {
     if (weight <= 0) continue;
-    if (state.skills.has(node)) continue; // already seen
+    // "Seen" includes descendant evidence (ADR 0021): a family the student
+    // reached through leaf items is not unseen territory.
+    if (hasEvidence(state, pools, node)) continue;
     cands.push({ node, weight });
   }
   cands.sort((a, b) => {
@@ -396,11 +394,12 @@ export function selectNextAction(
   session: SessionProgress = EMPTY_SESSION,
 ): NextAction {
   const weights = blueprintWeights(blueprint);
+  const pools = buildSkillPools(state, nowMs);
   return (
     pickRemediation(state, bank, weights, nowMs, session) ??
     pickReview(state, bank, nowMs, session, sessionLength) ??
-    pickLearnable(state, bank, weights, nowMs, session) ??
-    pickCoverage(state, bank, weights, session) ?? {
+    pickLearnable(state, pools, bank, weights, session) ??
+    pickCoverage(state, pools, bank, weights, session) ?? {
       kind: "none",
       itemId: null,
       nodeId: null,

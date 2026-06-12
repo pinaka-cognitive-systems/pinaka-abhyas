@@ -121,7 +121,8 @@ function serializeSchedule(s: ItemSchedule): unknown {
   return {
     itemId: s.itemId,
     intervalDays: round9(s.intervalDays),
-    ease: round9(s.ease),
+    stability: round9(s.stability),
+    difficulty: round9(s.difficulty),
     lastSeenMs: s.lastSeenMs,
     dueAtMs: round9(s.dueAtMs),
     consecutiveCorrect: s.consecutiveCorrect,

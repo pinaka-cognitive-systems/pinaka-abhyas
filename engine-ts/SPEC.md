@@ -78,25 +78,72 @@ theta = 3; the 90% mastery interval covers at >= 85% across simulated students.
 Abilities beyond |theta| ~ 2.5 approach the floor/ceiling identifiability limits
 of four-option MCQ evidence and carry no precision guarantees.
 
-## 4. Scheduler (W1-4, W1-5; ADR 0009)
+## 4. Scheduler (W1-4, W1-5; ADR 0009, ADR 0020)
 
-Per item, binary outcomes only:
+FSRS-4.5 memory model per item, binary outcomes only (the SM-2-lite rules this
+section previously specified are superseded by ADR 0020):
 
-- First correct: due in 1 day. Second consecutive correct: 6 days. Then
-  interval = previous * ease. Ease starts 2.5, +0.1 per correct, -0.2 per wrong,
-  floor 1.3, cap 3.0.
-- Wrong: item becomes a lapse, due in 0.5 days, interval resets to 1 day, streak resets.
-- Mock-mode events update mastery but do not create or advance item schedules
-  (a mock is measurement, not review practice).
+- Per-item state: difficulty D in [1, 10] and stability S in days, with
+  retrievability R(t, S) = (1 + FACTOR·t/S)^DECAY, DECAY = -0.5,
+  FACTOR = 19/81 (so R(S, S) = 0.9 exactly). The interval for target retention
+  r is I(r, S) = (S/FACTOR)·(r^(1/DECAY) - 1); the target is the constant 0.9,
+  at which I = S exactly.
+- Grades: wrong -> again (1), correct -> good (3); hard/easy are unreachable.
+  First encounter: S0(G) = w[G-1], D0(G) = clamp(w4 - (G-3)·w5, 1, 10). Review:
+  D' = clamp(w7·D0(good) + (1-w7)·(D - w6·(G-3)), 1, 10) (mean reversion);
+  success S' = S·(e^w8·(11-D)·S^(-w9)·(e^(w10·(1-R)) - 1) + 1); lapse
+  S' = min(S, w11·D^(-w12)·((S+1)^w13 - 1)·e^(w14·(1-R))), never above the
+  pre-lapse S. Weights are the FSRS-4.5 population defaults pinned in
+  src/fsrs.ts; behavior is pinned by OUR golden vectors, not by bit-parity
+  claims against other implementations. Stability floors at 0.01 days.
+- A wrong answer marks the entry lapsed (due in S0(again) ≈ 0.49 days on a
+  first miss) and resets the streak; a same-day re-answer has R ≈ 1 and earns
+  no stability, by construction.
+- **Every mode advances schedules, mock included** (ADR 0020, superseding the
+  earlier mock-exclusion rule): recalling an item inside a mock is a real
+  review and missing one is a lapse that must resurface. Only post-exam events
+  are ignored.
+- **Workload balancing.** After replay folds all events and reconciles against
+  the bank, `balanceSchedules` buckets entries by the UTC day of their due
+  date and rolls overflow forward so no day holds more than MAX_DUE_PER_DAY
+  (12) entries; an overflowing day keeps its lowest-stability entries (ties by
+  item id ascending) and pushes the rest one day at a time, preserving time of
+  day. The pass is clock-free: the same event log lands every item on the same
+  day on every load; undone reviews age into overdue debt and are never
+  re-shuffled. With an exam set, nothing rolls past the buffer edge; the last
+  allowed day absorbs the remainder and may exceed the cap.
 - **Exam awareness.** When examMs is set: due dates cap at examMs minus a 3-day final
   revision buffer; an interval longer than half the days remaining compresses to half
   the days remaining (floor 1 day). No event, no schedule entry, past the exam.
 - **Pack transitions.** A scheduled item absent from the bank: if its tombstone names
-  superseded_by, the schedule transfers to the successor (same due date, same ease);
-  otherwise the entry is dropped. Replay applies the same rule, so import and live
-  update agree.
+  superseded_by, the schedule transfers to the successor (same due date, same memory
+  state); otherwise the entry is dropped. Replay applies the same rule, so import and
+  live update agree.
 
 ## 5. Selection (W1-5, W1-6, W1-7)
+
+### 5.0 Read-time hierarchical pooling (ADR 0021)
+
+Selection and readiness read skills through an empirical-Bayes layer; the
+stored section-3 state is never modified (the W1-12 cross-check scope is
+unchanged). Real packs tag leaf nodes while the blueprint weighs family nodes,
+so an exact-match read saw a fresh prior for every family — pooling closes
+that gap and regularizes thin estimates:
+
+- Every attempted node contributes its drifted (rating, deviation, slow
+  rating) to each proper ancestor prefix with >= 2 dot segments (part level
+  and below; the whole exam is not a pool), precision-weighted by
+  1/deviation^2.
+- A node's prior is the nearest pool with evidence — its own descendants
+  first, then ancestors with the node's own contribution subtracted (a node is
+  never its own prior). Pool variance = (member count / summed precision) +
+  SIBLING_VARIANCE (0.25, the between-sibling spread on the logit scale).
+- Effective skill = w·own + (1-w)·prior with w = n/(n + K), n = own attempts,
+  K = SHRINKAGE_PRIOR_STRENGTH (4); variances blend the same way, deviation
+  clamped to the section-3 bounds. With no own attempts the prior speaks alone;
+  with no neighborhood evidence the own drifted state passes through.
+- "Seen" for the tier-3/tier-4 boundary below means any evidence, own or
+  descendant. K and SIBLING_VARIANCE are provisional until calibrated.
 
 `selectNextAction(state, bank, blueprint, nowMs, sessionLength=20, session?)` returns a
 prioritized action with a reason string in marks terms. The blueprint is a parameter
@@ -126,7 +173,9 @@ No dict-order dependence anywhere.
 
 - Per-node mastery and deviation aggregate to expected marks per blueprint section:
   expected questions per node from the blueprint quotas, P(correct) from mastery
-  against the section's difficulty mix, marks EV with negative marking.
+  against the section's difficulty mix, marks EV with negative marking. Family
+  skills are read through the section 5.0 pooling layer (ADR 0021), so
+  leaf-tagged practice reaches the family-level plan.
 - **Attempt policy (W1-7).** Attempting is positive-EV whenever estimated P > 0.20
   (blind guessing breaks even at 0.20 with +1/-0.25; with elimination it is higher).
   The policy: attempt everything when the time budget allows; when expected total time
@@ -167,7 +216,10 @@ No dict-order dependence anywhere.
 list, applying ADR 0009 rules: tombstone handling, supersession transfer, taxonomy
 migration map when present, and re-scoring (recompute correct/selected_misconception
 from raw response when the bank's current key differs from the event's recorded
-item_content_hash version) when a re-score table ships with the pack.
+item_content_hash version) when a re-score table ships with the pack. After the fold,
+schedules pass through bank reconciliation and then workload balancing (section 4);
+both passes are clock-free, so the rebuilt schedule map depends only on the events,
+the bank, and examMs.
 
 ## 8. Vectors (W1-10)
 
@@ -175,8 +227,10 @@ item_content_hash version) when a re-score table ships with the pack.
 nowMs, examMs), and outputs (per-node mastery {r, rd} rounded to 1e-9, full schedule,
 first 10 nextAction ids with reasons, readiness). Scenario families: fresh student,
 converging student, lapsing student, idle-gap student, pack transition (removal,
-supersession, re-key), cold start, exam-week compression, mock anchoring. Vectors are
-regenerated only deliberately; CI replays them on every change.
+supersession, re-key), cold start, exam-week compression, mock anchoring (which also
+pins mock schedule ingestion per ADR 0020), and leaf-tagged pooling (production pack
+shape, ADR 0021). Vectors are regenerated only deliberately; CI replays them on every
+change.
 
 ## 9. Numeric discipline
 

@@ -1,15 +1,18 @@
 /**
- * Scheduler tests (W1-4, SPEC 4). Values are pinned: exact due times and eases
- * for scripted sequences, exam-week compression, and pack transitions.
+ * Scheduler tests (SPEC 4; ADR 0020). Values are pinned: exact stabilities,
+ * difficulties, and due times for scripted sequences, exam-week compression,
+ * mock ingestion, workload balancing, and pack transitions.
  *
- * Audited defects pinned dead: the prototype was deadline-blind (no exam
- * capping) and never compressed intervals near the exam.
+ * Pinned literals were computed once from the FSRS-4.5 equations and weights
+ * in src/fsrs.ts, independently in Python, so a silent formula change here
+ * fails loudly.
  */
 import { describe, expect, it } from "vitest";
 import {
   applyEventToSchedules,
+  balanceSchedules,
   capDueDate,
-  EASE_CAP,
+  MAX_DUE_PER_DAY,
   reconcileSchedules,
   updateSchedule,
 } from "../src/scheduler.js";
@@ -48,78 +51,113 @@ function evt(itemId: string, occurredAtMs: number, correct: boolean, mode: Event
   };
 }
 
-describe("SM-2-lite intervals and ease (pinned values)", () => {
-  it("first correct: due in 1 day, ease 2.6, streak 1", () => {
+function sched(itemId: string, extra: Partial<ItemSchedule> = {}): ItemSchedule {
+  return {
+    itemId,
+    intervalDays: 6,
+    stability: 6,
+    difficulty: 5.1618,
+    lastSeenMs: T0,
+    dueAtMs: T0 + 6 * MS_PER_DAY,
+    consecutiveCorrect: 2,
+    lapsed: false,
+    ...extra,
+  };
+}
+
+describe("FSRS-4.5 schedule updates (pinned values)", () => {
+  it("first correct: stability w2 = 3.7145 d, difficulty D0(good) = 5.1618, due in S days", () => {
     const s = updateSchedule(undefined, "i1", T0, true);
-    expect(s.intervalDays).toBe(1);
-    expect(s.ease).toBeCloseTo(2.6, 12);
+    expect(s.stability).toBeCloseTo(3.7145, 12);
+    expect(s.difficulty).toBeCloseTo(5.1618, 12);
+    // At target retention 0.9 the interval equals the stability exactly.
+    expect(s.intervalDays).toBeCloseTo(s.stability, 9);
+    expect(s.dueAtMs).toBeCloseTo(T0 + 3.7145 * MS_PER_DAY, 6);
     expect(s.consecutiveCorrect).toBe(1);
-    expect(s.dueAtMs).toBe(T0 + 1 * MS_PER_DAY);
     expect(s.lapsed).toBe(false);
   });
 
-  it("second consecutive correct: due in 6 days, ease 2.7", () => {
+  it("first wrong: stability w0 = 0.4872 d (next-morning review), difficulty 7.6214, lapsed", () => {
+    const s = updateSchedule(undefined, "i1", T0, false);
+    expect(s.stability).toBeCloseTo(0.4872, 12);
+    expect(s.difficulty).toBeCloseTo(7.6214, 12);
+    expect(s.dueAtMs).toBeCloseTo(T0 + 0.4872 * MS_PER_DAY, 6);
+    expect(s.consecutiveCorrect).toBe(0);
+    expect(s.lapsed).toBe(true);
+  });
+
+  it("second correct exactly at due (R = 0.9): stability grows to 14.094985…", () => {
     const s1 = updateSchedule(undefined, "i1", T0, true);
     const s2 = updateSchedule(s1, "i1", s1.dueAtMs, true);
-    expect(s2.intervalDays).toBe(6);
-    expect(s2.ease).toBeCloseTo(2.7, 12);
-    expect(s2.dueAtMs).toBe(s1.dueAtMs + 6 * MS_PER_DAY);
+    expect(s2.stability).toBeCloseTo(14.094985421450282, 9);
+    // Mean reversion holds D0(good) fixed under repeated goods.
+    expect(s2.difficulty).toBeCloseTo(5.1618, 12);
+    expect(s2.consecutiveCorrect).toBe(2);
   });
 
-  it("third correct: interval = previous(6) * ease(2.7) = 16.2 days", () => {
+  it("third correct at due: stability 46.920396…, intervals stretch without an ease cap", () => {
     const s1 = updateSchedule(undefined, "i1", T0, true);
-    const s2 = updateSchedule(s1, "i1", s1.dueAtMs, true); // interval 6, ease 2.7
+    const s2 = updateSchedule(s1, "i1", s1.dueAtMs, true);
     const s3 = updateSchedule(s2, "i1", s2.dueAtMs, true);
-    expect(s3.intervalDays).toBeCloseTo(6 * 2.7, 12); // 16.2
-    expect(s3.ease).toBeCloseTo(2.8, 12);
-    expect(s3.dueAtMs).toBe(s2.dueAtMs + 16.2 * MS_PER_DAY);
+    expect(s3.stability).toBeCloseTo(46.920396662890255, 9);
+    expect(s3.intervalDays).toBeCloseTo(s3.stability, 9);
   });
 
-  it("ease caps at 3.0 after many corrects, never above", () => {
-    let s = updateSchedule(undefined, "i1", T0, true);
-    let t = s.dueAtMs;
-    for (let i = 0; i < 10; i++) {
-      s = updateSchedule(s, "i1", t, true);
-      t = s.dueAtMs;
-    }
-    expect(s.ease).toBeLessThanOrEqual(EASE_CAP);
-    expect(s.ease).toBeCloseTo(EASE_CAP, 12);
+  it("a lapse at due: stability collapses to 3.064799… (capped below prior S), difficulty rises", () => {
+    const s1 = updateSchedule(undefined, "i1", T0, true);
+    const s2 = updateSchedule(s1, "i1", s1.dueAtMs, true); // S = 14.09…, D = 5.1618
+    const s3 = updateSchedule(s2, "i1", s2.dueAtMs, false);
+    expect(s3.stability).toBeCloseTo(3.064799224226683, 9);
+    expect(s3.stability).toBeLessThan(s2.stability);
+    expect(s3.difficulty).toBeCloseTo(6.901155, 9);
+    expect(s3.consecutiveCorrect).toBe(0);
+    expect(s3.lapsed).toBe(true);
   });
 
-  it("wrong: lapse, due in 0.5 days, interval reset to 1, ease -0.2, streak 0", () => {
-    const s1 = updateSchedule(undefined, "i1", T0, true); // ease 2.6
-    const s2 = updateSchedule(s1, "i1", s1.dueAtMs, false);
-    expect(s2.lapsed).toBe(true);
-    expect(s2.consecutiveCorrect).toBe(0);
-    expect(s2.intervalDays).toBe(1);
-    expect(s2.ease).toBeCloseTo(2.4, 12); // 2.6 - 0.2
-    expect(s2.dueAtMs).toBe(s1.dueAtMs + 0.5 * MS_PER_DAY);
+  it("recovery after the lapse re-earns stability gradually (9.238080…)", () => {
+    const s1 = updateSchedule(undefined, "i1", T0, true);
+    const s2 = updateSchedule(s1, "i1", s1.dueAtMs, true);
+    const s3 = updateSchedule(s2, "i1", s2.dueAtMs, false);
+    const s4 = updateSchedule(s3, "i1", s3.dueAtMs, true);
+    expect(s4.stability).toBeCloseTo(9.238080685089054, 9);
+    expect(s4.lapsed).toBe(false);
+    expect(s4.consecutiveCorrect).toBe(1);
   });
 
-  it("ease floors at 1.3 after repeated wrongs", () => {
-    let s = updateSchedule(undefined, "i1", T0, false); // 2.5 - 0.2 = 2.3
+  it("a same-day re-answer earns nothing: R ~ 1 makes the stability gain zero", () => {
+    const s1 = updateSchedule(undefined, "i1", T0, true);
+    const s2 = updateSchedule(s1, "i1", T0, true); // zero elapsed
+    expect(s2.stability).toBeCloseTo(s1.stability, 12);
+  });
+
+  it("difficulty stays clamped to [1, 10] under long wrong streaks", () => {
+    let s = updateSchedule(undefined, "i1", T0, false);
     let t = s.dueAtMs;
     for (let i = 0; i < 20; i++) {
       s = updateSchedule(s, "i1", t, false);
       t = s.dueAtMs;
     }
-    expect(s.ease).toBeCloseTo(1.3, 12);
+    expect(s.difficulty).toBeLessThanOrEqual(10);
+    expect(s.difficulty).toBeGreaterThanOrEqual(1);
+    expect(s.stability).toBeGreaterThan(0);
   });
 });
 
-describe("mock mode does not advance schedules (measurement, not review)", () => {
-  it("a mock event creates no schedule entry", () => {
-    let sched = new Map<string, ItemSchedule>();
-    sched = applyEventToSchedules(sched, evt("i1", T0, true, "mock"));
-    expect(sched.size).toBe(0);
+describe("mock mode advances schedules (ADR 0020: a mock recall is a real review)", () => {
+  it("a mock event creates a schedule entry", () => {
+    let m = new Map<string, ItemSchedule>();
+    m = applyEventToSchedules(m, evt("i1", T0, true, "mock"));
+    expect(m.size).toBe(1);
+    expect(m.get("i1")!.stability).toBeCloseTo(3.7145, 12);
   });
 
-  it("a mock event leaves an existing schedule untouched", () => {
-    let sched = new Map<string, ItemSchedule>();
-    sched = applyEventToSchedules(sched, evt("i1", T0, true, "practice"));
-    const before = sched.get("i1")!;
-    sched = applyEventToSchedules(sched, evt("i1", T0 + MS_PER_DAY, false, "mock"));
-    expect(sched.get("i1")).toEqual(before);
+  it("a wrong mock answer lapses an existing schedule", () => {
+    let m = new Map<string, ItemSchedule>();
+    m = applyEventToSchedules(m, evt("i1", T0, true, "practice"));
+    m = applyEventToSchedules(m, evt("i1", T0 + MS_PER_DAY, false, "mock"));
+    const s = m.get("i1")!;
+    expect(s.lapsed).toBe(true);
+    expect(s.lastSeenMs).toBe(T0 + MS_PER_DAY);
   });
 });
 
@@ -152,20 +190,80 @@ describe("exam awareness: capping and compression (the deadline-blindness fix)",
     expect(due).toBe(examMs - 3 * MS_PER_DAY); // capped to the buffer edge
   });
 
-  it("a converging item near the exam gets compressed due dates via updateSchedule", () => {
-    const examMs = T0 + 20 * MS_PER_DAY;
-    const s1 = updateSchedule(undefined, "i1", T0, true, examMs); // interval 1, fits
-    expect(s1.dueAtMs).toBe(T0 + 1 * MS_PER_DAY);
-    const s2 = updateSchedule(s1, "i1", s1.dueAtMs, true, examMs); // interval 6
-    // at s1.due (T0+1d), days remaining = 19, half = 9.5; 6 < 9.5 so no compress.
-    expect(s2.dueAtMs).toBe(s1.dueAtMs + 6 * MS_PER_DAY);
-  });
-
   it("a post-exam event creates no schedule entry", () => {
     const examMs = T0 + 5 * MS_PER_DAY;
-    let sched = new Map<string, ItemSchedule>();
-    sched = applyEventToSchedules(sched, evt("i1", examMs + MS_PER_DAY, true), examMs);
-    expect(sched.size).toBe(0);
+    let m = new Map<string, ItemSchedule>();
+    m = applyEventToSchedules(m, evt("i1", examMs + MS_PER_DAY, true), examMs);
+    expect(m.size).toBe(0);
+  });
+});
+
+describe("workload balancing (ADR 0020): no day holds more than MAX_DUE_PER_DAY", () => {
+  /** n entries all due the same instant, with stability = index (so the sort
+   * order is fully determined). */
+  function flood(n: number, dueAtMs: number): Map<string, ItemSchedule> {
+    const m = new Map<string, ItemSchedule>();
+    for (let i = 0; i < n; i++) {
+      const id = `i${String(i).padStart(3, "0")}`;
+      m.set(id, sched(id, { stability: i + 1, intervalDays: i + 1, dueAtMs }));
+    }
+    return m;
+  }
+
+  function byDay(m: ReadonlyMap<string, ItemSchedule>): Map<number, string[]> {
+    const out = new Map<number, string[]>();
+    for (const s of m.values()) {
+      const d = Math.floor(s.dueAtMs / MS_PER_DAY);
+      out.set(d, [...(out.get(d) ?? []), s.itemId].sort());
+    }
+    return out;
+  }
+
+  it("a 30-item flood spreads 12/12/6 across consecutive days, fragile first", () => {
+    const due = T0 + 2 * MS_PER_DAY;
+    const balanced = balanceSchedules(flood(30, due));
+    const days = byDay(balanced);
+    const d0 = Math.floor(due / MS_PER_DAY);
+    expect(days.get(d0)!.length).toBe(MAX_DUE_PER_DAY);
+    expect(days.get(d0 + 1)!.length).toBe(MAX_DUE_PER_DAY);
+    expect(days.get(d0 + 2)!.length).toBe(6);
+    // Lowest stability stays earliest: i000 (stability 1) on day 0,
+    // i029 (stability 30) rolled to day 2.
+    expect(days.get(d0)).toContain("i000");
+    expect(days.get(d0 + 2)).toContain("i029");
+  });
+
+  it("rolled entries keep their time of day; settled entries are untouched", () => {
+    const due = T0 + 2 * MS_PER_DAY;
+    const balanced = balanceSchedules(flood(14, due));
+    const rolled = balanced.get("i013")!;
+    expect(rolled.dueAtMs).toBe(due + MS_PER_DAY);
+    const kept = balanced.get("i000")!;
+    expect(kept.dueAtMs).toBe(due);
+    expect(kept).toEqual(flood(14, due).get("i000"));
+  });
+
+  it("is clock-free and idempotent: balancing a balanced map changes nothing", () => {
+    const once = balanceSchedules(flood(30, T0 + 2 * MS_PER_DAY));
+    const twice = balanceSchedules(once);
+    expect(twice).toEqual(once);
+  });
+
+  it("under-cap days pass through unchanged", () => {
+    const input = flood(5, T0 + 2 * MS_PER_DAY);
+    expect(balanceSchedules(input)).toEqual(input);
+  });
+
+  it("with an exam set, nothing rolls past the buffer edge; the last day absorbs the rest", () => {
+    const due = T0 + 2 * MS_PER_DAY;
+    const examMs = T0 + 6 * MS_PER_DAY; // buffer edge = T0 + 3d
+    const balanced = balanceSchedules(flood(30, due), examMs);
+    const days = byDay(balanced);
+    const d0 = Math.floor(due / MS_PER_DAY);
+    const edgeDay = Math.floor((examMs - 3 * MS_PER_DAY) / MS_PER_DAY);
+    expect(days.get(d0)!.length).toBe(MAX_DUE_PER_DAY);
+    expect(days.get(edgeDay)!.length).toBe(30 - MAX_DUE_PER_DAY); // absorbs overflow
+    expect(Math.max(...[...days.keys()])).toBe(edgeDay);
   });
 });
 
@@ -175,55 +273,40 @@ describe("pack transitions (ADR 0009): tombstone drop and supersession transfer"
   }
 
   it("a scheduled item absent from the bank is dropped", () => {
-    const sched = new Map<string, ItemSchedule>([
-      ["gone", { itemId: "gone", intervalDays: 6, ease: 2.7, lastSeenMs: T0, dueAtMs: T0 + 6 * MS_PER_DAY, consecutiveCorrect: 2, lapsed: false }],
-    ]);
-    const reconciled = reconcileSchedules(sched, bankOf());
+    const m = new Map<string, ItemSchedule>([["gone", sched("gone")]]);
+    const reconciled = reconcileSchedules(m, bankOf());
     expect(reconciled.size).toBe(0);
   });
 
   it("a tombstoned item with no successor is dropped", () => {
-    const sched = new Map<string, ItemSchedule>([
-      ["t1", { itemId: "t1", intervalDays: 6, ease: 2.7, lastSeenMs: T0, dueAtMs: T0 + 6 * MS_PER_DAY, consecutiveCorrect: 2, lapsed: false }],
-    ]);
+    const m = new Map<string, ItemSchedule>([["t1", sched("t1")]]);
     const bank = bankOf(item("t1", { verification_status: "retired" }));
-    expect(reconcileSchedules(sched, bank).size).toBe(0);
+    expect(reconcileSchedules(m, bank).size).toBe(0);
   });
 
-  it("a superseded item transfers its schedule (same due, same ease) to the successor", () => {
-    const entry: ItemSchedule = {
-      itemId: "old",
-      intervalDays: 6,
-      ease: 2.7,
-      lastSeenMs: T0,
-      dueAtMs: T0 + 6 * MS_PER_DAY,
-      consecutiveCorrect: 2,
-      lapsed: false,
-    };
-    const sched = new Map<string, ItemSchedule>([["old", entry]]);
+  it("a superseded item transfers its schedule (same due, same memory state) to the successor", () => {
+    const entry = sched("old");
+    const m = new Map<string, ItemSchedule>([["old", entry]]);
     const bank = bankOf(
       item("old", { verification_status: "retired", superseded_by: "new" }),
       item("new", { verification_status: "verified" }),
     );
-    const reconciled = reconcileSchedules(sched, bank);
+    const reconciled = reconcileSchedules(m, bank);
     expect(reconciled.has("old")).toBe(false);
     const transferred = reconciled.get("new")!;
     expect(transferred.dueAtMs).toBe(entry.dueAtMs);
-    expect(transferred.ease).toBe(entry.ease);
+    expect(transferred.stability).toBe(entry.stability);
+    expect(transferred.difficulty).toBe(entry.difficulty);
     expect(transferred.consecutiveCorrect).toBe(entry.consecutiveCorrect);
     expect(transferred.itemId).toBe("new");
   });
 
   it("supersession to a tombstoned successor drops instead of transferring", () => {
-    const entry: ItemSchedule = {
-      itemId: "old", intervalDays: 6, ease: 2.7, lastSeenMs: T0,
-      dueAtMs: T0 + 6 * MS_PER_DAY, consecutiveCorrect: 2, lapsed: false,
-    };
-    const sched = new Map([["old", entry]]);
+    const m = new Map<string, ItemSchedule>([["old", sched("old")]]);
     const bank = bankOf(
       item("old", { verification_status: "retired", superseded_by: "new" }),
       item("new", { verification_status: "retired" }),
     );
-    expect(reconcileSchedules(sched, bank).size).toBe(0);
+    expect(reconcileSchedules(m, bank).size).toBe(0);
   });
 });

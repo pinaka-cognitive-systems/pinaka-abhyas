@@ -1,10 +1,10 @@
 {
   "meta": {
-    "emittedAt": "2026-06-10",
+    "emittedAt": "2026-06-12",
     "roundingQuantum": 1e-9,
-    "scenarioCount": 14,
+    "scenarioCount": 15,
     "selectActionsPerScenario": 10,
-    "specVersion": "0.2"
+    "specVersion": "0.3"
   },
   "scenarios": [
     {
@@ -576,12 +576,13 @@
           "schedules": {
             "qa.bmath.finance#c": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736197200000,
-              "ease": 2.3000000000000003,
-              "intervalDays": 1,
+              "difficulty": 7.6214,
+              "dueAtMs": 1736196094080,
+              "intervalDays": 0.4872,
               "itemId": "qa.bmath.finance#c",
               "lapsed": true,
-              "lastSeenMs": 1736154000000
+              "lastSeenMs": 1736154000000,
+              "stability": 0.4872
             }
           },
           "skills": {
@@ -900,18 +901,6 @@
             "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
           },
           {
-            "itemId": "qa.stats.probability#a",
-            "kind": "review",
-            "nodeId": "qa.stats.probability",
-            "reason": "Due review on 'qa.stats.probability', served via a fresh sibling item so you practise the idea, not a memorised answer; protects banked marks."
-          },
-          {
-            "itemId": "qa.stats.probability#d",
-            "kind": "review",
-            "nodeId": "qa.stats.probability",
-            "reason": "Due review on 'qa.stats.probability', served via a fresh sibling item so you practise the idea, not a memorised answer; protects banked marks."
-          },
-          {
             "itemId": "qa.bmath.finance#b",
             "kind": "practice",
             "nodeId": "qa.bmath.finance",
@@ -930,7 +919,19 @@
             "reason": "High-weight, learnable node 'qa.bmath.finance': you are close enough that practice converts directly to marks."
           },
           {
+            "itemId": "qa.stats.probability#d",
+            "kind": "practice",
+            "nodeId": "qa.stats.probability",
+            "reason": "High-weight, learnable node 'qa.stats.probability': you are close enough that practice converts directly to marks."
+          },
+          {
             "itemId": "qa.stats.probability#b",
+            "kind": "practice",
+            "nodeId": "qa.stats.probability",
+            "reason": "High-weight, learnable node 'qa.stats.probability': you are close enough that practice converts directly to marks."
+          },
+          {
+            "itemId": "qa.stats.probability#a",
             "kind": "practice",
             "nodeId": "qa.stats.probability",
             "reason": "High-weight, learnable node 'qa.stats.probability': you are close enough that practice converts directly to marks."
@@ -967,48 +968,53 @@
           "schedules": {
             "qa.bmath.finance#a": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736197200000,
-              "ease": 2.3000000000000003,
-              "intervalDays": 1,
+              "difficulty": 7.6214,
+              "dueAtMs": 1736196094080,
+              "intervalDays": 0.4872,
               "itemId": "qa.bmath.finance#a",
               "lapsed": true,
-              "lastSeenMs": 1736154000000
+              "lastSeenMs": 1736154000000,
+              "stability": 0.4872
             },
             "qa.bmath.finance#c": {
               "consecutiveCorrect": 1,
-              "dueAtMs": 1736283600000,
-              "ease": 2.6,
-              "intervalDays": 1,
+              "difficulty": 5.1618,
+              "dueAtMs": 1736518132800,
+              "intervalDays": 3.7145,
               "itemId": "qa.bmath.finance#c",
               "lapsed": false,
-              "lastSeenMs": 1736197200000
+              "lastSeenMs": 1736197200000,
+              "stability": 3.7145
             },
             "qa.lr.seating#a": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736254800000,
-              "ease": 2.3000000000000003,
-              "intervalDays": 1,
+              "difficulty": 7.6214,
+              "dueAtMs": 1736253694080,
+              "intervalDays": 0.4872,
               "itemId": "qa.lr.seating#a",
               "lapsed": true,
-              "lastSeenMs": 1736211600000
+              "lastSeenMs": 1736211600000,
+              "stability": 0.4872
             },
             "qa.stats.probability#b": {
               "consecutiveCorrect": 1,
-              "dueAtMs": 1736254800000,
-              "ease": 2.6,
-              "intervalDays": 1,
+              "difficulty": 5.1618,
+              "dueAtMs": 1736489332800,
+              "intervalDays": 3.7145,
               "itemId": "qa.stats.probability#b",
               "lapsed": false,
-              "lastSeenMs": 1736168400000
+              "lastSeenMs": 1736168400000,
+              "stability": 3.7145
             },
             "qa.stats.probability#c": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736226000000,
-              "ease": 2.3000000000000003,
-              "intervalDays": 1,
+              "difficulty": 7.6214,
+              "dueAtMs": 1736224894080,
+              "intervalDays": 0.4872,
               "itemId": "qa.stats.probability#c",
               "lapsed": true,
-              "lastSeenMs": 1736182800000
+              "lastSeenMs": 1736182800000,
+              "stability": 0.4872
             }
           },
           "skills": {
@@ -1581,27 +1587,27 @@
             "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
           },
           {
-            "itemId": "qa.bmath.finance#b",
+            "itemId": "qa.lr.seating#d",
             "kind": "review",
-            "nodeId": "qa.bmath.finance",
-            "reason": "Due review on 'qa.bmath.finance', served via a fresh sibling item so you practise the idea, not a memorised answer; protects banked marks."
+            "nodeId": "qa.lr.seating",
+            "reason": "Due review on 'qa.lr.seating', served via a fresh sibling item so you practise the idea, not a memorised answer; protects banked marks."
           },
           {
-            "itemId": "qa.bmath.finance#d",
+            "itemId": "qa.lr.seating#c",
             "kind": "review",
-            "nodeId": "qa.bmath.finance",
-            "reason": "Due review on 'qa.bmath.finance', served via a fresh sibling item so you practise the idea, not a memorised answer; protects banked marks."
-          },
-          {
-            "itemId": "qa.bmath.finance#a",
-            "kind": "review",
-            "nodeId": "qa.bmath.finance",
+            "nodeId": "qa.lr.seating",
             "reason": "Due review — no fresh sibling available, so the original item is served; protects banked marks."
           },
           {
             "itemId": "qa.lr.seating#a",
             "kind": "review",
             "nodeId": "qa.lr.seating",
+            "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
+          },
+          {
+            "itemId": "qa.stats.probability#b",
+            "kind": "review",
+            "nodeId": "qa.stats.probability",
             "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
           },
           {
@@ -1617,22 +1623,22 @@
             "reason": "High-weight, learnable node 'qa.stats.probability': you are close enough that practice converts directly to marks."
           },
           {
-            "itemId": "qa.stats.probability#b",
-            "kind": "practice",
-            "nodeId": "qa.stats.probability",
-            "reason": "High-weight, learnable node 'qa.stats.probability': you are close enough that practice converts directly to marks."
-          },
-          {
-            "itemId": "qa.lr.seating#d",
+            "itemId": "qa.lr.seating#b",
             "kind": "practice",
             "nodeId": "qa.lr.seating",
             "reason": "High-weight, learnable node 'qa.lr.seating': you are close enough that practice converts directly to marks."
           },
           {
-            "itemId": "qa.lr.seating#c",
-            "kind": "practice",
-            "nodeId": "qa.lr.seating",
-            "reason": "High-weight, learnable node 'qa.lr.seating': you are close enough that practice converts directly to marks."
+            "itemId": null,
+            "kind": "none",
+            "nodeId": null,
+            "reason": "Nothing to serve: no remediation, no due review, no learnable or unseen node."
+          },
+          {
+            "itemId": null,
+            "kind": "none",
+            "nodeId": null,
+            "reason": "Nothing to serve: no remediation, no due review, no learnable or unseen node."
           }
         ],
         "readiness": {
@@ -1662,66 +1668,73 @@
           "schedules": {
             "qa.bmath.finance#a": {
               "consecutiveCorrect": 1,
-              "dueAtMs": 1736341200000,
-              "ease": 2.6,
-              "intervalDays": 1,
+              "difficulty": 5.1618,
+              "dueAtMs": 1736575732800,
+              "intervalDays": 3.7145,
               "itemId": "qa.bmath.finance#a",
               "lapsed": false,
-              "lastSeenMs": 1736254800000
+              "lastSeenMs": 1736254800000,
+              "stability": 3.7145
             },
             "qa.bmath.finance#c": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736427600000,
-              "ease": 2.5,
-              "intervalDays": 1,
+              "difficulty": 6.901155,
+              "dueAtMs": 1736519526657.5337,
+              "intervalDays": 1.563965944,
               "itemId": "qa.bmath.finance#c",
               "lapsed": true,
-              "lastSeenMs": 1736384400000
+              "lastSeenMs": 1736384400000,
+              "stability": 1.563965944
             },
             "qa.lr.seating#a": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736398800000,
-              "ease": 2.4000000000000004,
-              "intervalDays": 1,
+              "difficulty": 8.586589995,
+              "dueAtMs": 1736421244940.373,
+              "intervalDays": 0.759779402,
               "itemId": "qa.lr.seating#a",
               "lapsed": true,
-              "lastSeenMs": 1736355600000
+              "lastSeenMs": 1736355600000,
+              "stability": 0.759779402
             },
             "qa.lr.seating#b": {
               "consecutiveCorrect": 1,
-              "dueAtMs": 1736456400000,
-              "ease": 2.4000000000000004,
-              "intervalDays": 1,
+              "difficulty": 7.5451524,
+              "dueAtMs": 1736601520760.4797,
+              "intervalDays": 2.6796384310000003,
               "itemId": "qa.lr.seating#b",
               "lapsed": false,
-              "lastSeenMs": 1736370000000
+              "lastSeenMs": 1736370000000,
+              "stability": 2.6796384310000003
             },
             "qa.lr.seating#c": {
               "consecutiveCorrect": 1,
-              "dueAtMs": 1736427600000,
-              "ease": 2.4000000000000004,
-              "intervalDays": 1,
+              "difficulty": 7.5451524,
+              "dueAtMs": 1736416214412.8735,
+              "intervalDays": 0.8682223710000001,
               "itemId": "qa.lr.seating#c",
               "lapsed": false,
-              "lastSeenMs": 1736341200000
+              "lastSeenMs": 1736341200000,
+              "stability": 0.8682223710000001
             },
             "qa.stats.probability#b": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736456400000,
-              "ease": 2,
-              "intervalDays": 1,
+              "difficulty": 10,
+              "dueAtMs": 1736438887756.6086,
+              "intervalDays": 0.297311998,
               "itemId": "qa.stats.probability#b",
               "lapsed": true,
-              "lastSeenMs": 1736413200000
+              "lastSeenMs": 1736413200000,
+              "stability": 0.297311998
             },
             "qa.stats.probability#c": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736269200000,
-              "ease": 2.4000000000000004,
-              "intervalDays": 1,
+              "difficulty": 6.901155,
+              "dueAtMs": 1736334862280.4026,
+              "intervalDays": 1.2599800970000001,
               "itemId": "qa.stats.probability#c",
               "lapsed": true,
-              "lastSeenMs": 1736226000000
+              "lastSeenMs": 1736226000000,
+              "stability": 1.2599800970000001
             }
           },
           "skills": {
@@ -5552,6 +5565,18 @@
             "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
           },
           {
+            "itemId": "qa.bmath.finance#d",
+            "kind": "review",
+            "nodeId": "qa.bmath.finance",
+            "reason": "Due review on 'qa.bmath.finance', served via a fresh sibling item so you practise the idea, not a memorised answer; protects banked marks."
+          },
+          {
+            "itemId": "qa.bmath.finance#c",
+            "kind": "review",
+            "nodeId": "qa.bmath.finance",
+            "reason": "Due review — no fresh sibling available, so the original item is served; protects banked marks."
+          },
+          {
             "itemId": "qa.stats.probability#d",
             "kind": "review",
             "nodeId": "qa.stats.probability",
@@ -5561,18 +5586,6 @@
             "itemId": "qa.stats.probability#b",
             "kind": "review",
             "nodeId": "qa.stats.probability",
-            "reason": "Due review — no fresh sibling available, so the original item is served; protects banked marks."
-          },
-          {
-            "itemId": "qa.lr.seating#d",
-            "kind": "review",
-            "nodeId": "qa.lr.seating",
-            "reason": "Due review on 'qa.lr.seating', served via a fresh sibling item so you practise the idea, not a memorised answer; protects banked marks."
-          },
-          {
-            "itemId": "qa.lr.seating#c",
-            "kind": "review",
-            "nodeId": "qa.lr.seating",
             "reason": "Due review — no fresh sibling available, so the original item is served; protects banked marks."
           },
           {
@@ -5635,84 +5648,93 @@
           "schedules": {
             "qa.bmath.finance#a": {
               "consecutiveCorrect": 15,
-              "dueAtMs": 828235990800000,
-              "ease": 3,
-              "intervalDays": 9565938,
+              "difficulty": 6.246338280000001,
+              "dueAtMs": 1742473362275.395,
+              "intervalDays": 40.807433743000004,
               "itemId": "qa.bmath.finance#a",
               "lapsed": false,
-              "lastSeenMs": 1738947600000
+              "lastSeenMs": 1738947600000,
+              "stability": 40.807433743000004
             },
             "qa.bmath.finance#b": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1738342800000,
-              "ease": 2.2,
-              "intervalDays": 1,
+              "difficulty": 10,
+              "dueAtMs": 1738349200042.8496,
+              "intervalDays": 0.5740745700000001,
               "itemId": "qa.bmath.finance#b",
               "lapsed": true,
-              "lastSeenMs": 1738299600000
+              "lastSeenMs": 1738299600000,
+              "stability": 0.5740745700000001
             },
             "qa.bmath.finance#c": {
               "consecutiveCorrect": 2,
-              "dueAtMs": 1739365200000,
-              "ease": 2.5,
-              "intervalDays": 6,
+              "difficulty": 9.704681110000001,
+              "dueAtMs": 1738956986838.0378,
+              "intervalDays": 1.2753106250000001,
               "itemId": "qa.bmath.finance#c",
               "lapsed": false,
-              "lastSeenMs": 1738846800000
+              "lastSeenMs": 1738846800000,
+              "stability": 1.2753106250000001
             },
             "qa.lr.seating#a": {
               "consecutiveCorrect": 9,
-              "dueAtMs": 2872731600000,
-              "ease": 3,
-              "intervalDays": 13122,
+              "difficulty": 7.522902365,
+              "dueAtMs": 1740549122169.1968,
+              "intervalDays": 18.036136218000003,
               "itemId": "qa.lr.seating#a",
               "lapsed": false,
-              "lastSeenMs": 1738990800000
+              "lastSeenMs": 1738990800000,
+              "stability": 18.036136218000003
             },
             "qa.lr.seating#b": {
               "consecutiveCorrect": 5,
-              "dueAtMs": 1750370601600,
-              "ease": 3,
-              "intervalDays": 131.544,
+              "difficulty": 9.295154956000001,
+              "dueAtMs": 1739538884989.2898,
+              "intervalDays": 6.176909598,
               "itemId": "qa.lr.seating#b",
               "lapsed": false,
-              "lastSeenMs": 1739005200000
+              "lastSeenMs": 1739005200000,
+              "stability": 6.176909598
             },
             "qa.lr.seating#c": {
               "consecutiveCorrect": 1,
-              "dueAtMs": 1739062800000,
-              "ease": 1.4000000000000001,
-              "intervalDays": 1,
+              "difficulty": 9.850015800000001,
+              "dueAtMs": 1739101719794.5298,
+              "intervalDays": 1.450460585,
               "itemId": "qa.lr.seating#c",
               "lapsed": false,
-              "lastSeenMs": 1738976400000
+              "lastSeenMs": 1738976400000,
+              "stability": 1.450460585
             },
             "qa.stats.probability#a": {
               "consecutiveCorrect": 5,
-              "dueAtMs": 1752858000000,
-              "ease": 3,
-              "intervalDays": 162,
+              "difficulty": 8.928911167,
+              "dueAtMs": 1739663427814.803,
+              "intervalDays": 9.285044153000001,
               "itemId": "qa.stats.probability#a",
               "lapsed": false,
-              "lastSeenMs": 1738861200000
+              "lastSeenMs": 1738861200000,
+              "stability": 9.285044153000001
             },
             "qa.stats.probability#b": {
               "consecutiveCorrect": 1,
-              "dueAtMs": 1738918800000,
-              "ease": 2.9000000000000004,
-              "intervalDays": 1,
+              "difficulty": 9.850015800000001,
+              "dueAtMs": 1739041240189.489,
+              "intervalDays": 2.417131823,
               "itemId": "qa.stats.probability#b",
               "lapsed": false,
-              "lastSeenMs": 1738832400000
+              "lastSeenMs": 1738832400000,
+              "stability": 2.417131823
             },
             "qa.stats.probability#c": {
               "consecutiveCorrect": 2,
-              "dueAtMs": 1739538000000,
-              "ease": 2,
-              "intervalDays": 6,
+              "difficulty": 9.704681110000001,
+              "dueAtMs": 1739210315297.499,
+              "intervalDays": 2.20735298,
               "itemId": "qa.stats.probability#c",
               "lapsed": false,
-              "lastSeenMs": 1739019600000
+              "lastSeenMs": 1739019600000,
+              "stability": 2.20735298
             }
           },
           "skills": {
@@ -10346,84 +10368,93 @@
           "schedules": {
             "qa.bmath.finance#a": {
               "consecutiveCorrect": 17,
-              "dueAtMs": 4363992688809601,
-              "ease": 3,
-              "intervalDays": 50489020.76400001,
+              "difficulty": 6.601820565000001,
+              "dueAtMs": 1748454584521.6196,
+              "intervalDays": 82.867876408,
               "itemId": "qa.bmath.finance#a",
               "lapsed": false,
-              "lastSeenMs": 1741294800000
+              "lastSeenMs": 1741294800000,
+              "stability": 82.867876408
             },
             "qa.bmath.finance#b": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1741122000000,
-              "ease": 2.8000000000000003,
-              "intervalDays": 1,
+              "difficulty": 10,
+              "dueAtMs": 1741240102121.3228,
+              "intervalDays": 1.8669227000000002,
               "itemId": "qa.bmath.finance#b",
               "lapsed": true,
-              "lastSeenMs": 1741078800000
+              "lastSeenMs": 1741078800000,
+              "stability": 1.8669227000000002
             },
             "qa.bmath.finance#c": {
               "consecutiveCorrect": 9,
-              "dueAtMs": 1771567694208,
-              "ease": 2.2,
-              "intervalDays": 351.63072,
+              "difficulty": 8.805963136,
+              "dueAtMs": 1742691315353.125,
+              "intervalDays": 17.413372143,
               "itemId": "qa.bmath.finance#c",
               "lapsed": false,
-              "lastSeenMs": 1741186800000
+              "lastSeenMs": 1741186800000,
+              "stability": 17.413372143
             },
             "qa.lr.seating#a": {
               "consecutiveCorrect": 11,
-              "dueAtMs": 11944875600000,
-              "ease": 3,
-              "intervalDays": 118098.00000000001,
+              "difficulty": 7.158946058000001,
+              "dueAtMs": 1744439070631.595,
+              "intervalDays": 37.392021199000006,
               "itemId": "qa.lr.seating#a",
               "lapsed": false,
-              "lastSeenMs": 1741208400000
+              "lastSeenMs": 1741208400000,
+              "stability": 37.392021199000006
             },
             "qa.lr.seating#b": {
               "consecutiveCorrect": 3,
-              "dueAtMs": 1742871600000,
-              "ease": 3,
-              "intervalDays": 18,
+              "difficulty": 9.016599118,
+              "dueAtMs": 1741979481750.9167,
+              "intervalDays": 7.674557302,
               "itemId": "qa.lr.seating#b",
               "lapsed": false,
-              "lastSeenMs": 1741316400000
+              "lastSeenMs": 1741316400000,
+              "stability": 7.674557302
             },
             "qa.lr.seating#c": {
               "consecutiveCorrect": 3,
-              "dueAtMs": 1742106960000,
-              "ease": 2,
-              "intervalDays": 11.4,
+              "difficulty": 9.563851796,
+              "dueAtMs": 1741559545501.2454,
+              "intervalDays": 5.064184042,
               "itemId": "qa.lr.seating#c",
               "lapsed": false,
-              "lastSeenMs": 1741122000000
+              "lastSeenMs": 1741122000000,
+              "stability": 5.064184042
             },
             "qa.stats.probability#a": {
               "consecutiveCorrect": 13,
-              "dueAtMs": 93574170000000,
-              "ease": 3,
-              "intervalDays": 1062882,
+              "difficulty": 8.374668265,
+              "dueAtMs": 1743166332647.2534,
+              "intervalDays": 23.161257491,
               "itemId": "qa.stats.probability#a",
               "lapsed": false,
-              "lastSeenMs": 1741165200000
+              "lastSeenMs": 1741165200000,
+              "stability": 23.161257491
             },
             "qa.stats.probability#b": {
               "consecutiveCorrect": 6,
-              "dueAtMs": 1745080329600,
-              "ease": 1.9000000000000001,
-              "intervalDays": 44.064,
+              "difficulty": 9.167020953,
+              "dueAtMs": 1742158610910.2446,
+              "intervalDays": 10.247811461000001,
               "itemId": "qa.stats.probability#b",
               "lapsed": false,
-              "lastSeenMs": 1741273200000
+              "lastSeenMs": 1741273200000,
+              "stability": 10.247811461000001
             },
             "qa.stats.probability#c": {
               "consecutiveCorrect": 8,
-              "dueAtMs": 1755567492480,
-              "ease": 2.1,
-              "intervalDays": 167.44320000000002,
+              "difficulty": 8.922546271,
+              "dueAtMs": 1741968078937.0999,
+              "intervalDays": 10.042580291,
               "itemId": "qa.stats.probability#c",
               "lapsed": false,
-              "lastSeenMs": 1741100400000
+              "lastSeenMs": 1741100400000,
+              "stability": 10.042580291
             }
           },
           "skills": {
@@ -11206,28 +11237,28 @@
             "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
           },
           {
-            "itemId": "qa.lr.seating#c",
-            "kind": "review",
-            "nodeId": "qa.lr.seating",
-            "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
-          },
-          {
             "itemId": "qa.stats.probability#c",
             "kind": "review",
             "nodeId": "qa.stats.probability",
             "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
           },
           {
-            "itemId": "qa.lr.seating#d",
-            "kind": "review",
-            "nodeId": "qa.lr.seating",
-            "reason": "Due review on 'qa.lr.seating', served via a fresh sibling item so you practise the idea, not a memorised answer; protects banked marks."
-          },
-          {
             "itemId": "qa.stats.probability#d",
             "kind": "practice",
             "nodeId": "qa.stats.probability",
             "reason": "High-weight, learnable node 'qa.stats.probability': you are close enough that practice converts directly to marks."
+          },
+          {
+            "itemId": "qa.stats.probability#b",
+            "kind": "practice",
+            "nodeId": "qa.stats.probability",
+            "reason": "High-weight, learnable node 'qa.stats.probability': you are close enough that practice converts directly to marks."
+          },
+          {
+            "itemId": "qa.lr.seating#d",
+            "kind": "practice",
+            "nodeId": "qa.lr.seating",
+            "reason": "High-weight, learnable node 'qa.lr.seating': you are close enough that practice converts directly to marks."
           }
         ],
         "readiness": {
@@ -11282,75 +11313,83 @@
           "schedules": {
             "qa.bmath.finance#b": {
               "consecutiveCorrect": 1,
-              "dueAtMs": 1737435600000,
-              "ease": 1.6,
-              "intervalDays": 1,
+              "difficulty": 9.850015800000001,
+              "dueAtMs": 1737381663014.5156,
+              "intervalDays": 0.375729335,
               "itemId": "qa.bmath.finance#b",
               "lapsed": false,
-              "lastSeenMs": 1737349200000
+              "lastSeenMs": 1737349200000,
+              "stability": 0.375729335
             },
             "qa.bmath.finance#c": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1737320400000,
-              "ease": 2.2,
-              "intervalDays": 1,
+              "difficulty": 8.586589995,
+              "dueAtMs": 1737326517731.0603,
+              "intervalDays": 0.570807072,
               "itemId": "qa.bmath.finance#c",
               "lapsed": true,
-              "lastSeenMs": 1737277200000
+              "lastSeenMs": 1737277200000,
+              "stability": 0.570807072
             },
             "qa.lr.seating#a": {
               "consecutiveCorrect": 1,
-              "dueAtMs": 1737493200000,
-              "ease": 2.6,
-              "intervalDays": 1,
+              "difficulty": 5.1618,
+              "dueAtMs": 1737727732800,
+              "intervalDays": 3.7145,
               "itemId": "qa.lr.seating#a",
               "lapsed": false,
-              "lastSeenMs": 1737406800000
+              "lastSeenMs": 1737406800000,
+              "stability": 3.7145
             },
             "qa.lr.seating#b": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1737334800000,
-              "ease": 2.4000000000000004,
-              "intervalDays": 1,
+              "difficulty": 6.901155,
+              "dueAtMs": 1737401301077.728,
+              "intervalDays": 1.2696884000000002,
               "itemId": "qa.lr.seating#b",
               "lapsed": true,
-              "lastSeenMs": 1737291600000
+              "lastSeenMs": 1737291600000,
+              "stability": 1.2696884000000002
             },
             "qa.lr.seating#c": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1737421200000,
-              "ease": 2.5,
-              "intervalDays": 1,
+              "difficulty": 6.901155,
+              "dueAtMs": 1737537415281.2356,
+              "intervalDays": 1.8450842740000002,
               "itemId": "qa.lr.seating#c",
               "lapsed": true,
-              "lastSeenMs": 1737378000000
+              "lastSeenMs": 1737378000000,
+              "stability": 1.8450842740000002
             },
             "qa.stats.probability#a": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1737277200000,
-              "ease": 2.4000000000000004,
-              "intervalDays": 1,
+              "difficulty": 6.901155,
+              "dueAtMs": 1737342862280.4026,
+              "intervalDays": 1.2599800970000001,
               "itemId": "qa.stats.probability#a",
               "lapsed": true,
-              "lastSeenMs": 1737234000000
+              "lastSeenMs": 1737234000000,
+              "stability": 1.2599800970000001
             },
             "qa.stats.probability#b": {
               "consecutiveCorrect": 3,
-              "dueAtMs": 1738763280000,
-              "ease": 2.8000000000000003,
-              "intervalDays": 16.2,
+              "difficulty": 5.1618,
+              "dueAtMs": 1738347116708.0618,
+              "intervalDays": 11.383295232,
               "itemId": "qa.stats.probability#b",
               "lapsed": false,
-              "lastSeenMs": 1737363600000
+              "lastSeenMs": 1737363600000,
+              "stability": 11.383295232
             },
             "qa.stats.probability#c": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1737435600000,
-              "ease": 1.9000000000000001,
-              "intervalDays": 1,
+              "difficulty": 10,
+              "dueAtMs": 1737415165780.8428,
+              "intervalDays": 0.263492834,
               "itemId": "qa.stats.probability#c",
               "lapsed": true,
-              "lastSeenMs": 1737392400000
+              "lastSeenMs": 1737392400000,
+              "stability": 0.263492834
             }
           },
           "skills": {
@@ -12295,6 +12334,12 @@
       "outputs": {
         "actions": [
           {
+            "itemId": "qa.lr.seating#c",
+            "kind": "review",
+            "nodeId": "qa.lr.seating",
+            "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
+          },
+          {
             "itemId": "qa.stats.probability#b",
             "kind": "review",
             "nodeId": "qa.stats.probability",
@@ -12317,12 +12362,6 @@
             "kind": "review",
             "nodeId": "qa.stats.probability",
             "reason": "Due review — no fresh sibling available, so the original item is served; protects banked marks."
-          },
-          {
-            "itemId": "qa.lr.seating#c",
-            "kind": "review",
-            "nodeId": "qa.lr.seating",
-            "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
           },
           {
             "itemId": "qa.bmath.finance#d",
@@ -12384,84 +12423,93 @@
           "schedules": {
             "qa.bmath.finance#a": {
               "consecutiveCorrect": 2,
-              "dueAtMs": 1737061200000,
-              "ease": 2.7,
-              "intervalDays": 6,
+              "difficulty": 5.1618,
+              "dueAtMs": 1737207848119.9,
+              "intervalDays": 7.697316203000001,
               "itemId": "qa.bmath.finance#a",
               "lapsed": false,
-              "lastSeenMs": 1736542800000
+              "lastSeenMs": 1736542800000,
+              "stability": 7.697316203000001
             },
             "qa.bmath.finance#b": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736686800000,
-              "ease": 2.4000000000000004,
-              "intervalDays": 1,
+              "difficulty": 10,
+              "dueAtMs": 1736691071370.0295,
+              "intervalDays": 0.5494371530000001,
               "itemId": "qa.bmath.finance#b",
               "lapsed": true,
-              "lastSeenMs": 1736643600000
+              "lastSeenMs": 1736643600000,
+              "stability": 0.5494371530000001
             },
             "qa.bmath.finance#c": {
               "consecutiveCorrect": 1,
-              "dueAtMs": 1736658000000,
-              "ease": 2.5,
-              "intervalDays": 1,
+              "difficulty": 6.847234995,
+              "dueAtMs": 1737134154971.1008,
+              "intervalDays": 6.511052906000001,
               "itemId": "qa.bmath.finance#c",
               "lapsed": false,
-              "lastSeenMs": 1736571600000
+              "lastSeenMs": 1736571600000,
+              "stability": 6.511052906000001
             },
             "qa.lr.seating#a": {
               "consecutiveCorrect": 2,
-              "dueAtMs": 1736902800000,
-              "ease": 2.7,
-              "intervalDays": 6,
+              "difficulty": 5.1618,
+              "dueAtMs": 1737171687478.1162,
+              "intervalDays": 9.112123589000001,
               "itemId": "qa.lr.seating#a",
               "lapsed": false,
-              "lastSeenMs": 1736384400000
+              "lastSeenMs": 1736384400000,
+              "stability": 9.112123589000001
             },
             "qa.lr.seating#b": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736730000000,
-              "ease": 2.5,
-              "intervalDays": 1,
+              "difficulty": 8.483712728,
+              "dueAtMs": 1736818421393.939,
+              "intervalDays": 1.5233957630000001,
               "itemId": "qa.lr.seating#b",
               "lapsed": true,
-              "lastSeenMs": 1736686800000
+              "lastSeenMs": 1736686800000,
+              "stability": 1.5233957630000001
             },
             "qa.lr.seating#c": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736600400000,
-              "ease": 1.9000000000000001,
-              "intervalDays": 1,
+              "difficulty": 10,
+              "dueAtMs": 1736608826402.842,
+              "intervalDays": 0.5975278110000001,
               "itemId": "qa.lr.seating#c",
               "lapsed": true,
-              "lastSeenMs": 1736557200000
+              "lastSeenMs": 1736557200000,
+              "stability": 0.5975278110000001
             },
             "qa.stats.probability#a": {
               "consecutiveCorrect": 1,
-              "dueAtMs": 1736413200000,
-              "ease": 2.6,
-              "intervalDays": 1,
+              "difficulty": 5.1618,
+              "dueAtMs": 1736647732800,
+              "intervalDays": 3.7145,
               "itemId": "qa.stats.probability#a",
               "lapsed": false,
-              "lastSeenMs": 1736326800000
+              "lastSeenMs": 1736326800000,
+              "stability": 3.7145
             },
             "qa.stats.probability#b": {
               "consecutiveCorrect": 2,
-              "dueAtMs": 1737234000000,
-              "ease": 2.9000000000000004,
-              "intervalDays": 6,
+              "difficulty": 6.79498651,
+              "dueAtMs": 1737155285013.1538,
+              "intervalDays": 5.088946912,
               "itemId": "qa.stats.probability#b",
               "lapsed": false,
-              "lastSeenMs": 1736715600000
+              "lastSeenMs": 1736715600000,
+              "stability": 5.088946912
             },
             "qa.stats.probability#c": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736744400000,
-              "ease": 2.7,
-              "intervalDays": 1,
+              "difficulty": 6.901155,
+              "dueAtMs": 1736966352489.826,
+              "intervalDays": 3.068894558,
               "itemId": "qa.stats.probability#c",
               "lapsed": true,
-              "lastSeenMs": 1736701200000
+              "lastSeenMs": 1736701200000,
+              "stability": 3.068894558
             }
           },
           "skills": {
@@ -13418,22 +13466,22 @@
             "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
           },
           {
-            "itemId": "qa.bmath.finance#a",
+            "itemId": "qa.lr.seating#b",
             "kind": "review",
-            "nodeId": "qa.bmath.finance",
-            "reason": "Due review on 'qa.bmath.finance', served via a fresh sibling item so you practise the idea, not a memorised answer; protects banked marks."
+            "nodeId": "qa.lr.seating",
+            "reason": "Due review on 'qa.lr.seating', served via a fresh sibling item so you practise the idea, not a memorised answer; protects banked marks."
           },
           {
-            "itemId": "qa.bmath.finance#b",
+            "itemId": "qa.lr.seating#d",
             "kind": "review",
-            "nodeId": "qa.bmath.finance",
-            "reason": "Due review on 'qa.bmath.finance', served via a fresh sibling item so you practise the idea, not a memorised answer; protects banked marks."
+            "nodeId": "qa.lr.seating",
+            "reason": "Due review on 'qa.lr.seating', served via a fresh sibling item so you practise the idea, not a memorised answer; protects banked marks."
           },
           {
-            "itemId": "qa.bmath.finance#d",
+            "itemId": "qa.lr.seating#a",
             "kind": "review",
-            "nodeId": "qa.bmath.finance",
-            "reason": "Due review on 'qa.bmath.finance', served via a fresh sibling item so you practise the idea, not a memorised answer; protects banked marks."
+            "nodeId": "qa.lr.seating",
+            "reason": "Due review — no fresh sibling available, so the original item is served; protects banked marks."
           },
           {
             "itemId": "qa.stats.probability#b",
@@ -13454,16 +13502,16 @@
             "reason": "High-weight, learnable node 'qa.stats.probability': you are close enough that practice converts directly to marks."
           },
           {
-            "itemId": "qa.lr.seating#d",
-            "kind": "practice",
-            "nodeId": "qa.lr.seating",
-            "reason": "High-weight, learnable node 'qa.lr.seating': you are close enough that practice converts directly to marks."
+            "itemId": null,
+            "kind": "none",
+            "nodeId": null,
+            "reason": "Nothing to serve: no remediation, no due review, no learnable or unseen node."
           },
           {
-            "itemId": "qa.lr.seating#b",
-            "kind": "practice",
-            "nodeId": "qa.lr.seating",
-            "reason": "High-weight, learnable node 'qa.lr.seating': you are close enough that practice converts directly to marks."
+            "itemId": null,
+            "kind": "none",
+            "nodeId": null,
+            "reason": "Nothing to serve: no remediation, no due review, no learnable or unseen node."
           }
         ],
         "readiness": {
@@ -13494,75 +13542,83 @@
           "schedules": {
             "qa.bmath.finance#a": {
               "consecutiveCorrect": 4,
-              "dueAtMs": 1740533904000,
-              "ease": 2.9000000000000004,
-              "intervalDays": 45.36,
+              "difficulty": 5.1618,
+              "dueAtMs": 1737673377235.7783,
+              "intervalDays": 12.252051340000001,
               "itemId": "qa.bmath.finance#a",
               "lapsed": false,
-              "lastSeenMs": 1736614800000
+              "lastSeenMs": 1736614800000,
+              "stability": 12.252051340000001
             },
             "qa.bmath.finance#b": {
               "consecutiveCorrect": 5,
-              "dueAtMs": 1746790070400,
-              "ease": 2.9000000000000004,
-              "intervalDays": 117.936,
+              "difficulty": 6.647759987000001,
+              "dueAtMs": 1737554077072.3313,
+              "intervalDays": 11.037929078000001,
               "itemId": "qa.bmath.finance#b",
               "lapsed": false,
-              "lastSeenMs": 1736600400000
+              "lastSeenMs": 1736600400000,
+              "stability": 11.037929078000001
             },
             "qa.bmath.finance#c": {
               "consecutiveCorrect": 2,
-              "dueAtMs": 1737190800000,
-              "ease": 2.7,
-              "intervalDays": 6,
+              "difficulty": 5.1618,
+              "dueAtMs": 1738326767098.8027,
+              "intervalDays": 19.147767347000002,
               "itemId": "qa.bmath.finance#c",
               "lapsed": false,
-              "lastSeenMs": 1736672400000
+              "lastSeenMs": 1736672400000,
+              "stability": 19.147767347000002
             },
             "qa.lr.seating#a": {
               "consecutiveCorrect": 3,
-              "dueAtMs": 1737856080000,
-              "ease": 2.8000000000000003,
-              "intervalDays": 16.2,
+              "difficulty": 5.1618,
+              "dueAtMs": 1737361827987.7427,
+              "intervalDays": 10.479490599,
               "itemId": "qa.lr.seating#a",
               "lapsed": false,
-              "lastSeenMs": 1736456400000
+              "lastSeenMs": 1736456400000,
+              "stability": 10.479490599
             },
             "qa.lr.seating#b": {
               "consecutiveCorrect": 3,
-              "dueAtMs": 1737841680000,
-              "ease": 2.8000000000000003,
-              "intervalDays": 16.2,
+              "difficulty": 5.1618,
+              "dueAtMs": 1737502944073.5334,
+              "intervalDays": 12.279445296,
               "itemId": "qa.lr.seating#b",
               "lapsed": false,
-              "lastSeenMs": 1736442000000
+              "lastSeenMs": 1736442000000,
+              "stability": 12.279445296
             },
             "qa.lr.seating#c": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736629200000,
-              "ease": 2.3000000000000003,
-              "intervalDays": 1,
+              "difficulty": 8.586589995,
+              "dueAtMs": 1736644279692.8167,
+              "intervalDays": 0.6745334820000001,
               "itemId": "qa.lr.seating#c",
               "lapsed": true,
-              "lastSeenMs": 1736586000000
+              "lastSeenMs": 1736586000000,
+              "stability": 0.6745334820000001
             },
             "qa.stats.probability#a": {
               "consecutiveCorrect": 5,
-              "dueAtMs": 1747994601600,
-              "ease": 3,
-              "intervalDays": 131.544,
+              "difficulty": 5.1618,
+              "dueAtMs": 1738026873201.9128,
+              "intervalDays": 16.17677317,
               "itemId": "qa.stats.probability#a",
               "lapsed": false,
-              "lastSeenMs": 1736629200000
+              "lastSeenMs": 1736629200000,
+              "stability": 16.17677317
             },
             "qa.stats.probability#c": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736758800000,
-              "ease": 2.2,
-              "intervalDays": 1,
+              "difficulty": 10,
+              "dueAtMs": 1736746133545.197,
+              "intervalDays": 0.353397514,
               "itemId": "qa.stats.probability#c",
               "lapsed": true,
-              "lastSeenMs": 1736715600000
+              "lastSeenMs": 1736715600000,
+              "stability": 0.353397514
             }
           },
           "skills": {
@@ -14415,75 +14471,83 @@
           "schedules": {
             "qa.bmath.finance#a": {
               "consecutiveCorrect": 3,
+              "difficulty": 5.1618,
               "dueAtMs": 1738213200000,
-              "ease": 2.8000000000000003,
-              "intervalDays": 16.2,
+              "intervalDays": 10.481752592000001,
               "itemId": "qa.bmath.finance#a",
               "lapsed": false,
-              "lastSeenMs": 1737997200000
+              "lastSeenMs": 1737997200000,
+              "stability": 10.481752592000001
             },
             "qa.bmath.finance#b": {
               "consecutiveCorrect": 11,
+              "difficulty": 5.1618,
               "dueAtMs": 1738213200000,
-              "ease": 3,
-              "intervalDays": 95895.576,
+              "intervalDays": 56.065661512000005,
               "itemId": "qa.bmath.finance#b",
               "lapsed": false,
-              "lastSeenMs": 1738040400000
+              "lastSeenMs": 1738040400000,
+              "stability": 56.065661512000005
             },
             "qa.bmath.finance#c": {
               "consecutiveCorrect": 2,
+              "difficulty": 5.1618,
               "dueAtMs": 1738119600000,
-              "ease": 2.7,
-              "intervalDays": 6,
+              "intervalDays": 4.74035416,
               "itemId": "qa.bmath.finance#c",
               "lapsed": false,
-              "lastSeenMs": 1737766800000
+              "lastSeenMs": 1737766800000,
+              "stability": 4.74035416
             },
             "qa.lr.seating#a": {
               "consecutiveCorrect": 2,
+              "difficulty": 5.1618,
               "dueAtMs": 1738191600000,
-              "ease": 2.7,
-              "intervalDays": 6,
+              "intervalDays": 4.74035416,
               "itemId": "qa.lr.seating#a",
               "lapsed": false,
-              "lastSeenMs": 1737910800000
+              "lastSeenMs": 1737910800000,
+              "stability": 4.74035416
             },
             "qa.lr.seating#c": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1737896400000,
-              "ease": 2.3000000000000003,
-              "intervalDays": 1,
+              "difficulty": 7.6214,
+              "dueAtMs": 1737895294080,
+              "intervalDays": 0.4872,
               "itemId": "qa.lr.seating#c",
               "lapsed": true,
-              "lastSeenMs": 1737853200000
+              "lastSeenMs": 1737853200000,
+              "stability": 0.4872
             },
             "qa.stats.probability#a": {
               "consecutiveCorrect": 2,
+              "difficulty": 7.4712684760000005,
               "dueAtMs": 1738213200000,
-              "ease": 2.5,
-              "intervalDays": 6,
+              "intervalDays": 5.465816889,
               "itemId": "qa.stats.probability#a",
               "lapsed": false,
-              "lastSeenMs": 1737982800000
+              "lastSeenMs": 1737982800000,
+              "stability": 5.465816889
             },
             "qa.stats.probability#b": {
               "consecutiveCorrect": 5,
+              "difficulty": 7.263077304,
               "dueAtMs": 1738213200000,
-              "ease": 2.8000000000000003,
-              "intervalDays": 105.30000000000001,
+              "intervalDays": 5.9026261280000005,
               "itemId": "qa.stats.probability#b",
               "lapsed": false,
-              "lastSeenMs": 1737954000000
+              "lastSeenMs": 1737954000000,
+              "stability": 5.9026261280000005
             },
             "qa.stats.probability#c": {
               "consecutiveCorrect": 2,
+              "difficulty": 5.1618,
               "dueAtMs": 1738213200000,
-              "ease": 2.7,
-              "intervalDays": 6,
+              "intervalDays": 7.697316203000001,
               "itemId": "qa.stats.probability#c",
               "lapsed": false,
-              "lastSeenMs": 1738011600000
+              "lastSeenMs": 1738011600000,
+              "stability": 7.697316203000001
             }
           },
           "skills": {
@@ -15148,27 +15212,15 @@
       "outputs": {
         "actions": [
           {
-            "itemId": "qa.bmath.finance#c",
-            "kind": "review",
-            "nodeId": "qa.bmath.finance",
-            "reason": "Due review — no fresh sibling available, so the original item is served; protects banked marks."
-          },
-          {
             "itemId": "qa.lr.seating#c",
             "kind": "review",
             "nodeId": "qa.lr.seating",
             "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
           },
           {
-            "itemId": "qa.lr.seating#d",
+            "itemId": "qa.bmath.finance#c",
             "kind": "review",
-            "nodeId": "qa.lr.seating",
-            "reason": "Due review on 'qa.lr.seating', served via a fresh sibling item so you practise the idea, not a memorised answer; protects banked marks."
-          },
-          {
-            "itemId": "qa.lr.seating#a",
-            "kind": "review",
-            "nodeId": "qa.lr.seating",
+            "nodeId": "qa.bmath.finance",
             "reason": "Due review — no fresh sibling available, so the original item is served; protects banked marks."
           },
           {
@@ -15206,6 +15258,18 @@
             "kind": "practice",
             "nodeId": "qa.stats.probability",
             "reason": "High-weight, learnable node 'qa.stats.probability': you are close enough that practice converts directly to marks."
+          },
+          {
+            "itemId": "qa.lr.seating#d",
+            "kind": "practice",
+            "nodeId": "qa.lr.seating",
+            "reason": "High-weight, learnable node 'qa.lr.seating': you are close enough that practice converts directly to marks."
+          },
+          {
+            "itemId": "qa.lr.seating#b",
+            "kind": "practice",
+            "nodeId": "qa.lr.seating",
+            "reason": "High-weight, learnable node 'qa.lr.seating': you are close enough that practice converts directly to marks."
           }
         ],
         "readiness": {
@@ -15238,84 +15302,93 @@
           "schedules": {
             "qa.bmath.finance#a": {
               "consecutiveCorrect": 2,
-              "dueAtMs": 1737234000000,
-              "ease": 2.7,
-              "intervalDays": 6,
+              "difficulty": 5.1618,
+              "dueAtMs": 1737849689129.232,
+              "intervalDays": 13.126031588,
               "itemId": "qa.bmath.finance#a",
               "lapsed": false,
-              "lastSeenMs": 1736715600000
+              "lastSeenMs": 1736715600000,
+              "stability": 13.126031588
             },
             "qa.bmath.finance#b": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736744400000,
-              "ease": 2.3000000000000003,
-              "intervalDays": 1,
+              "difficulty": 8.586589995,
+              "dueAtMs": 1736778571676.2231,
+              "intervalDays": 0.8955055120000001,
               "itemId": "qa.bmath.finance#b",
               "lapsed": true,
-              "lastSeenMs": 1736701200000
+              "lastSeenMs": 1736701200000,
+              "stability": 0.8955055120000001
             },
             "qa.bmath.finance#c": {
               "consecutiveCorrect": 1,
-              "dueAtMs": 1736571600000,
-              "ease": 2.4000000000000004,
-              "intervalDays": 1,
+              "difficulty": 7.5451524,
+              "dueAtMs": 1736670955839.2302,
+              "intervalDays": 2.149951843,
               "itemId": "qa.bmath.finance#c",
               "lapsed": false,
-              "lastSeenMs": 1736485200000
+              "lastSeenMs": 1736485200000,
+              "stability": 2.149951843
             },
             "qa.lr.seating#a": {
               "consecutiveCorrect": 1,
-              "dueAtMs": 1736701200000,
-              "ease": 2.6,
-              "intervalDays": 1,
+              "difficulty": 5.1618,
+              "dueAtMs": 1736935732800,
+              "intervalDays": 3.7145,
               "itemId": "qa.lr.seating#a",
               "lapsed": false,
-              "lastSeenMs": 1736614800000
+              "lastSeenMs": 1736614800000,
+              "stability": 3.7145
             },
             "qa.lr.seating#b": {
               "consecutiveCorrect": 2,
-              "dueAtMs": 1737104400000,
-              "ease": 2.7,
-              "intervalDays": 6,
+              "difficulty": 5.1618,
+              "dueAtMs": 1737292186044.6172,
+              "intervalDays": 8.17344959,
               "itemId": "qa.lr.seating#b",
               "lapsed": false,
-              "lastSeenMs": 1736586000000
+              "lastSeenMs": 1736586000000,
+              "stability": 8.17344959
             },
             "qa.lr.seating#c": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736614800000,
-              "ease": 2.1,
-              "intervalDays": 1,
+              "difficulty": 9.2845074,
+              "dueAtMs": 1736595478349.14,
+              "intervalDays": 0.276369782,
               "itemId": "qa.lr.seating#c",
               "lapsed": true,
-              "lastSeenMs": 1736571600000
+              "lastSeenMs": 1736571600000,
+              "stability": 0.276369782
             },
             "qa.stats.probability#a": {
               "consecutiveCorrect": 1,
-              "dueAtMs": 1736744400000,
-              "ease": 2.6,
-              "intervalDays": 1,
+              "difficulty": 5.1618,
+              "dueAtMs": 1736978932800,
+              "intervalDays": 3.7145,
               "itemId": "qa.stats.probability#a",
               "lapsed": false,
-              "lastSeenMs": 1736658000000
+              "lastSeenMs": 1736658000000,
+              "stability": 3.7145
             },
             "qa.stats.probability#b": {
               "consecutiveCorrect": 1,
-              "dueAtMs": 1736758800000,
-              "ease": 2.8000000000000003,
-              "intervalDays": 1,
+              "difficulty": 6.847234995,
+              "dueAtMs": 1736919551646.8503,
+              "intervalDays": 2.860551468,
               "itemId": "qa.stats.probability#b",
               "lapsed": false,
-              "lastSeenMs": 1736672400000
+              "lastSeenMs": 1736672400000,
+              "stability": 2.860551468
             },
             "qa.stats.probability#c": {
               "consecutiveCorrect": 1,
-              "dueAtMs": 1736773200000,
-              "ease": 2.2,
-              "intervalDays": 1,
+              "difficulty": 9.156703471,
+              "dueAtMs": 1736845090388.2822,
+              "intervalDays": 1.8320646790000001,
               "itemId": "qa.stats.probability#c",
               "lapsed": false,
-              "lastSeenMs": 1736686800000
+              "lastSeenMs": 1736686800000,
+              "stability": 1.8320646790000001
             }
           },
           "skills": {
@@ -16003,7 +16076,7 @@
             "reason": "Due review on 'qa.stats.probability', served via a fresh sibling item so you practise the idea, not a memorised answer; protects banked marks."
           },
           {
-            "itemId": "qa.stats.probability#a",
+            "itemId": "qa.stats.probability#b",
             "kind": "review",
             "nodeId": "qa.stats.probability",
             "reason": "Due review — no fresh sibling available, so the original item is served; protects banked marks."
@@ -16015,16 +16088,16 @@
             "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
           },
           {
-            "itemId": "qa.bmath.finance#d",
-            "kind": "review",
-            "nodeId": "qa.bmath.finance",
-            "reason": "Due review on 'qa.bmath.finance', served via a fresh sibling item so you practise the idea, not a memorised answer; protects banked marks."
-          },
-          {
-            "itemId": "qa.stats.probability#b",
+            "itemId": "qa.stats.probability#a",
             "kind": "practice",
             "nodeId": "qa.stats.probability",
             "reason": "High-weight, learnable node 'qa.stats.probability': you are close enough that practice converts directly to marks."
+          },
+          {
+            "itemId": null,
+            "kind": "none",
+            "nodeId": null,
+            "reason": "Nothing to serve: no remediation, no due review, no learnable or unseen node."
           },
           {
             "itemId": null,
@@ -16081,84 +16154,93 @@
           "schedules": {
             "qa.bmath.finance#a": {
               "consecutiveCorrect": 4,
-              "dueAtMs": 1740893904000,
-              "ease": 2.9000000000000004,
-              "intervalDays": 45.36,
+              "difficulty": 5.1618,
+              "dueAtMs": 1738111637449.5952,
+              "intervalDays": 13.157840852000001,
               "itemId": "qa.bmath.finance#a",
               "lapsed": false,
-              "lastSeenMs": 1736974800000
+              "lastSeenMs": 1736974800000,
+              "stability": 13.157840852000001
             },
             "qa.bmath.finance#b": {
               "consecutiveCorrect": 2,
-              "dueAtMs": 1737378000000,
-              "ease": 2.7,
-              "intervalDays": 6,
+              "difficulty": 6.79498651,
+              "dueAtMs": 1737102438231.435,
+              "intervalDays": 2.810627679,
               "itemId": "qa.bmath.finance#b",
               "lapsed": false,
-              "lastSeenMs": 1736859600000
+              "lastSeenMs": 1736859600000,
+              "stability": 2.810627679
             },
             "qa.bmath.finance#c": {
               "consecutiveCorrect": 1,
-              "dueAtMs": 1737003600000,
-              "ease": 2.6,
-              "intervalDays": 1,
+              "difficulty": 5.1618,
+              "dueAtMs": 1737238132800,
+              "intervalDays": 3.7145,
               "itemId": "qa.bmath.finance#c",
               "lapsed": false,
-              "lastSeenMs": 1736917200000
+              "lastSeenMs": 1736917200000,
+              "stability": 3.7145
             },
             "qa.lr.seating#a": {
               "consecutiveCorrect": 2,
-              "dueAtMs": 1737421200000,
-              "ease": 2.7,
-              "intervalDays": 6,
+              "difficulty": 5.1618,
+              "dueAtMs": 1737312366599.3809,
+              "intervalDays": 4.74035416,
               "itemId": "qa.lr.seating#a",
               "lapsed": false,
-              "lastSeenMs": 1736902800000
+              "lastSeenMs": 1736902800000,
+              "stability": 4.74035416
             },
             "qa.lr.seating#b": {
               "consecutiveCorrect": 3,
-              "dueAtMs": 1737899280000,
-              "ease": 2.8000000000000003,
-              "intervalDays": 16.2,
+              "difficulty": 5.1618,
+              "dueAtMs": 1737787903902.3242,
+              "intervalDays": 14.910924795000001,
               "itemId": "qa.lr.seating#b",
               "lapsed": false,
-              "lastSeenMs": 1736499600000
+              "lastSeenMs": 1736499600000,
+              "stability": 14.910924795000001
             },
             "qa.lr.seating#c": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736989200000,
-              "ease": 2.2,
-              "intervalDays": 1,
+              "difficulty": 8.586589995,
+              "dueAtMs": 1736997231993.9314,
+              "intervalDays": 0.592962893,
               "itemId": "qa.lr.seating#c",
               "lapsed": true,
-              "lastSeenMs": 1736946000000
+              "lastSeenMs": 1736946000000,
+              "stability": 0.592962893
             },
             "qa.stats.probability#a": {
               "consecutiveCorrect": 1,
-              "dueAtMs": 1736859600000,
-              "ease": 2.6,
-              "intervalDays": 1,
+              "difficulty": 5.1618,
+              "dueAtMs": 1737094132800,
+              "intervalDays": 3.7145,
               "itemId": "qa.stats.probability#a",
               "lapsed": false,
-              "lastSeenMs": 1736773200000
+              "lastSeenMs": 1736773200000,
+              "stability": 3.7145
             },
             "qa.stats.probability#b": {
               "consecutiveCorrect": 2,
-              "dueAtMs": 1737306000000,
-              "ease": 2.5,
-              "intervalDays": 6,
+              "difficulty": 7.4712684760000005,
+              "dueAtMs": 1736981566283.9998,
+              "intervalDays": 2.244980139,
               "itemId": "qa.stats.probability#b",
               "lapsed": false,
-              "lastSeenMs": 1736787600000
+              "lastSeenMs": 1736787600000,
+              "stability": 2.244980139
             },
             "qa.stats.probability#c": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736715600000,
-              "ease": 2.3000000000000003,
-              "intervalDays": 1,
+              "difficulty": 7.6214,
+              "dueAtMs": 1736714494080,
+              "intervalDays": 0.4872,
               "itemId": "qa.stats.probability#c",
               "lapsed": true,
-              "lastSeenMs": 1736672400000
+              "lastSeenMs": 1736672400000,
+              "stability": 0.4872
             }
           },
           "skills": {
@@ -16875,22 +16957,22 @@
             "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
           },
           {
-            "itemId": "qa.lr.seating#b",
-            "kind": "review",
-            "nodeId": "qa.lr.seating",
-            "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
-          },
-          {
-            "itemId": "qa.lr.seating#a",
-            "kind": "review",
-            "nodeId": "qa.lr.seating",
-            "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
-          },
-          {
             "itemId": "qa.lr.seating#d",
             "kind": "review",
             "nodeId": "qa.lr.seating",
             "reason": "Due review on 'qa.lr.seating', served via a fresh sibling item so you practise the idea, not a memorised answer; protects banked marks."
+          },
+          {
+            "itemId": "qa.lr.seating#c",
+            "kind": "review",
+            "nodeId": "qa.lr.seating",
+            "reason": "Due review — no fresh sibling available, so the original item is served; protects banked marks."
+          },
+          {
+            "itemId": "qa.lr.seating#b",
+            "kind": "review",
+            "nodeId": "qa.lr.seating",
+            "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
           },
           {
             "itemId": "qa.bmath.finance#d",
@@ -16979,75 +17061,83 @@
           "schedules": {
             "qa.bmath.finance#a": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736614800000,
-              "ease": 2.5,
-              "intervalDays": 1,
+              "difficulty": 6.901155,
+              "dueAtMs": 1736705238123.5332,
+              "intervalDays": 1.5467375410000002,
               "itemId": "qa.bmath.finance#a",
               "lapsed": true,
-              "lastSeenMs": 1736571600000
+              "lastSeenMs": 1736571600000,
+              "stability": 1.5467375410000002
             },
             "qa.bmath.finance#b": {
               "consecutiveCorrect": 3,
-              "dueAtMs": 1738086480000,
-              "ease": 2.8000000000000003,
-              "intervalDays": 16.2,
+              "difficulty": 5.1618,
+              "dueAtMs": 1737631784317.6467,
+              "intervalDays": 10.937318491000001,
               "itemId": "qa.bmath.finance#b",
               "lapsed": false,
-              "lastSeenMs": 1736686800000
+              "lastSeenMs": 1736686800000,
+              "stability": 10.937318491000001
             },
             "qa.bmath.finance#c": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736586000000,
-              "ease": 2.1,
-              "intervalDays": 1,
+              "difficulty": 9.2845074,
+              "dueAtMs": 1736572060316.0283,
+              "intervalDays": 0.33866106500000004,
               "itemId": "qa.bmath.finance#c",
               "lapsed": true,
-              "lastSeenMs": 1736542800000
+              "lastSeenMs": 1736542800000,
+              "stability": 0.33866106500000004
             },
             "qa.lr.seating#a": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736758800000,
-              "ease": 2.4000000000000004,
-              "intervalDays": 1,
+              "difficulty": 6.901155,
+              "dueAtMs": 1736824462280.4026,
+              "intervalDays": 1.2599800970000001,
               "itemId": "qa.lr.seating#a",
               "lapsed": true,
-              "lastSeenMs": 1736715600000
+              "lastSeenMs": 1736715600000,
+              "stability": 1.2599800970000001
             },
             "qa.lr.seating#b": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736701200000,
-              "ease": 2.4000000000000004,
-              "intervalDays": 1,
+              "difficulty": 6.901155,
+              "dueAtMs": 1736770996541.902,
+              "intervalDays": 1.307830346,
               "itemId": "qa.lr.seating#b",
               "lapsed": true,
-              "lastSeenMs": 1736658000000
+              "lastSeenMs": 1736658000000,
+              "stability": 1.307830346
             },
             "qa.lr.seating#c": {
               "consecutiveCorrect": 1,
-              "dueAtMs": 1736787600000,
-              "ease": 2.2,
-              "intervalDays": 1,
+              "difficulty": 9.156703471,
+              "dueAtMs": 1736761405638.5405,
+              "intervalDays": 0.6968245200000001,
               "itemId": "qa.lr.seating#c",
               "lapsed": false,
-              "lastSeenMs": 1736701200000
+              "lastSeenMs": 1736701200000,
+              "stability": 0.6968245200000001
             },
             "qa.stats.probability#b": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736672400000,
-              "ease": 1.3,
-              "intervalDays": 1,
+              "difficulty": 10,
+              "dueAtMs": 1736636581943.17,
+              "intervalDays": 0.085439157,
               "itemId": "qa.stats.probability#b",
               "lapsed": true,
-              "lastSeenMs": 1736629200000
+              "lastSeenMs": 1736629200000,
+              "stability": 0.085439157
             },
             "qa.stats.probability#c": {
               "consecutiveCorrect": 1,
-              "dueAtMs": 1736643600000,
-              "ease": 2.5,
-              "intervalDays": 1,
+              "difficulty": 6.847234995,
+              "dueAtMs": 1736952132907.9734,
+              "intervalDays": 4.570982731,
               "itemId": "qa.stats.probability#c",
               "lapsed": false,
-              "lastSeenMs": 1736557200000
+              "lastSeenMs": 1736557200000,
+              "stability": 4.570982731
             }
           },
           "skills": {
@@ -19972,15 +20062,21 @@
       "outputs": {
         "actions": [
           {
-            "itemId": "qa.lr.seating#c",
-            "kind": "review",
-            "nodeId": "qa.lr.seating",
-            "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
-          },
-          {
             "itemId": "qa.stats.probability#c",
             "kind": "review",
             "nodeId": "qa.stats.probability",
+            "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
+          },
+          {
+            "itemId": "qa.bmath.finance#c",
+            "kind": "review",
+            "nodeId": "qa.bmath.finance",
+            "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
+          },
+          {
+            "itemId": "qa.lr.seating#c",
+            "kind": "review",
+            "nodeId": "qa.lr.seating",
             "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
           },
           {
@@ -19994,12 +20090,6 @@
             "kind": "review",
             "nodeId": "qa.stats.probability",
             "reason": "Due review — no fresh sibling available, so the original item is served; protects banked marks."
-          },
-          {
-            "itemId": "qa.bmath.finance#c",
-            "kind": "review",
-            "nodeId": "qa.bmath.finance",
-            "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
           },
           {
             "itemId": "qa.stats.probability#b",
@@ -20061,84 +20151,93 @@
           "schedules": {
             "qa.bmath.finance#a": {
               "consecutiveCorrect": 3,
-              "dueAtMs": 1737956880000,
-              "ease": 2.8000000000000003,
-              "intervalDays": 16.2,
+              "difficulty": 5.1618,
+              "dueAtMs": 1737770393708.4983,
+              "intervalDays": 14.041593848000002,
               "itemId": "qa.bmath.finance#a",
               "lapsed": false,
-              "lastSeenMs": 1736557200000
+              "lastSeenMs": 1736557200000,
+              "stability": 14.041593848000002
             },
             "qa.bmath.finance#b": {
-              "consecutiveCorrect": 0,
-              "dueAtMs": 1736586000000,
-              "ease": 2.4000000000000004,
-              "intervalDays": 1,
+              "consecutiveCorrect": 7,
+              "difficulty": 9.042859103000001,
+              "dueAtMs": 1737192992682.2852,
+              "intervalDays": 0.17954493400000002,
               "itemId": "qa.bmath.finance#b",
-              "lapsed": true,
-              "lastSeenMs": 1736542800000
+              "lapsed": false,
+              "lastSeenMs": 1737177480000,
+              "stability": 0.17954493400000002
             },
             "qa.bmath.finance#c": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736571600000,
-              "ease": 1.9000000000000001,
-              "intervalDays": 1,
+              "difficulty": 10,
+              "dueAtMs": 1736565702664.6428,
+              "intervalDays": 0.431743804,
               "itemId": "qa.bmath.finance#c",
               "lapsed": true,
-              "lastSeenMs": 1736528400000
+              "lastSeenMs": 1736528400000,
+              "stability": 0.431743804
             },
             "qa.lr.seating#a": {
               "consecutiveCorrect": 1,
-              "dueAtMs": 1736600400000,
-              "ease": 2.6,
-              "intervalDays": 1,
+              "difficulty": 6.847234995,
+              "dueAtMs": 1736847699281.2908,
+              "intervalDays": 3.8622602,
               "itemId": "qa.lr.seating#a",
               "lapsed": false,
-              "lastSeenMs": 1736514000000
+              "lastSeenMs": 1736514000000,
+              "stability": 3.8622602
             },
             "qa.lr.seating#b": {
-              "consecutiveCorrect": 1,
-              "dueAtMs": 1736658000000,
-              "ease": 2.5,
-              "intervalDays": 1,
+              "consecutiveCorrect": 8,
+              "difficulty": 8.922546271,
+              "dueAtMs": 1737198167130.2437,
+              "intervalDays": 0.23873993300000002,
               "itemId": "qa.lr.seating#b",
               "lapsed": false,
-              "lastSeenMs": 1736571600000
+              "lastSeenMs": 1737177540000,
+              "stability": 0.23873993300000002
             },
             "qa.lr.seating#c": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736528400000,
-              "ease": 2.3000000000000003,
-              "intervalDays": 1,
+              "difficulty": 9.139029953000001,
+              "dueAtMs": 1736630546941.4875,
+              "intervalDays": 1.682256267,
               "itemId": "qa.lr.seating#c",
               "lapsed": true,
-              "lastSeenMs": 1736485200000
+              "lastSeenMs": 1736485200000,
+              "stability": 1.682256267
             },
             "qa.stats.probability#a": {
               "consecutiveCorrect": 1,
-              "dueAtMs": 1736557200000,
-              "ease": 2.5,
-              "intervalDays": 1,
+              "difficulty": 6.847234995,
+              "dueAtMs": 1736784746845.7312,
+              "intervalDays": 3.6336440480000003,
               "itemId": "qa.stats.probability#a",
               "lapsed": false,
-              "lastSeenMs": 1736470800000
+              "lastSeenMs": 1736470800000,
+              "stability": 3.6336440480000003
             },
             "qa.stats.probability#b": {
-              "consecutiveCorrect": 2,
-              "dueAtMs": 1736888400000,
-              "ease": 2.7,
-              "intervalDays": 6,
+              "consecutiveCorrect": 7,
+              "difficulty": 9.042859103000001,
+              "dueAtMs": 1737198409609.9475,
+              "intervalDays": 0.24293530000000002,
               "itemId": "qa.stats.probability#b",
               "lapsed": false,
-              "lastSeenMs": 1736370000000
+              "lastSeenMs": 1737177420000,
+              "stability": 0.24293530000000002
             },
             "qa.stats.probability#c": {
               "consecutiveCorrect": 0,
-              "dueAtMs": 1736542800000,
-              "ease": 1.9000000000000001,
-              "intervalDays": 1,
+              "difficulty": 10,
+              "dueAtMs": 1736522229086.5566,
+              "intervalDays": 0.26191072400000004,
               "itemId": "qa.stats.probability#c",
               "lapsed": true,
-              "lastSeenMs": 1736499600000
+              "lastSeenMs": 1736499600000,
+              "stability": 0.26191072400000004
             }
           },
           "skills": {
@@ -20166,8 +20265,932 @@
           }
         }
       },
-      "pins": "100-answer mock day anchors the readiness estimate; a 20-answer day is below the 25-answer floor and does NOT anchor (SPEC 6, W1-11 attack FF)",
+      "pins": "100-answer mock day anchors the readiness estimate; a 20-answer day is below the 25-answer floor and does NOT anchor (SPEC 6, W1-11 attack FF); mock answers seed item schedules (ADR 0020)",
       "seed": 1010
+    },
+    {
+      "inputs": {
+        "applyRekey": false,
+        "bank": [
+          {
+            "difficulty_label": "L1",
+            "expected_seconds": 45,
+            "id": "qa.bmath.finance#a",
+            "item_type": "single_best",
+            "tests": [
+              "qa.bmath.finance"
+            ],
+            "verification_status": "verified"
+          },
+          {
+            "difficulty_label": "L2",
+            "expected_seconds": 75,
+            "id": "qa.bmath.finance#b",
+            "item_type": "single_best",
+            "tests": [
+              "qa.bmath.finance"
+            ],
+            "verification_status": "verified"
+          },
+          {
+            "difficulty_label": "L3",
+            "expected_seconds": 110,
+            "id": "qa.bmath.finance#c",
+            "item_type": "single_best",
+            "tests": [
+              "qa.bmath.finance"
+            ],
+            "verification_status": "verified"
+          },
+          {
+            "difficulty_label": "L2",
+            "expected_seconds": 75,
+            "id": "qa.bmath.finance#d",
+            "item_type": "single_best",
+            "tests": [
+              "qa.bmath.finance"
+            ],
+            "verification_status": "verified"
+          },
+          {
+            "difficulty_label": "L1",
+            "expected_seconds": 45,
+            "id": "qa.bmath.finance.ci#l1",
+            "item_type": "single_best",
+            "tests": [
+              "qa.bmath.finance.ci"
+            ],
+            "verification_status": "verified"
+          },
+          {
+            "difficulty_label": "L2",
+            "expected_seconds": 75,
+            "id": "qa.bmath.finance.ci#l2",
+            "item_type": "single_best",
+            "tests": [
+              "qa.bmath.finance.ci"
+            ],
+            "verification_status": "verified"
+          },
+          {
+            "difficulty_label": "L3",
+            "expected_seconds": 110,
+            "id": "qa.bmath.finance.ci#l3",
+            "item_type": "single_best",
+            "tests": [
+              "qa.bmath.finance.ci"
+            ],
+            "verification_status": "verified"
+          },
+          {
+            "difficulty_label": "L1",
+            "expected_seconds": 45,
+            "id": "qa.bmath.finance.si#l1",
+            "item_type": "single_best",
+            "tests": [
+              "qa.bmath.finance.si"
+            ],
+            "verification_status": "verified"
+          },
+          {
+            "difficulty_label": "L2",
+            "expected_seconds": 75,
+            "id": "qa.bmath.finance.si#l2",
+            "item_type": "single_best",
+            "tests": [
+              "qa.bmath.finance.si"
+            ],
+            "verification_status": "verified"
+          },
+          {
+            "difficulty_label": "L3",
+            "expected_seconds": 110,
+            "id": "qa.bmath.finance.si#l3",
+            "item_type": "single_best",
+            "tests": [
+              "qa.bmath.finance.si"
+            ],
+            "verification_status": "verified"
+          },
+          {
+            "difficulty_label": "L1",
+            "expected_seconds": 45,
+            "id": "qa.lr.seating#a",
+            "item_type": "single_best",
+            "tests": [
+              "qa.lr.seating"
+            ],
+            "verification_status": "verified"
+          },
+          {
+            "difficulty_label": "L2",
+            "expected_seconds": 75,
+            "id": "qa.lr.seating#b",
+            "item_type": "single_best",
+            "tests": [
+              "qa.lr.seating"
+            ],
+            "verification_status": "verified"
+          },
+          {
+            "difficulty_label": "L3",
+            "expected_seconds": 110,
+            "id": "qa.lr.seating#c",
+            "item_type": "single_best",
+            "tests": [
+              "qa.lr.seating"
+            ],
+            "verification_status": "verified"
+          },
+          {
+            "difficulty_label": "L2",
+            "expected_seconds": 75,
+            "id": "qa.lr.seating#d",
+            "item_type": "single_best",
+            "tests": [
+              "qa.lr.seating"
+            ],
+            "verification_status": "verified"
+          },
+          {
+            "difficulty_label": "L1",
+            "expected_seconds": 45,
+            "id": "qa.stats.probability#a",
+            "item_type": "single_best",
+            "tests": [
+              "qa.stats.probability"
+            ],
+            "verification_status": "verified"
+          },
+          {
+            "difficulty_label": "L2",
+            "expected_seconds": 75,
+            "id": "qa.stats.probability#b",
+            "item_type": "single_best",
+            "tests": [
+              "qa.stats.probability"
+            ],
+            "verification_status": "verified"
+          },
+          {
+            "difficulty_label": "L3",
+            "expected_seconds": 110,
+            "id": "qa.stats.probability#c",
+            "item_type": "single_best",
+            "tests": [
+              "qa.stats.probability"
+            ],
+            "verification_status": "verified"
+          },
+          {
+            "difficulty_label": "L2",
+            "expected_seconds": 75,
+            "id": "qa.stats.probability#d",
+            "item_type": "single_best",
+            "tests": [
+              "qa.stats.probability"
+            ],
+            "verification_status": "verified"
+          }
+        ],
+        "blueprint": {
+          "parts": [
+            {
+              "id": "qa.bmath",
+              "marks": 40,
+              "questions": 40,
+              "sections": [
+                {
+                  "families": [
+                    {
+                      "nodeId": "qa.bmath.finance",
+                      "quota": 14
+                    }
+                  ],
+                  "id": "II"
+                }
+              ]
+            },
+            {
+              "id": "qa.lr",
+              "marks": 20,
+              "questions": 20,
+              "sections": [
+                {
+                  "families": [
+                    {
+                      "nodeId": "qa.lr.seating",
+                      "quota": 6
+                    }
+                  ],
+                  "id": "IV"
+                }
+              ]
+            },
+            {
+              "id": "qa.stats",
+              "marks": 40,
+              "questions": 40,
+              "sections": [
+                {
+                  "families": [
+                    {
+                      "nodeId": "qa.stats.probability",
+                      "quota": 11
+                    }
+                  ],
+                  "id": "VI"
+                }
+              ]
+            }
+          ]
+        },
+        "events": [
+          {
+            "correct": true,
+            "difficulty_label": "L3",
+            "event_id": "lv000",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.si#l3",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736154000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.si"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": true,
+            "difficulty_label": "L2",
+            "event_id": "lv001",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.ci#l2",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736172000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.ci"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": true,
+            "difficulty_label": "L3",
+            "event_id": "lv002",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.si#l3",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736190000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.si"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": true,
+            "difficulty_label": "L2",
+            "event_id": "lv003",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.ci#l2",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736208000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.ci"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": true,
+            "difficulty_label": "L2",
+            "event_id": "lv004",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.si#l2",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736226000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.si"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": true,
+            "difficulty_label": "L1",
+            "event_id": "lv005",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.ci#l1",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736244000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.ci"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": true,
+            "difficulty_label": "L3",
+            "event_id": "lv006",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.si#l3",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736262000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.si"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": false,
+            "difficulty_label": "L3",
+            "event_id": "lv007",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.ci#l3",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736280000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.ci"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": true,
+            "difficulty_label": "L1",
+            "event_id": "lv008",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.si#l1",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736298000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.si"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": true,
+            "difficulty_label": "L2",
+            "event_id": "lv009",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.ci#l2",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736316000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.ci"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": true,
+            "difficulty_label": "L1",
+            "event_id": "lv010",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.si#l1",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736334000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.si"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": true,
+            "difficulty_label": "L3",
+            "event_id": "lv011",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.ci#l3",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736352000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.ci"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": false,
+            "difficulty_label": "L3",
+            "event_id": "lv012",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.si#l3",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736370000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.si"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": false,
+            "difficulty_label": "L3",
+            "event_id": "lv013",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.ci#l3",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736388000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.ci"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": false,
+            "difficulty_label": "L3",
+            "event_id": "lv014",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.si#l3",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736406000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.si"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": true,
+            "difficulty_label": "L1",
+            "event_id": "lv015",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.ci#l1",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736424000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.ci"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": true,
+            "difficulty_label": "L2",
+            "event_id": "lv016",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.si#l2",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736442000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.si"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": true,
+            "difficulty_label": "L2",
+            "event_id": "lv017",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.ci#l2",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736460000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.ci"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": true,
+            "difficulty_label": "L3",
+            "event_id": "lv018",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.si#l3",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736478000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.si"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": false,
+            "difficulty_label": "L2",
+            "event_id": "lv019",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.ci#l2",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736496000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.ci"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": true,
+            "difficulty_label": "L1",
+            "event_id": "lv020",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.si#l1",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736514000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.si"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": true,
+            "difficulty_label": "L1",
+            "event_id": "lv021",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.ci#l1",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736532000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.ci"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": false,
+            "difficulty_label": "L3",
+            "event_id": "lv022",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.si#l3",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736550000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.si"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": false,
+            "difficulty_label": "L3",
+            "event_id": "lv023",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.ci#l3",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736568000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.ci"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": true,
+            "difficulty_label": "L1",
+            "event_id": "lv024",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.si#l1",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736586000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.si"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": false,
+            "difficulty_label": "L1",
+            "event_id": "lv025",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.ci#l1",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736604000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.ci"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": true,
+            "difficulty_label": "L1",
+            "event_id": "lv026",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.si#l1",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736622000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.si"
+            ],
+            "time_ms": 60000
+          },
+          {
+            "correct": false,
+            "difficulty_label": "L3",
+            "event_id": "lv027",
+            "item_content_hash": "v1",
+            "item_id": "qa.bmath.finance.ci#l3",
+            "item_type": "single_best",
+            "mode": "practice",
+            "occurredAtMs": 1736640000000,
+            "response": null,
+            "resurfaced": false,
+            "selected_misconception": null,
+            "taxonomy_version": 2,
+            "tests": [
+              "qa.bmath.finance.ci"
+            ],
+            "time_ms": 60000
+          }
+        ],
+        "examMs": null,
+        "marking": {
+          "durationMinutes": 120,
+          "marksPerCorrect": 1,
+          "marksPerUnattempted": 0,
+          "negativePerWrong": 0.25,
+          "numQuestions": 100,
+          "passMark": 40
+        },
+        "nowMs": 1736744400000
+      },
+      "name": "leaf_tagged_pooling",
+      "outputs": {
+        "actions": [
+          {
+            "itemId": "qa.bmath.finance.si#l3",
+            "kind": "review",
+            "nodeId": "qa.bmath.finance.si",
+            "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
+          },
+          {
+            "itemId": "qa.bmath.finance.ci#l3",
+            "kind": "review",
+            "nodeId": "qa.bmath.finance.ci",
+            "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
+          },
+          {
+            "itemId": "qa.bmath.finance.ci#l2",
+            "kind": "review",
+            "nodeId": "qa.bmath.finance.ci",
+            "reason": "Due review of a missed item — re-seeing the exact error is what fixes it; protects banked marks."
+          },
+          {
+            "itemId": "qa.bmath.finance#b",
+            "kind": "practice",
+            "nodeId": "qa.bmath.finance",
+            "reason": "High-weight, learnable node 'qa.bmath.finance': you are close enough that practice converts directly to marks."
+          },
+          {
+            "itemId": "qa.bmath.finance#d",
+            "kind": "practice",
+            "nodeId": "qa.bmath.finance",
+            "reason": "High-weight, learnable node 'qa.bmath.finance': you are close enough that practice converts directly to marks."
+          },
+          {
+            "itemId": "qa.bmath.finance.si#l2",
+            "kind": "practice",
+            "nodeId": "qa.bmath.finance",
+            "reason": "High-weight, learnable node 'qa.bmath.finance': you are close enough that practice converts directly to marks."
+          },
+          {
+            "itemId": "qa.bmath.finance#a",
+            "kind": "practice",
+            "nodeId": "qa.bmath.finance",
+            "reason": "High-weight, learnable node 'qa.bmath.finance': you are close enough that practice converts directly to marks."
+          },
+          {
+            "itemId": "qa.bmath.finance#c",
+            "kind": "practice",
+            "nodeId": "qa.bmath.finance",
+            "reason": "High-weight, learnable node 'qa.bmath.finance': you are close enough that practice converts directly to marks."
+          },
+          {
+            "itemId": "qa.bmath.finance.ci#l1",
+            "kind": "practice",
+            "nodeId": "qa.bmath.finance",
+            "reason": "High-weight, learnable node 'qa.bmath.finance': you are close enough that practice converts directly to marks."
+          },
+          {
+            "itemId": "qa.bmath.finance.si#l1",
+            "kind": "practice",
+            "nodeId": "qa.bmath.finance",
+            "reason": "High-weight, learnable node 'qa.bmath.finance': you are close enough that practice converts directly to marks."
+          }
+        ],
+        "readiness": {
+          "confidence": "low",
+          "distanceToPass": -23,
+          "estMinutes": 39,
+          "expectedMarks": 17,
+          "high": 28,
+          "isEstimate": true,
+          "low": 4,
+          "note": "Time permitting, attempt everything: every attemptable question is positive-EV. All figures are estimates; parameters are provisional until calibration.",
+          "skippedForTime": 0,
+          "timeFeasible": true
+        },
+        "state": {
+          "eventCount": 28,
+          "lastSeenMs": {
+            "qa.bmath.finance.ci#l1": 1736604000000,
+            "qa.bmath.finance.ci#l2": 1736496000000,
+            "qa.bmath.finance.ci#l3": 1736640000000,
+            "qa.bmath.finance.si#l1": 1736622000000,
+            "qa.bmath.finance.si#l2": 1736442000000,
+            "qa.bmath.finance.si#l3": 1736550000000
+          },
+          "misconceptions": {},
+          "schedules": {
+            "qa.bmath.finance.ci#l1": {
+              "consecutiveCorrect": 0,
+              "difficulty": 6.901155,
+              "dueAtMs": 1736824564580.8567,
+              "intervalDays": 2.5528307970000004,
+              "itemId": "qa.bmath.finance.ci#l1",
+              "lapsed": true,
+              "lastSeenMs": 1736604000000,
+              "stability": 2.5528307970000004
+            },
+            "qa.bmath.finance.ci#l2": {
+              "consecutiveCorrect": 0,
+              "difficulty": 6.901155,
+              "dueAtMs": 1736715133870.1396,
+              "intervalDays": 2.5362716450000002,
+              "itemId": "qa.bmath.finance.ci#l2",
+              "lapsed": true,
+              "lastSeenMs": 1736496000000,
+              "stability": 2.5362716450000002
+            },
+            "qa.bmath.finance.ci#l3": {
+              "consecutiveCorrect": 0,
+              "difficulty": 10,
+              "dueAtMs": 1736668454789.8672,
+              "intervalDays": 0.32933784600000005,
+              "itemId": "qa.bmath.finance.ci#l3",
+              "lapsed": true,
+              "lastSeenMs": 1736640000000,
+              "stability": 0.32933784600000005
+            },
+            "qa.bmath.finance.si#l1": {
+              "consecutiveCorrect": 5,
+              "difficulty": 5.1618,
+              "dueAtMs": 1737851869081.5713,
+              "intervalDays": 14.234595852000002,
+              "itemId": "qa.bmath.finance.si#l1",
+              "lapsed": false,
+              "lastSeenMs": 1736622000000,
+              "stability": 14.234595852000002
+            },
+            "qa.bmath.finance.si#l2": {
+              "consecutiveCorrect": 2,
+              "difficulty": 5.1618,
+              "dueAtMs": 1737386970638.601,
+              "intervalDays": 10.937160169,
+              "itemId": "qa.bmath.finance.si#l2",
+              "lapsed": false,
+              "lastSeenMs": 1736442000000,
+              "stability": 10.937160169
+            },
+            "qa.bmath.finance.si#l3": {
+              "consecutiveCorrect": 0,
+              "difficulty": 10,
+              "dueAtMs": 1736619875508.4285,
+              "intervalDays": 0.8087443110000001,
+              "itemId": "qa.bmath.finance.si#l3",
+              "lapsed": true,
+              "lastSeenMs": 1736550000000,
+              "stability": 0.8087443110000001
+            }
+          },
+          "skills": {
+            "qa.bmath.finance.ci": {
+              "attempts": 14,
+              "deviation": 0.719127955,
+              "lastEventMs": 1736640000000,
+              "rating": -0.263548192,
+              "slowRating": 0.8880653310000001
+            },
+            "qa.bmath.finance.si": {
+              "attempts": 14,
+              "deviation": 0.749956409,
+              "lastEventMs": 1736622000000,
+              "rating": 0.9176739810000001,
+              "slowRating": 1.300359491
+            }
+          }
+        }
+      },
+      "pins": "leaf-tagged events (production pack shape) pool to family-level reads (ADR 0021): readiness reflects descendant evidence instead of a fresh prior; the family counts as seen for selection tiers",
+      "seed": 1212
     }
   ]
 }

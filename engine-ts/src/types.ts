@@ -11,7 +11,8 @@ import type { DifficultyLabel, ItemType } from "./scale.js";
 
 export type { DifficultyLabel, ItemType } from "./scale.js";
 
-/** Practice and review advance schedules; mock is measurement only (SPEC 4). */
+/** Every mode advances schedules (SPEC 4, ADR 0020); mode still gates what
+ * anchors readiness (only standard mocks) and how the app frames the work. */
 export type Mode = "practice" | "drill" | "review" | "mock";
 
 /**
@@ -149,11 +150,17 @@ export function breakEvenProbability(m: MarkingScheme): number {
 // Engine state and outputs
 // ---------------------------------------------------------------------------
 
-/** Per-item schedule entry (SPEC 4). All times are epoch ms; intervals in days. */
+/** Per-item schedule entry (SPEC 4, ADR 0020). All times are epoch ms;
+ * intervals in days. Stability and difficulty are the FSRS-4.5 memory state
+ * (fsrs.ts); intervalDays equals stability at the constant 0.9 retention
+ * target and is kept as a named field because the app reads it for copy. */
 export interface ItemSchedule {
   readonly itemId: string;
   readonly intervalDays: number;
-  readonly ease: number;
+  /** FSRS stability: days until recall probability decays to 0.9. */
+  readonly stability: number;
+  /** FSRS difficulty in [1, 10]. */
+  readonly difficulty: number;
   readonly lastSeenMs: number;
   readonly dueAtMs: number;
   readonly consecutiveCorrect: number;

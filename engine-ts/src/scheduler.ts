@@ -1,44 +1,52 @@
 /**
- * Spaced-repetition scheduler (SPEC section 4, W1-4; ADR 0009).
+ * Spaced-repetition scheduler (SPEC section 4; ADR 0009, ADR 0020).
  *
- * SM-2-lite, binary outcomes only:
- *   - First correct: due in 1 day. Second consecutive correct: 6 days.
- *     Thereafter interval = previous * ease.
- *   - Ease starts 2.5, +0.1 per correct, -0.2 per wrong, floored 1.3, capped 3.0.
- *   - Wrong: a lapse — due in 0.5 days, interval resets to 1 day, streak resets.
- *   - Mock-mode events update mastery (elsewhere) but never touch schedules:
- *     a mock is measurement, not review practice.
+ * FSRS-4.5 memory model (fsrs.ts), binary outcomes only:
+ *   - Per item: stability S (days to 90% recall) and difficulty D in [1, 10].
+ *   - correct -> grade good, wrong -> grade again (a lapse). The next interval
+ *     targets retention 0.9, which makes interval = stability exactly.
+ *   - EVERY graded event advances the item's schedule, mock mode included
+ *     (ADR 0020, superseding the earlier mock-exclusion rule): recalling an
+ *     item inside a mock is a real review, and missing one is a lapse that
+ *     must resurface. Only post-exam events are ignored.
  *
  * Exam awareness: with examMs set, due dates cap at examMs minus a 3-day final
  * revision buffer, and any interval longer than half the days remaining
  * compresses to half the days remaining (floor 1 day). No schedule entry lands
  * past the exam.
  *
- * Pack transitions: a scheduled item absent from the bank transfers its schedule
- * to its successor when the tombstone names superseded_by (same due, same ease),
- * otherwise the entry is dropped. Live update and replay apply the same rule.
+ * Workload balancing: balanceSchedules (called by replay after the fold)
+ * spreads due dates so no calendar day holds more than MAX_DUE_PER_DAY
+ * reviews; most fragile (lowest stability) items keep the earliest slots.
+ *
+ * Pack transitions: a scheduled item absent from the bank transfers its
+ * schedule to its successor when the tombstone names superseded_by (same due,
+ * same memory state), otherwise the entry is dropped. Live update and replay
+ * apply the same rule.
  */
 
+import {
+  GRADE_AGAIN,
+  GRADE_GOOD,
+  type FsrsGrade,
+  initialDifficulty,
+  initialStability,
+  intervalForRetention,
+  nextDifficulty,
+  retrievability,
+  stabilityAfterLapse,
+  stabilityAfterRecall,
+} from "./fsrs.js";
 import { MS_PER_DAY } from "./time.js";
 import type { Bank, Event, ItemSchedule } from "./types.js";
-
-export const EASE_START = 2.5;
-export const EASE_BONUS = 0.1;
-export const EASE_PENALTY = 0.2;
-export const EASE_FLOOR = 1.3;
-export const EASE_CAP = 3.0;
-
-export const FIRST_INTERVAL_DAYS = 1;
-export const SECOND_INTERVAL_DAYS = 6;
-export const LAPSE_INTERVAL_DAYS = 0.5;
-export const LAPSE_RESET_INTERVAL_DAYS = 1;
 
 /** Final-revision buffer: no review is scheduled inside this window before the exam. */
 export const FINAL_REVISION_BUFFER_DAYS = 3;
 
-function clamp(x: number, lo: number, hi: number): number {
-  return Math.min(hi, Math.max(lo, x));
-}
+/** Workload cap: the most reviews balanceSchedules will leave due on one
+ * calendar day. Provisional until telemetry; chosen so a daily session stays
+ * a session, not a wall. */
+export const MAX_DUE_PER_DAY = 12;
 
 /**
  * Apply one binary outcome to an item's schedule. Pure. `prior` is the existing
@@ -52,41 +60,30 @@ export function updateSchedule(
   correct: boolean,
   examMs?: number,
 ): ItemSchedule {
-  const ease0 = prior?.ease ?? EASE_START;
-  const prevInterval = prior?.intervalDays ?? 0;
-  const streak0 = prior?.consecutiveCorrect ?? 0;
-
-  let interval: number;
-  let ease: number;
-  let streak: number;
-  let lapsed: boolean;
-
-  if (correct) {
-    streak = streak0 + 1;
-    if (streak === 1) interval = FIRST_INTERVAL_DAYS;
-    else if (streak === 2) interval = SECOND_INTERVAL_DAYS;
-    else interval = prevInterval * ease0;
-    ease = clamp(ease0 + EASE_BONUS, EASE_FLOOR, EASE_CAP);
-    lapsed = false;
+  const grade: FsrsGrade = correct ? GRADE_GOOD : GRADE_AGAIN;
+  let stability: number;
+  let difficulty: number;
+  if (prior === undefined) {
+    stability = initialStability(grade);
+    difficulty = initialDifficulty(grade);
   } else {
-    streak = 0;
-    interval = LAPSE_RESET_INTERVAL_DAYS;
-    ease = clamp(ease0 - EASE_PENALTY, EASE_FLOOR, EASE_CAP);
-    lapsed = true;
+    const elapsedDays = Math.max(0, (occurredAtMs - prior.lastSeenMs) / MS_PER_DAY);
+    const r = retrievability(elapsedDays, prior.stability);
+    difficulty = nextDifficulty(prior.difficulty, grade);
+    stability = correct
+      ? stabilityAfterRecall(prior.difficulty, prior.stability, r)
+      : stabilityAfterLapse(prior.difficulty, prior.stability, r);
   }
-
-  // A lapse is reviewed sooner than its reset interval would imply.
-  const dueIntervalDays = lapsed ? LAPSE_INTERVAL_DAYS : interval;
-  const dueAtMs = capDueDate(occurredAtMs, dueIntervalDays, examMs);
-
+  const intervalDays = intervalForRetention(stability);
   return {
     itemId,
-    intervalDays: interval,
-    ease,
+    intervalDays,
+    stability,
+    difficulty,
     lastSeenMs: occurredAtMs,
-    dueAtMs,
-    consecutiveCorrect: streak,
-    lapsed,
+    dueAtMs: capDueDate(occurredAtMs, intervalDays, examMs),
+    consecutiveCorrect: correct ? (prior?.consecutiveCorrect ?? 0) + 1 : 0,
+    lapsed: !correct,
   };
 }
 
@@ -117,9 +114,9 @@ export function capDueDate(
 }
 
 /**
- * Fold one event into the schedule map. Mock-mode events are ignored (they
- * measure, they do not create or advance review schedules). Returns a new map
- * (does not mutate). Past the exam, no event creates a schedule entry.
+ * Fold one event into the schedule map. Every mode advances schedules
+ * (ADR 0020); only an event past the exam is ignored. Returns a new map
+ * (does not mutate).
  */
 export function applyEventToSchedules(
   schedules: ReadonlyMap<string, ItemSchedule>,
@@ -127,7 +124,6 @@ export function applyEventToSchedules(
   examMs?: number,
 ): Map<string, ItemSchedule> {
   const next = new Map(schedules);
-  if (event.mode === "mock") return next;
   if (examMs !== undefined && event.occurredAtMs >= examMs) return next;
   const updated = updateSchedule(
     schedules.get(event.item_id),
@@ -141,10 +137,71 @@ export function applyEventToSchedules(
 }
 
 /**
+ * Deterministic workload balancing (ADR 0020). Buckets every entry by the UTC
+ * calendar day of its due date and rolls overflow forward so no day holds more
+ * than MAX_DUE_PER_DAY entries. An overflowing day keeps its most fragile
+ * entries (lowest stability first, ties by item id ascending) and pushes the
+ * rest one day at a time, preserving each entry's time of day.
+ *
+ * Deliberately clock-free: the result depends only on the schedules (and
+ * examMs), so every replay of the same event log lands every item on the same
+ * day no matter when the app is opened. Reviews the student does not do simply
+ * age into overdue debt; nothing is hidden or re-shuffled between loads.
+ *
+ * With an exam set, nothing rolls past examMs minus the final-revision buffer:
+ * the last allowed day absorbs the remainder and may exceed the cap (a crowded
+ * final day is more honest than a silently dropped review).
+ */
+export function balanceSchedules(
+  schedules: ReadonlyMap<string, ItemSchedule>,
+  examMs?: number,
+): Map<string, ItemSchedule> {
+  const out = new Map<string, ItemSchedule>();
+  const dayOf = (ms: number): number => Math.floor(ms / MS_PER_DAY);
+  const latestDay =
+    examMs !== undefined ? dayOf(examMs - FINAL_REVISION_BUFFER_DAYS * MS_PER_DAY) : Infinity;
+
+  // Bucket by due day. capDueDate already keeps dueAtMs <= the buffer edge,
+  // so every bucket day is <= latestDay.
+  const buckets = new Map<number, ItemSchedule[]>();
+  for (const s of schedules.values()) {
+    const d = dayOf(s.dueAtMs);
+    const list = buckets.get(d);
+    if (list === undefined) buckets.set(d, [s]);
+    else list.push(s);
+  }
+  if (buckets.size === 0) return out;
+
+  const days = [...buckets.keys()].sort((a, b) => a - b);
+  const lastInputDay = days[days.length - 1]!;
+  let carry: ItemSchedule[] = [];
+  for (let day = days[0]!; day <= lastInputDay || carry.length > 0; day++) {
+    const todays = [...(buckets.get(day) ?? []), ...carry];
+    carry = [];
+    if (todays.length === 0) continue;
+    todays.sort((a, b) => {
+      if (a.stability !== b.stability) return a.stability - b.stability;
+      return a.itemId < b.itemId ? -1 : a.itemId > b.itemId ? 1 : 0;
+    });
+    const absorbsAll = day >= latestDay;
+    const keep = absorbsAll ? todays : todays.slice(0, MAX_DUE_PER_DAY);
+    if (!absorbsAll) carry = todays.slice(MAX_DUE_PER_DAY);
+    for (const s of keep) {
+      const deltaDays = day - dayOf(s.dueAtMs);
+      out.set(
+        s.itemId,
+        deltaDays === 0 ? s : { ...s, dueAtMs: s.dueAtMs + deltaDays * MS_PER_DAY },
+      );
+    }
+  }
+  return out;
+}
+
+/**
  * Reconcile schedules against the current bank (ADR 0009 pack transition).
  * An entry whose item is absent from the bank, or present only as a tombstone:
- *   - transfers to the named successor (same due, same ease) when the tombstone
- *     carries superseded_by and that successor is selectable;
+ *   - transfers to the named successor (same due, same memory state) when the
+ *     tombstone carries superseded_by and that successor is selectable;
  *   - otherwise is dropped.
  * Applied identically by live update and replay so import and live state agree.
  */
@@ -171,10 +228,10 @@ export function reconcileSchedules(
         succItem.verification_status !== "quarantined" &&
         succItem.verification_status !== "retired"
       ) {
-        // Transfer: same due date, same ease; re-key onto the successor.
-        // If the successor already has an entry, the later due date wins is
-        // not the rule — the transferred schedule replaces (supersession means
-        // the old item's history governs the successor).
+        // Transfer: same due date, same memory state; re-key onto the successor.
+        // If the successor already has an entry, the transferred schedule
+        // replaces it (supersession means the old item's history governs the
+        // successor).
         out.set(successor, { ...entry, itemId: successor });
         continue;
       }

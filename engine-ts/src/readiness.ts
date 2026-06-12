@@ -26,7 +26,8 @@
  * else low when mean deviation > 0.8 or coverage < 60%; else medium. Never higher.
  */
 
-import { applyIdleDrift, FRESH_SKILL, type SkillState } from "./mastery.js";
+import { buildSkillPools, effectiveSkill, type SkillPools } from "./hierarchy.js";
+import { applyIdleDrift, type SkillState } from "./mastery.js";
 import { DIFFICULTY_ANCHOR, type DifficultyLabel, GUESSING_FLOOR, sigmoid } from "./scale.js";
 import { MS_PER_DAY } from "./time.js";
 import type {
@@ -76,10 +77,12 @@ interface PlanQuestion {
   readonly expectedSeconds: number;
 }
 
-function skillFor(state: EngineState, nodeId: string, nowMs: number): SkillState {
-  const s = state.skills.get(nodeId);
-  if (s === undefined) return { ...FRESH_SKILL };
-  return applyIdleDrift(s, nowMs);
+/** Family skill read through the hierarchical pools (ADR 0021): a family the
+ * student touched only through leaf items reads its descendants' pooled
+ * evidence, not a fresh prior — real packs tag leaves, blueprints weigh
+ * families, and the exact-match read left the model EV prior-flat. */
+function skillFor(state: EngineState, pools: SkillPools, nodeId: string): SkillState {
+  return effectiveSkill(state, pools, nodeId);
 }
 
 /** P(correct) for an exam question on `nodeId` at `label`, blending the
@@ -118,10 +121,10 @@ function expectedSecondsFor(
 /** Build the per-question exam plan from the blueprint quotas. */
 function buildPlan(
   state: EngineState,
+  pools: SkillPools,
   bank: Bank,
   blueprint: Blueprint,
   marking: MarkingScheme,
-  nowMs: number,
 ): PlanQuestion[] {
   const plan: PlanQuestion[] = [];
   const gain = marking.marksPerCorrect;
@@ -136,7 +139,7 @@ function buildPlan(
   families.sort((a, b) => (a.nodeId < b.nodeId ? -1 : a.nodeId > b.nodeId ? 1 : 0));
 
   for (const fam of families) {
-    const skill = skillFor(state, fam.nodeId, nowMs);
+    const skill = skillFor(state, pools, fam.nodeId);
     const label = DEFAULT_LABEL;
     const { p } = questionP(skill, label);
     // Marks EV under negative marking, attempting: +gain w.p. p, -loss w.p. 1-p.
@@ -278,7 +281,8 @@ export function computeReadiness(
     );
   }
 
-  const plan = buildPlan(state, bank, blueprint, marking, nowMs);
+  const pools = buildSkillPools(state, nowMs);
+  const plan = buildPlan(state, pools, bank, blueprint, marking);
   const breakEven = breakEvenProbability(marking);
 
   // Attempt policy: attempt every question whose P clears the break-even point;
