@@ -88,7 +88,15 @@
     --color-popover:            #FFFFFF;
     --color-popover-foreground: #09090B;
     --color-muted:              #F4F4F5;
-    --color-muted-foreground:   #3F3F46;
+    /*
+     * readability ruling (2026-06-12): body prose reads darker. #3F3F46 passed
+     * AAA (10.01:1 on background, 9.50:1 on muted) but the operator ruled the
+     * reading tier not dark enough for an exam product. #2F2F36 reads 12.73:1
+     * on background, 12.09:1 on muted, 13.28:1 on card — still a clear tier
+     * below the #09090B heading/content ink (19.06:1), so hierarchy survives.
+     * before: #3F3F46 (10.01:1 on bg); after: #2F2F36 (12.73:1 on bg)
+     */
+    --color-muted-foreground:   #2F2F36;
     --color-accent:             #F4F4F5;
     --color-accent-foreground:  #09090B;
     --color-subtle:             #E4E4E7;

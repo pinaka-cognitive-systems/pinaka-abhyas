@@ -213,6 +213,8 @@
 .pick { display: flex; align-items: center; min-height: var(--touch-target); gap: var(--space-3); padding: var(--space-4); background: var(--color-card); border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer; text-align: left; font-family: var(--font-sans); width: 100%; }
 .pick:hover { border-color: var(--color-border-strong); }
 .pick.is-sel { border-color: var(--color-brand-primary); background: var(--color-brand-soft); }
+/* On the brand-soft tint the subtle caption ink falls to 4.41:1; the body tier holds AA there. */
+.pick.is-sel .pick__meta { color: var(--color-muted-foreground); }
 .pick__radio { width: 18px; height: 18px; border-radius: var(--radius-full); border: 1.5px solid var(--color-border-strong); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
 .pick.is-sel .pick__radio { border-color: var(--color-brand-primary); }
 .pick.is-sel .pick__radio::after { content: ''; width: 9px; height: 9px; border-radius: var(--radius-full); background: var(--color-brand-primary); }
@@ -333,7 +335,8 @@
 .hall__q { flex: 1; overflow: auto; padding: var(--space-10) var(--space-12); }
 .hall__qinner { max-width: 720px; margin: 0 auto; }
 .hall__qnum { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-subtle); margin-bottom: var(--space-3); display: flex; gap: var(--space-3); align-items: center; }
-.hall__stem { font-size: var(--text-xl); line-height: var(--leading-relaxed); color: var(--color-foreground); margin: 0 0 var(--space-8); }
+/* Weight 450 (variable font; static fallback resolves 500): the stem is read for two hours under strain — the readability ruling (2026-06-12) buys ink, not size. */
+.hall__stem { font-size: var(--text-xl); font-weight: 450; line-height: var(--leading-relaxed); color: var(--color-foreground); margin: 0 0 var(--space-8); }
 /* adaptive two-pane for exhibit questions */
 .hall__split { display: grid; grid-template-columns: 1.25fr 1fr; gap: var(--space-10); align-items: start; max-width: 1100px; margin: 0 auto; }
 .hall__exhibit { min-width: 0; }
@@ -369,7 +372,7 @@
 .palette-scroll { flex: 1; overflow: auto; padding: 0 var(--space-5) var(--space-4); }
 .pcell { aspect-ratio: 1; min-height: var(--touch-target); border-radius: var(--radius-sm); border: 1px solid var(--color-border-hairline); background: var(--color-card); color: var(--color-text-subtle); font-family: var(--font-mono); font-size: 12px; display: flex; align-items: center; justify-content: center; position: relative; border-style: solid; cursor: pointer; padding: 0; }
 .pcell.is-visited { background: var(--color-muted); color: var(--color-muted-foreground); border-color: var(--color-border); }
-.pcell.is-answered { background: rgba(99, 102, 241, 0.16); color: var(--color-info-text); border-color: rgba(99, 102, 241, 0.34); }
+.pcell.is-answered { background: rgba(85, 88, 232, 0.16); color: var(--color-info-text); border-color: rgba(85, 88, 232, 0.34); }
 .pcell.is-current { box-shadow: 0 0 0 2px var(--color-brand-primary); border-color: var(--color-brand-primary); z-index: 1; }
 .pcell.is-marked::after { content: ''; position: absolute; top: 2px; right: 2px; width: 6px; height: 6px; border-radius: var(--radius-full); background: var(--color-warning); box-shadow: 0 0 0 1.5px var(--color-card); }
 .pcell:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--color-brand-soft), 0 0 0 1.5px var(--color-brand-primary); z-index: 2; }

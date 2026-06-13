@@ -96,6 +96,11 @@ export interface EventInputs {
   readonly resurfaced: boolean;
   /** The session mode this answer was recorded under. */
   readonly mode: Mode;
+  /** Mock assembly type, set only for answers given inside a mock paper
+   * (ADR 0018 ruling 11): recorded in device_context for telemetry. The union
+   * is declared here rather than imported so the practice layer does not
+   * depend on the mock flow. */
+  readonly mockType?: "standard" | "hard" | "pace";
 }
 
 /**
@@ -134,6 +139,9 @@ export function buildEvent(
     response: responsePayload,
     time_ms: inputs.timeMs,
     resurfaced: inputs.resurfaced,
-    device_context: deviceContext(inputs.viewportWidth),
+    device_context:
+      inputs.mockType !== undefined
+        ? { ...deviceContext(inputs.viewportWidth), mock_type: inputs.mockType }
+        : deviceContext(inputs.viewportWidth),
   };
 }

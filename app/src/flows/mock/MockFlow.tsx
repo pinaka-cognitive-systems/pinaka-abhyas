@@ -259,6 +259,11 @@ export function MockFlow({ onExit }: MockFlowProps): JSX.Element {
   const guardHeldRef = useRef<boolean>(false);
   const questionStartRef = useRef<number>(0);
   const mockCountRef = useRef<number>(0);
+  // True only when the live session is being re-entered (loaded from storage
+  // at boot, or via the hub's Resume button after Save & exit). start() and
+  // discard reset it. This is the ONLY signal for the hall's welcome-back
+  // note; a fresh attempt never shows it.
+  const resumedRef = useRef<boolean>(false);
   const resultsRef = useRef<readonly MockResultRecord[]>([]);
   const scoreRef = useRef<{ score: MockScore; before: Readiness; after: Readiness } | null>(null);
 
@@ -309,18 +314,25 @@ export function MockFlow({ onExit }: MockFlowProps): JSX.Element {
       const preMarking = scaleMarking(pack.marking, preMock.size, preType);
       assembledRef.current = { mock: preMock, marking: preMarking };
 
-      if (cancelled) return;
-      setReady(true);
-
       // If there is a live session and the hash is already mock/hall, honour it.
       // Otherwise, if there is a live session and we are at #/mock, the hub will
       // render the resume/expired banner — we do NOT auto-navigate.
       const stored = parseSession(await adapter.getMeta(MOCK_SESSION_META_KEY));
       if (stored !== null) {
         sessionRef.current = stored;
+        // A session loaded from storage is by definition a resume: the hall
+        // shows the wall-clock note exactly when this flag is set, never on
+        // a time heuristic (a fresh attempt must never read "welcome back").
+        resumedRef.current = true;
         acquireMockGuard();
         guardHeldRef.current = true;
       }
+
+      if (cancelled) return;
+      // Ready only once the stored session is also known: the hall route
+      // gates on `ready`, and flipping it before the session read would let
+      // the hall mount against an empty ref and bounce a real resume.
+      setReady(true);
     }
 
     boot().catch((err: unknown) => {
@@ -381,6 +393,7 @@ export function MockFlow({ onExit }: MockFlowProps): JSX.Element {
       acquireMockGuard();
       guardHeldRef.current = true;
     }
+    resumedRef.current = false; // a fresh attempt is never a resume
     await persist(session);
     questionStartRef.current = nowMs;
     navigate("mock/hall");
@@ -460,6 +473,7 @@ export function MockFlow({ onExit }: MockFlowProps): JSX.Element {
     // Clear in-progress session and release guard.
     await loaded.adapter.setMeta(MOCK_SESSION_META_KEY, "");
     sessionRef.current = null;
+    resumedRef.current = false;
     if (guardHeldRef.current) {
       releaseMockGuard();
       guardHeldRef.current = false;
@@ -507,6 +521,10 @@ export function MockFlow({ onExit }: MockFlowProps): JSX.Element {
           writeSelectedType(type);
           navigate("mock/start");
         }}
+        onResume={() => {
+          resumedRef.current = true;
+          navigate("mock/hall");
+        }}
         onBreakdown={(i) => {
           // Load the score for this result index
           if (loaded === null) return;
@@ -537,6 +555,7 @@ export function MockFlow({ onExit }: MockFlowProps): JSX.Element {
             await loaded.adapter.setMeta(META_DISCARDED_SESSION, serializeSession(session));
             await loaded.adapter.setMeta(MOCK_SESSION_META_KEY, "");
             sessionRef.current = null;
+    resumedRef.current = false;
             if (guardHeldRef.current) {
               releaseMockGuard();
               guardHeldRef.current = false;
@@ -570,8 +589,23 @@ export function MockFlow({ onExit }: MockFlowProps): JSX.Element {
 
   // Hall (mock/hall)
   if (sub === "hall") {
+    // Entering the hall remounts this flow when coming from a shell route
+    // (the hub or Today's recovery banner): refs are empty until boot
+    // finishes. Hold the route with a loading frame — bouncing here threw
+    // every resume back to the hub (the same deep-link defect fixed earlier
+    // for breakdown/review).
+    if (!ready || loaded === null) {
+      return (
+        <main className="screen" aria-busy="true">
+          <div className="screen__scroll"><div className="screen__pad">
+            <p className="screen__lede">Loading your mock</p>
+          </div></div>
+        </main>
+      );
+    }
     const session = sessionRef.current;
-    if (session === null || loaded === null) {
+    if (session === null) {
+      // Boot is done and there is truly nothing to resume.
       navigate("mock");
       return <></>;
     }
@@ -585,6 +619,8 @@ export function MockFlow({ onExit }: MockFlowProps): JSX.Element {
         <Hall
           loaded={loaded}
           session={session}
+          resumed={resumedRef.current}
+          attemptName={`Mock ${String(mockCountRef.current + 1).padStart(2, "0")}`}
           questionStartRef={questionStartRef}
           onMutate={(next) => void persist(next)}
           flushVisit={flushVisit}
@@ -729,6 +765,7 @@ function MocksHub({
   session,
   ready,
   onStart,
+  onResume,
   onBreakdown,
   onReview,
   onDiscardExpired,
@@ -739,6 +776,7 @@ function MocksHub({
   readonly session: MockSession | null;
   readonly ready: boolean;
   readonly onStart: (type: MockAssemblyType) => void;
+  readonly onResume: () => void;
   readonly onBreakdown: (i: number) => void;
   readonly onReview: (i: number) => void;
   readonly onDiscardExpired: () => void;
@@ -779,7 +817,9 @@ function MocksHub({
                   type="button"
                   className="sa-btn sa-btn--primary"
                   style={{ fontSize: 13 }}
-                  onClick={() => navigate("mock/hall")}
+                  onClick={() => {
+                    onResume();
+                  }}
                 >
                   Resume mock
                 </button>
@@ -1118,6 +1158,8 @@ function Countdown({
 function Hall({
   loaded,
   session,
+  resumed,
+  attemptName,
   questionStartRef,
   onMutate,
   flushVisit,
@@ -1126,17 +1168,22 @@ function Hall({
 }: {
   readonly loaded: Loaded;
   readonly session: MockSession;
+  /** True only when this session is being re-entered (storage boot or the
+   * hub's Resume button). A fresh attempt never reads "welcome back". */
+  readonly resumed: boolean;
+  /** "Mock NN" — the attempt the student is continuing. */
+  readonly attemptName: string;
   readonly questionStartRef: React.MutableRefObject<number>;
   readonly onMutate: (next: MockSession) => void;
   readonly flushVisit: (s: MockSession, itemId: string, picked: number | null) => MockSession;
   readonly onSubmit: () => void;
   readonly onExitHall: () => void;
 }): JSX.Element {
-  const nowMs = Date.now();
-  const resumeStr = session !== null && (session as MockSession & { _resumed?: boolean })._resumed !== true
-    && session.startedAtMs < nowMs - 5000
-    ? resumeNote(session, nowMs)
-    : null;
+  // Computed once at mount and dismissible: a resume notice is an arrival
+  // message, not a fixture of the next two hours.
+  const [resumeStr, setResumeStr] = useState<string | null>(() =>
+    resumed ? resumeNote(session, Date.now(), attemptName) : null,
+  );
 
   // Find starting index
   const [idx, setIdx] = useState<number>(() => {
@@ -1415,7 +1462,17 @@ function Hall({
           {/* Question area */}
           <div className="hall__q">
             {resumeStr !== null && (
-              <p className="mk-resume" role="status">{resumeStr}</p>
+              <p className="mk-resume" role="status">
+                <span>{resumeStr}</span>
+                <button
+                  type="button"
+                  className="mk-resume__dismiss"
+                  aria-label="Dismiss"
+                  onClick={() => setResumeStr(null)}
+                >
+                  <Icon name="x" size={14} />
+                </button>
+              </p>
             )}
             {table !== undefined ? (
               <div className="hall__split">

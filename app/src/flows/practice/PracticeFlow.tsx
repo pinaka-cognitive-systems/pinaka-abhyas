@@ -786,6 +786,24 @@ export function PracticeFlow({ onExit }: PracticeFlowProps): JSX.Element {
             </>
           )}
 
+          {view.sections && (
+            <div style={{ marginBottom: "var(--space-6)" }}>
+              <div className="eyebrow" style={{ marginBottom: "var(--space-2)" }}>
+                Why this answer
+              </div>
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: "var(--text-base)",
+                  lineHeight: "var(--leading-relaxed)",
+                  color: "var(--color-foreground)",
+                }}
+              >
+                {view.sections.punchline}
+              </p>
+            </div>
+          )}
+
           <div
             className="eyebrow"
             style={{ marginBottom: "var(--space-3)" }}
@@ -800,6 +818,47 @@ export function PracticeFlow({ onExit }: PracticeFlowProps): JSX.Element {
               </div>
             ))}
           </div>
+
+          {view.sections && (
+            <div style={{ marginTop: "var(--space-6)" }}>
+              {(
+                [
+                  ["How to approach", view.sections.approach],
+                  ["The lesson", view.sections.lesson],
+                  ["Timing", view.sections.timing],
+                ] as const
+              ).map(([label, body]) => (
+                <details
+                  key={label}
+                  style={{
+                    borderTop: "1px solid var(--color-border-hairline)",
+                    padding: "var(--space-3) 0",
+                  }}
+                >
+                  <summary
+                    className="eyebrow"
+                    style={{
+                      cursor: "pointer",
+                      marginBottom: 0,
+                      color: "var(--color-brand-primary)",
+                    }}
+                  >
+                    {label}
+                  </summary>
+                  <p
+                    style={{
+                      margin: "var(--space-3) 0 0",
+                      fontSize: "var(--text-sm)",
+                      lineHeight: "var(--leading-relaxed)",
+                      color: "var(--color-muted-foreground)",
+                    }}
+                  >
+                    {body}
+                  </p>
+                </details>
+              ))}
+            </div>
+          )}
 
           <div
             style={{

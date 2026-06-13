@@ -17,6 +17,7 @@ import {
   remainingMs,
   resumeNote,
   serializeSession,
+  startedLabel,
   withAnswer,
   withAnswerAndUnstrike,
   withClearedAnswer,
@@ -81,7 +82,7 @@ describe("remainingMs — wall-clock policy", () => {
   });
 });
 
-describe("resumeNote — states the policy plainly", () => {
+describe("resumeNote — states the policy plainly and names the attempt", () => {
   it("names the remaining time and that the clock kept running", () => {
     const s = withAnswer(freshSession(), "a", 2, 1000);
     const now = START + 30 * 60_000;
@@ -92,6 +93,24 @@ describe("resumeNote — states the policy plainly", () => {
     expect(note).not.toContain("!");
     expect(note).not.toContain("—");
     expect(note).not.toMatch(/\b\w+'\w+\b/);
+  });
+
+  it("identifies the attempt by name, type, and start time when named", () => {
+    const s = withAnswer(freshSession(), "a", 2, 1000);
+    const now = START + 30 * 60_000;
+    const note = resumeNote(s, now, "Mock 04");
+    expect(note).toContain("Welcome back to Mock 04");
+    expect(note).toContain("paper you started today at");
+    expect(note).toContain("1 of 3");
+  });
+});
+
+describe("startedLabel — the started-at clause of the resume note", () => {
+  it("reads today / yesterday / a dated form by calendar day", () => {
+    const at = new Date(2026, 5, 11, 14, 5).getTime(); // 11 Jun 2026 14:05 local
+    expect(startedLabel(at, at + 60_000)).toBe("today at 14:05");
+    expect(startedLabel(at, new Date(2026, 5, 12, 9, 0).getTime())).toBe("yesterday at 14:05");
+    expect(startedLabel(at, new Date(2026, 5, 20, 9, 0).getTime())).toBe("on 11 Jun at 14:05");
   });
 });
 

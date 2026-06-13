@@ -27,6 +27,29 @@
     color: var(--color-warning-text);
     font-size: var(--text-sm);
     line-height: var(--leading-relaxed);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+  .mk-resume__dismiss {
+    margin-left: auto;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--touch-target);
+    min-width: var(--touch-target);
+    margin-top: calc(-1 * var(--space-2));
+    margin-bottom: calc(-1 * var(--space-2));
+    border: none;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+  }
+  .mk-resume__dismiss:focus-visible {
+    outline: 3px solid var(--color-brand-soft);
+    outline-offset: 1px;
   }
 
   /* Detail-pane empty state ("Nothing in this filter."). */

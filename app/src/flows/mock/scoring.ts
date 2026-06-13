@@ -107,6 +107,7 @@ export function buildSubmissionBatch(
           viewportWidth: session.viewportWidth,
           resurfaced: false,
           mode: eventMode,
+          mockType,
         }),
       );
     } else {

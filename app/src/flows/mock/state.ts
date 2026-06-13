@@ -182,18 +182,48 @@ export function answeredCount(session: MockSession): number {
   return Object.keys(session.answers).length;
 }
 
+const MS_PER_DAY = 86_400_000;
+
+/** "today at 14:05" / "yesterday at 14:05" / "on 11 Jun at 14:05" — the
+ * started-at label for the resume note. Local time; pure in its inputs. */
+export function startedLabel(startedAtMs: number, nowMs: number): string {
+  const started = new Date(startedAtMs);
+  const now = new Date(nowMs);
+  const hh = String(started.getHours()).padStart(2, "0");
+  const mm = String(started.getMinutes()).padStart(2, "0");
+  const time = `${hh}:${mm}`;
+  const dayOf = (d: Date): number =>
+    new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+  const dayDiff = Math.round((dayOf(now) - dayOf(started)) / MS_PER_DAY);
+  if (dayDiff <= 0) return `today at ${time}`;
+  if (dayDiff === 1) return `yesterday at ${time}`;
+  const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  return `on ${started.getDate()} ${MONTHS[started.getMonth()]} at ${time}`;
+}
+
 /**
- * The resume note shown when a mock is reopened mid-attempt. It states the
- * wall-clock policy plainly so the student is never surprised: the clock kept
- * running. Honest, in the Fellow voice (no exclamation, no contraction, no
- * em-dash). Pure: time figures are parameters.
+ * The resume note shown when a mock is reopened mid-attempt. It names the
+ * attempt (the student must never have to guess which paper this is) and
+ * states the wall-clock policy plainly so the student is never surprised:
+ * the clock kept running. Honest, in the Fellow voice (no exclamation, no
+ * contraction, no em-dash). Pure: time figures are parameters.
  */
-export function resumeNote(session: MockSession, nowMs: number): string {
+export function resumeNote(
+  session: MockSession,
+  nowMs: number,
+  attemptName?: string,
+): string {
   const remMin = Math.ceil(remainingMs(session, nowMs) / 60000);
   const answered = answeredCount(session);
   const total = session.order.length;
+  const typeWord = session.mockType ?? "standard";
+  const opening =
+    attemptName !== undefined
+      ? `Welcome back to ${attemptName}, the ${typeWord} paper you started ` +
+        `${startedLabel(session.startedAtMs, nowMs)}.`
+      : `Welcome back to this mock.`;
   return (
-    `Welcome back to this mock. The clock kept running while you were away, ` +
+    `${opening} The clock kept running while you were away, ` +
     `the same as it would in the exam hall, so the time lost to the break is gone. ` +
     `You have answered ${answered} of ${total} questions, and about ${remMin} ` +
     `${remMin === 1 ? "minute" : "minutes"} remain. Pick up where you left off.`

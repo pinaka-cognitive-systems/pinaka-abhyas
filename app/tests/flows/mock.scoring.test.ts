@@ -198,15 +198,15 @@ describe("buildSubmissionBatch — complete, mode mock, skipped events", () => {
     expect(batch.answeredFlags.get("q_bm")).toBe(true);
   });
 
-  it("every event carries the device context recorded at start", () => {
+  it("every event carries the device context and the mock_type (ADR 0018 ruling 11)", () => {
     for (const e of batch.events) {
-      // Answered events go through buildEvent (shared layer): device_context is
-      // { form_factor, viewport_width }. Skipped events are built inline and
-      // also carry mock_type for telemetry (Handout §10). Either way,
-      // form_factor and viewport_width are always present.
+      // Answered events go through buildEvent with mockType set; skipped
+      // events are built inline. Both record form factor, viewport, and the
+      // mock type for telemetry.
       const ctx = e.device_context as Record<string, unknown>;
       expect(ctx["form_factor"]).toBe("phone");
       expect(ctx["viewport_width"]).toBe(360);
+      expect(ctx["mock_type"]).toBe("standard");
     }
   });
 

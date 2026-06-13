@@ -26,8 +26,9 @@
  * (blueprint order) wins, so an item is drawn into exactly one family and never
  * double-counted across the paper.
  *
- * DIFFICULTY MIX (ADR 0022). Standard and pace mocks target a fixed share per
- * difficulty label: DIFFICULTY_MIX = { L1: 0.2, L2: 0.6, L3: 0.2 }. Applied
+ * DIFFICULTY MIX (ADR 0022; mix revised by ADR 0024 to mirror the real ICAI
+ * paper). Standard and pace mocks target a fixed share per difficulty label:
+ * DIFFICULTY_MIX = { L1: 0.26, L2: 0.66, L3: 0.08 }. Applied
  * per family via largest-remainder rounding so the totals are exact. When a
  * label pool is short, the shortfall is filled from the remaining labels in a
  * fixed fallback order (nearest-label-first: for missing L1 → L2; for missing
@@ -160,16 +161,17 @@ export const PACE_QUESTION_COUNT = 50;
 export const PACE_DURATION_MINUTES = 45;
 
 /**
- * Target difficulty label shares for standard and pace mocks (ADR 0022).
+ * Target difficulty label shares for standard and pace mocks (ADR 0022, mix
+ * revised by ADR 0024 to mirror the real ICAI paper: ~26/66/8 L1/L2/L3).
  * Hard mocks bypass this mix and use their own L3-weighted logic.
  *
  * Shares must sum to exactly 1. Applied per family quota via
  * largest-remainder rounding so slot totals are exact.
  */
 export const DIFFICULTY_MIX: Readonly<Record<"L1" | "L2" | "L3", number>> = {
-  L1: 0.2,
-  L2: 0.6,
-  L3: 0.2,
+  L1: 0.26,
+  L2: 0.66,
+  L3: 0.08,
 };
 
 /**
