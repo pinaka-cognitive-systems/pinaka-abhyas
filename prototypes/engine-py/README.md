@@ -1,3 +1,6 @@
+> **ARCHIVED** — superseded by the TypeScript engine per ADR 0010.
+> See `prototypes/engine-py/ARCHIVED.md` and `engine-ts/SPEC.md` for the current implementation.
+
 # Pinaka Engine — v2 (Score-Driven)
 
 A Python reference implementation of the Pinaka exam-diagnosis brain. Reads
@@ -18,19 +21,19 @@ constants tuned today.
 
 ---
 
-## How to run
+## How to run the archived prototype
 
 From the repository root:
 
 ```bash
 # Run the tests
-python3 -m pytest engine/tests -v
+python3 -m pytest prototypes/engine-py/tests -v
 
 # Or with stdlib unittest (no pytest needed)
-python3 -m unittest discover engine/tests -v
+python3 -m unittest discover prototypes/engine-py/tests -v
 
 # Run the demo
-python3 engine/demo.py
+python3 prototypes/engine-py/demo.py
 ```
 
 ---

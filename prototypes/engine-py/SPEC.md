@@ -1,3 +1,6 @@
+> **ARCHIVED** — superseded by the TypeScript engine per ADR 0010.
+> See `prototypes/engine-py/ARCHIVED.md` and `engine-ts/SPEC.md` for the current implementation.
+
 # Pinaka engine — v2 design (score-driven)
 
 Supersedes the v1 generic loop. The engine optimizes for ONE thing: the student's

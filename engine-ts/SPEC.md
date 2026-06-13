@@ -1,6 +1,7 @@
 # Engine specification
 
-Version: 0.2 (2026-06-10). Governs `engine-ts/`. ADRs 0009, 0010, 0012 bind this spec.
+Version: 0.3 (2026-06-12). Governs `engine-ts/`. ADRs 0009, 0010, 0012, 0020, and
+0021 bind this spec.
 The W1-12 cross-check reimplements section 3 from this document alone; if this document
 is not enough to reproduce the math, the document is the bug.
 
@@ -25,9 +26,15 @@ correct (boolean), selected_misconception (id or null), response (raw, per ADR 0
 time_ms, resurfaced (boolean), device_context (optional).
 
 **Bank**: items with id, tests, difficulty_label, item_type, expected_seconds,
-verification_status, optional empirical.difficulty_b, optional superseded_by.
-Items with status quarantined or retired are tombstones: present for history, never
-selectable.
+verification_status, optional empirical.difficulty_b, optional superseded_by,
+optional targets_misconceptions (misconception ids the item's distractors bait;
+a selection aid for section 5 remediation). Items with status quarantined or
+retired are tombstones: present for history, never selectable.
+
+**Blueprint**: parts (id, marks, questions) holding sections holding families
+(nodeId, quota) — the mark-weighting selection and readiness read.
+**Marking**: marksPerCorrect, negativePerWrong, marksPerUnattempted,
+numQuestions, passMark, durationMinutes.
 
 **Clock**: nowMs, always a parameter. **Exam**: examMs, optional ("undecided" path).
 
@@ -160,7 +167,7 @@ due dates. Priorities:
    session's actions. Reviews are served node-level: prefer a sibling item on the same
    node not seen in 7 days; fall back to the original item only when no sibling exists.
    The original is always used for lapse review (seeing the exact error is the point).
-3. **Learnable-band practice.** Nodes with |r - anchor(L2)| inside [-1.2, 0.6] and
+3. **Learnable-band practice.** Nodes with (r - anchor(L2)) inside [-1.2, 0.6] and
    deviation still above 0.5, weighted by blueprint marks; serve the difficulty label
    nearest the student's rating.
 4. **Coverage.** Unseen blueprint nodes in descending mark weight; L1 entry items
@@ -169,13 +176,15 @@ due dates. Priorities:
 Determinism: all candidate orderings end with (score desc, node_id asc, item_id asc).
 No dict-order dependence anywhere.
 
-## 6. Readiness (W1-8; Opus implements, this section is the contract)
+## 6. Readiness (W1-8; this section is the contract)
 
 - Per-node mastery and deviation aggregate to expected marks per blueprint section:
   expected questions per node from the blueprint quotas, P(correct) from mastery
-  against the section's difficulty mix, marks EV with negative marking. Family
-  skills are read through the section 5.0 pooling layer (ADR 0021), so
-  leaf-tagged practice reaches the family-level plan.
+  with every exam question modelled at the L2 anchor (ICAI classifies Paper 3 as
+  100% application level; a per-section difficulty mix becomes an input when a
+  blueprint ships one), marks EV with negative marking. Family skills are read
+  through the section 5.0 pooling layer (ADR 0021), so leaf-tagged practice
+  reaches the family-level plan.
 - **Attempt policy (W1-7).** Attempting is positive-EV whenever estimated P > 0.20
   (blind guessing breaks even at 0.20 with +1/-0.25; with elimination it is higher).
   The policy: attempt everything when the time budget allows; when expected total time
@@ -212,9 +221,10 @@ No dict-order dependence anywhere.
 
 ## 7. Replay
 
-`replay(events, bank, nowMs, examMs?)` folds sections 3 and 4 over the ordered event
-list, applying ADR 0009 rules: tombstone handling, supersession transfer, taxonomy
-migration map when present, and re-scoring (recompute correct/selected_misconception
+`replay(events, bank, nowMs, examMs?, options?)` folds sections 3 and 4 over the
+ordered event list, applying ADR 0009 rules: tombstone handling, supersession
+transfer, taxonomy migration (options.taxonomyMigration, an old-id -> new-id map),
+and re-scoring (options.rescoreTable: recompute correct/selected_misconception
 from raw response when the bank's current key differs from the event's recorded
 item_content_hash version) when a re-score table ships with the pack. After the fold,
 schedules pass through bank reconciliation and then workload balancing (section 4);
@@ -223,14 +233,16 @@ the bank, and examMs.
 
 ## 8. Vectors (W1-10)
 
-`emitVectors(scenarios)` writes JSON: fixed-seed scenario name, inputs (events, bank,
-nowMs, examMs), and outputs (per-node mastery {r, rd} rounded to 1e-9, full schedule,
+The emitter (`vectors/emit.ts`, run as `npx -y tsx vectors/emit.ts` from
+`engine-ts/`; its `buildGolden()` is shared with the regression test) writes
+`vectors/golden.json`: fixed-seed scenario name, inputs (events, bank, nowMs,
+examMs), and outputs (per-node mastery {r, rd} rounded to 1e-9, full schedule,
 first 10 nextAction ids with reasons, readiness). Scenario families: fresh student,
-converging student, lapsing student, idle-gap student, pack transition (removal,
-supersession, re-key), cold start, exam-week compression, mock anchoring (which also
-pins mock schedule ingestion per ADR 0020), and leaf-tagged pooling (production pack
-shape, ADR 0021). Vectors are regenerated only deliberately; CI replays them on every
-change.
+converging student, improving (non-stationary) student, lapsing student, idle-gap
+student, pack transition (removal, supersession, re-key), cold start, exam-week
+compression, mock anchoring (which also pins mock schedule ingestion per ADR 0020),
+and leaf-tagged pooling (production pack shape, ADR 0021). Vectors are regenerated
+only deliberately; CI replays them on every change.
 
 ## 9. Numeric discipline
 

@@ -21,8 +21,10 @@ module's runtime behavior, never by reading its source.
 ## Files
 
 - `glicko_lite.py` — the Python reference for SPEC section 3: expectation, the one-step
-  Laplace update, and idle drift with its two separate clocks (variance grows per idle
-  day at `(1.5^2 - 0.25^2)/90`; rating fades by `exp(-idleDays/120)`).
+  Laplace update with per-event process noise (`Q = 0.003`), and idle drift with its
+  two separate clocks (variance grows per idle day at `(1.5^2 - 0.25^2)/90`; rating
+  fades by `exp(-max(0, idleDays - 30)/120)` — no fade inside the 30-day grace), applied
+  only to skills with at least one observed event.
 - `generate_cases.py` — deterministic generator. Implements `mulberry32` (a seedable
   32-bit PRNG) in pure Python so a JavaScript twin seeded identically reproduces the
   same stream. Emits `cases.json`: 500 sequences spanning ability `[-3, 3]`, all three
@@ -69,16 +71,20 @@ deviation, across all 500 cases, is `<= 1e-6`.
 
 ## Current result
 
-**FAIL.** 32 of 500 cases disagree; max rating diff 0.2646, max deviation diff 0.0464.
+**PASS.** 500 of 500 cases agree; max rating diff ~5.0e-13, max deviation diff
+~5.0e-13 — five orders of magnitude inside the 1e-6 tolerance (verified
+2026-06-12).
 
-Root cause (a specification gap, not an arithmetic bug): the TypeScript
-`applyIdleDrift` **skips all drift when `attempts === 0`** — a never-attempted skill does
-not fade its seeded rating or grow its variance across an idle gap. SPEC section 3 says
-idle drift is "applied before each update and on read" with no `attempts` precondition,
-so the Python reference drifts unconditionally on the first event's time gap. The two
-agree on every event after the first. See the W1-12 report for the minimal reproducer
-(`case-0416`, a single event).
+History (how this check earned its keep): the first run **failed** — 32 of 500
+cases disagreed (max rating diff 0.2646) because the TypeScript `applyIdleDrift`
+skips all drift when `attempts === 0` while the spec text of the day said drift
+applies "before each update and on read" with no precondition, so the Python
+reference drifted a never-attempted skill across the gap before its first event
+(minimal reproducer: `case-0416`, a single event after an idle gap). That was a
+specification gap, not an arithmetic bug. The resolution went into the spec, not
+the implementations' agreement: SPEC section 3 now states idle drift applies
+"ONLY to skills with at least one observed event", and the reference follows the
+spec text. The episode is the argument for keeping an independent twin: it found
+spec-vs-code drift a shared codebase could not.
 
-This check is wired to fail until either the spec states the `attempts === 0` exemption
-or the engine drops it. Per the W1-12 brief, the cross-check does not modify either
-implementation; it reports the divergence.
+The check runs in CI; a regression past tolerance fails the build.

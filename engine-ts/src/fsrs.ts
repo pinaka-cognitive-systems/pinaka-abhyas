@@ -14,7 +14,7 @@
  *
  * which at r = 0.9 is exactly S.
  *
- * The product grades binary outcomes only (ADR 0014): wrong maps to grade 1
+ * The product grades binary outcomes only (ADR 0020): wrong maps to grade 1
  * (again) and correct to grade 3 (good). The hard/easy multipliers w15/w16 are
  * therefore structurally inert and never applied.
  *

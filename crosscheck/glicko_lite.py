@@ -6,24 +6,27 @@ independent twin of the TypeScript engine so divergence is detectable.
 
 Pure stdlib. Deterministic. No wall clock, no randomness, no IO.
 
-Contract restated from SPEC section 3:
+Contract restated from SPEC section 3 (rev 2026-06-10):
   - Scale anchors: L1 = -1, L2 = 0, L3 = +1.
   - Guessing floor c: 0.25 for single_best, 0 for numeric_entry.
   - Prior: rating r = 0, deviation rd = 1.5.
   - Bounds: rd in [0.25, 1.5]; |r| <= 4.
   - Expectation: E = c + (1-c) * sigmoid(r - b),
        b = empirical.difficulty_b if present else the label anchor.
-  - Update (one-step Laplace): with p = sigmoid(r - b),
+  - Update (one-step Laplace with process noise): with p = sigmoid(r - b),
        dEdr = (1-c) * p * (1-p),
        var  = max(E * (1-E), 1e-9),
        info = dEdr^2 / var,
-       prec' = 1/rd^2 + info,
+       priorVar = min(rd^2 + Q, 1.5^2)  with Q = 0.003 per event,
+       prec' = 1/priorVar + info,
        r'  = clamp(r + ((y - E) * dEdr / var) / prec',  -4, 4),
        rd' = clamp(sqrt(1/prec'),  0.25, 1.5).
-  - Idle drift, applied BEFORE each update and on read:
+  - Idle drift, applied BEFORE each update and on read, ONLY to skills with at
+    least one observed event (a never-attempted skill is the prior):
        variance grows by ((1.5^2 - 0.25^2) / 90) per idle day, capped at the
        prior variance (1.5^2);
-       rating fades toward 0 by exp(-idleDays / 120).
+       rating fades toward 0 by exp(-max(0, idleDays - 30) / 120) — the 30-day
+       grace keeps normal practice rhythms free of fade.
        The two clocks are deliberately separate (fade uses /120, variance uses /90).
   - An event updates every node in its tests list (handled by the caller).
 """
