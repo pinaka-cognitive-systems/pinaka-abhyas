@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000783",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000783.py"
+  },
+  "tests": [
+    "qa.stats.probability.addition_theorem"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "For events A and B: P(A) = 0.6, P(B) = 0.4, and P(A intersection B) = 0.25. What is P(A' intersection B'), where A' and B' denote the complements of A and B respectively?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.25"
+    },
+    {
+      "key": 2,
+      "text": "0.35"
+    },
+    {
+      "key": 3,
+      "text": "0.75"
+    },
+    {
+      "key": 4,
+      "text": "0.15"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "P(A' intersection B') = P((A union B)') = 1 - P(A union B). P(A union B) = 0.6 + 0.4 - 0.25 = 0.75. So P(A' inter B') = 1 - 0.75 = 0.25."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "set_operation_confused",
+      "rationale": "Computes P(A' union B') instead: by De Morgan = 1 - P(A inter B) = 1 - 0.25 = 0.75, then confuses with P(A')*P(B') = 0.4*0.6 = 0.24, arriving at an intermediate 0.35 by a sign mix-up."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "complement_confusion",
+      "rationale": "Reports P(A union B) = 0.75 as the final answer, forgetting to apply the complement step 1 - 0.75."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Multiplies complements as if independent: P(A') x P(B') = 0.4 x 0.6 = 0.24, then subtracts P(intersection) 0.25 to get 0.15 - a misapplied product formula."
+    }
+  ],
+  "explanation": "By De Morgan's law, A' intersection B' = (A union B)'. So P(A' inter B') = 1 - P(A union B). Apply the addition theorem: P(A union B) = P(A) + P(B) - P(A inter B) = 0.6 + 0.4 - 0.25 = 0.75. Therefore P(A' inter B') = 1 - 0.75 = 0.25.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "De Morgan converts A' inter B' into (A union B)', so the answer is 1 - P(A union B) = 1 - 0.75 = 0.25.",
+    "approach": "Identify the model (addition theorem plus De Morgan). Setup decision: recognise that the target P(A' inter B') is not directly the complement of either A or B individually - apply De Morgan: A' inter B' = (A union B)'. Then use the addition theorem to find P(A union B), and subtract from 1.",
+    "lesson": "P(neither A nor B) = 1 - P(A union B). De Morgan is the conversion bridge. The trap is stopping at P(A union B) without the final complement step.",
+    "timing": "40 seconds. Addition theorem gives P(A union B) = 0.75 in one step. Subtract from 1. Watch for option 3 (stops at 0.75)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

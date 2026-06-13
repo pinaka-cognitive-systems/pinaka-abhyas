@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000547",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000547.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.number_series"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "What is the missing term in the series: 1, 8, 27, 64, ?, 216?",
+  "options": [
+    {
+      "key": 1,
+      "text": "100"
+    },
+    {
+      "key": 2,
+      "text": "121"
+    },
+    {
+      "key": 3,
+      "text": "125"
+    },
+    {
+      "key": 4,
+      "text": "144"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Identifies the pattern as n^2 instead of n^3, giving 5^2 = 100 for the 5th position."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Guesses the 5th perfect square (11^2 = 121) by confusing the index position, or misidentifies the rule."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "The series is n^3 for n = 1, 2, 3, 4, 5, 6. The 5th term = 5^3 = 125."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Identifies pattern as n^2 and takes 12^2 = 144, confusing the position and treating the sixth square as the answer."
+    }
+  ],
+  "explanation": "The series consists of cubes of consecutive natural numbers: 1^3=1, 2^3=8, 3^3=27, 4^3=64, 5^3=125, 6^3=216. The missing term is 5^3 = 125.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Spotting that 1, 8, 27, 64 are consecutive perfect cubes instantly gives the 5th term as 5^3 = 125.",
+    "approach": "Apply clues most-certain-first: check cube roots - cube_root(1)=1, cube_root(8)=2, cube_root(27)=3, cube_root(64)=4, cube_root(216)=6. Position 5 is missing, so 5^3 = 125.",
+    "lesson": "Perfect cube series (1, 8, 27, 64, 125, 216) and perfect square series look similar at first - always verify by cube root, not just square root.",
+    "timing": "30-35 seconds. 125 is the only perfect cube in the options; 100 and 144 are squares, 121 is 11^2."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

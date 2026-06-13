@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000586",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000586.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.odd_man_out"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "Which of the following does NOT belong to the same professional category as the other three? Accountant, Auditor, Surgeon, Cashier",
+  "options": [
+    {
+      "key": 1,
+      "text": "Accountant"
+    },
+    {
+      "key": 2,
+      "text": "Auditor"
+    },
+    {
+      "key": 3,
+      "text": "Surgeon"
+    },
+    {
+      "key": 4,
+      "text": "Cashier"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "An accountant is a finance professional whose work centres on financial records - part of the finance/accounts domain."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "An auditor is a finance/assurance professional who examines financial accounts - part of the finance/accounts domain."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Accountant, Auditor, and Cashier all work within the finance and accounts domain. A surgeon is a medical professional operating in the healthcare domain, making it the odd one out."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "A cashier handles financial transactions - part of the finance/accounts domain. A student might flag cashier as a lower-level role compared to accountant and auditor, but the property tested is professional domain, not seniority."
+    }
+  ],
+  "explanation": "Accountant, Auditor, and Cashier are all finance/accounts professionals. Surgeon is a medical professional in the healthcare domain - a completely different field - and is therefore the odd one out.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Three roles share the finance and accounts domain; the fourth belongs to a different professional field entirely.",
+    "approach": "Deductive trace: classify each role by professional domain. Setup decision: choose domain as the grouping criterion over seniority or qualification level. Accountant->finance, Auditor->finance, Cashier->finance, Surgeon->healthcare.",
+    "lesson": "When classifying roles as odd-one-out, professional domain (the field of work) is usually the correct grouping criterion, not seniority or qualification.",
+    "timing": "45-55 seconds. The trap is mistaking Cashier as the odd one due to perceived seniority difference from Accountant and Auditor."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

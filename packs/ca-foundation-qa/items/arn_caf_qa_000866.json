@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000866",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000866.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.regression"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "For a set of 10 paired observations, the following sums have been computed: sum(X) = 50, sum(Y) = 80, sum(X^2) = 270, sum(XY) = 430. What is the regression coefficient b_yx (the slope of Y on X)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "1.5"
+    },
+    {
+      "key": 2,
+      "text": "1.2"
+    },
+    {
+      "key": 3,
+      "text": "0.8"
+    },
+    {
+      "key": 4,
+      "text": "2.0"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "b_yx = [n*sum(XY) - sum(X)*sum(Y)] / [n*sum(X^2) - (sum(X))^2] = [10*430 - 50*80] / [10*290 - 2500] = [4300 - 4000] / [2900 - 2500] = 300/200 = 1.5."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "1.2 results from computing sum(XY)/sum(X^2) = 430/290 = 1.483, then rounding down, i.e., omitting the correction for the means in the numerator and denominator."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "0.8 arises from inverting the formula and computing b_xy = [n*sum(XY) - sum(X)*sum(Y)] / [n*sum(Y^2) - (sum(Y))^2] but using sum(X^2) in the denominator position, yielding 300/... after mis-assignment of X and Y."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "2.0 results from mistakenly computing the numerator as 4300 - 4000 = 300 but halving the denominator to 150 through a factor-of-2 slip."
+    }
+  ],
+  "explanation": "The formula for the regression coefficient of Y on X is b_yx = [n*sum(XY) - sum(X)*sum(Y)] / [n*sum(X^2) - (sum(X))^2]. Substituting: numerator = 10*430 - 50*80 = 4300 - 4000 = 300; denominator = 10*270 - 50^2 = 2700 - 2500 = 200. So b_yx = 300/200 = 1.5.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The regression slope of Y on X uses the corrected cross-product formula; the denominator is the corrected sum of squares of X, not of Y.",
+    "approach": "Formula-selection: identify b_yx (Y regressed on X). Formula: b_yx = [n*sum(XY) - sum(X)*sum(Y)] / [n*sum(X^2) - (sum(X))^2]. Map givens: n=10, sum(XY)=430, sum(X)=50, sum(Y)=80, sum(X^2)=270. Numerator = 300, denominator = 200, slope = 1.5.",
+    "lesson": "For b_yx, the denominator always involves sum(X^2) and sum(X) only; sum(Y) appears only in the numerator.",
+    "timing": "60 seconds. Trap: using sum(XY)/sum(X^2) directly without correction for means gives a different number."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000425",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000425.py"
+  },
+  "tests": [
+    "qa.bmath.finance.nominal_real_return"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "Arjun invested Rs 50,000 for 2 years. His investment earned a nominal return of 10% in year 1 and 12% in year 2. Inflation was 4% in year 1 and 7% in year 2. Using the Fisher equation applied separately to each year, what is the cumulative real return over the 2-year period (to the nearest 0.01%)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "10.71%"
+    },
+    {
+      "key": 2,
+      "text": "10.44%"
+    },
+    {
+      "key": 3,
+      "text": "11.92%"
+    },
+    {
+      "key": 4,
+      "text": "11%"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Year 1 real factor: 1.10/1.04 = 1.05769; Year 2 real factor: 1.12/1.07 = 1.04673. Cumulative: 1.05769 x 1.04673 - 1 = 10.71%."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Added the two annual real returns (5.77% + 4.67% = 10.44%) without compounding them multiplicatively, underestimating by ignoring the cross-product of real factors."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Subtracted compound inflation from compound nominal: (1.10 x 1.12 - 1) - (1.04 x 1.07 - 1) = 23.2% - 11.28% = 11.92%, applying simple subtraction to compound factors."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "rate_period_mismatch",
+      "rationale": "Took simple year-by-year differences (10% - 4%) + (12% - 7%) = 6% + 5% = 11% without applying the Fisher equation or compounding, treating each year as additive."
+    }
+  ],
+  "explanation": "Apply Fisher to each year: r_real_yr1 = 1.10/1.04 - 1 = 5.769%; r_real_yr2 = 1.12/1.07 - 1 = 4.673%. Compound the real factors: cumulative = (1.05769)(1.04673) - 1 = 1.10712 - 1 = 10.71%. Never add real returns; compound the (1 + r_real) factors.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Two-phase real returns must be compounded as growth factors, not added as percentages.",
+    "approach": "Formula: apply r_real_yr = (1 + r_nom_yr)/(1 + r_inf_yr) - 1 for each year. Then cumulative = (1 + r1_real)(1 + r2_real) - 1. Year 1: 1.10/1.04 = 1.05769; Year 2: 1.12/1.07 = 1.04673. Product = 1.10712. Cumulative real return = 10.71%.",
+    "lesson": "Always compound real growth factors multiplicatively; summing annual real returns ignores the compounding cross-product.",
+    "timing": "120 seconds. Two Fisher divisions then one multiplication. The trap options are additive (option 4), non-compounded sum (option 2), and compound nominal minus inflation (option 3)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

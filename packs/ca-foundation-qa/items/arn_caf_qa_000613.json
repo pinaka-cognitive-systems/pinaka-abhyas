@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000613",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000613.py"
+  },
+  "tests": [
+    "qa.lr.direction_tests"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "Ravi starts facing North. He turns 90 degrees clockwise, then walks 5 km. He then turns 90 degrees clockwise again and walks 3 km. Which direction is he now facing?",
+  "options": [
+    {
+      "key": 1,
+      "text": "South"
+    },
+    {
+      "key": 2,
+      "text": "East"
+    },
+    {
+      "key": 3,
+      "text": "West"
+    },
+    {
+      "key": 4,
+      "text": "North"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "North -> turn 90 CW -> East -> turn 90 CW -> South. Ravi faces South after two clockwise 90-degree turns from North."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "direction_turn_error",
+      "rationale": "Applying only the first clockwise turn (North -> East) and ignoring the second turn gives East."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Turning counter-clockwise instead of clockwise from North gives West, omitting the correct turn direction."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Counting two 90-degree turns as a full 360-degree rotation returns the person to North, an arithmetic slip on cumulative angle."
+    }
+  ],
+  "explanation": "Starting North, each 90-degree clockwise turn shifts: North -> East -> South. After two such turns Ravi faces South.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Two consecutive clockwise quarter-turns from North land you facing South.",
+    "approach": "Apply clues most-certain-first: track facing direction after each turn. Turn 1: North + 90 CW = East. Turn 2: East + 90 CW = South. Distance walked is irrelevant to the final facing direction.",
+    "lesson": "Each 90-degree clockwise turn advances facing direction by one step in the sequence N -> E -> S -> W -> N.",
+    "timing": "Under 30 seconds. The trap is confusing clockwise with counter-clockwise at the second turn, landing on West."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

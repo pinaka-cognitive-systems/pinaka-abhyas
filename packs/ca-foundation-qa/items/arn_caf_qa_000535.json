@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000535",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000535.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.limits"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "A student evaluates lim(x -> 3) of (x^2 - 9) / (x - 3). Which of the following is the correct value of this limit?",
+  "options": [
+    {
+      "key": 1,
+      "text": "3"
+    },
+    {
+      "key": 2,
+      "text": "6"
+    },
+    {
+      "key": 3,
+      "text": "9"
+    },
+    {
+      "key": 4,
+      "text": "0"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Substituting x = 3 into only the numerator factor (x - 3) / (x - 3) and reading x = 3 gives 3 instead of evaluating the full factored expression."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Factor the numerator: x^2 - 9 = (x - 3)(x + 3). Cancel (x - 3) to get (x + 3). As x -> 3, the limit equals 3 + 3 = 6."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Squaring the limit point directly: 3^2 = 9, ignoring the denominator factor and the cancellation step."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Treating the 0/0 indeterminate form as having value 0 without applying factorization and cancellation."
+    }
+  ],
+  "explanation": "Factoring reveals the removable discontinuity and gives the true limiting value of 6.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "Factor and cancel the common (x - 3) term; the limit equals x + 3 evaluated at x = 3, which is 6.",
+    "approach": "Identify the model: the 0/0 form signals a removable factor. Factor the numerator x^2 - 9 = (x - 3)(x + 3), cancel the (x - 3) that causes the indeterminate form, and substitute x = 3 in the remaining expression x + 3 to get 6.",
+    "lesson": "Whenever direct substitution gives 0/0, factor out the offending term and cancel before substituting.",
+    "timing": "30-45 seconds. The trap is reading 3^2 = 9 directly. Factoring takes 10 seconds."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

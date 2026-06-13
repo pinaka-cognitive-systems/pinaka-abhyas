@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000935",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000935.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.graphical"
+  ],
+  "difficulty_label": "L2",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 165,
+  "stem": "A histogram is drawn for classes of unequal width: 0-10, 10-30, 30-40, 40-70, 70-80. Because the widths differ, the y-axis plots frequency DENSITY (frequency per unit width), and the bar heights read 2, 3, 5, 1, 4 respectively. What is the total number of observations represented?",
+  "options": [
+    {
+      "key": 1,
+      "text": "15"
+    },
+    {
+      "key": 2,
+      "text": "150"
+    },
+    {
+      "key": 3,
+      "text": "220"
+    },
+    {
+      "key": 4,
+      "text": "200"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Reads the bar heights 2, 3, 5, 1, 4 directly as the class frequencies and sums them to 15, assuming equal-width bars. With unequal widths the height is a density, so each must be multiplied by its width.",
+      "misconception": "concept_definition_confused"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Assumes every class has the same width 10 and multiplies each density by 10: (2+3+5+1+4)*10 = 150. The classes 10-30 and 40-70 are wider, so a uniform width understates the total.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Misreads the width of class 40-70 as 50 instead of 30: 2*10 + 3*20 + 5*10 + 1*50 + 4*10 = 220. The width of 40-70 is 30.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "Frequency = density * width: 2*10 + 3*20 + 5*10 + 1*30 + 4*10 = 20 + 60 + 50 + 30 + 40 = 200."
+    }
+  ],
+  "explanation": "On an unequal-width histogram the bar height is frequency density (frequency per unit width), so frequency = density * width, computed class by class. Widths are 10, 20, 10, 30, 10; frequencies are 20, 60, 50, 30, 40; total = 200. Reading the heights as frequencies (equal-width assumption) gives only 15, and applying a uniform width of 10 gives 150.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "On an unequal-width histogram the height is density, so frequency = density * width per class: 2*10 + 3*20 + 5*10 + 1*30 + 4*10 = 200, not the bare sum of heights.",
+    "approach": "Model: frequency recovery from a density histogram with unequal class widths. Assumption: bar area, not height, equals frequency, so each frequency = height * width. Recipe in four steps. (1) Compute each width: 10, 20, 10, 30, 10. (2) Multiply each density by its width: 20, 60, 50, 30, 40. (3) These are the class frequencies. (4) Total = 20 + 60 + 50 + 30 + 40 = 200.",
+    "lesson": "When class widths are unequal, a histogram plots frequency density; recover each frequency as density times width (area of the bar), never read the height as the frequency.",
+    "timing": "About 145 seconds: five width-times-height products and one sum. Reject 15 instantly: it is the sum of the heights, which only works when every class width is equal."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

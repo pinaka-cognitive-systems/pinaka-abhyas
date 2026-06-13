@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000806",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000806.py"
+  },
+  "tests": [
+    "qa.stats.probability.random_variable"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "A discrete random variable X has the following PMF: P(X=1)=0.15, P(X=2)=0.25, P(X=3)=0.35, P(X=4)=0.25. What is the value of F(3), the cumulative distribution function at X = 3?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.75"
+    },
+    {
+      "key": 2,
+      "text": "0.35"
+    },
+    {
+      "key": 3,
+      "text": "1.00"
+    },
+    {
+      "key": 4,
+      "text": "0.40"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "F(3) = P(X <= 3) = P(X=1) + P(X=2) + P(X=3) = 0.15 + 0.25 + 0.35 = 0.75."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "0.35 is only P(X=3), the PMF value at 3, not the CDF which accumulates all values up to and including 3."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "1.00 equals F(4), the CDF at the maximum value; the student applies the cumulative sum all the way to X=4 instead of stopping at X=3."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "0.40 arises from summing only P(X=1) + P(X=2) = 0.15 + 0.25 = 0.40, omitting P(X=3) from the accumulation."
+    }
+  ],
+  "explanation": "The CDF F(x) = P(X <= x) accumulates all PMF values from the smallest value up to and including x. F(3) = P(X=1) + P(X=2) + P(X=3) = 0.15 + 0.25 + 0.35 = 0.75.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "CDF is a running total up to and including the argument: F(3) = 0.15 + 0.25 + 0.35 = 0.75.",
+    "approach": "Identify model: discrete CDF from PMF table. Decisive move: F(x) = sum of P(X=k) for all k <= x. Accumulate: F(1)=0.15, F(2)=0.40, F(3)=0.75, F(4)=1.00. Read off F(3).",
+    "lesson": "The CDF at point x is a cumulative sum; the PMF at x is a single probability. Do not confuse them.",
+    "timing": "40 seconds. Sum 0.15+0.25+0.35=0.75. Trap: reporting only 0.35 which is just the PMF, not the CDF."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

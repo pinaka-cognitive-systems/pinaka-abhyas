@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000479",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000479.py"
+  },
+  "tests": [
+    "qa.bmath.sequence_series.ap"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "Three partners A, B, and C invest in a business such that their investments are in arithmetic progression. The total investment is Rs 1,80,000 and B's investment exceeds A's by Rs 15,000. If the annual profit is Rs 72,000, what is C's share of the profit?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 30,000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 36,000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 24,000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 40,000"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "d=15000. The three investments are A=a, B=a+15000, C=a+30000. Sum = 3a+45000=180000, so a=45000. Investments: 45000:60000:75000 = 3:4:5. C's share = 5/12*72000 = 30000."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Assumes the investments are in ratio 1:2:3 (an AP starting from 1 with d=1) rather than computing d from the given data. With ratio 1:2:3 and total 6 parts, C's share = 3/6*72000 = 36000."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Divides profit equally among three partners ignoring the AP investment structure: 72000/3 = 24000, the same as B's share (coincidentally), but chosen via the wrong method of equal division."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Correctly finds the ratio 3:4:5 but uses a wrong total of 9 parts (3+4+5=12 is correct, but mistakenly adds as 9): C's share = 5/9*72000 = 40000."
+    }
+  ],
+  "explanation": "With common difference d=15000, investments are 45000, 60000, 75000 in ratio 3:4:5 (sum of parts=12). C's profit share = 5/12 * 72000 = Rs 30,000.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The AP structure converts to a ratio; the sum-of-parts is 3+4+5=12, not 9.",
+    "approach": "Step 1: d = B - A = 15000. Step 2: A + (A+15000) + (A+30000) = 180000, so A=45000. Step 3: Ratio 45:60:75 = 3:4:5, sum=12. Step 4: C's share = 5/12 * 72000 = 30000.",
+    "lesson": "In partnership problems where investments form an AP, first recover the three amounts, then form ratios and compute the correct denominator (sum of all parts).",
+    "timing": "60-80 seconds. Two-step setup (find d and a) before ratio computation. Common trap: adding ratio parts as 3+4+5=9 instead of 12."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

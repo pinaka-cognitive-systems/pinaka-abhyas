@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000659",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000659.py"
+  },
+  "tests": [
+    "qa.lr.blood_relations"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 85,
+  "stem": "Five clues describe a family: (i) Arun is the father of Binu. (ii) Chetna is the sister of Binu. (iii) Dina is the mother of Chetna. (iv) Elan is the son of Dina's husband's brother. (v) Elan has no siblings. Who is Elan's aunt?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Chetna"
+    },
+    {
+      "key": 2,
+      "text": "Dina"
+    },
+    {
+      "key": 3,
+      "text": "There is no aunt in the given family"
+    },
+    {
+      "key": 4,
+      "text": "Binu"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Dina's husband is Arun (he is Binu's father and Chetna is Binu's sister). Arun's brother's son = Elan. Arun's children are Binu and Chetna. Chetna is a sister of Binu and a sibling of Elan's father's brother (Arun) => Chetna is Elan's paternal aunt."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Dina is Arun's wife (Elan's uncle-by-reference's sister-in-law). Dina is in the parent generation but is not a sibling of Elan's father; she is the wife of a different sibling group. Making Dina aunt conflates wife-of-uncle with aunt."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "There is an aunt in the family: Chetna is Arun's daughter and therefore the sister of Elan's father's brother Arun, making Chetna Elan's aunt. Dismissing this ignores the sibling link between Chetna and Arun."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "kinship_gender_error",
+      "rationale": "Binu is Arun's child but the problem does not specify Binu's gender. If Binu is male, he is Elan's uncle, not aunt. Chetna (confirmed female as 'sister of Binu') is the correct female sibling of Arun's branch, making Chetna the aunt."
+    }
+  ],
+  "explanation": "From clues i-iii: Arun is father of Binu; Chetna is Binu's sister; Dina is Chetna's mother => Dina is Arun's wife. From clue iv: Elan is the son of Dina's husband's brother = son of Arun's brother. From clue v: Elan has no siblings. Arun's children are Binu and Chetna. Chetna is a female sibling of Arun's brother (they share parents). Therefore Chetna is Elan's paternal aunt.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Identifying Dina's husband as Arun unlocks the chain: Arun's daughter Chetna is the sister of Elan's father, making Chetna Elan's aunt.",
+    "approach": "Apply clues most-certain-first: clue iii (Dina is Chetna's mother) + clue i (Arun is Binu's father) + clue ii (Chetna is Binu's sister) => Dina is Arun's wife. Then clue iv: Elan = son of Arun's brother. Arun's daughter Chetna is Elan's father's sister = Elan's aunt.",
+    "lesson": "The sibling of your parent is your uncle or aunt. When a problem gives you all siblings of a parent, check gender to identify uncle vs aunt.",
+    "timing": "About 70-80 seconds. First identify Arun as Dina's husband (the critical unlock). Then the aunt follows automatically as Arun's daughter Chetna. Trap is option 2 (Dina) from confusing wife-of-uncle with aunt."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

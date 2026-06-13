@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000746",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000746.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mean_deviation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A shopkeeper recorded daily sales (in units) over six days: 14, 22, 18, 26, 10, 30. Calculate the mean deviation about the median.",
+  "options": [
+    {
+      "key": 1,
+      "text": "6"
+    },
+    {
+      "key": 2,
+      "text": "5.67"
+    },
+    {
+      "key": 3,
+      "text": "20"
+    },
+    {
+      "key": 4,
+      "text": "8"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Sorted: 10, 14, 18, 22, 26, 30. Median = (18+22)/2 = 20. Deviations: |10-20|=10, |14-20|=6, |18-20|=2, |22-20|=2, |26-20|=6, |30-20|=10. Sum=36. MD = 36/6 = 6."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "Student uses the mean (20) as the base but then divides sum of deviations 34 by 6 due to arithmetic error, or computes MD about mean = (6+2+2+2+6+16)/6 wrong."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student reports the median value (20) instead of the mean deviation about the median."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student computes sum of deviations as 48 (adding an extra 12 from misreading 14 as 8) and gets MD = 48/6 = 8."
+    }
+  ],
+  "explanation": "Mean deviation about the median requires first identifying the median correctly for even n, then computing absolute deviations from that median.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The setup decision is computing the median of an even-n dataset correctly as the average of the two middle values.",
+    "approach": "Step 1: Sort data: 10, 14, 18, 22, 26, 30. Step 2: n=6 (even), median = (3rd + 4th)/2 = (18+22)/2 = 20. Step 3: absolute deviations from 20: 10, 6, 2, 2, 6, 10. Step 4: MD = 36/6 = 6.",
+    "lesson": "For even n, the median is the mean of the two central values; always sort before identifying the median in an unordered list.",
+    "timing": "About 75 seconds. Sorting 6 values is quick; the deviations are symmetric once the median is found."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

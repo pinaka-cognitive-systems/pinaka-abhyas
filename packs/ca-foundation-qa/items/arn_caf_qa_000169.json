@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "Marginal cost is the derivative of total cost. MC = d(TC)/dq = 6q² - 12q + 10. Substituting q = 2: MC = 6(4) - 12(2) + 10 = 24 - 24 + 10 = 10.",
+  "explanation_kind": "derivation",
   "explanation_sections": {
-    "punchline": "Marginal cost is dTC/dq, not TC/q. Differentiate first, then substitute q = 2 to get 24 - 24 + 10 = 10.",
-    "approach": "Cost-function calculus problems require you to identify which concept is asked: marginal cost means the derivative of TC, average cost means TC/q. Differentiate the full TC function term by term. Then substitute the given q value. Do not substitute first and then divide.",
-    "lesson": "Marginal cost = d(TC)/dq. Average cost = TC/q. These are not the same. Differentiate to find marginal; divide to find average.",
-    "timing": "About 120 seconds. Differentiation takes 30 seconds, substitution takes 30 seconds. Eliminate option 31 in five seconds: that is the average cost at q = 2, not the marginal cost."
+    "punchline": "Marginal cost is d(TC)/dq, not TC/q. The implicit trap is that most students compute TC(2) = 31 first and then either report it or divide - both wrong moves. Differentiate TC symbolically, then substitute q = 2.",
+    "approach": "The decisive move: identify MC = d(TC)/dq before touching any numbers. Do not evaluate TC at q=2 first - that path leads to the average-cost trap. Differentiate TC = 2q^3 - 6q^2 + 10q + 50 term by term: MC = 6q^2 - 12q + 10. Now substitute q = 2: 6(4) - 12(2) + 10 = 24 - 24 + 10 = 10. The trap: TC(2) = 2(8) - 6(4) + 10(2) + 50 = 16 - 24 + 20 + 50 = 62. Dividing by 2 gives average cost = 31, which is option 1.",
+    "lesson": "Marginal cost = d(TC)/dq. Average cost = TC/q. The two concepts share a cubic setup here specifically to make the average-cost trap tempting. Always differentiate first for marginal values.",
+    "timing": "About 90 seconds. Differentiation 30 seconds, substitution 20 seconds. Eliminate 31 first: computing TC(2)/2 = 31 is the average cost, not the marginal cost. Eliminate 24: that uses only the first term of MC."
   },
   "empirical": {
     "calibration_status": "none",

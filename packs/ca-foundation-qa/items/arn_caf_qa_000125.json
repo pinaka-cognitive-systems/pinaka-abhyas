@@ -19,6 +19,7 @@
     "qa.stats.probability.expectation"
   ],
   "difficulty_label": "L2",
+  "explanation_kind": "model_compute",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 90,
@@ -71,10 +72,10 @@
   ],
   "explanation": "1. Expected value = sum of (value × probability) across all outcomes.\n2. KEY STEP: E = 1,000 × (1/10) + 200 × (3/10) + 0 × (6/10) = 100 + 60 = 160.\n3. Every outcome, including 'no prize' (value = 0), must be included.\n4. Ignoring either prize term, or misassigning probabilities, gives a wrong total.",
   "explanation_sections": {
-    "punchline": "Expected value is the weighted sum of all outcomes. Each prize is weighted by its own probability. E = 100 + 60 + 0 = 160.",
-    "approach": "List every outcome and its probability. Multiply each value by its probability. Sum all the products. Include the zero-value outcome: it contributes zero to the sum but its probability must be accounted for. Verify that all probabilities add to 1 before starting.",
-    "lesson": "Every outcome in the probability distribution must appear in the expected value sum. Partial sums, such as computing only the top prize contribution, give a result that is too small.",
-    "timing": "About 90 seconds. Two multiplications take 20 seconds each. One addition takes 10 seconds. Eliminate option (4) in five seconds because 100 is only the first term and does not include the Rs 200 prize contribution."
+    "punchline": "Expected value = sum of (value x probability) over every outcome including zero-prize outcomes. Here 1000 x (1/10) + 200 x (3/10) + 0 x (6/10) = 100 + 60 + 0 = 160.",
+    "approach": "Identify the model: discrete expected value. Assumption: mutually exclusive outcomes with probabilities summing to 1 (check: 1/10 + 3/10 + 6/10 = 1). Recipe: list all outcomes and their values, multiply each value by its probability, sum all products. The zero-prize term contributes zero but must be present to confirm the probability distribution is complete. The method fails if you compute only a subset of terms.",
+    "lesson": "Every outcome must be included, even the zero-value one. Options 3 (= 60) and 4 (= 100) are both partial sums: exactly one term each. They are the 'computed part of the sum' trap that appears whenever there are three or more outcomes.",
+    "timing": "90 seconds. Verify probabilities sum to 1 in 10 seconds. Two non-zero multiplications take 20 seconds each. Addition in 5 seconds. Kill option 4 (100) first: it is just 1000 x 1/10, the top-prize term alone."
   },
   "empirical": {
     "calibration_status": "none",

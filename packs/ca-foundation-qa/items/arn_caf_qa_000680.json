@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000680",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000680.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.graphical"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "A less-than ogive is drawn for a distribution of 80 observations. From the ogive, the cumulative frequency at the value 45 is read as 60, and at the value 25 is read as 20. How many observations fall in the class interval 25-45?",
+  "options": [
+    {
+      "key": 1,
+      "text": "40"
+    },
+    {
+      "key": 2,
+      "text": "60"
+    },
+    {
+      "key": 3,
+      "text": "20"
+    },
+    {
+      "key": 4,
+      "text": "35"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Observations in 25-45 = CF at 45 minus CF at 25 = 60 - 20 = 40."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reading the cumulative frequency at the upper value (60) directly as the class count, instead of taking the difference."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reading the cumulative frequency at the lower value (20) directly as the class count."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computing 60 - 20 = 40 correctly but then subtracting 5 erroneously to arrive at 35."
+    }
+  ],
+  "explanation": "From a less-than ogive, the count of observations in any interval [a, b] = CF(b) - CF(a). Here CF(45) = 60 and CF(25) = 20, so count = 60 - 20 = 40.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Class count from ogive = CF at upper boundary - CF at lower boundary = 60 - 20 = 40.",
+    "approach": "Identify the model: reading an ogive to recover a class frequency. Decisive move: locate the two boundary values on the x-axis, read the y-values (cumulative frequencies), and subtract. CF(45) = 60, CF(25) = 20. Difference = 40.",
+    "lesson": "The less-than ogive gives cumulative frequencies. To find the count in any interval, always take the difference of the two boundary cumulative frequencies.",
+    "timing": "20 seconds. One subtraction: 60 - 20 = 40. Trap: option 2 (60) is the raw CF value at the upper end, not the class count."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

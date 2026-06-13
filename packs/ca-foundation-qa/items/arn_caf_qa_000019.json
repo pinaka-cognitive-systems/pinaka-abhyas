@@ -11,10 +11,10 @@
     "path": "solutions/arn_caf_qa_000019.py"
   },
   "tests": ["qa.stats.probability.addition_theorem"],
-  "difficulty_label": "L2",
+  "difficulty_label": "L1",
   "taxonomy_version": 4,
   "item_type": "single_best",
-  "expected_seconds": 75,
+  "expected_seconds": 45,
   "stem": "In a survey of students in a school, the probability that a randomly selected student plays chess is 0.30, the probability of playing carrom is 0.50, and the probability of playing both games is 0.20. What is the probability that the student plays chess or carrom (or both)?",
   "options": [
     { "key": 1, "text": "0.20" },
@@ -48,12 +48,13 @@
       "misconception": "complement_confusion"
     }
   ],
-  "explanation": "The addition theorem gives P(A union B) = P(A) + P(B) - P(A intersection B). Substituting: 0.30 + 0.50 - 0.20 = 0.60. The events are not independent (0.30 * 0.50 = 0.15, which differs from the given 0.20), so assuming independence yields the wrong overlap.",
+  "explanation": "The addition theorem gives P(A union B) = P(A) + P(B) - P(A intersection B). All three inputs are given directly: 0.30 + 0.50 - 0.20 = 0.60. No model identification is needed; the formula is fully specified by the question.",
+  "explanation_kind": "model_compute",
   "explanation_sections": {
-    "punchline": "P(chess OR carrom) = P(chess) + P(carrom) - P(both) = 0.30 + 0.50 - 0.20 = 0.60. The addition theorem subtracts the overlap once.",
-    "approach": "When a question gives P(A), P(B), and P(A and B) and asks for P(A or B), apply the addition theorem directly: P(A or B) = P(A) + P(B) - P(A and B). Do not assume independence unless the problem states it. If independence were stated, you would compute P(A and B) = P(A) * P(B) yourself; here it is given, so use the given value.",
-    "lesson": "Always use the given P(A and B) in the addition theorem. Computing it from the product P(A)*P(B) is only valid when independence is explicitly stated.",
-    "timing": "About 75 seconds. Plug the three numbers into the formula in under 30 seconds. Use the remaining time to check that you subtracted the overlap, not added it."
+    "punchline": "All three inputs are handed to you. One substitution: 0.30 + 0.50 - 0.20 = 0.60.",
+    "approach": "When a question gives P(A), P(B), and P(A and B) and asks for P(A or B), write the addition theorem directly: P(A or B) = P(A) + P(B) - P(A and B). Substitute the given values without modification. Do not recompute P(A and B) as P(A) x P(B): that product applies only when the problem states independence, and it gives 0.15 here, which contradicts the given 0.20.",
+    "lesson": "Use the given P(A and B) value exactly as stated. Recomputing it as a product assumes independence, which may not hold. The problem tells you the overlap; trust it.",
+    "timing": "About 30 seconds. One formula, three numbers. Eliminate option 0.65 in five seconds: it uses 0.15 as the overlap (the independence product), ignoring the given 0.20."
   },
   "empirical": { "calibration_status": "none", "n_responses": 0 },
   "ext": { "icai_skill_bucket": "application" }

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000570",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000570.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.coding_decoding"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 85,
+  "stem": "In a coding system, a word is first written in reverse and then each letter of the reversed word is shifted one place forward in the alphabet. For example, CLAP is first reversed to PALC and then coded as QBMD. Using the same system, what is the code for BRING?",
+  "options": [
+    {
+      "key": 1,
+      "text": "HOJSC"
+    },
+    {
+      "key": 2,
+      "text": "CSJOH"
+    },
+    {
+      "key": 3,
+      "text": "IPKTD"
+    },
+    {
+      "key": 4,
+      "text": "GNIRB"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Reverse BRING to get GNIRB, then shift each letter +1: G->H, N->O, I->J, R->S, B->C, giving HOJSC."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "Shifting each letter of BRING by +1 without reversing first gives B->C, R->S, I->J, N->O, G->H = CSJOH. The reversal step was skipped."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Reversing BRING to GNIRB and then shifting +2 instead of +1 gives H->I, N->P, I->J, R->T, B->D... actually GNIRB+2 = IPKTD. Wrong shift magnitude."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "Only reversing BRING to GNIRB without applying the +1 shift gives GNIRB. The shift step was omitted."
+    }
+  ],
+  "explanation": "Two-step process: (1) reverse the word, (2) shift each letter +1. BRING reversed = GNIRB. Shifting each letter of GNIRB by +1: G->H, N->O, I->J, R->S, B->C = HOJSC. Verify with CLAP: reversed PALC, +1 gives Q,B,M,D = QBMD (matches the example).",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The two steps must both be applied in the correct order: reverse first, then shift.",
+    "approach": "Deductive trace: the example confirms the order unambiguously (CLAP -> PALC -> QBMD). Apply the same sequence to BRING: write GNIRB, then add 1 to each letter's alphabet position.",
+    "lesson": "When a code has two sequential operations, always verify their order from the given example before applying to the unknown word.",
+    "timing": "About 75-85 seconds. Fastest elimination: CSJOH is BRING+1 with no reversal - check whether the last letter of HOJSC is C (=B+1), confirming the reversal happened."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

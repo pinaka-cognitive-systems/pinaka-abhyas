@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000878",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2_fix",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000878.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.construction"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "For a single commodity, the base-year price is Rs 40 and the current-year price is Rs 52. What is the price relative for this commodity?",
+  "options": [
+    {
+      "key": 1,
+      "text": "130"
+    },
+    {
+      "key": 2,
+      "text": "77"
+    },
+    {
+      "key": 3,
+      "text": "12"
+    },
+    {
+      "key": 4,
+      "text": "92"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Price relative = (current price / base price) * 100 = (52/40) * 100 = 1.30 * 100 = 130."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Inverted the ratio: (40/52) * 100 = 76.9, rounded to 77. This computes the base-year price relative to the current year instead of the other way around."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Took the absolute difference 52 - 40 = 12 instead of the ratio, confusing a price change with a price relative."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "percentage_base_confusion",
+      "rationale": "Computed percentage increase over current price: (52-40)/52 * 100 = 12/52 * 100 = 23.1, then added to base of 100 giving approx 123, or separately used (52-40)/40 * 100 = 30 and made an arithmetic slip resulting in 92."
+    }
+  ],
+  "explanation": "Price relative = (p1/p0) * 100 where p1 = current-year price and p0 = base-year price. Here: (52/40) * 100 = 130.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "A price relative expresses current price as a percentage of the base-year price: (p1/p0)*100.",
+    "approach": "Name the formula: price relative = (p1/p0)*100. Map givens: p0=40, p1=52. Compute: 52/40=1.3; multiply by 100 to get 130.",
+    "lesson": "A price relative above 100 means the price has risen; below 100 means it fell. Never invert the ratio (that gives the base relative to current, not the index).",
+    "timing": "About 30 seconds. Straightforward division and multiplication. Trap: inverting the ratio to get approx 77."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

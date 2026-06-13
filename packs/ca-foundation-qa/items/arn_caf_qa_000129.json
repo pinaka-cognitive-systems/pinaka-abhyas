@@ -18,7 +18,8 @@
   "tests": [
     "qa.stats.distributions.binomial"
   ],
-  "difficulty_label": "L3",
+  "difficulty_label": "L2",
+  "explanation_kind": "model_compute",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 120,
@@ -71,10 +72,10 @@
   ],
   "explanation": "1. Direct addition of all cases with one or more sixes is tedious. Use the complement.\n2. P(no six in 4 rolls) = (3/4)^4 = 81/256.\n3. KEY STEP: P(at least one six) = 1 - 81/256 = 175/256.\n4. The complement method is the efficient route for 'at least one' binomial problems.",
   "explanation_sections": {
-    "punchline": "The complement of \"at least one six\" is \"no six at all\", and (3/4)^4 = 81/256, so the answer is 1 minus 81/256 = 175/256.",
-    "approach": "Whenever a stem says \"at least one\", reach for the complement immediately. Compute P(zero successes) = q^n first. Then subtract from 1. Counting each case with one or more successes separately takes far longer and risks missing a case.",
-    "lesson": "\"At least one\" always means 1 minus P(none). Learn this reflex and apply it before writing anything else.",
-    "timing": "About 120 seconds. You can reject option (1) in under 10 seconds: (1/4)^4 is the probability of all four rolls showing a six, not at least one. Compute (3/4)^4 = 81/256 and subtract from 256/256."
+    "punchline": "\"At least one\" is fastest solved by complement. P(no six in 4 rolls) = (3/4)^4 = 81/256, so P(at least one) = 1 - 81/256 = 175/256.",
+    "approach": "Model: Binomial(n=4, p=1/4). Assumptions: rolls are independent; p is given as 1/4. Decisive move for any 'at least one' question: compute P(X=0) = q^n instead of summing all cases with X >= 1. Here q = 3/4, so P(X=0) = (3/4)^4 = 81/256. Subtract from 1 to get the answer. Summing P(X=1)+P(X=2)+P(X=3)+P(X=4) directly gives the same result but takes four times as long.",
+    "lesson": "\"At least one\" always translates to 1 - P(none). Apply this reflex immediately: write q^n, subtract from 1, done. Trying to count each success case individually is the slow path and wastes exam time.",
+    "timing": "60-90 seconds. Reject option (1) = 1/256 in 5 seconds: that is (1/4)^4, the probability of all four rolls showing a six. Reject option (3) = 81/256 in 5 seconds: that is P(no six), the complement you computed, not the event asked."
   },
   "empirical": {
     "calibration_status": "none",

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000553",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000553.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.number_series"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "What is the next term in the series: 3, 6, 9, 12, ?",
+  "options": [
+    {
+      "key": 1,
+      "text": "14"
+    },
+    {
+      "key": 2,
+      "text": "15"
+    },
+    {
+      "key": 3,
+      "text": "16"
+    },
+    {
+      "key": 4,
+      "text": "18"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Adding 2 instead of 3 gives 14, a slip in identifying the common difference."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "The series increases by 3 each time: 3, 6, 9, 12. The next term is 12 + 3 = 15."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Adding 4 instead of 3 gives 16, a slip in the common difference."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Treating the series as doubling from 12 gives 24 or mistaking it as multiples of 6 gives 18, a pattern misidentification."
+    }
+  ],
+  "explanation": "The series 3, 6, 9, 12 is an arithmetic progression with first term 3 and common difference 3. Each term is a multiple of 3. The fifth term is 3 x 5 = 15.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Each consecutive difference is exactly 3, making this a pure AP with d = 3.",
+    "approach": "Apply clues most-certain-first: compute differences 6-3=3, 9-6=3, 12-9=3; the constant difference identifies an AP. Next term = last term + d = 12 + 3 = 15.",
+    "lesson": "Always verify the pattern by computing all consecutive differences before applying it forward.",
+    "timing": "15 seconds. Compute two differences to confirm AP, then add d to last term. Trap: doubling the last term (gives 24) or misreading d as 4."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

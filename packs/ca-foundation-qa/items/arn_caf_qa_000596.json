@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000596",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000596.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.odd_man_out"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "Four coded pairs are given. In three of them the coding follows the same rule; in one it does not. Find the odd one out: BEH-DGJ, CFI-EHK, DGJ-FIL, EGI-GIK.",
+  "options": [
+    {
+      "key": 1,
+      "text": "BEH-DGJ"
+    },
+    {
+      "key": 2,
+      "text": "CFI-EHK"
+    },
+    {
+      "key": 3,
+      "text": "DGJ-FIL"
+    },
+    {
+      "key": 4,
+      "text": "EGI-GIK"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "BEH: B=2, E=5, H=8 (gaps 3,3). DGJ: D=4, G=7, J=10 (gaps 3,3). Each letter of BEH is shifted by +2 to get DGJ (B+2=D, E+2=G, H+2=J). Rule: shift each letter of the first group by 2 positions forward. Pair is consistent."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "CFI: C=3, F=6, I=9 (gaps 3,3). EHK: E=5, H=8, K=11 (gaps 3,3). Each letter shifted by +2 (C+2=E, F+2=H, I+2=K). Consistent with rule."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "DGJ: D=4, G=7, J=10 (gaps 3,3). FIL: F=6, I=9, L=12 (gaps 3,3). Each letter shifted by +2. Consistent with rule."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "EGI: E=5, G=7, I=9 (gaps 2,2 - not 3,3). GIK: G=7, I=9, K=11 (gaps 2,2). While the internal gap in GIK (2) matches EGI (2), the first group EGI does not follow the three-step pattern (gaps of 3) used in all other first-group triplets. The other first-group triplets all have internal gap 3 (BEH, CFI, DGJ), but EGI has internal gap 2. So EGI-GIK is the odd one out."
+    }
+  ],
+  "explanation": "In the first three pairs, both groups have letters spaced 3 apart (e.g., BEH gaps: 3,3; DGJ gaps: 3,3) AND the second group is the first group each shifted by +2. In EGI-GIK, the internal spacing is 2 (not 3), breaking the triple-step pattern. EGI-GIK is the odd one out.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The first three pairs have internal letter-spacing of 3; EGI-GIK has internal spacing of 2.",
+    "approach": "Apply clues most-certain-first: compute internal gaps of the first group in each pair. BEH: gaps 3,3. CFI: gaps 3,3. DGJ: gaps 3,3. EGI: gaps 2,2. The pair whose first group breaks the three-step spacing rule is EGI-GIK.",
+    "lesson": "In coded-pair odd-man-out, verify both the internal spacing of each group AND the shift between groups. A single inconsistency in either level identifies the outlier.",
+    "timing": "About 70 seconds. Trap: the second group in the outlier pair (GIK) also has internal gap 2, which is self-consistent, so students may not notice the problem unless they compare against the other first groups."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

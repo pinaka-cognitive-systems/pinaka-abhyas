@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000540",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000540.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.continuity"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 140,
+  "stem": "A function f is defined for all real x as follows: f(x) = (x^3 - 8) / (x^2 - 4) when x is not equal to 2, and f(2) = c. It is also known that f(-2) = -3. For f to be continuous at x = 2, which value of c is required?",
+  "options": [
+    {
+      "key": 1,
+      "text": "c = 2"
+    },
+    {
+      "key": 2,
+      "text": "c = 3"
+    },
+    {
+      "key": 3,
+      "text": "c = 4"
+    },
+    {
+      "key": 4,
+      "text": "c = 6"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reads the limit point x = 2 directly as the answer without evaluating the limit of the simplified expression (x^2+2x+4)/(x+2) at x = 2."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Factor: x^3 - 8 = (x-2)(x^2+2x+4) and x^2-4 = (x-2)(x+2). Cancel (x-2). For x approaching 2: limit = (4+4+4)/(2+2) = 12/4 = 3. Set c = 3."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computes the numerator factor at x=2 incorrectly as 2^2 = 4 instead of evaluating (x^2+2x+4) = 4+4+4 = 12 and then dividing by (x+2) = 4."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Uses the wrong factorization, treating x^3-8 as (x-2)^3 and getting 2^3 = 8 divided by a misread denominator to produce 6, rather than applying the sum-of-cubes identity."
+    }
+  ],
+  "explanation": "Factor x^3 - 8 using the difference-of-cubes identity and x^2 - 4 as a difference of squares; cancel the common factor (x - 2) to find the limit is 12/4 = 3.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "After cancelling (x - 2), the limit reduces to (x^2+2x+4)/(x+2); substituting x = 2 gives 12/4 = 3.",
+    "approach": "Identify the model: 0/0 form at x = 2 from both numerator and denominator. Apply difference-of-cubes: x^3 - 8 = (x-2)(x^2+2x+4). Apply difference-of-squares: x^2 - 4 = (x-2)(x+2). Cancel (x-2) to get (x^2+2x+4)/(x+2). Substitute x = 2: numerator = 4+4+4 = 12, denominator = 4, limit = 3. Set c = 3. Note: f(-2) = -3 is a distractor testing whether you verify f at the other zero of the denominator.",
+    "lesson": "When the numerator and denominator share a common factor, factor both fully (using difference-of-cubes for cubics) before cancelling and substituting.",
+    "timing": "120-140 seconds. Two factorizations take 30 seconds each. Trap 1: option 1 reads x=2 directly. Trap 2: option 4 confuses difference-of-cubes with (x-2)^3. The f(-2) = -3 distractor burns time if chased."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

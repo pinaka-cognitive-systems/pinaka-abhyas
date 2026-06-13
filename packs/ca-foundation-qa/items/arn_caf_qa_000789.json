@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000789",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000789.py"
+  },
+  "tests": [
+    "qa.stats.probability.conditional"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "A box contains 5 red balls and 3 blue balls. One ball is drawn and found to be red. Given this information, what is the probability that the next ball drawn (without replacement) is also red?",
+  "options": [
+    {
+      "key": 1,
+      "text": "4/7"
+    },
+    {
+      "key": 2,
+      "text": "5/8"
+    },
+    {
+      "key": 3,
+      "text": "5/7"
+    },
+    {
+      "key": 4,
+      "text": "4/8"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "After removing one red ball, 4 red balls remain among 7 total. P(red | first was red) = 4/7."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "independence_assumed",
+      "rationale": "Using the original probability P(red) = 5/8 without updating for the drawn ball, treating the second draw as independent of the first."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Correctly reducing the total to 7 but forgetting to reduce the red count, using 5/7 instead of 4/7."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Reducing the red count to 4 but keeping the total at 8, not accounting for the removed ball in the denominator."
+    }
+  ],
+  "explanation": "Once the first red ball is drawn without replacement, the sample space shrinks to 7 balls, of which 4 are red. The conditional probability is P(2nd red | 1st red) = 4/7.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Without replacement, both numerator and denominator must be updated after the first draw.",
+    "approach": "Identify the model: conditional probability via reduced sample space. After drawing one red: reds remaining = 4, total remaining = 7. P = 4/7.",
+    "lesson": "In without-replacement problems, reduce both the favourable count and the total count by the drawn outcome.",
+    "timing": "45 seconds. Eliminate 5/8 immediately (unchanged probabilities). The common trap is updating only the total (5/7) or only the numerator (4/8)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

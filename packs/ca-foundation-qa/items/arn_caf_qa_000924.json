@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000924",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000924.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.coding_decoding"
+  ],
+  "difficulty_label": "L2",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 170,
+  "stem": "A word is coded letter by letter under these rules, with the alphabet treated as a cycle so that z wraps to a. A letter at an odd position (1st, 3rd, 5th) moves forward 2 places. A letter at an even position (2nd, 4th) moves backward 1 place. But if the original letter is a vowel, it is instead replaced by the next vowel in the cycle a, e, i, o, u, a, whatever its position. Under these rules, what is the code for CHAIR?",
+  "options": [
+    {
+      "key": 1,
+      "text": "EGCHT"
+    },
+    {
+      "key": 2,
+      "text": "EGEOT"
+    },
+    {
+      "key": 3,
+      "text": "BJEOQ"
+    },
+    {
+      "key": 4,
+      "text": "EGUET"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "EGCHT ignores the vowel override and shifts A and I by position instead. A at position 3 forward 2 gives C and I at position 4 back 1 gives H, but the vowel rule says A becomes E and I becomes O, so the third and fourth letters are wrong."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "C at position 1 forward 2 is E. H at position 2 back 1 is G. A is a vowel, so it becomes the next vowel E. I is a vowel, so it becomes the next vowel O. R at position 5 forward 2 is T. The code is E G E O T."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "BJEOQ swaps the position shifts, moving odd positions back 1 and even positions forward 2. C back 1 is B, H forward 2 is J, R back 1 is Q, which reverses the rule for the consonants."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "EGUET takes the previous vowel rather than the next. A back one vowel is U and I back one vowel is E, but the rule advances to the next vowel, so A becomes E and I becomes O."
+    }
+  ],
+  "explanation": "Apply the rules letter by letter to CHAIR. Position 1 C is an odd-position consonant, forward 2 gives E. Position 2 H is an even-position consonant, back 1 gives G. Position 3 A is a vowel, so the vowel rule overrides the position shift and A becomes the next vowel E. Position 4 I is a vowel, so I becomes the next vowel O. Position 5 R is an odd-position consonant, forward 2 gives T. Concatenating gives E G E O T.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The vowel override is the cracker: A and I are vowels, so they advance to E and O regardless of position, giving EGEOT.",
+    "approach": "Number the letters of CHAIR 1 to 5 and check each against the rule hierarchy: vowel first, else odd-position forward 2, else even-position back 1. C odd to E, H even to G, A vowel to E, I vowel to O, R odd to T. The vowel rule must be tested before the position rule, since it overrides. Read off EGEOT and re-check the wrap-around was not needed here.",
+    "lesson": "When coding rules are conditional, fix the precedence first; an override like the vowel rule must be applied before the default position shift.",
+    "timing": "About 165 seconds. Fastest elimination is option (1) EGCHT: it shifts the vowels A and I by position, which the vowel override forbids, so it falls at the third letter."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

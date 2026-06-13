@@ -18,10 +18,10 @@
   "tests": [
     "qa.bmath.finance.sinking_fund"
   ],
-  "difficulty_label": "L3",
+  "difficulty_label": "L2",
   "taxonomy_version": 4,
   "item_type": "single_best",
-  "expected_seconds": 120,
+  "expected_seconds": 90,
   "stem": "A company wants to accumulate Rs 1,00,000 in 5 years. Payments are made at the end of each year into a sinking fund at 10% per annum. Find the annual payment. [Given: (1.1) raised to the power 5 = 1.61051]",
   "options": [
     {
@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "For a sinking fund with end-of-period payments: PMT = FV / [((1+r)^n - 1) / r]. FV annuity factor = (1.61051 - 1) / 0.10 = 6.1051. PMT = 1,00,000 / 6.1051 = Rs 16,380. Using a PV factor instead of the FV factor is the most frequent error at L3.",
+  "explanation_kind": "formula_selection",
   "explanation_sections": {
-    "punchline": "The annual payment is FV divided by the future-value annuity factor, not the present-value factor. Using the wrong factor is the most common error here.",
-    "approach": "Sinking fund problems give a target future amount and ask for the equal annual deposit. Write PMT = FV / [((1+r)^n - 1) / r] before touching numbers. Compute the factor first: subtract 1 from the given power result, then divide by r. Only then divide FV by the factor.",
-    "lesson": "A sinking fund uses the future-value annuity factor, not the present-value annuity factor. Confirm which direction time moves before selecting your formula.",
-    "timing": "About 120 seconds. Spend 30 seconds setting up the formula, 60 seconds computing the factor, 30 seconds dividing. If you do not have the given power result at hand, eliminate Rs 20,000 in five seconds as the naive no-interest answer."
+    "punchline": "A sinking fund asks: what equal annual payment accumulates to a target future value? The formula is PMT = FV / FV-annuity-factor, where the factor = ((1+r)^n - 1) / r. The stem gives (1.1)^5, so the factor is ready to compute. Using a PV annuity factor instead is the planted trap.",
+    "approach": "Name the formula: future-value ordinary annuity, PMT = FV / [((1+r)^n - 1) / r]. Map the givens: FV = 1,00,000, r = 0.10, n = 5, (1.1)^5 = 1.61051. Compute the factor: (1.61051 - 1) / 0.10 = 0.61051 / 0.10 = 6.1051. Divide: 1,00,000 / 6.1051 = Rs 16,380. The PV annuity factor for these parameters is 3.7908 - dividing by that gives option 2, a common wrong answer.",
+    "lesson": "Sinking fund = future-value annuity factor. Time moves forward: payments accumulate. If you accidentally use the PV factor, your PMT is too large. Always confirm which direction time flows before choosing the formula.",
+    "timing": "About 90 seconds. Factor computation is 20 seconds, division is 20 seconds. Eliminate Rs 20,000 immediately: it is FV/n, which ignores interest altogether."
   },
   "empirical": {
     "calibration_status": "none",

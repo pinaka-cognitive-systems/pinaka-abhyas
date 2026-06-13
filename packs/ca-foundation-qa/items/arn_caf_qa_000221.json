@@ -18,10 +18,10 @@
   "tests": [
     "qa.stats.correlation_regression.correlation"
   ],
-  "difficulty_label": "L3",
+  "difficulty_label": "L2",
   "taxonomy_version": 4,
   "item_type": "single_best",
-  "expected_seconds": 110,
+  "expected_seconds": 60,
   "stem": "The correlation coefficient between two variables X and Y is 0.6. Two new variables U and V are defined as U = 3X + 7 and V = -4Y + 2. What is the value of the correlation coefficient between U and V?",
   "options": [
     {
@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "Correlation is invariant under linear transformations of the form aX + b and cY + d. The new r equals sign(a) * sign(c) * r(X, Y). Here a = 3 (positive) and c = -4 (negative), so r(U, V) = (+1)(-1)(0.6) = -0.6.",
+  "explanation_kind": "concept",
   "explanation_sections": {
-    "punchline": "The answer is -0.6. Only the signs of the scale factors matter: sign(3) * sign(-4) = -1, so r(U, V) = -0.6.",
-    "approach": "Identify the scale constants a and c in U = aX + b and V = cY + d. Ignore the additive constants and the magnitudes of a and c. Multiply r(X, Y) by sign(a) * sign(c).",
-    "lesson": "Correlation is invariant under changes of origin and under changes of scale. A negative scale constant flips the sign of r; a positive scale constant leaves the sign unchanged.",
-    "timing": "110 seconds. Spend about 20 seconds writing U = 3X + 7 and V = -4Y + 2, then extracting a = 3 and c = -4. The remaining time is sign arithmetic and checking the four options."
+    "punchline": "Correlation is invariant under linear change of scale and origin. Only the signs of the scale multipliers matter: sign(3) * sign(-4) = -1, so r(U,V) = -0.6.",
+    "approach": "State the property: for U = aX + b and V = cY + d, r(U,V) = sign(a) * sign(c) * r(X,Y). The magnitudes of a and c and the additive constants b and d all cancel out. Contrast the confusable: students who compute (-4/3) * 0.6 = -0.8 are treating the ratio of scale constants as a multiplier, which is wrong - magnitudes never affect r.",
+    "lesson": "Correlation measures a dimensionless, scale-free association. Multiplying X by 3 stretches both X and the covariance equally, so r is unchanged in magnitude. Reversing the direction of Y (c = -4 < 0) reverses the association, flipping only the sign of r.",
+    "timing": "60 seconds. Extract a=3, c=-4 (10 seconds). Identify signs: (+)(-) = -1 (5 seconds). Apply to r: -0.6 (5 seconds). Remaining time to eliminate distractors 0.6 (ignores sign) and -0.8 (wrong formula)."
   },
   "empirical": {
     "calibration_status": "none",

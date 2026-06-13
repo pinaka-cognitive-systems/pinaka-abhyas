@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000589",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000589.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.odd_man_out"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "Four numbers are given. Three of them share a common property and one does not. Identify the odd one out from: 4, 9, 25, 35.",
+  "options": [
+    {
+      "key": 1,
+      "text": "4"
+    },
+    {
+      "key": 2,
+      "text": "9"
+    },
+    {
+      "key": 3,
+      "text": "25"
+    },
+    {
+      "key": 4,
+      "text": "35"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "4 = 2^2, a perfect square, so it belongs with the set of perfect squares."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "9 = 3^2, a perfect square, so it belongs with the set of perfect squares."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "25 = 5^2, a perfect square, so it belongs with the set of perfect squares."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "35 = 5 x 7, not a perfect square. The other three (4, 9, 25) are all perfect squares of prime numbers (2^2, 3^2, 5^2). 35 is the only non-perfect-square."
+    }
+  ],
+  "explanation": "The unifying property is: perfect squares of prime numbers. 4 = 2^2, 9 = 3^2, 25 = 5^2. But 35 = 5 x 7, which is not a perfect square at all. So 35 is the odd one out.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The other three are perfect squares of primes; 35 is the product of two distinct primes.",
+    "approach": "Apply clues most-certain-first: check each number for the perfect square property. 4, 9, 25 each have an integer square root (2, 3, 5); 35 does not. Verify: sqrt(35) is not an integer.",
+    "lesson": "In odd-man-out, test the most obvious structural property (perfect square, prime, multiple of a fixed number) against every option; the one that fails is the answer.",
+    "timing": "Under 30 seconds: instantly recognise 4, 9, 25 as 2^2, 3^2, 5^2. The trap is option 1 (4 looks too small) or option 3 (25 = 5^2 where 5 divides 35 too, misleading)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

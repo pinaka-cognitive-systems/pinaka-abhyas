@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000314",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000314.py"
+  },
+  "tests": [
+    "qa.bmath.ratio_indices_log.ratio"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Two quantities are in the ratio 5 : 3. When 4 is subtracted from each, the ratio becomes 3 : 1. Find the smaller of the two original quantities.",
+  "options": [
+    {
+      "key": 1,
+      "text": "4"
+    },
+    {
+      "key": 2,
+      "text": "6"
+    },
+    {
+      "key": 3,
+      "text": "10"
+    },
+    {
+      "key": 4,
+      "text": "12"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Correctly solving (5k - 4) = 3(3k - 4), getting k = 2, but then computing 3k - 2 = 4 instead of 3k = 6."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Let the quantities be 5k and 3k. After subtracting 4: (5k - 4)/(3k - 4) = 3/1, so 5k - 4 = 9k - 12, giving 4k = 8 and k = 2. The smaller quantity = 3 x 2 = 6."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "ratio_inverted",
+      "rationale": "Reporting the larger quantity (5 x 2 = 10) instead of the smaller one. Student solves correctly for k = 2 but picks the larger value."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Flipping the sign when cross-multiplying: writing 5k - 4 = 9k + 12 instead of 9k - 12, giving -4k = 16 and k = -4, then using |k| = 4 to report 3 x 4 = 12."
+    }
+  ],
+  "explanation": "Let the two quantities be 5k and 3k. After subtracting 4 from each, the new ratio is 3:1. Cross-multiplying: 5k - 4 = 3(3k - 4) = 9k - 12. Rearranging: 8 = 4k, so k = 2. The smaller quantity is 3 x 2 = 6.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Setting up the post-subtraction ratio equation and cross-multiplying isolates k instantly.",
+    "approach": "Ratio algebra: assign 5k and 3k. Subtract 4 from each and form the equation (5k - 4) = 3(3k - 4). Expand the right side carefully (keeping the sign on -12), collect k, solve, then multiply the smaller multiplier (3) by k.",
+    "lesson": "Always distribute the multiplied factor fully across both terms of the cross-product, paying particular attention to negative signs.",
+    "timing": "60 seconds. Trap: sign error giving k = -4, or reporting the larger quantity (10) instead of the smaller (6)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000572",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000572.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.coding_decoding"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "In a code, each letter of a word is shifted forward in the alphabet by a number equal to its position in the word. The 1st letter shifts by 1, the 2nd by 2, the 3rd by 3, and so on. For example, BACK is coded as CCFO. Using this rule, what is the code for LIGHT?",
+  "options": [
+    {
+      "key": 1,
+      "text": "MKJLY"
+    },
+    {
+      "key": 2,
+      "text": "LJIKX"
+    },
+    {
+      "key": 3,
+      "text": "QNLMY"
+    },
+    {
+      "key": 4,
+      "text": "QMJJU"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Position-equal shift: L(pos1)+1=M, I(pos2)+2=K, G(pos3)+3=J, H(pos4)+4=L, T(pos5)+5=Y, giving MKJLY."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Starting the shift at 0 instead of 1 (pos1 shifts by 0, pos2 by 1, etc.): L+0=L, I+1=J, G+2=I, H+3=K, T+4=X gives LJIKX."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Misidentifying the shift as a fixed +5 (the last position's shift) for all letters: L+5=Q, I+5=N, G+5=L, H+5=M, T+5=Y gives QNLMY."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "Applying shift = (6 - position) instead of position: L+5=Q, I+4=M, G+3=J, H+2=J, T+1=U gives QMJJU."
+    }
+  ],
+  "explanation": "The shift for each letter equals its 1-indexed position in the word. Verify BACK: B(pos1)+1=C, A(pos2)+2=C, C(pos3)+3=F, K(pos4)+4=O = CCFO (matches). Apply to LIGHT: L+1=M, I+2=K, G+3=J, H+4=L, T+5=Y = MKJLY.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The shift escalates with position, so later letters shift more - the critical setup decision is using 1-indexed positions (not 0-indexed).",
+    "approach": "Deductive trace: number each letter 1 to 5, then add that number to its alphabet position. Cross-check with BACK to confirm 1-indexing: B+1=C (not B+0=B).",
+    "lesson": "For position-dependent shifts, always confirm whether positions start at 0 or 1 by checking the first letter of the given example.",
+    "timing": "About 80-90 seconds. Fastest elimination: any option starting with L (shift of 0) is immediately wrong since pos1 must shift by at least 1."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

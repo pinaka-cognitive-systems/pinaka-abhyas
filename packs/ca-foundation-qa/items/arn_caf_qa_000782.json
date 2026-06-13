@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000782",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000782.py"
+  },
+  "tests": [
+    "qa.stats.probability.addition_theorem"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "For two mutually exclusive events A and B, P(A) = 0.3 and P(B) = 0.5. What is P(A union B)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.80"
+    },
+    {
+      "key": 2,
+      "text": "0.15"
+    },
+    {
+      "key": 3,
+      "text": "0.65"
+    },
+    {
+      "key": 4,
+      "text": "0.20"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Mutually exclusive events cannot occur together, so P(A intersection B) = 0. By the addition theorem: P(A union B) = P(A) + P(B) - 0 = 0.3 + 0.5 = 0.80."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Multiplies P(A) x P(B) = 0.3 x 0.5 = 0.15, applying the multiplication rule for independent events instead of the addition theorem."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "mutually_exclusive_vs_independent",
+      "rationale": "Confuses mutual exclusivity with independence, subtracts P(A)*P(B) = 0.15 as if the intersection term equals the product: 0.3 + 0.5 - 0.15 = 0.65."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "complement_confusion",
+      "rationale": "Computes 1 - P(A) - P(B) = 1 - 0.3 - 0.5 = 0.2, treating the problem as a complement question instead of a union."
+    }
+  ],
+  "explanation": "The addition theorem states: P(A union B) = P(A) + P(B) - P(A intersection B). For mutually exclusive events, P(A intersection B) = 0 (they cannot both happen). Therefore P(A union B) = 0.3 + 0.5 = 0.80.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Mutually exclusive means zero intersection, so the addition theorem reduces to simple addition: 0.3 + 0.5 = 0.80.",
+    "approach": "Identify the model (addition theorem). State the assumption: mutually exclusive -> P(A and B) = 0. Apply: P(A or B) = P(A) + P(B) - 0 = 0.80.",
+    "lesson": "Mutually exclusive events have P(intersection) = 0, making the addition formula a simple sum. Do not confuse this with independent events where P(intersection) = P(A)*P(B).",
+    "timing": "20 seconds. Direct addition. The trap is option 3 which subtracts the product as if they were independent."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -18,7 +18,7 @@
   "tests": [
     "qa.bmath.finance.cagr"
   ],
-  "difficulty_label": "L2",
+  "difficulty_label": "L1",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 90,
@@ -69,12 +69,13 @@
       "misconception": "arithmetic_slip"
     }
   ],
-  "explanation": "CAGR = (End value / Start value)^(1/n) - 1. With End = 1,40,493, Start = 1,00,000, n = 3: CAGR = (1.40493)^(1/3) - 1. Since (1.12)³ = 1.40493 is given, CAGR = 12%.",
+  "explanation": "CAGR = (End / Start)^(1/n) - 1. With End = 1,40,493, Start = 1,00,000, n = 3: ratio = 1.40493. The stem gives (1.12)^3 = 1.40493, so CAGR = 12%.",
+  "explanation_kind": "formula_selection",
   "explanation_sections": {
-    "punchline": "The growth ratio is 1.40493, and (1.12)^3 = 1.40493 is given, so the cube root is exactly 1.12, meaning CAGR = 12%.",
-    "approach": "Write the CAGR formula: (End / Start)^(1/n) minus 1. Compute the ratio End / Start first. Then look for the given hint in the stem, which usually provides the answer in reverse form. The exponent is 1/n where n is the number of full years between start and end.",
-    "lesson": "CAGR uses a geometric root, not an arithmetic average. The exponent is 1 divided by the number of years. An off-by-one error on n gives a noticeably different answer.",
-    "timing": "About 90 seconds. Reject option (1) instantly: 13.5% is the arithmetic average, not the geometric one. The stem provides (1.12)^3 = 1.40493, so match that ratio to identify the rate without computing a cube root manually."
+    "punchline": "CAGR = (End / Start)^(1/n) minus 1. The ratio 1,40,493 / 1,00,000 = 1.40493 matches the given hint (1.12)^3 exactly, so the answer is 12% without computing a cube root.",
+    "approach": "Name the formula: CAGR = (End / Start)^(1/n) minus 1. Map the givens: End = 1,40,493, Start = 1,00,000, n = 3 years. Compute the ratio: 1.40493. The stem provides (1.12)^3 = 1.40493 to let you avoid the cube root. Match the ratio to the hint and read off the rate.",
+    "lesson": "CAGR is a geometric rate, not an arithmetic average. Option (1) at 13.5% = (40,493 / 1,00,000) / 3 is the arithmetic average trap. The exponent is 1/n; confusing n years with n - 1 produces option (4) at 18.5%.",
+    "timing": "About 60 seconds. Compute the ratio 1.40493, then scan the stem hint. The stem says (1.12)^3 = 1.40493, so the rate is 12%. Reject option (1) in three seconds: dividing the total gain by 3 years gives an arithmetic average, not a compound rate."
   },
   "empirical": {
     "calibration_status": "none",

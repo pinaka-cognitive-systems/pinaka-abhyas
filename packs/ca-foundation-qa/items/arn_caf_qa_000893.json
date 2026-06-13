@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000893",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000893.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.tests_adequacy"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "Two commodities have the following prices and base-period quantities. Commodity A: base price Rs 10, current price Rs 14, base quantity 3 units. Commodity B: base price Rs 5, current price Rs 6, base quantity 10 units. Compute the Laspeyres price index for the current period.",
+  "options": [
+    {
+      "key": 1,
+      "text": "127.5"
+    },
+    {
+      "key": 2,
+      "text": "130.0"
+    },
+    {
+      "key": 3,
+      "text": "133.3"
+    },
+    {
+      "key": 4,
+      "text": "78.4"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Laspeyres = sum(p1 x q0) / sum(p0 x q0) x 100 = (14x3 + 6x10) / (10x3 + 5x10) x 100 = (42+60)/(30+50) x 100 = 102/80 x 100 = 127.5."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Computing the simple (unweighted) mean of price relatives: ((14/10 + 6/5) / 2) x 100 = (1.4 + 1.2) / 2 x 100 = 130.0. This ignores the quantity weights that define Laspeyres."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Using the simple aggregate price ratio (sum of current prices / sum of base prices): (14+6)/(10+5) x 100 = 20/15 x 100 = 133.3. This weights prices equally by inclusion rather than by quantities."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Inverting the ratio - computing sum(p0 x q0) / sum(p1 x q0) x 100 = 80/102 x 100 = 78.4. This gives the base period relative to the current period, not the other way around."
+    }
+  ],
+  "explanation": "Laspeyres price index uses base-period quantities as fixed weights: P_L = [sum(p1 x q0) / sum(p0 x q0)] x 100. Numerator: 14x3 + 6x10 = 42 + 60 = 102. Denominator: 10x3 + 5x10 = 30 + 50 = 80. Index = 102/80 x 100 = 127.5. Commodity B dominates (q0=10) so the lower price rise of B (20%) pulls the index below A's price rise (40%).",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Laspeyres weights each price change by the base-period quantity; larger-volume commodities have a stronger pull on the index.",
+    "approach": "Name the formula: Laspeyres = sum(p1*q0) / sum(p0*q0) x 100. Map: multiply each commodity's current price by its base quantity (numerator) and base price by base quantity (denominator). Sum and divide.",
+    "lesson": "Laspeyres always uses base-period quantities (q0). Paasche uses current-period quantities (q1). Mixing them up is the most common error.",
+    "timing": "About 75 seconds. Trap: option 2 (130) is the mean price relative and a very common wrong path. Verify: both methods give the same answer only when all quantities are equal."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

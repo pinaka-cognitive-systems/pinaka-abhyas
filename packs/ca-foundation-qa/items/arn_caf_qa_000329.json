@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000329",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000329.py"
+  },
+  "tests": [
+    "qa.bmath.ratio_indices_log.logarithm"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "Given log_10(2) = 0.3010, find the number of digits in 2^50.",
+  "options": [
+    {
+      "key": 1,
+      "text": "15"
+    },
+    {
+      "key": 2,
+      "text": "16"
+    },
+    {
+      "key": 3,
+      "text": "17"
+    },
+    {
+      "key": 4,
+      "text": "14"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student computes floor(50 * 0.3010) = floor(15.05) = 15 and stops there, treating the characteristic as the digit count rather than adding 1 to convert it."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "log_10(2^50) = 50 * 0.3010 = 15.05. Number of digits = floor(15.05) + 1 = 15 + 1 = 16."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student computes 50 * 0.3010 = 15.05 but rounds up to 16 before adding 1, giving 17."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student uses an incorrect formula and computes digits as ceil(50 * 0.3010) - 1 = 16 - 1 = 15, or makes a decimal error: 50 * 0.3 = 15, then 15 - 1 = 14."
+    }
+  ],
+  "explanation": "The number of digits in a positive integer N is floor(log_10(N)) + 1. For N = 2^50: log_10(2^50) = 50 * log_10(2) = 50 * 0.3010 = 15.05. Number of digits = floor(15.05) + 1 = 15 + 1 = 16.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Digits in N = floor(log_10(N)) + 1. For 2^50: 50 * 0.3010 = 15.05, so floor(15.05) + 1 = 16.",
+    "approach": "Apply the digit-count formula: for integer N >= 1, the number of digits = floor(log_10(N)) + 1. The given hint log_10(2) = 0.3010 allows: log_10(2^50) = 50 * 0.3010 = 15.05. Floor gives 15; add 1 for the count.",
+    "lesson": "Always add 1 after taking the floor of the logarithm to get the digit count. The floor gives the position of the leading digit, not the count.",
+    "timing": "60-80 seconds. The main trap is option 1 (15): computing 50*0.3010=15.05, flooring to 15, and stopping without adding 1."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

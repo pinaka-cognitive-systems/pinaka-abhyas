@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000470",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000470.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.combinations"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "The value of C(10, 4) + C(10, 6) is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "420"
+    },
+    {
+      "key": 2,
+      "text": "210"
+    },
+    {
+      "key": 3,
+      "text": "462"
+    },
+    {
+      "key": 4,
+      "text": "840"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "C(10,4) = 210 and C(10,6) = 210 (by symmetry C(10,6)=C(10,4)), so their sum is 420."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reading only C(10,4) = 210 and forgetting to add C(10,6), treating the sum as a single term."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "C(11,4) = 330 and C(11,5) = 462; a student applying Pascal's rule incorrectly writes C(10,4)+C(10,5) = C(11,5) = 462 instead of using C(10,6) = C(10,4)."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "permutation_combination_confusion",
+      "rationale": "Computing P(10,4)/something or doubling 420 by treating two groups as ordered gives 840."
+    }
+  ],
+  "explanation": "Use the symmetry property C(n,r) = C(n, n-r). Since 4+6 = 10 = n, we have C(10,6) = C(10,4) = 210. Therefore C(10,4) + C(10,6) = 210 + 210 = 420.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "Symmetry C(n,r) = C(n, n-r) makes C(10,6) = C(10,4), so the sum is simply 2 * 210 = 420.",
+    "approach": "Classify: evaluating sum of combinations. Apply symmetry: C(10,6) = C(10, 10-6) = C(10,4). Compute C(10,4) = (10*9*8*7)/(4*3*2*1) = 5040/24 = 210. Sum = 210 + 210 = 420.",
+    "lesson": "C(n,r) = C(n, n-r) is the symmetry identity; use it to avoid computing large factorials whenever r > n/2.",
+    "timing": "35 seconds. The fastest path: recognize C(10,6)=C(10,4) by symmetry, double the single value."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

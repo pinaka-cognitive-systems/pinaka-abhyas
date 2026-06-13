@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000762",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000762.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.quartile_deviation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The ages (in years) of 11 employees in a department are: 25, 28, 30, 32, 35, 38, 40, 42, 45, 48, 50. What is the coefficient of quartile deviation for this data?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.20"
+    },
+    {
+      "key": 2,
+      "text": "7.5"
+    },
+    {
+      "key": 3,
+      "text": "0.16"
+    },
+    {
+      "key": 4,
+      "text": "15"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "n=11. Q1 at (11+1)/4 = 3rd value = 30. Q3 at 3*(11+1)/4 = 9th value = 45. Coefficient of QD = (Q3-Q1)/(Q3+Q1) = (45-30)/(45+30) = 15/75 = 0.20."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "7.5 is the quartile deviation QD = (Q3-Q1)/2 = 15/2 = 7.5, not the coefficient. The student computed QD but not the relative (coefficient) form."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "0.16 results from dividing QD by the median instead of by (Q3+Q1): 7.5/47 approximately 0.16. The student confused the formula for the coefficient of QD with a mean-relative form."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "15 is the inter-quartile range (Q3-Q1 = 45-30 = 15), not the coefficient of quartile deviation. The student stopped at IQR without either halving or forming the ratio."
+    }
+  ],
+  "explanation": "For n=11, quartile positions use (n+1)/4. Q1 is at the 3rd observation = 30. Q3 is at the 9th observation = 45. Coefficient of quartile deviation = (Q3 - Q1)/(Q3 + Q1) = (45-30)/(45+30) = 15/75 = 0.20.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Coefficient of quartile deviation = (Q3 - Q1)/(Q3 + Q1), a relative measure that removes the unit of measurement.",
+    "approach": "Identify the model: relative dispersion from quartiles. Step 1: sort data (already sorted). Step 2: Q1 position = (n+1)/4 = 3, value = 30. Step 3: Q3 position = 3(n+1)/4 = 9, value = 45. Step 4: coefficient = (Q3-Q1)/(Q3+Q1) = 15/75 = 0.20. This is a two-step formula - the setup decision is using the relative formula rather than reporting QD itself.",
+    "lesson": "The coefficient of quartile deviation normalises QD by the sum (Q3+Q1), giving a pure ratio; it is not QD divided by the mean.",
+    "timing": "60-75 seconds. Trap: reporting QD = 7.5 or IQR = 15 without completing the relative step. Verify: 15/75 = 1/5 = 0.20."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

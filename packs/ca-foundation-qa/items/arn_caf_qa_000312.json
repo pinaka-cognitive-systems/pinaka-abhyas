@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000312",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000312.py"
+  },
+  "tests": [
+    "qa.bmath.ratio_indices_log.ratio"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The ratio of milk to water in a mixture is 5 : 3. If 8 litres of water are added to the mixture, the new ratio becomes 5 : 5. How many litres of milk were in the original mixture?",
+  "options": [
+    {
+      "key": 1,
+      "text": "10 litres"
+    },
+    {
+      "key": 2,
+      "text": "20 litres"
+    },
+    {
+      "key": 3,
+      "text": "24 litres"
+    },
+    {
+      "key": 4,
+      "text": "15 litres"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Treating the change in ratio as (5 - 3) = 2 parts correspond to 8 litres, each part = 4, then milk = 5/2 x 8 = 10. This misapplies part-to-quantity logic."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Let milk = 5k and water = 3k. New ratio 5:5 means milk = new water, so 5k = 3k + 8, giving k = 4. Milk = 5 x 4 = 20 litres."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "A student who misreads the original ratio as 6:4 sets 6k = 4k + 8, gets k = 4, and reports milk = 24."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "ratio_inverted",
+      "rationale": "Inverting the original ratio to 3:5 (water:milk) and setting 3k = 5k - 8 gives a negative k; student then picks k = 4 from correct method but reports water = 3 x 4 = 12, rounds to nearest option 15 via a further slip."
+    }
+  ],
+  "explanation": "Let original milk = 5k and water = 3k. After adding 8 litres of water, the new ratio is 5:5 = 1:1, meaning milk equals new total water. So 5k = 3k + 8, which gives 2k = 8 and k = 4. Milk = 5 x 4 = 20 litres.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The 1:1 final ratio forces milk to equal new water, creating a single linear equation in k.",
+    "approach": "Ratio algebra: express original quantities as multiples of k using the given ratio (5k milk, 3k water). Apply the change (add 8 litres of water only). Set up the equation from the new ratio: 5k/(3k + 8) = 1, so 5k = 3k + 8. Solve for k, then compute milk = 5k.",
+    "lesson": "When a ratio changes after adding a fixed quantity, represent both original quantities with a common multiplier k and equate cross-multiplied terms.",
+    "timing": "60 seconds. Trap: adding water to milk instead of water, or reading the final 5:5 as needing a different equation form."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

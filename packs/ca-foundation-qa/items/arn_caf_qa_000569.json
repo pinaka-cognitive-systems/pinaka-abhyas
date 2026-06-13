@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000569",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000569.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.coding_decoding"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "In a code language, letters at odd positions in a word (1st, 3rd, 5th) are shifted 2 places forward in the alphabet, while letters at even positions (2nd, 4th) are shifted 2 places backward. For example, DIGIT is coded as FGIGV. Using this rule, what is the code for FORCE?",
+  "options": [
+    {
+      "key": 1,
+      "text": "HMTAG"
+    },
+    {
+      "key": 2,
+      "text": "HQTEG"
+    },
+    {
+      "key": 3,
+      "text": "DMPAC"
+    },
+    {
+      "key": 4,
+      "text": "DQPEC"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Odd positions +2, even positions -2: F(1,odd)+2=H, O(2,even)-2=M, R(3,odd)+2=T, C(4,even)-2=A, E(5,odd)+2=G, giving HMTAG."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "Applying +2 to all positions regardless of odd/even gives HQTEG, ignoring the -2 rule for even positions."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "Applying -2 to all positions regardless of odd/even gives DMPAC, ignoring the +2 rule for odd positions."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Reversing the rule (odd positions -2, even positions +2) gives F-2=D, O+2=Q, R-2=P, C+2=E, E-2=C, producing DQPEC."
+    }
+  ],
+  "explanation": "The rule applies a position-dependent shift: odd word-positions shift +2, even word-positions shift -2. Verify with DIGIT: D(1,odd)+2=F, I(2,even)-2=G, G(3,odd)+2=I, I(4,even)-2=G, T(5,odd)+2=V = FGIGV (matches). Apply to FORCE: F(pos1)+2=H, O(pos2)-2=M, R(pos3)+2=T, C(pos4)-2=A, E(pos5)+2=G = HMTAG.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The setup decision is recognising which positions get +2 and which get -2 - the two most common wrong answers flip or ignore this split.",
+    "approach": "Deductive trace: re-verify the example first (DIGIT->FGIGV), explicitly noting the odd/even alternation, then map each letter of FORCE with its position tag before coding.",
+    "lesson": "With position-dependent coding rules, always tag each letter with its position number (1,2,3...) before applying the shift to avoid flip errors.",
+    "timing": "About 70-80 seconds. Fastest elimination: option 2 (HQTEG) has O+2=Q which requires all even positions to use +2, contradicting the example where I(pos2) maps to G (I-2=G)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

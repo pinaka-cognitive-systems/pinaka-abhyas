@@ -18,10 +18,10 @@
   "tests": [
     "qa.stats.index_numbers.construction"
   ],
-  "difficulty_label": "L3",
+  "difficulty_label": "L2",
   "taxonomy_version": 4,
   "item_type": "single_best",
-  "expected_seconds": 120,
+  "expected_seconds": 90,
   "stem": "A survey records data for two commodities. Commodity Cloth: base year price Rs 5, base year quantity 10, current year price Rs 7, current year quantity 12. Commodity Sugar: base year price Rs 10, base year quantity 5, current year price Rs 12, current year quantity 4. What is the Paasche price index for the current year, with the base year = 100?",
   "options": [
     {
@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "Paasche uses current-year quantities throughout. Numerator: Sum(P1 x Q1) = 7x12+12x4 = 132. Denominator: Sum(P0 x Q1) = 5x12+10x4 = 100. Paasche = 132/100 x 100 = 132.",
+  "explanation_kind": "formula_selection",
   "explanation_sections": {
-    "punchline": "Paasche = 132. The denominator uses the same current-year quantities as the numerator, and both sums evaluate to 132 and 100 respectively, giving an index of 132.",
-    "approach": "Write the Paasche formula: Sum(P1 x Q1) / Sum(P0 x Q1) x 100. The key distinction is that both numerator and denominator use current-year quantities. Compute each product, sum separately, then divide and scale by 100.",
-    "lesson": "Laspeyres weights by base-year quantities; Paasche weights by current-year quantities. Mixing these yields a third index (Marshall-Edgeworth or Fisher), not either of the two. Memorise which formula uses which year's quantities.",
-    "timing": "120 seconds. Compute four products (under 30 seconds total). Sum numerator and denominator (under 20 seconds). Divide and multiply by 100 (under 10 seconds). Spend remaining time verifying you used Q1 in the denominator, not Q0."
+    "punchline": "Paasche weights by current-year quantities in both the numerator and denominator. Sum(P1*Q1)/Sum(P0*Q1)*100 = 132/100*100 = 132.",
+    "approach": "Name the formula and why: Paasche price index = Sum(P1*Q1) / Sum(P0*Q1) * 100. The distinguishing rule is that Paasche always uses current-year (period 1) quantities as weights in both numerator and denominator. Map givens: P1=(7,12), P0=(5,10), Q1=(12,4). Numerator: (7*12)+(12*4) = 84+48 = 132. Denominator: (5*12)+(10*4) = 60+40 = 100. Index = 132.",
+    "lesson": "Laspeyres uses base-year quantities (Q0); Paasche uses current-year quantities (Q1). The Laspeyres trap (option 1 = 130) uses Q0=(10,5) and arrives at a different answer. Check which year's quantities you are multiplying before computing.",
+    "timing": "90 seconds. Four products (7*12, 12*4, 5*12, 10*4) take about 30 seconds. Two sums (132, 100) take 10 seconds. Division is immediate. Trim to 90 seconds by keeping the formula row in mind before reading the data."
   },
   "empirical": {
     "calibration_status": "none",

@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "Rahul's mother's only daughter is Rahul's sister. The woman's mother is Rahul's sister. Therefore the woman is Rahul's sister's daughter, which makes her Rahul's niece.",
+  "explanation_kind": "deductive_trace",
   "explanation_sections": {
-    "punchline": "The woman's mother is Rahul's sister. That makes the woman Rahul's sister's daughter, which is his niece.",
-    "approach": "For blood-relation problems, work step by step from the named person outward. Write each link as a short label: Rahul's mother's only daughter = Rahul's sister. Then the woman's mother = that sister. Then ask: what is the woman to Rahul? Daughter of his sister = niece. Do not jump to the answer before tracing every link.",
-    "lesson": "When a sentence says 'her mother is X's only daughter', identify who that daughter is first, then trace one more generation to the woman herself.",
-    "timing": "About 60 seconds. Draw two to three nodes and link them. The chain here has three steps. If you are unsure of the final label, write out: sister's child = niece or nephew."
+    "punchline": "Lock the pivot: Rahul's mother's only daughter is Rahul's sister. The woman's mother is that sister. So the woman is Rahul's sister's daughter, which is his niece.",
+    "approach": "Work the chain from the inside out, one link at a time. Step 1: 'only daughter of my mother' = Rahul's sister (the innermost descriptor). Step 2: 'her mother is Rahul's sister' means the woman's parent is that sister. Step 3: child of Rahul's sister = Rahul's niece. Verify by substituting back: 'Her mother (Rahul's sister) is the only daughter of my mother (Rahul's mother).' Consistent.",
+    "lesson": "Resolve the innermost relation phrase first, then step outward one generation at a time. The most common error here is stopping at step 2 and returning 'sister' instead of going one generation further to the woman herself.",
+    "timing": "About 45 seconds. Three steps, each under 10 seconds. Option Sister is the stop-one-step-early trap: if you picked sister, you identified the woman's mother but not the woman."
   },
   "empirical": {
     "calibration_status": "none",

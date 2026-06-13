@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000466",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000466.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.permutations_restrictions"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 85,
+  "stem": "How many arrangements of the letters in the word FACTOR are possible such that the letters F and R are never adjacent to each other?",
+  "options": [
+    {
+      "key": 1,
+      "text": "480"
+    },
+    {
+      "key": 2,
+      "text": "600"
+    },
+    {
+      "key": 3,
+      "text": "240"
+    },
+    {
+      "key": 4,
+      "text": "720"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Total arrangements of FACTOR = 6! = 720. Arrangements with F and R adjacent: treat FR as one block => 5 units in 5! = 120 arrangements x 2! internal orders = 240. Valid = 720 - 240 = 480."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computed 720 - 120 = 600, subtracting 5! without multiplying by 2! for the two internal orders of the F-R block."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Computed the forbidden count (5! x 2! = 240) correctly but reported it as the answer rather than subtracting it from the total 720."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Computed 6! = 720, the total unrestricted count, ignoring the never-adjacent restriction entirely."
+    }
+  ],
+  "explanation": "FACTOR has 6 distinct letters. Total arrangements = 6! = 720. Count forbidden arrangements (F and R adjacent): treat FR as one block, giving 5 units. Arrangements = 5! x 2! = 120 x 2 = 240. Valid arrangements = 720 - 240 = 480.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "Never-adjacent constraint: total minus (merge-block forbidden count), remembering the 2! internal order of the pair.",
+    "approach": "Classify: linear arrangement, never-adjacent restriction. Step 1 - total: 6! = 720. Step 2 - forbidden (F and R adjacent): merge into block, 5 units in 5! = 120 ways, x 2! = 2 for FR or RF order => 240. Step 3 - valid = 720 - 240 = 480.",
+    "lesson": "Never-adjacent in a line: subtract (block count x 2!) from total.",
+    "timing": "35 seconds: 720 - 240 = 480. Trap: forgetting the x2 for FR vs RF order in the forbidden block, yielding 720 - 120 = 600."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

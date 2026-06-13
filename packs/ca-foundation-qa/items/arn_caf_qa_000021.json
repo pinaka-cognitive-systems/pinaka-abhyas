@@ -18,10 +18,10 @@
   "tests": [
     "qa.stats.central_tendency_dispersion.mean"
   ],
-  "difficulty_label": "L1",
+  "difficulty_label": "L2",
   "taxonomy_version": 4,
   "item_type": "single_best",
-  "expected_seconds": 45,
+  "expected_seconds": 75,
   "stem": "A distribution has the following values and frequencies: value 5 with frequency 4, value 10 with frequency 2, value 15 with frequency 3, and value 20 with frequency 1. What is the arithmetic mean?",
   "options": [
     {
@@ -69,12 +69,13 @@
       "misconception": "formula_misapplied"
     }
   ],
-  "explanation": "Arithmetic mean from a frequency distribution = (sum of f*x) / (sum of f). Here sum(f*x) = 20+20+45+20 = 105 and sum(f) = 10, giving mean = 10.5. Frequencies must be used as weights; simply averaging the distinct values without weighting gives the wrong answer.",
+  "explanation": "Arithmetic mean from a frequency distribution = sum(f*x) / sum(f). Here sum(f*x) = 5*4 + 10*2 + 15*3 + 20*1 = 20 + 20 + 45 + 20 = 105. Total frequency sum(f) = 4+2+3+1 = 10. Mean = 105/10 = 10.5.",
+  "explanation_kind": "model_compute",
   "explanation_sections": {
-    "punchline": "Multiply each value by its frequency, sum the products, then divide by the total frequency. Result: 105 / 10 = 10.5.",
-    "approach": "Set up a two-column table: value (x) and frequency (f). Add a third column for f*x. Sum the f column and the f*x column separately. Mean = sum(f*x) / sum(f). Never average the distinct values without weights: if one value appears four times, it counts four times.",
-    "lesson": "In a frequency distribution, each value must be weighted by its frequency before averaging. Skipping the weights is the most common error on this question type.",
-    "timing": "About 45 seconds. Building the f*x column takes 20 seconds for four rows. Eliminate option (4) in 5 seconds: it ignores frequencies."
+    "punchline": "Weight each value by its frequency before averaging. sum(f*x) = 105, sum(f) = 10, mean = 10.5.",
+    "approach": "Build two sums in parallel: sum(f*x) and sum(f). Multiply each value by its frequency and accumulate; separately accumulate the raw frequencies. Divide. The formula does not change with the number of rows. Do not average the four distinct values (5, 10, 15, 20) without weights: value 5 appears 4 times and must count 4 times.",
+    "lesson": "Weighted mean requires every value to carry its frequency. Ignoring weights and averaging only the distinct values gives 12.5, the unweighted mean of 5, 10, 15, 20.",
+    "timing": "About 40 seconds. Four f*x products take 20 seconds. Summing frequencies is five seconds. One division gives the answer. Eliminate option 4 (12.5) immediately: that is the mean of the values with no weighting."
   },
   "empirical": {
     "calibration_status": "none",

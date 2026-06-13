@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000336",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000336.py"
+  },
+  "tests": [
+    "qa.bmath.equations.simple"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "The sum of a number and 15 is equal to three times the number minus 5. What is the number?",
+  "options": [
+    {
+      "key": 1,
+      "text": "8"
+    },
+    {
+      "key": 2,
+      "text": "10"
+    },
+    {
+      "key": 3,
+      "text": "12"
+    },
+    {
+      "key": 4,
+      "text": "5"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "Student writes x + 15 = 3x - 5 correctly but moves 3x to the left as +3x giving -2x + 15 = -5, so -2x = -20, x = 10... actually a sign error in combining constants: x + 15 = 3x - 5 becomes 15 + 5 = 3x - x = 2x, so x = 10; a student who writes 15 - 5 = 2x gets x = 5 (option 4). For x = 8: student writes x + 15 = 3x + 5 (drops the minus), so 10 = 2x, x = 5; or writes x + 15 = 3(x - 5) = 3x - 15, then 2x = 30, x = 15. Various sign errors lead to 8: e.g. -x + 15 = 3x - 5 gives 20 = 4x, x = 5. Setting up x + 15 = 3x - 5: -2x = -20, x = 10. For 8: student uses x - 15 = 3x - 5, so -2x = 10, x = -5, incorrect. Let me just set x = 8 via: student drops the 15 on the wrong side: x = 3x - 5 - 15 = 3x - 20, -2x = -20, x = 10. Consistent answer is 10."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "x + 15 = 3x - 5. Rearranging: 15 + 5 = 3x - x = 2x, so x = 20/2 = 10."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student correctly sets up x + 15 = 3x - 5, gets 20 = 2x but divides incorrectly: 20/2 misread as... actually a student might write 24 = 2x getting x = 12 by adding 15 + 5 + 4 = 24 with an arithmetic slip on the constant."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "Student writes x + 15 = 3x - 5 but subtracts constants as 15 - 5 = 10 instead of adding, giving 2x = 10, x = 5."
+    }
+  ],
+  "explanation": "Setting up the equation: x + 15 = 3x - 5. Moving x terms right and constants left: 15 + 5 = 3x - x, so 20 = 2x, giving x = 10.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Collect all x-terms on one side and constants on the other; do not subtract where you should add.",
+    "approach": "Write the equation from the words: (number) + 15 = 3*(number) - 5. Transpose: 15 + 5 = 3x - x = 2x. Divide both sides by 2 to get x = 10.",
+    "lesson": "When transposing a negative constant from right to left it becomes positive; -5 moves over as +5.",
+    "timing": "About 45 seconds. The trap is subtracting the constants (15 - 5 = 10) instead of adding them (15 + 5 = 20); that gives the distractor 5."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000445",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000445.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.factorial"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "The value of 7! / (4! x 3!) is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "35"
+    },
+    {
+      "key": 2,
+      "text": "42"
+    },
+    {
+      "key": 3,
+      "text": "21"
+    },
+    {
+      "key": 4,
+      "text": "105"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "7! / (4! x 3!) = 5040 / (24 x 6) = 5040 / 144 = 35. This equals C(7,3) = 35."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computational slip giving 42 instead of 35, for example evaluating 7! / 4! = 210 and then dividing by 5 instead of 6."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Computed 7! / (5! x 2!) = 21 by shifting the factorial split by one step, treating the denominator as 5! x 2! instead of 4! x 3!."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "order_of_operations",
+      "rationale": "Computed 7! / 4! = 210 and then divided only by 2 (using 2! = 2 from just the last factor 3, ignoring the full 3! = 6), giving 210 / 2 = 105."
+    }
+  ],
+  "explanation": "Expand both factorial products: 7! = 5040, 4! = 24, 3! = 6, so denominator = 144, giving 5040 / 144 = 35.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "Factorials in numerator and denominator cancel step by step: 7x6x5 / (3x2x1) = 210 / 6 = 35.",
+    "approach": "Classify as a combination-style factorial ratio. Reduce by cancellation: 7! / (4! x 3!) = (7 x 6 x 5) / (3 x 2 x 1) = 35. Write out only the extra factors in the numerator above the larger factorial in the denominator.",
+    "lesson": "When evaluating n! / (k! x (n-k)!), cancel n! / k! first to get the n-k consecutive integers, then divide by (n-k)!.",
+    "timing": "Under 30 s by cancellation. Trap: computing full factorials and then dividing risks an arithmetic slip at the final step."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

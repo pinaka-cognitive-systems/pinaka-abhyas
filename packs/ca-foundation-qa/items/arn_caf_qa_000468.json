@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000468",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000468.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.permutations_restrictions"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "Eight people A, B, C, D, E, F, G, H are to be seated in a row of 8 seats. A and B must be separated by exactly 2 other people sitting between them. In how many ways can the eight people be seated?",
+  "options": [
+    {
+      "key": 1,
+      "text": "14400"
+    },
+    {
+      "key": 2,
+      "text": "10080"
+    },
+    {
+      "key": 3,
+      "text": "7200"
+    },
+    {
+      "key": 4,
+      "text": "3600"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computed 10 x 6! x 2 = 14400, incorrectly multiplying by an extra factor of 2 (double-counting already-ordered assignments of A and B)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Counted 7 valid gap-pairs instead of 5 (misidentifying which position-pairs produce exactly 2 seats between A and B), giving 7 x 2 x 6! = 10080."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Exactly 2 people between A and B means |posA - posB| = 3. Valid position-pairs: (1,4),(2,5),(3,6),(4,7),(5,8) => 5 unordered pairs. Each gives 2 ordered assignments of A and B: 10 placements. The other 6 people fill the remaining 6 seats in 6! = 720 ways. Total = 10 x 720 = 7200."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "permutation_combination_confusion",
+      "rationale": "Computed 5 x 6! = 3600, treating the 5 position-pairs as unordered (not multiplying by 2! for A vs B assignment) which incorrectly assumes A and B are identical."
+    }
+  ],
+  "explanation": "Exactly 2 people between A and B means their seat positions differ by 3. In 8 seats the valid unordered pairs are: (1,4),(2,5),(3,6),(4,7),(5,8) - exactly 5 pairs. Since A and B are distinct, each pair gives 2 ordered ways (A at left, B at right, or vice versa): 5 x 2 = 10 placements of A and B. The remaining 6 people fill the remaining 6 seats freely: 6! = 720. Total = 10 x 720 = 7200.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "Fixed gap constraint: translate '2 people between' into a position-difference of 3, enumerate valid pairs, then multiply by 2 for A-B order and 6! for the rest.",
+    "approach": "Classify: linear arrangement, fixed-gap restriction. Step 1 - translate: exactly 2 between means |posA - posB| = 3. Step 2 - count valid pairs in seats 1..8: (1,4),(2,5),(3,6),(4,7),(5,8) => 5 pairs. Step 3 - ordered assignments of A,B: 5 x 2 = 10. Step 4 - remaining 6 people: 6! = 720. Total = 10 x 720 = 7200.",
+    "lesson": "Exactly k people between two seats means their positions differ by k+1. Enumerate these pairs explicitly; do not guess by formula.",
+    "timing": "90 seconds: list the 5 pairs, x2 for A/B swap = 10, x720 = 7200. Traps: using 7 pairs (off by one on boundary), or forgetting x2 for A-B order."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000731",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000731.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.gm_hm"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "Observations x1, x2, ..., xn have geometric mean G. If every observation is multiplied by a constant k > 0, what is the geometric mean of the new data set?",
+  "options": [
+    {
+      "key": 1,
+      "text": "k * G"
+    },
+    {
+      "key": 2,
+      "text": "G^k"
+    },
+    {
+      "key": 3,
+      "text": "G + k"
+    },
+    {
+      "key": 4,
+      "text": "k^n * G"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "New GM = (k^n * product(xi))^(1/n) = k * (product(xi))^(1/n) = k * G. Multiplying all values by k scales the GM by k."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "G^k confuses the effect of a change of scale on GM with an exponentiation; a student who takes log(GM) = k*log(G) (incorrectly treating multiplication by k as raising to the power k) arrives at G^k."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "invariance_property_confused",
+      "rationale": "G + k applies the change-of-origin rule to GM (which correctly holds for AM under a shift), but GM under a scale change is a multiplicative, not additive, transformation; a student who confuses AM shift with GM scale gets G + k."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "k^n * G results from taking the nth root only partially: new product = k^n * product(xi), and a student who forgets to apply the nth root to the k^n factor reports k^n * G instead of k * G."
+    }
+  ],
+  "explanation": "GM of (k*x1, k*x2, ..., k*xn) = (k^n * x1*x2*...*xn)^(1/n) = k^(n/n) * (x1*...*xn)^(1/n) = k * G. Multiplying all observations by a constant k multiplies the GM by k.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "Multiplying every observation by k raises the entire product to involve k^n, and taking the nth root recovers exactly one factor of k, giving new GM = k * G.",
+    "approach": "State the property: GM scales with a change of scale. For GM: new_GM = (k^n * prod)^(1/n) = k * G. Contrast the confusable rule: for AM, adding a constant c to every value shifts AM by c (AM + c). For GM, multiplying by k scales GM by k.",
+    "lesson": "GM satisfies: (1) scale change by k -> GM multiplied by k; (2) origin shift by c -> no clean formula (GM is NOT additive). Contrast with AM: origin shift by c adds c to AM.",
+    "timing": "About 60 seconds. This is a property/concept item. Eliminate option 3 (AM-type shift rule) and option 4 (forgot the nth root) quickly."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

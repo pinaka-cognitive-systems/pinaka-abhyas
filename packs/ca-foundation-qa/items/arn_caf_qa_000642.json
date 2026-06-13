@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000642",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000642.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Seven people M, N, O, P, Q, R and S are sitting in a row. M is at the leftmost end. O is immediately left of N, and N is third from the right. R is immediately left of S. P is not adjacent to M. Q is not at either end, and Q is to the right of N. Who is third from the left?",
+  "options": [
+    {
+      "key": 1,
+      "text": "P"
+    },
+    {
+      "key": 2,
+      "text": "Q"
+    },
+    {
+      "key": 3,
+      "text": "R"
+    },
+    {
+      "key": 4,
+      "text": "S"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Ignoring that P is not adjacent to M and freely placing P at position 2 forces the remaining arrangement to put P at position 3."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "Reading 'Q is to the right of N' as 'Q is to the left of N' places Q in position 3 in the resulting arrangement."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Confusing 'R immediately left of S' with 'R at third from left' directly places R at position 3 without working through the full chain."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "M=1, N=5 (third from right in a 7-person row), O=4 (immediately left of N). R immediately left of S: the RS pair fits positions 2-3 or 3-4, but O=4 blocks position 4 for S, so R=2, S=3. Q right of N and not at end: Q=6. P fills position 7. Verify P not adjacent to M: |7-1|=6, ok. Final: M-R-S-O-N-Q-P. Third from left = S."
+    }
+  ],
+  "explanation": "M=1, O=4, N=5 (third from right). RS pair: O=4 blocks S from being at 4, so R=2, S=3. Q must be right of N(5) and not at end 7, so Q=6. P=7. Arrangement: M-R-S-O-N-Q-P. Third from left = position 3 = S.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "O=4 blocks the RS pair from occupying positions 3-4, forcing R=2 and S=3 which is the third from left.",
+    "approach": "Apply most-certain first: N=5 (third from right of 7), O=4 (immediately left of N). RS pair must sit in adjacent free seats: options are (2,3), (3,4) - blocked by O at 4, or (6,7) - but Q needs a non-end seat right of N. So R=2, S=3. Q=6, P=7. Verify P(7) not adjacent to M(1): distance 6, ok.",
+    "lesson": "When an adjacency pair has multiple candidate positions, use occupied-seat elimination to find the one valid placement.",
+    "timing": "About 85 s. Trap: placing RS at positions 6-7 and forgetting Q needs a non-end seat right of N."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

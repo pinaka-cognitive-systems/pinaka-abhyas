@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000846",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000846.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.correlation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "The coefficient of correlation between the daily sales (X, in Rs thousands) and advertising spend (Y, in Rs hundreds) of a shop is 0.75. The standard deviation of sales is 4 and the standard deviation of advertising spend is 6. What is cov(X,Y)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "18"
+    },
+    {
+      "key": 2,
+      "text": "24"
+    },
+    {
+      "key": 3,
+      "text": "12"
+    },
+    {
+      "key": 4,
+      "text": "4.5"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "cov(X,Y) = r * sdX * sdY = 0.75 * 4 * 6 = 0.75 * 24 = 18."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "A slip: computing sdX * sdY = 4 * 6 = 24 and forgetting to multiply by r, giving cov = 24."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Using cov = r * (sdX + sdY) = 0.75 * 10 = 7.5, misremembered as 12, or cov = r * sdX * sdY / 2 = 12."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Dividing r by sdX or sdY instead of multiplying: 0.75 * 6 = 4.5, using only one standard deviation."
+    }
+  ],
+  "explanation": "From the definition r = cov(X,Y) / (sdX * sdY), rearranging gives cov(X,Y) = r * sdX * sdY = 0.75 * 4 * 6 = 18. A common trap is stopping after computing sdX * sdY = 24 and forgetting the factor r.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Covariance is obtained by rearranging the correlation formula: cov = r * sdX * sdY. Multiply all three quantities together.",
+    "approach": "Name the formula: r = cov(X,Y) / (sdX * sdY). Rearrange to isolate cov: cov = r * sdX * sdY. Substitute r=0.75, sdX=4, sdY=6: cov = 0.75 * 4 * 6 = 18.",
+    "lesson": "Always verify whether the question asks for r or cov. If r is given and cov is needed, multiply; if cov is given and r is needed, divide.",
+    "timing": "About 45 seconds. One rearrangement and two multiplications. Trap: 4*6=24 tempts you to stop without applying the factor 0.75."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

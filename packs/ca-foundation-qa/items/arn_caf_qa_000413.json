@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000413",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000413.py"
+  },
+  "tests": [
+    "qa.bmath.finance.npv"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A project costs Rs 38,000 today and generates Rs 22,000 at the end of year 1 and Rs 24,200 at the end of year 2. The discount rate is 10% per annum. [Given: (1.1)^1 = 1.1 and (1.1)^2 = 1.21] What is the NPV of the project?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 8,200"
+    },
+    {
+      "key": 2,
+      "text": "Rs 6,200"
+    },
+    {
+      "key": 3,
+      "text": "Rs 4,000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 2,000"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Adds undiscounted cash flows: 22,000 + 24,200 - 38,000 = 8,200, ignoring time value of money."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "time_factor_dropped",
+      "rationale": "Discounts only year 1: 22,000/1.1 = 20,000; treats year 2 cash flow as already at PV: 20,000 + 24,200 - 38,000 = 6,200."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "time_factor_dropped",
+      "rationale": "Discounts only year 2: 22,000 + 24,200/1.21 = 22,000 + 20,000 - 38,000 = 4,000, treating year 1 cash flow as already at PV."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "PV(Y1) = 22,000 / 1.1 = 20,000. PV(Y2) = 24,200 / 1.21 = 20,000. Total PV = 40,000. NPV = 40,000 - 38,000 = 2,000."
+    }
+  ],
+  "explanation": "With unequal cash flows, each year's cash flow is discounted separately by (1+r)^t and the results are summed before subtracting the initial outlay.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "NPV = sum of [CF_t / (1+r)^t] - C_0; each year is discounted by its own compounding factor, not a single annuity factor.",
+    "approach": "Name the formula NPV = CF_1/(1+r) + CF_2/(1+r)^2 - C_0. Map: CF_1 = 22,000, CF_2 = 24,200, r = 0.10, C_0 = 38,000. PV_1 = 22,000/1.1 = 20,000. PV_2 = 24,200/1.21 = 20,000. NPV = 40,000 - 38,000 = 2,000.",
+    "lesson": "Use the annuity factor only when cash flows are equal. For unequal flows, discount each year separately.",
+    "timing": "40 seconds. The key insight is that 24,200 / 1.21 = 20,000 exactly (because 24,200 = 20,000 * 1.21). Use given powers directly."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

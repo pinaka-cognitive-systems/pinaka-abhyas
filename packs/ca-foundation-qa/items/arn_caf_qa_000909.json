@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000909",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000909.py"
+  },
+  "tests": [
+    "qa.bmath.finance.annuity"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 170,
+  "stem": "A person deposits Rs 5000 at the beginning of each year for 4 years into an account paying 10 percent per annum compounded annually. Using (1.10)^4 = 1.4641, what is the accumulated amount just after the 4-year term ends?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 25525.50"
+    },
+    {
+      "key": 2,
+      "text": "Rs 23205.00"
+    },
+    {
+      "key": 3,
+      "text": "Rs 20000.00"
+    },
+    {
+      "key": 4,
+      "text": "Rs 28078.05"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Beginning-of-year deposits form an annuity due. Ordinary annuity FV = R*((1+i)^n - 1)/i = 5000*(1.4641 - 1)/0.10 = 5000*4.641 = 23205. Multiply by (1+i) for the due timing: 23205*1.10 = Rs 25525.50."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Computes the ordinary (end-of-year) annuity FV 5000*4.641 = 23205 and stops, ignoring the beginning-of-year timing that requires the extra (1+i) factor.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Adds the four deposits 4*5000 = 20000 with no interest, dropping the entire compounding effect.",
+      "misconception": "time_factor_dropped"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Applies the due adjustment (1+i) twice, multiplying the ordinary FV by (1.10)^2 = 1.21: 23205*1.21 = 28078.05, over-correcting the beginning-of-period timing.",
+      "misconception": "rate_period_mismatch"
+    }
+  ],
+  "explanation": "Deposits at the beginning of each period make this an annuity due, which earns one extra period of interest compared with an ordinary annuity. First find the ordinary annuity future value: FV = R*((1+i)^n - 1)/i with R = 5000, i = 0.10, n = 4. Using (1.10)^4 = 1.4641, FV = 5000*(0.4641/0.10) = 5000*4.641 = 23205. Then multiply by (1 + i) = 1.10 for the due timing: 23205*1.10 = Rs 25525.50.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Beginning-of-year deposits are an annuity due, worth exactly (1+i) times the ordinary annuity. The single 1.10 multiplier is the whole question.",
+    "approach": "Read the deposit timing first. End of period is an ordinary annuity; beginning of period is an annuity due. Compute the ordinary FV with the supplied power, then apply one (1+i) factor for due timing.",
+    "lesson": "FV of an annuity due = FV of ordinary annuity times (1 + i). The timing word, beginning versus end, sets the factor.",
+    "timing": "About 170 seconds. The fastest elimination is to reject Rs 23205, the ordinary-annuity value, by checking whether deposits land at the start or end of each year."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000481",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000481.py"
+  },
+  "tests": [
+    "qa.bmath.sequence_series.gp"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "The first term of a geometric progression is 3 and the common ratio is 2. What is the 8th term?",
+  "options": [
+    {
+      "key": 1,
+      "text": "192"
+    },
+    {
+      "key": 2,
+      "text": "768"
+    },
+    {
+      "key": 3,
+      "text": "384"
+    },
+    {
+      "key": 4,
+      "text": "256"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Computes T_7 = 3*2^6 = 192, using n-2 as the exponent (off-by-one: uses index 7 for the 8th term)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Computes 3*2^8 = 768, using the exponent n instead of n-1 (fencepost error)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "T_n = a*r^(n-1). T_8 = 3*2^7 = 3*128 = 384."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computes 2^8=256 and forgets to multiply by a=3, reporting 256 as the answer."
+    }
+  ],
+  "explanation": "The nth term of a GP is T_n = a*r^(n-1). T_8 = 3 * 2^(8-1) = 3 * 2^7 = 3 * 128 = 384.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "T_n = a*r^(n-1) uses exponent n-1, not n - the first term already provides one factor.",
+    "approach": "Formula: T_n = a*r^(n-1). Identify a=3, r=2, n=8. Compute r^(n-1)=2^7=128. Multiply: 3*128=384.",
+    "lesson": "The exponent in T_n = a*r^(n-1) is always one less than the term number - the first term is a*r^0 = a.",
+    "timing": "20-25 seconds. The only trap is using r^n (768) or r^(n-2) (192). Compute 2^7=128 and multiply by 3."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

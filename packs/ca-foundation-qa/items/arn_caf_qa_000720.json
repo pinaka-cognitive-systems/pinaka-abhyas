@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000720",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000720.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mode"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "A frequency distribution over classes 10-20, 20-30, 30-40, 40-50, 50-60 has frequencies 5, p, 40, 20, 5, where p is unknown. The total number of observations is 90 and the modal class is 30-40 with mode equal to 35. What is the value of p?",
+  "options": [
+    {
+      "key": 1,
+      "text": "20"
+    },
+    {
+      "key": 2,
+      "text": "15"
+    },
+    {
+      "key": 3,
+      "text": "25"
+    },
+    {
+      "key": 4,
+      "text": "18"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Two constraints: (1) total = 90 gives p = 90 - (5+40+20+5) = 20. (2) Verify with mode formula: Mode = 30+((40-20)/(80-20-20))*10 = 30+(20/40)*10 = 35. Both constraints satisfied by p=20."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "p=15 gives total = 85, not 90; this arises from a subtraction slip: 90 - 75 = 15 instead of 90 - 70 = 20."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "p=25 gives total = 95, not 90; the student adds the known frequencies incorrectly as 65 rather than 70, getting p = 90-65 = 25."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "p=18 satisfies neither the total constraint nor the mode formula correctly; this arises from trying to solve only the mode equation numerically with a guess, misidentifying f0=p from the mode formula as 18 without verifying the total."
+    }
+  ],
+  "explanation": "Step 1 - use total frequency: 5 + p + 40 + 20 + 5 = 90, so p = 90 - 70 = 20. Step 2 - verify with mode formula: Modal class = 30-40 (f1=40). f0=p=20, f2=20. Mode = 30 + ((40-20)/(2*40-20-20))*10 = 30 + (20/40)*10 = 30 + 5 = 35. Both the total and the mode formula are satisfied, confirming p = 20.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Two independent constraints - total frequency and the mode formula - both determine p; the total constraint is the faster route.",
+    "approach": "Identify model: back-calculation using two constraints. Start with total: 5+p+40+20+5=90 => p=20. Then verify the mode formula is also satisfied (it is). A pure mode-equation approach also works but requires solving a linear equation: (mode-L)/h = (f1-p)/(2f1-p-f2).",
+    "lesson": "When a missing frequency is given along with the mode, always check both the total-frequency constraint and the mode formula; the total constraint is usually simpler.",
+    "timing": "90-120 s. The total constraint gives p in one step (30 s). The mode-formula route is the hard path: set up (35-30)/10 = (40-p)/(80-p-20) and solve for p (60 s). Trap: ignoring total and attempting a guess-check cycle on the mode formula."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

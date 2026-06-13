@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000760",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000760.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.quartile_deviation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The following are the test scores of 9 students arranged in ascending order: 12, 18, 24, 30, 36, 42, 48, 54, 60. What is the quartile deviation of the scores?",
+  "options": [
+    {
+      "key": 1,
+      "text": "15"
+    },
+    {
+      "key": 2,
+      "text": "30"
+    },
+    {
+      "key": 3,
+      "text": "21"
+    },
+    {
+      "key": 4,
+      "text": "12"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "For n=9: Q1 is the ((9+1)/4)th = 2.5th value = average of 2nd and 3rd = (18+24)/2 = 21. Q3 is the (3*(9+1)/4)th = 7.5th value = average of 7th and 8th = (48+54)/2 = 51. QD = (Q3 - Q1)/2 = (51 - 21)/2 = 30/2 = 15."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "30 is the IQR = Q3 - Q1 = 51 - 21 = 30. The student computed the inter-quartile range but did not halve it to get the quartile deviation."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "21 is Q1 itself. The student correctly located Q1 = 21 but mistakenly reported Q1 as the quartile deviation."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "12 results from using Q1 and Q3 positions incorrectly, taking Q1 as the 2nd value (18) and Q3 as the 8th value (54): QD = (54 - 18)/2 = 18, or from mis-identifying Q1 as the 1st value (12) and dividing by 2."
+    }
+  ],
+  "explanation": "For n = 9, Q1 position = (n+1)/4 = 10/4 = 2.5th term = (2nd + 3rd)/2 = (18 + 24)/2 = 21. Q3 position = 3*(n+1)/4 = 7.5th term = (7th + 8th)/2 = (48 + 54)/2 = 51. Quartile deviation = (Q3 - Q1)/2 = (51 - 21)/2 = 30/2 = 15.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Locating Q1 and Q3 correctly using the (n+1)/4 formula is the critical setup step before applying QD = (Q3-Q1)/2.",
+    "approach": "Identify the model: raw data QD. Step 1: sort data (already done). Step 2: locate Q1 at position (n+1)/4 = 2.5, so average the 2nd and 3rd values: (18+24)/2 = 21. Step 3: locate Q3 at position 3(n+1)/4 = 7.5, so average the 7th and 8th values: (48+54)/2 = 51. Step 4: QD = (51-21)/2 = 15.",
+    "lesson": "For ungrouped data, quartile positions use the (n+1)/4 formula; interpolate when the position is not a whole number.",
+    "timing": "75-90 seconds. Trap: forgetting to divide IQR by 2 (gives 30). Check by verifying 7th and 8th values are 48 and 54."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

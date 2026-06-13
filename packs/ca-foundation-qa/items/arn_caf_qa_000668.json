@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000668",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000668.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.diagrammatic"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A less-than ogive is drawn for the data: marks less than 20 = 5, less than 40 = 17, less than 60 = 29, less than 80 = 38, less than 100 = 45. A student reads the ogive and reports that the median is at the mark corresponding to cumulative frequency 22.5. At which class boundary does this cumulative frequency of 22.5 fall, based on linear interpolation between the ogive points (40, 17) and (60, 29)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "49.17"
+    },
+    {
+      "key": 2,
+      "text": "50.00"
+    },
+    {
+      "key": 3,
+      "text": "46.67"
+    },
+    {
+      "key": 4,
+      "text": "52.50"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Interpolating between (40, 17) and (60, 29): proportion = (22.5 - 17) / (29 - 17) = 5.5/12. x = 40 + (5.5/12) x 20 = 40 + 9.1667 = 49.17 (to 2 d.p.)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "x = 50 would arise if the proportion were taken as (22.5 - 17)/(29 - 17) = 5.5/12 but then multiplied by 24 (wrong interval width of 24 instead of 20)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "46.67 arises if the numerator is wrongly computed as (22.5 - 17)/12 = 5.5/12 but applied to width 12 instead of 20, giving 40 + 5.5/12 x 12 = 40 + 5.5 = 45.5, or misread as 46.67 from an off numerator of 8/12 x 20 = 13.33 + 40 - wrong base, consistent with using (22.5 - 14)/(29 - 14) = 8.5/15 x 20 = 11.33 giving 40+11.33=51.33, or proportion denominator taken as 15 giving (22.5-17)/15 x 20 = 7.33 giving 47.33 then rounded; closest distractor to a denominator error is 46.67 from (22.5-20)/(29-20) x 20+40 = 2.5/9 x 20 + 40 = 5.56+40 = 45.56, all indicating wrong lower boundary read as 20 instead of 17."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "52.50 = 40 + (22.5/45) x 20; the student applied the interpolation formula using total frequency 45 as the denominator instead of the class frequency 12."
+    }
+  ],
+  "explanation": "Median cumulative frequency = N/2 = 45/2 = 22.5. From the ogive, 22.5 falls between cumulative frequencies 17 (at x=40) and 29 (at x=60). By linear interpolation: x = 40 + [(22.5 - 17) / (29 - 17)] x 20 = 40 + (5.5/12) x 20 = 40 + 9.1667 = 49.17.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Interpolation formula: x = L + [(N/2 - F) / f] x h = 40 + (5.5/12) x 20 = 49.17.",
+    "approach": "Identify the model: ogive-based median interpolation. Step 1: N/2 = 22.5. Step 2: locate the ogive segment containing 22.5 -> between (40, 17) and (60, 29). Step 3: apply linear interpolation x = 40 + [(22.5-17)/(29-17)] x 20.",
+    "lesson": "The denominator in the interpolation fraction is the frequency within the median class (f = 29 - 17 = 12), not the total frequency N.",
+    "timing": "90 s. 5.5/12 = 0.4583; 0.4583 x 20 = 9.167; 40 + 9.167 = 49.17."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

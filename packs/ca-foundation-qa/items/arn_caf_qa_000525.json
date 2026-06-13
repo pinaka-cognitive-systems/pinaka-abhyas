@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000525",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000525.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.relations_functions"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Let f : R -> R be defined by f(x) = x^2 - 4. Which of the following is true about f?",
+  "options": [
+    {
+      "key": 1,
+      "text": "f is one-one and onto"
+    },
+    {
+      "key": 2,
+      "text": "f is one-one but not onto"
+    },
+    {
+      "key": 3,
+      "text": "f is onto but not one-one"
+    },
+    {
+      "key": 4,
+      "text": "f is neither one-one nor onto"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "Failing to test f(2) = f(-2) = 0 (not one-one) and not checking that negative values like -5 have no pre-image (not onto), incorrectly concluding both properties hold."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "Correctly identifying failure of one-one by missing the symmetry x vs -x, but then incorrectly claiming onto because the formula appears to range over all reals without checking the minimum value."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "Concluding onto because 'every real number can be obtained from some x' without checking that f(x) = x^2 - 4 >= -4 always, so values below -4 are never reached; and concluding one-one fails which is correct but not the full picture."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "Not one-one: f(2) = 0 = f(-2) but 2 not= -2. Not onto: f(x) = x^2 - 4 >= -4 for all real x, so no real x maps to, say, -5. Hence f is neither one-one nor onto."
+    }
+  ],
+  "explanation": "f(x) = x^2 - 4 fails one-one because f(a) = f(-a) for all a, and fails onto because the minimum value -4 means no pre-image exists for any y < -4.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "A square function on all of R is always symmetric about 0 (not injective) and is bounded below (not surjective onto R).",
+    "approach": "State the property then contrast the confusable one. One-one (injective): distinct inputs give distinct outputs. Test f(2) = 0 and f(-2) = 0; since 2 != -2 but outputs match, f is NOT one-one. Onto (surjective): every element of the codomain R must have a pre-image. Since x^2 >= 0 always, f(x) = x^2 - 4 >= -4. Values like y = -5 have no solution x^2 = -1, so f is NOT onto. Both tests fail -> option 4.",
+    "lesson": "For f: R -> R with f(x) = x^2 + c, always check (i) even-function symmetry kills injectivity and (ii) minimum value kills surjectivity.",
+    "timing": "About 75 seconds. Test f(2) vs f(-2) first (40 sec), then check minimum of x^2-4 (20 sec). Trap: assuming all real y values are achievable because R is an infinite domain."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

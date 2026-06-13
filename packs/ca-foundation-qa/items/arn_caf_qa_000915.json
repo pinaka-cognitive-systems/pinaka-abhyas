@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000915",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000915.py"
+  },
+  "tests": [
+    "qa.bmath.calculus.applications"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "The total cost of producing x units is C(x) = x^3 - 6x^2 + 15x + 50 (in Rs). What is the marginal cost when x = 4 units?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 15"
+    },
+    {
+      "key": 2,
+      "text": "Rs 19.50"
+    },
+    {
+      "key": 3,
+      "text": "Rs 39"
+    },
+    {
+      "key": 4,
+      "text": "Rs 78"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Marginal cost is the derivative dC/dx = 3x^2 - 12x + 15. At x = 4: 3*16 - 12*4 + 15 = 48 - 48 + 15 = Rs 15."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Computes the average cost C(4)/4 = (64 - 96 + 60 + 50)/4 = 78/4 = 19.50. Average cost is total over quantity, not the rate of change marginal cost asks for.",
+      "misconception": "marginal_vs_average_confused"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Differentiates the -6x^2 term as -6x instead of -12x, dropping the factor 2, so the derivative reads 3x^2 - 6x + 15, giving 48 - 24 + 15 = 39 at x = 4.",
+      "misconception": "power_rule_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Substitutes x = 4 into the total cost C(x) itself, getting C(4) = 78, treating total cost as marginal cost without differentiating.",
+      "misconception": "concept_definition_confused"
+    }
+  ],
+  "explanation": "Marginal cost is the instantaneous rate of change of total cost, that is the derivative dC/dx, evaluated at the given output. Differentiate term by term: d/dx(x^3) = 3x^2, d/dx(-6x^2) = -12x, d/dx(15x) = 15, d/dx(50) = 0, so dC/dx = 3x^2 - 12x + 15. At x = 4: 3*16 - 48 + 15 = 48 - 48 + 15 = Rs 15. Do not divide total cost by x; that gives average cost, a different quantity.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Marginal cost is the derivative dC/dx, not C(x)/x. The average-cost route gives 19.50 and is the planted trap.",
+    "approach": "For marginal anything from a total function, differentiate and then substitute. Read whether the question wants the rate of change (marginal, derivative) or the per-unit total (average, divide by x) before computing.",
+    "lesson": "Marginal cost = dC/dx; average cost = C(x)/x. These are distinct quantities and almost never equal.",
+    "timing": "About 150 seconds. The fastest elimination is to reject Rs 19.50, the average cost, by confirming the word marginal means differentiate, not divide."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

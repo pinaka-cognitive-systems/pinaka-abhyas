@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000859",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000859.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.rank_correlation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "In a Spearman rank correlation study, the sum of squared rank differences is 21 and the rank correlation coefficient is 0.75. How many pairs of observations were studied?",
+  "options": [
+    {
+      "key": 1,
+      "text": "6"
+    },
+    {
+      "key": 2,
+      "text": "7"
+    },
+    {
+      "key": 3,
+      "text": "8"
+    },
+    {
+      "key": 4,
+      "text": "10"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Testing n=6: 6*(36-1)=210. 6*21/210=0.6, r_s=0.4, not 0.75. n=6 fails."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Testing n=7: 7*(49-1)=336. 6*21/336=126/336=3/8=0.375, r_s=0.625, not 0.75. n=7 fails."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "From r_s = 1 - 6*sum_d2/(n*(n^2-1)): 0.25 = 6*21/(n*(n^2-1)) => n*(n^2-1) = 504 = 8*63 = 8*(64-1). So n=8."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Testing n=10: 10*(100-1)=990. 6*21/990=126/990=0.1273, r_s=0.8727, not 0.75. Or misreading the back-calculation formula and solving 6*sum_d2 = (1-r_s)*n^2 incorrectly yields n=10."
+    }
+  ],
+  "explanation": "Rearrange r_s = 1 - 6*sum_d2/(n*(n^2-1)): 1 - 0.75 = 0.25 = 6*21/(n*(n^2-1)). So n*(n^2-1) = 6*21/0.25 = 504. Factoring: 504 = 8*63 = 8*(64-1) = 8*(8^2-1). Therefore n=8.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Back-calculating from r_s gives n*(n^2-1)=504, and the only integer solution is n=8.",
+    "approach": "Name the formula: r_s = 1 - 6*sum(d^2)/(n*(n^2-1)). Isolate the denominator: n*(n^2-1) = 6*sum_d2/(1-r_s) = 6*21/0.25 = 504. Test integer values: n=7 gives 7*48=336, n=8 gives 8*63=504. So n=8.",
+    "lesson": "Back-calculation requires expressing n*(n^2-1) as a product to find the integer n; the denominator 504 = 8*63 immediately reveals n=8.",
+    "timing": "About 75 seconds. The decisive move is computing 6*21/0.25=504 and recognizing 504=8*63."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

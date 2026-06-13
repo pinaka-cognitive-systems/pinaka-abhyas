@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000573",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000573.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.coding_decoding"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "In a code, the letters of a word are first rearranged by swapping each pair of adjacent letters starting from the 1st position (positions 1 and 2 swap, then 3 and 4 swap, and so on; the last letter stays if the word has an odd number of letters), and then each letter in the rearranged word is shifted 1 place forward in the alphabet. For example, TRADE is first rearranged to RTADE (positions 1,2 swapped; positions 3,4 swapped; position 5 stays), giving the code SUEBF. Using the same rule, what is the code for PLANT?",
+  "options": [
+    {
+      "key": 1,
+      "text": "MQOBU"
+    },
+    {
+      "key": 2,
+      "text": "QMBOU"
+    },
+    {
+      "key": 3,
+      "text": "LPNAT"
+    },
+    {
+      "key": 4,
+      "text": "QBMUO"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Swap pairs: P,L->L,P and A,N->N,A, T stays: LPNAT. Then +1: L->M, P->Q, N->O, A->B, T->U = MQOBU."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "Shifting PLANT directly by +1 without swapping: P->Q, L->M, A->B, N->O, T->U = QMBOU. The swap step was skipped."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "Swapping pairs to get LPNAT but omitting the +1 shift gives LPNAT as the code. The shift step was omitted."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Swapping pairs starting from position 2 instead of position 1 (positions 2,3 swap and 4,5 swap): PLANT -> PALNT then +1 = QBMUO."
+    }
+  ],
+  "explanation": "Two-step process: (1) swap adjacent letter-pairs from position 1 - P and L swap to give LP, A and N swap to give NA, T stays: LPNAT. (2) shift each letter +1: L->M, P->Q, N->O, A->B, T->U = MQOBU. Verify with TRADE: T,R swap -> R,T; A,D swap -> D,A; E stays: RTADE -> +1 = SUEBF (matches).",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The two-step sequence matters: swap pairs first, then shift - reversing the order or omitting either step gives a different wrong answer from the options.",
+    "approach": "Deductive trace: re-verify example (TRADE->RTADE->SUEBF) to confirm starting position for swaps, then apply the same two steps to PLANT explicitly.",
+    "lesson": "For multi-step codes, always carry out each step on paper in sequence - the most frequent error is applying the shift to the original word rather than the rearranged one.",
+    "timing": "About 85-95 seconds. Fastest check: the code must start with M (from L+1) since the L moves to position 1 after the swap - any option starting with Q applies the shift before the swap."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

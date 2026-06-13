@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000365",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000365.py"
+  },
+  "tests": [
+    "qa.bmath.inequalities.solution_space"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "For what integer values of x does the inequality -2x + 5 > 1 hold while also satisfying x >= 0?",
+  "options": [
+    {
+      "key": 1,
+      "text": "x = 0, 1"
+    },
+    {
+      "key": 2,
+      "text": "x = 0, 1, 2"
+    },
+    {
+      "key": 3,
+      "text": "x = 1, 2"
+    },
+    {
+      "key": 4,
+      "text": "x = 0, 1, 2, 3"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "-2x+5>1 => -2x > -4 => x < 2. Combined with x>=0: 0 <= x < 2. Integer values: x=0 and x=1."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "inequality_sign_not_flipped",
+      "rationale": "Forgot to flip the sign when dividing by -2: got x < -2 becomes x > 2, then intersection with x>=0 gives {0,1,2} by mistake."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "Omitted x=0 perhaps thinking the boundary x=0 is excluded (it is not, since x>=0 is non-strict)."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "inequality_sign_not_flipped",
+      "rationale": "Did not flip the inequality when dividing by -2, obtaining x < 4 instead of x < 2, giving too many values."
+    }
+  ],
+  "explanation": "Solve -2x + 5 > 1: subtract 5 to get -2x > -4. Divide by -2 and flip: x < 2. Intersect with x >= 0: integers in [0, 2) are x = 0 and x = 1.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Dividing by a negative number flips the inequality direction; missing this step gives the wrong solution set.",
+    "approach": "-2x + 5 > 1 => -2x > -4 => x < 2 (flip because divided by -2). Intersection with x>=0 gives 0 <= x < 2. Integer values: {0, 1}.",
+    "lesson": "Any multiplication or division by a negative number reverses the inequality. Always check the sign of the divisor.",
+    "timing": "70 s. The decisive move is recognising the flip at division by -2. Option 4 is the classic no-flip trap."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

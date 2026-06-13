@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000694",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000694.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.sampling"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 85,
+  "stem": "In a sample survey, the difference between the value of a statistic computed from a sample and the true population parameter is called:",
+  "options": [
+    {
+      "key": 1,
+      "text": "Non-sampling error"
+    },
+    {
+      "key": 2,
+      "text": "Sampling error"
+    },
+    {
+      "key": 3,
+      "text": "Standard error"
+    },
+    {
+      "key": 4,
+      "text": "Bias"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Non-sampling error arises from defects in data collection, recording, or processing (such as measurement error or non-response); it is not the inherent discrepancy from studying a subset rather than the whole population."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Sampling error is defined as the difference between a sample statistic and the corresponding population parameter; it arises because only a part of the population is observed."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Standard error is the standard deviation of the sampling distribution of a statistic (a measure of variability across repeated samples); it is not the specific difference for any one sample."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Bias is a systematic error that consistently pushes the estimate in one direction; the term 'sampling error' specifically denotes the random discrepancy due to observing only a sample."
+    }
+  ],
+  "explanation": "Sampling error = sample statistic - population parameter. It is the inherent imprecision from using a sample rather than a census. It can be reduced by increasing sample size but cannot be entirely eliminated (unlike non-sampling errors).",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "The phrase 'difference between the sample statistic and the population parameter' is the exact definition of sampling error.",
+    "approach": "State the property: sampling error = |statistic - parameter|, arising from partial observation of the population. Contrast: non-sampling error (recording/processing defects); standard error (variability measure of the statistic across samples); bias (systematic directional error).",
+    "lesson": "Sampling error is inherent to sampling and decreases as n increases; non-sampling error can occur even in a census and is controlled by better data-collection procedures.",
+    "timing": "35 seconds. Eliminate standard error (it is a measure of variability, not a specific difference) and bias (systematic, not random) first."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

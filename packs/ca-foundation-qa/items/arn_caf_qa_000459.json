@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000459",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000459.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.circular_permutations"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "Seven delegates are to be seated around a circular conference table. Two particular delegates, Arjun and Bhavna, insist on sitting next to each other. In how many ways can the seating be arranged?",
+  "options": [
+    {
+      "key": 1,
+      "text": "1440"
+    },
+    {
+      "key": 2,
+      "text": "720"
+    },
+    {
+      "key": 3,
+      "text": "240"
+    },
+    {
+      "key": 4,
+      "text": "480"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Treat Arjun and Bhavna as one unit: 6 units around a circle = (6-1)! = 120. Arjun and Bhavna can swap within the unit: 2! = 2. Total = 120 x 2 = 1440."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "permutation_combination_confusion",
+      "rationale": "Computed (6-1)! = 120 and multiplied by 6 instead of 2, or directly wrote 720, forgetting the internal swap of the pair."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Computed (6-1)! / 2 = 60 x ... or 5! = 120 then divided by a factor, confusing necklace formula with the constraint."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computed (5-1)! x 2! x 2 = 48 x ... or another mis-grouping yielding 480."
+    }
+  ],
+  "explanation": "Glue the constrained pair into a single block. This gives 6 objects to arrange around a circle: (6-1)! = 5! = 120 ways. The two people inside the block can switch places in 2! = 2 ways. Multiply: 120 x 2 = 1440.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "Bundle the inseparable pair into one block, count the circular arrangements of the resulting 6 objects, then restore internal order.",
+    "approach": "Classify: circular arrangement, together constraint. Step 1 - merge pair into 1 block: n reduces from 7 to 6. Step 2 - circular arrangements of 6 blocks: (6-1)! = 120. Step 3 - internal permutations of the 2-person block: 2! = 2. Multiply: 120 x 2 = 1440.",
+    "lesson": "Together constraint: merge into one block, reduce n by (block size - 1), then multiply by internal factorial.",
+    "timing": "30 seconds: 5! x 2 = 120 x 2 = 1440. Trap: forgetting the internal swap gives only 120."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

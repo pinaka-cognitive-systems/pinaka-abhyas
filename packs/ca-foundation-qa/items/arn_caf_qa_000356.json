@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000356",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000356.py"
+  },
+  "tests": [
+    "qa.bmath.inequalities.one_variable"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A salesman earns a fixed salary of Rs 4,000 per month plus Rs 20 per unit sold. He needs to earn at least Rs 10,000 per month. What is the minimum number of units he must sell?",
+  "options": [
+    {
+      "key": 1,
+      "text": "280 units"
+    },
+    {
+      "key": 2,
+      "text": "300 units"
+    },
+    {
+      "key": 3,
+      "text": "320 units"
+    },
+    {
+      "key": 4,
+      "text": "350 units"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Total required over salary = Rs 6,000 but computing 6000/20 as 280 is an arithmetic slip (6000/20=300)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "4000 + 20n >= 10000 => 20n >= 6000 => n >= 300. Minimum is 300 units."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computing 6000/20 as 6000/18.75=320 by a slip where the divisor is read as 18.75 instead of 20, or by computing 10000/20=500 then subtracting the salary as 500-180=320."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Setting 20n >= 10000 (ignoring the fixed salary component entirely) gives n >= 500, then misread or scaled down to 350."
+    }
+  ],
+  "explanation": "Let n = units sold. Total earnings = 4000 + 20n. Condition: 4000 + 20n >= 10000. Subtract 4000: 20n >= 6000. Divide by 20: n >= 300. Minimum is 300 units.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Subtracting the fixed salary (4000) from the target (10000) leaves 6000 variable earnings needed; dividing by 20 gives n >= 300.",
+    "approach": "Linear inequality from word problem: define variable n, write total earnings, set >= target, isolate n. The setup decision is identifying which part is fixed (salary) and which is variable (per-unit pay). Divide 6000 by 20 = 300.",
+    "lesson": "In minimum-earnings inequalities, always isolate the variable component first by subtracting the fixed component from the target before dividing.",
+    "timing": "60 seconds. Simple once the inequality is set up. Trap: option 4 ignores the Rs 4,000 fixed salary entirely."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

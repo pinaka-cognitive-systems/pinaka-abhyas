@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000374",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000374.py"
+  },
+  "tests": [
+    "qa.bmath.finance.simple_interest"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Two friends, Ankit and Bharat, each lend Rs 5,000 to a third party. Ankit charges simple interest at 8% per annum for 3 years and Bharat charges simple interest at 10% per annum for 2 years. Which of the following correctly describes the difference in their total interest earnings?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Ankit earns Rs 200 more than Bharat"
+    },
+    {
+      "key": 2,
+      "text": "Bharat earns Rs 200 more than Ankit"
+    },
+    {
+      "key": 3,
+      "text": "Both earn the same total interest"
+    },
+    {
+      "key": 4,
+      "text": "Ankit earns Rs 400 more than Bharat"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Ankit: SI = 5000*8*3/100 = 1200. Bharat: SI = 5000*10*2/100 = 1000. Ankit exceeds Bharat by 200."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Swapping the direction of comparison: correctly computing 1200 vs 1000 but then concluding Bharat (the lower earner) is higher."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Noting 8*3 = 24 and 10*2 = 20 are different but slipping to conclude they are equal, or mistakenly computing 10*3 = 30 and 8*3 = 24 for Ankit and swapping Bharat's rate to 8% giving equal products."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "decimal_place_error",
+      "rationale": "Computing Bharat's SI using the wrong period T = 1 instead of 2: 5000*10*1/100 = 500, giving a difference of 1200 - 500 = 700, then rounding/misreading to 400; or computing Bharat at 8% instead of 10%: 5000*8*2/100 = 800, difference = 400."
+    }
+  ],
+  "explanation": "Ankit's SI = 5000 * 8 * 3 / 100 = 1200. Bharat's SI = 5000 * 10 * 2 / 100 = 1000. Difference = 1200 - 1000 = Rs 200 in Ankit's favour.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The rate-time product (R*T) is the key: Ankit's 8*3 = 24 beats Bharat's 10*2 = 20 on the same principal.",
+    "approach": "Formula: SI = P*R*T/100. Same principal P = 5000 for both. Compute separately: Ankit: 5000*8*3/100 = 1200; Bharat: 5000*10*2/100 = 1000. Difference = 200 in Ankit's favour.",
+    "lesson": "When principal is equal, comparing SI comes down to comparing R*T products.",
+    "timing": "50 s. Quick check: R*T for Ankit = 24, for Bharat = 20, so Ankit wins. The trap is option 3 (looking only at one factor in isolation)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

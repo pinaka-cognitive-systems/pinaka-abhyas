@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000349",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000349.py"
+  },
+  "tests": [
+    "qa.bmath.equations.quadratic"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Two partners Asha and Beena together invest Rs 14 thousand in a venture. The product of their individual investments (in thousands of rupees) is Rs 48 thousand squared. Asha invests the smaller amount. How much does Asha invest?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 4 thousand"
+    },
+    {
+      "key": 2,
+      "text": "Rs 5 thousand"
+    },
+    {
+      "key": 3,
+      "text": "Rs 6 thousand"
+    },
+    {
+      "key": 4,
+      "text": "Rs 7 thousand"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Using AM-GM incorrectly: sqrt(48)~6.9, then guessing one investment as roughly 14-6.9=7.1, and the other as 4, shows wrong formula application."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "A slip when factoring x^2-14x+48: trying (x-5)(x-9)=x^2-14x+45 not 48, leading to x=5 as a false root."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Let Asha invest x thousand and Beena (14-x) thousand. x*(14-x)=48 => x^2-14x+48=0 => (x-6)(x-8)=0 => x=6 or 8. Smaller is 6."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "14/2=7 gives the equal-split amount; choosing 7 ignores the product constraint entirely."
+    }
+  ],
+  "explanation": "Let Asha's investment be x thousand. Beena's is (14-x) thousand. Product constraint: x(14-x)=48 => 14x-x^2=48 => x^2-14x+48=0 => (x-6)(x-8)=0. Roots are 6 and 8. Asha invests the smaller amount, so x=6 thousand.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Setting x(14-x)=48 gives the quadratic x^2-14x+48=0 whose smaller root 6 is Asha's investment.",
+    "approach": "Quadratic from sum-product setup: assign Asha x, Beena (14-x). Form the product equation, rearrange to standard form, factor by finding two numbers that multiply to 48 and sum to 14 (6 and 8). Pick the smaller root because the problem specifies Asha invests less.",
+    "lesson": "Whenever two quantities have a fixed sum S and product P, each quantity satisfies x^2 - Sx + P = 0. Both roots are valid amounts; context selects which one.",
+    "timing": "75 seconds. Recognise the sum-product structure immediately and write the quadratic. Trap: option 4 uses only the sum, ignoring the product condition."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

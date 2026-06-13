@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000384",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000384.py"
+  },
+  "tests": [
+    "qa.bmath.finance.effective_rate"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A recurring deposit scheme advertises a nominal annual interest rate of 16% compounded quarterly. An investor wants to know the equivalent nominal annual rate if the bank were to compound only once a year (i.e., the effective annual rate). What is that effective annual rate?  [Given: (1.04)^4 = 1.1699]",
+  "options": [
+    {
+      "key": 1,
+      "text": "16.00%"
+    },
+    {
+      "key": 2,
+      "text": "16.99%"
+    },
+    {
+      "key": 3,
+      "text": "17.60%"
+    },
+    {
+      "key": 4,
+      "text": "15.68%"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "rate_period_mismatch",
+      "rationale": "Treating the nominal 16% directly as the EAR ignores that quarterly compounding adds extra interest within the year, so the actual annual return is higher."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "EAR = (1 + 0.16/4)^4 - 1 = (1.04)^4 - 1 = 1.1699 - 1 = 0.1699 = 16.99%."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Multiplying the quarterly rate 4% by 4 and then adding a flat adjustment gives 17.60%; this is not the correct compounding formula."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Subtracting 0.32 (a guess at compounding friction) from 16% gives 15.68%, an arithmetically unsupported result."
+    }
+  ],
+  "explanation": "The effective annual rate for a nominal rate r compounded m times per year is EAR = (1 + r/m)^m - 1. With r = 0.16 and m = 4: EAR = (1.04)^4 - 1 = 1.1699 - 1 = 16.99%.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Quarterly compounding at 16% nominal earns 16.99% annually - the compounding pushes actual return above the headline rate.",
+    "approach": "Formula: EAR = (1 + r/m)^m - 1. Name each given: r = 16% = 0.16, m = 4 (quarterly). Per-period rate = 0.16/4 = 0.04. Apply the given hint: (1.04)^4 = 1.1699. EAR = 1.1699 - 1 = 0.1699 = 16.99%.",
+    "lesson": "The EAR always exceeds the nominal rate for m > 1; use (1 + r/m)^m - 1 to convert.",
+    "timing": "60 seconds. Identify m = 4, compute r/m = 0.04, apply the given power. Trap: option 1 = nominal rate, not EAR."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

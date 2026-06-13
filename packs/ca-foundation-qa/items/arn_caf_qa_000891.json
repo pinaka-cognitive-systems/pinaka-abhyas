@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000891",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000891.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.tests_adequacy"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "The time reversal test states that if P01 is the price index for the current period with the base period as reference, then the index computed by interchanging the two periods (P10) must satisfy which of the following conditions?",
+  "options": [
+    {
+      "key": 1,
+      "text": "P01 x P10 = 1"
+    },
+    {
+      "key": 2,
+      "text": "P01 + P10 = 2"
+    },
+    {
+      "key": 3,
+      "text": "P01 x P10 = 0"
+    },
+    {
+      "key": 4,
+      "text": "P01 / P10 = 1"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Time reversal test requires P01 x P10 = 1. When you reverse the base and current periods, the product of the two indices must equal unity, meaning the price movement going forward is exactly cancelled by going backward."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Requiring P01 + P10 = 2 (i.e., their arithmetic mean equals 1) is not the time reversal condition. This confuses the additive mean condition with the correct multiplicative reciprocal condition."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Setting P01 x P10 = 0 would imply one index equals zero, which is economically meaningless. This reflects a misstatement of the condition."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "invariance_property_confused",
+      "rationale": "P01 / P10 = 1 would mean P01 = P10, i.e., going forward equals going backward in value - a different and incorrect condition that only holds for symmetric price changes."
+    }
+  ],
+  "explanation": "The time reversal test requires that P01 x P10 = 1. Intuitively, if prices move from period 0 to period 1 by a factor k, then moving from period 1 back to period 0 should be by factor 1/k, giving k x (1/k) = 1. Fisher's ideal index satisfies this; Laspeyres and Paasche individually do not.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Time reversal test: the forward and backward indices are reciprocals of each other, so their product is exactly 1.",
+    "approach": "Name the formula for time reversal test: P01 x P10 = 1. This is a direct definition. No computation needed - identify the correct algebraic condition from the options.",
+    "lesson": "Among Laspeyres, Paasche, and Fisher: only Fisher's ideal index satisfies both the time reversal test (P01 x P10 = 1) and the factor reversal test.",
+    "timing": "Under 30 seconds. This is a direct recall item. Trap: option 4 (P01/P10 = 1) looks plausible but requires the two indices to be equal, not reciprocals."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

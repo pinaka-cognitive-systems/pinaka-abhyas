@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000415",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000415.py"
+  },
+  "tests": [
+    "qa.bmath.finance.npv"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A firm must choose between two mutually exclusive projects. Project A requires an outlay of Rs 45,000 and returns Rs 20,000 per year for 3 years. Project B requires Rs 48,000 and returns Rs 22,000 per year for 3 years. The discount rate is 10% per annum. [Given: PVAF(3, 10%) = 2.4869] Which project should be selected and what is the difference in their NPVs?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Project A; difference = Rs 1,974"
+    },
+    {
+      "key": 2,
+      "text": "Project B; difference = Rs 1,974"
+    },
+    {
+      "key": 3,
+      "text": "Project A; difference = Rs 2,000"
+    },
+    {
+      "key": 4,
+      "text": "Project B; difference = Rs 3,000"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Correctly computes NPV_A = 4,738 and NPV_B = 6,712 but selects A by confusing higher cost with better project."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "NPV_A = 20,000 * 2.4869 - 45,000 = 49,738 - 45,000 = 4,738. NPV_B = 22,000 * 2.4869 - 48,000 = 54,711.80 - 48,000 = 6,711.80. B > A; difference = 6,711.80 - 4,738 = 1,973.80, rounds to 1,974."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computes incremental CF = 2,000 per year and incremental cost = 3,000; roughly estimates incremental NPV = 2,000 and incorrectly selects A."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Computes difference as (22,000 - 20,000) * 3 - (48,000 - 45,000) = 6,000 - 3,000 = 3,000 without discounting and selects B with the wrong difference."
+    }
+  ],
+  "explanation": "For mutually exclusive projects, compute the NPV of each independently using the given PVAF, then select the one with the higher NPV.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Select the project with the higher NPV; compute each NPV using PVAF and subtract initial outlay separately.",
+    "approach": "Name the formula NPV = CF * PVAF - C_0. NPV_A = 20,000 * 2.4869 - 45,000 = 4,738. NPV_B = 22,000 * 2.4869 - 48,000 = 6,712. Both are positive; select B (higher NPV). Difference = 6,712 - 4,738 = 1,974.",
+    "lesson": "With mutually exclusive projects, the higher NPV wins. Do not use payback period or undiscounted inflow comparison.",
+    "timing": "50 seconds. Two multiplications and two subtractions. The difference is B_NPV - A_NPV, not the difference in costs or raw CFs."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

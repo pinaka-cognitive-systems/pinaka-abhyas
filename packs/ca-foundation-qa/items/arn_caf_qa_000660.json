@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000660",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000660.py"
+  },
+  "tests": [
+    "qa.lr.blood_relations"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 130,
+  "stem": "Seven clues describe a single family with no re-marriages and no adopted members: (A) Farhan has exactly two children: one son and one daughter. (B) Ghazal is Farhan's daughter. (C) Himanshu is Ghazal's husband. (D) Iqbal is the son of Farhan's son. (E) Jaya is the mother of Iqbal. (F) Kirti is the daughter of Ghazal and Himanshu. (G) Lata says, 'Kirti is the daughter of my husband's sister.' How is Kirti related to Lata?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Niece"
+    },
+    {
+      "key": 2,
+      "text": "Daughter"
+    },
+    {
+      "key": 3,
+      "text": "Cousin"
+    },
+    {
+      "key": 4,
+      "text": "Sister-in-law"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Ghazal is Farhan's daughter (clue B). Farhan's son (the other child by clue A) is Iqbal's father (clue D); Jaya is Iqbal's mother (clue E), so Jaya is married to Farhan's son. Lata says Kirti is the daughter of her husband's sister. Kirti's mother is Ghazal (clue F). So Lata's husband's sister is Ghazal. Ghazal is Farhan's daughter; her brother is Farhan's son (who is married to Jaya). Lata's husband is therefore Farhan's son (Ghazal's brother). Thus Lata is the wife of Farhan's son; Jaya is also said to be the mother of Iqbal who is the son of Farhan's son. Since no re-marriages: Jaya = Lata. But that contradicts two names unless Jaya and Lata are the same person referred to by different names. Re-checking: Clue G is a new statement by Lata, and Jaya is Iqbal's mother (Farhan's son's wife). If Lata is Farhan's son's wife (from clue G derivation), then Lata = Jaya. This is consistent. Ghazal is Lata's husband's sister. Kirti is Ghazal's daughter. So Kirti is the daughter of Lata's husband's sister = Lata's niece."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "kinship_direction_inverted",
+      "rationale": "Daughter would mean Kirti is Lata's own child. Kirti's parents are Ghazal and Himanshu (clue F), not Lata and her husband. Confusing husband's sister's daughter with own daughter is a direction inversion."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Cousin would require Lata and Kirti to be in the same generation as children of siblings. But Lata is in the parent generation relative to Kirti (Kirti is the daughter of Lata's husband's sister, placing Kirti one generation below Lata)."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Sister-in-law would place Kirti in Lata's own generation as a sibling's spouse or spouse's sibling. Kirti is a child of Lata's husband's sister, placing her one generation below, not in Lata's generation."
+    }
+  ],
+  "explanation": "From clues A and B: Farhan's children are Ghazal (daughter) and one unnamed son. From clue D: Iqbal is the son of Farhan's son, so Farhan's son is Iqbal's father. From clue E: Jaya is Iqbal's mother => Jaya is married to Farhan's son. From clue F: Kirti is Ghazal and Himanshu's daughter. From clue G: Lata says Kirti is the daughter of her husband's sister. Kirti's mother is Ghazal, so Lata's husband's sister is Ghazal. Ghazal's brother is Farhan's son, so Lata's husband is Farhan's son. But Farhan's son is already married to Jaya (from clues D and E). Since no re-marriages, Lata is Jaya (same person, different names used). Kirti is the daughter of Lata's husband's sister (Ghazal), so Kirti is Lata's niece.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Ghazal is identified as Lata's husband's sister, and since Kirti is Ghazal's daughter, Kirti is Lata's niece - the child of a sibling-in-law.",
+    "approach": "Apply clues most-certain-first: establish Farhan's two children (A, B). Identify Farhan's son via clue D (Iqbal's father). Note Jaya = Farhan's son's wife (E). Use clue G to identify Lata's husband's sister as Ghazal => Lata's husband = Farhan's son = Jaya's husband => Lata = Jaya. Kirti = daughter of Lata's husband's sister = niece.",
+    "lesson": "The child of your spouse's sibling is your niece or nephew. In a multi-constraint family puzzle, resolve the identity ambiguity (Jaya = Lata) by applying the no-remarriage constraint.",
+    "timing": "About 110-130 seconds. The hidden trap is recognizing Lata = Jaya (same person, two names); failure to notice this leads to treating Lata as a separate person and landing on an impossible family structure. Eliminate option 3 (cousin) because Kirti is one generation below Lata."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000515",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000515.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.sets"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 140,
+  "stem": "In a survey of 100 professionals, each reads at least one of three journals P, Q, and R. Given n(P) = 45, n(Q) = 38, n(R) = 42, n(P intersect Q) = 12, n(Q intersect R) = 15, and n(P intersect R) = 10, find n(P intersect Q intersect R), the number who read all three journals.",
+  "options": [
+    {
+      "key": 1,
+      "text": "12"
+    },
+    {
+      "key": 2,
+      "text": "5"
+    },
+    {
+      "key": 3,
+      "text": "2"
+    },
+    {
+      "key": 4,
+      "text": "8"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "By inclusion-exclusion: 100 = 45+38+42 - 12-15-10 + n(PQR) = 88 + n(PQR), so n(PQR) = 12."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "This comes from computing 125 - 37 - 100 + 17 = 5, using an incorrect intermediate step that mis-sums the pairwise intersections as 32 rather than 37."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "This comes from ignoring that n(union) = 100 and instead solving min(pairwise intersections) - 10 = 2, treating the problem as a minimum-overlap puzzle instead of back-solving the formula."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "set_operation_confused",
+      "rationale": "This comes from taking n(PQ) + n(QR) + n(PR) - n(U)/5 = 37 - 29 = 8, confusing the formula by subtracting a fraction of n(U) rather than using the full inclusion-exclusion identity."
+    }
+  ],
+  "explanation": "Three-set inclusion-exclusion: n(P union Q union R) = n(P)+n(Q)+n(R) - n(PQ) - n(QR) - n(PR) + n(PQR). Since every professional reads at least one journal, n(union) = 100. Substituting: 100 = (45+38+42) - (12+15+10) + n(PQR) = 125 - 37 + n(PQR) = 88 + n(PQR). Therefore n(PQR) = 12.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "Back-solve the three-set inclusion-exclusion formula by using n(union) = 100 to isolate the triple intersection.",
+    "approach": "State the three-set formula: n(A union B union C) = sum of singles - sum of pairs + triple. Plug in all known values and solve for the triple intersection. The key setup move is recognising that at-least-one means n(union) = n(U) = 100.",
+    "lesson": "Three-set inclusion-exclusion alternates signs: +singles, -pairs, +triple. Back-solving from n(union) is the standard exam move.",
+    "timing": "90 s. The hidden move is identifying n(union) = n(U) = 100, which is buried in the phrase each reads at least one."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

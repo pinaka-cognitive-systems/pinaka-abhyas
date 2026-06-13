@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000657",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000657.py"
+  },
+  "tests": [
+    "qa.lr.blood_relations"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 85,
+  "stem": "In a family photograph, Veena says, 'That man is the brother of my maternal uncle's daughter's son.' What is the relation of the man in the photograph to Veena?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Cousin's son"
+    },
+    {
+      "key": 2,
+      "text": "Nephew"
+    },
+    {
+      "key": 3,
+      "text": "Second cousin"
+    },
+    {
+      "key": 4,
+      "text": "Uncle"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Veena's maternal uncle's daughter = Veena's cousin. That cousin's son = Veena's cousin's son. The brother of Veena's cousin's son is also Veena's cousin's son. So the man is Veena's cousin's son (one generation below Veena's cousins, two below Veena's parents' generation)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Nephew is the son of one's sibling. The man here is the son (or sibling of the son) of Veena's cousin, not of Veena's sibling, so nephew is a generational misplacement."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Second cousin typically refers to children of first cousins to each other. The man is the child of Veena's first cousin (one generation below), not another first cousin's child at the same level, so second cousin is not the precise term here."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "kinship_direction_inverted",
+      "rationale": "Uncle would place the man in Veena's parents' generation or above. The chain places the man two generations below Veena's grandparents, which is below Veena's own generation, not above it."
+    }
+  ],
+  "explanation": "Veena's maternal uncle = her mother's brother. That uncle's daughter = Veena's first cousin (maternal). That cousin's son = one generation below Veena's cousin level. The brother of that son is also in that same generation. So the man is Veena's cousin's son (child of Veena's first cousin).",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Tracing three links - uncle -> daughter (cousin) -> son -> brother (same generation) - places the man one generation below Veena's cousins, i.e., Veena's cousin's son.",
+    "approach": "Apply clues most-certain-first: maternal uncle's daughter = first cousin. First cousin's son = cousin's son. Brother of cousin's son = also cousin's son. Man is cousin's son.",
+    "lesson": "Each 'son/daughter' step drops one generation; a 'brother/sister' step stays at the same generation. Count the net generational drops from the reference person to place the relation correctly.",
+    "timing": "About 70 seconds. Main trap is option 2 (nephew), which confuses cousin's son with sibling's son. Count generations: cousin is -1 from parent level (same as Veena), cousin's son is -2, placing the man below Veena's level."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000624",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000624.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 110,
+  "stem": "Five people P, Q, R, S, T are seated around a circular table facing the centre. Q sits immediately to the right of P. S sits immediately to the right of R. T is not adjacent to P. Who sits immediately to the left of T?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Q"
+    },
+    {
+      "key": 2,
+      "text": "P"
+    },
+    {
+      "key": 3,
+      "text": "R"
+    },
+    {
+      "key": 4,
+      "text": "S"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Fix P at position 1 (clockwise). Q is right of P -> Q at pos 2. R,S chain: S is right of R. T not adjacent to P. Positions 3,4,5 hold T,R,S. T at pos 3 would be adjacent to Q(2) not P(1)? T not adj P: P=1, T=3 -> |3-1|=2 in circular 5: NOT adjacent. R=4, S=5. Verify S right of R: 5 is right of 4? In circular clockwise, right of pos 4 is pos 5, right of pos 5 is pos 1. YES. The arrangement clockwise: P,Q,T,R,S. Immediate left of T (pos 3) is Q (pos 2)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "direction_turn_error",
+      "rationale": "Confusing 'immediate left' with 'immediate right': the person to the immediate RIGHT of T is R, not Q. Selecting P as the answer confuses the reference direction in circular seating."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Ignoring the T-not-adjacent-to-P constraint allows T to sit next to P, giving an arrangement like P,Q,R,S,T where the left of T would be S or R."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "Reversing the S-right-of-R clue to R-right-of-S changes the arrangement and places S as the person to T's left."
+    }
+  ],
+  "explanation": "Fix P at seat 1 (clockwise arrangement). Q is right of P -> seat 2. T must not be adjacent to P: T cannot be at seat 2 (taken by Q) or seat 5 (adjacent to P on the left). So T is at seat 3. R and S fill seats 4 and 5 with S right of R -> R at 4, S at 5. Clockwise order: P(1), Q(2), T(3), R(4), S(5). Immediate left of T (seat 3) is the person at seat 2 = Q.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "T not adjacent to P is the key clue: it eliminates the seat next to P and forces T into a specific gap.",
+    "approach": "Apply clues most-certain-first: fix P at 1, Q at 2 (right of P). T not adjacent to P eliminates seats 2 and 5; T goes to seat 3 or 4. R,S chain (S right of R) needs two consecutive seats. Try T at 3: R,S at 4,5 satisfies S right of R. Immediate left of T(3) = seat 2 = Q.",
+    "lesson": "In circular seating, fix one person to eliminate rotation symmetry, then apply the most-restrictive clue (non-adjacency) next.",
+    "timing": "About 90-100 seconds. The trap is confusing immediate left with immediate right, selecting R (who is to T's right) instead of Q."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

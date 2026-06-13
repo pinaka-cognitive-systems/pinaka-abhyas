@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000634",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000634.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Five people Rahul, Shreya, Tarun, Uma, and Vijay sit in a row at positions 1 to 5. Tarun sits exactly 3 positions to the right of Rahul. Uma sits immediately to the left of Vijay. Vijay is not at the rightmost position. Rahul is not at position 2. Who sits at position 3?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rahul"
+    },
+    {
+      "key": 2,
+      "text": "Shreya"
+    },
+    {
+      "key": 3,
+      "text": "Uma"
+    },
+    {
+      "key": 4,
+      "text": "Vijay"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "If Rahul=3, Tarun=6, which does not exist in a 5-seat row. Placing Rahul at position 3 while applying the 3-step offset gives an out-of-range seat for Tarun."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Shreya ends up at position 5 in the unique valid arrangement. Placing Shreya at position 3 would require rearranging the UV block in a way that either violates Vijay-not-at-5 or Rahul-not-at-2. Omitting one of those constraints leaves Shreya as a plausible but wrong answer."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "Uma is immediately to the LEFT of Vijay (Uma then Vijay). In the valid arrangement Uma=2, Vijay=3. A student who reverses the Uma-Vijay adjacency direction, placing Vijay left of Uma, would put Uma at position 3 instead."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "Tarun=Rahul+3: pairs are (R=1,T=4) or (R=2,T=5). Rahul not at 2 eliminates the second case: R=1,T=4. UV block (Uma imm left of Vijay, Vijay not at 5): Vijay in {2,3,4}, Uma=Vijay-1. Remaining seats: {2,3,5} for Uma, Vijay, Shreya. Vijay=3,Uma=2: Shreya=5. All constraints satisfied: R=1, not at 2 (fine); T=4; UV at (2,3); Vijay=3 not at 5 (fine). Arrangement: Rahul(1) Uma(2) Vijay(3) Tarun(4) Shreya(5). Position 3 = Vijay."
+    }
+  ],
+  "explanation": "Tarun is 3 positions right of Rahul: valid pairs are (R=1,T=4) or (R=2,T=5). The clue Rahul-not-at-2 immediately eliminates the second pair, fixing Rahul=1 and Tarun=4. The remaining positions {2,3,5} host Uma, Vijay, and Shreya. The Uma-immediately-left-of-Vijay block requires Vijay at 3 (giving Uma=2, Shreya=5) since Vijay cannot be at 5 and position 4 is already taken by Tarun. The unique arrangement is Rahul(1) Uma(2) Vijay(3) Tarun(4) Shreya(5).",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Rahul-not-at-2 eliminates one anchor-pair case immediately, fixing Rahul=1 and Tarun=4; the UV block then settles uniquely in the three remaining seats.",
+    "approach": "Apply clues most-certain-first: enumerate the two Rahul-Tarun anchor pairs. Apply Rahul-not-at-2 to eliminate one case. Place the Uma-Vijay block in the remaining three seats, using Vijay-not-at-5 to select the valid block position. Identify who occupies position 3.",
+    "lesson": "A not-at-position clue on an anchor person collapses a two-case enumeration to a single case in one step.",
+    "timing": "90 seconds. Two anchor cases, one clue eliminates one case, one block placement, one check. Total four steps."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

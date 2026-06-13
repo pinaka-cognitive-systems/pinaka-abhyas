@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000865",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000865.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.regression"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "For a bivariate data set, the regression coefficient of Y on X is denoted b_yx and the regression coefficient of X on Y is denoted b_xy. Which of the following statements about the relationship between r (Karl Pearson correlation coefficient), b_yx, and b_xy is always true?",
+  "options": [
+    {
+      "key": 1,
+      "text": "r = b_yx + b_xy"
+    },
+    {
+      "key": 2,
+      "text": "r^2 = b_yx * b_xy"
+    },
+    {
+      "key": 3,
+      "text": "r = b_yx / b_xy"
+    },
+    {
+      "key": 4,
+      "text": "r = b_xy / b_yx"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Adding the two regression coefficients has no standard interpretation; this confuses the product identity with a sum identity."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "By definition, b_yx = r * (Sy/Sx) and b_xy = r * (Sx/Sy). Their product is r * (Sy/Sx) * r * (Sx/Sy) = r^2. Hence r^2 = b_yx * b_xy."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "b_yx / b_xy = (Sy/Sx)^2, which equals r^2 only when Sy = Sx; this is not a general identity."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "invariance_property_confused",
+      "rationale": "b_xy / b_yx = (Sx/Sy)^2, the reciprocal of option 3; neither ratio yields r in general."
+    }
+  ],
+  "explanation": "The two regression coefficients are b_yx = r*(Sy/Sx) and b_xy = r*(Sx/Sy). Multiplying them cancels the standard deviation ratio: b_yx * b_xy = r^2*(Sy/Sx)*(Sx/Sy) = r^2. Taking the square root gives |r|, and the sign is restored by the sign of either coefficient. Therefore r^2 = b_yx * b_xy is the fundamental identity.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The product b_yx * b_xy always equals r^2 because the standard-deviation ratio cancels exactly.",
+    "approach": "Formula-selection: write out b_yx = r*(Sy/Sx) and b_xy = r*(Sx/Sy); multiply them term by term. The Sy/Sx and Sx/Sy factors cancel, leaving r^2. This identity holds for any bivariate data set regardless of units.",
+    "lesson": "r^2 = b_yx * b_xy is the primary link between r and the two regression slopes; memorise it as a product, never a sum or ratio.",
+    "timing": "45 seconds. Trap: option 3 (ratio of b values) looks plausible but depends on standard deviations being equal."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

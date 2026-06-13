@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000631",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000631.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Six friends Gaurav, Hina, Irfan, Jalpa, Kunal, and Leena sit in a row at positions 1 to 6. Gaurav is at position 3. Hina is at position 6. Irfan sits immediately to the right of Jalpa. Leena is not adjacent to Gaurav. Kunal is not at position 1. Jalpa is not at position 1. Who sits at position 2?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Gaurav"
+    },
+    {
+      "key": 2,
+      "text": "Irfan"
+    },
+    {
+      "key": 3,
+      "text": "Kunal"
+    },
+    {
+      "key": 4,
+      "text": "Leena"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Gaurav is fixed at position 3, not position 2. Selecting Gaurav confuses his known seat with the target seat."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Irfan is immediately right of Jalpa; placing Irfan at position 2 would require Jalpa at position 1. But Jalpa is not at position 1, so this violates the Jalpa-not-at-1 constraint."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Gaurav=3, Hina=6. The Jalpa-Irfan block (J then I adjacent) from {1,2,4,5} must avoid J at position 1 and cannot use position 3 or 6. Valid adjacent pairs from {1,2,4,5}: (1,2) and (4,5). J at 1 is forbidden. So JI block is at (4,5): J=4, I=5. Remaining: Kunal and Leena in {1,2}. Leena not adjacent to Gaurav (pos 3): Leena not at 2 (|2-3|=1) or 4 (taken). Leena must not be at 2, so Leena=1, Kunal=2. Kunal not at 1: Kunal=2, valid. Position 2 = Kunal."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "If Leena is at position 2, she is adjacent to Gaurav at position 3 (|2-3|=1), violating the Leena-not-adjacent-to-Gaurav constraint. Placing Leena at position 2 omits this constraint."
+    }
+  ],
+  "explanation": "Gaurav=3 and Hina=6 are fixed. The Jalpa-Irfan block (J immediately left of I) must fit in {1,2,4,5}. The valid adjacent pairs are (1,2) and (4,5). Jalpa cannot be at position 1, so the (1,2) option would require J=1 which is forbidden. The block must be at (4,5): J=4, I=5. Kunal and Leena fill positions 1 and 2. Leena cannot be adjacent to Gaurav(3), so Leena cannot be at position 2 (|2-3|=1). Leena=1, Kunal=2. Kunal-not-at-1 is satisfied (Kunal is at 2). Position 2 = Kunal.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Jalpa-not-at-1 forces the JI block to (4,5); then Leena-not-adjacent-to-Gaurav forces Leena to position 1 and Kunal to position 2.",
+    "approach": "Apply clues most-certain-first: anchor Gaurav(3) and Hina(6). Find adjacent pairs in the remaining four slots. Apply Jalpa-not-at-1 to eliminate one pair. With JI placed, two persons fill the remaining two slots; apply the Leena-adjacency constraint to settle which is at position 2.",
+    "lesson": "Chain two negative constraints: the first fixes a block's location, the second resolves the final two-person assignment.",
+    "timing": "90 seconds. Two anchors, two block placements, two negative checks. Each check eliminates one option in sequence."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

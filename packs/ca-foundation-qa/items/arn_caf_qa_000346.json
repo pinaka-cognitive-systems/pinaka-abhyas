@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000346",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000346.py"
+  },
+  "tests": [
+    "qa.bmath.equations.quadratic"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 130,
+  "stem": "A freight train travels 240 km. If its speed were 20 km/h greater, the journey would take exactly 1 hour less. Find the usual speed of the train in km/h.",
+  "options": [
+    {
+      "key": 1,
+      "text": "40"
+    },
+    {
+      "key": 2,
+      "text": "50"
+    },
+    {
+      "key": 3,
+      "text": "60"
+    },
+    {
+      "key": 4,
+      "text": "80"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student sets time saving as 2 hours instead of 1, writing 240/v - 240/(v+20) = 2, which gives 2v^2 + 40v - 9600 = 0, v^2 + 20v - 4800... wait: 4800 = 2v(v+20) leading to v^2+20v-2400=0, discriminant 10000, v = (-20+100)/2 = 40."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student correctly forms v^2 + 20v - 4800 = 0 and identifies factors as (v+100)(v-48) in error (arithmetic slip on factoring), choosing the nearest option 50."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Time equation: 240/v - 240/(v+20) = 1. Multiply through by v(v+20): 240(v+20) - 240v = v(v+20), so 4800 = v^2 + 20v. Rearranging: v^2 + 20v - 4800 = 0. Factoring: (v + 80)(v - 60) = 0. Since speed must be positive, v = 60."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "Student writes the time equation as 240/(v+20) - 240/v = 1 (inverted direction, shorter time first), leading to -4800 = v^2 + 20v, then 4800 = v^2 - 20v (sign flip), so v^2 - 20v - 4800 = 0, giving (v-80)(v+60) = 0, v = 80."
+    }
+  ],
+  "explanation": "Let usual speed = v km/h. Time at usual speed = 240/v, time at (v+20) = 240/(v+20). Difference = 1 hour: 240/v - 240/(v+20) = 1. Multiply by v(v+20): 240(v+20) - 240v = v(v+20). This simplifies to 4800 = v^2 + 20v, giving v^2 + 20v - 4800 = 0. Factoring: (v+80)(v-60) = 0. Positive root: v = 60 km/h.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The difference-of-times setup always produces a quadratic; after multiplying out, the constant from the numerator difference becomes the free term with reversed sign.",
+    "approach": "Write time_old - time_new = 1. Multiply both sides by v(v+20) to clear fractions. Expand: 240v + 4800 - 240v = v^2 + 20v. Cancel 240v terms to get 4800 = v^2 + 20v. Rearrange to standard form, factor as (v+80)(v-60)=0, reject the negative root.",
+    "lesson": "Speed-distance-time problems with a relative change often yield a quadratic. Always reject the negative root and verify: 240/60 - 240/80 = 4 - 3 = 1. Confirmed.",
+    "timing": "About 120 seconds. Trap 1: inverting the time difference (shorter minus longer = +1) gives v = 80. Trap 2: misreading 1 hour as 2 hours gives v = 40. Both are present as distractors."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000692",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000692.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.sampling"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "Which one of the following is NOT a probability sampling method?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Simple random sampling"
+    },
+    {
+      "key": 2,
+      "text": "Stratified random sampling"
+    },
+    {
+      "key": 3,
+      "text": "Judgment sampling"
+    },
+    {
+      "key": 4,
+      "text": "Systematic sampling"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Simple random sampling is the foundational probability method in which every unit has an equal and known probability of selection."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Stratified random sampling is a probability method; each stratum is sampled randomly, and every unit has a calculable probability of selection."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Judgment sampling (also called purposive sampling) is a non-probability method in which units are selected based on the researcher's subjective judgment rather than by a random mechanism."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Systematic sampling is a probability method; after a random start, every k-th unit is selected, giving each unit a known probability of selection."
+    }
+  ],
+  "explanation": "Probability sampling requires that every unit has a known, non-zero probability of being selected. Judgment sampling violates this because selection is based on subjective choice; there is no defined probability mechanism.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "The distinguishing feature of non-probability sampling is that selection probabilities are unknown or zero for some units; judgment sampling relies on the researcher's discretion, not a random mechanism.",
+    "approach": "State the property: probability sampling = every unit has a known positive probability of selection via a random mechanism. Classify each option: simple random, stratified, and systematic are all probability methods; judgment sampling substitutes researcher discretion for randomness.",
+    "lesson": "Non-probability sampling methods (judgment, quota, convenience, snowball) do not allow statistical inference about the population because selection probabilities are unknown.",
+    "timing": "30 seconds. Judgment sampling is the only clearly non-probability option. If unsure about systematic, note that its random start ensures a defined probability for every unit."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

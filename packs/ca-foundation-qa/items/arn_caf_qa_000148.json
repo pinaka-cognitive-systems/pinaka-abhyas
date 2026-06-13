@@ -18,10 +18,10 @@
   "tests": [
     "qa.bmath.finance.nominal_real_return"
   ],
-  "difficulty_label": "L3",
+  "difficulty_label": "L2",
   "taxonomy_version": 4,
   "item_type": "single_best",
-  "expected_seconds": 120,
+  "expected_seconds": 90,
   "stem": "An investor earns a nominal return of 12% per annum. Inflation during the year is 5%. What is the real rate of return, using the exact Fisher equation?",
   "options": [
     {
@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "The exact Fisher equation: (1 + real) = (1 + nominal) / (1 + inflation). With nominal = 0.12 and inflation = 0.05: (1 + real) = 1.12 / 1.05 = 1.0667. Real rate = 6.67%. The approximation (12% - 5% = 7%) overstates the real return slightly.",
+  "explanation_kind": "formula_selection",
   "explanation_sections": {
-    "punchline": "The exact Fisher equation divides (1 + nominal) by (1 + inflation). 1.12 / 1.05 = 1.0667, so the real rate is 6.67%, not the approximate 7%.",
-    "approach": "Write (1 + real) = (1 + nominal) / (1 + inflation). Convert both given percentages to decimals first. Divide 1.12 by 1.05. Subtract 1 from the result to get the real rate. The stem says \"exact Fisher equation\", which is the signal to divide, not subtract.",
-    "lesson": "The exact Fisher formula requires division of the two gross return factors. Simple subtraction (12% minus 5% = 7%) is the approximation, and the stem explicitly rejects it here.",
-    "timing": "About 120 seconds. The word \"exact\" in the stem is a direct instruction: use the division formula, not subtraction. Reject option (3) = 7% in five seconds. Reject option (1) = 17.60%: that is the result of multiplying the factors instead of dividing."
+    "punchline": "The exact Fisher equation is (1 + real) = (1 + nominal) / (1 + inflation). The word \"exact\" in the stem is the instruction to divide gross-return factors, not subtract rates. 1.12 / 1.05 = 1.0667, so the real rate is 6.67%.",
+    "approach": "Name the formula: exact Fisher equation. Map the givens: nominal = 12% = 0.12, inflation = 5% = 0.05. Build the gross-return ratio: (1 + real) = 1.12 / 1.05. Divide: 1.0667. Subtract 1: real = 6.67%. The approximate version (nominal minus inflation = 7%) is a distractor planted as option 3 - the stem tells you not to use it.",
+    "lesson": "Exact Fisher: divide the gross-return factors. Approximate Fisher: subtract the rates. The two differ by an interaction term. When the stem names the exact formula, dividing is mandatory.",
+    "timing": "About 90 seconds. One division. Eliminate 7% immediately - the stem forbids the approximation. Eliminate 17.60%: that is (1.12 x 1.05) - 1, which multiplies the factors instead of dividing."
   },
   "empirical": {
     "calibration_status": "none",

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000681",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000681.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.graphical"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 70,
+  "stem": "A frequency polygon for a frequency distribution is drawn by plotting the frequency against the mid-value of each class and joining consecutive points with straight lines. The classes and frequencies are:\n\nClass: 10-20, Frequency: 5\nClass: 20-30, Frequency: 12\nClass: 30-40, Frequency: 18\nClass: 40-50, Frequency: 9\nClass: 50-60, Frequency: 6\n\nThe frequency polygon must be brought to the x-axis by extending lines to two additional points. What are the mid-values of these two anchor classes?",
+  "options": [
+    {
+      "key": 1,
+      "text": "5 and 65"
+    },
+    {
+      "key": 2,
+      "text": "10 and 60"
+    },
+    {
+      "key": 3,
+      "text": "0 and 70"
+    },
+    {
+      "key": 4,
+      "text": "15 and 55"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "The polygon is anchored to zero by adding a class just below the first (0-10, mid-value 5) and just above the last (60-70, mid-value 65), both with frequency zero."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Using the lower limit of the first class (10) and upper limit of the last class (60) as anchor points instead of the mid-values of the adjacent fictitious classes."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Using 0 and 70 as anchor x-values by taking the very first lower boundary and the very last upper boundary, but the anchor points should be mid-values of adjacent classes, not boundaries of the existing classes."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Using the mid-values of the first and last actual data classes (15 and 55) rather than the mid-values of the imaginary adjacent classes."
+    }
+  ],
+  "explanation": "To close a frequency polygon at both ends, add an imaginary class just before the first class and just after the last class, each with frequency zero. The imaginary first class is 0-10 (mid-value = 5) and the imaginary last class is 60-70 (mid-value = 65). The polygon is anchored at (5, 0) and (65, 0).",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Frequency polygon closes at mid-values of two adjacent zero-frequency classes: 5 (for class 0-10) and 65 (for class 60-70).",
+    "approach": "Identify the model: frequency polygon construction. Decisive move: identify the anchor classes. First class is 10-20, so the preceding imaginary class is 0-10 with mid-value (0+10)/2 = 5. Last class is 50-60, so the succeeding imaginary class is 60-70 with mid-value (60+70)/2 = 65. Both have frequency 0.",
+    "lesson": "A frequency polygon is anchored to the x-axis using the mid-values of hypothetical adjacent classes on both sides, each with zero frequency - never at the actual class boundaries.",
+    "timing": "30 seconds. Identify the two adjacent imaginary classes. Compute their mid-values. Trap: option 2 uses the class limits (10 and 60) instead of mid-values of the imaginary classes."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

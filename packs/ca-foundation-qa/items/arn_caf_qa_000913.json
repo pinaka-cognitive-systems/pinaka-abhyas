@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000913",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000913.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.combinations"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 170,
+  "stem": "A committee of 5 is to be formed from 6 men and 4 women, with the condition that the committee must include at least 2 women. In how many ways can the committee be formed?",
+  "options": [
+    {
+      "key": 1,
+      "text": "186"
+    },
+    {
+      "key": 2,
+      "text": "120"
+    },
+    {
+      "key": 3,
+      "text": "252"
+    },
+    {
+      "key": 4,
+      "text": "66"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "At least 2 of the 4 women means the cases 2W+3M, 3W+2M, 4W+1M: C(4,2)*C(6,3) + C(4,3)*C(6,2) + C(4,4)*C(6,1) = 6*20 + 4*15 + 1*6 = 120 + 60 + 6 = 186."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Counts only the 2W+3M case, C(4,2)*C(6,3) = 120, treating at least 2 as exactly 2 and dropping the 3-women and 4-women cases.",
+      "misconception": "off_by_one"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Ignores the constraint and counts every 5-member committee, C(10,5) = 252.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Computes the complement, committees with fewer than 2 women: C(6,5) + C(4,1)*C(6,4) = 6 + 60 = 66, then reports the complement itself instead of subtracting it from 252.",
+      "misconception": "wrong_formula"
+    }
+  ],
+  "explanation": "At least 2 women, with only 4 women available, splits into three disjoint cases by women count: 2W with 3M, 3W with 2M, 4W with 1M. Count each as a product of combinations and add: C(4,2)*C(6,3) = 6*20 = 120; C(4,3)*C(6,2) = 4*15 = 60; C(4,4)*C(6,1) = 1*6 = 6. Total = 120 + 60 + 6 = 186. Equivalently, all committees minus those with 0 or 1 woman: 252 - 66 = 186.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "At least 2 of 4 women is three cases, not one. Enumerate 2W, 3W, 4W and sum, or subtract the 0W and 1W complement from 252.",
+    "approach": "For at-least constraints, list every admissible split, count each as a product of choose-from-men times choose-from-women, then add the disjoint cases. Cross-check with the total-minus-complement route.",
+    "lesson": "At least k means sum over all counts from k up to the maximum; never collapse it to exactly k. The complement (total minus the forbidden cases) is the speed route.",
+    "timing": "About 170 seconds. The fastest elimination is to reject 120, the exactly-2-women slip, since at least 2 must exceed the single-case count."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000533",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000533.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.limits"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "The value of lim(x -> 4) [(sqrt(x) - 2) / (x - 4)] is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "1/4"
+    },
+    {
+      "key": 2,
+      "text": "1/2"
+    },
+    {
+      "key": 3,
+      "text": "1"
+    },
+    {
+      "key": 4,
+      "text": "Does not exist"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Rationalise: multiply numerator and denominator by (sqrt(x)+2). Numerator becomes (sqrt(x))^2-4 = x-4. Denominator becomes (x-4)(sqrt(x)+2). Cancel (x-4): limit = 1/(sqrt(x)+2). At x=4: 1/(2+2) = 1/4."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "After rationalising and cancelling, correctly obtaining 1/(sqrt(x)+2) but substituting sqrt(4)=2 only in one term, computing 1/(2) = 1/2 instead of 1/(2+2) = 1/4."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Using L'Hopital's rule or another approach but computing the derivative of sqrt(x) as 1 (forgetting the 1/(2*sqrt(x)) factor) and the derivative of (x-4) as 1, giving 1/1 = 1."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "Seeing 0/0 at x=4 and concluding the limit does not exist, without applying the rationalisation technique to resolve the indeterminate form."
+    }
+  ],
+  "explanation": "Multiplying by the conjugate (sqrt(x)+2)/(sqrt(x)+2) transforms the numerator to x-4, enabling cancellation of (x-4) and direct substitution of x=4 to give 1/4.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "When a limit has sqrt in the numerator creating 0/0, the conjugate rationalisation is the decisive move that collapses the denominator.",
+    "approach": "State the property then contrast the confusable one. Direct substitution gives 0/0. Setup decision: rationalise by multiplying by (sqrt(x)+2)/(sqrt(x)+2). Numerator: (sqrt(x)-2)(sqrt(x)+2) = x-4. Denominator: (x-4)(sqrt(x)+2). Cancel (x-4). Remaining expression: 1/(sqrt(x)+2). At x=4: 1/(sqrt(4)+2) = 1/(2+2) = 1/4. The trap: forgetting to add both terms in the denominator (2+2 = 4, not just 2).",
+    "lesson": "For lim of (sqrt(x)-a)/(x-a^2): rationalise with the conjugate, cancel (x-a^2), substitute to get 1/(2a).",
+    "timing": "About 85 seconds. Identify rationalisation (20 sec), multiply through (30 sec), cancel and substitute (20 sec). Trap: computing 1/sqrt(4) = 1/2 instead of 1/(sqrt(4)+2) = 1/4."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

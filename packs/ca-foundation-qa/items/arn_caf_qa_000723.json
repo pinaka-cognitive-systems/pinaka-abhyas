@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000723",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000723.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mode"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "For a moderately skewed distribution, the mean is 45 and the median is 42. Using the empirical relation between mean, median, and mode, what is the approximate mode?",
+  "options": [
+    {
+      "key": 1,
+      "text": "36"
+    },
+    {
+      "key": 2,
+      "text": "39"
+    },
+    {
+      "key": 3,
+      "text": "48"
+    },
+    {
+      "key": 4,
+      "text": "40.5"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Empirical relation: Mode = 3 * Median - 2 * Mean = 3*42 - 2*45 = 126 - 90 = 36."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "A student who uses Mode = 2*Median - Mean = 2*42 - 45 = 84 - 45 = 39 applies the wrong multipliers in the empirical formula (confuses the coefficients 3 and 2 with 2 and 1)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "A student who adds instead of subtracts: 3*42 + 2*45 - something, or computes Mode = 3*Mean - 2*Median = 135 - 84 = 51, or 2*Mean - Median = 90 - 42 = 48, reflecting a sign/direction error in the empirical formula."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "A student who uses the simple average of mean and median: (45+42)/2 = 43.5, or (Mean + Median)/2 missing the mode formula, or half the median = 21; more likely takes Mode = (Mean + Median)/2 = 43.5 or Mean - (Mean - Median)/2 = 45 - 1.5 = 43.5, but rounds to 40.5 by using (Median + Mode_guess)/2 backward."
+    }
+  ],
+  "explanation": "The empirical relation for a moderately skewed distribution is: Mode = 3 * Median - 2 * Mean. Substituting: Mode = 3 * 42 - 2 * 45 = 126 - 90 = 36.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The empirical relation Mode = 3*Median - 2*Mean directly connects the three averages for a moderately skewed distribution.",
+    "approach": "Formula selection: for moderate skewness, the Pearson empirical rule applies. Identify which formula to use: Mode = 3*Median - 2*Mean. Map givens: Mean=45, Median=42. Compute: 3*42 = 126, 2*45 = 90, Mode = 126 - 90 = 36.",
+    "lesson": "The empirical relation is Mode = 3*Median - 2*Mean; the coefficient of Median is 3, of Mean is 2. This holds only for moderately asymmetric distributions.",
+    "timing": "About 40 seconds. The only setup decision is recalling the exact coefficients. Trap: coefficient 2 vs 3 interchange gives option 2."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

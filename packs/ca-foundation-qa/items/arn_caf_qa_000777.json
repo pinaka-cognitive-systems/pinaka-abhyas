@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000777",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000777.py"
+  },
+  "tests": [
+    "qa.stats.probability.classical"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "A committee of 3 members is selected at random from a group of 5 men and 3 women. What is the probability that the committee contains exactly 2 women?",
+  "options": [
+    {
+      "key": 1,
+      "text": "15/56"
+    },
+    {
+      "key": 2,
+      "text": "3/56"
+    },
+    {
+      "key": 3,
+      "text": "15/28"
+    },
+    {
+      "key": 4,
+      "text": "5/28"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Favourable: C(3,2) x C(5,1) = 3 x 5 = 15. Total: C(8,3) = 56. P = 15/56."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Mistakenly computes C(3,2) = 3 as the only favourable case (forgets to multiply by C(5,1) = 5 for the one man), giving 3/56."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Uses C(8,2) = 28 as the denominator (choosing 2 from 8) instead of C(8,3) = 56 for a committee of 3, giving 15/28."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Computes C(5,1)/C(8,3) = 5/56 then miscopies as 5/28, confusing the number of men selected with the favourable count."
+    }
+  ],
+  "explanation": "Exactly 2 women and 1 man: choose 2 from 3 women = C(3,2) = 3; choose 1 from 5 men = C(5,1) = 5. Combined favourable = 3 x 5 = 15. Total ways to choose any 3 from 8 = C(8,3) = 56. P = 15/56.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Break by gender: C(3,2) x C(5,1) = 15 favourable out of C(8,3) = 56 total gives 15/56.",
+    "approach": "Classical probability with combinations. Decompose the favourable event by gender slot: (ways to pick 2 women from 3) x (ways to pick 1 man from 5). Then divide by total ways to form the committee. This multiplicative decomposition is the core move for mixed-composition problems.",
+    "lesson": "For exact-composition problems, multiply the sub-group combination counts and divide by the total group combination count.",
+    "timing": "40 seconds. C(8,3) = 56 is a standard value to know. Spot the missing-multiplication trap (option 2)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

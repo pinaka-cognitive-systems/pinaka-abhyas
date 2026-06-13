@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000648",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000648.py"
+  },
+  "tests": [
+    "qa.lr.blood_relations"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 130,
+  "stem": "P is the mother of Q. R is the father of Q. S is the father of R. T is the wife of S. U is the son of T but U is not R. V is the daughter of P. How is V related to U?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Niece"
+    },
+    {
+      "key": 2,
+      "text": "Sister"
+    },
+    {
+      "key": 3,
+      "text": "Aunt"
+    },
+    {
+      "key": 4,
+      "text": "Cousin"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "S and T are parents; their children are R and U (U is T's son but not R). R and P are parents of Q and V. U is R's sibling. V is R's daughter. So U is V's paternal uncle. Reversing the viewpoint, V is U's niece."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Treating U and V as being in the same generation (both children of R and P) by ignoring that U is T's son, not P's son, gives sister."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "kinship_direction_inverted",
+      "rationale": "Reversing the view and stating the relation from V's perspective toward U (V's uncle) rather than from U's perspective gives aunt instead of niece."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Ignoring the clue that U is T's son (not R) and instead treating U as R's child puts U in V's generation, giving cousin."
+    }
+  ],
+  "explanation": "Build the tree: S married T; their children are R and U. R married P; their children are Q and V. U is R's brother (sibling). V is R's daughter. U is therefore V's paternal uncle. From U's viewpoint, V is U's niece.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "'U is T's son but not R' establishes U as R's sibling (same parents S and T), making U V's uncle and V U's niece.",
+    "approach": "Apply most-certain first: build the S-T family (children R and U). Build the R-P family (children Q and V). Cross-link: U is the sibling of R; V is the child of R. Sibling of parent = uncle. From U's side: child of sibling = niece. Confirm gender: V is female (daughter), so niece not nephew.",
+    "lesson": "In multi-generation trees, establish sibling links before computing cross-generation relations. The phrase 'X is Y's child but not Z' always signals a sibling of Z.",
+    "timing": "About 120 s. Two traps: (1) cousin by treating U as R's child; (2) aunt by reversing the direction of the uncle-niece relation."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

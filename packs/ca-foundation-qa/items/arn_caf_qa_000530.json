@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000530",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000530.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.domain_range"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 135,
+  "stem": "The domain of the function f(x) = sqrt((x - 1) / (x^2 - 4)) is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "(-2, 1] union (2, infinity)"
+    },
+    {
+      "key": 2,
+      "text": "[-2, 1] union [2, infinity)"
+    },
+    {
+      "key": 3,
+      "text": "(-2, 1) union (2, infinity)"
+    },
+    {
+      "key": 4,
+      "text": "(1, 2) union (2, infinity)"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Need (x-1)/(x^2-4) >= 0 with x^2-4 != 0. Factor: x^2-4=(x-2)(x+2). Sign chart with critical points -2, 1, 2: on (-2,1) the ratio is positive (neg/neg=pos), at x=1 ratio=0 (valid), on (1,2) ratio is negative (excluded), for x>2 ratio is positive. x=-2 and x=2 make denominator zero (excluded). Final domain: (-2, 1] union (2, infinity)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "Including x=-2 and x=2 as boundary points without checking that x^2-4=0 at both, making the denominator zero and the expression undefined."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "Excluding x=1 by using an open interval, forgetting that at x=1 the numerator equals zero giving a ratio of zero which satisfies the condition >= 0 and hence x=1 is included."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "set_operation_confused",
+      "rationale": "Reading the sign chart incorrectly and taking the interval where the expression is negative (1 < x < 2 gives a negative ratio) as part of the domain, while missing the (-2,1] piece entirely."
+    }
+  ],
+  "explanation": "The domain requires a non-negative numerator-over-denominator expression AND the denominator must be non-zero; a sign chart with three critical points -2, 1, 2 reveals the two valid intervals.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "When sqrt(rational expression) appears, perform a full sign chart on the rational expression, include zeros of the numerator, and exclude zeros of the denominator.",
+    "approach": "State the property then contrast the confusable one. Need Q(x) = (x-1)/((x-2)(x+2)) >= 0 and x != 2, -2. Place critical points in order: -2 < 1 < 2. Test each region: x < -2 (pick x=-3): (-4)/((-5)(-1)) = -4/5 < 0: excluded. -2 < x < 1 (pick x=0): (-1)/((-2)(2)) = (-1)/(-4) = 1/4 > 0: included. At x=1: 0/neg = 0 >= 0: included. 1 < x < 2 (pick x=1.5): (0.5)/((-0.5)(3.5)) < 0: excluded. x > 2 (pick x=3): (2)/((1)(5)) > 0: included. Combine with exclusion of x=-2, x=2: (-2, 1] union (2, infinity). The key traps: (1) including denominator zeros x=-2 and x=2 as closed endpoints; (2) using open bracket at x=1.",
+    "lesson": "For domain of sqrt(P/Q): do a complete sign chart with all roots of P and Q; include roots of P (ratio=0 is valid) but exclude roots of Q (denominator zero).",
+    "timing": "About 120 seconds. Set up sign chart (30 sec), test four regions (40 sec), assemble domain with correct bracket types (30 sec), double-check boundary points (20 sec). Main trap: careless bracket type at x=1 or x=-2."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

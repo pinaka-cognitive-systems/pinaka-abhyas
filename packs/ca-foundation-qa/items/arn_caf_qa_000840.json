@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000840",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000840.py"
+  },
+  "tests": [
+    "qa.stats.distributions.normal"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 140,
+  "stem": "The weekly wages (in Rs) of workers in a factory follow a normal distribution. It is known that 15.87% of workers earn less than Rs 430 per week and 97.72% earn less than Rs 490 per week. Given P(Z < 1) = 0.8413 and P(Z < 2) = 0.9772, what is the standard deviation of weekly wages?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 30"
+    },
+    {
+      "key": 2,
+      "text": "Rs 20"
+    },
+    {
+      "key": 3,
+      "text": "Rs 15"
+    },
+    {
+      "key": 4,
+      "text": "Rs 60"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "Setting Z = +1 for the lower tail: (490 - 430)/sigma = 2, using mu = 430 directly, gives (490 - 430)/sigma = 2 => sigma = 30. This ignores the negative Z implied by a probability below 0.5."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "15.87% = 1 - 0.8413 = P(Z < -1), so Z at Rs 430 is -1: (430 - mu)/sigma = -1 => mu = 430 + sigma. Also Z at Rs 490 is 2: (490 - mu)/sigma = 2 => 490 - mu = 2*sigma. Substituting: 490 - 430 - sigma = 2*sigma => 60 = 3*sigma => sigma = 20, mu = 450."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Assuming mu = (430 + 490)/2 = 460 (midpoint of the two cutoffs) and using only the upper equation: (490 - 460)/sigma = 2 => sigma = 15. The midpoint is not the mean unless the two Z-scores are equal in magnitude."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Treating the full X-range (490 - 430 = 60) as one standard deviation (confusing the sigma unit with the Z-distance of 3 sigma between the two cutoffs) gives sigma = 60."
+    }
+  ],
+  "explanation": "The hidden step: 15.87% = 1 - 0.8413 = P(Z < -1), so the lower cutoff at Rs 430 corresponds to Z = -1, not +1. Writing the two Z-equations: (430 - mu)/sigma = -1 gives mu = 430 + sigma ... (i); (490 - mu)/sigma = 2 gives 490 - mu = 2*sigma ... (ii). Substituting (i) into (ii): 490 - 430 - sigma = 2*sigma => 60 = 3*sigma => sigma = 20 and mu = 450. Verify: (430 - 450)/20 = -1 and (490 - 450)/20 = 2, matching the given table values.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The trap is reading 15.87% as Z = +1; recognising P(Z < -1) = 1 - P(Z < 1) leads to the two-equation system giving sigma = 20.",
+    "approach": "Identify model (normal), then map each probability to its Z-score. P(X < 430) = 0.1587 = 1 - 0.8413 = P(Z < -1), so Z_430 = -1. P(X < 490) = 0.9772 = P(Z < 2), so Z_490 = 2. Write Z-equations: mu - 430 = sigma (from Z = -1) and 490 - mu = 2*sigma (from Z = 2). Add the two equations: (490 - 430) = 3*sigma => 60 = 3*sigma => sigma = 20. Verify both cutoffs match.",
+    "lesson": "When a stated probability is below 0.5, its Z-score is negative; always convert using 1 - table_value before writing the standardisation equation.",
+    "timing": "About 110-130 seconds. The decisive trap is the sign of Z for the lower tail; once identified, the algebra is straightforward. Distractor Rs 30 is the most dangerous because it uses real numbers from the problem."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

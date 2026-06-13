@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000747",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000747.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mean_deviation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Five sales representatives recorded monthly targets achieved (in units): 5, 10, 15, 20, 25. The coefficient of mean deviation (mean deviation about the mean expressed as a percentage of the mean) is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "40%"
+    },
+    {
+      "key": 2,
+      "text": "50%"
+    },
+    {
+      "key": 3,
+      "text": "6%"
+    },
+    {
+      "key": 4,
+      "text": "30%"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Mean = (5+10+15+20+25)/5 = 75/5 = 15. Deviations: |5-15|=10, |10-15|=5, |15-15|=0, |20-15|=5, |25-15|=10. Sum=30. MD = 30/5 = 6. CMD = (6/15)*100 = 40%."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "population_sample_confusion",
+      "rationale": "Student divides sum of deviations by n-1=4 instead of n=5: MD = 30/4 = 7.5, CMD = (7.5/15)*100 = 50%."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student reports the mean deviation (6) rather than the coefficient of mean deviation as a percentage."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Student computes CMD as (MD / range)*100 = (6/20)*100 = 30%, using range as the denominator instead of the mean."
+    }
+  ],
+  "explanation": "Coefficient of mean deviation = (MD / mean) * 100. Two steps: first compute MD about mean, then express as a percentage of the mean.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The setup decision is dividing the mean deviation by the mean (not the range or n-1) to form the coefficient.",
+    "approach": "Step 1: Mean = 75/5 = 15. Step 2: absolute deviations from 15: 10, 5, 0, 5, 10. Step 3: MD = 30/5 = 6. Step 4: CMD = (6/15)*100 = 40%.",
+    "lesson": "Coefficient of mean deviation uses the arithmetic mean as its base; confusing it with range gives an entirely different ratio.",
+    "timing": "About 75 seconds. The AP structure means deviations are symmetric: 10, 5, 0, 5, 10 by inspection once the middle value is identified as the mean."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000375",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000375.py"
+  },
+  "tests": [
+    "qa.bmath.finance.simple_interest"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A sum of Rs 20,000 is split into two parts. The first part is invested at 9% per annum simple interest for 4 years, and the second part is invested at 6% per annum simple interest for 5 years. The total interest from both parts amounts to Rs 6,900. Find the amount invested at 9%.",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 15,000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 18,000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 5,000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 17,500"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Let x = amount at 9%. SI1 = x*9*4/100 = 0.36x. SI2 = (20000-x)*6*5/100 = 0.30*(20000-x). Setting 0.36x + 0.30*(20000-x) = 6900 gives 0.06x = 900, so x = 15000."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "When collecting like terms, the student subtracts 0.31x from 0.36x getting 0.05x instead of the correct 0.06x (i.e. 0.36 - 0.30 = 0.06). Then 0.05x = 900 gives x = 18000."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "The student correctly solves for the part at 6% (20000 - 15000 = 5000) but reports that as the answer, not realising the question asks for the amount at 9%."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "time_factor_dropped",
+      "rationale": "Using T2 = 4 years (dropping the last year of the second period): 0.36x + 0.24*(20000-x) = 6900 gives 0.12x = 6900 - 4800 = 2100, so x = 17500."
+    }
+  ],
+  "explanation": "Define x as the amount at 9% p.a. for 4 years; the remaining (20000 - x) earns 6% p.a. for 5 years. SI1 = 0.36x; SI2 = 0.30*(20000-x). Sum: 0.36x + 6000 - 0.30x = 6900 => 0.06x = 900 => x = 15000.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Translate each SI into an x-multiple, form one linear equation, and isolate x.",
+    "approach": "Formula: SI = P*R*T/100. Let x be the unknown amount at 9%/4yr, factor = 0.36; remaining at 6%/5yr, factor = 0.30. Equation: 0.36x + 0.30*(20000-x) = 6900. Expand: 0.06x = 6900 - 6000 = 900. Solve: x = 15000.",
+    "lesson": "Always state both factor coefficients explicitly before subtracting; rushing the subtraction step is where the slip occurs.",
+    "timing": "70 s. Trap in option 4 is using T2 = 4 years. Trap in option 3 is providing the complementary part (5000) instead of x."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

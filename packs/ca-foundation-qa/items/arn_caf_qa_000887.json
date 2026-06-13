@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000887",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000887.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.deflating"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "A government officer's real salary was Rs 25,000 per month in terms of base year 2016 prices. The price index for 2024 with 2016 as base year (= 100) is 160. What nominal salary should the officer receive in 2024 to maintain the same real purchasing power?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 40,000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 15,625"
+    },
+    {
+      "key": 3,
+      "text": "Rs 25,160"
+    },
+    {
+      "key": 4,
+      "text": "Rs 400"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Nominal salary = Real salary x Price index / 100 = 25000 x 160 / 100 = Rs 40,000. This is the reverse of deflation: multiplying by the index restores the nominal figure."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Dividing the real salary by the index instead of multiplying: 25000 / 160 x 100 = 15625. This deflates an already-real figure, producing a doubly deflated (and nonsensical) answer."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Adding the index value to the real salary: 25000 + 160 = 25160. This treats the index as an additive adjustment rather than a multiplicative ratio."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "decimal_place_error",
+      "rationale": "Computing 25000 x 160 / 100 but misplacing the decimal: arriving at 400 instead of 40000 by dividing by 10000 rather than 100."
+    }
+  ],
+  "explanation": "When the real value is known and you need the nominal value, reverse the deflation formula: Nominal = Real x (Index / 100). Here: 25000 x 160 / 100 = Rs 40,000. The 60-point rise in the index means prices are 60% higher, so nominal pay must rise by 60% to preserve purchasing power.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "To find the nominal figure from a real figure, multiply by the index ratio - the exact reverse of deflation.",
+    "approach": "Identify the reverse-deflation formula: Nominal = Real x Index / 100. Map: Real = 25000, Index = 160. Compute: 25000 x 1.6 = 40000.",
+    "lesson": "Deflation divides by (index/100); reverse deflation multiplies. Never apply the same direction twice.",
+    "timing": "About 45 seconds. Trap: option 2 (Rs 15,625) is the result of deflating again - confirm you are going in the right direction before computing."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

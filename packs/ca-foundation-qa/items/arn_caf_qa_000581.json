@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000581",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000581.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.odd_man_out"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 45,
+  "stem": "Which number does NOT belong to the group? 4, 9, 16, 25, 35",
+  "options": [
+    {
+      "key": 1,
+      "text": "35"
+    },
+    {
+      "key": 2,
+      "text": "4"
+    },
+    {
+      "key": 3,
+      "text": "16"
+    },
+    {
+      "key": 4,
+      "text": "25"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "4=2^2, 9=3^2, 16=4^2, 25=5^2 are all perfect squares. 35 is not a perfect square (between 5^2=25 and 6^2=36), so it is the odd one out."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "4 is a perfect square (2^2). Selecting 4 as the odd one out ignores the perfect-square pattern and incorrectly treats it as an outlier, perhaps because it is the smallest."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "16 is a perfect square (4^2). Selecting 16 may arise from misidentifying an even-vs-odd number grouping rather than the perfect-square property."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "25 is a perfect square (5^2). Selecting 25 may arise from noticing it is an odd perfect square while 4 and 16 are even, but the unifying property is perfect squares, not parity."
+    }
+  ],
+  "explanation": "The unifying property is perfect squares: 4=2^2, 9=3^2, 16=4^2, 25=5^2. The value 35 falls between 5^2=25 and 6^2=36 and is not a perfect square, making it the odd one out.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Identify the one that breaks the perfect-square property shared by all other members.",
+    "approach": "Deductive trace: test each number for the most evident grouping property. Compute square roots: sqrt(4)=2, sqrt(9)=3, sqrt(16)=4, sqrt(25)=5, sqrt(35)=5.92 - only 35 fails.",
+    "lesson": "The unifying rule for a number-group odd-one-out is usually a single arithmetic property (perfect square, prime, multiple); test each member systematically.",
+    "timing": "30-40 seconds. No meaningful trap here - straightforward at L1."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

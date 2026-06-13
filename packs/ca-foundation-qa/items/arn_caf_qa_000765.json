@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000765",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000765.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.quartile_deviation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The monthly sales (in Rs thousands) of 8 branches of a company, arranged in ascending order, are: 8, 12, 16, 18, 20, 24, 28, 32. What is the quartile deviation of the monthly sales?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 7 thousand"
+    },
+    {
+      "key": 2,
+      "text": "Rs 14 thousand"
+    },
+    {
+      "key": 3,
+      "text": "Rs 20 thousand"
+    },
+    {
+      "key": 4,
+      "text": "Rs 27 thousand"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "n=8. Q1 at (8+1)/4 = 2.25th value: Q1 = 12 + 0.25*(16-12) = 12 + 1 = 13. Q3 at 3*(8+1)/4 = 6.75th value: Q3 = 24 + 0.75*(28-24) = 24 + 3 = 27. QD = (27-13)/2 = 14/2 = 7."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "14 is the inter-quartile range (Q3 - Q1 = 27 - 13 = 14). The student correctly found Q1 and Q3 with interpolation but forgot to halve the IQR."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "20 is (Q1+Q3)/2 = (13+27)/2 = 20, the mid-quartile or quartile mean, not the quartile deviation. The student summed Q1 and Q3 and divided by 2 instead of taking their difference."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "27 is Q3 itself. The student correctly computed Q3 = 27 using interpolation but misidentified Q3 as the quartile deviation."
+    }
+  ],
+  "explanation": "For n=8, Q1 is at position (n+1)/4 = 9/4 = 2.25. Interpolating between the 2nd and 3rd values: Q1 = 12 + 0.25*(16-12) = 13. Q3 is at position 3*(n+1)/4 = 6.75. Interpolating between the 6th and 7th values: Q3 = 24 + 0.75*(28-24) = 27. QD = (Q3-Q1)/2 = (27-13)/2 = 7.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "When n+1 is not divisible by 4, the quartile position is fractional and requires linear interpolation between two neighbouring values.",
+    "approach": "Identify the model: ungrouped data with interpolation. Step 1: Q1 position = (n+1)/4 = 2.25, so interpolate: Q1 = data[2] + 0.25*(data[3]-data[2]) = 12 + 1 = 13. Step 2: Q3 position = 6.75, so Q3 = data[6] + 0.75*(data[7]-data[6]) = 24 + 3 = 27. Step 3: QD = (27-13)/2 = 7. The key setup decision is recognising fractional positions require interpolation.",
+    "lesson": "Fractional quartile positions always require interpolation: value = lower_value + fraction * (upper_value - lower_value).",
+    "timing": "75-90 seconds. Trap: reporting IQR = 14. Quick verification: 0.25 * 4 = 1 and 0.75 * 4 = 3."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

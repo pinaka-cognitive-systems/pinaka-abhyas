@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000667",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000667.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.diagrammatic"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A histogram has unequal class widths. The class [20-30] has frequency 24 and width 10, while the class [30-50] has frequency 36 and width 20. If frequency density is plotted on the y-axis, which class has the taller bar?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Class [20-30], because its frequency density is higher"
+    },
+    {
+      "key": 2,
+      "text": "Class [30-50], because its frequency is higher"
+    },
+    {
+      "key": 3,
+      "text": "Both bars are the same height"
+    },
+    {
+      "key": 4,
+      "text": "Class [30-50], because its frequency density is higher"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Frequency density of [20-30] = 24/10 = 2.4; frequency density of [30-50] = 36/20 = 1.8. Class [20-30] has the taller bar."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Using raw frequency (36 > 24) ignores unequal widths; for unequal-width histograms the bar height must be frequency density, not frequency."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "The densities are 2.4 and 1.8, which are not equal."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Class [30-50] has lower frequency density (1.8 < 2.4); confusing the direction of comparison after correctly identifying the measure."
+    }
+  ],
+  "explanation": "For unequal-width histograms, bar height = frequency density = frequency / class width. [20-30]: 24/10 = 2.4. [30-50]: 36/20 = 1.8. Class [20-30] has the taller bar despite having a lower raw frequency.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Frequency density = frequency / width; [20-30] gives 2.4 vs [30-50]'s 1.8, so [20-30] is taller.",
+    "approach": "Identify the model: unequal-width histogram - bar height = frequency density = f/w. Compute both densities and compare.",
+    "lesson": "Raw frequency misleads when widths differ; always divide by width to get comparable bar heights.",
+    "timing": "90 s. Quick division: 24/10 = 2.4 vs 36/20 = 1.8; no further steps needed."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000930",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000930.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.median"
+  ],
+  "difficulty_label": "L2",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 165,
+  "stem": "A grouped distribution has classes 0-10, 10-20, 20-30, 30-40, 40-50 with frequencies 5, f1, 20, 10, 8 respectively, where f1 is unknown. The median of the distribution is 24. What is the value of the missing frequency f1?",
+  "options": [
+    {
+      "key": 1,
+      "text": "13"
+    },
+    {
+      "key": 2,
+      "text": "17"
+    },
+    {
+      "key": 3,
+      "text": "18"
+    },
+    {
+      "key": 4,
+      "text": "27"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Reads the median as 25 instead of 24. With median 25 the inversion gives 25 = 20 + (((43+f1)/2 - 5 - f1)/20)*10, leading to f1 = 13. The stated median is 24.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Median class is 20-30 (L=20, h=10, f=20, cf=5+f1, N=43+f1). 24 = 20 + (((43+f1)/2 - (5+f1))/20)*10 gives 8 = 16.5 - 0.5*f1, so f1 = 17 (then N = 60, N/2 = 30, cf = 22, which confirms the median class)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Uses (N+1)/2 instead of N/2 in the grouped median formula, mixing the discrete-data rule into continuous interpolation: 24 = 20 + (((44+f1)/2 - 5 - f1)/20)*10 gives f1 = 18.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Drops the cumulative frequency of the first class, taking cf = f1 only instead of cf = 5 + f1 before the median class. The equation 8 = 21.5 - 0.5*f1 then yields f1 = 27.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "The median 24 lies in the 20-30 class, so invert Median = L + ((N/2 - cf)/f)*h with L=20, h=10, f=20, cf = 5+f1, N = 43+f1. This gives 24 = 20 + (((43+f1)/2 - (5+f1))/20)*10, i.e. 8 = 16.5 - 0.5*f1, so f1 = 17. Check: N = 60, N/2 = 30, cumulative before 20-30 is 22, confirming the median class. Using (N+1)/2 gives 18; dropping the first class from cf gives 27.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Treat the median formula as an equation in f1: locate the median class from where 24 sits, then invert Median = L + ((N/2 - cf)/f)*h, where both N and cf carry f1, to land on f1 = 17.",
+    "approach": "Model: inverse interpolation for a missing frequency. Assumption: the median 24 falls in 20-30, so L = 20, h = 10, f = 20, and the cumulative frequency before it is 5 + f1. Recipe in five steps. (1) Write N = 5 + f1 + 20 + 10 + 8 = 43 + f1. (2) Substitute into 24 = 20 + (((43+f1)/2 - (5+f1))/20)*10. (3) Simplify to 4 = ((43+f1)/2 - 5 - f1)/2, then 8 = 16.5 - 0.5*f1. (4) Solve: f1 = 17. (5) Verify: N = 60, N/2 = 30, cf = 22, so 30 indeed falls in 20-30.",
+    "lesson": "To find a missing frequency from a given median, both N and the preceding cumulative frequency depend on the unknown; substitute both into the interpolation formula and solve the resulting linear equation.",
+    "timing": "About 145 seconds: build N, substitute, solve one linear equation, verify the class. Reject 18 as the (N+1)/2 slip, which has no place in continuous grouped data."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

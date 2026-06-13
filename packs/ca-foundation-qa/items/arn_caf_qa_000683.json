@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000683",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000683.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.graphical"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 65,
+  "stem": "Which of the following graphical representations is most appropriate for depicting the time-series data of a company's monthly sales revenue over 24 consecutive months?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Line graph (time-series graph)"
+    },
+    {
+      "key": 2,
+      "text": "Pie chart"
+    },
+    {
+      "key": 3,
+      "text": "Histogram"
+    },
+    {
+      "key": 4,
+      "text": "Bar chart with separate bars for each month"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "A line graph best shows the trend, continuity, and movement of data measured at successive time points. It makes the pattern over 24 months immediately visible."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "A pie chart shows parts of a whole at a single point in time (proportions). It cannot represent change over time across 24 periods."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "A histogram is for continuous quantitative data in classes (frequency distribution), not for time-series data where the x-axis represents ordered time periods."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "While a bar chart can show data for different months, 24 separate bars do not emphasize trend or continuity as well as a line graph does; a line graph is the standard choice for time-series data."
+    }
+  ],
+  "explanation": "Time-series data has a natural temporal order where trend and continuity matter. A line graph (also called a time-series graph) plots values against time and connects points with lines, making trend visible. This is the standard ICAI-recommended representation for time-series data.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Time-series data over consecutive periods is best depicted by a line graph to show trend and continuity.",
+    "approach": "Identify the model: match data type to appropriate graphical representation. Decision tree: is data continuous over time? Yes - use line graph. Is data showing parts of a whole? Use pie chart. Is data a frequency distribution with classes? Use histogram. Are data discrete categories? Use bar chart. Monthly sales revenue over 24 months = time-series = line graph.",
+    "lesson": "The decisive match is: time-series = line graph; frequency distribution = histogram; parts of whole = pie chart; discrete categories = bar chart.",
+    "timing": "20 seconds. Identify data type: time-series. Match to graph type: line graph. Trap: option 3 (histogram) is for frequency distributions of continuous data, not time-series."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

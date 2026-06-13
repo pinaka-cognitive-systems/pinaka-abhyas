@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000344",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000344.py"
+  },
+  "tests": [
+    "qa.bmath.equations.simultaneous_linear"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A bag contains a total of 60 coins consisting of 50-paise coins and Re 1 coins. The total value of all coins is Rs 45. How many Re 1 coins are in the bag?",
+  "options": [
+    {
+      "key": 1,
+      "text": "20"
+    },
+    {
+      "key": 2,
+      "text": "25"
+    },
+    {
+      "key": 3,
+      "text": "30"
+    },
+    {
+      "key": 4,
+      "text": "35"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student sets up value equation as 50*n1 + 100*n2 = 45 (using paise for left side but rupees for right), creating a unit mismatch and solving to get n2 = 20."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student correctly sets 0.5*n1 + n2 = 45 and n1 + n2 = 60, subtracts: 0.5*n1 = 15, n1 = 30, then reports n1 = 25 by a slip, so n2 = 35 or vice versa."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Let n1 = 50p coins, n2 = Re 1 coins. n1 + n2 = 60, 0.5*n1 + n2 = 45. Subtract: 0.5*n1 = 15, n1 = 30. Therefore n2 = 60 - 30 = 30."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "Student writes the value equation as n1 + 0.5*n2 = 45 (swaps coin types in the value equation), then solves: subtracting from count equation gives 0.5*n2 = 15, n2 = 30, then n1 = 30; or if student swaps equations differently gets n2 = 35."
+    }
+  ],
+  "explanation": "Let n1 = 50p coins, n2 = Re 1 coins. Count: n1 + n2 = 60. Value (in Rs): 0.5*n1 + n2 = 45. Subtract count equation from value equation... instead subtract: (n1 + n2) - (0.5*n1 + n2) = 60 - 45, so 0.5*n1 = 15, n1 = 30. Thus n2 = 30.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Keep all monetary values in the same unit (rupees); then eliminate one variable by subtracting the value equation from the count equation.",
+    "approach": "Define n1, n2 and write two equations: count (n1+n2=60) and value in Rs (0.5*n1+n2=45). Subtract value equation from count equation to isolate 0.5*n1 = 15, giving n1 = 30 and n2 = 30.",
+    "lesson": "Unit consistency is the first check in coin/currency problems: convert all denominations to a common unit before forming the value equation.",
+    "timing": "About 80 seconds. Trap: mixing paise and rupees in the value equation; this shifts the answer. Check: 30 * 0.5 + 30 * 1 = 15 + 30 = 45. Verified."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

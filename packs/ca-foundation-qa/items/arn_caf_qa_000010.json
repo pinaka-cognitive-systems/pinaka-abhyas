@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "Trace step by step: Ramesh's grandfather -> his only son = Ramesh's father -> that man's daughter = Ramesh's sister. Kaveri is Ramesh's sister.",
+  "explanation_kind": "deductive_trace",
   "explanation_sections": {
-    "punchline": "The only son of Ramesh's grandfather is Ramesh's father. The daughter of Ramesh's father is Ramesh's sister.",
-    "approach": "For blood-relation questions, draw a short chain from the anchor person to the subject. Write each link on a new line: grandfather, then his only son, then that son's daughter. Resolve each link fully before moving to the next. Do not jump ahead.",
-    "lesson": "Start from the named reference person and trace each generation one step at a time. Errors almost always come from combining two links into one and skipping a generation.",
-    "timing": "About 75 seconds. Two links to trace. Spend 30 seconds drawing the chain, 15 seconds verifying. If you get niece or daughter, re-check which generation 'only son of grandfather' lands on."
+    "punchline": "Lock the pivot first: the only son of Ramesh's grandfather is Ramesh's father. The daughter of Ramesh's father is Ramesh's sister, so Kaveri is Ramesh's sister.",
+    "approach": "Work the chain from the anchor outward, one link at a time. Step 1: identify who 'only son of my grandfather' is (Ramesh's father). Step 2: identify who that person's daughter is (Ramesh's sister). Do not skip or merge steps. Verify by reading the original sentence with your answer substituted back in.",
+    "lesson": "In blood-relation chains, resolve the innermost descriptor first. 'Only son of grandfather' is the pivot; get that right and the final relation follows in one more step.",
+    "timing": "About 45 seconds. Two links, each under 10 seconds to resolve. If you land on niece or daughter, you have placed the pivot one generation too low or too high; re-read step 1 only."
   },
   "empirical": {
     "calibration_status": "none",

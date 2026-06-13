@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000856",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000856.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.rank_correlation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "Eight products are assessed by two auditors and assigned ranks as follows:\nProduct:    A  B  C  D  E  F  G  H\nAuditor 1:  1  2  3  4  5  6  7  8\nAuditor 2:  2  1  4  3  6  5  8  7\nCalculate the Spearman rank correlation coefficient (correct to 4 decimal places).",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.9048"
+    },
+    {
+      "key": 2,
+      "text": "0.8571"
+    },
+    {
+      "key": 3,
+      "text": "0.9524"
+    },
+    {
+      "key": 4,
+      "text": "0.7619"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Each adjacent pair swaps; d = +-1 for all 8 products, sum(d^2) = 8. r_s = 1 - 6*8/(8*63) = 1 - 48/504 = 456/504 = 19/21 = 0.9048."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Using n*(n^2-1)/6 = 84 as the denominator instead of n*(n^2-1) = 504 gives 1 - 48/84 = 36/84 = 0.4286, not 0.8571. Or using sum_d2=12 by miscounting: 1-72/504=0.857."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computing sum_d2 = 4 (counting only four swapped pairs out of eight): 1 - 6*4/504 = 1 - 24/504 = 480/504 = 0.9524."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Using n*(n+1)*(n-1)/2 = 252 as the denominator: 1 - 6*8/252 = 1 - 48/252 = 204/252 = 0.7619."
+    }
+  ],
+  "explanation": "Each product's rank from Auditor 1 and Auditor 2 differ by exactly 1 (adjacent swap pattern). So all d^2 = 1 and sum(d^2) = 8. Denominator = n*(n^2-1) = 8*(64-1) = 8*63 = 504. r_s = 1 - 6*8/504 = 1 - 48/504 = 1 - 2/21 = 19/21 = 0.9048.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Adjacent-swap pattern gives sum(d^2)=8, and with n=8 the denominator is 504, yielding r_s = 19/21 = 0.9048.",
+    "approach": "Name the formula: r_s = 1 - 6*sum(d^2)/(n*(n^2-1)). Spot the pattern: every pair swaps by 1, so each d^2=1 and sum=8. Denominator: 8*(64-1)=504. Fraction: 48/504=2/21. r_s = 1 - 2/21 = 19/21.",
+    "lesson": "The denominator n*(n^2-1) equals n*(n+1)*(n-1); for n=8 this is 504, not 84 or 252.",
+    "timing": "About 75 seconds. Recognizing the uniform d^2=1 pattern saves individual d calculations."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

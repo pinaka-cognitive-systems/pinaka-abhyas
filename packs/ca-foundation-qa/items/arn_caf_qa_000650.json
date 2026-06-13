@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000650",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000650.py"
+  },
+  "tests": [
+    "qa.lr.blood_relations"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "Meera introduces Kiran to her friend saying, 'His mother is the only daughter of my mother.' How is Kiran related to Meera?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Brother"
+    },
+    {
+      "key": 2,
+      "text": "Uncle"
+    },
+    {
+      "key": 3,
+      "text": "Son"
+    },
+    {
+      "key": 4,
+      "text": "Nephew"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "kinship_gender_error",
+      "rationale": "Kiran's mother is Meera herself, making Kiran Meera's son, not brother. Treating the same-generation link as sibling ignores that the mother link brings Kiran one generation below."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Uncle is two generations up from Meera, but Kiran is one generation down, so placing Kiran as uncle is a generational mislocation."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "The only daughter of Meera's mother is Meera. Kiran's mother is Meera, so Kiran is Meera's son."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "kinship_direction_inverted",
+      "rationale": "A nephew would be the son of Meera's sibling. Here there is no sibling in the chain; the only daughter IS Meera herself."
+    }
+  ],
+  "explanation": "The only daughter of Meera's mother is Meera. So Kiran's mother is Meera, and Kiran is Meera's son. Chain: Meera's mother -> only daughter = Meera -> Kiran's mother = Meera -> Kiran = Meera's son.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "'Only daughter of my mother' collapses directly to the speaker, Meera, so Kiran is her son.",
+    "approach": "Apply most-certain clue first: 'only daughter of my mother' = Meera. Then Kiran's mother = Meera means Kiran is Meera's son.",
+    "lesson": "When a clue resolves to the speaker themselves, the next link is a direct parent-child relation with the speaker.",
+    "timing": "About 30 seconds. Spot that 'only daughter of my mother' = self, then son follows immediately. Trap is option 1 (confuses lateral sibling link)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

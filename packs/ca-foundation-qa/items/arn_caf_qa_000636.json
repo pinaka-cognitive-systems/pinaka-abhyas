@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000636",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000636.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 145,
+  "stem": "Eight people Aryan, Bhavna, Chirag, Divya, Eshaan, Farida, Gaurav, and Hema sit around a circular table (seats 1 to 8 going clockwise) facing the centre. The following clues apply. (1) Aryan is at seat 1. (2) Exactly 2 people sit between Aryan and Bhavna going clockwise, so Bhavna is 3 seats clockwise from Aryan. (3) Chirag sits exactly 2 seats clockwise from Aryan. (4) Divya sits directly opposite Aryan. (5) Eshaan sits directly opposite Bhavna. (6) Farida sits directly opposite Chirag. (7) Gaurav is the immediate clockwise neighbour of Divya. Hema is the only person whose seat has not yet been determined. Who sits at seat 2?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Bhavna"
+    },
+    {
+      "key": 2,
+      "text": "Gaurav"
+    },
+    {
+      "key": 3,
+      "text": "Hema"
+    },
+    {
+      "key": 4,
+      "text": "Chirag"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Bhavna is at seat 4: 3 seats CW from Aryan(1) gives 1+3=4. Placing Bhavna at seat 2 misapplies the 3-seat clockwise offset as a 1-seat offset."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Gaurav is the immediate CW neighbour of Divya(5), so Gaurav=6. Placing Gaurav at seat 2 ignores the CW-neighbour clue that ties Gaurav to Divya's seat."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Six clues uniquely place six people: Aryan=1, Bhavna=4, Chirag=3, Divya=5, Eshaan=8, Farida=7, Gaurav=6. The only unassigned seat is seat 2. Hema is the only person not yet placed. Therefore Hema is at seat 2."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Chirag is 2 seats CW from Aryan(1): 1+2=3. Chirag is at seat 3, not seat 2. A one-step arithmetic error in the CW-offset calculation places Chirag at the wrong seat."
+    }
+  ],
+  "explanation": "Work through the clues in sequence: Aryan=1 (anchor). Bhavna is 3 seats CW: seat 1+3=4, Bhavna=4. Chirag is 2 seats CW from Aryan: seat 1+2=3, Chirag=3. Divya is directly opposite Aryan (4 seats apart in an 8-seat circle): Divya=5. Eshaan is directly opposite Bhavna(4): Eshaan=8. Farida is directly opposite Chirag(3): Farida=7. Gaurav is immediately CW from Divya(5): Gaurav=6. Seats occupied: 1,3,4,5,6,7,8. The only empty seat is seat 2. Hema fills seat 2.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Six directed clues each resolve one seat uniquely in a chain; the seventh person is forced to the one remaining seat by elimination.",
+    "approach": "Apply clues most-certain-first: anchor Aryan(1), derive each subsequent person's seat from their clue (CW offset, direct-opposite, or CW-neighbour). Mark each derived seat as occupied. After six derivations, the single unmarked seat is Hema's seat. No backtracking needed; each clue is a one-step derivation.",
+    "lesson": "In 8-person circular arrangements, a chain of direct-opposite and fixed-gap clues can uniquely place everyone; the last person is assigned by elimination. Track occupied seats after each clue to avoid collisions.",
+    "timing": "145 seconds. Six independent derivations (each 10-15 sec), one elimination step. The trap is misapplying the CW offset by 1 (e.g. treating 2-seats-between as 2 seats instead of 3 seats total distance)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

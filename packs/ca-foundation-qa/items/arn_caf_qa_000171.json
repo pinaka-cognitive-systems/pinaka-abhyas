@@ -19,6 +19,7 @@
     "qa.bmath.ratio_indices_log.proportion"
   ],
   "difficulty_label": "L2",
+  "explanation_kind": "derivation",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 90,
@@ -71,10 +72,10 @@
   ],
   "explanation": "To link a:b = 3:4 and b:c = 6:5, make b equal. LCM(4, 6) = 12. Scale: a:b = 9:12 and b:c = 12:10. So a:c = 9:10.",
   "explanation_sections": {
-    "punchline": "Make b common by scaling both ratios to b = 12. Then a:c = 9:10 follows directly from a:b:c = 9:12:10.",
-    "approach": "Compound ratio problems with two ratios sharing a common term require aligning that term. Find the LCM of the b-values (4 and 6), scale each ratio so b equals the LCM, then read off the outer terms. Write a:b:c as a single chain before extracting the required pair.",
-    "lesson": "To find a:c from a:b and b:c, make b equal in both ratios. Scale by LCM, not by multiplication of the outer terms.",
-    "timing": "About 90 seconds. LCM of 4 and 6 is 12. Two scaling steps, one ratio read-off. Eliminate option 3:4 in five seconds: that is the given a:b, not the asked a:c."
+    "punchline": "The shared term b must be the same number in both ratios before a and c can be compared. LCM(4, 6) = 12 sets b = 12 in both, giving a:b:c = 9:12:10, so a:c = 9:10.",
+    "approach": "Transformation plan for compound ratio: (1) identify the linking term (b), (2) find LCM of its two values, (3) scale each ratio so the linking term equals the LCM, (4) read off the two outer terms. This telescoping chain works for any number of ratios as long as adjacent pairs share a term.",
+    "lesson": "Scale by LCM of the linking term, not by cross-multiplying the outer terms. Cross-multiplying gives a product, not a ratio in simplest form.",
+    "timing": "About 60 seconds once the method is automatic. LCM(4,6) = 12 in under 5 seconds. Two multiplications, one read-off. Kill option 3:4 immediately: that is the given a:b, not the target a:c."
   },
   "empirical": {
     "calibration_status": "none",

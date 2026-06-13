@@ -18,10 +18,10 @@
   "tests": [
     "qa.stats.data_representation.frequency_distribution"
   ],
-  "difficulty_label": "L2",
+  "difficulty_label": "L1",
   "taxonomy_version": 4,
   "item_type": "single_best",
-  "expected_seconds": 75,
+  "expected_seconds": 40,
   "stem": "A frequency distribution of marks scored by 60 students has five class intervals. Four of the five class counts are known. Class 0-10 has 5 students, class 20-30 has 18, class 30-40 has 14, and class 40-50 has 7. The frequency of class 10-20 is missing. What is the missing frequency?",
   "options": [
     {
@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "The total frequency is 60. The sum of the four known frequencies is 5 + 18 + 14 + 7 = 44. The missing frequency is 60 - 44 = 16.",
+  "explanation_kind": "model_compute",
   "explanation_sections": {
-    "punchline": "The answer is 16. Sum the four known frequencies to get 44, then subtract from the total: 60 - 44 = 16.",
-    "approach": "Add all known frequencies. Subtract from the stated total. This gives the one missing frequency. Always check that the result is positive and less than the total.",
-    "lesson": "In a frequency distribution, all frequencies must sum to the total number of observations. Use this constraint to find any single missing value.",
-    "timing": "75 seconds. Add the four known values in about 20 seconds, then subtract. Verify the subtraction before marking your answer."
+    "punchline": "All frequencies must sum to the total. Known sum = 5+18+14+7 = 44. Missing = 60-44 = 16.",
+    "approach": "Apply the closure property: every frequency distribution must satisfy Sum(all f_i) = N. With one unknown, the missing frequency = N - Sum(known f_i). Add the four known values (5+18+14+7 = 44) then subtract from 60. The trap in option 4 is reporting the sum 44 instead of computing 60-44.",
+    "lesson": "One-missing-frequency problems have a single arithmetic step: total minus known sum. They test whether a student applies the constraint Sum = N or confuses the intermediate sum (44) with the answer.",
+    "timing": "40 seconds. Add 5+18=23, 23+14=37, 37+7=44 in 15 seconds. 60-44=16 in 5 seconds. Done."
   },
   "empirical": {
     "calibration_status": "none",

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000838",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000838.py"
+  },
+  "tests": [
+    "qa.stats.distributions.normal"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The daily output (in units) of a factory follows a normal distribution with mean 500 and standard deviation 20. Using the table value P(Z < 1.5) = 0.9332, what is the probability that on a randomly chosen day the output is between 470 and 530 units?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.8664"
+    },
+    {
+      "key": 2,
+      "text": "0.9332"
+    },
+    {
+      "key": 3,
+      "text": "0.1336"
+    },
+    {
+      "key": 4,
+      "text": "0.7500"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Z for 470: (470 - 500)/20 = -1.5. Z for 530: (530 - 500)/20 = 1.5. P(-1.5 < Z < 1.5) = P(Z < 1.5) - P(Z < -1.5) = 0.9332 - (1 - 0.9332) = 0.9332 - 0.0668 = 0.8664."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "complement_confusion",
+      "rationale": "Using only P(Z < 1.5) = 0.9332 without subtracting the lower tail; this gives the one-sided cumulative, ignoring the left tail below 470."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "complement_confusion",
+      "rationale": "Taking 1 - 0.9332 = 0.0668 and doubling gives 0.1336, which is the probability outside the interval, not inside it."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "0.75 arises from incorrectly treating the interval as spanning +/- 1 standard deviation instead of +/- 1.5."
+    }
+  ],
+  "explanation": "Both endpoints are symmetric about the mean: 470 = 500 - 30 and 530 = 500 + 30, giving Z = -1.5 and Z = 1.5. By symmetry of the normal distribution P(-1.5 < Z < 1.5) = 2 * P(Z < 1.5) - 1 = 2(0.9332) - 1 = 0.8664. Equivalently P = P(Z < 1.5) - P(Z < -1.5) = 0.9332 - 0.0668 = 0.8664.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "A symmetric two-tailed interval gives 2 * table_value - 1 = 2(0.9332) - 1 = 0.8664.",
+    "approach": "Identify model (normal) and standardise both endpoints. Z_lower = (470 - 500)/20 = -1.5, Z_upper = 1.5. Recognise symmetry: P(Z < -1.5) = 1 - P(Z < 1.5) = 0.0668. P(between) = 0.9332 - 0.0668 = 0.8664. Formula: P(-z < Z < z) = 2*Phi(z) - 1.",
+    "lesson": "For symmetric intervals about mu, use 2*Phi(z) - 1; this is the fastest route when the two z-scores are equal in magnitude.",
+    "timing": "About 70 seconds. The trap is reading off only one tail value without handling the lower tail."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

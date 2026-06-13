@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000440",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000440.py"
+  },
+  "tests": [
+    "qa.bmath.finance.depreciation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A firm buys machinery worth Rs 4,00,000 and charges depreciation at 15% per annum under the WDV method. Given that (0.85)^4 = 0.5220, what is the total depreciation charged over the first 4 years?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 1,91,200"
+    },
+    {
+      "key": 2,
+      "text": "Rs 2,40,000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 2,08,800"
+    },
+    {
+      "key": 4,
+      "text": "Rs 1,80,000"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Book value after 4 years = 400000 x (0.85)^4 = 400000 x 0.5220 = 208800. Total depreciation = cost - book value = 400000 - 208800 = 191200."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Uses SLM: 15% x 400000 = 60000 per year, x 4 years = 240000."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reports the book value (Rs 2,08,800) as if it were the total depreciation charged."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "time_factor_dropped",
+      "rationale": "Calculates SLM depreciation for only 3 years: 15% x 400000 x 3 = 180000, ignoring the 4th year."
+    }
+  ],
+  "explanation": "Under WDV, book value after 4 years = 400000 x (0.85)^4 = 400000 x 0.5220 = 208800. Total depreciation over 4 years = original cost - closing book value = 400000 - 208800 = Rs 1,91,200.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Total depreciation under WDV equals the fall in book value from original cost: Cost x [1 - (1-r)^n].",
+    "approach": "Identify method: WDV. BV_4 = 400000 x (0.85)^4 = 208800. Total dep = 400000 - 208800 = 191200. Alternatively: 400000 x [1 - 0.5220] = 400000 x 0.4780 = 191200.",
+    "lesson": "Do not confuse the book value with total depreciation; total depreciation = cost minus closing book value.",
+    "timing": "55 seconds. Common slip: reporting closing book value (208800) as total depreciation."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

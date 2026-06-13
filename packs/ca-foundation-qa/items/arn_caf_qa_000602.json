@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000602",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000602.py"
+  },
+  "tests": [
+    "qa.lr.direction_tests"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "Priya walks 6 km East and then 8 km North. How far is she from her starting point?",
+  "options": [
+    {
+      "key": 1,
+      "text": "10 km"
+    },
+    {
+      "key": 2,
+      "text": "14 km"
+    },
+    {
+      "key": 3,
+      "text": "7 km"
+    },
+    {
+      "key": 4,
+      "text": "12 km"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "East and North are perpendicular. Distance = sqrt(6^2 + 8^2) = sqrt(36+64) = sqrt(100) = 10 km."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "net_displacement_error",
+      "rationale": "Adding 6+8=14 treats the path as a straight line instead of applying Pythagoras to perpendicular legs."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "7 would result from sqrt(25+24)=7 after a slip computing the squares."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "net_displacement_error",
+      "rationale": "12 results from computing half the sum or confusing the formula, not using sqrt(6^2+8^2)."
+    }
+  ],
+  "explanation": "East and North are at right angles, so the straight-line distance from start to finish is the hypotenuse of a right triangle with legs 6 and 8. By Pythagoras: sqrt(6^2+8^2)=sqrt(100)=10 km.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "East and North are perpendicular; apply Pythagoras to get sqrt(6^2+8^2)=10 km.",
+    "approach": "Deductive trace: two legs are perpendicular when directions are N/S and E/W. Draw the right triangle: horizontal leg=6, vertical leg=8. Hypotenuse = sqrt(36+64)=sqrt(100)=10.",
+    "lesson": "Whenever two direction legs are perpendicular (E+N, E+S, W+N, W+S), use Pythagoras for straight-line distance; never add the legs directly.",
+    "timing": "30 seconds. The trap is adding 6+8=14 (option 2), treating the route as if it were a straight line."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

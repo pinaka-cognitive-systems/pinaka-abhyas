@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000628",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000628.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "Five colleagues Farhan, Gauri, Hari, Isha, and Jatin sit in a row at positions 1 (leftmost) to 5 (rightmost). Farhan is at position 1. Jatin is at position 5. Gauri sits between Hari and Isha, with Hari and Isha as Gauri's immediate neighbours. Hari is not adjacent to Farhan. Who sits at position 2?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Farhan"
+    },
+    {
+      "key": 2,
+      "text": "Gauri"
+    },
+    {
+      "key": 3,
+      "text": "Hari"
+    },
+    {
+      "key": 4,
+      "text": "Isha"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Farhan is explicitly placed at position 1, not position 2. Selecting Farhan misreads the stem's direct placement."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Gauri must be flanked by both Hari and Isha. The only interior positions from {2,3,4} that allow Gauri in the middle are the H-G-I or I-G-H blocks. Gauri at position 2 would require neighbours at positions 1 and 3, but position 1 is Farhan, not Hari or Isha. This option ignores the flanking constraint."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "With Hari at position 2, the H-G-I block requires Gauri at 3 and Isha at 4. This satisfies the Gauri-between clue. However, Hari at position 2 is adjacent to Farhan at position 1 (|2-1|=1), violating the non-adjacency clue. Omitting the Hari-not-adjacent-to-Farhan constraint yields Hari as a wrong answer."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "Farhan=1, Jatin=5. Gauri must be flanked by Hari and Isha, so the block is H-G-I or I-G-H occupying three consecutive positions from {2,3,4}. The only three-consecutive slot in {2,3,4} is (2,3,4) itself. Two arrangements: H(2)G(3)I(4) or I(2)G(3)H(4). Hari not adjacent to Farhan means Hari not at position 2. This eliminates H(2)G(3)I(4), leaving I(2)G(3)H(4). So Isha is at position 2."
+    }
+  ],
+  "explanation": "Farhan=1 and Jatin=5 are fixed. Gauri must be flanked immediately by Hari and Isha, forming the three-person block H-G-I or I-G-H. The only available three consecutive positions from the middle seats {2,3,4} are positions 2,3,4 themselves, forcing Gauri to position 3. The two block orderings are H(2)G(3)I(4) and I(2)G(3)H(4). Applying Hari-not-adjacent-to-Farhan: Hari must not be at position 2 (|2-1|=1). This eliminates H(2)G(3)I(4). The unique arrangement is Farhan(1) Isha(2) Gauri(3) Hari(4) Jatin(5), so position 2 is Isha.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The Hari-not-adjacent-to-Farhan clue breaks the tie between the two block orderings, uniquely placing Isha at position 2.",
+    "approach": "Apply clues most-certain-first: anchor Farhan(1) and Jatin(5). Recognise the H-G-I or I-G-H three-person block must fit in positions 2-3-4 (the only available triple). Enumerate both orderings; apply the Hari-adjacency constraint to eliminate one. Read the answer from the surviving arrangement.",
+    "lesson": "When a three-person block must occupy a unique slot, the two internal orderings remain; a single adjacency or non-adjacency clue on one end person eliminates one ordering.",
+    "timing": "80 seconds. Two anchors fixed, one three-person block, one adjacency check. Fastest elimination: check Hari-at-2 against Farhan-at-1 adjacency and reject."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000773",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000773.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.coefficient_of_variation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A dataset of wages is coded using u = (x - 20)/4, where x is the original wage. The coded data has mean = 5 and standard deviation = 2. What is the coefficient of variation of the original wages?",
+  "options": [
+    {
+      "key": 1,
+      "text": "40%"
+    },
+    {
+      "key": 2,
+      "text": "20%"
+    },
+    {
+      "key": 3,
+      "text": "5%"
+    },
+    {
+      "key": 4,
+      "text": "10%"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "invariance_property_confused",
+      "rationale": "Student applies CV directly to the coded data: CV_coded = (SD_u / mean_u) x 100 = (2/5) x 100 = 40%. This ignores the need to recover original mean and SD before computing CV."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Recover original values: mean_x = 4 x 5 + 20 = 40. SD_x = 4 x 2 = 8 (origin shift does not affect SD). CV = (8/40) x 100 = 20%."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "invariance_property_confused",
+      "rationale": "Student recovers mean_x correctly (40) but uses SD_u unchanged (SD_x = 2 instead of 8), giving CV = (2/40) x 100 = 5%. Confuses invariance of SD under origin shift with invariance under scale change."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Student forgets the origin shift when recovering the mean (mean_x = 4 x 5 = 20 instead of 40) and also forgets to scale SD (SD_x = 2), yielding CV = (2/20) x 100 = 10%."
+    }
+  ],
+  "explanation": "From u = (x - 20)/4, recover x = 4u + 20. Mean_x = 4 x mean_u + 20 = 4 x 5 + 20 = 40. SD_x = 4 x SD_u = 4 x 2 = 8 (origin shift A = 20 has no effect on SD; only the scale factor h = 4 matters). CV = (SD_x / mean_x) x 100 = (8/40) x 100 = 20%.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Origin shift (adding a constant) leaves SD unchanged; only the scale factor multiplies SD - so recover original mean and SD separately before computing CV.",
+    "approach": "Formula selection: for u = (x - A)/h, the inverse is x = h*u + A. Apply: mean_x = h*mean_u + A (both A and h affect mean). SD_x = h * SD_u (only h affects SD, A does not). Then CV = (SD_x/mean_x) x 100. Givens: A=20, h=4, mean_u=5, SD_u=2. Execute: mean_x=40, SD_x=8, CV=20%.",
+    "lesson": "A change of origin shifts the mean but does not change SD (or variance). A change of scale multiplies both mean and SD. CV changes with scale change - it is NOT invariant under scale.",
+    "timing": "About 75 seconds. Two-step recovery then CV. Key trap: applying CV to coded values directly gives 40%. Second trap: forgetting to scale SD gives 5%."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

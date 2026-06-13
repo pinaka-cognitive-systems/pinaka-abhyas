@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000387",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000387.py"
+  },
+  "tests": [
+    "qa.bmath.finance.annuity"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A depositor invests Rs 4,000 at the end of every 6 months for 2 years. The bank compounds interest at a nominal annual rate of 8% compounded half-yearly. What is the future value of this annuity at the end of 2 years?  [Given: (1.04)^4 = 1.1699]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 16,000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 16,990"
+    },
+    {
+      "key": 3,
+      "text": "Rs 16,640"
+    },
+    {
+      "key": 4,
+      "text": "Rs 18,024"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Simply totalling four half-yearly deposits of Rs 4,000 without compounding gives Rs 16,000, ignoring all interest earned."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Half-yearly rate i = 8%/2 = 4%, number of periods n = 4. FV = 4000 x [(1.04)^4 - 1]/0.04 = 4000 x [1.1699 - 1]/0.04 = 4000 x 0.1699/0.04 = 4000 x 4.2475 = Rs 16,990."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "rate_period_mismatch",
+      "rationale": "Treating the Rs 8,000 annual equivalent as two annual payments at 8% annual and using n = 2 gives FV = 8000 x (1.1664-1)/0.08 = Rs 16,640; this mismatches the actual half-yearly payment frequency."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "unit_confusion",
+      "rationale": "Using the full nominal annual rate of 8% as the per-period rate and 4 periods gives (1.08)^4 = 1.3605; FV = 4000 x (1.3605-1)/0.08 = Rs 18,025, which over-compounds because the period rate was not halved."
+    }
+  ],
+  "explanation": "The decisive move is converting the nominal annual rate to the half-yearly period rate before applying the annuity formula. Period rate i = 8%/2 = 4% = 0.04, n = 4 half-years. FV = A x [(1+i)^n - 1]/i = 4000 x (1.1699 - 1)/0.04 = 4000 x 4.2475 = Rs 16,990.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Match the payment frequency to the compounding period - divide the nominal annual rate by 2 to get the per-half-year rate of 4%.",
+    "approach": "Formula: FV = A x [(1+i)^n - 1]/i. Step 1 (the decisive move): convert rate - i = 8%/2 = 0.04 per half-year, n = 2 years x 2 = 4. Step 2: apply hint (1.04)^4 = 1.1699. Step 3: FV = 4000 x 0.1699/0.04 = 4000 x 4.2475 = Rs 16,990.",
+    "lesson": "When payments are more frequent than annual, always convert both the rate and number of periods to match the payment interval before computing FV.",
+    "timing": "80 seconds. One rate conversion then direct formula. Trap: option 4 uses full 8% as the period rate."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

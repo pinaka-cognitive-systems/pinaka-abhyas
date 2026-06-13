@@ -49,11 +49,12 @@
     }
   ],
   "explanation": "The rule assigns shift n to the nth letter of the word: position 1 gets +1, position 2 gets +2, position 3 gets +3. R(18)+1=19=S, A(1)+2=3=C, J(10)+3=13=M, yielding SCM.",
+  "explanation_kind": "deductive_trace",
   "explanation_sections": {
-    "punchline": "Each letter gets a shift equal to its position number: +1, +2, +3. Applying that to R, A, J gives S, C, M.",
-    "approach": "Read the rule once and write down the shift for each position before touching the letters. For a 3-letter word the shifts are always 1, 2, 3. Convert each letter to its alphabet number, add the shift, convert back. Work left to right and do not mix up the shift order.",
-    "lesson": "In positional coding problems the shift sequence is tied to position, not to the letter itself. Write the position-shift table first, then encode.",
-    "timing": "About 75 seconds. Spend 15 seconds mapping each letter, 10 seconds checking. If you see an option that matches the first encoded letter only, keep going before picking."
+    "punchline": "Write the shift table first: position 1 gets +1, position 2 gets +2, position 3 gets +3. Applying that to R, A, J: R(18)+1=S, A(1)+2=C, J(10)+3=M. The code is SCM.",
+    "approach": "Work left to right in three independent steps. Step 1: note the rule assigns shift equal to position index. Step 2: write the shift table (pos 1: +1, pos 2: +2, pos 3: +3). Step 3: encode each letter in order: R+1=S, A+2=C, J+3=M. Do not apply the shifts out of order. Verify by re-applying each shift to the original letter before committing to an answer.",
+    "lesson": "In positional-shift coding, write the shift sequence explicitly before touching any letter. Every distractor here comes from applying a correct shift to the wrong position.",
+    "timing": "About 60 seconds. Building the shift table takes 10 seconds. Encoding three letters takes 15 seconds each. Option TBM applies shifts +2/+1/+3 (first two swapped) and is the most common trap: if you get T for the first letter, re-check that shift 1 not shift 2 applies to position 1."
   },
   "empirical": { "calibration_status": "none", "n_responses": 0 },
   "ext": { "icai_skill_bucket": "application" }

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000494",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000494.py"
+  },
+  "tests": [
+    "qa.bmath.sequence_series.special_series"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "Find the sum 2^2 + 4^2 + 6^2 + ... + 20^2.",
+  "options": [
+    {
+      "key": 1,
+      "text": "2870"
+    },
+    {
+      "key": 2,
+      "text": "1540"
+    },
+    {
+      "key": 3,
+      "text": "385"
+    },
+    {
+      "key": 4,
+      "text": "770"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Applied the sum-of-squares formula directly with n=20 (sum of all squares 1^2 to 20^2 = 20*21*41/6 = 2870), including the odd-squares terms instead of only the even ones."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Factor out 4: 2^2+4^2+...+20^2 = 4(1^2+2^2+...+10^2) = 4 * n(n+1)(2n+1)/6 with n=10 = 4 * 385 = 1540."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Computed 1^2+2^2+...+10^2 = 385 correctly but forgot to multiply by 4, omitting the factor that accounts for each even number being 2k."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Multiplied the sum 385 by 2 instead of 4 (used factor of 2 from 2k but should have used (2k)^2 = 4k^2), giving 2*385 = 770."
+    }
+  ],
+  "explanation": "Each even number is 2k for k=1..10. So (2k)^2 = 4k^2, and the sum becomes 4*(1^2+2^2+...+10^2) = 4*385 = 1540.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Express each even term as 2k so the sum factors into 4 times the sum of squares of 1 to 10.",
+    "approach": "Derivation plan: write the kth even number as 2k, k running from 1 to 10. Then (2k)^2 = 4k^2. Sum = 4 * sum(k^2, k=1..10) = 4 * 10*11*21/6 = 4 * 385 = 1540.",
+    "lesson": "Sum of squares of first n even numbers = 4 * n(n+1)(2n+1)/6 = 2n(n+1)(2n+1)/3.",
+    "timing": "About 80 seconds. Key setup move: factor 4 from (2k)^2 before applying the formula. Trap: applying formula with n=20 directly (gives 2870, the sum of ALL squares)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "Fix the anchors: Farhan=1 (clue 1), Ishan=5 (clue 4). Remaining people Gargi, Hetal, Jaya fill seats 2, 3, 4. The Hetal-Gargi block (clue 2, Gargi one step right of Hetal) can sit at positions (2,3) or (3,4). If (3,4): Jaya gets seat 2, violating clue 3 (Jaya not at 2 or 3). So the block must be at (2,3), giving Hetal=2, Gargi=3, Jaya=4. Seat 2 = Hetal.",
+  "explanation_kind": "deductive_trace",
   "explanation_sections": {
-    "punchline": "Seat 2 is Hetal. Placing the Hetal-Gargi block at seats 3 and 4 forces Jaya to seat 2, which clue 3 bans. The block must go to seats 2 and 3.",
-    "approach": "Fix any person with an absolute seat first (clues 1 and 4 here). List the remaining seats. For each adjacency block, enumerate the possible positions and eliminate those that violate any other clue.",
-    "lesson": "Test each candidate placement against all remaining constraints before recording it. A placement that looks valid from one clue may fail another.",
-    "timing": "About 90 seconds. Placing anchors takes 10 seconds. Testing two block positions takes 30 seconds each. Once one position is eliminated, the other is the answer."
+    "punchline": "Lock the two anchors first: Farhan=1 (clue 1) and Ishan=5 (clue 4). That is the cracking move - it reduces the problem to placing Gargi, Hetal, Jaya in seats 2, 3, 4 only. The adjacency and negative clues then force a unique solution.",
+    "approach": "Apply clues in this order: (1) Fixed positions first - clue 1 gives Farhan=1, clue 4 gives Ishan=5. Remaining seats: 2, 3, 4 for Gargi, Hetal, Jaya. (2) Adjacency block - clue 2 says Gargi is immediately right of Hetal, so the Hetal-Gargi block occupies two consecutive seats. Candidates within {2,3,4}: (2,3) or (3,4). (3) Negative clue eliminates - clue 3 says Jaya not at seat 2 or 3. If block=(3,4): Jaya gets seat 2, violating clue 3. Eliminated. If block=(2,3): Jaya gets seat 4, allowed. Unique solution: Farhan=1, Hetal=2, Gargi=3, Jaya=4, Ishan=5. Verify all four clues against this arrangement. Seat 2 = Hetal.",
+    "lesson": "Always fix absolute anchors before enumerating block positions. Anchors shrink the search space and make the elimination step faster. The negative clue is the eliminator here - test it last, after block positions are listed.",
+    "timing": "About 75 seconds. Fixing anchors: 10 seconds. Listing two block positions: 10 seconds. Testing each against clue 3: 15 seconds each. Trap: option 1 (Gargi at seat 2) comes from reversing clue 2 - reading 'Gargi right of Hetal' as 'Hetal right of Gargi'. Direction in adjacency clues matters."
   },
   "empirical": {
     "calibration_status": "none",

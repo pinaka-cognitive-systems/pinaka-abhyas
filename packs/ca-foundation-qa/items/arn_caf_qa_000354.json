@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000354",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000354.py"
+  },
+  "tests": [
+    "qa.bmath.equations.cubic"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "The volume of a cuboid (in cubic cm) equals the cube of a positive integer n. The length, breadth, and height of the cuboid (each in cm) are consecutive integers starting at (n-1). If the volume is 60 cubic cm, what is the value of n?",
+  "options": [
+    {
+      "key": 1,
+      "text": "n = 3"
+    },
+    {
+      "key": 2,
+      "text": "n = 4"
+    },
+    {
+      "key": 3,
+      "text": "n = 5"
+    },
+    {
+      "key": 4,
+      "text": "n = 6"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "n=3: dimensions 2,3,4 => volume=24 not 60; choosing n=3 confuses n with the smallest dimension."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Dimensions are (n-1), n, (n+1). Product = n(n^2-1) = 60. Try n=4: 4*(16-1)=4*15=60. Correct."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "n=5: 5*(25-1)=5*24=120 not 60; an arithmetic slip when computing 5*12=60 uses (n^2-1) as 12 instead of 24."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "n=6: using the wrong formula V=n^3=216 (cube of the middle integer instead of the product of three consecutive integers) leads to guessing n=4 is wrong and n=6 is close to cube-root of 210~6."
+    }
+  ],
+  "explanation": "The three dimensions are (n-1), n, (n+1). Their product is n*(n-1)*(n+1) = n*(n^2-1). Set equal to 60: n(n^2-1)=60. Test n=4: 4*15=60. The three dimensions are 3, 4, 5 and n=4.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The product of three consecutive integers n-1, n, n+1 equals n(n^2-1); setting this to 60 and testing n=4 gives 4*15=60.",
+    "approach": "Consecutive-integer volume: write dimensions as (n-1), n, (n+1). Product = n(n^2-1). Test integer values near the cube root of 60 (about 3.9): n=4 gives 4*15=60. Done.",
+    "lesson": "For any three consecutive integers centred on n, the product is always n(n^2-1); memorise this to avoid expanding fully.",
+    "timing": "70 seconds. Cube root of 60 is near 4, so test n=4 first. Trap: option 3 (n=5) gives 120, which is 2*60, a near-miss that tempts off-by-half errors."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

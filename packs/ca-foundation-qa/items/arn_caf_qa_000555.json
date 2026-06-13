@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000555",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000555.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.number_series"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "Find the missing number in the series: 1, 4, 9, 16, 25, ?",
+  "options": [
+    {
+      "key": 1,
+      "text": "30"
+    },
+    {
+      "key": 2,
+      "text": "35"
+    },
+    {
+      "key": 3,
+      "text": "36"
+    },
+    {
+      "key": 4,
+      "text": "49"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Adding 5 to 25 (treating it as an AP with d=5 for the last step) gives 30, a slip in pattern identification."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Mistaking the pattern as adding successive odd numbers incorrectly (adding 10 instead of 11) gives 35."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Each term is a perfect square: 1=1^2, 4=2^2, 9=3^2, 16=4^2, 25=5^2. The next term is 6^2 = 36."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Skipping one position and taking 7^2 = 49 instead of 6^2 = 36, misidentifying the position in the sequence."
+    }
+  ],
+  "explanation": "The series 1, 4, 9, 16, 25 consists of perfect squares of natural numbers: 1^2, 2^2, 3^2, 4^2, 5^2. The pattern is n^2 for the nth term. The 6th term is 6^2 = 36.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Recognizing each term as n^2 immediately identifies the position index as the key driver.",
+    "approach": "Apply clues most-certain-first: compute sqrt(1)=1, sqrt(4)=2, sqrt(9)=3, sqrt(16)=4, sqrt(25)=5; perfect squares at positions 1-5. Next is 6^2 = 36.",
+    "lesson": "When differences are not constant but grow, test whether terms are perfect powers (squares, cubes) before seeking additive patterns.",
+    "timing": "25 seconds. Take square roots of each term to identify the pattern. Trap: jumping to 7^2=49 by missing that the current last term is 5^2, not 6^2."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

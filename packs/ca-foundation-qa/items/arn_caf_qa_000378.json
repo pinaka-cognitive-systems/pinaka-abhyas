@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000378",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000378.py"
+  },
+  "tests": [
+    "qa.bmath.finance.compound_interest"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "A recurring deposit of Rs 10,000 earns interest at 10% per annum compounded half-yearly for 1 year. What is the compound interest earned?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 1,025"
+    },
+    {
+      "key": 2,
+      "text": "Rs 1,000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 2,100"
+    },
+    {
+      "key": 4,
+      "text": "Rs 500"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Half-yearly rate = 10/2 = 5%; periods = 1*2 = 2. A = 10000*(1.05)^2 = 10000*1.1025 = 11025. CI = 1025."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "compound_interest_confusion",
+      "rationale": "Using simple interest (or annual compounding): SI = 10000*10*1/100 = 1000, not accounting for the half-yearly compounding."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "rate_period_mismatch",
+      "rationale": "Using the full 10% rate per half-year instead of converting to 5%: A = 10000*(1.10)^2 - 10000 = 12100 - 10000 = 2100."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "time_factor_dropped",
+      "rationale": "Computing CI for only one half-year period: 10000*5/100 = 500, stopping after the first compounding period."
+    }
+  ],
+  "explanation": "For half-yearly compounding at 10% p.a.: effective half-yearly rate = 5%, and 1 year = 2 periods. A = 10000*(1.05)^2 = 10000*1.1025 = 11025. CI = 11025 - 10000 = 1025. This Rs 25 more than SI (1000) is the interest-on-interest for the second half-year.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Half-yearly compounding earns 5% twice, not 10% once: the extra Rs 25 comes from 5% on the first half-year's Rs 500 interest.",
+    "approach": "Formula: CI = P*(1 + r/100)^n - P. Rate conversion: r = 10/2 = 5% per half-year; period conversion: n = 1*2 = 2 periods. Compute: (1.05)^2 = 1.1025; CI = 10000*0.1025 = 1025.",
+    "lesson": "Always divide the annual rate and multiply the time by the compounding frequency. Option 3's error is using the full 10% as the half-yearly rate.",
+    "timing": "50 s. (1.05)^2 = 1.1025 is a standard memorised value. The trap is option 2 (1000) which would be correct for annual compounding."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

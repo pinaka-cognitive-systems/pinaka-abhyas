@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000912",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000912.py"
+  },
+  "tests": [
+    "qa.bmath.finance.emi"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 180,
+  "stem": "A loan of Rs 100000 is to be repaid in 12 equal monthly instalments at 12 percent per annum compounded monthly. Using (1.01)^12 = 1.1268, what is the equated monthly instalment (nearest rupee)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 8886"
+    },
+    {
+      "key": 2,
+      "text": "Rs 9333"
+    },
+    {
+      "key": 3,
+      "text": "Rs 8333"
+    },
+    {
+      "key": 4,
+      "text": "Rs 7886"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Monthly rate i = 12/12 = 1 percent = 0.01, n = 12. EMI = P*i*(1+i)^n/((1+i)^n - 1) = 100000*0.01*1.1268/(1.1268 - 1) = 1126.8/0.1268 = Rs 8886."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Charges flat (simple) interest for the year, 100000*1.12 = 112000, then divides by 12 to get 9333. This is the flat-rate shortcut, not the reducing-balance EMI.",
+      "misconception": "compound_interest_confusion"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Splits the principal evenly, 100000/12 = 8333, ignoring interest altogether.",
+      "misconception": "time_factor_dropped"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Drops the (1+i)^n factor in the numerator, computing 100000*0.01/(1.1268 - 1) = 1000/0.1268 = 7886; this is the sinking-fund deposit form, not the loan EMI form.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "First convert the annual rate to the monthly rate: i = 12 percent / 12 = 1 percent = 0.01, and n = 12 months. The EMI for a reducing-balance loan is EMI = P*i*(1+i)^n/((1+i)^n - 1). Using (1.01)^12 = 1.1268: numerator = 100000*0.01*1.1268 = 1126.8; denominator = 1.1268 - 1 = 0.1268; EMI = 1126.8/0.1268 = Rs 8886. The (1+i)^n must appear in the numerator, distinguishing the loan EMI from a sinking-fund deposit.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "EMI carries (1+i)^n in the numerator: P*i*(1+i)^n/((1+i)^n - 1). Convert to a monthly rate first, then the supplied power finishes it.",
+    "approach": "Match the rate and period: a monthly instalment needs a monthly rate and a month count. Plug into the reducing-balance EMI formula; keep the growth factor in the numerator so it is not the sinking-fund form.",
+    "lesson": "EMI = P*i*(1+i)^n/((1+i)^n - 1) with i and n in the instalment period. Flat-interest-divided-by-n understates the true EMI.",
+    "timing": "About 180 seconds. The fastest elimination is to reject Rs 8333, the no-interest split, since any positive rate must push the instalment above principal/n."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

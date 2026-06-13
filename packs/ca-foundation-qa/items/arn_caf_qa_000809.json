@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000809",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000809.py"
+  },
+  "tests": [
+    "qa.stats.probability.random_variable"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 140,
+  "stem": "A random variable X takes values 1, 2, 3, 4 with P(X = k) = k/10 for k = 1, 2, 3, 4. Given that X >= 2, what is the conditional probability P(X <= 3 | X >= 2)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "5/9"
+    },
+    {
+      "key": 2,
+      "text": "5/10"
+    },
+    {
+      "key": 3,
+      "text": "5/8"
+    },
+    {
+      "key": 4,
+      "text": "3/5"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "P(2<=X<=3) = P(X=2)+P(X=3) = 2/10+3/10 = 5/10. P(X>=2) = P(X=2)+P(X=3)+P(X=4) = 9/10. Conditional = (5/10)/(9/10) = 5/9."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "5/10 = P(2<=X<=3) without dividing by P(X>=2); the student forgets to condition and reports the unconditional probability."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "5/8 arises from computing P(2<=X<=3)/P(X>=3) using P(X>=3)=7/10 but miscounting the denominator as 8/10."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "complement_confusion",
+      "rationale": "3/5 = 6/10 comes from treating P(X<=3) = (1+2+3)/10 = 6/10 and ignoring the conditioning on X>=2 entirely."
+    }
+  ],
+  "explanation": "Conditional probability: P(X<=3|X>=2) = P(2<=X<=3)/P(X>=2). Numerator: P(X=2)+P(X=3) = 2/10+3/10 = 5/10. Denominator: P(X=2)+P(X=3)+P(X=4) = 2/10+3/10+4/10 = 9/10. Result: (5/10)/(9/10) = 5/9.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Conditioning shrinks the sample space to X>=2; within that space P(X<=3) is 5 out of 9 probability mass.",
+    "approach": "Identify model: conditional probability on a discrete PMF. Decisive move: apply P(A|B) = P(A and B)/P(B). Event A = {X<=3}, Event B = {X>=2}, so A and B = {2<=X<=3} = {X=2, X=3}. Compute numerator = 2/10+3/10=5/10. Compute denominator = 2/10+3/10+4/10=9/10. Divide: 5/9. Hidden trap: do not use P(X<=3) in the numerator; the conditioning truncates the range at 2, so X=1 is excluded.",
+    "lesson": "In conditional probability on a discrete RV, the numerator is the intersection, not the unconditional probability of the first event.",
+    "timing": "120 seconds. Trap: using P(X<=3)=6/10 unconditionally to get 3/5. Trap: forgetting to divide by P(X>=2) and reporting 5/10."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

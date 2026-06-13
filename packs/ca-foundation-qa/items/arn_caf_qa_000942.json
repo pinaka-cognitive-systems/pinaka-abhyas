@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000942",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000942.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.construction"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 180,
+  "stem": "For three commodities the base-year and current-year prices and quantities are: A: p0=6, q0=3, p1=14, q1=4; B: p0=4, q0=4, p1=2, q1=2; C: p0=8, q0=2, p1=10, q1=3. Which statement about the Fisher Ideal price index is correct?",
+  "options": [
+    {
+      "key": 1,
+      "text": "It is 150, and it satisfies both the time reversal and factor reversal tests."
+    },
+    {
+      "key": 2,
+      "text": "It is 140, and it satisfies both the time reversal and factor reversal tests."
+    },
+    {
+      "key": 3,
+      "text": "It is about 160.71, and it satisfies the factor reversal test only."
+    },
+    {
+      "key": 4,
+      "text": "It is about 150.36, and it satisfies both reversal tests."
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Sum p1q0 = 70, p0q0 = 50, so Laspeyres = 140. Sum p1q1 = 90, p0q1 = 56, so Paasche = 160.71. Fisher = sqrt(140 * 160.71) = sqrt(22500) = 150. Fisher is the only common index that satisfies BOTH the time reversal and factor reversal tests, which is why it is called ideal."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Reports 140, which is the Laspeyres index alone (base-year quantities throughout). Fisher uses both quantity sets, and the test claim is attached to the wrong value.",
+      "misconception": "percentage_base_confusion"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Reports 160.71, the Paasche index alone (current-year quantities throughout), and wrongly limits the test property. Fisher satisfies both reversal tests, not only factor reversal.",
+      "misconception": "percentage_base_confusion"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Uses the arithmetic mean (140 + 160.71)/2 = 150.36 (the Dorbish-Bowley index) in place of Fisher's geometric mean. Fisher is the square root of the product, not the simple average.",
+      "misconception": "concept_definition_confused"
+    }
+  ],
+  "explanation": "Fisher is the geometric mean of Laspeyres and Paasche, so build both first. With base quantities: Laspeyres = (sum p1q0 / sum p0q0)*100 = (70/50)*100 = 140. With current quantities: Paasche = (sum p1q1 / sum p0q1)*100 = (90/56)*100 = 160.71. Fisher = sqrt(L*P) = sqrt(140 * 160.71) = sqrt(22500) = 150. The adequacy property: Fisher uniquely satisfies both the time reversal test (P01 * P10 = 1) and the factor reversal test (P01 * Q01 = value ratio), which is exactly why it is named the Ideal index.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Fisher = geometric mean of Laspeyres and Paasche: sqrt(140 * 160.71) = sqrt(22500) = 150, and it is the index that satisfies both reversal tests.",
+    "approach": "Name the formula: Fisher = sqrt(Laspeyres * Paasche). Map givens by building four weighted sums, sum p1q0 and sum p0q0 for Laspeyres, sum p1q1 and sum p0q1 for Paasche. Compute L = 140, P = 160.71, then take the square root of their product, not the average. Recall the property: Fisher alone meets both time reversal and factor reversal, hence Ideal.",
+    "lesson": "Fisher is the geometric mean (square root of the product) of Laspeyres and Paasche, and it is the only common index satisfying both reversal tests.",
+    "timing": "About 170 seconds: four sums, two ratios, one square root, plus the property recall. Reject the 140 option in five seconds: that is Laspeyres alone, which ignores current-year quantities entirely."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

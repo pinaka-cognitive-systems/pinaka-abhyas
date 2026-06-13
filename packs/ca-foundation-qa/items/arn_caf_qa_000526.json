@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000526",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000526.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.domain_range"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "The domain of the function f(x) = sqrt(x - 3) is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "x > 3"
+    },
+    {
+      "key": 2,
+      "text": "x >= 3"
+    },
+    {
+      "key": 3,
+      "text": "x < 3"
+    },
+    {
+      "key": 4,
+      "text": "All real numbers"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "Using strict inequality x > 3 and excluding x = 3, where sqrt(0) = 0 is perfectly valid. The error is treating the boundary point as excluded when the square root of zero is defined."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "sqrt(x-3) is defined when x - 3 >= 0, which gives x >= 3. At x = 3, sqrt(0) = 0 which is real and valid. The domain is [3, infinity)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Inverting the inequality: thinking sqrt is defined when the argument is negative, giving x < 3. This is the wrong direction; a square root of a negative number is not real."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Ignoring the square root constraint entirely and treating f as if it were a polynomial defined everywhere, forgetting that even roots require a non-negative argument."
+    }
+  ],
+  "explanation": "A square root function requires its argument to be non-negative; x - 3 >= 0 gives x >= 3, including the endpoint x = 3 where f(3) = 0.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "sqrt(expression) is defined on R whenever expression >= 0; the strict-greater-than trap drops the valid boundary point.",
+    "approach": "State the property: sqrt(u) requires u >= 0. Set x - 3 >= 0 and solve: x >= 3. Check boundary: f(3) = sqrt(0) = 0, valid. Contrast the confusable: some students write x > 3 (strict) believing sqrt(0) is undefined, but 0 has a real square root.",
+    "lesson": "Domain of sqrt(expression) is expression >= 0 (weak inequality), not strict.",
+    "timing": "About 40 seconds. Set argument >= 0 and solve. No calculation needed beyond simple algebra."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000761",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000761.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.quartile_deviation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Marks scored by 40 students in a class test are given in the following frequency distribution: 0-10: 4 students; 10-20: 10 students; 20-30: 16 students; 30-40: 6 students; 40-50: 4 students. What is the quartile deviation of the marks?",
+  "options": [
+    {
+      "key": 1,
+      "text": "7"
+    },
+    {
+      "key": 2,
+      "text": "14"
+    },
+    {
+      "key": 3,
+      "text": "16"
+    },
+    {
+      "key": 4,
+      "text": "8"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "n=40. Q1 at n/4=10: class 10-20 (CF before = 4, f=10). Q1 = 10 + ((10-4)/10)*10 = 10 + 6 = 16. Q3 at 3n/4=30: class 20-30 (CF before = 14, f=16). Q3 = 20 + ((30-14)/16)*10 = 20 + 10 = 30. QD = (Q3-Q1)/2 = (30-16)/2 = 7."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "14 is the inter-quartile range (Q3 - Q1 = 30 - 16 = 14). The student correctly found Q1 and Q3 but forgot to divide by 2 when computing the quartile deviation."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "16 is Q1 itself. The student correctly located Q1 = 16 using the quartile formula but mistakenly reported Q1 as the quartile deviation."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "8 arises from using the (n+1)/4 formula for grouped data (which applies to raw data): position 41/4 = 10.25, Q1 = 16.25; position 30.75, Q3 = 30.47; QD = (30.47-16.25)/2 approximately 7.1, which students sometimes round or re-compute as 8 due to a further slip."
+    }
+  ],
+  "explanation": "For grouped data, n = 40. Q1 position = n/4 = 10. The cumulative frequency just below 10 is 4 (class 0-10). Q1 falls in class 10-20: Q1 = 10 + ((10-4)/10)*10 = 16. Q3 position = 3n/4 = 30. The cumulative frequency just below 30 is 14 (class 0-20). Q3 falls in class 20-30: Q3 = 20 + ((30-14)/16)*10 = 30. QD = (30-16)/2 = 7.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "For grouped data, quartile positions use n/4 and 3n/4 (not (n+1)/4), and quartile values are found by linear interpolation within the class.",
+    "approach": "Identify the model: grouped data QD. Step 1: compute Q1 position = n/4 = 10, find the class containing the 10th value (10-20, CF before = 4, f = 10). Interpolate: Q1 = L + ((n/4 - CF_prev)/f)*h = 10 + (6/10)*10 = 16. Step 2: compute Q3 position = 3n/4 = 30, class 20-30 (CF before = 14, f = 16). Interpolate: Q3 = 20 + (16/16)*10 = 30. Step 3: QD = (30-16)/2 = 7.",
+    "lesson": "For grouped frequency data, always use n/4 for quartile positions (not (n+1)/4), then interpolate inside the identified class.",
+    "timing": "75-90 seconds. Key trap: reporting IQR = 14 instead of QD = 7. Note: (30-14)/16 = 1 exactly, making Q3 = 30 a particularly clean result here."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

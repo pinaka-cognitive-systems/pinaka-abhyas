@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000937",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000937.py"
+  },
+  "tests": [
+    "qa.stats.probability.classical"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "Two friends apply independently for two different jobs. The odds in favour of the first getting her job are 2 to 3, and the odds against the second getting his job are 5 to 2. What is the probability that at least one of them gets a job?",
+  "options": [
+    {
+      "key": 1,
+      "text": "20/35"
+    },
+    {
+      "key": 2,
+      "text": "15/35"
+    },
+    {
+      "key": 3,
+      "text": "4/35"
+    },
+    {
+      "key": 4,
+      "text": "29/35"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Odds in favour 2:3 give P(first) = 2/5. Odds against 5:2 give P(second) = 2/7. P(at least one) = 1 - (1 - 2/5)(1 - 2/7) = 1 - (3/5)(5/7) = 1 - 15/35 = 20/35 = 4/7."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Stops at P(neither) = (3/5)(5/7) = 15/35 = 3/7, the complement, and forgets to subtract it from 1. This is the probability that nobody gets a job, the opposite of what was asked.",
+      "misconception": "complement_confusion"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Computes P(both) = (2/5)(2/7) = 4/35, the intersection, instead of the union P(at least one). At-least-one is not the joint probability.",
+      "misconception": "set_operation_confused"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Reads odds against 5:2 as odds in favour, giving P(second) = 5/7. Then P(neither) = (3/5)(2/7) = 6/35 and 1 - 6/35 = 29/35. The phrase odds against was not inverted.",
+      "misconception": "misread_quantity"
+    }
+  ],
+  "explanation": "Two conversions, then a complement. Odds in favour a:b means probability a/(a+b), so P(first) = 2/(2+3) = 2/5. Odds against c:d means probability d/(c+d), so odds against 5:2 give P(second) = 2/(5+2) = 2/7. The events are independent, so P(neither) = (1 - 2/5)(1 - 2/7) = (3/5)(5/7) = 15/35 = 3/7. P(at least one) = 1 - 15/35 = 20/35 = 4/7.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Convert each odds to a probability the right way (against means the second number over the sum), then take at-least-one as 1 minus P(neither): 1 - (3/5)(5/7) = 20/35 = 4/7.",
+    "approach": "Model: two independent Bernoulli successes. Identify the assumption that makes the product valid, independence, then route through the complement because at-least-one over two events is faster as 1 - P(neither). Map givens carefully: 2:3 in favour gives 2/5; 5:2 against gives 2/7 (the smaller, since against). Multiply the failure probabilities 3/5 and 5/7 to get 15/35, subtract from 1.",
+    "lesson": "Odds in favour a:b is a/(a+b); odds against c:d is d/(c+d). For at-least-one, complement the product of failures, never add the successes.",
+    "timing": "About 135 seconds: two odds conversions, one product, one subtraction. Reject 4/35 in five seconds: that is P(both), the intersection, which cannot be the at-least-one union."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

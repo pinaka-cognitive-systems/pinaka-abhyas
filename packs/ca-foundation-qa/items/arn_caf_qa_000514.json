@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000514",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000514.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.sets"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "If A = {x : x is a prime number less than 10} and B = {x : x is an odd number less than 10}, which of the following correctly describes A minus B (i.e., elements in A but not in B)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "{2}"
+    },
+    {
+      "key": 2,
+      "text": "{3, 5, 7}"
+    },
+    {
+      "key": 3,
+      "text": "{2, 3, 5, 7}"
+    },
+    {
+      "key": 4,
+      "text": "{1, 3, 5, 7, 9}"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "A = {2,3,5,7}, B = {1,3,5,7,9}. A minus B removes elements common to both: {3,5,7}. Only 2 remains."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "set_operation_confused",
+      "rationale": "This is A intersect B = {3,5,7}, confusing set difference with intersection."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "This returns A itself = {2,3,5,7}, failing to subtract elements that are also in B."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "set_operation_confused",
+      "rationale": "This is B = {1,3,5,7,9}, confusing A minus B with B itself."
+    }
+  ],
+  "explanation": "A = {2,3,5,7} (primes below 10). B = {1,3,5,7,9} (odd numbers below 10). A minus B = A \\ B = elements in A that are not in B = {2}, since 3, 5, 7 are in both.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "A minus B keeps only what A has that B does not: since every odd prime stays in B, only the even prime 2 survives.",
+    "approach": "State the definition: A \\ B = {x in A : x not in B}. List A, then cross out anything that also appears in B.",
+    "lesson": "Set difference A \\ B is NOT the same as A intersect B; it retains elements exclusive to A.",
+    "timing": "50 s. The trap is option 2 ({3,5,7}), which is the intersection of A and B."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

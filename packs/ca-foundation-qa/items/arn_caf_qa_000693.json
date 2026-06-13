@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000693",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000693.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.sampling"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "An auditor is checking invoices of a firm. There are 1,200 invoices in a file. She randomly selects the 8th invoice as the starting point and then examines every 40th invoice thereafter. The serial numbers of the invoices examined in the sample are 8, 48, 88, 128, ... Which of the following statements about this sampling procedure is CORRECT?",
+  "options": [
+    {
+      "key": 1,
+      "text": "This is cluster sampling because the auditor selects a group of consecutive invoices"
+    },
+    {
+      "key": 2,
+      "text": "This is simple random sampling because the starting point was chosen randomly"
+    },
+    {
+      "key": 3,
+      "text": "This is systematic sampling with a sampling interval of 40 and a sample size of 30"
+    },
+    {
+      "key": 4,
+      "text": "This is stratified sampling because the invoices are arranged in a sequence"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Cluster sampling selects entire naturally-occurring groups (clusters) such as entire folders or geographic zones; this procedure selects individual units at fixed intervals, not whole clusters."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Simple random sampling gives every possible sample of the required size an equal chance of selection; having a random start does not make a procedure simple random sampling if subsequent units are determined by a fixed interval."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Systematic sampling: the population N = 1200, every 40th item is selected after a random start. Sampling interval k = 40. Sample size n = N/k = 1200/40 = 30. Both values are stated correctly."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Stratified sampling requires dividing the population into subgroups (strata) based on a characteristic and sampling from each stratum; a sequential arrangement alone does not constitute stratification."
+    }
+  ],
+  "explanation": "The procedure matches systematic sampling: a random start (invoice 8) followed by selection of every 40th unit. k = 40, and n = 1200/40 = 30. The series 8, 48, 88, 128, ... confirms the interval of 40.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The decisive identifiers are 'random start + every k-th unit'; verify by computing n = N/k = 1200/40 = 30 and confirming the difference in the series is 40.",
+    "approach": "Identify the model: systematic sampling. Formula: k = N/n, equivalently n = N/k. Map the givens: N = 1200, k = 40 (difference between consecutive selections). Compute: n = 1200/40 = 30. Verify the series: 8, 48, 88 has differences of 40.",
+    "lesson": "Systematic sampling is defined by a random start plus a fixed interval; the random start alone does not make it simple random sampling.",
+    "timing": "45 seconds. Confirm the interval from the series before computing n. Eliminate cluster (no whole groups) and stratified (no strata) immediately."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

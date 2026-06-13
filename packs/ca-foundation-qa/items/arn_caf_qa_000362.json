@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000362",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000362.py"
+  },
+  "tests": [
+    "qa.bmath.inequalities.two_variable"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A workshop produces chairs (x) and tables (y). Each chair requires 2 hours of carpentry and 1 hour of finishing. Each table requires 3 hours of carpentry and 2 hours of finishing. Available hours per week: carpentry 18, finishing 10. At least 2 chairs must be produced. Which of the following feasible production plans has the greatest total number of units (x + y)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "x = 4, y = 3 (total 7)"
+    },
+    {
+      "key": 2,
+      "text": "x = 6, y = 2 (total 8)"
+    },
+    {
+      "key": 3,
+      "text": "x = 3, y = 4 (total 7)"
+    },
+    {
+      "key": 4,
+      "text": "x = 5, y = 3 (total 8)"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Feasible (carpentry 8+9=17<=18; finishing 4+6=10<=10; x=4>=2) but total=7 is not maximum."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Carpentry: 2(6)+3(2)=12+6=18<=18. Finishing: 6+2(2)=10<=10. x=6>=2. Total=8. All constraints satisfied and total is maximum."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Finishing: 3+2(4)=3+8=11 > 10. Constraint violated, infeasible."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Carpentry: 2(5)+3(3)=10+9=19 > 18. Constraint violated, infeasible."
+    }
+  ],
+  "explanation": "Check each candidate against all three constraints: 2x+3y<=18, x+2y<=10, x>=2. Options 3 and 4 are infeasible. Among feasible options 1 (total 7) and 2 (total 8), option 2 has the higher total.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Eliminate infeasible points first, then maximise the objective among survivors.",
+    "approach": "Two-pass: (1) compute 2x+3y and x+2y for each point; eliminate any exceeding 18 or 10 respectively. (2) Among survivors, pick the highest x+y. Options 3 and 4 fail step 1. Option 2 beats option 1 in total.",
+    "lesson": "A candidate with a higher objective value that violates a constraint cannot be selected. Feasibility gates optimisation.",
+    "timing": "80 s. Filter infeasible in 30 s, compare totals in 10 s."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

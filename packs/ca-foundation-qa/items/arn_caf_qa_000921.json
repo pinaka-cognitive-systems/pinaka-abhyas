@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000921",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000921.py"
+  },
+  "tests": [
+    "qa.lr.blood_relations"
+  ],
+  "difficulty_label": "L3",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 150,
+  "stem": "In a family, P is the father of Q. Q is the brother of R. R is the mother of S. S is the brother of T. U is the wife of P. T is married, and T's spouse is a man. Treating every marriage in this family as between a man and a woman, how is T related to P?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Grandson"
+    },
+    {
+      "key": 2,
+      "text": "Granddaughter"
+    },
+    {
+      "key": 3,
+      "text": "Daughter"
+    },
+    {
+      "key": 4,
+      "text": "Niece"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "kinship_gender_error",
+      "rationale": "Grandson has the right generation but the wrong gender. T's spouse is a man and all marriages here are man-woman, so T is a woman; the grandchild of P who is female is a granddaughter, not a grandson."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Q brother of R with P father of Q and U his wife makes R a daughter of P. R is the mother of S, and S is the brother of T, so T is also a child of R, hence a grandchild of P. T's spouse is a man, and marriages here are man-woman, so T is a woman. A female grandchild of P is P's granddaughter."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Daughter places T one generation below P, but T is a child of R, who is herself a child of P. That is two generations below P, a grandchild, not a daughter."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Niece would make T the child of P's sibling. T descends through P's own daughter R, so T is in P's direct line two generations down, a grandchild, not a niece."
+    }
+  ],
+  "explanation": "Build the tree top down. P and his wife U have children; Q is their son and Q is the brother of R, so R is their daughter. R is the mother of S, and S is the brother of T, so T is another child of R. That makes T a grandchild of P, two generations below him. T's gender is never stated by a relation word, so infer it: T is married to a man, and the puzzle fixes marriages as between a man and a woman, so T is a woman. A female grandchild of P is his granddaughter.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "T's spouse is a man, so under man-woman marriage T is female; being two generations below P, T is his granddaughter.",
+    "approach": "Fix the generations first using the sibling and parent links: Q and R are children of P and U; S and T are children of R; so T sits two levels below P, a grandchild. Then resolve the only open gender: no premise names T as son or daughter or brother or sister, but T's spouse is a man and all marriages are man-woman, which forces T female. Combine grandchild plus female to get granddaughter, and check the chain T to R to P is exactly two steps.",
+    "lesson": "When no relation word gives a person's gender, infer it from a spouse or sibling clue before naming the final gendered relation.",
+    "timing": "About 145 seconds. Fastest elimination is option (3) Daughter: T descends through R, who is already P's daughter, so T is plainly a generation too low to be P's daughter."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

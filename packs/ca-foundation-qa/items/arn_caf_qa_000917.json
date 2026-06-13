@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000917",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000917.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 175,
+  "stem": "Six people P, Q, R, S, T and U sit in a single row of six seats, all facing north. Q sits exactly between P and R, with one of them on each side of Q. T sits exactly between S and U, with one of them on each side of T. P is not adjacent to S. R is not adjacent to U. P sits somewhere to the left of T. U does not sit at either end of the row. Who occupies seat 4, counting from the left end?",
+  "options": [
+    {
+      "key": 1,
+      "text": "T"
+    },
+    {
+      "key": 2,
+      "text": "S"
+    },
+    {
+      "key": 3,
+      "text": "U"
+    },
+    {
+      "key": 4,
+      "text": "Q"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "T sits in seat 5, not seat 4. Reading the row R, Q, P, U, T, S one seat too far to the right lands on T, an off-by-one slip in the seat count."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "S occupies seat 6, the right end. Choosing S ignores that U-not-at-either-end and P-left-of-T force the S, T, U block to sit on the right with U inward at seat 4 and S at the far seat 6, not seat 4."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "The block Q-between-P-and-R and the block T-between-S-and-U must tile the six seats as two adjacent triples. P-left-of-T puts the P,Q,R block on the left. P-not-adjacent-to-S and R-not-adjacent-to-U force the P,Q,R block to read R, Q, P so P meets the junction, and U-not-at-either-end forces the second block to read U, T, S. The row is R, Q, P, U, T, S, so seat 4 is U."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "Q sits in seat 2. Picking Q comes from orienting the first block as P, Q, R from the left, the reverse of the order the not-adjacent clues force; the correct orientation is R, Q, P, which puts Q in seat 2 but the junction person P in seat 3, not Q in seat 4."
+    }
+  ],
+  "explanation": "The two between-clues are rigid 3-person blocks, and six seats hold exactly the two blocks side by side. P-left-of-T puts the P,Q,R block on the left half (seats 1 to 3) and the S,T,U block on the right half (seats 4 to 6). Within each block only the orientation is free. P must not be adjacent to S and R must not be adjacent to U, so at the seat-3 to seat-4 junction the left block reads R, Q, P (P inward) and U-not-at-either-end forces the right block to read U, T, S (U inward at seat 4). The unique row is R, Q, P, U, T, S, and seat 4 from the left is U.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "U-not-at-either-end is the cracker: it forces the right block to read U, T, S with U at the inner seat 4, so seat 4 is U.",
+    "approach": "Treat each between-clue as a fixed triple and note that six seats fit exactly two triples side by side. Use P-left-of-T to fix which block sits left. Then orient each block: the not-adjacent clues decide what sits at the seat 3 to seat 4 junction, and the end-exclusion clue on U decides the right block's orientation. Build R, Q, P, U, T, S and verify P not beside S, R not beside U, P left of T, and U off the ends all hold, then read seat 4.",
+    "lesson": "Merge rigid blocks by first deciding their left-right order, then orienting each from the constraints acting at the seam where the blocks meet.",
+    "timing": "About 170 seconds. Fastest elimination is option (2) S: U cannot sit at an end, which pushes S to the far right seat 6, so S can never be the inner seat 4."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

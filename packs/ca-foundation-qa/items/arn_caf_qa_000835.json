@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000835",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000835.py"
+  },
+  "tests": [
+    "qa.stats.distributions.normal"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "For a normal distribution with mean 50 and standard deviation 10, what is the value of the median?",
+  "options": [
+    {
+      "key": 1,
+      "text": "40"
+    },
+    {
+      "key": 2,
+      "text": "50"
+    },
+    {
+      "key": 3,
+      "text": "60"
+    },
+    {
+      "key": 4,
+      "text": "45"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Subtracting one standard deviation (50 - 10 = 40) confuses mean with some other location measure."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "For any normal distribution, mean = median = mode because the distribution is perfectly symmetric about its centre."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Adding one standard deviation (50 + 10 = 60) mistakes the median for a quantile above the mean."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Taking half of 10 and subtracting (50 - 5 = 45) is a computational error with no conceptual basis."
+    }
+  ],
+  "explanation": "In a normal distribution the three measures of central tendency coincide: mean = median = mode = mu. The perfect left-right symmetry about mu guarantees exactly half the area lies on each side, making mu the median by definition.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "Normal symmetry forces mean = median = mode, so the median equals the given mean of 50.",
+    "approach": "Identify the distribution property: for a normal distribution, the probability density function is symmetric about mu, which means the cumulative distribution function equals 0.5 exactly at mu. By definition the median is the point where CDF = 0.5, so median = mu = 50.",
+    "lesson": "For any normal distribution, all three central tendency measures equal mu; changing variance never shifts this.",
+    "timing": "Recall-only, under 20 seconds. Eliminate options that add or subtract any multiple of sigma from mu."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

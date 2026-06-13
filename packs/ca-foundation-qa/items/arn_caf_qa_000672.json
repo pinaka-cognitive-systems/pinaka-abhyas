@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000672",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000672.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.frequency_distribution"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "A grouped frequency distribution has 5 equal-width classes of width 10 each starting at 0. The frequencies are: [0-10]: f1, [10-20]: 14, [20-30]: 22, [30-40]: 10, [40-50]: f5. The total number of observations is 70 and the arithmetic mean of the distribution is 21. Find f1.",
+  "options": [
+    {
+      "key": 1,
+      "text": "18"
+    },
+    {
+      "key": 2,
+      "text": "11"
+    },
+    {
+      "key": 3,
+      "text": "12"
+    },
+    {
+      "key": 4,
+      "text": "21"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Step 1: f1 + f5 = 70 - 14 - 22 - 10 = 24. Step 2: Sum of fx from known classes = 14*15 + 22*25 + 10*35 = 210 + 550 + 350 = 1110. Step 3: Total sum of fx = 21*70 = 1470. Step 4: 5*f1 + 45*f5 = 1470 - 1110 = 360. Step 5: Subtract 5*(f1+f5=24): 40*f5 = 360 - 120 = 240; f5 = 6. Step 6: f1 = 24 - 6 = 18."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "f1 = 11 arises if the student confuses the modal class midpoint (25, midpoint of [20-30]) with the distribution mean and uses 25 instead of the given value 21. With mean=25 and N=70: total fx = 1750; 5f1+45f5=640; f5=13; f1=11."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "population_sample_confusion",
+      "rationale": "f1 = 12 arises if the student uses N = 60 (omits the [40-50] class from the total count, confusing observed and complete N). With N=60 and mean=21: total fx=1260; 5f1+45f5=150; f5=2; f1=12."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "f1 = 21 arises if the student mistakenly uses the class boundary 20 as the midpoint of [10-20] rather than 15 (the class mark). With midpoints 5,20,30,40,50: known fx=14*20+22*30+10*40=280+660+400=1340; unknown=1470-1340=130; f1+f5=24; 5*(24-f5)+50*f5=130; 120-5f5+50f5=130; 45f5=10; f5=2/9 (not clean), so the student rounds and reads f1 from the boundary-based system differently, arriving near 21."
+    }
+  ],
+  "explanation": "Use two simultaneous equations. Equation 1 (count): f1 + f5 = 70 - 14 - 22 - 10 = 24. Equation 2 (mean): class midpoints are 5, 15, 25, 35, 45; known sum of fx = 14*15 + 22*25 + 10*35 = 1110; so 5*f1 + 45*f5 = 21*70 - 1110 = 360. Solving: from Eq1 f5 = 24 - f1; substituting: 5*f1 + 45*(24 - f1) = 360; 1080 - 40*f1 = 360; f1 = 18.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Two unknowns need two equations: total N=70 gives f1+f5=24; mean=21 gives 5*f1+45*f5=360; solving yields f1=18.",
+    "approach": "Identify the model: frequency distribution with two unknown frequencies requires a simultaneous-equations approach using N and mean. Step 1: form f1+f5=24 from the total count. Step 2: form 5*f1+45*f5=21*70-1110=360 from the mean definition using class midpoints. Step 3: eliminate f5 by subtracting 5*(equation 1) from equation 2: 40*f5=240, f5=6, f1=18.",
+    "lesson": "When two frequencies are unknown, always form two equations: one from total count and one from the mean formula. The decisive trap is confusing class boundary with class midpoint, or using modal class midpoint instead of the given mean.",
+    "timing": "150 s. Quick check: known fx = 14*15 + 22*25 + 10*35 = 210+550+350=1110; unknown fx = 1470-1110=360; standard elimination gives f5=6, f1=18."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

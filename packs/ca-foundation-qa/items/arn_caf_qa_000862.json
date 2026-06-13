@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000862",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000862.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.regression"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "For a sample of 10 paired observations the following sums are computed: sum(X)=50, sum(Y)=60, sum(XY)=330, sum(X^2)=300, sum(Y^2)=400. What is the regression coefficient of Y on X, denoted b_yx?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.6"
+    },
+    {
+      "key": 2,
+      "text": "0.75"
+    },
+    {
+      "key": 3,
+      "text": "1.1"
+    },
+    {
+      "key": 4,
+      "text": "0.5"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "b_yx = (n*sum_XY - sum_X*sum_Y)/(n*sum_X^2 - (sum_X)^2) = (3300-3000)/(3000-2500) = 300/500 = 0.6."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Computing b_xy instead of b_yx: b_xy = (n*sum_XY - sum_X*sum_Y)/(n*sum_Y^2 - (sum_Y)^2) = 300/(4000-3600) = 300/400 = 0.75."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Using sum_XY/sum_X^2 = 330/300 = 1.1 instead of the correct formula with n-adjusted numerator and denominator."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computing (sum_XY - sum_X)/(sum_X^2 - sum_Y) = (330-50)/(300-60) = 280/560 = 0.5, replacing the product sum_X*sum_Y with the individual sums."
+    }
+  ],
+  "explanation": "b_yx = (n*sum_XY - sum_X*sum_Y) / (n*sum_X^2 - (sum_X)^2). Numerator: 10*330 - 50*60 = 3300 - 3000 = 300. Denominator: 10*300 - 50^2 = 3000 - 2500 = 500. b_yx = 300/500 = 0.6.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The regression formula uses n*(sum_XY) minus the product of sums; numerator=300, denominator=500, ratio=0.6.",
+    "approach": "Formula: b_yx = (n*sum_XY - sum_X*sum_Y)/(n*sum_X^2 - (sum_X)^2). Map each sum to the formula. Numerator: 10*330-50*60=300. Denominator: 10*300-2500=500. b_yx=0.6. Note: b_xy uses sum_Y^2 in the denominator and gives 0.75, a different quantity.",
+    "lesson": "b_yx and b_xy differ; b_yx has sum_X^2 in its denominator, b_xy has sum_Y^2. Always check which regression coefficient is requested.",
+    "timing": "About 70 seconds. The trap is computing b_xy instead of b_yx (option 2), or forgetting to multiply sums by n (option 3)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

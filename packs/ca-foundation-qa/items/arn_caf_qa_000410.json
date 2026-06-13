@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000410",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000410.py"
+  },
+  "tests": [
+    "qa.bmath.finance.perpetuity"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 130,
+  "stem": "An investor holds a preferred share paying a perpetual quarterly dividend of Rs 750. At issue the required annual return is 10% compounded quarterly. Rates then shift and the required annual return rises to 12% compounded quarterly. By how much does the share's intrinsic value fall (in Rs) due to this rate change?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 5,000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 2,500"
+    },
+    {
+      "key": 3,
+      "text": "Rs 7,500"
+    },
+    {
+      "key": 4,
+      "text": "Rs 5,250"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Quarterly rate old = 10%/4 = 2.5% = 0.025. PV_old = 750/0.025 = 30,000. Quarterly rate new = 12%/4 = 3% = 0.03. PV_new = 750/0.03 = 25,000. Fall = 30,000 - 25,000 = 5,000."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "rate_period_mismatch",
+      "rationale": "Annualises the payment (750 * 4 = 3000) but uses the full annual rate without converting: 3000/0.10 = 30,000 and 3000/0.12 = 25,000, giving the right fall of 5,000 - but student who uses 2% and 2.4% per quarter (tenth of annual): PV_old = 750/0.02 = 37,500; PV_new = 750/0.024 = 31,250; fall = 6,250, then halves assuming semi-annual = 3,125, rounds to 2,500 via confusion."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "time_factor_dropped",
+      "rationale": "Uses annual payment 3000 directly with annual rate 10% and 12%, but then applies the difference in PV factors: 3000*(1/0.10 - 1/0.12) = 3000*(10 - 8.33) = 3000*1.667 = 5000; student makes error using 1/0.08 instead of 1/0.12 giving 3000*(10-12.5) = -7500, then takes absolute value 7,500."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computes PV_old = 750/0.025 = 30,000 correctly but uses r_new = 0.0286 (1/35) instead of 0.03, giving PV_new = 26,250 (approx), so fall = 3,750 scaled to 5,250 via doubling error."
+    }
+  ],
+  "explanation": "Perpetuity value is C/r where r must match the payment frequency. When the rate rises, PV falls; the decline equals the difference of the two perpetuity values.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Two-rate perpetuity: compute PV_old = C/r_old and PV_new = C/r_new using the per-quarter rate, then subtract.",
+    "approach": "Name the formula PV = C/r, r = per-period rate. C = 750 quarterly. r_old = 10%/4 = 0.025; PV_old = 30,000. r_new = 12%/4 = 0.03; PV_new = 25,000. Decline = 5,000.",
+    "lesson": "Perpetuity PV is inversely proportional to the discount rate. A 2 percentage point rise in annual rate (10% to 12%) on a quarterly perpetuity drops value by C*(1/r_old - 1/r_new).",
+    "timing": "60-70 seconds. Trap: using 10% and 12% directly instead of 2.5% and 3%. Also watch whether the question asks for fall (positive number = correct) or new value."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

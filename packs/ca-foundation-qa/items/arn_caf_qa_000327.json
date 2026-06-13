@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000327",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000327.py"
+  },
+  "tests": [
+    "qa.bmath.ratio_indices_log.logarithm"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "Given log(x) + log(y) = log(12) and log(x) - log(y) = log(3), find the value of x. (All logarithms are to base 10.)",
+  "options": [
+    {
+      "key": 1,
+      "text": "4"
+    },
+    {
+      "key": 2,
+      "text": "6"
+    },
+    {
+      "key": 3,
+      "text": "9"
+    },
+    {
+      "key": 4,
+      "text": "3"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student solves for y instead of x: xy=12 and x/y=3 give x=6, y=2. If student uses y = sqrt(12/3) = sqrt(4) = 2 and calls it x, they get 4."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "log(xy) = log(12) gives xy = 12; log(x/y) = log(3) gives x/y = 3. Multiplying: x^2 = 36, so x = 6."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student reads log(x) - log(y) = log(3) as log(x/y) = log(3) correctly, but then sets x = 12/y = 12/4 = 3 by using a wrong value of y=4 from an earlier arithmetic slip. Or student solves x = 12 - 3 = 9 treating log arguments as additive."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student solves x/y = 3 only (ignores the sum equation) and takes x = 3 directly without using xy = 12 to pin down the individual value of x."
+    }
+  ],
+  "explanation": "Using log laws: log(x) + log(y) = log(xy) = log(12) gives xy = 12. log(x) - log(y) = log(x/y) = log(3) gives x/y = 3. Multiplying the two equations: x^2 = 36, so x = 6 (taking positive root since x must be positive for log to be defined).",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Convert log equations to algebraic equations xy=12 and x/y=3, then multiply to get x^2=36, so x=6.",
+    "approach": "Apply log product and quotient laws to strip the logs: log(x)+log(y)=log(xy) and log(x)-log(y)=log(x/y). Set xy=12 and x/y=3. Multiply these two equations to eliminate y: x*x = 12*3 = 36, so x = 6.",
+    "lesson": "Two log equations can be converted to two algebraic equations; multiply them to eliminate the unknown variable cleanly.",
+    "timing": "75-90 seconds. The trap is solving y first from x/y=3 with y=12/x substitution, which is longer. Direct multiplication of xy and x/y is the fastest path."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

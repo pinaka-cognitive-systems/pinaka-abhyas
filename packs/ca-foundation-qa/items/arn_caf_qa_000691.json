@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000691",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000691.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.sampling"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A company has 500 employees: 200 in production, 150 in marketing, and 150 in administration. A proportionate stratified sample of 50 employees is to be drawn. How many employees should be selected from the marketing department?",
+  "options": [
+    {
+      "key": 1,
+      "text": "10"
+    },
+    {
+      "key": 2,
+      "text": "15"
+    },
+    {
+      "key": 3,
+      "text": "20"
+    },
+    {
+      "key": 4,
+      "text": "25"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "10 results from applying the production department's proportion (200/500 x 50 = 20) to the wrong stratum, or from using 100/500 x 50; it does not match marketing's 150/500 ratio."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Proportionate allocation: marketing sample = (marketing size / total population) x total sample = (150/500) x 50 = 15."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "20 is the allocation for the production department (200/500 x 50); confusing which stratum's size to use gives this wrong answer."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "25 results from dividing the total sample equally among 2 departments (50/2), ignoring proportional allocation and treating all strata as equal-sized."
+    }
+  ],
+  "explanation": "Proportionate stratified sampling allocates sample units in the same ratio as stratum sizes. Marketing has 150 out of 500 employees. Marketing's sample = (150/500) x 50 = 0.30 x 50 = 15.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The setup decision is recognising proportionate allocation: each stratum's sample size = (stratum size / population size) x total sample size.",
+    "approach": "Identify the model: proportionate stratified sampling. Formula: n_i = (N_i / N) x n. Map the givens: N_marketing = 150, N = 500, n = 50. Compute: (150/500) x 50 = 15.",
+    "lesson": "In proportionate stratified sampling, the sampling fraction is constant across all strata; n_i / N_i = n / N for every stratum.",
+    "timing": "40 seconds. The trap is using the production count (200) instead of marketing (150). Read the stratum label carefully before computing."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

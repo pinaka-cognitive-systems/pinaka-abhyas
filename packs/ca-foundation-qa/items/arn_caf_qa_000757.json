@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000757",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000757.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.standard_deviation"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "The daily wages (in Rs) of five workers are 80, 90, 100, 110, and 120. What is the standard deviation of this data?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 14.14"
+    },
+    {
+      "key": 2,
+      "text": "Rs 15.81"
+    },
+    {
+      "key": 3,
+      "text": "Rs 200"
+    },
+    {
+      "key": 4,
+      "text": "Rs 20"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Mean = (80+90+100+110+120)/5 = 100. Deviations: -20, -10, 0, 10, 20. Squared deviations: 400, 100, 0, 100, 400. Sum = 1000. Variance = 1000/5 = 200. SD = sqrt(200) = 14.14."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "population_sample_confusion",
+      "rationale": "Using divisor (n-1) = 4 instead of n = 5 gives sample SD = sqrt(1000/4) = sqrt(250) = 15.81. The data is a population here, so n = 5 is correct."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "200 is the variance, not the standard deviation. The student forgot to take the square root of the variance."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "20 is the range (120 - 100 or 120 - 80 halved as range/2). The student confused standard deviation with half the range."
+    }
+  ],
+  "explanation": "The mean wage is (80+90+100+110+120)/5 = 500/5 = 100. The squared deviations from the mean are 400, 100, 0, 100, 400 giving a sum of 1000. Variance = 1000/5 = 200. Standard deviation = sqrt(200) = 10*sqrt(2) = 14.14 (approx).",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Standard deviation = sqrt(mean of squared deviations), not the variance itself and not half the range.",
+    "approach": "Identify the model: population SD with divisor n. Step 1: compute mean = sum/n. Step 2: find each deviation (x - mean). Step 3: square each deviation. Step 4: average the squared deviations (divide by n). Step 5: take the square root. Here n=5, mean=100, sum of squared deviations=1000, variance=200, SD=14.14.",
+    "lesson": "Always take the square root at the final step; the variance and SD are distinct quantities.",
+    "timing": "60 seconds. Trap: stopping at variance (200) or using n-1 (giving 15.81). The symmetric AP structure makes the arithmetic fast."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

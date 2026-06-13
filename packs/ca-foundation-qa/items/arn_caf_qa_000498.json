@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000498",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000498.py"
+  },
+  "tests": [
+    "qa.bmath.calculus.differentiation"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 140,
+  "stem": "A firm's profit function is P(x) = -2x^3 + 9x^2 + 60x - 200, where x is output in units. At which level of output is profit maximised?",
+  "options": [
+    {
+      "key": 1,
+      "text": "5 units"
+    },
+    {
+      "key": 2,
+      "text": "7 units"
+    },
+    {
+      "key": 3,
+      "text": "2 units"
+    },
+    {
+      "key": 4,
+      "text": "3 units"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "dP/dx = -6x^2 + 18x + 60. Setting to 0: x^2 - 3x - 10 = 0, (x-5)(x+2) = 0, x=5 (x=-2 rejected). d2P/dx2 = -12x+18; at x=5: -42 < 0 confirming maximum."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "power_rule_misapplied",
+      "rationale": "Applied the power rule to the cubic term incorrectly as d/dx(-2x^3) = -6x^2 + offset, then solved the resulting wrong quadratic -6x^2 + 18x + 60 = 0 with a sign error in the quadratic formula, obtaining x = (18+24)/(-6) misread as positive 7."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Set d2P/dx2 = 0 (-12x+18=0 => x=1.5) instead of dP/dx = 0, confusing the inflection point with the profit-maximising output, then rounded to the nearest integer 2."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "differentiation_rule_confused",
+      "rationale": "Differentiated P(x) as if it were a quadratic, treating -2x^3 as if the 3 were already factored in: P'(x) = -6x + 18 + 60 = 0 => x = 78/6 which was further garbled to yield x=3 by a computational slip."
+    }
+  ],
+  "explanation": "Step 1: Differentiate. dP/dx = -6x^2 + 18x + 60. Step 2: Set equal to 0 and simplify. Divide by -6: x^2 - 3x - 10 = 0. Step 3: Factorise. (x-5)(x+2) = 0 gives x=5 or x=-2. Reject x=-2 (output cannot be negative). Step 4: Confirm maximum. d2P/dx2 = -12x + 18; at x=5 this equals -42, which is negative, confirming a maximum. Step 5: The profit-maximising output is x=5 units.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The decisive move is factorising the quadratic dP/dx = 0 after dividing by -6 to get positive leading coefficient, then rejecting the negative root.",
+    "approach": "Derivation plan: (1) differentiate the cubic profit function using the power rule; (2) set the derivative to zero and simplify by dividing by -6 to obtain a monic quadratic x^2-3x-10=0; (3) factorise as (x-5)(x+2)=0; (4) reject x=-2 on economic grounds; (5) confirm maximum via the second derivative test (d2P/dx2 < 0 at x=5).",
+    "lesson": "For a cubic profit function: differentiate to a quadratic, simplify to monic form, factorise, apply domain constraints (x > 0), then confirm max/min with the second derivative. Missing any of these steps produces a wrong answer.",
+    "timing": "About 120-130 seconds. The hidden trap is the sign when dividing dP/dx by -6: a student who divides incorrectly will factorise a wrong quadratic and pick x=7 or x=2. Second trap: confusing d2P=0 (inflection) with dP=0 (critical point)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

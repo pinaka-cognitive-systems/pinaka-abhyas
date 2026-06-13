@@ -1,0 +1,4019 @@
+{
+ "run": "gen-2026-06-13",
+ "exam": "ca_foundation",
+ "section": "quantitative_aptitude",
+ "generated_attempted": 600,
+ "method": "build-time AI agents (53-batch background workflow + 10-item proof); zero runtime AI",
+ "gates_in_order": [
+  "generation",
+  "tier1_schema",
+  "tier2_crossrec",
+  "solution_harness",
+  "originality_vs_pack_and_vault"
+ ],
+ "headline": {
+  "generated": 600,
+  "accepted_into_bank": 600,
+  "wrong_answer_key_rejections (SOLUTION_KEY_MISMATCH)": 0,
+  "non_original_rejections (Jaccard>=0.80 vs pack or vault)": 0,
+  "first_pass_clean": 537,
+  "needed_edits": 55,
+  "regenerated": 8,
+  "first_pass_clean_rate": 89.5
+ },
+ "rejections_per_stage_first_pass": {
+  "tier1_schema": 10,
+  "tier2_crossrec": 42,
+  "solution": 6,
+  "generation": 6
+ },
+ "token_cost": {
+  "generation_workflow": 3369584,
+  "unit": "agent output tokens",
+  "note": "plus fix-pass and verification agents; cost per accepted item ~= generation/590"
+ },
+ "items": {
+  "arn_caf_qa_000301": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier1_schema",
+     "code": "SCHEMA",
+     "reason": "item JSON did not match the required schema (field shape) (proof batch: per_option_rationale used 'key' not 'option_key'; correct option lacked a rationale)"
+    }
+   ],
+   "action_taken": "edited_in_place (spec corrected, fields renamed, rationale added)"
+  },
+  "arn_caf_qa_000302": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier1_schema",
+     "code": "SCHEMA",
+     "reason": "item JSON did not match the required schema (field shape) (proof batch: per_option_rationale used 'key' not 'option_key'; correct option lacked a rationale)"
+    }
+   ],
+   "action_taken": "edited_in_place (spec corrected, fields renamed, rationale added)"
+  },
+  "arn_caf_qa_000303": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier1_schema",
+     "code": "SCHEMA",
+     "reason": "item JSON did not match the required schema (field shape) (proof batch: per_option_rationale used 'key' not 'option_key'; correct option lacked a rationale)"
+    }
+   ],
+   "action_taken": "edited_in_place (spec corrected, fields renamed, rationale added)"
+  },
+  "arn_caf_qa_000304": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier1_schema",
+     "code": "SCHEMA",
+     "reason": "item JSON did not match the required schema (field shape) (proof batch: per_option_rationale used 'key' not 'option_key'; correct option lacked a rationale)"
+    }
+   ],
+   "action_taken": "edited_in_place (spec corrected, fields renamed, rationale added)"
+  },
+  "arn_caf_qa_000305": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier1_schema",
+     "code": "SCHEMA",
+     "reason": "item JSON did not match the required schema (field shape) (proof batch: per_option_rationale used 'key' not 'option_key'; correct option lacked a rationale)"
+    }
+   ],
+   "action_taken": "edited_in_place (spec corrected, fields renamed, rationale added)"
+  },
+  "arn_caf_qa_000306": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier1_schema",
+     "code": "SCHEMA",
+     "reason": "item JSON did not match the required schema (field shape) (proof batch: per_option_rationale used 'key' not 'option_key'; correct option lacked a rationale)"
+    }
+   ],
+   "action_taken": "edited_in_place (spec corrected, fields renamed, rationale added)"
+  },
+  "arn_caf_qa_000307": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier1_schema",
+     "code": "SCHEMA",
+     "reason": "item JSON did not match the required schema (field shape) (proof batch: per_option_rationale used 'key' not 'option_key'; correct option lacked a rationale)"
+    }
+   ],
+   "action_taken": "edited_in_place (spec corrected, fields renamed, rationale added)"
+  },
+  "arn_caf_qa_000308": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier1_schema",
+     "code": "SCHEMA",
+     "reason": "item JSON did not match the required schema (field shape) (proof batch: per_option_rationale used 'key' not 'option_key'; correct option lacked a rationale)"
+    }
+   ],
+   "action_taken": "edited_in_place (spec corrected, fields renamed, rationale added)"
+  },
+  "arn_caf_qa_000309": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier1_schema",
+     "code": "SCHEMA",
+     "reason": "item JSON did not match the required schema (field shape) (proof batch: per_option_rationale used 'key' not 'option_key'; correct option lacked a rationale)"
+    }
+   ],
+   "action_taken": "edited_in_place (spec corrected, fields renamed, rationale added)"
+  },
+  "arn_caf_qa_000310": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier1_schema",
+     "code": "SCHEMA",
+     "reason": "item JSON did not match the required schema (field shape) (proof batch: per_option_rationale used 'key' not 'option_key'; correct option lacked a rationale)"
+    }
+   ],
+   "action_taken": "edited_in_place (spec corrected, fields renamed, rationale added)"
+  },
+  "arn_caf_qa_000311": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000312": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000313": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000314": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "MISCONCEPTION_FAMILY_MISMATCH",
+     "reason": "distractor's misconception tag did not belong to the question's topic family, so the diagnosis shown to a student would be wrong"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000315": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000316": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000317": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000318": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000319": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000320": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000321": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000322": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000323": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000324": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000325": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000326": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000327": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000328": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000329": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000330": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000331": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000332": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000333": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000334": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000335": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "STEM_ANSWER_LEAK",
+     "reason": "the correct answer text appeared in the question stem (gameable / leaked)"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000336": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000337": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000338": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "MISCONCEPTION_FAMILY_MISMATCH",
+     "reason": "distractor's misconception tag did not belong to the question's topic family, so the diagnosis shown to a student would be wrong"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000339": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "MISCONCEPTION_FAMILY_MISMATCH",
+     "reason": "distractor's misconception tag did not belong to the question's topic family, so the diagnosis shown to a student would be wrong"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000340": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "MISCONCEPTION_FAMILY_MISMATCH",
+     "reason": "distractor's misconception tag did not belong to the question's topic family, so the diagnosis shown to a student would be wrong"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000341": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000342": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000343": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000344": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000345": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "MISCONCEPTION_FAMILY_MISMATCH",
+     "reason": "distractor's misconception tag did not belong to the question's topic family, so the diagnosis shown to a student would be wrong"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000346": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000347": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000348": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000349": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000350": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000351": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000352": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000353": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000354": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000355": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000356": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000357": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000358": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000359": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000360": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000361": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000362": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000363": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000364": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000365": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000366": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000367": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000368": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000369": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000370": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000371": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000372": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000373": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000374": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000375": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000376": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000377": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000378": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000379": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000380": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000381": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000382": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000383": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000384": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000385": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000386": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000387": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000388": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000389": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000390": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000391": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000392": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000393": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000394": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000395": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000396": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000397": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000398": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000399": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000400": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000401": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000402": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000403": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000404": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000405": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000406": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000407": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000408": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000409": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000410": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000411": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000412": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "MISCONCEPTION_FAMILY_MISMATCH",
+     "reason": "distractor's misconception tag did not belong to the question's topic family, so the diagnosis shown to a student would be wrong"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000413": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000414": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000415": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000416": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000417": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000418": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000419": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000420": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000421": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000422": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000423": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000424": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000425": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000426": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000427": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000428": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000429": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000430": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000431": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "DASH_VIOLATION",
+     "reason": "used a double hyphen '--', which the voice rules forbid"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000432": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "DASH_VIOLATION",
+     "reason": "used a double hyphen '--', which the voice rules forbid"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000433": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000434": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "DASH_VIOLATION",
+     "reason": "used a double hyphen '--', which the voice rules forbid"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000435": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000436": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000437": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "DASH_VIOLATION",
+     "reason": "used a double hyphen '--', which the voice rules forbid"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000438": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000439": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "DASH_VIOLATION",
+     "reason": "used a double hyphen '--', which the voice rules forbid"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000440": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000441": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000442": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "DASH_VIOLATION",
+     "reason": "used a double hyphen '--', which the voice rules forbid"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000443": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000444": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000445": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000446": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000447": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "kept (its near-duplicate partner was regenerated instead)"
+  },
+  "arn_caf_qa_000448": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000449": {
+   "first_pass_verdict": "REGENERATED",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "NEAR_DUPLICATE",
+     "reason": "stem too similar (Jaccard >= 0.80) to another generated item; a reskin, not a distinct question"
+    }
+   ],
+   "action_taken": "regenerated (replaced near-duplicate with a distinct problem, Jaccard 0.24)"
+  },
+  "arn_caf_qa_000450": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000451": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000452": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000453": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000454": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000455": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000456": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000457": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000458": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000459": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000460": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "MISCONCEPTION_FAMILY_MISMATCH",
+     "reason": "distractor's misconception tag did not belong to the question's topic family, so the diagnosis shown to a student would be wrong"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000461": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000462": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000463": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000464": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000465": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000466": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "MISCONCEPTION_FAMILY_MISMATCH",
+     "reason": "distractor's misconception tag did not belong to the question's topic family, so the diagnosis shown to a student would be wrong"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000467": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000468": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000469": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000470": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000471": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000472": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000473": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "MISCONCEPTION_FAMILY_MISMATCH",
+     "reason": "distractor's misconception tag did not belong to the question's topic family, so the diagnosis shown to a student would be wrong"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000474": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "MISCONCEPTION_FAMILY_MISMATCH",
+     "reason": "distractor's misconception tag did not belong to the question's topic family, so the diagnosis shown to a student would be wrong"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000475": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000476": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000477": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000478": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000479": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000480": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000481": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000482": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000483": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000484": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000485": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000486": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000487": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000488": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000489": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000490": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "DASH_VIOLATION",
+     "reason": "used a double hyphen '--', which the voice rules forbid"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000491": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000492": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "DASH_VIOLATION",
+     "reason": "used a double hyphen '--', which the voice rules forbid"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000493": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000494": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000495": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000496": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000497": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000498": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000499": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000500": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000501": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000502": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000503": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000504": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000505": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000506": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000507": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000508": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000509": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000510": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000511": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000512": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000513": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000514": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000515": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000516": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000517": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000518": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000519": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000520": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000521": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000522": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000523": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "DASH_VIOLATION",
+     "reason": "used a double hyphen '--', which the voice rules forbid"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000524": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "DASH_VIOLATION",
+     "reason": "used a double hyphen '--', which the voice rules forbid"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000525": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000526": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "DASH_VIOLATION",
+     "reason": "used a double hyphen '--', which the voice rules forbid"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000527": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "DASH_VIOLATION",
+     "reason": "used a double hyphen '--', which the voice rules forbid"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000528": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000529": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "DASH_VIOLATION",
+     "reason": "used a double hyphen '--', which the voice rules forbid"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000530": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "NOTATION_VIOLATION",
+     "reason": "used a character outside the plain-text allowlist (no LaTeX)"
+    },
+    {
+     "stage": "tier2_crossrec",
+     "code": "DASH_VIOLATION",
+     "reason": "used a double hyphen '--', which the voice rules forbid"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000531": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "DASH_VIOLATION",
+     "reason": "used a double hyphen '--', which the voice rules forbid"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000532": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "MISCONCEPTION_FAMILY_MISMATCH",
+     "reason": "distractor's misconception tag did not belong to the question's topic family, so the diagnosis shown to a student would be wrong"
+    },
+    {
+     "stage": "tier2_crossrec",
+     "code": "DASH_VIOLATION",
+     "reason": "used a double hyphen '--', which the voice rules forbid"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000533": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000534": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "DASH_VIOLATION",
+     "reason": "used a double hyphen '--', which the voice rules forbid"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000535": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000536": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000537": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000538": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000539": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000540": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000541": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000542": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000543": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000544": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000545": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000546": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000547": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000548": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000549": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000550": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000551": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000552": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000553": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000554": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000555": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000556": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000557": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000558": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000559": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000560": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000561": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000562": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000563": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000564": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000565": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000566": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000567": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000568": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000569": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000570": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000571": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000572": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000573": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000574": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000575": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000576": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000577": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000578": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000579": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000580": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000581": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000582": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000583": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000584": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000585": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000586": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000587": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000588": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000589": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000590": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000591": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000592": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000593": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "solution",
+     "code": "SOLUTION_PROTOCOL_ERROR",
+     "reason": "the item's executable Python solution printed extra debug output, so its answer could not be cleanly verified"
+    }
+   ],
+   "action_taken": "edited_in_place (removed stray debug prints from the solution)"
+  },
+  "arn_caf_qa_000594": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000595": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "solution",
+     "code": "SOLUTION_PROTOCOL_ERROR",
+     "reason": "the item's executable Python solution printed extra debug output, so its answer could not be cleanly verified"
+    }
+   ],
+   "action_taken": "edited_in_place (removed stray debug prints from the solution)"
+  },
+  "arn_caf_qa_000596": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "solution",
+     "code": "SOLUTION_PROTOCOL_ERROR",
+     "reason": "the item's executable Python solution printed extra debug output, so its answer could not be cleanly verified"
+    }
+   ],
+   "action_taken": "edited_in_place (removed stray debug prints from the solution)"
+  },
+  "arn_caf_qa_000597": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "solution",
+     "code": "SOLUTION_PROTOCOL_ERROR",
+     "reason": "the item's executable Python solution printed extra debug output, so its answer could not be cleanly verified"
+    }
+   ],
+   "action_taken": "edited_in_place (removed stray debug prints from the solution)"
+  },
+  "arn_caf_qa_000598": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000599": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "solution",
+     "code": "SOLUTION_PROTOCOL_ERROR",
+     "reason": "the item's executable Python solution printed extra debug output, so its answer could not be cleanly verified"
+    }
+   ],
+   "action_taken": "edited_in_place (removed stray debug prints from the solution)"
+  },
+  "arn_caf_qa_000600": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "solution",
+     "code": "SOLUTION_PROTOCOL_ERROR",
+     "reason": "the item's executable Python solution printed extra debug output, so its answer could not be cleanly verified"
+    }
+   ],
+   "action_taken": "edited_in_place (removed stray debug prints from the solution)"
+  },
+  "arn_caf_qa_000601": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000602": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000603": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000604": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000605": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000606": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000607": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000608": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000609": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000610": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000611": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000612": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "DASH_VIOLATION",
+     "reason": "used a double hyphen '--', which the voice rules forbid"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000613": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000614": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000615": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000616": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000617": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000618": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000619": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000620": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000621": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000622": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000623": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000624": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000625": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000626": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000627": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000628": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000629": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000630": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000631": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000632": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000633": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000634": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000635": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000636": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000637": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000638": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000639": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000640": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000641": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000642": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000643": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000644": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000645": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000646": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000647": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000648": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000649": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000650": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000651": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000652": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000653": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000654": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000655": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000656": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000657": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000658": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000659": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000660": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000661": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000662": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000663": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000664": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000665": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "MISCONCEPTION_FAMILY_MISMATCH",
+     "reason": "distractor's misconception tag did not belong to the question's topic family, so the diagnosis shown to a student would be wrong"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000666": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000667": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000668": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "MISCONCEPTION_FAMILY_MISMATCH",
+     "reason": "distractor's misconception tag did not belong to the question's topic family, so the diagnosis shown to a student would be wrong"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000669": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000670": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000671": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "MISCONCEPTION_FAMILY_MISMATCH",
+     "reason": "distractor's misconception tag did not belong to the question's topic family, so the diagnosis shown to a student would be wrong"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000672": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "MISCONCEPTION_FAMILY_MISMATCH",
+     "reason": "distractor's misconception tag did not belong to the question's topic family, so the diagnosis shown to a student would be wrong"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000673": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000674": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000675": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000676": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000677": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "MISCONCEPTION_FAMILY_MISMATCH",
+     "reason": "distractor's misconception tag did not belong to the question's topic family, so the diagnosis shown to a student would be wrong"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000678": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000679": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000680": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000681": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000682": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000683": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000684": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000685": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000686": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000687": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000688": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000689": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000690": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000691": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000692": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000693": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000694": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000695": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000696": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000697": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000698": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000699": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000700": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000701": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000702": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000703": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000704": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000705": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000706": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000707": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000708": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000709": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000710": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000711": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000712": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000713": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000714": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000715": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000716": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000717": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000718": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000719": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000720": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000721": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000722": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000723": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000724": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000725": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000726": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000727": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000728": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "MISCONCEPTION_FAMILY_MISMATCH",
+     "reason": "distractor's misconception tag did not belong to the question's topic family, so the diagnosis shown to a student would be wrong"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000729": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000730": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000731": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000732": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000733": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000734": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000735": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000736": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000737": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000738": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000739": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000740": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000741": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000742": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000743": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000744": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000745": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000746": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000747": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000748": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000749": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000750": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000751": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000752": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000753": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000754": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000755": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000756": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000757": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000758": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000759": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000760": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000761": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000762": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000763": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000764": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000765": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000766": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000767": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000768": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000769": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000770": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000771": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000772": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000773": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000774": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000775": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000776": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000777": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000778": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000779": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000780": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "STEM_ANSWER_LEAK",
+     "reason": "the correct answer text appeared in the question stem (gameable / leaked)"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000781": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000782": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000783": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000784": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000785": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000786": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000787": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000788": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000789": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000790": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000791": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000792": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000793": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000794": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000795": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000796": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000797": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000798": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000799": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000800": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000801": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000802": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000803": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000804": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000805": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000806": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000807": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000808": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000809": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000810": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000811": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000812": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000813": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000814": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000815": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000816": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000817": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000818": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000819": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000820": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000821": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000822": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000823": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000824": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000825": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "MISCONCEPTION_FAMILY_MISMATCH",
+     "reason": "distractor's misconception tag did not belong to the question's topic family, so the diagnosis shown to a student would be wrong"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000826": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000827": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "MISCONCEPTION_FAMILY_MISMATCH",
+     "reason": "distractor's misconception tag did not belong to the question's topic family, so the diagnosis shown to a student would be wrong"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000828": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000829": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000830": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000831": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000832": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000833": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000834": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000835": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000836": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000837": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000838": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000839": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000840": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000841": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000842": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000843": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000844": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000845": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000846": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000847": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000848": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000849": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000850": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000851": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000852": {
+   "first_pass_verdict": "REGENERATED",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "generation",
+     "code": "GEN_TRANSIENT_FAILURE",
+     "reason": "its generation batch hit a transient network (socket) error; the item never finished generating"
+    }
+   ],
+   "action_taken": "regenerated"
+  },
+  "arn_caf_qa_000853": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000854": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000855": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000856": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000857": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000858": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000859": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000860": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000861": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000862": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000863": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000864": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000865": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000866": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000867": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000868": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000869": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000870": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000871": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000872": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000873": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000874": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000875": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000876": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000877": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000878": {
+   "first_pass_verdict": "REGENERATED",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "generation",
+     "code": "GEN_TRANSIENT_FAILURE",
+     "reason": "its generation batch hit a transient network (socket) error; the item never finished generating"
+    }
+   ],
+   "action_taken": "regenerated"
+  },
+  "arn_caf_qa_000879": {
+   "first_pass_verdict": "REGENERATED",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "generation",
+     "code": "GEN_TRANSIENT_FAILURE",
+     "reason": "its generation batch hit a transient network (socket) error; the item never finished generating"
+    }
+   ],
+   "action_taken": "regenerated"
+  },
+  "arn_caf_qa_000880": {
+   "first_pass_verdict": "REGENERATED",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "generation",
+     "code": "GEN_TRANSIENT_FAILURE",
+     "reason": "its generation batch hit a transient network (socket) error; the item never finished generating"
+    }
+   ],
+   "action_taken": "regenerated"
+  },
+  "arn_caf_qa_000881": {
+   "first_pass_verdict": "REGENERATED",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "generation",
+     "code": "GEN_TRANSIENT_FAILURE",
+     "reason": "its generation batch hit a transient network (socket) error; the item never finished generating"
+    }
+   ],
+   "action_taken": "regenerated"
+  },
+  "arn_caf_qa_000882": {
+   "first_pass_verdict": "REGENERATED",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "generation",
+     "code": "GEN_TRANSIENT_FAILURE",
+     "reason": "its generation batch hit a transient network (socket) error; the item never finished generating"
+    }
+   ],
+   "action_taken": "regenerated"
+  },
+  "arn_caf_qa_000883": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000884": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000885": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000886": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000887": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000888": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000889": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000890": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000891": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000892": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000893": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000894": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000895": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000896": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000897": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000898": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  },
+  "arn_caf_qa_000899": {
+   "first_pass_verdict": "FAIL_FIRST_PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [
+    {
+     "stage": "tier2_crossrec",
+     "code": "STEM_ANSWER_LEAK",
+     "reason": "the correct answer text appeared in the question stem (gameable / leaked)"
+    }
+   ],
+   "action_taken": "edited_in_place"
+  },
+  "arn_caf_qa_000900": {
+   "first_pass_verdict": "PASS",
+   "final_verdict": "PASS",
+   "first_pass_violations": [],
+   "action_taken": "accepted_clean"
+  }
+ }
+}

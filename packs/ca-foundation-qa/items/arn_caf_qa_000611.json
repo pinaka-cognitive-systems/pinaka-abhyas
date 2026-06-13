@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000611",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000611.py"
+  },
+  "tests": [
+    "qa.lr.direction_tests"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Vijay starts facing North. He walks some distance, turns right, walks some distance, turns left, walks some distance, turns left, walks some distance, turns right, walks some distance, and finally turns right. Which direction does Vijay face now?",
+  "options": [
+    {
+      "key": 1,
+      "text": "East"
+    },
+    {
+      "key": 2,
+      "text": "South"
+    },
+    {
+      "key": 3,
+      "text": "West"
+    },
+    {
+      "key": 4,
+      "text": "North"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Turns: R,L,L,R,R = +1,-1,-1,+1,+1 = net +1 clockwise step from North = East."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "direction_turn_error",
+      "rationale": "South would require a net +2 clockwise steps; this comes from treating all 5 turns as rights (+5) or miscounting the lefts."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "net_displacement_error",
+      "rationale": "West requires a net +3 or -1 clockwise from North; this results from misapplying the net count of turns."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "North requires a net 0 rotation; this results from treating each right-left pair as cancelling, but missing the extra right at the end."
+    }
+  ],
+  "explanation": "Ignore walking distances; only turns matter. Clockwise index: N=0,E=1,S=2,W=3. Right=+1, Left=-1. Turns: R,L,L,R,R gives net = +1-1-1+1+1 = +1. Starting North(0), net +1 = East(1).",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Tally the turns as +1/-1 and add: net +1 from North = East.",
+    "approach": "Deductive trace: walking distances are irrelevant for final direction. Assign R=+1, L=-1. Sum: 1-1-1+1+1=+1. Starting at North=0 in clockwise indexing: 0+1=1=East.",
+    "lesson": "For a direction question, ignore distances and sum turn values (R=+1, L=-1 mod 4 clockwise). Net +1 from any starting point advances one clockwise step.",
+    "timing": "45-60 seconds. The trap is trying to track intermediate headings step by step and losing count; summing net turns is faster and less error-prone."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

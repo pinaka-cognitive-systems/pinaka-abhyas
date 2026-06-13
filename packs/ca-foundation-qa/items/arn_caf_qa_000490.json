@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000490",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000490.py"
+  },
+  "tests": [
+    "qa.bmath.sequence_series.gm"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "Insert two geometric means between 4 and 108. What is the larger of the two inserted terms?",
+  "options": [
+    {
+      "key": 1,
+      "text": "36"
+    },
+    {
+      "key": 2,
+      "text": "12"
+    },
+    {
+      "key": 3,
+      "text": "18"
+    },
+    {
+      "key": 4,
+      "text": "27"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Inserting 2 GMs gives a GP of 4 terms: 4, G1, G2, 108. So a=4, ar^3=108, r^3=27, r=3. G1=4*3=12, G2=4*9=36. The larger inserted term is 36."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Found G1 = 12 correctly but reported the smaller inserted mean instead of the larger one."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Used r^2 = 108/4 = 27 (treating 2 means as requiring r^2 instead of r^3), giving r = sqrt(27), G2 = 4 * 27 = 108, which is impossible, so took 4 * sqrt(27) ~ 20.8 and rounded to 18."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computed r = 3 correctly but evaluated G2 = 4 * r^2 = 4 * 9 - 9 = 27 by subtracting 9 in error, arriving at 27 instead of 36."
+    }
+  ],
+  "explanation": "Two geometric means between 4 and 108 create a 4-term GP: 4, G1, G2, 108. The ratio satisfies r^3 = 108/4 = 27, giving r = 3. The means are G1 = 12 and G2 = 36. The question asks for the larger: 36.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Inserting k geometric means between a and b creates a (k+2)-term GP, so r^(k+1) = b/a.",
+    "approach": "Derivation plan: note total terms = 2 means + 2 endpoints = 4. So T4 = ar^3 = 108 with a=4, giving r^3 = 27, r = 3. Compute G1 = 4*3 = 12, G2 = 4*9 = 36. Pick the larger: 36.",
+    "lesson": "When k means are inserted between a and b, use r^(k+1) = b/a because there are k+1 ratio-steps from a to b.",
+    "timing": "About 80 seconds. Key trap: confusing r^2 = b/a (for 1 mean) with r^3 = b/a (for 2 means). Also watch for the question asking for the larger mean, not the first."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -19,6 +19,7 @@
     "qa.stats.index_numbers.tests_adequacy"
   ],
   "difficulty_label": "L1",
+  "explanation_kind": "concept",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 60,
@@ -71,10 +72,10 @@
   ],
   "explanation": "The time reversal test requires P01 × P10 = 1. Periods 0 and 1 are swapped; the two index numbers must multiply to 1. Fisher Ideal Index satisfies this. Circular test covers three or more periods; factor reversal tests the product of price and quantity index numbers.",
   "explanation_sections": {
-    "punchline": "P01 × P10 = 1 is the exact definition of the time reversal test. The formula names the test directly.",
-    "approach": "Questions on tests of adequacy ask you to match a formula or condition to its named test. Read the condition given in the stem first. Then check each option against the definition you have memorised, not the other way around. Eliminate by ruling out what each wrong test actually checks.",
-    "lesson": "Time reversal: P01 × P10 = 1. Circular: three or more periods chained. Factor reversal: price index × quantity index = value ratio. Unit test: result unchanged when units change.",
-    "timing": "About 60 seconds. This is pure recall. If the name time reversal does not come to you in 10 seconds, move on and return."
+    "punchline": "P01 * P10 = 1 is the verbatim definition of the time reversal test. No calculation is needed: the stem restates the definition and asks you to name it.",
+    "approach": "Property and contrast: the four tests of adequacy each have a distinct condition. Time reversal - P01 * P10 = 1 (base and current exchanged, product must be 1). Factor reversal - price index * quantity index = value ratio (not a time swap). Circular test - chain of three or more periods returns to start, i.e. P01 * P12 * P20 = 1. Unit test - result is unchanged when the units of measurement change. Read the condition in the stem, identify which definition it matches, eliminate the rest.",
+    "lesson": "Memorise the four conditions exactly: time reversal (P01 * P10 = 1), factor reversal (price * quantity index = value ratio), circular (multi-period chain = 1), unit (unit-invariance). Confusing time reversal with circular test is the most common pairing error.",
+    "timing": "Under 30 seconds. Pure recall. If the answer does not come in 10 seconds, move on and return; time spent here beyond 30 seconds is not recoverable."
   },
   "empirical": {
     "calibration_status": "none",

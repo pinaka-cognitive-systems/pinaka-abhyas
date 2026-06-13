@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000940",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000940.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.rank_correlation"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 175,
+  "stem": "For 10 pairs of ranks, Spearman's rank correlation coefficient was computed as 0.8. It is later found that one of the rank differences was wrongly taken as 2 when its correct value is 6. What is the corrected rank correlation coefficient?",
+  "options": [
+    {
+      "key": 1,
+      "text": "20/33, about 0.606"
+    },
+    {
+      "key": 2,
+      "text": "0.8"
+    },
+    {
+      "key": 3,
+      "text": "About 0.582"
+    },
+    {
+      "key": 4,
+      "text": "About 0.994"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "From r = 1 - 6*Sd^2/(n(n^2-1)) with n = 10, denominator 990: 0.8 = 1 - 6*Sd^2/990 gives wrong Sd^2 = 33. Replace the bad term: remove 2^2 = 4, add 6^2 = 36, so correct Sd^2 = 33 - 4 + 36 = 65. Then r = 1 - 6*65/990 = 1 - 390/990 = 20/33, about 0.606."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Leaves the figure at the originally reported 0.8, never back-calculating Sd^2 to apply the correction. The whole point is that 0.8 was built on a wrong difference.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Adds the correct 6^2 = 36 but forgets to remove the wrong 2^2 = 4, using Sd^2 = 33 + 36 = 69, giving 1 - 6*69/990, about 0.582. A correction replaces a term, not just adds one.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Reverses the correction direction, removing 36 and adding 4 to get Sd^2 = 1, giving about 0.994. The wrong term 4 should be taken out and the correct 36 put in, not the reverse.",
+      "misconception": "sign_error"
+    }
+  ],
+  "explanation": "The reported coefficient hides a wrong Sigma d^2, so first back-calculate it. From r = 1 - 6*Sd^2/(n(n^2-1)) with n = 10 the denominator is 10*99 = 990; 0.8 = 1 - 6*Sd^2/990 solves to Sd^2 = 33. This 33 includes a bad term 2^2 = 4 that should be 6^2 = 36. Correct it by replacing: Sd^2 = 33 - 4 + 36 = 65. Recompute r = 1 - 6*65/990 = 1 - 390/990 = 20/33, about 0.606. The error inflated the original coefficient.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Invert the Spearman formula to recover the hidden Sigma d^2 = 33, swap 4 for 36 to get 65, then recompute: r = 1 - 6*65/990 = 20/33, about 0.606.",
+    "approach": "Name the formula: r = 1 - 6*Sigma d^2 / (n(n^2-1)). Map givens: n = 10 fixes the denominator at 990, and the reported r = 0.8 is the only route to Sigma d^2, so solve backwards to get 33. The decisive move is a back-calculation, not a forward plug-in. Then correct the single term by replacement, minus 4 plus 36, and re-apply the formula.",
+    "lesson": "A correction to Sigma d^2 replaces the wrong squared difference with the right one: subtract the old square and add the new, never just add.",
+    "timing": "About 160 seconds: one inversion, one term swap, one re-plug. Reject 0.8 in five seconds: it is the uncorrected figure, and the question exists precisely because that value is wrong."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000612",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000612.py"
+  },
+  "tests": [
+    "qa.lr.direction_tests"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 140,
+  "stem": "Prakash walks from his office O to his home H along the following route: 16 km East, then 4 km North, then 9 km South, then 4 km West. A bird flies directly in a straight line from H back to O. What is the direction of the bird's flight and its distance?",
+  "options": [
+    {
+      "key": 1,
+      "text": "North-West, 13 km"
+    },
+    {
+      "key": 2,
+      "text": "South-East, 13 km"
+    },
+    {
+      "key": 3,
+      "text": "North-West, 21 km"
+    },
+    {
+      "key": 4,
+      "text": "North-West, sqrt(119) km"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Net displacement O to H: EW=16-4=12E, NS=4-9=-5S. H is 12E and 5S of O. The bird flies H to O: direction is North-West (opposite of SE). Distance=sqrt(12^2+5^2)=sqrt(169)=13 km."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "South-East is the direction from O to H, not from H to O; the query asks for the return direction, which is the reverse."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "net_displacement_error",
+      "rationale": "21 km arises as 12+9 or similar: results from adding displacements without proper cancellation, giving 12+9=21 instead of sqrt(12^2+5^2)=13."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "sqrt(119) = sqrt(100+19) arises from a slip: using 10^2+something or (16-4-9)^2 + (4-4)^2 = 9^2 = 81? Re-route: using net NS as 4 instead of |4-9|=5, giving sqrt(12^2+4^2)=sqrt(160). Alternatively sqrt(119)=sqrt((12-1)^2+(5-1)^2) which is a slip subtracting 1 from each component."
+    }
+  ],
+  "explanation": "Step 1 - compute net displacement from O to H. Resolve each axis independently. EW: +16-4=+12 (East). NS: +4-9=-5 (South). H is 12 km East and 5 km South of O. Step 2 - the bird flies from H to O, which is the reverse direction: North-West. Step 3 - straight-line distance: sqrt(12^2+5^2)=sqrt(144+25)=sqrt(169)=13 km. Recognise the 5-12-13 Pythagorean triple.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Resolve the route to net (12E, 5S); the return leg is North-West and the 5-12-13 triple gives 13 km.",
+    "approach": "Deductive trace: (1) Cancel opposite-direction legs on each axis: EW: 16E-4W=12E; NS: 4N-9S=5S. (2) H is at coordinates (12,-5) from O. (3) The reversed query: direction from H to O is opposite to O-to-H direction. O-to-H is South-East, so H-to-O is North-West. (4) Distance = sqrt(12^2+5^2) = 13 km (5-12-13 triple).",
+    "lesson": "A reversed-query problem has two hidden steps: compute net displacement, then reverse its direction. The distance is always the same regardless of direction of travel.",
+    "timing": "90-120 seconds. Three traps: (a) forgetting to reverse the direction (gives SE, option 2); (b) adding path lengths instead of net displacements (gives 21 km, option 3); (c) arithmetic slip in Pythagoras (option 4). Spotting 5-12-13 after resolving axes saves time."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

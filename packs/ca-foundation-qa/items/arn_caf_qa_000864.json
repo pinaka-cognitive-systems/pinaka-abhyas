@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000864",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000864.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.regression"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 110,
+  "stem": "Two regression lines for a bivariate dataset are given as: Y = 2X + 3 and X = 0.4Y + 2. Find the mean values of X and Y (that is, the values of X-bar and Y-bar).",
+  "options": [
+    {
+      "key": 1,
+      "text": "X-bar = 16, Y-bar = 35"
+    },
+    {
+      "key": 2,
+      "text": "X-bar = 10, Y-bar = 15"
+    },
+    {
+      "key": 3,
+      "text": "X-bar = 20, Y-bar = 35"
+    },
+    {
+      "key": 4,
+      "text": "X-bar = 16, Y-bar = 30"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Both regression lines pass through (X-bar, Y-bar). Substitute Y=2X+3 into X=0.4Y+2: X=0.4*(2X+3)+2=0.8X+1.2+2=0.8X+3.2. So 0.2X=3.2, X-bar=16, Y-bar=2*16+3=35."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Setting Y=2X+3 equal to a different equation, or reading off the intercepts 3 and 2 instead of solving the system: e.g. wrongly using Y-bar=2*10+3=23 but guessing 15 from a simpler guess."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Solving the system incorrectly: e.g. computing 0.4*(2X+3)+2=0.8X+3.2, then setting 0.2X=4 (adding 3 twice) gives X-bar=20; Y-bar=2*20+3=43 but writing 35 by error."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Correctly finding X-bar=16 but computing Y-bar=0.4*16+2*10=6.4+20... or reading Y from X=0.4Y+2 as Y=(16-2)/0.4=35 but then rounding or substituting into the wrong line: Y=2*16-2=30."
+    }
+  ],
+  "explanation": "Both regression lines pass through the point (X-bar, Y-bar). Solve the system: Y = 2X + 3 and X = 0.4Y + 2. Substitute the first into the second: X = 0.4*(2X+3) + 2 = 0.8X + 1.2 + 2 = 0.8X + 3.2. Therefore 0.2X = 3.2, giving X-bar = 16. Then Y-bar = 2*16 + 3 = 35. Check: 16 = 0.4*35 + 2 = 14 + 2 = 16.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The two regression lines intersect at (X-bar, Y-bar); solving the simultaneous equations gives X-bar=16 and Y-bar=35.",
+    "approach": "Property: both lines pass through (X-bar, Y-bar). Treat the two equations as a simultaneous system. Substitute Y=2X+3 into X=0.4Y+2 to get X=0.8X+3.2, so X=16 and Y=35. Verify by substituting back into both equations.",
+    "lesson": "The means (X-bar, Y-bar) are the unique intersection of the two regression lines; this is a standard way to recover means when they are not stated directly.",
+    "timing": "About 80 seconds. The decisive move is recognizing that intersection = (X-bar, Y-bar) and solving the 2x2 system. The trap is reading off intercepts (3 and 2) as the means."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

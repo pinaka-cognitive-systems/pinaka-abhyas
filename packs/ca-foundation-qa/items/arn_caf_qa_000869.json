@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000869",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000869.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.regression"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "For a bivariate data set, the regression coefficient of Y on X is 0.8 and the regression coefficient of X on Y is 0.45. Both regression lines have positive slopes. What is the value of the Karl Pearson correlation coefficient r?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.36"
+    },
+    {
+      "key": 2,
+      "text": "0.60"
+    },
+    {
+      "key": 3,
+      "text": "0.625"
+    },
+    {
+      "key": 4,
+      "text": "0.72"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "0.36 is r^2, not r. The student correctly computed b_yx * b_xy = 0.8 * 0.45 = 0.36 but forgot to take the square root."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "r^2 = b_yx * b_xy = 0.8 * 0.45 = 0.36. Since both slopes are positive, r = +sqrt(0.36) = 0.60."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "0.625 = 0.8 * 0.45 / 0.576 ... arises from dividing one coefficient by the other (0.45/0.8 = 0.5625 -> 0.625 by miscomputation), treating the ratio as r."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "0.72 arises from averaging the two coefficients: (0.8 + 0.45)/2 = 0.625 -> or computing r = (b_yx + b_xy)/2, which is not a valid formula. Alternatively 0.8 * 0.9 = 0.72 from misreading 0.45 as 0.90."
+    }
+  ],
+  "explanation": "The fundamental identity linking r to the two regression coefficients is r^2 = b_yx * b_xy. Here b_yx = 0.8 and b_xy = 0.45, so r^2 = 0.8 * 0.45 = 0.36. Since both regression lines have positive slopes, r is positive. Therefore r = sqrt(0.36) = 0.60.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "r is the geometric mean of the two regression coefficients; apply the product identity and take the positive square root because both slopes are positive.",
+    "approach": "Formula-selection: the key identity is r^2 = b_yx * b_xy. Step 1 - identify both coefficients: b_yx = 0.8, b_xy = 0.45. Step 2 - compute product: 0.8 * 0.45 = 0.36. Step 3 - take positive square root (slopes are both positive so r > 0): r = 0.60. The setup decision is recognising that 0.36 is r^2, not r.",
+    "lesson": "r = sqrt(b_yx * b_xy) with the sign matching the common sign of the two regression slopes; never stop at r^2.",
+    "timing": "60 seconds. Trap: option 1 (0.36) is r^2 and is the single most common error on this type."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

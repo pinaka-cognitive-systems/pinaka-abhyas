@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000565",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000565.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.coding_decoding"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "In a certain code, MANGO is written as NBNHP. Using the same rule, how is GRAPE coded?",
+  "options": [
+    {
+      "key": 1,
+      "text": "HSBQF"
+    },
+    {
+      "key": 2,
+      "text": "GSBQE"
+    },
+    {
+      "key": 3,
+      "text": "HSAQF"
+    },
+    {
+      "key": 4,
+      "text": "IRBQF"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Each letter is shifted forward by 1 position in the alphabet: G+1=H, R+1=S, A+1=B, P+1=Q, E+1=F giving HSBQF."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "The first letter G was not shifted (kept as G instead of H), producing GSBQF instead of HSBQF."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "The third letter A was coded as A (shift = 0) instead of B (shift = +1), giving HSAQF."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "The pattern was mistaken for +2 shift: G+2=I, R+2=T... but the first two letters here diverge, producing IRBQF which does not match the +1 rule."
+    }
+  ],
+  "explanation": "The coding rule shifts each letter one position forward in the alphabet. Verify: M->N, A->B, N->O, G->H, O->P gives NBNHP which matches. Applying +1 to each letter of GRAPE: G->H, R->S, A->B, P->Q, E->F yields HSBQF.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Every letter advances by exactly one position in the alphabet - the simplest possible Caesar-type shift.",
+    "approach": "Deductive trace: identify the shift by comparing one known pair letter-by-letter (M->N is +1), confirm it holds for all five letters of MANGO, then apply the same +1 shift to each letter of GRAPE.",
+    "lesson": "Always verify the shift rule on every letter of the given example before applying it to the unknown word.",
+    "timing": "About 40-50 seconds. Fastest elimination: any option with G as the first letter (shift of 0) is immediately wrong."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

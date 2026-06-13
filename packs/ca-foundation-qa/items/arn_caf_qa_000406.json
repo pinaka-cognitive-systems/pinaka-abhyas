@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000406",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000406.py"
+  },
+  "tests": [
+    "qa.bmath.finance.perpetuity"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "A trust fund is to be set up today to pay an annual scholarship of Rs 18000 starting exactly one year from now in perpetuity. The fund earns 9% per annum on the first Rs 100000 and 12% per annum on any balance above Rs 100000. Both rates are compounded annually. What is the minimum amount that must be deposited today to sustain the scholarship forever?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 175000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 200000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 150000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 166667 (approx)"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Let the deposit be P. Annual income = 100000 * 0.09 + (P - 100000) * 0.12 = 9000 + 0.12P - 12000 = 0.12P - 3000. Set equal to 18000: 0.12P - 3000 = 18000, so 0.12P = 21000, P = 175000."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Using a single flat rate of 9% for the entire principal: P = 18000/0.09 = 200000, ignoring the tiered structure."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Using a single flat rate of 12% throughout: P = 18000/0.12 = 150000, ignoring the lower rate on the first Rs 100000."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Setting only 0.12 * (P - 100000) = 18000, ignoring the 9% earned on the first tier: P - 100000 = 150000, so P = 166667, which does not account for the Rs 9000 from the first tier."
+    }
+  ],
+  "explanation": "For a perpetuity the fund must earn exactly the annual payment each year without depleting capital. With a tiered rate, the total annual income is 9% on Rs 100000 plus 12% on the excess. Setting income equal to Rs 18000 and solving gives P = Rs 175000. This is an L3 item because the perpetuity formula (PMT/r) must be adapted to a piecewise rate structure, requiring the solver to decompose the income into two tiers and form an equation in P.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "A tiered-rate perpetuity requires writing income as a piecewise sum and solving for the break-even principal, not simply applying PMT/r to one rate.",
+    "approach": "Name the formula: for a perpetuity, annual income = P for the fund to be self-sustaining. Decompose income: 0.09 * 100000 + 0.12 * (P - 100000) = 18000. Expand: 9000 + 0.12P - 12000 = 18000. Simplify: 0.12P = 21000. Solve: P = 175000.",
+    "lesson": "When rates are tiered, the simple PMT/r formula gives the wrong answer; always model the income in pieces and sum them before equating to the required payment.",
+    "timing": "100-120 seconds. The hidden step is recognising the tiered income structure. Trap: using a single rate (9% gives 200000, 12% gives 150000); another trap is computing only the marginal tier income."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

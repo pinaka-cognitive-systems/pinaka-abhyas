@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000635",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000635.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 95,
+  "stem": "Six people Aarav, Bilal, Chitra, Divya, Esha, and Farhan sit in a row at positions 1 to 6. Aarav is at position 2. Farhan is at position 5. Bilal sits immediately to the left of Chitra. Divya is not adjacent to Esha. Esha is not at position 6. Who sits at position 4?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Aarav"
+    },
+    {
+      "key": 2,
+      "text": "Bilal"
+    },
+    {
+      "key": 3,
+      "text": "Chitra"
+    },
+    {
+      "key": 4,
+      "text": "Divya"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Aarav is fixed at position 2, not position 4. Selecting Aarav confuses his given seat with the target seat being asked."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "Bilal is immediately LEFT of Chitra, so Bilal occupies the smaller seat number. Bilal ends up at position 3 (left of Chitra at 4). Placing Bilal at position 4 would reverse the Bilal-Chitra adjacency order."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Fixed: Aarav=2, Farhan=5. Remaining: Bilal, Chitra, Divya, Esha in {1,3,4,6}. Bilal-Chitra block (B immediately left of C): adjacent pairs from {1,3,4,6}: only (3,4). So Bilal=3, Chitra=4. Divya and Esha fill {1,6}. Esha not at 6: Esha=1, Divya=6. Divya(6) not adjacent to Esha(1): |6-1|=5, not adjacent. Valid. Position 4 = Chitra."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Divya is placed at position 6 (not 4) once the Bilal-Chitra block occupies positions 3 and 4. Placing Divya at 4 requires the BC block elsewhere, but {1,3,4,6} has only (3,4) as an adjacent pair - there is no other slot. Omitting the constraint that the remaining positions are non-consecutive leads to Divya being incorrectly placed at 4."
+    }
+  ],
+  "explanation": "Aarav=2 and Farhan=5 are fixed. Bilal, Chitra, Divya, Esha occupy the remaining positions {1,3,4,6}. Bilal immediately left of Chitra needs an adjacent pair. Among {1,3,4,6}, only (3,4) are consecutive, so Bilal=3 and Chitra=4. Divya and Esha fill {1,6}. Esha cannot be at position 6, so Esha=1 and Divya=6. Verifying: Divya(6) is not adjacent to Esha(1) since |6-1|=5. Position 4 is Chitra.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The non-consecutive nature of {1,3,4,6} forces the Bilal-Chitra block into the only adjacent pair (3,4), uniquely placing Chitra at position 4.",
+    "approach": "Apply clues most-certain-first: anchor Aarav(2) and Farhan(5). Identify the remaining seats {1,3,4,6} and find the unique adjacent pair for the BC block. Distribute Divya and Esha in the two end-slots, applying Esha-not-at-6 as the tie-breaker.",
+    "lesson": "When remaining positions include a gap (non-consecutive numbers), an adjacent-pair constraint resolves to the unique consecutive subset with no ambiguity.",
+    "timing": "95 seconds. Two anchors, spot the gap in remaining seats, one block placement, one Esha check. Five logical moves total."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

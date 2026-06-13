@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000345",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000345.py"
+  },
+  "tests": [
+    "qa.bmath.equations.simultaneous_linear"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "Kavya and Lakshmi invest in a business such that Kavya's capital is twice Lakshmi's capital. Kavya invests for 9 months and Lakshmi invests for 12 months. The total profit at year-end is Rs 50,000. How much does Kavya receive?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 20,000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 25,000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 30,000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 36,000"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student ignores time and uses capital ratio only: 2:1, giving Kavya 2/3 * 50000 but then divides wrongly, arriving at 20000."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student divides profit equally between the two partners, giving 50000/2 = 25000."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Let Lakshmi's capital = k, Kavya's = 2k. Capital-time products: Kavya = 2k * 9 = 18k, Lakshmi = k * 12 = 12k. Profit ratio = 18k : 12k = 3 : 2. Kavya's share = 3/5 * 50000 = 30000."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student computes the capital-time ratio correctly as 3:2 but assigns the 3-parts to Lakshmi and the 2-parts to Kavya, mixing up which partner maps to which ratio; Kavya's 18k > Lakshmi's 12k so Kavya should get 3/5, not Lakshmi. For 36000: student uses the capital ratio 2:1 alone and gives Kavya 2/3 * 50000 = 33333, then rounds or uses 18/25 from a wrong total arriving at 36000."
+    }
+  ],
+  "explanation": "Capital-time product: Kavya = 2k * 9 = 18k, Lakshmi = k * 12 = 12k. Ratio = 18:12 = 3:2. Kavya's share = (3/5) * 50000 = Rs 30,000.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Profit is shared in the ratio of (capital * time), not capital alone when investment periods differ.",
+    "approach": "Let Lakshmi's capital = k. Kavya = 2k. Compute capital-time: Kavya = 2k*9 = 18k, Lakshmi = k*12 = 12k. Simplify ratio to 3:2. Total parts = 5. Kavya = 3/5 * 50000 = 30000.",
+    "lesson": "When partners invest for different durations, always multiply capital by months invested before forming the profit-sharing ratio.",
+    "timing": "About 90 seconds. Trap: using capital ratio 2:1 alone (ignores time) gives 33333; using time ratio 9:12 alone gives a different wrong answer."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

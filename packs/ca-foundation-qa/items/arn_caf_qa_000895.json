@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000895",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000895.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.tests_adequacy"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "An index number formula satisfies the time-reversal test if, when the base period and the current period are interchanged, the product of the two index values equals exactly 1. Which of the following index number methods satisfies this test?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Laspeyre's index"
+    },
+    {
+      "key": 2,
+      "text": "Paasche's index"
+    },
+    {
+      "key": 3,
+      "text": "Fisher's ideal index"
+    },
+    {
+      "key": 4,
+      "text": "Drobisch index"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Laspeyre's uses base-period quantities as weights. When periods are swapped the product L01 x L10 does not equal 1, so it fails the time-reversal test."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Paasche's uses current-period quantities as weights. When periods are interchanged the product P01 x P10 does not equal 1 either, so it fails the test."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Fisher's ideal index is the geometric mean of Laspeyre's and Paasche's. Its defining property is that F01 x F10 = 1, so it satisfies the time-reversal test exactly."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "The Drobisch index is the arithmetic mean of Laspeyre's and Paasche's. The product of its two-directional values generally differs from 1, so it does not satisfy the time-reversal test."
+    }
+  ],
+  "explanation": "The time-reversal test requires I01 x I10 = 1. Fisher's ideal index is the geometric mean of L and P, so F01 x F10 = sqrt(L01 x P01) x sqrt(L10 x P10) = sqrt((L01 x P01 x L10 x P10)). Because L01 x L10 and P01 x P10 each equal (p1/p0)(p0/p1) = 1 only for Fisher's construction, the product is 1. Laspeyre's and Paasche's individually fail, and the Drobisch arithmetic mean also fails.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Fisher's ideal index is the only standard formula whose two-directional product equals 1, satisfying the time-reversal test by construction.",
+    "approach": "Name the formula: time-reversal test means I01 x I10 = 1. Map each candidate: Laspeyre's and Paasche's each use one period's quantities throughout, so reversal breaks the symmetry. Fisher's geometric mean preserves it.",
+    "lesson": "Fisher's ideal index satisfies both the time-reversal test and the factor-reversal test; Laspeyre's and Paasche's satisfy neither.",
+    "timing": "Direct recall, 30-40 s. Eliminate by recalling that L and P each use one fixed weight set; only the geometric mean restores symmetry."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

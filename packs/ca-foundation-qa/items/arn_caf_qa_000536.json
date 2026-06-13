@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000536",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000536.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.continuity"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "A function f is said to be continuous at a point x = a if and only if which of the following conditions is satisfied?",
+  "options": [
+    {
+      "key": 1,
+      "text": "f(a) is defined and lim(x -> a) f(x) exists"
+    },
+    {
+      "key": 2,
+      "text": "f(a) is defined, lim(x -> a) f(x) exists, and lim(x -> a) f(x) = f(a)"
+    },
+    {
+      "key": 3,
+      "text": "The left-hand limit at a exists and equals f(a)"
+    },
+    {
+      "key": 4,
+      "text": "The right-hand limit at a exists and equals f(a)"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Confuses the condition for the existence of a limit with the condition for continuity; misses the equality lim(x->a) f(x) = f(a) as a required condition."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "All three parts are necessary and jointly sufficient: f(a) defined, two-sided limit exists, and limit equals the function value."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Applying only the left-hand limit condition: this is the wrong one-sided criterion; the full two-sided limit must exist and equal f(a)."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Applying only the right-hand limit condition: this is also the wrong one-sided criterion; continuity requires both one-sided limits to agree and equal f(a)."
+    }
+  ],
+  "explanation": "Continuity at a point demands all three conditions: the two-sided limit exists, f(a) is defined, and the limit equals f(a).",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "Continuity at x = a requires three conditions together: f(a) is defined, the two-sided limit exists, and the limit equals f(a).",
+    "approach": "State the property: f is continuous at x = a iff (1) f(a) is defined, (2) lim(x->a) f(x) exists meaning left equals right limit, and (3) that limit equals f(a). Contrast with option 1 which omits the equality condition, and options 3 and 4 which each check only one side.",
+    "lesson": "All three conditions are jointly necessary; existence of limit and definedness alone do not guarantee continuity.",
+    "timing": "45-55 seconds. Pure recall. The trap is option 1 which lists two of the three conditions but omits the equality."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

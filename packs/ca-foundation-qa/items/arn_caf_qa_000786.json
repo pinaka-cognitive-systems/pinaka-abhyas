@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000786",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000786.py"
+  },
+  "tests": [
+    "qa.stats.probability.addition_theorem"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A card is drawn at random from a well-shuffled deck of 52 cards. What is the probability that the card is either a heart or a face card? (Face cards are Jacks, Queens, and Kings.)",
+  "options": [
+    {
+      "key": 1,
+      "text": "25/52"
+    },
+    {
+      "key": 2,
+      "text": "16/52"
+    },
+    {
+      "key": 3,
+      "text": "22/52"
+    },
+    {
+      "key": 4,
+      "text": "13/52"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "set_operation_confused",
+      "rationale": "Adds P(heart) + P(face) without subtracting the overlap: (13+12)/52 = 25/52. This double-counts the 3 face cards that are also hearts."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Counts face cards as 4 only (one per suit, e.g., only Kings) instead of 12 (J+Q+K per suit x 4): (13+4-1)/52 = 16/52."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Hearts = 13. Face cards (J,Q,K of 4 suits) = 12. Overlap (heart face cards: J, Q, K of hearts) = 3. By addition theorem: P(heart or face) = (13+12-3)/52 = 22/52."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reports only P(heart) = 13/52, ignoring the face card contribution entirely and treating the problem as a single-event question."
+    }
+  ],
+  "explanation": "There are 13 hearts in a deck and 12 face cards (J, Q, K in each of 4 suits). Three face cards are also hearts (J, Q, K of hearts), so they are counted in both groups. By the addition theorem: P(heart or face) = P(heart) + P(face) - P(heart and face) = 13/52 + 12/52 - 3/52 = 22/52.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Count overlap carefully: 3 heart-face cards are in both groups. Subtract once: (13+12-3)/52 = 22/52.",
+    "approach": "Identify model: addition theorem for non-mutually-exclusive events. Setup decision: identify the two events (heart, face card) and their intersection (heart AND face card = J, Q, K of hearts = 3 cards). Apply: P(A or B) = P(A) + P(B) - P(A and B) = 13/52 + 12/52 - 3/52 = 22/52.",
+    "lesson": "Hearts and face cards are not mutually exclusive; you must subtract the overlap. The most common error is forgetting to subtract the intersection (option 1).",
+    "timing": "40 seconds. Identify groups and overlap quickly: 13 hearts, 12 face cards (3 per suit x 4), 3 are both. Sum and subtract. Trap: option 1 (forgetting overlap)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -19,7 +19,8 @@
     "qa.stats.data_representation.graphical",
     "qa.stats.central_tendency_dispersion.median"
   ],
-  "difficulty_label": "L2",
+  "difficulty_label": "L1",
+  "explanation_kind": "concept",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 90,
@@ -72,10 +73,10 @@
   ],
   "explanation": "1. The less-than ogive shows cumulative frequency up to each value. The more-than ogive shows cumulative frequency from each value downward.\n2. At any point x, the two ogives sum to n (total frequency).\n3. KEY STEP: They intersect where each ogive equals n/2. The x-value where cumulative frequency = n/2 is the median.\n4. So the x-coordinate of the intersection is the median.",
   "explanation_sections": {
-    "punchline": "The two ogives cross at the point where cumulative frequency equals n/2. That x-coordinate is the median, not the mode or mean.",
-    "approach": "When you see a question about ogive intersections, recall one fact: the two ogives together always sum to n at every x-value. They are equal only when each equals n/2. The x-value at n/2 on a cumulative frequency curve is the median by definition.",
-    "lesson": "The ogive intersection gives the median, always. Mode comes from the histogram peak. Mean has no direct ogive construction. Remember: ogive intersection equals median.",
-    "timing": "About 90 seconds. This is a recall question once you know the ogive property. Read the stem in 15 seconds and identify the intersection concept. Eliminate options (2) and (3) in ten seconds each because mode and mean do not come from ogive crossings."
+    "punchline": "The less-than and more-than ogives intersect at exactly the point where each cumulative frequency equals n/2. That x-coordinate is the median by definition.",
+    "approach": "State the property: the two ogives sum to n at every x-value, because any observation is counted in one or the other. They are equal only where each = n/2. The x-value corresponding to the n/2 cumulative frequency is the median. Then contrast confusables: mode comes from the modal bar of a histogram, not an ogive crossing; mean has no direct ogive construction at all; Q1 is where the less-than ogive hits n/4, not n/2.",
+    "lesson": "Ogive intersection = median, always and only. Mode needs a histogram peak. Mean has no ogive equivalent. Q1 and Q3 come from the n/4 and 3n/4 marks on a single ogive, not from an intersection.",
+    "timing": "Under 30 seconds. This is a single property recall. Read the stem, recall 'intersection = median', mark option 1. Do not compute anything."
   },
   "empirical": {
     "calibration_status": "none",

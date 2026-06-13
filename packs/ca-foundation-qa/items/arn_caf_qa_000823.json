@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000823",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000823.py"
+  },
+  "tests": [
+    "qa.stats.distributions.binomial"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "A fair coin is tossed 6 times. What is the probability of getting exactly 4 heads?",
+  "options": [
+    {
+      "key": 1,
+      "text": "15/64"
+    },
+    {
+      "key": 2,
+      "text": "6/64"
+    },
+    {
+      "key": 3,
+      "text": "15/32"
+    },
+    {
+      "key": 4,
+      "text": "1/64"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "C(6,4) * (1/2)^4 * (1/2)^2 = 15 * (1/64) = 15/64."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Using C(6,4) = 15 but dividing by 2^4 = 16 instead of 2^6 = 64 gives 6/64; this omits the (1/2)^2 factor."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "complement_confusion",
+      "rationale": "15/32 = 2 * 15/64 treats p = 1/2 only for the 4 successes and ignores the failure probability factor, giving a doubled result."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "(1/2)^6 = 1/64 is the probability of one specific sequence of 6 outcomes, ignoring the C(6,4) = 15 combinations."
+    }
+  ],
+  "explanation": "For Binomial(n=6, p=1/2), P(X=4) = C(6,4) * (1/2)^6 = 15/64. The combination C(6,4)=15 counts the ways to place 4 heads among 6 tosses; (1/2)^6 is the probability of any single sequence.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Identify the model as Binomial(6, 1/2) and plug directly into P(X=k) = C(n,k)*p^k*(1-p)^(n-k).",
+    "approach": "Model: Binomial(n=6, p=1/2). Map givens: n=6 trials, p=0.5 success per trial, k=4 successes asked. Formula: P(X=4)=C(6,4)*(0.5)^4*(0.5)^2=15*(1/64)=15/64.",
+    "lesson": "For a Binomial, always include both p^k and (1-p)^(n-k); dropping either factor is the standard trap.",
+    "timing": "45 seconds. Compute C(6,4)=15 mentally; (1/2)^6=1/64. Eliminate option 4 (missing combination) first."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

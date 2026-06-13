@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000666",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000666.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.diagrammatic"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "In a frequency polygon, the midpoints of the classes [10-20], [20-30], [30-40], [40-50] are plotted with frequencies 5, 10, 8, 7 respectively. The polygon is closed by adding two auxiliary classes of zero frequency on either side. What are the x-coordinates of the two auxiliary points used to close the polygon?",
+  "options": [
+    {
+      "key": 1,
+      "text": "5 and 55"
+    },
+    {
+      "key": 2,
+      "text": "0 and 50"
+    },
+    {
+      "key": 3,
+      "text": "10 and 40"
+    },
+    {
+      "key": 4,
+      "text": "0 and 60"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Class width = 10. The imaginary class before [10-20] is [0-10] with midpoint 5; the imaginary class after [40-50] is [50-60] with midpoint 55. These two points at zero frequency close the polygon."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "0 and 50 are the lower boundary of the first real class and the upper boundary of the last real class, not midpoints of imaginary closing classes."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "10 and 40 are the midpoints of the first and last real classes already plotted, not the auxiliary closing points."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "0 and 60 are the lower boundary of [0-10] and the upper boundary of [50-60]; midpoints of those classes are 5 and 55, not 0 and 60."
+    }
+  ],
+  "explanation": "A frequency polygon is closed by adding imaginary classes of zero frequency at each end. The class before [10-20] is [0-10] with midpoint (0+10)/2 = 5; the class after [40-50] is [50-60] with midpoint (50+60)/2 = 55.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Closing points are midpoints of the imaginary adjacent classes: [0-10] midpoint 5 and [50-60] midpoint 55.",
+    "approach": "Identify the model: frequency polygon is closed by extending one class width on each side at zero frequency. Class width = 10. Before first class [10-20]: imaginary class [0-10], midpoint = 5. After last class [40-50]: imaginary class [50-60], midpoint = 55.",
+    "lesson": "Closing points are midpoints of the adjoined phantom classes, not class boundaries.",
+    "timing": "80 s. Class width = 10; first midpoint - 10 = 15 - 10 = 5; last midpoint + 10 = 45 + 10 = 55."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

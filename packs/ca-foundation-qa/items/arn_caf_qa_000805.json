@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000805",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000805.py"
+  },
+  "tests": [
+    "qa.stats.probability.random_variable"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "A random variable X takes values 1, 2, or 3 with probabilities proportional to its value. That is, P(X = x) = x/c for x = 1, 2, 3 and some constant c. What is P(X = 2)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "1/3"
+    },
+    {
+      "key": 2,
+      "text": "2/3"
+    },
+    {
+      "key": 3,
+      "text": "1/6"
+    },
+    {
+      "key": 4,
+      "text": "1/2"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Sum rule: 1/c + 2/c + 3/c = 1 => 6/c = 1 => c = 6. Then P(X=2) = 2/6 = 1/3."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "2/3 arises from setting c=3 (the maximum value) instead of c=6 (the sum of values), giving P(X=2) = 2/3."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "1/6 = P(X=1) = 1/c with c=6; the student reads P(X=1) instead of P(X=2)."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "1/2 arises from treating probabilities as equal (1/3 each) and then incorrectly summing P(X=1)+P(X=2)=2/6 and misidentifying the result as 1/2."
+    }
+  ],
+  "explanation": "The probabilities P(X=1)=1/c, P(X=2)=2/c, P(X=3)=3/c must sum to 1: (1+2+3)/c = 6/c = 1, so c = 6. Hence P(X=2) = 2/6 = 1/3.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Find c by imposing sum = 1: c = 1+2+3 = 6, then P(X=2) = 2/6 = 1/3.",
+    "approach": "Identify model: PMF proportional to x. Decisive move: use sum rule to find the normalizing constant c. Sum all probabilities: sum(x/c for x in {1,2,3}) = 6/c = 1 => c = 6. Then substitute: P(X=2) = 2/6 = 1/3.",
+    "lesson": "When a PMF is proportional to some expression, always find the normalizing constant by setting the total to 1.",
+    "timing": "50 seconds. Sum 1+2+3=6, so c=6. P(X=2)=2/6=1/3. Trap: using c=3 (the number of values) instead of c=6 (sum of values)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

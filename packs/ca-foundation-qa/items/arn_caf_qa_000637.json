@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000637",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000637.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "Five friends A, B, C, D and E are sitting in a row facing north. C is at the leftmost end. D is to the immediate right of C. B is to the immediate right of A. E is at the rightmost end. Who is sitting in the middle?",
+  "options": [
+    {
+      "key": 1,
+      "text": "A"
+    },
+    {
+      "key": 2,
+      "text": "B"
+    },
+    {
+      "key": 3,
+      "text": "D"
+    },
+    {
+      "key": 4,
+      "text": "C"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "C at position 1, D at position 2 (immediate right of C). E at position 5 (rightmost). A and B fill positions 3 and 4, with B immediately right of A: A=3, B=4. Arrangement: C-D-A-B-E. Middle (position 3) = A."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Ignoring that B must be immediately right of A (not the other way) and placing B independently puts B in the middle position."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "Reading 'D is immediately right of C' as 'C is immediately right of D' places C at position 2 and D at position 1, shifting the arrangement so D ends up in the middle."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Misreading 'C is at the leftmost end' as 'C is in the middle' directly places C at position 3."
+    }
+  ],
+  "explanation": "Fix C=1 and D=2 (immediate right of C). Fix E=5 (rightmost). Remaining positions 3 and 4 for A and B, with B immediately right of A: A=3, B=4. Final order: C-D-A-B-E. Position 3 = A.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Anchoring C at the left end and E at the right end forces the AB pair into positions 3-4, leaving A in the middle.",
+    "approach": "Apply clues most-certain-first: fix both ends (C=1, E=5). Chain D immediately right of C gives D=2. Remaining positions 3,4 for A and B; B immediately right of A gives A=3, B=4. Verify all clues.",
+    "lesson": "Fix the unconditional anchors (end seats) first; the adjacency pairs then fill the remaining seats uniquely.",
+    "timing": "Under 60 s. Fastest elimination: once D=2 and E=5, only A and B remain for positions 3 and 4."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

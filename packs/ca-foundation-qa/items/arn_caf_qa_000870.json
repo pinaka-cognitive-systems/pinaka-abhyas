@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000870",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000870.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.regression"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "For a bivariate data set, it is known that the Karl Pearson correlation coefficient r = 0.8, the regression coefficient of Y on X is b_yx = 1.6, the standard deviation of X is Sx = 5, mean of X is X_bar = 10, and mean of Y is Y_bar = 20. A student wants to estimate the value of X when Y = 25. Using the correct regression line, what is the estimated value of X?",
+  "options": [
+    {
+      "key": 1,
+      "text": "12"
+    },
+    {
+      "key": 2,
+      "text": "28"
+    },
+    {
+      "key": 3,
+      "text": "18"
+    },
+    {
+      "key": 4,
+      "text": "13"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Step 1: find Sy from b_yx = r*(Sy/Sx) => 1.6 = 0.8*(Sy/5) => Sy = 10. Step 2: b_xy = r*(Sx/Sy) = 0.8*(5/10) = 0.4. Step 3: regression line of X on Y: X - X_bar = b_xy*(Y - Y_bar) => X = 10 + 0.4*(25-20) = 10 + 2 = 12."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "28 results from incorrectly using the Y-on-X line to predict X, computing Y = 10 + 1.6*(25-20) = 18 and then misinterpreting or further computing 10+18=28."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "18 results from using the Y-on-X line to predict X by substituting Y=25 directly: treating b_yx as the slope for predicting X, giving X = (25-20)/1.6 + 10 = 3.125 + 10 (messy) or from computing X = X_bar + b_yx*(Y-Y_bar) = 10 + 1.6*5 = 18, using the wrong regression coefficient entirely."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "13 results from computing b_xy correctly as 0.4 but then computing (Y - Y_bar) as 5+1=6 instead of 5, giving X = 10 + 0.4*6 = 12.4 -> rounded to 13, or from a decimal error where b_xy is mistakenly taken as 0.6."
+    }
+  ],
+  "explanation": "This problem requires four chained steps. Step 1: recover Sy using the formula b_yx = r*(Sy/Sx). With b_yx = 1.6, r = 0.8, Sx = 5: Sy = b_yx*Sx/r = 1.6*5/0.8 = 10. Step 2: compute b_xy = r*(Sx/Sy) = 0.8*(5/10) = 0.4. Step 3: choose the correct regression line - to predict X from Y, use the X-on-Y line, NOT the Y-on-X line. Step 4: apply X - X_bar = b_xy*(Y - Y_bar) => X = 10 + 0.4*(25-20) = 10 + 2 = 12.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "To predict X you must use the X-on-Y regression line with b_xy, which must first be derived from Sy; using b_yx gives the wrong line entirely.",
+    "approach": "Formula-selection with back-calculation: (1) name the formula b_yx = r*(Sy/Sx) and solve for the unknown Sy = b_yx*Sx/r = 1.6*5/0.8 = 10. (2) name the formula b_xy = r*(Sx/Sy) = 0.8*5/10 = 0.4. (3) the decisive setup decision - estimating X from Y requires the X-on-Y line: X - X_bar = b_xy*(Y - Y_bar). (4) substitute: X = 10 + 0.4*(25-20) = 12. The hidden relationship is that both regression coefficients share the same r and standard deviations, linked by b_yx * b_xy = r^2.",
+    "lesson": "Always match the regression line to the quantity being predicted: predict X from the X-on-Y line (slope b_xy), predict Y from the Y-on-X line (slope b_yx); confusing them is the most penalised trap.",
+    "timing": "2 minutes. The fastest elimination: option 3 (18) uses b_yx directly as if it predicts X, skipping the derivation of Sy and b_xy entirely - a one-step error on a four-step problem."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

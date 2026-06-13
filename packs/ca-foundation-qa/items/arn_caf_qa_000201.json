@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "In a cumulative frequency table, a class frequency is the difference of two cumulative counts. Subtract the count at the lower boundary from the count at the upper boundary. For (30, 40]: cf(40) - cf(30) = 36 - 25 = 11.",
+  "explanation_kind": "model_compute",
   "explanation_sections": {
-    "punchline": "The count in (30, 40] is 36 - 25 = 11. The class frequency equals the difference of two successive cumulative frequencies, not the cumulative value at the upper boundary.",
-    "approach": "Read off the cumulative frequency at the upper and lower class boundaries. Subtract the lower from the upper. The result is the frequency (count) for that specific class. Do not report the cumulative value directly.",
-    "lesson": "A cumulative frequency (ogive) value at any point gives the total count up to that boundary. The count inside one class is always the difference between two adjacent cumulative values.",
-    "timing": "75 seconds. Identifying the two boundaries takes about 15 seconds. The subtraction takes under 10 seconds. Spend the remaining time checking you used 25 and not 12 as the lower reference."
+    "punchline": "Class frequency is a difference of two cumulative counts, not the cumulative value itself. For (30, 40]: 36 - 25 = 11.",
+    "approach": "Identify the model: this is a less-than ogive table. The decisive move is to locate the two consecutive cumulative values that bracket the target class. Subtract the smaller (at the lower boundary) from the larger (at the upper boundary). Never read off the upper cumulative count as the class frequency - that gives the cumulative total up to that point, not the class count. Recipe: (1) find cf at upper boundary of target class, (2) find cf at lower boundary, (3) subtract.",
+    "lesson": "A cumulative frequency at any boundary is a running total, not a class count. Every class frequency is recovered by one subtraction of two adjacent cumulative values. The trap in this item is option 3 (reading 36 directly), which reports the running total at 40, not the frequency inside (30, 40].",
+    "timing": "75 seconds. Locate 25 and 36 in the table (15 seconds). Subtract to get 11 (5 seconds). Cross-check by verifying the other classes sum to 40 total if time allows."
   },
   "empirical": {
     "calibration_status": "none",

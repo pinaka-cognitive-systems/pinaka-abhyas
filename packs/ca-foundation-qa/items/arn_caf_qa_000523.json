@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000523",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000523.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.relations_functions"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "A relation R on the set {1, 2, 3} is defined as R = {(1,1), (2,2), (3,3)}. Which of the following correctly describes R?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Reflexive only"
+    },
+    {
+      "key": 2,
+      "text": "Symmetric only"
+    },
+    {
+      "key": 3,
+      "text": "Reflexive, symmetric, and transitive"
+    },
+    {
+      "key": 4,
+      "text": "Transitive only"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "Checking only reflexivity and missing that (a,b) and (b,a) pairs are both present (vacuously or by identity) and that transitivity holds via all (a,a) pairs."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "Checking only symmetry and missing reflexivity; the identity relation is symmetric (each (a,a) is its own symmetric pair) but that alone misses the full picture."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "The identity relation {(1,1),(2,2),(3,3)} satisfies all three: reflexive because every element pairs with itself; symmetric because (a,a) reversed is (a,a); transitive because whenever (a,b) and (b,c) are in R we have a=b=c so (a,c)=(a,a) is in R. This makes it an equivalence relation."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "Checking only transitivity and missing that reflexive and symmetric also hold; applying only the transitivity check without verifying the other properties."
+    }
+  ],
+  "explanation": "The identity relation on any non-empty set is always an equivalence relation, satisfying all three defining properties simultaneously.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "The identity relation is the smallest equivalence relation on any set, holding all three properties by construction.",
+    "approach": "State the property and contrast the confusable one. For reflexive: every element must pair with itself; check (1,1),(2,2),(3,3) all present. For symmetric: if (a,b) is in R then (b,a) must be in R; here every pair (a,a) is its own symmetric partner. For transitive: if (a,b) and (b,c) in R then (a,c) must be in R; only pairs (a,a) exist so a=b=c making (a,c)=(a,a) which is present. All three hold.",
+    "lesson": "An identity relation on a finite set always satisfies reflexive, symmetric, and transitive, making it an equivalence relation.",
+    "timing": "About 45 seconds. Read each property definition and test it against the three pairs directly. No calculation needed."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

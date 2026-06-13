@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000358",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000358.py"
+  },
+  "tests": [
+    "qa.bmath.inequalities.one_variable"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 130,
+  "stem": "A company's profit P (in Rs lakh) from selling x thousand units satisfies the condition: (2x - 3) / (x - 5) < 1, where x > 5. For how many integer values of x strictly greater than 5 and at most 12 does this inequality hold?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0"
+    },
+    {
+      "key": 2,
+      "text": "3"
+    },
+    {
+      "key": 3,
+      "text": "5"
+    },
+    {
+      "key": 4,
+      "text": "7"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "(2x-3)/(x-5) < 1 => (2x-3)/(x-5) - 1 < 0 => (2x-3-(x-5))/(x-5) < 0 => (x+2)/(x-5) < 0. Since x>5, (x-5)>0 and (x+2)>0 (as x>5>-2), so (x+2)/(x-5)>0 for ALL x>5. The inequality is NEVER satisfied for x>5. Therefore 0 integer values in (5,12]."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "Cross-multiplying without checking sign of (x-5): 2x-3<x-5 gives x<-2. A sign error makes someone interpret this as x in (5,8) giving 3 values."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "inequality_sign_not_flipped",
+      "rationale": "Not recognising that (x+2)/(x-5)>0 for x>5, instead incorrectly solving as if the ratio could be negative and counting 5 values in (5,10)."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Counting all integers from 6 to 12 inclusive gives 7 values; selecting this assumes the inequality is satisfied for all x>5, missing the analysis."
+    }
+  ],
+  "explanation": "Rewrite: (2x-3)/(x-5) < 1. Subtract 1 from both sides: [(2x-3) - (x-5)] / (x-5) < 0 => (x+2)/(x-5) < 0. For this fraction to be negative, numerator and denominator must have opposite signs. Since x>5, (x-5)>0. Also x>5 implies x>-2, so (x+2)>0. Both factors are positive, so (x+2)/(x-5)>0 for all x>5. The inequality (x+2)/(x-5)<0 has NO solution in x>5. Therefore 0 integer values.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The hidden trap: after rearranging to (x+2)/(x-5)<0, both factors are positive for all x>5, so the inequality is NEVER satisfied in the given domain.",
+    "approach": "Rational inequality: (i) do NOT cross-multiply directly (sign of denominator matters). (ii) Bring 1 to the left: (2x-3)/(x-5)-1<0. (iii) Combine over common denominator: (x+2)/(x-5)<0. (iv) Sign analysis: for x>5, denominator=x-5>0 and numerator=x+2>7>0. Product positive, so expression >0, never <0. Answer: 0 values.",
+    "lesson": "Never cross-multiply a rational inequality without first checking the sign of the denominator. Instead, bring everything to one side and do sign analysis on the resulting fraction.",
+    "timing": "120 seconds. The decisive move is recognising that x>5 makes BOTH (x-5) and (x+2) positive, killing the inequality entirely. The trap is cross-multiplying as if (x-5)>0 but forgetting to re-examine the combined numerator. Options 2 and 3 represent partial-credit errors."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

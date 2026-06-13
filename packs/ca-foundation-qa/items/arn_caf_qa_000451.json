@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000451",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000451.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.permutations"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "The value of P(7, 3) is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "210"
+    },
+    {
+      "key": 2,
+      "text": "35"
+    },
+    {
+      "key": 3,
+      "text": "840"
+    },
+    {
+      "key": 4,
+      "text": "105"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "P(7, 3) = 7! / (7 - 3)! = 7! / 4! = 7 x 6 x 5 = 210."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "permutation_combination_confusion",
+      "rationale": "Computed C(7, 3) = 35 instead of P(7, 3), dividing by 3! to remove order when order should be kept."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Computed P(7, 4) = 7 x 6 x 5 x 4 = 840 by selecting 4 objects instead of 3."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computed 7 x 5 x 3 = 105, multiplying every other integer from 7 downward instead of three consecutive integers 7 x 6 x 5."
+    }
+  ],
+  "explanation": "P(n, r) = n! / (n - r)!. With n = 7, r = 3: P(7, 3) = 7 x 6 x 5 = 210.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "P(7,3) counts ordered selections of 3 from 7: 7 x 6 x 5 = 210.",
+    "approach": "Classify as a direct permutation formula application. P(n, r) = n x (n-1) x ... x (n-r+1). Here: 7 x 6 x 5 = 210. Do not divide by r! - that would give combinations, not permutations.",
+    "lesson": "P(n, r) = n x (n-1) x ... x (n-r+1): take r consecutive factors starting from n. Never divide by r! when order matters.",
+    "timing": "20-25 s. The instant trap is dividing by 3! = 6, which gives 35 = C(7,3). If order matters, do not divide."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

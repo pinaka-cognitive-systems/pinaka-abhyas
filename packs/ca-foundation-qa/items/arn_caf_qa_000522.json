@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000522",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000522.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.relations_functions"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A relation R on A = {1, 2, 3, 4} is defined by R = {(1,2), (2,1), (2,3), (3,2), (1,3), (3,1)}. Which of the following correctly describes the properties of R?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Symmetric but neither reflexive nor transitive"
+    },
+    {
+      "key": 2,
+      "text": "Reflexive and symmetric but not transitive"
+    },
+    {
+      "key": 3,
+      "text": "Transitive and symmetric but not reflexive"
+    },
+    {
+      "key": 4,
+      "text": "Equivalence relation"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "R is symmetric: every pair (a,b) has (b,a) in R. R is not reflexive: (1,1),(2,2),(3,3),(4,4) are all absent. R is not transitive: (1,2) and (2,3) are in R but (1,3) actually IS in R; however (2,1) and (1,3) give (2,3) in R - still holds. Check (3,2) and (2,1): need (3,1) - yes in R. Check (2,1) and (1,2): need (2,2) - NOT in R. So R is not transitive."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "R is not reflexive because (1,1),(2,2),(3,3),(4,4) are absent from R."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "R is not transitive: (2,1) and (1,2) are in R but (2,2) is not, violating transitivity."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "R is not an equivalence relation because it fails both reflexive and transitive properties."
+    }
+  ],
+  "explanation": "Reflexive check: (1,1) is not in R, so R is not reflexive. Symmetric check: for every (a,b) in R, (b,a) is also present - verified for all six pairs. Transitive check: (2,1) in R and (1,2) in R, but (2,2) is not in R, so R is not transitive. Therefore R is symmetric but neither reflexive nor transitive.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "Symmetry holds because every pair has its reverse; transitivity fails at the (2,1),(1,2) combination which demands (2,2).",
+    "approach": "State each definition and test it against R systematically: (1) check if (a,a) is in R for every a - fails at element 1. (2) check if (a,b) in R implies (b,a) - passes for all six pairs. (3) check if any chain (a,b),(b,c) in R forces (a,c) - fails at a=2,b=1,c=2.",
+    "lesson": "To disprove transitivity, find a composable pair (a,b) and (b,c) where (a,c) is absent; the hardest case is a=c giving a self-loop requirement.",
+    "timing": "70 s. The transitivity trap is missing the (2,1)+(1,2) -> (2,2) case because (1,3)+(3,1) -> (1,1) also fails but is less visible."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

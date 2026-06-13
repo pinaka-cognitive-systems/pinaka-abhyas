@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000324",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000324.py"
+  },
+  "tests": [
+    "qa.bmath.ratio_indices_log.indices"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Simplify: a^3 / a^(-2). Which of the following equals this expression?",
+  "options": [
+    {
+      "key": 1,
+      "text": "a^5"
+    },
+    {
+      "key": 2,
+      "text": "a^1"
+    },
+    {
+      "key": 3,
+      "text": "a^6"
+    },
+    {
+      "key": 4,
+      "text": "a^(-6)"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Quotient rule: a^m / a^n = a^(m-n). Here m=3, n=-2, so result = a^(3-(-2)) = a^5."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student computes 3 - 2 = 1 without accounting for the negative sign on the denominator exponent, giving a^1 instead of a^5."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student uses the product rule (adding exponents) instead of the quotient rule, getting 3 + (-2) = 1? Actually student adds magnitudes: 3+3=6, ignoring signs. Or student computes a^(3+(-2)) = a^1. For a^6: student treats division as multiplication: 3 * (-2) = -6 magnitude gives 6. Likely adds 3 and 3 (treating -(-2) as 3 wrongly applying double negative but then adding again): a^(3+3) = a^6."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "order_of_operations",
+      "rationale": "Student adds exponents without adjusting for division, computing 3 + (-2) = 1 as addition, then negates: a^(-6) would come from treating it as a^((-2)-3) = a^(-5). Actually a^(-6) comes from computing -(3+3) = -6, treating both as positive then negating."
+    }
+  ],
+  "explanation": "The index quotient rule states a^m / a^n = a^(m-n). Substituting m=3 and n=-2: a^3 / a^(-2) = a^(3-(-2)) = a^(3+2) = a^5. The critical step is recognising that dividing by a^(-2) is equivalent to multiplying by a^2.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Dividing by a^(-2) adds 2 to the exponent: a^3 / a^(-2) = a^(3+2) = a^5.",
+    "approach": "Apply the quotient index law: a^m / a^n = a^(m-n). Here m=3, n=-2. Compute the exponent: 3 - (-2) = 3 + 2 = 5. The decisive move is converting the subtraction of a negative to addition.",
+    "lesson": "When dividing same-base powers, subtract the exponent in the denominator - including its sign. a^m / a^(-n) = a^(m+n).",
+    "timing": "45-60 seconds. The main trap is computing 3-2=1 (option 2) by ignoring the negative on the denominator exponent."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000542",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000542.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.number_series"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "What comes next in the series: 4, 9, 14, 19, 24, ?",
+  "options": [
+    {
+      "key": 1,
+      "text": "27"
+    },
+    {
+      "key": 2,
+      "text": "28"
+    },
+    {
+      "key": 3,
+      "text": "29"
+    },
+    {
+      "key": 4,
+      "text": "30"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Adds 3 instead of 5 to 24, giving 27. A slip in the common difference."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Adds 4 instead of 5 to 24, giving 28. A slip in identifying the common difference."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "This is an AP with first term 4 and common difference 5. Each term adds 5: 4, 9, 14, 19, 24, 29."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Adds 6 to 24 = 30, wrongly believing the differences increase by 1 each step (1, 2, 3, 4, 5, ...) from some assumed base."
+    }
+  ],
+  "explanation": "The series is an arithmetic progression with first term 4 and common difference 5. Adding 5 to each term: 4 + 5 = 9, 9 + 5 = 14, 14 + 5 = 19, 19 + 5 = 24, 24 + 5 = 29.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "A constant difference of 5 runs through every consecutive pair, confirming a pure AP.",
+    "approach": "Apply clues most-certain-first: compute differences: 9-4=5, 14-9=5, 19-14=5, 24-19=5. Constant difference confirmed. Next term = 24 + 5 = 29.",
+    "lesson": "Always compute all consecutive differences before deciding the pattern; one consistent value means AP.",
+    "timing": "15-20 seconds. No elimination needed once the constant difference is spotted."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

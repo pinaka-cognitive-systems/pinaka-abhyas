@@ -19,6 +19,7 @@
     "qa.stats.distributions.binomial"
   ],
   "difficulty_label": "L2",
+  "explanation_kind": "model_compute",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 90,
@@ -71,10 +72,10 @@
   ],
   "explanation": "1. Binomial formula: P(X=k) = C(n,k) × p^k × (1-p)^(n-k).\n2. Here n=5, k=2, p=1/3, q=2/3.\n3. KEY STEP: P(X=2) = C(5,2) × (1/3)² × (2/3)³ = 10 × (1/9) × (8/27) = 80/243.\n4. The complementary probability q=2/3 must appear to the power (n-k)=3, not k.",
   "explanation_sections": {
-    "punchline": "C(5,2) gives 10 combinations, and the three non-defective items each contribute a factor of 2/3, making the numerator 80.",
-    "approach": "Identify n, k, p, and q from the stem. Write out C(n,k) first, then multiply p^k and q^(n-k) separately. Keep the two exponents distinct: k goes with p, and (n minus k) goes with q. Combine all three factors at the end.",
-    "lesson": "The exponent on q is (n minus k), not k. Swapping those two exponents is the most common error in binomial probability.",
-    "timing": "About 90 seconds. Write C(5,2) = 10 in five seconds. Reject option (1) instantly because it is missing the factor of 10. If stuck between (2) and (3), check which power belongs to p = 1/3."
+    "punchline": "Model: Binomial(n=5, p=1/3). The three non-defective items each contribute a factor of 2/3, giving C(5,2) * (1/9) * (8/27) = 80/243.",
+    "approach": "Identify the model first: fixed n trials, each trial independently has probability p of success, asking for exactly k successes - that is Binomial. State: n = 5, k = 2, p = 1/3, q = 2/3. Apply P(X=k) = C(n,k) * p^k * q^(n-k). Write the three factors separately before multiplying: C(5,2) = 10, (1/3)^2 = 1/9, (2/3)^3 = 8/27. The exponent on q is n-k = 3, not k = 2.",
+    "lesson": "The exponent on q is (n - k), not k. Swapping the two exponents swaps p and q in the calculation, producing the p/q-reversed distractor (3) = 40/243.",
+    "timing": "90 seconds. Reject option (1) in 5 seconds: it lacks the C(5,2) = 10 factor. Tiebreak between (2) and (3): p = 1/3 must carry the smaller exponent (k=2), q = 2/3 the larger (n-k=3), so the numerator grows to 80, not shrinks to 40."
   },
   "empirical": {
     "calibration_status": "none",

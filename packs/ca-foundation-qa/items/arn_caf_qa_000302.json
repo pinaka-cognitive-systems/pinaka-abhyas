@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000302",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen_finance_v1",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000302.py"
+  },
+  "tests": [
+    "qa.bmath.finance.compound_interest"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "A sum of Rs 8,000 is invested at compound interest of 5% per annum for 2 years. What is the compound interest earned? [Given: (1.05)^2 = 1.1025]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 800"
+    },
+    {
+      "key": 2,
+      "text": "Rs 820"
+    },
+    {
+      "key": 3,
+      "text": "Rs 840"
+    },
+    {
+      "key": 4,
+      "text": "Rs 810"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "verdict": "incorrect",
+      "misconception": "compound_interest_confusion",
+      "rationale": "Rs 800 = 8000 x 5% x 2 is the simple interest formula, ignoring the interest-on-interest earned in the second year.",
+      "option_key": 1
+    },
+    {
+      "verdict": "correct",
+      "option_key": 2,
+      "rationale": "Compound interest is the amount minus the principal, not year-by-year simple interest; the key is multiplying P by (1 + r)^n and subtracting P."
+    },
+    {
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Rs 840 = 8000 x 0.105 is computed by adding annual rates (5% + 5.5% = 10.5%) without applying the compound multiplier correctly; an arithmetic slip in the second-year interest calculation.",
+      "option_key": 3
+    },
+    {
+      "verdict": "incorrect",
+      "misconception": "decimal_place_error",
+      "rationale": "Rs 810 arises from mistakenly computing second-year interest on 8000 + 400 = 8400 as 8400 x 0.05 = 420 but then using 8000 x 0.05 = 400 again for year 2, giving 400 + 410 = 810; a decimal-level arithmetic error in the running balance.",
+      "option_key": 4
+    }
+  ],
+  "explanation": "A = 8000 x 1.1025 = 8820. CI = A - P = 8820 - 8000 = Rs 820.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Compound interest is the amount minus the principal, not year-by-year simple interest; the key is multiplying P by (1 + r)^n and subtracting P.",
+    "approach": "Formula: CI = P x ((1 + r)^n - 1). P = 8000, r = 0.05, n = 2. Using the hint: (1.05)^2 = 1.1025, so A = 8000 x 1.1025 = 8820. CI = 8820 - 8000 = 820.",
+    "lesson": "CI always exceeds SI for n > 1 because interest accrues on interest. The difference here is 820 - 800 = Rs 20, which is interest on the first year's interest (400 x 5% = 20).",
+    "timing": "45 seconds: multiply 8000 x 1.1025 = 8820, subtract 8000 = 820. Eliminate option 1 immediately as the SI answer."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000537",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000537.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.continuity"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A function f is defined as follows: f(x) = (x^2 - 4) / (x - 2) when x is not equal to 2, and f(2) = k. For what value of k is f continuous at x = 2?",
+  "options": [
+    {
+      "key": 1,
+      "text": "k = 2"
+    },
+    {
+      "key": 2,
+      "text": "k = 4"
+    },
+    {
+      "key": 3,
+      "text": "k = 0"
+    },
+    {
+      "key": 4,
+      "text": "k = 8"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reads the limit point x = 2 itself as the answer rather than evaluating the limit of the expression (x + 2) at x = 2."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Factor: x^2 - 4 = (x-2)(x+2). Cancel (x-2) to get x+2. At x = 2: limit = 2 + 2 = 4. Set k = 4 to match f(2) = limit."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Treats the 0/0 form as giving limit = 0 without factoring and cancelling the removable factor."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Multiplies the limit point by the original numerator factor: 2 * 4 = 8, misapplying the factorization result."
+    }
+  ],
+  "explanation": "The removable discontinuity at x = 2 is filled by setting k equal to the limit of (x + 2) at x = 2, which is 4.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "The limit equals x + 2 evaluated at x = 2, which is 4; so k must be 4 for continuity.",
+    "approach": "Identify the model: continuity at x = 2 requires lim(x->2) f(x) = f(2) = k. Factor the numerator: x^2 - 4 = (x-2)(x+2), cancel (x-2), leaving x+2. Substitute x = 2: limit = 4. Set k = 4.",
+    "lesson": "To fill a removable discontinuity, compute the limit by cancelling the offending factor, then define f at that point to equal the limit.",
+    "timing": "70-90 seconds. Factor and cancel takes 20 seconds. Trap: reading x = 2 directly as k = 2."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

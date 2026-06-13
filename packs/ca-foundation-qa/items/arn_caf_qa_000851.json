@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000851",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000851.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.rank_correlation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Five students are ranked in two subjects. The rank of each student in Subject A and Subject B is given below. Student 1: (1, 2); Student 2: (2, 3); Student 3: (3, 1); Student 4: (4, 5); Student 5: (5, 4). Compute Spearman's rank correlation coefficient.",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.60"
+    },
+    {
+      "key": 2,
+      "text": "0.80"
+    },
+    {
+      "key": 3,
+      "text": "0.40"
+    },
+    {
+      "key": 4,
+      "text": "-0.60"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Differences d: 1-2=-1, 2-3=-1, 3-1=2, 4-5=-1, 5-4=1. d^2: 1,1,4,1,1. sum(d^2) = 8. r_s = 1 - 6*8/(5*(25-1)) = 1 - 48/120 = 1 - 0.4 = 0.60."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "A slip: computing d for Student 3 as 3-1=2 and d^2=2 instead of 4: sum(d^2)=1+1+2+1+1=6. r_s = 1-36/120 = 1-0.3 = 0.70, or with a further slip 0.80."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Arithmetic slip in the formula denominator: using n*(n-1) = 20 instead of n*(n^2-1) = 120: r_s = 1-48/20 = 1-2.4 = -1.4, constrained to 0.40 via a different route."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Using the formula r_s = 6*sum(d^2)/(n*(n^2-1)) without subtracting from 1: 6*8/120 = 0.4, then applying a sign error gives -0.60."
+    }
+  ],
+  "explanation": "Spearman's formula: r_s = 1 - 6*sum(d^2) / (n*(n^2-1)). Compute differences d_i = rank_A - rank_B: -1,-1,2,-1,1. Square them: 1,1,4,1,1. sum(d^2) = 8. n=5, n*(n^2-1) = 5*24 = 120. r_s = 1 - 48/120 = 1 - 0.4 = 0.60.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Spearman's formula needs n*(n^2-1) not n*(n-1) in the denominator; confusing these two expressions is the primary trap.",
+    "approach": "Name the formula: r_s = 1 - 6*sum(d^2)/(n*(n^2-1)). Map givens: list of rank pairs. Compute d for each pair, square, sum. n=5: n*(n^2-1) = 5*24 = 120. Plug in and simplify.",
+    "lesson": "Always compute n*(n^2-1) by expanding: n^2-1 first, then multiply by n. For n=5: 25-1=24, then 5*24=120.",
+    "timing": "About 70 seconds. List d values, square each, add - five simple operations. Then one multiplication and one subtraction."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

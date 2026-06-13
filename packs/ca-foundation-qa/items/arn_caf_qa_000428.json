@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000428",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000428.py"
+  },
+  "tests": [
+    "qa.bmath.finance.nominal_effective_return"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Bank X offers 18% per annum compounded monthly. Bank Y offers 19% per annum compounded semi-annually. [Given: (1.015)^12 = 1.1956, (1.095)^2 = 1.1990]. Which bank offers a higher effective annual rate, and what is the difference in EARs?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Bank Y by 0.34 percentage points"
+    },
+    {
+      "key": 2,
+      "text": "Bank X by 0.34 percentage points"
+    },
+    {
+      "key": 3,
+      "text": "Both are equal at 19%"
+    },
+    {
+      "key": 4,
+      "text": "Bank Y by 1 percentage point"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "EAR_X = (1.015)^12 - 1 = 1.1956 - 1 = 19.56%. EAR_Y = (1.095)^2 - 1 = 1.1990 - 1 = 19.90%. Difference = 19.90% - 19.56% = 0.34 percentage points. Bank Y is higher."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Computed both EARs correctly but reversed the comparison, concluding Bank X is higher when Bank Y's EAR exceeds it, misidentifying which bank the question asks to evaluate as superior."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "compound_interest_confusion",
+      "rationale": "Compared only the nominal rates without computing EARs, incorrectly treating the 19% nominal rate as the EAR for Bank Y."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Subtracted the nominal rates (19% - 18% = 1%) and treated this difference as the EAR difference, bypassing the compounding computation entirely."
+    }
+  ],
+  "explanation": "To compare instruments on the same basis, convert both to EAR. EAR_X = (1 + 0.18/12)^12 - 1 = (1.015)^12 - 1 = 19.56%. EAR_Y = (1 + 0.19/2)^2 - 1 = (1.095)^2 - 1 = 19.90%. Bank Y is higher by 0.34 percentage points.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "A lower nominal rate with more frequent compounding can exceed a higher nominal rate with less frequent compounding in EAR terms - but here the higher nominal semi-annual wins.",
+    "approach": "Formula: EAR = (1 + r_nom/m)^m - 1 for each bank. Bank X: m=12, rate=18%, periodic=1.5%, use hint (1.015)^12=1.1956, EAR=19.56%. Bank Y: m=2, rate=19%, periodic=9.5%, use hint (1.095)^2=1.1990, EAR=19.90%. Difference=0.34pp. The setup decision is EAR conversion for fair comparison.",
+    "lesson": "Never compare investments using only their nominal rates; always convert to EAR before choosing.",
+    "timing": "60 seconds. Read EARs directly from the given hints. Identify which is larger. Trap: option 4 uses nominal difference."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

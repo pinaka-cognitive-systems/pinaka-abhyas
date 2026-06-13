@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000933",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000933.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.frequency_distribution"
+  ],
+  "difficulty_label": "L2",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 175,
+  "stem": "A frequency distribution with class marks 10, 30, 50, 70, 90 has frequencies 17, f1, 32, f2, 19, where f1 and f2 are unknown. The total frequency is 120 and the mean is 50. What is the value of f1?",
+  "options": [
+    {
+      "key": 1,
+      "text": "24"
+    },
+    {
+      "key": 2,
+      "text": "26"
+    },
+    {
+      "key": 3,
+      "text": "30"
+    },
+    {
+      "key": 4,
+      "text": "28"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Pairs the class marks with the wrong missing frequencies, attaching mark 70 to f1 and mark 30 to f2. This solves 7*f1 + 3*f2 = 252, giving f1 = 24, which is actually the value of f2.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Uses only the total equation f1 + f2 = 52 and splits the deficit equally, f1 = f2 = 26, never applying the mean condition that distinguishes them.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "An arithmetic slip in solving the simultaneous pair lands on f1 = 30 (then f2 = 22), which fails the mean check: the mean would be 49.33, not 50.",
+      "misconception": "arithmetic_slip"
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "Total: f1 + f2 = 52. Mean: 30*f1 + 70*f2 = 50*120 - (170 + 1600 + 1710) = 2520, i.e. 3*f1 + 7*f2 = 252. Substituting f1 = 52 - f2 gives 4*f2 = 96, f2 = 24, so f1 = 28."
+    }
+  ],
+  "explanation": "Two unknowns need two equations. The total gives f1 + f2 = 52. The mean gives Sigma f*x = 50*120 = 6000; subtracting the known contributions (170 + 1600 + 1710 = 3480) leaves 30*f1 + 70*f2 = 2520, i.e. 3*f1 + 7*f2 = 252. Solving simultaneously: f2 = 24, f1 = 28. Using only the total gives the equal split 26; swapping which mark pairs with which frequency gives 24, which is really f2.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "One equation cannot separate two unknowns: pair the total f1 + f2 = 52 with the mean condition 3*f1 + 7*f2 = 252 and solve the system to pin f1 = 28, f2 = 24.",
+    "approach": "Model: two missing frequencies from a given total and mean, solved as simultaneous equations. Assumption: the total fixes the frequency sum and the mean fixes the weighted-mark sum. Recipe in five steps. (1) Total: f1 + f2 = 120 - (17 + 32 + 19) = 52. (2) Total marks = mean*N = 6000. (3) Known marks = 17*10 + 32*50 + 19*90 = 3480, so 30*f1 + 70*f2 = 2520, i.e. 3*f1 + 7*f2 = 252. (4) Substitute f1 = 52 - f2: 3*(52 - f2) + 7*f2 = 252, so 4*f2 = 96, f2 = 24. (5) f1 = 52 - 24 = 28.",
+    "lesson": "With two unknown frequencies you need two equations, the total and the mean; never split the deficit equally or assume symmetry between them.",
+    "timing": "About 160 seconds: build both equations, substitute, solve. Reject 26 quickly as the equal-split shortcut that ignores the mean, and 24 as f2 reported in place of f1."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

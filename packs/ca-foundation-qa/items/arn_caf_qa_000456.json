@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000456",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000456.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.permutations"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 120,
+  "stem": "If the letters of the word CREAM are arranged in alphabetical (dictionary) order, what is the rank of the word CREAM?",
+  "options": [
+    {
+      "key": 1,
+      "text": "45"
+    },
+    {
+      "key": 2,
+      "text": "25"
+    },
+    {
+      "key": 3,
+      "text": "37"
+    },
+    {
+      "key": 4,
+      "text": "49"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Sorted letters: A, C, E, M, R. Words beginning with A: 4! = 24. Words beginning with C then A, E, or M (before CR): 3 x 3! = 18. Words beginning with CRA (before CRE): 2! = 2. CREAM is the first word under CRE with A next (CREAM, then CREMA). Rank = 24 + 18 + 2 + 1 = 45."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Counted words before CREAM starting with A as 3! = 6 instead of 4! = 24, halving the first group by one factorial step."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Counted 24 + 6 + 6 + 1 = 37, using only one CA-group instead of three (CA, CE, CM) before reaching CR."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Counted 24 + 18 + 2 + 4 = 48 or a similar total of 49 by adding extra words under CRE before CREAM that do not exist (all available letters A,M are both after E so there is no word CRE_ before CREAM)."
+    }
+  ],
+  "explanation": "Alphabetical order of letters in CREAM: A < C < E < M < R. Words before CREAM: A____ (4! = 24) + CA___ (3! = 6) + CE___ (3! = 6) + CM___ (3! = 6) + CRA__ (2! = 2). CREAM itself is next. Rank = 24 + 6 + 6 + 6 + 2 + 1 = 45.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "Group words by their first differing position: 24 words begin with A, 18 begin with C but have a second letter less than R, 2 begin with CRA, then CREAM is next - rank 45.",
+    "approach": "Classify as a dictionary-rank permutation problem. Step 1 - sort the letters: A, C, E, M, R. Step 2 - count words that come before CREAM letter by letter. Fix position 1 = A: 4! = 24 words. Fix position 1 = C, position 2 in {A, E, M} (all less than R): 3 x 3! = 18 words. Fix C, R, position 3 = A (less than E): 2! = 2 words. CREAM occupies position 24 + 18 + 2 + 1 = 45.",
+    "lesson": "For a dictionary rank: at each position, count how many available letters are smaller than the actual letter in the target word, multiply by (remaining positions)!, sum up, then add 1.",
+    "timing": "100-120 s. Work methodically left to right. Common slips: treating A_ as giving only 3! instead of 4!, or miscounting how many letters precede R in the second position."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

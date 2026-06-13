@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000794",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000794.py"
+  },
+  "tests": [
+    "qa.stats.probability.conditional"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "Three urns are labelled P, Q, and R. Urn P contains 3 red and 2 blue balls; Urn Q contains 1 red and 4 blue balls; Urn R contains 2 red and 2 blue balls. An urn is selected at random with equal probability and one ball is drawn from it. The ball drawn turns out to be red. What is the probability that the ball came from Urn Q?",
+  "options": [
+    {
+      "key": 1,
+      "text": "2/13"
+    },
+    {
+      "key": 2,
+      "text": "6/13"
+    },
+    {
+      "key": 3,
+      "text": "5/13"
+    },
+    {
+      "key": 4,
+      "text": "1/3"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "P(R|Q) = 1/5. P(Red) = (1/3)(3/5) + (1/3)(1/5) + (1/3)(2/4) = 1/5 + 1/15 + 1/6 = 6/30 + 2/30 + 5/30 = 13/30. P(Q|Red) = (1/3)(1/5) / (13/30) = (1/15)/(13/30) = 2/13."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "conditional_reversed",
+      "rationale": "Computing P(P|Red) = (1/3)(3/5) / (13/30) = (1/5)/(13/30) = 6/13, reporting the posterior for Urn P instead of Urn Q."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Computing P(R|Red) = (1/3)(2/4) / (13/30) = (1/6)/(13/30) = 5/13, giving the posterior for Urn R instead of Urn Q."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "independence_assumed",
+      "rationale": "Returning the prior probability of selecting any urn = 1/3, ignoring the information that the drawn ball is red."
+    }
+  ],
+  "explanation": "Bayes theorem with three hypotheses. P(Q|Red) = P(Q)*P(Red|Q) / [P(P)*P(Red|P) + P(Q)*P(Red|Q) + P(R)*P(Red|R)]. Numerator: (1/3)(1/5) = 1/15. Denominator: (1/3)(3/5 + 1/5 + 1/2) = (1/3)(13/10) = 13/30. Result: (1/15)/(13/30) = (1/15)*(30/13) = 2/13.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Urn Q has the lowest red proportion (1/5), so even though all urns are equally likely prior, it gets the smallest posterior share.",
+    "approach": "Identify the model: Bayes theorem with three equally-probable prior hypotheses. Compute joint probabilities: P(P and Red) = (1/3)(3/5)=1/5; P(Q and Red) = (1/3)(1/5)=1/15; P(R and Red) = (1/3)(1/2)=1/6. Common denominator 30: 6/30 + 2/30 + 5/30 = 13/30. P(Q|Red) = (2/30)/(13/30) = 2/13.",
+    "lesson": "In Bayes problems with multiple hypotheses, compute all joint probabilities, sum them for the denominator, then isolate the desired hypothesis.",
+    "timing": "120-150 seconds. Convert all fractions to a common denominator (30 works here) to avoid arithmetic errors. The trap is computing the posterior for the wrong urn (P gives 6/13, R gives 5/13)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

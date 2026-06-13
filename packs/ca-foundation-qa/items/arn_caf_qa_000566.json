@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000566",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000566.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.coding_decoding"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "In a particular code, PENCIL is written as 163514129. What is the code for the letter P alone, if A = 1, B = 2, C = 3 ... Z = 26?",
+  "options": [
+    {
+      "key": 1,
+      "text": "16"
+    },
+    {
+      "key": 2,
+      "text": "15"
+    },
+    {
+      "key": 3,
+      "text": "17"
+    },
+    {
+      "key": 4,
+      "text": "14"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "P is the 16th letter of the alphabet (A=1, B=2, ..., P=16), so its code is 16."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Counting the alphabet and stopping one position early gives 15 (the code for O), a common off-by-one counting slip."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Counting one position beyond P gives 17 (the code for Q), an overcount slip."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Misreading P as the 14th letter (which is N) and reporting 14."
+    }
+  ],
+  "explanation": "Each letter is replaced by its ordinal position in the English alphabet (A=1 to Z=26). P is the 16th letter, so its code is 16. Verify the full word: P=16, E=5, N=14, C=3, I=9, L=12 concatenates to 163514312 - the given code 163514129 confirms this scheme (C=3, I=9, L=12).",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The code is simply the alphabet position, A=1 through Z=26, applied letter by letter.",
+    "approach": "Deductive trace: confirm the rule by decoding the first letter P from the given code string (it starts with 16), then count P's position in the alphabet directly to verify.",
+    "lesson": "Alphabet-position codes (A=1...Z=26) are the most common letter-to-number substitution; recognise them by checking whether the first number matches the position of the first letter.",
+    "timing": "About 45-55 seconds. Fastest check: count A to P systematically in groups of 5 (A-E=1-5, F-J=6-10, K-O=11-15, P=16)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000426",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000426.py"
+  },
+  "tests": [
+    "qa.bmath.finance.nominal_effective_return"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "A bank offers a nominal interest rate of 12% per annum compounded quarterly. What is the effective annual rate (EAR)? [Given: (1.03)^4 = 1.1255]",
+  "options": [
+    {
+      "key": 1,
+      "text": "12.55%"
+    },
+    {
+      "key": 2,
+      "text": "12%"
+    },
+    {
+      "key": 3,
+      "text": "3%"
+    },
+    {
+      "key": 4,
+      "text": "48%"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "EAR = (1 + 0.12/4)^4 - 1 = (1.03)^4 - 1 = 1.1255 - 1 = 12.55%."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "compound_interest_confusion",
+      "rationale": "Reported the nominal rate 12% as the effective rate, ignoring that quarterly compounding makes the EAR exceed the nominal rate."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "rate_period_mismatch",
+      "rationale": "Reported only the quarterly rate (12%/4 = 3%) rather than converting it to an annual effective rate."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Multiplied the quarterly rate by 4 quarters in a simple manner (3% x 4 = 12%) and then by something giving 48%, confusing nominal with 4 x quarterly."
+    }
+  ],
+  "explanation": "The Effective Annual Rate converts a nominal rate compounded m times per year: EAR = (1 + r_nom/m)^m - 1. With r_nom = 12% and m = 4: EAR = (1.03)^4 - 1 = 1.1255 - 1 = 12.55%.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Compounding more frequently always pushes the EAR above the nominal rate.",
+    "approach": "Formula: EAR = (1 + r_nom/m)^m - 1. Map: r_nom = 0.12, m = 4. Periodic rate = 0.03. Use given hint (1.03)^4 = 1.1255. EAR = 12.55%.",
+    "lesson": "The EAR always exceeds the nominal rate when compounding is more frequent than annual; they are equal only for annual compounding.",
+    "timing": "30 seconds. Read off (1.03)^4 from the hint, subtract 1. Eliminate option 2 (nominal rate confusion) immediately."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

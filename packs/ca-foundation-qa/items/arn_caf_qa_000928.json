@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000928",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000928.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.standard_deviation"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 170,
+  "stem": "Group I has 100 items with mean 50 and standard deviation 5. Group II has 150 items with mean 60 and standard deviation 6. What is the standard deviation of the combined set of 250 items (to two decimals)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "5.50"
+    },
+    {
+      "key": 2,
+      "text": "5.62"
+    },
+    {
+      "key": 3,
+      "text": "5.60"
+    },
+    {
+      "key": 4,
+      "text": "7.46"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Takes the simple average of the two standard deviations: (5 + 6)/2 = 5.50. Standard deviations do not average, and this ignores the spread introduced by the gap between the group means.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Pools the variances but forgets the between-group deviation terms: sqrt((100*25 + 150*36)/250) = sqrt(31.6) = 5.62. The d1^2 and d2^2 terms, which capture how far each group mean sits from the combined mean, are missing.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Takes the frequency-weighted average of the standard deviations: (100*5 + 150*6)/250 = 5.60. Like the simple average, this combines SDs linearly instead of through the pooled-variance identity.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "Combined mean = (100*50 + 150*60)/250 = 56. d1 = 50-56 = -6, d2 = 60-56 = 4. Variance = (100*(25+36) + 150*(36+16))/250 = (6100 + 7800)/250 = 55.6, SD = sqrt(55.6) = 7.46."
+    }
+  ],
+  "explanation": "The combined SD needs the combined mean first, then the pooled-variance identity sigma_c^2 = [n1(s1^2 + d1^2) + n2(s2^2 + d2^2)]/(n1+n2) where d1, d2 are each group mean's deviation from the combined mean. Combined mean = 56, d1 = -6, d2 = 4, so variance = (100*61 + 150*52)/250 = 55.6 and SD = 7.46. The between-group spread (the d^2 terms) makes the combined SD larger than either group's SD; dropping it gives the 5.62 trap.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The combined SD (7.46) exceeds BOTH group SDs (5 and 6) because the 10-point gap between the group means adds spread through the d1^2 and d2^2 terms that a naive average throws away.",
+    "approach": "Model: pooled standard deviation of two groups. Assumption: SDs cannot be averaged; you must reconstruct total spread about the combined mean. Recipe in five steps. (1) Combined mean mc = (100*50 + 150*60)/250 = 56. (2) Group-mean deviations d1 = 50-56 = -6, d2 = 60-56 = 4. (3) Each group contributes n*(s^2 + d^2): Group I = 100*(25+36) = 6100, Group II = 150*(36+16) = 7800. (4) Variance = (6100+7800)/250 = 55.6. (5) SD = sqrt(55.6) = 7.46.",
+    "lesson": "Combined SD requires the combined mean and the squared deviations of each group mean from it; you can never just average or weight the individual standard deviations.",
+    "timing": "About 150 seconds: one combined mean, two deviations, one pooled sum, one root. Eliminate 5.50 and 5.60 on sight as averages of SDs, and treat 5.62 as the forgot-the-d^2 trap."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -18,10 +18,11 @@
   "tests": [
     "qa.bmath.equations.simultaneous_linear"
   ],
-  "difficulty_label": "L3",
+  "difficulty_label": "L2",
+  "explanation_kind": "derivation",
   "taxonomy_version": 4,
   "item_type": "single_best",
-  "expected_seconds": 110,
+  "expected_seconds": 90,
   "stem": "A stationery shop sells pens and notebooks. The cost of 2 pens and 3 notebooks is Rs 17. The cost of 1 pen and 1 notebook is Rs 7. What is the total cost of 2 pens and 1 notebook?",
   "options": [
     {
@@ -71,10 +72,10 @@
   ],
   "explanation": "Let a = price of one pen, b = price of one notebook. Equations: 2a + 3b = 17 and a + b = 7. From the second equation, a = 7 - b. Substitute: 2(7 - b) + 3b = 17 gives 14 + b = 17, so b = 3 and a = 4. The question asks for 2a + b = 8 + 3 = 11.",
   "explanation_sections": {
-    "punchline": "The answer is Rs 11. Solving the system gives pen = Rs 4, notebook = Rs 3. The question asks for 2 pens plus 1 notebook = 8 + 3 = 11, not the price of one item or a re-statement of either equation.",
-    "approach": "Define variables for each unknown. Write the two equations. Substitute or eliminate to find both values. Then evaluate only the specific expression the question asks for. Do not stop after finding one variable.",
-    "lesson": "In word problems with simultaneous equations, the final step is to evaluate the expression the question names. Reporting a variable value or an equation value instead is a misread of the question, not a calculation error.",
-    "timing": "110 seconds. Writing and solving the system takes about 60 seconds. The substitution 2(7-b)+3b=17 simplifies in one step. Reserve 20 seconds to re-read the question and confirm you evaluate 2a+b, not a or b alone."
+    "punchline": "Rs 11. Solving gives pen = Rs 4, notebook = Rs 3. The question asks for 2 pens + 1 notebook = 8 + 3 = 11. Three of the four distractors are values that appear during the working (17, 4, 7); the trap is stopping one step short.",
+    "approach": "Transformation plan: (1) assign variables (a = pen, b = notebook), (2) write equations: 2a + 3b = 17 and a + b = 7, (3) substitute a = 7 - b from the simpler equation into the first: 2(7-b) + 3b = 17, giving b = 3, a = 4, (4) evaluate the expression the question names: 2a + b = 8 + 3 = 11. Read the question one more time after finding a and b.",
+    "lesson": "In simultaneous-equation word problems, the answer is never a raw variable value unless the question explicitly asks for one price. Always evaluate the expression named in the question using the solved values.",
+    "timing": "About 75 seconds. Substitution collapses the system in two lines. Computing 2a + b is a single addition. Reserve the last 15 seconds to confirm you answered 2a + b and not a, b, or a given equation value."
   },
   "empirical": {
     "calibration_status": "none",

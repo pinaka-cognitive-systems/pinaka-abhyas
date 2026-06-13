@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000532",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000532.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.limits"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The value of lim(x -> 3) [(x^2 - 5x + 6) / (x - 3)] is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "1"
+    },
+    {
+      "key": 2,
+      "text": "-1"
+    },
+    {
+      "key": 3,
+      "text": "3"
+    },
+    {
+      "key": 4,
+      "text": "0"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Factor: x^2-5x+6 = (x-2)(x-3). Cancel (x-3) for x != 3: lim(x->3)(x-2) = 3-2 = 1."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Factoring the numerator but computing -(x-2) = 2-x at x=3, giving 2-3 = -1, an arithmetic slip in applying the factored form."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "After cancelling (x-3), substituting x=3 into x (the original variable) rather than into (x-2), yielding 3 instead of 1."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Observing that x^2-5x+6 = 0 when x=3 and (x-3)=0 when x=3, then reporting 0/0 = 0 without factoring and cancelling."
+    }
+  ],
+  "explanation": "Factoring the numerator as (x-2)(x-3) and cancelling the common factor (x-3) leaves lim(x->3)(x-2) = 1; the setup decision is recognising the trinomial factoring.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "When a trinomial numerator vanishes at the limit point, the limit point is always a root: factor it out to resolve the 0/0 form.",
+    "approach": "State the property then contrast the confusable one. Substitution gives 0/0, an indeterminate form. Setup decision: factor the trinomial. x^2-5x+6 has roots where sum=5 and product=6, so roots 2 and 3: (x-2)(x-3). Cancel (x-3): remaining factor is (x-2). Substitute x=3: 3-2=1. Contrast the trap: computing 2-x (wrong sign) gives -1, and reading x alone after cancellation gives 3.",
+    "lesson": "For lim(x->a) P(x)/(x-a) where P(a)=0: factor P as (x-a)*Q(x) and the limit equals Q(a).",
+    "timing": "About 75 seconds. Identify 0/0 (10 sec), factor trinomial (30 sec), cancel and substitute (20 sec). Main trap: sign flip when reading the remaining factor."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

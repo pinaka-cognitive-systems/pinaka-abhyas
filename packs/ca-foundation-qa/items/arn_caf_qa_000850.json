@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000850",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000850.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.correlation"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "For two variables X and Y, cov(X,Y) = 8, var(X) = 16 and var(Y) = 25. What is the Karl Pearson coefficient of correlation between X and Y?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.40"
+    },
+    {
+      "key": 2,
+      "text": "0.32"
+    },
+    {
+      "key": 3,
+      "text": "0.50"
+    },
+    {
+      "key": 4,
+      "text": "0.02"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "sdX = sqrt(16) = 4, sdY = sqrt(25) = 5. r = cov/(sdX*sdY) = 8/(4*5) = 8/20 = 0.40."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Dividing cov by the product of variances instead of standard deviations: 8/(16*25) = 8/400 = 0.02, or a different wrong formula gives 8/25 = 0.32."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "A slip in the denominator: computing sdX = 4 correctly but then using sdY = 4 (forgetting to take sqrt(25) = 5): 8/(4*4) = 8/16 = 0.50."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Using the product of variances in the denominator: 8/(16*25) = 8/400 = 0.02."
+    }
+  ],
+  "explanation": "r = cov(X,Y) / (sdX * sdY). Step 1: Convert variances to standard deviations: sdX = sqrt(16) = 4, sdY = sqrt(25) = 5. Step 2: r = 8 / (4 * 5) = 8/20 = 0.40.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Correlation uses standard deviations in the denominator, not variances. Take square roots first.",
+    "approach": "Name the formula: r = cov / (sdX * sdY). Convert: sdX = sqrt(var(X)) = 4, sdY = sqrt(var(Y)) = 5. Then r = 8/20 = 0.40.",
+    "lesson": "The product of standard deviations in the denominator is distinct from the product of variances - confusing the two is the most common trap in this item type.",
+    "timing": "About 35 seconds. sqrt(16)=4 and sqrt(25)=5 are both exact. One multiplication and one division."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

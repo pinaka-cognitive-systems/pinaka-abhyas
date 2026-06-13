@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000815",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000815.py"
+  },
+  "tests": [
+    "qa.stats.probability.expectation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "X is a discrete random variable with distribution: P(X = 0) = 0.2, P(X = 1) = 0.5, P(X = 2) = 0.3. What is Var(X)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.60"
+    },
+    {
+      "key": 2,
+      "text": "1.70"
+    },
+    {
+      "key": 3,
+      "text": "0.69"
+    },
+    {
+      "key": 4,
+      "text": "0.49"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Using Var(X) = E(X^2) - E(X) = 1.7 - 1.1 = 0.6, subtracting the mean instead of the square of the mean."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Stopping at E(X^2) = 1.7 without subtracting [E(X)]^2, treating the second moment alone as the variance."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Correctly computing E(X^2) = 1.7 and E(X) = 1.1, but computing [E(X)]^2 as 1.21 and then 1.7 - 1.21 = 0.69 due to a subtraction slip (should be 0.49)."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "E(X) = 0(0.2) + 1(0.5) + 2(0.3) = 1.1. E(X^2) = 0(0.2) + 1(0.5) + 4(0.3) = 1.7. Var(X) = 1.7 - (1.1)^2 = 1.7 - 1.21 = 0.49."
+    }
+  ],
+  "explanation": "Use Var(X) = E(X^2) - [E(X)]^2. E(X) = 0(0.2) + 1(0.5) + 2(0.3) = 1.1. E(X^2) = 0(0.2) + 1(0.5) + 4(0.3) = 1.7. Var(X) = 1.7 - (1.1)^2 = 1.7 - 1.21 = 0.49.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Variance requires subtracting the square of the mean from E(X^2), not the mean itself.",
+    "approach": "Identify model: discrete distribution with two-step variance formula. Step 1: E(X) = sum(x*p) = 1.1. Step 2: E(X^2) = sum(x^2 * p) = 1.7. Step 3: Var = E(X^2) - [E(X)]^2 = 1.7 - 1.21 = 0.49.",
+    "lesson": "The variance formula is 'mean of squares minus square of mean': always square E(X) before subtracting, never subtract E(X) directly.",
+    "timing": "70 seconds. Two weighted sums then one squaring and subtraction. The key trap is writing 1.7 - 1.1 = 0.6 rather than 1.7 - 1.21 = 0.49."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

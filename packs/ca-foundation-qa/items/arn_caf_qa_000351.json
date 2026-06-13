@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000351",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000351.py"
+  },
+  "tests": [
+    "qa.bmath.equations.cubic"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Given that x = 2 is one root of the equation x^3 - 6x^2 + 11x - 6 = 0, find the sum of the other two roots.",
+  "options": [
+    {
+      "key": 1,
+      "text": "3"
+    },
+    {
+      "key": 2,
+      "text": "4"
+    },
+    {
+      "key": 3,
+      "text": "5"
+    },
+    {
+      "key": 4,
+      "text": "2"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Sum of all three roots is 6 (from Vieta: -(-6)/1=6). If someone subtracts incorrectly: 6-2=4 but then halves it to get 3, a slip."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "By Vieta's formulas, sum of all three roots = 6. One root is 2, so sum of other two = 6-2 = 4."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "Sum of roots by Vieta is -(coefficient of x^2)/leading = -(-6)/1=6; a sign error gives -6/1=-6, then incorrectly: -(-6)-2+mistaken sign gives 5."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "The question asks for the SUM of the other two roots, but answering with the given root x=2 instead confuses sum with the known value."
+    }
+  ],
+  "explanation": "For x^3 - 6x^2 + 11x - 6 = 0 with roots r1, r2, r3: by Vieta's formulas, r1+r2+r3 = 6. Since r1=2, we have r2+r3 = 6-2 = 4. (The roots are actually 1, 2, 3, and indeed 1+3=4.)",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Vieta gives sum of all roots = 6; subtracting the known root 2 gives 4 immediately.",
+    "approach": "Cubic Vieta shortcut: for x^3+px^2+qx+r=0, sum of roots = -p. Here p=-6, so sum=6. Subtract the given root: 6-2=4. No need to factor the cubic fully.",
+    "lesson": "For any cubic x^3+px^2+..., the sum of all three roots = -p. Use this to find missing roots quickly without full factoring.",
+    "timing": "50 seconds. Apply Vieta directly. Trap: option 1 arises from halving after Vieta; trap option 3 from a sign error on p."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

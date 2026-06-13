@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000884",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000884.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.deflating"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A retail chain reports sales revenue of Rs 4,50,000 in 2023 and Rs 3,00,000 in base year 2018. The price index for 2023 (base 2018 = 100) is 125. What is the increase in the volume of sales at constant 2018 prices from 2018 to 2023?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 1,50,000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 60,000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 2,62,500"
+    },
+    {
+      "key": 4,
+      "text": "Rs 37,500"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Subtracting nominal values directly (450000 - 300000 = 150000) skips the deflation step and compares money values rather than volumes."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Real sales 2023 = 450000 * 100 / 125 = Rs 3,60,000. Volume increase = 3,60,000 - 3,00,000 = Rs 60,000 at constant prices."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Multiplying the 2023 nominal value by the index instead of dividing: 450000 * 125 / 100 = 562500, then subtracting 300000 gives 262500. This inflates rather than deflates."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "percentage_base_confusion",
+      "rationale": "Deducting 25% of the 2023 nominal value (since the price index rose 25 points) as a direct subtraction: 450000 - 450000 * 0.25 = 337500, change = 37500. This misapplies a percentage of the nominal figure rather than the deflation formula."
+    }
+  ],
+  "explanation": "To isolate volume changes, deflate the current-year nominal value: Real 2023 = 4,50,000 x 100 / 125 = Rs 3,60,000. Volume increase = 3,60,000 - 3,00,000 = Rs 60,000. The index of 125 means prices rose 25%, so Rs 90,000 of the Rs 1,50,000 nominal gain is pure price rise.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Nominal change mixes price and volume effects; deflating strips out the price rise and reveals only the volume gain.",
+    "approach": "Name the formula: Real value = (Nominal value / Price index) x 100. Map givens: nominal 2023 = 4,50,000, index = 125. Deflate: 4,50,000 / 125 x 100 = 3,60,000. Subtract base: 3,60,000 - 3,00,000 = 60,000.",
+    "lesson": "Always deflate the current-year figure before comparing volumes across time. Multiplying by the index does the opposite - it inflates.",
+    "timing": "About 60 seconds. Trap is option 1 (nominal difference Rs 1,50,000) which appears intuitive but ignores price changes. Eliminate it first."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

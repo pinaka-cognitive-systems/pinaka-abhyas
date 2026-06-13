@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000394",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000394.py"
+  },
+  "tests": [
+    "qa.bmath.finance.present_value"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "The compound interest on a principal sum P at 10% per annum for 3 years exceeds the simple interest on the same sum at the same rate for the same period by Rs 310. A creditor is owed this principal P and will receive it as a lump sum 3 years from now. At a discount rate of 10% per annum, what is the present value of that future receipt today?  [Given: (1.1)^3 = 1.331]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 7,513"
+    },
+    {
+      "key": 2,
+      "text": "Rs 10,000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 8,264"
+    },
+    {
+      "key": 4,
+      "text": "Rs 7,692"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Step 1: CI - SI over 3 years = P[(1+r)^3 - 1 - 3r] = P[1.331 - 1 - 0.30] = P x 0.031. Setting 0.031P = 310 gives P = 10,000. Step 2: PV = 10000 / (1.1)^3 = 10000 / 1.331 = Rs 7,513 (rounded)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Correctly back-computing P = Rs 10,000 but returning P itself instead of its present value ignores the discounting step, solving the wrong quantity."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "time_factor_dropped",
+      "rationale": "Discounting P = 10,000 for only 2 years instead of 3 gives 10,000 / (1.1)^2 = 10,000 / 1.21 = Rs 8,264, an off-by-one period error."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "compound_interest_confusion",
+      "rationale": "Using simple-interest discounting PV = P / (1 + nr) = 10,000 / (1 + 0.10 x 3) = 10,000 / 1.30 = Rs 7,692 instead of compound discounting."
+    }
+  ],
+  "explanation": "This two-step problem first uses the CI-SI difference formula to recover P, then discounts P at compound interest to find today's value. CI - SI over n years = P[(1+r)^n - 1 - nr]. For n=3, r=0.10: 310 = P x 0.031, so P = 10,000. PV = 10,000 / (1.1)^3 = 10,000 / 1.331 = Rs 7,513.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The hidden relationship is CI - SI = P[(1+r)^n - 1 - nr] - recover P from this, then apply compound PV discounting.",
+    "approach": "Formula: CI - SI = P[(1+r)^n - 1 - nr]. Step 1 - CI-SI back-calc: 310 = P[1.331 - 1 - 0.30] = P x 0.031, so P = 10,000. Step 2 - PV formula: PV = P/(1+r)^n = 10,000/1.331 = Rs 7,513. The same hint (1.1)^3 = 1.331 serves both steps.",
+    "lesson": "CI - SI = P[(1+r)^n - 1 - nr] is the vault formula for this back-calculation; the three-year version adds one more term than the two-year r^2 shortcut.",
+    "timing": "120 seconds. Two distinct steps: CI-SI inversion then compound PV. Trap: option 2 = P not PV; option 3 = wrong n in discount; option 4 = simple not compound discount."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

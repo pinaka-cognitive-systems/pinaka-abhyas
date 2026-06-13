@@ -19,6 +19,7 @@
     "qa.bmath.equations.simple"
   ],
   "difficulty_label": "L2",
+  "explanation_kind": "derivation",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 90,
@@ -71,10 +72,10 @@
   ],
   "explanation": "Multiply every term by LCM(3,2) = 6: 2(2x+5) - 3(x-1) = 24. Expand carefully: 4x+10-3x+3 = 24. Collect: x + 13 = 24. Solve: x = 11.",
   "explanation_sections": {
-    "punchline": "The answer is x = 11. The key step is expanding -3(x-1) as -3x + 3, not -3x - 3. A sign error on this term shifts the answer to 17.",
-    "approach": "Identify the LCM of all denominators and multiply every term through by it to clear fractions first. Then expand each bracket, paying attention to signs. Collect all x-terms on one side and constants on the other.",
-    "lesson": "When multiplying a bracket with a negative sign outside, every term inside changes sign. -3(x-1) = -3x + 3, never -3x - 3. Write the expansion step explicitly rather than doing it mentally.",
-    "timing": "90 seconds. Finding LCM and multiplying through takes about 20 seconds. Expansion and collection of terms takes about 30 seconds. Verify by substituting x = 11 back: (27/3) - (10/2) = 9 - 5 = 4. This check takes under 15 seconds."
+    "punchline": "x = 11. The decisive transformation is clearing all fractions in one step by multiplying through by LCM(3, 2) = 6. After that it is straight linear algebra. The killer trap is expanding -3(x - 1) as -3x - 3 instead of -3x + 3, which shifts the answer to 17.",
+    "approach": "Transformation plan: (1) find LCM of all denominators (here 6), (2) multiply every term - including the integer RHS - by 6, (3) expand every bracket carefully, writing each sign change explicitly, (4) collect x-terms left and constants right, (5) solve. Write the expansion line out in full even if it feels slow - sign errors on bracketed negatives are the single most common error on this question type.",
+    "lesson": "-3(x - 1) = -3x + 3. The minus outside distributes to every term inside, flipping the sign of the constant. Doing this step mentally is how 17 appears.",
+    "timing": "About 75 seconds. Clearing fractions in 15 seconds, expanding and collecting in 30 seconds, solving in 5 seconds. Back-substitute x = 11: (27/3) - (10/2) = 9 - 5 = 4. Verification takes under 15 seconds."
   },
   "empirical": {
     "calibration_status": "none",

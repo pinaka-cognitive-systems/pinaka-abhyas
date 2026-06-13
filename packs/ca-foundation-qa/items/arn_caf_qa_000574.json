@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000574",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000574.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.coding_decoding"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "In a code, consonants are replaced by their mirror-image letter in the alphabet (A and Z swap, B and Y swap, etc.; positions sum to 27), while vowels are shifted 3 places forward. For example, TREND is coded as GIHMW. Using this rule, what is the code for STONE?",
+  "options": [
+    {
+      "key": 1,
+      "text": "HGRMH"
+    },
+    {
+      "key": 2,
+      "text": "HGLMV"
+    },
+    {
+      "key": 3,
+      "text": "VWLQV"
+    },
+    {
+      "key": 4,
+      "text": "HGQMG"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "S(cons) mirror->H, T(cons) mirror->G, O(vowel)+3=R, N(cons) mirror->M, E(vowel)+3=H, giving HGRMH."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "Applying the mirror rule to all letters including vowels: O(15) mirror->L(12) and E(5) mirror->V(22) gives HGLMV."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Swapping the rules (vowels mirrored, consonants +3): S+3=V, T+3=W, O mirror->L, N+3=Q, E mirror->V gives VWLQV."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Using vowel+2 instead of vowel+3: O+2=Q and E+2=G while consonants are mirrored correctly gives HGQMG."
+    }
+  ],
+  "explanation": "Identify vowels and consonants in STONE: S(cons), T(cons), O(vowel), N(cons), E(vowel). Mirror consonants (positions sum to 27): S(19)->H(8), T(20)->G(7), N(14)->M(13). Shift vowels +3: O(15)->R(18), E(5)->H(8). Result: H,G,R,M,H = HGRMH. Verify with TREND: T(20)->G(7), R(18)->I(9), E(vowel)+3=H(8), N(14)->M(13), D(4)->W(23) = GIHMW (matches the example).",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The key setup decision is correctly classifying each letter as vowel or consonant, then applying the correct rule to each class.",
+    "approach": "Deductive trace: list each letter of STONE with its type (S-cons, T-cons, O-vowel, N-cons, E-vowel), apply mirror rule to consonants and +3 to vowels, then read off the code.",
+    "lesson": "In dual-rule codes, scan the entire word for all vowels before coding - missing even one vowel flips its code to the consonant rule.",
+    "timing": "About 85-95 seconds. Fastest check: option 2 has L at position 3 (=O mirrored), immediately confirming the vowel rule was ignored."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

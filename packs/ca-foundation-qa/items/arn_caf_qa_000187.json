@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "From MANGO to OCPIQ, each letter moves forward by 2 positions in the alphabet: M(13)+2=O(15), A(1)+2=C(3), N(14)+2=P(16), G(7)+2=I(9), O(15)+2=Q(17). Applying the same +2 rule to GRAPE: G(7)+2=I(9), R(18)+2=T(20), A(1)+2=C(3), P(16)+2=R(18), E(5)+2=G(7). Code = ITCRG.",
+  "explanation_kind": "deductive_trace",
   "explanation_sections": {
-    "punchline": "Each letter in MANGO shifts forward by exactly 2 to give OCPIQ. Applying the same shift to each letter of GRAPE gives ITCRG.",
-    "approach": "For letter-coding problems, derive the rule from the given example before touching the target word. Check the shift for at least two letters to confirm it is uniform. Then apply it letter by letter to the target word. Write each letter's position number if you are unsure: use A=1, B=2, ... Z=26.",
-    "lesson": "Always verify the coding rule on two or more letters from the example. A single-letter check can mislead if there is a position-based or mixed rule. Uniform shift and position-based shift produce different outputs.",
-    "timing": "About 90 seconds. Deriving the rule from MANGO takes 30 seconds. Applying it to five letters of GRAPE takes 40 seconds. Use the last 20 seconds to check the last letter, which is where arithmetic errors most often occur."
+    "punchline": "Lock the rule by verifying at least two letters of the example: M+2=O and A+2=C both confirm a uniform +2 shift. That is the cracking move - a single-letter check could match a position-based rule; two letters rule it out.",
+    "approach": "Step 1 (derive rule from example): Check M(13)+2=O(15). Check A(1)+2=C(3). Both confirm uniform +2. Also verify N(14)+2=P(16) as a third check. Step 2 (apply to target): G(7)+2=I(9), R(18)+2=T(20), A(1)+2=C(3), P(16)+2=R(18), E(5)+2=G(7). Code = ITCRG. Step 3 (verify): read ITCRG back and confirm each letter is exactly 2 ahead of the corresponding GRAPE letter. This two-step recipe - verify rule on 2+ example pairs, then apply uniformly - works for any substitution-cipher coding question.",
+    "lesson": "Always verify the coding rule on at least two letters before applying it. A single match could fit both a uniform-shift rule and a position-indexed rule. Checking two letters eliminates the ambiguity.",
+    "timing": "About 80 seconds. Deriving the rule from MANGO: 25 seconds. Applying to GRAPE letter by letter: 40 seconds. Final check on the last letter: 15 seconds. The trap is option 2 (ITCRH) - it applies +2 correctly to the first four letters but slips to +3 on E. The last letter is the most error-prone."
   },
   "empirical": {
     "calibration_status": "none",

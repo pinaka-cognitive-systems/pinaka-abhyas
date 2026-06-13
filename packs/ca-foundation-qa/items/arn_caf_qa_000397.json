@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000397",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000397.py"
+  },
+  "tests": [
+    "qa.bmath.finance.future_value"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "Rs 8000 is deposited in a bank account that offers compound interest at 5% per annum, compounded annually. What is the amount in the account at the end of 2 years? [Given: (1.05)^2 = 1.1025]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 8820"
+    },
+    {
+      "key": 2,
+      "text": "Rs 8800"
+    },
+    {
+      "key": 3,
+      "text": "Rs 8400"
+    },
+    {
+      "key": 4,
+      "text": "Rs 9000"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "FV = 8000 * (1.05)^2 = 8000 * 1.1025 = Rs 8820."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "compound_interest_confusion",
+      "rationale": "Using simple interest: 8000 + 2 * 8000 * 0.05 = 8000 + 800 = Rs 8800, ignoring the compounding effect."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "time_factor_dropped",
+      "rationale": "Applying only one year of interest: 8000 * 1.05 = Rs 8400 instead of using n = 2."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Rounding 1.1025 to 1.125 or computing 8000 * 1.125 = 9000 due to a factor slip."
+    }
+  ],
+  "explanation": "Compound FV = P*(1+r)^n. P = 8000, r = 0.05, n = 2. Using hint (1.05)^2 = 1.1025: FV = 8000 * 1.1025 = Rs 8820.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Compounding raises the factor to a power; simple interest only multiplies by (1 + rn).",
+    "approach": "Name the formula: FV = P*(1+r)^n. Map: P = 8000, r = 5% = 0.05, n = 2. Use given hint to get 8000 * 1.1025 = 8820.",
+    "lesson": "For compound interest, do not use the simple-interest formula even if the final computation looks similar for small n.",
+    "timing": "Under 30 seconds using the hint. The simple-interest trap gives 8800."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

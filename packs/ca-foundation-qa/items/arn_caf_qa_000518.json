@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000518",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000518.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.venn"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "In a survey of 120 customers, 70 purchased product A and 55 purchased product B. If 25 purchased both products, how many customers purchased product A but not product B?",
+  "options": [
+    {
+      "key": 1,
+      "text": "45"
+    },
+    {
+      "key": 2,
+      "text": "70"
+    },
+    {
+      "key": 3,
+      "text": "95"
+    },
+    {
+      "key": 4,
+      "text": "30"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "A but not B = n(A) - n(A intersect B) = 70 - 25 = 45."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "This returns n(A) = 70, the count for A including those who also bought B, ignoring the need to exclude the overlap."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "This comes from 70 + 25 = 95, incorrectly adding the intersection instead of subtracting it."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "set_operation_confused",
+      "rationale": "This comes from n(B) - n(A intersect B) = 55 - 25 = 30, computing B but not A instead of A but not B."
+    }
+  ],
+  "explanation": "The number of customers who purchased A but not B is the part of the A-circle that lies outside the B-circle: n(A) - n(A intersect B) = 70 - 25 = 45.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "A but not B strips the overlap from A: subtract those who bought both from the A count.",
+    "approach": "State the formula: n(A \\ B) = n(A) - n(A intersect B). Substitute directly.",
+    "lesson": "A only = n(A) minus the intersection. B only = n(B) minus the intersection. These are the exclusive regions.",
+    "timing": "40 s. The trap is returning n(A) = 70 (forgetting to remove those who also bought B)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000315",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000315.py"
+  },
+  "tests": [
+    "qa.bmath.ratio_indices_log.ratio"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "A purse contains coins of denominations Rs 1, Rs 2, and Rs 5 in the ratio 4 : 3 : 1 (by number of coins). The total monetary value of all the coins is Rs 120. How many Rs 5 coins are in the purse?",
+  "options": [
+    {
+      "key": 1,
+      "text": "8"
+    },
+    {
+      "key": 2,
+      "text": "15"
+    },
+    {
+      "key": 3,
+      "text": "24"
+    },
+    {
+      "key": 4,
+      "text": "10"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Let Rs 1, Rs 2, and Rs 5 coins be 4k, 3k, and k respectively. Total value = 4k x 1 + 3k x 2 + k x 5 = 4k + 6k + 5k = 15k = 120. So k = 8. Rs 5 coins = k = 8."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student divides total value equally among ratio parts: 120 / 8 = 15. This treats every ratio part as worth the same Rs 1 unit, ignoring denomination differences."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student correctly finds k = 8 but reports the number of Rs 2 coins (3 x 8 = 24) instead of the Rs 5 coins."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student sets up the count equation 4k + 3k + k = 120 (treating coin count as equal to value), getting 8k = 120 and k = 15, but then reports the Rs 5 coins as k = 15; a second slip then halves this to give 10 when trying to back-check."
+    }
+  ],
+  "explanation": "Let Rs 1, Rs 2, and Rs 5 coins number 4k, 3k, and k. The total value equation translates the count ratio into money: (4k x 1) + (3k x 2) + (k x 5) = 4k + 6k + 5k = 15k. Setting 15k = 120 gives k = 8. The number of Rs 5 coins = k = 8.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The hidden step is converting coin counts to values using denomination weights before summing - this is a unit-conversion coin problem.",
+    "approach": "Multi-denomination ratio-to-value: express each coin type's count using k (4k, 3k, k). Multiply each count by its denomination (1, 2, 5). Sum the weighted expressions to get 15k. Equate to the total value (120) and solve for k. Answer is the coefficient for the asked denomination times k.",
+    "lesson": "When coins or items of different values are in a count ratio, multiply each count expression by its per-unit value before summing; never treat ratio parts as currency directly.",
+    "timing": "90 seconds. Trap: dividing 120 by 8 (ratio sum) to get 15, which ignores denomination weights entirely."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

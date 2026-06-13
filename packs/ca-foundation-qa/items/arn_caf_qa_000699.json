@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000699",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000699.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.median"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 45,
+  "stem": "Seven observations are arranged in ascending order: 12, 18, 24, 31, 39, 45, 52. What is the median of this data set?",
+  "options": [
+    {
+      "key": 1,
+      "text": "24"
+    },
+    {
+      "key": 2,
+      "text": "31"
+    },
+    {
+      "key": 3,
+      "text": "35"
+    },
+    {
+      "key": 4,
+      "text": "39"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Selecting the 3rd value (position (7-1)/2 = 3) instead of the correct (n+1)/2 = 4th position gives 24."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "For n = 7 (odd), median is at position (7+1)/2 = 4. The 4th value in the ordered set is 31."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "Computing the arithmetic mean of all seven values (sum = 221, mean = 221/7 = 31.57) and confusing it with the median, or averaging the 4th and 5th values (31 + 39)/2 = 35 as if n were even."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Selecting the 5th value (position n/2 + 1 = 5 using an incorrect even-n formula) gives 39."
+    }
+  ],
+  "explanation": "For an odd number of ordered observations, median = value at position (n+1)/2. Here n = 7, so median position = (7+1)/2 = 4. Counting along: 12 (1st), 18 (2nd), 24 (3rd), 31 (4th). Median = 31.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "For odd n, the middle position is (n+1)/2 - there is no averaging of two values.",
+    "approach": "Identify the distribution and model: median for ungrouped odd-count data. Formula: median = x_{(n+1)/2}. n = 7, position = 4. Read off the 4th value from the sorted list: 31.",
+    "lesson": "The even-n formula averages two middle values; the odd-n formula picks a single middle value at position (n+1)/2. Never average adjacent values when n is odd.",
+    "timing": "10-15 seconds. Count to position 4 in the sorted sequence immediately."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

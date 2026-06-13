@@ -18,10 +18,11 @@
   "tests": [
     "qa.stats.distributions.normal"
   ],
-  "difficulty_label": "L1",
+  "difficulty_label": "L2",
+  "explanation_kind": "model_compute",
   "taxonomy_version": 4,
   "item_type": "single_best",
-  "expected_seconds": 60,
+  "expected_seconds": 90,
   "stem": "The weights of packets follow a normal distribution with mean 500 g and standard deviation 20 g. Use P(0 < Z < 1) = 0.3413. What is the probability that a packet weighs between 480 g and 520 g?",
   "options": [
     {
@@ -71,10 +72,10 @@
   ],
   "explanation": "1. Standardise: z = (520 - 500)/20 = 1 and z = (480 - 500)/20 = -1.\n2. The stem gives P(0 < Z < 1) = 0.3413.\n3. KEY STEP: By symmetry of the normal distribution, P(-1 < Z < 1) = 2 × 0.3413 = 0.6826.\n4. The interval is symmetric about zero, so both halves contribute equally.",
   "explanation_sections": {
-    "punchline": "480 and 520 are each 20 g away from the mean 500, so the z-scores are -1 and +1. By symmetry, the total probability is simply 2 times 0.3413 = 0.6826.",
-    "approach": "For a two-sided interval around the mean, standardise both limits first. If the two z-scores are mirror images (one positive, one negative with the same magnitude), the probability is 2 times P(0 < Z < z). The stem always gives the one-sided area, so doubling is the only extra step.",
-    "lesson": "When an interval is symmetric about the mean, double the one-sided table value. Do not add 0.5 and do not look up a two-sided entry: just multiply by 2.",
-    "timing": "About 60 seconds. This is an L1 item. Compute both z-scores in 10 seconds, confirm they are plus and minus 1, then double the given value. Reject option (3) in five seconds: it is the one-sided area, not the two-sided answer."
+    "punchline": "480 and 520 are equidistant from the mean 500, giving z = -1 and z = +1. Normal symmetry means the two-sided area is exactly 2 times the one-sided value: 2 * 0.3413 = 0.6826.",
+    "approach": "Model: Normal(mean=500, sd=20). Step 1 - standardise both limits: z1 = (480-500)/20 = -1, z2 = (520-500)/20 = +1. Step 2 - recognise symmetry: when the two z-scores are negatives of each other, P(z1 < Z < z2) = 2 * P(0 < Z < z). Step 3 - apply: 2 * 0.3413 = 0.6826. Do not add 0.5 and do not use 1 - something; the symmetry doubling is sufficient.",
+    "lesson": "A symmetric two-sided interval around the mean doubles the one-sided table value. Adding 0.5 gives P(Z < 1), the cumulative probability up to z = 1, which is a different and wrong quantity.",
+    "timing": "60-90 seconds. Compute both z-scores in 10 seconds and confirm mirror symmetry. Reject option (3) = 0.3413 in 5 seconds: that is the one-sided half, not the full interval. Reject option (4) = 0.8413: that is P(Z < 1), which covers the left tail plus the central area, not the symmetric central band."
   },
   "empirical": {
     "calibration_status": "none",

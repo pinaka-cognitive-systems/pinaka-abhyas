@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000326",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000326.py"
+  },
+  "tests": [
+    "qa.bmath.ratio_indices_log.logarithm"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "What is the value of log_2(64)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "5"
+    },
+    {
+      "key": 2,
+      "text": "4"
+    },
+    {
+      "key": 3,
+      "text": "6"
+    },
+    {
+      "key": 4,
+      "text": "8"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Confuses 2^5 = 32 with 64, stopping one step early in the power sequence."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Confuses 2^4 = 16 with 64, stopping two steps early."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "64 = 2^6, so log_2(64) = 6 by the definition of logarithm."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Incorrectly uses log_2(64) = 64/2 = 32, or thinks the answer relates to 64/8 = 8."
+    }
+  ],
+  "explanation": "By definition, log_2(64) = x means 2^x = 64. Since 2^6 = 64, the answer is 6.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Express 64 as 2^6; by definition log_2(64) = 6.",
+    "approach": "Apply the definition directly: log_b(N) = x means b^x = N. Compute powers of 2 step by step: 2^1=2, 2^2=4, 2^3=8, 2^4=16, 2^5=32, 2^6=64. Stop at 64.",
+    "lesson": "log_b(b^n) = n always. Memorise key powers of 2 up to 2^10 for speed.",
+    "timing": "Under 25 seconds: count powers of 2 up to 64 and stop. Trap is option 1 (x=5) from confusing 32 with 64."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

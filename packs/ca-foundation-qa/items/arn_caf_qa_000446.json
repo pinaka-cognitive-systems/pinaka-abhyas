@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000446",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000446.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.factorial"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "How many ways can the letters of the word FACTOR be arranged if each arrangement uses all six letters exactly once?",
+  "options": [
+    {
+      "key": 1,
+      "text": "720"
+    },
+    {
+      "key": 2,
+      "text": "360"
+    },
+    {
+      "key": 3,
+      "text": "120"
+    },
+    {
+      "key": 4,
+      "text": "5040"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "All 6 letters in FACTOR are distinct. The number of arrangements of n distinct objects is n!, so 6! = 720."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Computed 6! / 2 = 360, as if one letter were repeated twice, but FACTOR has no repeated letter."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Evaluated 5! = 120 instead of 6!, treating the word as having 5 letters."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Evaluated 7! = 5040 instead of 6!, adding an extra letter to the count."
+    }
+  ],
+  "explanation": "FACTOR has 6 distinct letters. Arranging n distinct objects gives n! arrangements: 6! = 720.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "All 6 letters are distinct, so the count is simply 6! = 720.",
+    "approach": "Classify as an unrestricted arrangement of distinct objects. Count the letters, confirm none repeat, then write n!. Here n = 6, so 6! = 6 x 5 x 4 x 3 x 2 x 1 = 720.",
+    "lesson": "The moment you confirm all letters are distinct, the answer is n!. Division enters only when letters repeat.",
+    "timing": "20-25 s. The trap is dividing by 2 for some imagined repeated letter - scan FACTOR: F, A, C, T, O, R - all distinct."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

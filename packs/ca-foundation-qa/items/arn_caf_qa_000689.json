@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000689",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000689.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.sampling"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 45,
+  "stem": "A complete list of all units belonging to a population, used as the basis for drawing a sample, is called a:",
+  "options": [
+    {
+      "key": 1,
+      "text": "Sample frame"
+    },
+    {
+      "key": 2,
+      "text": "Census"
+    },
+    {
+      "key": 3,
+      "text": "Parameter"
+    },
+    {
+      "key": 4,
+      "text": "Statistic"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "A sampling frame (or sample frame) is the complete list or enumeration of all units in the target population from which the sample will be drawn."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "A census involves collecting data from every unit of the population; it is the process of complete enumeration, not the list used to draw a sample."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "A parameter is a numerical characteristic (such as a mean or proportion) of the population, not a list of population units."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "A statistic is a numerical characteristic computed from a sample; it is not a list of population units."
+    }
+  ],
+  "explanation": "The sampling frame is the master list of all population units from which a sample is drawn. Without an accurate sampling frame, probability sampling cannot be carried out properly.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "The 'complete list of all units used as the basis for sampling' is the definition of a sampling frame.",
+    "approach": "State the property: sampling frame = complete enumeration of population units used to select the sample. Contrast: census = collecting data from all units (an activity); parameter = population numerical characteristic; statistic = sample numerical characteristic.",
+    "lesson": "The sampling frame is a prerequisite for probability sampling; its accuracy directly determines the quality of the sample.",
+    "timing": "20 seconds by direct recall. Eliminate parameter and statistic (both are numbers, not lists) immediately."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

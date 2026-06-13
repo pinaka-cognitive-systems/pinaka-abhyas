@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "Present value of a perpetuity = PMT / r. With PMT = 12,000 and r = 0.08: PV = 12,000 / 0.08 = Rs 1,50,000. A common error is using the wrong discount rate or applying a finite-period formula.",
+  "explanation_kind": "formula_selection",
   "explanation_sections": {
-    "punchline": "For a perpetuity, PV = PMT / r. Rs 12,000 divided by 0.08 equals Rs 1,50,000.",
-    "approach": "Recognise the word \"forever\" or \"in perpetuity\" as the signal to use PV = PMT / r. There is no n and no annuity table needed. Convert the discount rate from percentage to decimal before dividing. The calculation is a single division.",
-    "lesson": "A perpetuity has only one formula: PMT divided by the decimal rate. Applying a finite-period annuity formula or using the wrong rate are the only two ways to go wrong here.",
-    "timing": "About 60 seconds. This is an L1 item. The division 12,000 / 0.08 = 1,50,000 takes 10 seconds. Reject option (1) in five seconds: that would require a rate of 10%, not 8%."
+    "punchline": "The word 'forever' signals one formula: PV = PMT / r. 12,000 / 0.08 = Rs 1,50,000. No exponent, no annuity table.",
+    "approach": "Name the formula and WHY: a perpetuity never ends, so the sum of discounted payments converges to PMT / r. Map the givens: PMT = 12,000, r = 8% = 0.08. Divide: 12,000 / 0.08 = 1,50,000. The only setup decision is confirming the payment goes on forever (not for a fixed n years).",
+    "lesson": "If the payment is finite, use the annuity formula. If the payment continues forever, use PMT / r. Using a different rate such as 10% gives Rs 1,20,000, the most tempting wrong option.",
+    "timing": "About 45 seconds. A single division. Convert 8% to 0.08 before dividing to avoid a factor-of-100 error. Reject option (1) in three seconds: Rs 1,20,000 = 12,000 / 0.10 means the solver used 10% instead of 8%."
   },
   "empirical": {
     "calibration_status": "none",

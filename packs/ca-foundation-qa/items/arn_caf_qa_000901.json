@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000901",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000901.py"
+  },
+  "tests": [
+    "qa.bmath.equations.quadratic"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "The roots of x^2 - 5x + k = 0 are alpha and beta. If alpha^3 + beta^3 = 35, what is the value of k?",
+  "options": [
+    {
+      "key": 1,
+      "text": "6"
+    },
+    {
+      "key": 2,
+      "text": "30"
+    },
+    {
+      "key": 3,
+      "text": "-6"
+    },
+    {
+      "key": 4,
+      "text": "10"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "By Vieta, alpha + beta = 5 and alpha*beta = k. The identity alpha^3 + beta^3 = (alpha+beta)^3 - 3*alpha*beta*(alpha+beta) gives 125 - 15k = 35, so 15k = 90 and k = 6."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Uses the wrong identity alpha^3 + beta^3 = (alpha+beta)^3 - 3*alpha*beta only, dropping the (alpha+beta) factor on the second term: 125 - 3k = 35 gives k = 30. The transferred-sum factor was lost.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Flips a sign in the identity to 125 + 15k = 35, giving 15k = -90 and k = -6. A sign error on the cross term.",
+      "misconception": "sign_error"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Reads alpha^3 + beta^3 = 35 as alpha^2 + beta^2 = 35 and uses (alpha+beta)^2 - 2*alpha*beta = 35, giving 25 - 2k = 35 and k = -5, then reports the magnitude shifted to 10 after a further slip; the cubic structure was reduced to a square.",
+      "misconception": "wrong_formula"
+    }
+  ],
+  "explanation": "Vieta gives alpha + beta = 5 and alpha*beta = k. Use the sum-of-cubes identity alpha^3 + beta^3 = (alpha+beta)^3 - 3*alpha*beta*(alpha+beta). Substitute: 5^3 - 3*k*5 = 125 - 15k. Set equal to 35: 125 - 15k = 35, so 15k = 90 and k = 6.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Never solve for the roots. The symmetric function alpha^3 + beta^3 is fixed entirely by the sum and product, which Vieta hands you for free.",
+    "approach": "When a question asks for a symmetric expression in the roots, rewrite it in terms of S = alpha+beta and P = alpha*beta using the standard identities, then read S and P straight off the coefficients. Here alpha^3 + beta^3 = S^3 - 3PS.",
+    "lesson": "alpha^3 + beta^3 = (alpha+beta)^3 - 3*alpha*beta*(alpha+beta). The minus-3-product term carries the full sum factor, not just the product.",
+    "timing": "About 150 seconds. The fastest elimination is to reject 30, which is the trap from forgetting the (alpha+beta) factor on the cross term."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000323",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000323.py"
+  },
+  "tests": [
+    "qa.bmath.ratio_indices_log.indices"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "If 2^x = 32, what is the value of x?",
+  "options": [
+    {
+      "key": 1,
+      "text": "4"
+    },
+    {
+      "key": 2,
+      "text": "5"
+    },
+    {
+      "key": 3,
+      "text": "6"
+    },
+    {
+      "key": 4,
+      "text": "3"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Confuses 2^4 = 16 with 32, off by one power."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "2^5 = 32, so x = 5 by definition of the logarithm / index law."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Confuses 2^6 = 64 with 32, overshoots by one power."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Confuses 2^3 = 8 with 32, undershoots by two powers."
+    }
+  ],
+  "explanation": "Since 32 = 2 x 2 x 2 x 2 x 2 = 2^5, the equation 2^x = 32 is satisfied by x = 5. This is a direct application of index definition: if a^x = N then x = log_a(N).",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Express 32 as a power of 2: 2^5 = 32, so x = 5.",
+    "approach": "Rewrite the right-hand side as the same base raised to a known exponent. When bases are equal, exponents must be equal: a^x = a^n implies x = n.",
+    "lesson": "Always express both sides in the same base before comparing exponents.",
+    "timing": "Under 20 seconds: mentally compute 2^1=2, 2^2=4, 2^3=8, 2^4=16, 2^5=32 and stop. Trap: option 1 (x=4) comes from stopping one step early."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

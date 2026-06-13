@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000337",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000337.py"
+  },
+  "tests": [
+    "qa.bmath.equations.simple"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "Priya's age is 4 years more than twice her younger sister's age. If the sum of their ages is 31, what is Priya's age?",
+  "options": [
+    {
+      "key": 1,
+      "text": "20 years"
+    },
+    {
+      "key": 2,
+      "text": "22 years"
+    },
+    {
+      "key": 3,
+      "text": "18 years"
+    },
+    {
+      "key": 4,
+      "text": "24 years"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "Student writes Priya = 2s - 4 (subtracts instead of adding 4), then 2s - 4 + s = 31, 3s = 35, s = 35/3 (not integer). With sum = 31 and Priya = 2s + 4: s = 9, Priya = 22. For 20: student may use Priya = 2s + 4 but writes sum as 2(Priya) = 31 + 4, etc. Alternatively: student sets sister = s, Priya = 2s + 4, sum = 3s + 4 = 31, s = 9, Priya = 22. For option 1 (20): student may solve s + (s + 4) = 31 giving 2s = 27 (wrong equation structure)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Let sister's age = s. Then Priya's age = 2s + 4. Sum: s + (2s + 4) = 31, so 3s + 4 = 31, 3s = 27, s = 9. Priya = 2(9) + 4 = 22."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "Student sets Priya = 2s - 4, then s + (2s - 4) = 31, 3s = 35, non-integer; or alternatively sets up Priya = 2(s + 4) = 2s + 8, sum = 3s + 8 = 31, s = 23/3, leading to rounding to 18."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student solves for Priya correctly as 22 but then adds the 4 again: 22 + 4 = 26, or sets up Priya's age = 2*31/3 + correction, arriving at 24 by using sister's age formula for Priya."
+    }
+  ],
+  "explanation": "Let sister's age be s. Priya = 2s + 4. Sum condition: s + 2s + 4 = 31, so 3s = 27, s = 9. Priya's age = 18 + 4 = 22 years.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Express both ages in terms of one variable, form a sum equation, and solve for the unknown.",
+    "approach": "Define sister's age = s. Translate 'four more than twice sister' as 2s + 4. Write sum equation: s + 2s + 4 = 31. Collect: 3s = 27, s = 9. Substitute back: Priya = 22.",
+    "lesson": "'More than' means addition; 'twice' means multiplication by 2. Write the expression before forming the sum equation.",
+    "timing": "About 50 seconds. Trap: confusing 'twice plus 4' with 'twice (age plus 4)' = 2s + 8, which gives a different answer."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

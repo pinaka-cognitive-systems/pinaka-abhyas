@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000728",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000728.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.gm_hm"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 95,
+  "stem": "A distribution has five observations: 2, 4, 8, 16, 32. The geometric mean of this distribution, computed using the log method, is: [Given: log 2 = 0.3010]",
+  "options": [
+    {
+      "key": 1,
+      "text": "8"
+    },
+    {
+      "key": 2,
+      "text": "12.4"
+    },
+    {
+      "key": 3,
+      "text": "6.96"
+    },
+    {
+      "key": 4,
+      "text": "4"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "log GM = (1/5)*(log2 + log4 + log8 + log16 + log32) = (1/5)*(1 + 2 + 3 + 4 + 5)*0.3010 = (1/5)*15*0.3010 = 3*0.3010 = 0.9030. GM = antilog(0.9030) = 10^0.9030 = 8."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "12.4 is approximately the arithmetic mean (2+4+8+16+32)/5 = 62/5 = 12.4; a student computes AM instead of GM."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "6.96 results from computing the median of log values and taking antilog: logs are 0.301, 0.602, 0.903, 1.204, 1.505; median log = 0.903 gives GM 8; but a student who computes HM of the original values gets HM = 5/(1/2+1/4+1/8+1/16+1/32) = 5/((16+8+4+2+1)/32) = 5*32/31 = 160/31 = 5.16, or applies wrong antilog base and gets 6.96."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "4 results from applying the log-method formula with only 4 terms instead of all 5: (1/5)*(log2+log4+log8+log16)*0.3010 = (1/5)*(1+2+3+4)*0.3010 = (10/5)*0.3010 = 0.6020; antilog(0.6020) = 4. The student dropped the fifth observation from the sum."
+    }
+  ],
+  "explanation": "The log method: log GM = (1/n) * sum(log xi). The values 2, 4, 8, 16, 32 are 2^1, 2^2, 2^3, 2^4, 2^5. log xi = i * log 2 = i * 0.3010 for i = 1 to 5. Sum of logs = (1+2+3+4+5)*0.3010 = 15*0.3010 = 4.515. log GM = 4.515/5 = 0.9030. GM = antilog(0.9030) = 8 (since log 8 = 3*0.3010 = 0.9030).",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Recognizing 2, 4, 8, 16, 32 as a geometric progression in base 2 turns the log-method sum into 0.3010*(1+2+3+4+5)/5 = 0.9030 instantly.",
+    "approach": "Model: GM via logs. Formula: log GM = (1/n)*sum(log xi). Identify each log: log(2^k) = k*log2 = k*0.3010. Sum = 0.3010*(1+2+3+4+5) = 0.3010*15 = 4.515. Divide by n=5: 0.9030. Antilog: 10^0.9030 = 8.",
+    "lesson": "The log method for GM replaces multiplication with addition. For a GP with ratio r, log GM equals the log of the middle term (the median of the logs).",
+    "timing": "About 70 seconds. Key setup: spot the GP and express each log as a multiple of 0.3010. Trap: computing AM (12.4) by adding raw values."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000507",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000507.py"
+  },
+  "tests": [
+    "qa.bmath.calculus.applications"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 110,
+  "stem": "A firm's revenue function is R(x) = 40x - x^2 and its cost function is C(x) = x^2 + 4x + 5, where x is output. What is the maximum profit the firm can earn?",
+  "options": [
+    {
+      "key": 1,
+      "text": "157"
+    },
+    {
+      "key": 2,
+      "text": "139"
+    },
+    {
+      "key": 3,
+      "text": "155"
+    },
+    {
+      "key": 4,
+      "text": "279"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Profit P(x) = R(x) - C(x) = -2x^2 + 36x - 5. P'(x) = -4x + 36 = 0 gives x=9. P(9) = -2*81+36*9-5 = -162+324-5 = 157."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Using average revenue AR = R(x)/x = 40-x as if it were marginal revenue to set AR = MC: (40-x) = MC = 2x+4 gives x=12. P(12) = -2*144+36*12-5 = -288+432-5 = 139."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Setting P'(x) = 0 correctly to get x=9 but computing P(9) with -4x+36 evaluated at x=10 (off-by-one): P(10) = -2*100+36*10-5 = -200+360-5 = 155."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Computing revenue at the optimal output x=9 instead of profit: R(9) = 40*9 - 81 = 360-81 = 279."
+    }
+  ],
+  "explanation": "Form the profit function: P(x) = R(x) - C(x) = (40x-x^2) - (x^2+4x+5) = -2x^2+36x-5. Differentiate and set to zero: P'(x) = -4x+36 = 0, so x=9. Since P''(x) = -4 < 0, this is a maximum. P(9) = -2(81)+36(9)-5 = -162+324-5 = 157.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The decisive move is forming P(x) = R(x) - C(x) first, then differentiating the combined profit function rather than working with MR and MC separately.",
+    "approach": "Profit maximisation: combine R and C into P(x), differentiate P to get P'(x), set P'(x)=0 to find the critical point, verify P''<0 for a maximum, then evaluate P at the critical point.",
+    "lesson": "Setting MR = MC and setting P' = 0 are equivalent approaches; both give x=9. But using AR = MC is a classic error that gives the wrong critical point.",
+    "timing": "80-100 seconds. Compute P(x) first, then differentiate once. Do not use AR=MC instead of MR=MC."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

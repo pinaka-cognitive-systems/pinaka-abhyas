@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000517",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000517.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.venn"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "In a group of 80 employees, a survey shows that 48 use email, 36 use instant messaging, and 12 use both. How many employees use neither communication tool?",
+  "options": [
+    {
+      "key": 1,
+      "text": "8"
+    },
+    {
+      "key": 2,
+      "text": "20"
+    },
+    {
+      "key": 3,
+      "text": "12"
+    },
+    {
+      "key": 4,
+      "text": "44"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "n(E union M) = 48 + 36 - 12 = 72. Neither = 80 - 72 = 8."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "This comes from 80 - 48 - 36 + 24 = 20, doubling the intersection instead of subtracting it once in the union formula."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "This returns n(both) = 12, the intersection count, instead of the count of those outside both sets."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "set_operation_confused",
+      "rationale": "This comes from 80 - 36 = 44, subtracting only one set's count and confusing the complement of one set with the complement of the union."
+    }
+  ],
+  "explanation": "By inclusion-exclusion: n(E union M) = n(E) + n(M) - n(E intersect M) = 48 + 36 - 12 = 72. Employees using neither = n(U) - n(E union M) = 80 - 72 = 8.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "Neither = complement of the union; compute the union first using inclusion-exclusion, then subtract from the total.",
+    "approach": "State inclusion-exclusion: n(union) = n(E) + n(M) - n(both). Subtract from n(U) to get neither. Two clean steps.",
+    "lesson": "Always compute the union before finding the neither count; do not subtract individual set sizes directly from n(U).",
+    "timing": "55 s. The trap is picking 12 (the both count) or 20 (double-counting the overlap error)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

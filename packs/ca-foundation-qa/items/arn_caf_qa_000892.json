@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000892",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000892.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.tests_adequacy"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "Which index number method is described as the 'ideal' index because it satisfies both the time reversal test and the factor reversal test?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Laspeyres index"
+    },
+    {
+      "key": 2,
+      "text": "Paasche index"
+    },
+    {
+      "key": 3,
+      "text": "Fisher's ideal index"
+    },
+    {
+      "key": 4,
+      "text": "Simple aggregative index"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Laspeyres index uses base-period quantities and satisfies neither the time reversal test nor the factor reversal test individually."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Paasche index uses current-period quantities and also fails both tests individually - it has an upward bias for substitutable goods."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Fisher's ideal index = square root of (Laspeyres x Paasche). Because it is the geometric mean of the two biased indices, the biases cancel and it satisfies both the time reversal and factor reversal tests."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "The simple aggregative index merely sums current prices divided by base prices with no quantity weighting and satisfies neither test."
+    }
+  ],
+  "explanation": "Fisher's ideal index is the geometric mean of the Laspeyres and Paasche indices: F = sqrt(L x P). Its 'ideal' label comes from satisfying the time reversal test (P01 x P10 = 1) and the factor reversal test (P01 x Q01 = V01), properties that no single base-weighted or current-weighted index alone achieves.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Fisher earns the 'ideal' label by being the only standard index that simultaneously passes both the time reversal and factor reversal tests.",
+    "approach": "This is a direct recall item. Identify the method: Fisher's ideal index = sqrt(Laspeyres x Paasche). Test property: satisfies both TRT and FRT.",
+    "lesson": "Laspeyres and Paasche are biased in opposite directions. Their geometric mean (Fisher) cancels the bias and earns both adequacy badges.",
+    "timing": "Under 30 seconds. Eliminate options 1, 2, 4 by noting each fails at least one test. Only Fisher (option 3) passes both."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

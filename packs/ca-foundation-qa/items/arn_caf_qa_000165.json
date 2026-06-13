@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "Let first term = a and common difference = d. T5 = a + 4d = 17 and T9 = a + 8d = 33. Subtracting: 4d = 16, so d = 4. Then a = 17 - 4 × 4 = 1.",
+  "explanation_kind": "derivation",
   "explanation_sections": {
-    "punchline": "Subtracting the two term equations gives d = 4. Then stepping back 4 positions from T5 gives a = 17 - 16 = 1.",
-    "approach": "AP problems with two known terms require setting up two equations in a and d. Write T_n = a + (n-1)d for each given term. Subtract the smaller equation from the larger to cancel a and find d. Then back-substitute to find a.",
-    "lesson": "The nth term of an AP is a + (n-1)d. The 5th term uses (5-1) = 4 steps, not 5. An off-by-one here changes the answer.",
-    "timing": "About 90 seconds. The subtraction and back-substitution are two short calculations. Eliminate option 4 in five seconds: that is the common difference, not the first term."
+    "punchline": "Two term equations in a and d. Subtracting cancels a and gives d = 4. Back-substituting into the T5 equation gives a = 17 - 4 x 4 = 1.",
+    "approach": "AP problems with two known non-consecutive terms follow a fixed plan: write T_n = a + (n-1)d for each, subtract the earlier from the later to eliminate a and solve for d, then substitute d back to find a. Here: T5 = a + 4d = 17 and T9 = a + 8d = 33. Subtracting: 4d = 16, so d = 4. Then a = 17 - 4(4) = 1. The critical precision: T5 uses (5-1) = 4 as the multiplier, not 5 - an off-by-one shifts a by exactly d.",
+    "lesson": "The nth AP term uses (n-1) as the step count, not n. Forgetting the minus-one shifts the first term by one common difference. Check by verifying: a + (5-1) x 4 = 1 + 16 = 17.",
+    "timing": "About 90 seconds. Setting up the two equations is 20 seconds, subtraction and back-substitution is 30 seconds. Eliminate option 4 in five seconds: that is d, not a."
   },
   "empirical": {
     "calibration_status": "none",

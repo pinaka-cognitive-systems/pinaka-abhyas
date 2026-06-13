@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000319",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000319.py"
+  },
+  "tests": [
+    "qa.bmath.ratio_indices_log.proportion"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Two quantities x and y are such that their compound ratio with 3:4 and 5:6 equals 5:8. Given also that x + y = 26, find the value of x.",
+  "options": [
+    {
+      "key": 1,
+      "text": "15"
+    },
+    {
+      "key": 2,
+      "text": "16"
+    },
+    {
+      "key": 3,
+      "text": "10"
+    },
+    {
+      "key": 4,
+      "text": "12"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student correctly computes x/y = 5/8 but solves x + y = 26 as 5 + 8 = 13 parts needing a scale factor 2, giving x = 5 x 2 = 10, but then makes an addition error and reports x = 15."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student adds all ratio numerators: 3 + 5 + 5 = 13 and all denominators: 4 + 6 + 8 = 18, then using the combined ratio 13:18 to split 26, giving x = 13/31 x 26 = 10.9, rounded to 16. This is an incorrect way to combine ratios."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Compound ratio of 3:4 and 5:6 is (3 x 5):(4 x 6) = 15:24 = 5:8. So x:y = 5:8. With x + y = 26: x = (5/13) x 26 = 10."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "ratio_inverted",
+      "rationale": "Student computes compound ratio correctly as 5:8 but then assigns y = 5 parts and x = 8 parts (swaps x and y), giving x = (8/13) x 26 = 16. A further slip rounds to 12 for some students."
+    }
+  ],
+  "explanation": "The compound ratio of 3:4 and 5:6 is formed by multiplying: (3 x 5):(4 x 6) = 15:24 = 5:8. So x/y = 5/8 and x + y = 26. Setting x = 5t and y = 8t gives 13t = 26, t = 2. Therefore x = 5 x 2 = 10.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Compound ratio is formed by multiplying corresponding terms of each ratio, then reduce to lowest terms before splitting the sum.",
+    "approach": "Formula selection: compound ratio of p:q and r:s is (p x r):(q x s). Multiply: (3 x 5):(4 x 6) = 15:24 = 5:8. Now use x:y = 5:8 and x + y = 26. Sum of parts = 13, multiplier t = 26/13 = 2. x = 5 x 2 = 10.",
+    "lesson": "Compound ratio multiplies numerators together and denominators together; it is not formed by adding or summing ratio terms.",
+    "timing": "75 seconds. Trap: swapping x and y, reporting 16 instead of 10."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

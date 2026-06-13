@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000361",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000361.py"
+  },
+  "tests": [
+    "qa.bmath.inequalities.two_variable"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A retailer stocks two items P and Q. Each unit of P requires 3 sq m of shelf space and each unit of Q requires 2 sq m. Total shelf space is at most 24 sq m. Additionally, the number of units of Q must be at most twice the number of units of P. If x units of P and y units of Q are stocked, which inequality system correctly models both constraints?",
+  "options": [
+    {
+      "key": 1,
+      "text": "3x + 2y <= 24 and y <= 2x"
+    },
+    {
+      "key": 2,
+      "text": "3x + 2y <= 24 and y >= 2x"
+    },
+    {
+      "key": 3,
+      "text": "2x + 3y <= 24 and y <= 2x"
+    },
+    {
+      "key": 4,
+      "text": "3x + 2y <= 24 and y <= x/2"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Space: 3x+2y<=24 (P needs 3, Q needs 2). Ratio: y <= 2x (Q at most twice P). Both correct."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "inequality_sign_not_flipped",
+      "rationale": "y >= 2x means Q is at least twice P, reversing the stated constraint."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Swapped coefficients: assigns 2 sq m to P and 3 sq m to Q, contradicting the problem."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "y <= x/2 means Q is at most half of P, which inverts the given condition (Q at most twice P becomes y <= 2x, not y <= x/2)."
+    }
+  ],
+  "explanation": "Two constraints must be modeled separately. The shelf space constraint multiplies each item count by its footprint: 3x + 2y <= 24. The ratio constraint states y <= 2x (y is at most twice x).",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "A ratio constraint y is at most twice x translates directly to y <= 2x, not y >= 2x or y <= x/2.",
+    "approach": "Step 1: identify the resource constraint - space used = 3x + 2y <= 24. Step 2: translate 'Q at most twice P' as y <= 2x. Match both to options.",
+    "lesson": "At most twice means <= 2x. At least twice means >= 2x. Never invert the ratio without rereading the direction word.",
+    "timing": "75 s. The trap is option 2 (reversed direction) or option 4 (inverted ratio). Eliminate option 3 first (wrong coefficients). Then check direction words carefully."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

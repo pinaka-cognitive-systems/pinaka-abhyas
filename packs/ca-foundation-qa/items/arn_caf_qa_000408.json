@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000408",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000408.py"
+  },
+  "tests": [
+    "qa.bmath.finance.perpetuity"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "A college endowment pays Rs 9,000 every six months to a scholarship fund, in perpetuity. If the annual discount rate is 12% compounded semi-annually, what is the present value of this perpetuity?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 75,000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 1,50,000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 1,80,000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 1,00,000"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "rate_period_mismatch",
+      "rationale": "Uses the annual rate 12% without halving: 9000 / 0.12 = 75,000, ignoring that payments are semi-annual."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Semi-annual rate = 12% / 2 = 6%. PV = 9000 / 0.06 = 1,50,000."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "unit_confusion",
+      "rationale": "Annualises the payment to 18,000 and divides by 12%: 18000 / 0.12 = 1,50,000... but here a student uses 10% by mistake: 18000 / 0.10 = 1,80,000."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "time_factor_dropped",
+      "rationale": "Treats the semi-annual payment as annual and uses 9%: 9000 / 0.09 = 1,00,000, merging wrong rate conversion with wrong period."
+    }
+  ],
+  "explanation": "When payments and compounding are both semi-annual, the perpetuity formula still applies but the rate must match the payment period.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Match rate to the payment period before applying PV = C / r: semi-annual payment needs the semi-annual rate.",
+    "approach": "Name the formula PV = C / r (perpetuity). Identify: C = Rs 9,000 per half-year, compounding semi-annual at 12% p.a. Semi-annual rate r = 12% / 2 = 6% = 0.06. PV = 9000 / 0.06 = 1,50,000.",
+    "lesson": "Always match the payment frequency to the rate frequency before applying C / r. An annual rate divided by compounding periods gives the per-period rate.",
+    "timing": "30 seconds. The trap is using 12% instead of 6%. If your answer is 75,000 you used the annual rate directly."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000363",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000363.py"
+  },
+  "tests": [
+    "qa.bmath.inequalities.solution_space"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "The solution set of the inequality 3x - 6 > 0 for real x is best described as:",
+  "options": [
+    {
+      "key": 1,
+      "text": "x > 2"
+    },
+    {
+      "key": 2,
+      "text": "x < 2"
+    },
+    {
+      "key": 3,
+      "text": "x >= 2"
+    },
+    {
+      "key": 4,
+      "text": "x > -2"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "3x - 6 > 0 => 3x > 6 => x > 2. Strict inequality gives x > 2."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "inequality_sign_not_flipped",
+      "rationale": "Dividing by a positive 3 does not flip the sign; the solution is x > 2, not x < 2."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "The strict inequality > 0 gives a strict inequality x > 2, not the weak inequality x >= 2."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Erroneously solved 3x > -6 (sign flipped on the constant), giving x > -2."
+    }
+  ],
+  "explanation": "Add 6 to both sides: 3x > 6. Divide by 3 (positive, no sign flip): x > 2. The strict inequality is preserved throughout.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Dividing by a positive number preserves the direction of the inequality.",
+    "approach": "3x - 6 > 0 => 3x > 6 => x > 2. Two steps: isolate the variable term, then divide by the positive coefficient.",
+    "lesson": "The sign of an inequality flips only when multiplying or dividing by a negative number.",
+    "timing": "45 s. Trivial two-step. Common trap: option 2 (mistakenly flipping the sign after division by a positive)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

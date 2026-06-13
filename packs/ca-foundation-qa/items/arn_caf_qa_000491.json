@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000491",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000491.py"
+  },
+  "tests": [
+    "qa.bmath.sequence_series.special_series"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "What is the sum of the first 10 natural numbers (1 + 2 + 3 + ... + 10)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "55"
+    },
+    {
+      "key": 2,
+      "text": "50"
+    },
+    {
+      "key": 3,
+      "text": "45"
+    },
+    {
+      "key": 4,
+      "text": "100"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Sum = n(n+1)/2 = 10*11/2 = 55."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Used n(n-1)/2 = 10*9/2 = 45, not the correct n+1 formula; or computed 5*10 = 50 treating it as n*(n/2)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Applied the formula for the first 9 natural numbers: 9*10/2 = 45, off by one in n."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Used n^2 = 10^2 = 100, confusing the sum of first n naturals with the sum of first n odd numbers or n^2."
+    }
+  ],
+  "explanation": "The sum of the first n natural numbers is n(n+1)/2. For n=10: 10*11/2 = 55.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Sum of first n naturals = n(n+1)/2; plug in n=10 directly.",
+    "approach": "Derivation plan: recall the standard formula S = n(n+1)/2. Substitute n=10: S = 10*11/2 = 55. No setup decision required.",
+    "lesson": "Know all three special series: sum of first n naturals = n(n+1)/2; sum of squares = n(n+1)(2n+1)/6; sum of cubes = [n(n+1)/2]^2.",
+    "timing": "Under 30 seconds. Recall and substitute. Traps: using n(n-1)/2 or n^2."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

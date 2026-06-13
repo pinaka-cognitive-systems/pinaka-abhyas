@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000825",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000825.py"
+  },
+  "tests": [
+    "qa.stats.distributions.binomial"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A biased coin has probability 1/3 of showing heads on each toss. If the coin is tossed 4 times, what is the probability of getting exactly 2 heads?",
+  "options": [
+    {
+      "key": 1,
+      "text": "4/81"
+    },
+    {
+      "key": 2,
+      "text": "6/81"
+    },
+    {
+      "key": 3,
+      "text": "24/81"
+    },
+    {
+      "key": 4,
+      "text": "32/81"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "4/81 = (1/3)^2*(2/3)^2 without the combination C(4,2)=6; the student applied the probability of one specific sequence instead of summing over all C(4,2) arrangements."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "6/81 = C(4,2)*(1/3)^4 = 6/81; the student replaced both the success and failure probabilities with p=1/3, ignoring q=2/3 in the failure factor."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "C(4,2)*(1/3)^2*(2/3)^2 = 6*(1/9)*(4/9) = 24/81."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "32/81 = C(4,1)*(1/3)^1*(2/3)^3 = 4*(1/3)*(8/27) = 32/81; the student applied the binomial formula for k=1 instead of k=2, computing P(X=1) rather than P(X=2)."
+    }
+  ],
+  "explanation": "For Binomial(4, 1/3): P(X=2) = C(4,2)*(1/3)^2*(2/3)^2 = 6*(1/9)*(4/9) = 24/81.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "With p != 1/2 both the success probability (1/3)^2 and the failure probability (2/3)^2 must appear; the combination C(4,2)=6 must also be included.",
+    "approach": "Model: Binomial(n=4, p=1/3, q=2/3). Map: n=4, k=2. Formula: P(X=2)=C(4,2)*(1/3)^2*(2/3)^2=6*(1/9)*(4/9)=24/81.",
+    "lesson": "The Binomial formula has three factors: the combination C(n,k), p^k, and q^(n-k); all three must be present.",
+    "timing": "60 seconds. Work in fractions: 6*(1/9)*(4/9)=24/81. Eliminate option 2 (omits q^2) and option 1 (omits C(4,2)) first."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

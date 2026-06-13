@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000860",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000860.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.rank_correlation"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "Six auditors are assessed on a written test and an oral interview. Three auditors score identically on the written test and are assigned the mean of their tied ranks. Their final ranks are:\nWritten test (X): 2, 2, 2, 4, 5, 6  (rank 1,2,3 averaged to 2)\nOral interview (Y): 2, 1, 4, 3, 6, 5\nUsing the corrected Spearman formula r_s = (T_x + T_y - sum_d^2) / (2 * sqrt(T_x * T_y)), where T_x = (n^3-n)/12 - correction_x and correction = (m^3-m)/12 per tied group, calculate the rank correlation coefficient (rounded to 4 decimal places).",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.7714"
+    },
+    {
+      "key": 2,
+      "text": "0.7590"
+    },
+    {
+      "key": 3,
+      "text": "0.7143"
+    },
+    {
+      "key": 4,
+      "text": "0.7500"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Applying the simple formula r_s = 1 - 6*sum_d^2/(n*(n^2-1)) without the tie correction: sum_d^2=8, r_s = 1-48/210 = 162/210 = 0.7714. This ignores that ties reduce the effective variance of X."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "T_x = (216-6)/12 - (27-3)/12 = 17.5 - 2 = 15.5. T_y = 17.5. sum_d^2 = 8. r_s = (15.5+17.5-8)/(2*sqrt(15.5*17.5)) = 25/(2*sqrt(271.25)) = 25/32.939 = 0.7590."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Using the correction factor as (m^3-m)/6 = 4 instead of (m^3-m)/12 = 2, so T_x = 17.5 - 4 = 13.5. r_s = (13.5+17.5-8)/(2*sqrt(13.5*17.5)) = 23/(2*sqrt(236.25)) = 23/30.71 = 0.7489, rounded down gives 0.7143 under a further arithmetic error."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Miscalculating sum_d^2 = 6 instead of 8 (missing d^2=4 for the pair Y=4 vs X=2): r_s = (15.5+17.5-6)/(2*sqrt(15.5*17.5)) = 27/32.939 = 0.8198; or computing 25/33.33 = 0.7500."
+    }
+  ],
+  "explanation": "Step 1 - tie correction: X has a group of m=3 tied ranks. correction_x = (3^3-3)/12 = 24/12 = 2. T_x = (6^3-6)/12 - 2 = 210/12 - 2 = 17.5 - 2 = 15.5. No ties in Y: T_y = 17.5. Step 2 - sum_d^2: d = X-rank minus Y-rank for each pair: 2-2=0, 2-1=1, 2-4=-2, 4-3=1, 5-6=-1, 6-5=1. d^2: 0,1,4,1,1,1. sum = 8. Step 3 - r_s = (15.5+17.5-8)/(2*sqrt(15.5*17.5)) = 25/sqrt(1085) = 0.7590.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The 3-way tie in X reduces T_x from 17.5 to 15.5; ignoring this inflates r_s to 0.7714 instead of the correct 0.7590.",
+    "approach": "Formula: r_s = (T_x + T_y - sum_d^2)/(2*sqrt(T_x*T_y)). Step 1: compute T_x using correction (m^3-m)/12 per tied group. T_x = (n^3-n)/12 - (3^3-3)/12 = 17.5-2=15.5; T_y=17.5. Step 2: compute d for each pair and sum d^2=8. Step 3: numerator=25, denominator=2*sqrt(271.25)=32.94, r_s=0.7590.",
+    "lesson": "Ties in ranked data reduce the effective variance; the corrected formula is essential when m >= 2 in any group, especially large ties like m=3.",
+    "timing": "About 120-150 seconds. The trap is using the simple 1 - 6*sum_d^2/(n*(n^2-1)) formula which gives 0.7714 and is the most tempting wrong option."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

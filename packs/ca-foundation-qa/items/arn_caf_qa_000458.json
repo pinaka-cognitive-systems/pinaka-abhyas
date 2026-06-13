@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000458",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000458.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.circular_permutations"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "A necklace is to be made using 7 distinct coloured beads. In how many ways can the beads be arranged? (Clockwise and anticlockwise arrangements that look the same when the necklace is flipped are counted as one.)",
+  "options": [
+    {
+      "key": 1,
+      "text": "360"
+    },
+    {
+      "key": 2,
+      "text": "720"
+    },
+    {
+      "key": 3,
+      "text": "5040"
+    },
+    {
+      "key": 4,
+      "text": "2520"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Necklace arrangements = (n-1)! / 2 = 6! / 2 = 720 / 2 = 360, because flipping the necklace produces a mirror image that is physically identical."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Used circular table formula (n-1)! = 6! = 720 without dividing by 2, ignoring that necklace reflections are equivalent."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Computed 7! = 5040, treating the arrangement as linear (forgot to account for circular equivalence entirely)."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computed 7!/2 = 2520, forgetting to first reduce by circular equivalence; should be (7-1)!/2 = 720/2 = 360."
+    }
+  ],
+  "explanation": "For a necklace (or key-ring), both rotational and reflectional symmetries apply. Rotational symmetry gives (n-1)! = 6! = 720. Reflectional symmetry halves this: 720/2 = 360.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "A necklace can be flipped, so its reflection is identical - divide (n-1)! by 2.",
+    "approach": "Classify: circular arrangement, necklace (flippable). Fix one bead to remove rotational equivalence: (7-1)! = 720. Then divide by 2 for reflectional equivalence: 360.",
+    "lesson": "Table arrangements use (n-1)!; necklace/key-ring arrangements use (n-1)!/2.",
+    "timing": "20 seconds: (7-1)! / 2 = 720 / 2 = 360. Trap: forgetting to divide by 2."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

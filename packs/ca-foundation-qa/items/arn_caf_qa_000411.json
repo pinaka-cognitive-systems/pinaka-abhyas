@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000411",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000411.py"
+  },
+  "tests": [
+    "qa.bmath.finance.perpetuity"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 85,
+  "stem": "A growing perpetuity pays Rs 5,000 at the end of the first year, and the payment grows at 3% per year forever. If the required annual return is 8%, what is the present value of this growing perpetuity?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 62,500"
+    },
+    {
+      "key": 2,
+      "text": "Rs 1,00,000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 45,455"
+    },
+    {
+      "key": 4,
+      "text": "Rs 1,66,667"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Applies the simple perpetuity formula C/r = 5000/0.08 = 62,500, ignoring the growth rate g."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Gordon Growth Model: PV = C / (r - g) = 5000 / (0.08 - 0.03) = 5000 / 0.05 = 1,00,000."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Divides C by (r + g) = 5000 / 0.11 = 45,455, adding the growth rate instead of subtracting it."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "percentage_base_confusion",
+      "rationale": "Divides C by (g) alone = 5000 / 0.03 = 1,66,667, using only the growth rate as the denominator."
+    }
+  ],
+  "explanation": "A growing perpetuity uses the Gordon Growth Model: PV = C / (r - g), where r is the required return and g is the constant growth rate. Growth reduces the effective discount rate applied to the first payment.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Gordon Growth Model PV = C / (r - g) distinguishes from C / r: growth in the denominator is subtracted, not added.",
+    "approach": "Name the formula PV = C / (r - g). Map: C = 5000, r = 0.08, g = 0.03. Denominator = 0.08 - 0.03 = 0.05. PV = 5000 / 0.05 = 1,00,000.",
+    "lesson": "The sign of g in the denominator matters critically. r - g, not r + g. If g equals r, PV is infinite (undefined).",
+    "timing": "35 seconds. The trap at 62,500 ignores growth; the trap at 45,455 adds g to r in the denominator. Confirm r > g before applying the formula."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

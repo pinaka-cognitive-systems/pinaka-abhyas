@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000719",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000719.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mode"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The distribution of distances (in km) traveled by 75 delivery riders in a day is:\n\nDistance: 0-5,  5-15, 15-25, 25-35, 35-40\nRiders:   5,    18,   30,    22,    5\n\nNote that the class widths are unequal. The modal class must be identified using frequency density. Then apply the mode interpolation formula within that class. What is the mode?",
+  "options": [
+    {
+      "key": 1,
+      "text": "21.00"
+    },
+    {
+      "key": 2,
+      "text": "20.00"
+    },
+    {
+      "key": 3,
+      "text": "15.00"
+    },
+    {
+      "key": 4,
+      "text": "22.50"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Frequency densities: 1.0, 1.8, 3.0, 2.2, 1.0. Modal class = 15-25 (density 3.0). f0=18, f1=30, f2=22, L=15, h=10. Mode = 15+((30-18)/(60-18-22))*10 = 15+(12/20)*10 = 15+6 = 21.00."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "20 results from computing the midpoint of class 15-25, (15+25)/2 = 20, treating the class midpoint as the mode."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "15 is the lower boundary of the modal class; the student identifies the class but does not interpolate within it."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "22.50 results from wrongly taking the highest raw frequency (30, class 15-25) as modal class but computing the mode as the class with the next-highest frequency 22, applying the formula to class 25-35 instead."
+    }
+  ],
+  "explanation": "With unequal class widths, use frequency density (frequency / class width) to identify the modal class. Densities: 0-5: 1.0, 5-15: 1.8, 15-25: 3.0, 25-35: 2.2, 35-40: 1.0. Modal class = 15-25. Apply formula: Mode = 15 + ((30-18)/(2*30-18-22))*10 = 15 + (12/20)*10 = 15 + 6 = 21.00.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "With unequal class widths, always use frequency density (not raw frequency) to identify the modal class.",
+    "approach": "Compute fd = f/h for each class. Modal class = 15-25 (fd=3). Then apply Mode = L+((f1-f0)/(2f1-f0-f2))*h with f0=18, f1=30, f2=22 = 21.",
+    "lesson": "Raw frequency misleads when class widths differ; always divide by width to get density before locating the modal class.",
+    "timing": "80 s. Extra step vs. equal-width data: compute frequency densities. Trap: using raw frequency to find modal class, which incorrectly picks 15-25 here (they agree in this case, but the method must be correct)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

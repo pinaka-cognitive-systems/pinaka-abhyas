@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000554",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000554.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.number_series"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "Find the missing term in the series: 2, 6, 18, 54, ?",
+  "options": [
+    {
+      "key": 1,
+      "text": "108"
+    },
+    {
+      "key": 2,
+      "text": "144"
+    },
+    {
+      "key": 3,
+      "text": "162"
+    },
+    {
+      "key": 4,
+      "text": "216"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Mistaking the pattern as doubling (multiplying by 2) gives 54 x 2 = 108, misidentifying the ratio."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "An arithmetic slip when multiplying 54 by 3, arriving at 144 instead of 162."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "The series is a geometric progression with common ratio 3: 2, 6, 18, 54. The next term is 54 x 3 = 162."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Mistaking the ratio as 4 gives 54 x 4 = 216, misidentifying the common ratio."
+    }
+  ],
+  "explanation": "The series 2, 6, 18, 54 is a geometric progression. Each term is obtained by multiplying the previous term by 3: 2 x 3 = 6, 6 x 3 = 18, 18 x 3 = 54. The next term is 54 x 3 = 162.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The common ratio is 3 throughout: dividing any term by its predecessor yields exactly 3.",
+    "approach": "Apply clues most-certain-first: compute ratios 6/2=3, 18/6=3, 54/18=3; constant ratio identifies a GP with r=3. Next term = 54 x 3 = 162.",
+    "lesson": "When differences are not constant, compute ratios of consecutive terms to check for a GP before looking for other patterns.",
+    "timing": "20 seconds. Compute two ratios to confirm GP, then multiply last term by r. Trap: assuming r=2 (doubling) or r=4."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

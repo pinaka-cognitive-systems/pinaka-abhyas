@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000920",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000920.py"
+  },
+  "tests": [
+    "qa.lr.direction_tests"
+  ],
+  "difficulty_label": "L2",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 160,
+  "stem": "In a coded layout, for any two points written as 'X s Y', the symbol s tells how point Y is placed relative to point X, and the number after the symbol is the distance in metres: @ means Y is to the north of X, # means Y is to the south of X, & means Y is to the east of X, and % means Y is to the west of X. Given the chain A &9 B @6 C %9 D, in which direction is D with respect to A?",
+  "options": [
+    {
+      "key": 1,
+      "text": "North"
+    },
+    {
+      "key": 2,
+      "text": "North-east"
+    },
+    {
+      "key": 3,
+      "text": "East"
+    },
+    {
+      "key": 4,
+      "text": "North-west"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Place A at (0, 0). B is 9 m east at (9, 0). C is 6 m north of B at (9, 6). D is 9 m west of C at (0, 6). D minus A is (0, +6): no east-west offset and 6 m north, so D is due north of A. The 9 m east and 9 m west legs cancel exactly."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "net_displacement_error",
+      "rationale": "North-east keeps an eastward offset that does not exist. The 9 m east leg to B and the 9 m west leg to D are equal and opposite, so they cancel; failing to net them off leaves a phantom east component."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "direction_turn_error",
+      "rationale": "East drops the vertical leg entirely. The symbol @ codes a move to the north (6 m to C), so the final point is 6 m above A; treating @ as a sideways move loses the north displacement."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "North-west comes from decoding & as west like %, so both horizontal legs are taken westward and add to 18 m west. The symbol & codes east, the reverse of %, so the legs oppose and cancel rather than add."
+    }
+  ],
+  "explanation": "Decode each symbol as a compass move and walk the chain on a grid with east as +x and north as +y. A is at (0, 0); & 9 sends B to (9, 0) east; @ 6 sends C to (9, 6) north; % 9 sends D to (0, 6) west. The direction of D with respect to A is D minus A = (0, +6). The eastward 9 m and the westward 9 m are equal and opposite and cancel, leaving only 6 m north, so D is due north of A.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The & 9 east and % 9 west legs are equal and opposite, so they cancel and D ends due north of A. The trap is leaving a phantom east leg and answering north-east.",
+    "approach": "Build a symbol key first: @ north, # south, & east, % west. Then walk the chain as coordinates, A (0, 0) to B (9, 0) to C (9, 6) to D (0, 6), tracking east-west and north-south separately. Net the horizontal legs: +9 then -9 is zero. Net the vertical legs: +6. A single non-zero axis means a cardinal direction, here due north. Verify the symbols were not swapped, especially & versus %.",
+    "lesson": "Sum the east-west legs and the north-south legs separately; equal and opposite legs cancel and can turn a diagonal-looking chain into a single cardinal direction.",
+    "timing": "About 155 seconds. Fastest elimination is option (4) North-west: it requires decoding & as west, but & is defined as east, so it is rejected at the key step."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

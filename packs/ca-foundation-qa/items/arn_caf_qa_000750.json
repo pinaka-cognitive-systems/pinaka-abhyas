@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000750",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000750.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mean_deviation"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "Five of the six observations in a data set are 5, 10, 15, 20, and 25. The mean deviation about the arithmetic mean of all six observations is 7. What is the sum of all possible values of the sixth observation?",
+  "options": [
+    {
+      "key": 1,
+      "text": "30"
+    },
+    {
+      "key": 2,
+      "text": "27"
+    },
+    {
+      "key": 3,
+      "text": "3"
+    },
+    {
+      "key": 4,
+      "text": "24"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Let the sixth value be k. Mean = (75+k)/6. Setting up sum of |xi - mean| = 42 yields two cases from the position of k relative to the mean: case 1 (k between 10 and 25, mean between 10 and 25) gives k=27, mean=17; case 2 (k between 5 and 15, mean between 10 and 15) gives k=3, mean=13. Both verify: k=27 gives MD=7 and k=3 gives MD=7. Sum = 27+3 = 30."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student correctly finds k=27 from one case (assuming k is the largest value) but misses the second case k=3, reporting only 27."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student correctly finds k=3 from the lower-case analysis but misses k=27, reporting only 3."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "Student sets up the case 2 equation with a sign error, obtaining k=-3 instead of k=3, and then computes 27+(-3) = 24."
+    }
+  ],
+  "explanation": "This back-calculation requires case analysis: the position of k relative to the mean determines which absolute values open up positively or negatively. Both cases must be solved and verified.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The hidden relationship is that the mean itself depends on k, so there are two valid cases for k's position relative to the mean, each yielding a distinct solution.",
+    "approach": "Let k be the unknown and m = (75+k)/6. Case 1 (assume k > m, i.e. k > 17): arrange 5 < 10 < 15 < m < 20 < 25 < k. Sum of deviations = (m-5)+(m-10)+(m-15)+(20-m)+(25-m)+(k-m) = 42. Simplifying: 15+k = 42, so k=27. Verify: mean=17, MD = (12+7+2+3+8+10)/6 = 42/6 = 7. Case 2 (assume k < m): arrange k < 5 < ... or k is between some values. Try m between 10 and 15: (m-k)+(m-5)+(m-10)+(15-m)+(20-m)+(25-m) = 42. Simplifies to: -k+45 = 42, k=3. Verify: mean=13, MD = (8+3+2+7+12+10)/6 = 42/6 = 7. Sum = 27+3 = 30.",
+    "lesson": "When the mean depends on the unknown, case analysis based on the unknown's position relative to the mean is mandatory; missing one case means missing a valid solution.",
+    "timing": "About 130 seconds. The key speed-up: in each case the absolute value expression simplifies to a linear equation in k alone, so neither case requires quadratics."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

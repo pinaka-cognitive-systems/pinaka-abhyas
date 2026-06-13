@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000504",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000504.py"
+  },
+  "tests": [
+    "qa.bmath.calculus.integration"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "Evaluate the definite integral of (x + 2)^2 with respect to x from x = 1 to x = 4.",
+  "options": [
+    {
+      "key": 1,
+      "text": "63"
+    },
+    {
+      "key": 2,
+      "text": "105"
+    },
+    {
+      "key": 3,
+      "text": "135"
+    },
+    {
+      "key": 4,
+      "text": "189"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Expand (x+2)^2 = x^2+4x+4. Antiderivative: F(x) = x^3/3 + 2x^2 + 4x. F(4) = 64/3+32+16. F(1) = 1/3+2+4. F(4)-F(1) = (64-1)/3 + (48-6) = 21 + 42 = 63."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "power_rule_misapplied",
+      "rationale": "Integrating x^2 as x^3 (raising exponent but not dividing by the new exponent 3): F(x) = x^3+2x^2+4x. F(4)-F(1) = (64+32+16)-(1+2+4) = 112-7 = 105."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "power_rule_misapplied",
+      "rationale": "Integrating every term without dividing by the new exponent: antiderivative of x^2 as x^3 and of 4x as 4x^2 (instead of 2x^2). F(x) = x^3+4x^2+4x. F(4)-F(1) = (64+64+16)-(1+4+4) = 144-9 = 135."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Not expanding; instead applying (x+2)^3 as the antiderivative without dividing by 3 (missing the chain-rule factor): F(x) = (x+2)^3. F(4)-F(1) = 6^3-3^3 = 216-27 = 189."
+    }
+  ],
+  "explanation": "Expand first: (x+2)^2 = x^2+4x+4. Integrate term by term: x^2 gives x^3/3, 4x gives 2x^2, 4 gives 4x. So F(x) = x^3/3+2x^2+4x. At x=4: 64/3+32+16 = 64/3+48. At x=1: 1/3+2+4 = 1/3+6. Difference = (64-1)/3 + (48-6) = 63/3+42 = 21+42 = 63.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The setup decision is expanding the bracket first, which makes each term integrable by a direct power rule.",
+    "approach": "Expand-then-integrate: write (x+2)^2 as x^2+4x+4, apply the power rule to each term (raise exponent by 1, divide by new exponent), then evaluate at both limits and subtract.",
+    "lesson": "After raising the exponent from n to n+1 when integrating x^n, you must divide by n+1. Missing this division doubles or triples the result.",
+    "timing": "70-90 seconds. The fraction 64/3 - 1/3 = 63/3 = 21 simplifies cleanly. Do the fractional and integer parts separately to avoid errors."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

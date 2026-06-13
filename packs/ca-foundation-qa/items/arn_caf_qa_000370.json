@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000370",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000370.py"
+  },
+  "tests": [
+    "qa.bmath.inequalities.optimization"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "A firm produces two goods M (x units) and N (y units) with profit Rs 5 per unit of M and Rs 4 per unit of N. Production is subject to: 2x + y <= 100 (machine hours) and x + 3y <= 120 (labour hours), with x >= 0 and y >= 0. The maximum profit in Rs is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "250"
+    },
+    {
+      "key": 2,
+      "text": "284"
+    },
+    {
+      "key": 3,
+      "text": "292"
+    },
+    {
+      "key": 4,
+      "text": "200"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Rs 250 comes from corner (50,0): profit=5(50)+4(0)=250. This is the maximum when only the machine-hours constraint is considered and y is set to 0, ignoring the interior corner."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Rs 284 arises from using the intersection point but computing 4(36)+5(28)=144+140=284 (swapping the profit coefficients)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Intersection of 2x+y=100 and x+3y=120: solving gives x=36, y=28. Profit=5(36)+4(28)=180+112=292. This is the highest among all four corners."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Rs 200 comes from corner (0,40) giving profit=5(0)+4(40)=160, not 200. Alternatively, at (40,20): not a corner. This is a phantom figure from an incorrect boundary reading."
+    }
+  ],
+  "explanation": "The feasible region has four corners: (0,0)->0, (50,0)->250, (36,28)->292, (0,40)->160. The interior corner (36,28) is found by solving 2x+y=100 and x+3y=120 simultaneously: multiply the second by 2 to get 2x+6y=240, subtract the first (2x+y=100) to get 5y=140, so y=28 and x=(100-28)/2=36. Profit at (36,28)=5(36)+4(28)=180+112=292.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The maximum lies at the interior corner (36,28), not at the obvious axis corner (50,0). Missing this interior corner is the vault-level trap.",
+    "approach": "Step 1: find the interior corner by solving 2x+y=100 and x+3y=120. Multiply the second equation by 2 to eliminate x: 2x+6y=240 minus 2x+y=100 gives 5y=140, y=28. Then x=(100-28)/2=36. Step 2: evaluate Z=5x+4y at all four corners. Pick the maximum.",
+    "lesson": "In two-constraint LPP, the optimal solution is almost always at the intersection of the two resource constraints, not at an axis intercept. Always solve the 2x2 system.",
+    "timing": "140 s. Solving the system takes about 60 s. Evaluating 4 corners takes 40 s. Trap: stopping at (50,0)=250 (option 1) without finding the interior corner."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "A and B are brothers, and C is the sister of B, so A, B, C are all siblings. D is the mother of A, so D is the mother of all three siblings. E is the father of C, so E is the father of all three siblings. D and E are parents of the same children, making D the wife of E.",
+  "explanation_kind": "deductive_trace",
   "explanation_sections": {
-    "punchline": "A, B, and C are siblings. D is the mother of one sibling and E is the father of another. Since they share the same children, D is E's wife.",
-    "approach": "For multi-person blood-relation problems, build the family tree layer by layer. First identify who is in the same generation. Then identify the parents. When two people are parents of the same set of siblings, they are spouses. Do not assume a relation between D and E until you have placed all siblings first.",
-    "lesson": "If person D is the mother of a sibling group and person E is the father of the same sibling group, then D and E are husband and wife, not siblings or parent and child.",
-    "timing": "About 90 seconds. Identifying that A, B, C are siblings takes 20 seconds. Recognising that D and E share the same children takes another 20 seconds. The remaining time is for selecting and confirming the answer."
+    "punchline": "Lock the sibling group first: A and B are brothers, C is B's sister, so A, B, C are all siblings. That is the cracking move - once you know D mothers and E fathers the SAME sibling group, the answer is immediate: D is E's wife.",
+    "approach": "Apply the most certain facts first. Step 1 (sibling group): A-B brothers, C-B sister, therefore A, B, C are siblings. Step 2 (parent assignment): D is A's mother, so D mothers the whole sibling group. E is C's father, so E fathers the whole sibling group. Step 3 (spouse inference): two people who are mother and father of the same children are spouses. D is E's wife. Verify: does any clue place D and E in a different generation? No. Confirm answer. This recipe - identify the sibling group, assign parents, infer spousal link - handles all one-chain blood-relation questions.",
+    "lesson": "The mother of a sibling group and the father of that same group are always spouses. Do not jump to sibling or parent-child labels before confirming the generation level.",
+    "timing": "About 60 seconds. Identifying the sibling group takes 15 seconds. Assigning parents takes 15 seconds. The trap is option 2 (Sister) - it treats D and E as same-generation siblings rather than co-parents. Check generation before labelling."
   },
   "empirical": {
     "calibration_status": "none",

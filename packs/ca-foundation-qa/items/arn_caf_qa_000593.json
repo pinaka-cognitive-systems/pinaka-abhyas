@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000593",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000593.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.odd_man_out"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "Four letter groups are given. Three follow a common pattern; one does not. Identify the odd one out: ACE, BDF, CEG, EGH.",
+  "options": [
+    {
+      "key": 1,
+      "text": "ACE"
+    },
+    {
+      "key": 2,
+      "text": "BDF"
+    },
+    {
+      "key": 3,
+      "text": "CEG"
+    },
+    {
+      "key": 4,
+      "text": "EGH"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "ACE: A=1, C=3, E=5. Differences: 3-1=2 and 5-3=2. Each letter is 2 steps ahead of the previous. This fits the pattern of alternating letters (skip one)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "BDF: B=2, D=4, F=6. Differences: 4-2=2 and 6-4=2. Each letter is 2 steps ahead. Fits the alternating pattern."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "CEG: C=3, E=5, G=7. Differences: 5-3=2 and 7-5=2. Each letter is 2 steps ahead. Fits the alternating pattern."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "EGH: E=5, G=7, H=8. Differences: 7-5=2 and 8-7=1. The gap between G and H is 1, not 2. EGH breaks the rule of each letter being exactly 2 steps ahead of the previous."
+    }
+  ],
+  "explanation": "In ACE, BDF, and CEG, each successive letter in the triplet advances by exactly 2 positions in the alphabet (skip one letter). EGH has E to G (+2) but G to H (+1), breaking the pattern. So EGH is the odd one out.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The pattern is skip-one (step of 2); EGH has a step of 1 between its last two letters.",
+    "approach": "Apply clues most-certain-first: convert letters to positions and compute consecutive gaps. ACE: gaps 2,2. BDF: gaps 2,2. CEG: gaps 2,2. EGH: gaps 2,1. The one with inconsistent gaps is EGH.",
+    "lesson": "For letter-group odd-man-out, convert each letter to its alphabet position and compute pairwise differences; the group with a non-uniform gap is the outlier.",
+    "timing": "About 60 seconds. Trap: EGH starts with E-G (gap 2), so the error is checking only the first gap and accepting it. Must check all gaps."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

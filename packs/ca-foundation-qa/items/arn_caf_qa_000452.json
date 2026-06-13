@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000452",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000452.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.permutations"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 70,
+  "stem": "How many 3-letter codes can be formed from the letters of the word MOTHER, with no letter used more than once in any code?",
+  "options": [
+    {
+      "key": 1,
+      "text": "120"
+    },
+    {
+      "key": 2,
+      "text": "20"
+    },
+    {
+      "key": 3,
+      "text": "720"
+    },
+    {
+      "key": 4,
+      "text": "216"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "MOTHER has 6 distinct letters. Ordered selection of 3 from 6 without repetition = P(6, 3) = 6 x 5 x 4 = 120."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "permutation_combination_confusion",
+      "rationale": "Computed C(6, 3) = 20 as if the code order does not matter, treating the selection as unordered."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Computed 6! = 720, using all 6 letters of MOTHER in every code instead of selecting 3 from 6."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Computed 6^3 = 216, allowing repetition as if letters could be reused, instead of using P(6,3) without repetition."
+    }
+  ],
+  "explanation": "MOTHER: 6 distinct letters. A 3-letter code cares about order (MO is different from OM) and uses no letter twice. This is P(6, 3) = 6 x 5 x 4 = 120.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "A code is ordered and no repetition is allowed: P(6,3) = 6 x 5 x 4 = 120.",
+    "approach": "Classify: order matters (codes AM and MA are different) + no repetition -> permutation formula. P(n, r) = n x (n-1) x (n-2) for r = 3. Here 6 x 5 x 4 = 120.",
+    "lesson": "The decision tree: does order matter? If yes, use permutation P(n,r). Can you reuse? If no, it is P without repetition. If yes, it is n^r.",
+    "timing": "50-60 s. The two traps are C(6,3) = 20 (order forgotten) and 6^3 = 216 (repetition allowed). The word 'code' implies order matters since codes are sequences."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

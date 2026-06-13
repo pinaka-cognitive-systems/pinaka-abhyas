@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000616",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000616.py"
+  },
+  "tests": [
+    "qa.lr.direction_tests"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "Kavya walks 8 km towards the West. She then turns right and walks 5 km. In which direction is she now moving?",
+  "options": [
+    {
+      "key": 1,
+      "text": "South"
+    },
+    {
+      "key": 2,
+      "text": "North"
+    },
+    {
+      "key": 3,
+      "text": "East"
+    },
+    {
+      "key": 4,
+      "text": "West"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "direction_turn_error",
+      "rationale": "Turning left from West gives South; selecting South confuses left and right turns."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Facing West, a right turn is a 90-degree clockwise rotation: West + right = North."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "Reversing the movement direction (treating West as East then turning right gives South; or turning twice) yields East by an orientation reversal error."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Ignoring the right turn entirely and continuing West omits the stated constraint of turning."
+    }
+  ],
+  "explanation": "Facing West, a right (clockwise) turn brings the person to face North. Compass clockwise: W + 90 CW = N.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "A right turn from West points you North, not South.",
+    "approach": "Apply clues most-certain-first: identify facing direction (West), apply right turn (clockwise 90 degrees): W -> N. The 8 km walked does not change the facing direction used to interpret the turn.",
+    "lesson": "Right = clockwise. From any direction, right turn advances clockwise: N -> E -> S -> W -> N.",
+    "timing": "Under 30 seconds. The sole trap is confusing left and right, which gives South."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

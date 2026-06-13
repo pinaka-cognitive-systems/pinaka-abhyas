@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000898",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000898.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.tests_adequacy"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 110,
+  "stem": "A price index is computed for two commodities using the following data. Commodity A: base-year price Rs 100, current-year price Rs 180, base-year quantity 7 units, current-year quantity 2 units. Commodity B: base-year price Rs 100, current-year price Rs 60, base-year quantity 3 units, current-year quantity 4 units. What is Fisher's ideal price index?",
+  "options": [
+    {
+      "key": 1,
+      "text": "100"
+    },
+    {
+      "key": 2,
+      "text": "120"
+    },
+    {
+      "key": 3,
+      "text": "122"
+    },
+    {
+      "key": 4,
+      "text": "144"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "100 is Paasche's index alone: sum(p1*q1)/sum(p0*q1)*100 = (180*2+60*4)/(100*2+100*4)*100 = (360+240)/(200+400)*100 = 600/600*100 = 100. Using Paasche's alone ignores base-year weights."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Laspeyre's L = sum(p1*q0)/sum(p0*q0)*100 = (180*7+60*3)/(100*7+100*3)*100 = (1260+180)/(700+300)*100 = 1440/1000*100 = 144. Paasche's P = 100 (as above). Fisher = sqrt(144*100) = sqrt(14400) = 120."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "122 is the Drobisch index, the arithmetic mean of Laspeyre's and Paasche's: (144+100)/2 = 122. This confuses the arithmetic mean (Drobisch) with the geometric mean (Fisher's ideal index)."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "144 is Laspeyre's index alone: (180*7+60*3)/(100*7+100*3)*100 = 1440/1000*100 = 144. Using Laspeyre's alone ignores current-year weights and gives a biased overestimate when quantities shift toward cheaper goods."
+    }
+  ],
+  "explanation": "Fisher's ideal price index = sqrt(Laspeyre's x Paasche's). L = (180*7 + 60*3)/(100*7 + 100*3)*100 = 1440/1000*100 = 144. P = (180*2 + 60*4)/(100*2 + 100*4)*100 = 600/600*100 = 100. F = sqrt(144 x 100) = sqrt(14400) = 120. Notice that quantity shifts away from the now-expensive commodity A toward cheaper B drive Paasche's down to 100 while Laspeyre's (locked to old weights) is 144. Fisher balances them at their geometric mean.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Consumers shifted from the commodity that became expensive (A: +80%) to the one that became cheap (B: -40%), pulling Paasche's to 100; Fisher's geometric mean of 144 and 100 gives exactly 120.",
+    "approach": "Name the formula: Fisher = sqrt(L x P). Map each given to the right weight set: q0 for Laspeyre, q1 for Paasche. Compute each separately, then take the geometric mean. sqrt(144 x 100) = 120 is exact.",
+    "lesson": "When prices move in opposite directions and quantities shift accordingly, Laspeyre's and Paasche's can differ sharply; Fisher's geometric mean is the adequacy-test-satisfying compromise.",
+    "timing": "About 90-110 s. The trap is taking the arithmetic mean (Drobisch = 122) instead of the geometric mean (Fisher = 120). Check: always sqrt, never divide-by-2."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

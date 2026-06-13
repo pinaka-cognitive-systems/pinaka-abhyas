@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000368",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000368.py"
+  },
+  "tests": [
+    "qa.bmath.inequalities.optimization"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A linear programming problem has corner points at (0, 4), (3, 0), and (1, 2). The objective function is Z = 3x + 5y. At which corner point is Z minimised, and what is the minimum value?",
+  "options": [
+    {
+      "key": 1,
+      "text": "(3, 0); Z = 9"
+    },
+    {
+      "key": 2,
+      "text": "(0, 4); Z = 20"
+    },
+    {
+      "key": 3,
+      "text": "(1, 2); Z = 13"
+    },
+    {
+      "key": 4,
+      "text": "(0, 0); Z = 0"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Z(0,4)=20; Z(3,0)=9; Z(1,2)=13. Minimum is 9 at (3,0)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Z=20 at (0,4) is the maximum, not the minimum. Confused minimisation with maximisation."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Z=13 at (1,2) is an intermediate value. Stopped evaluating after this point."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "(0,0) is not listed as a corner of this feasible region; it is invented by assuming the origin is always a vertex."
+    }
+  ],
+  "explanation": "Evaluate Z=3x+5y at each of the three given corners: (0,4)->20, (3,0)->9, (1,2)->13. The smallest value is 9 at (3,0).",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "For a bounded feasible region, both minimum and maximum occur at corner points; evaluate all before deciding.",
+    "approach": "Substitute each corner into Z=3x+5y: (0,4)->0+20=20; (3,0)->9+0=9; (1,2)->3+10=13. Minimum is 9. Maximum is 20.",
+    "lesson": "Always evaluate the objective at ALL listed corners. Stopping early misses the true minimum or maximum.",
+    "timing": "60 s. Pure substitution. Trap: option 2 gives the maximum, the most common confusion."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

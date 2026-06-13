@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000577",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000577.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.coding_decoding"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "In a certain code, each letter is replaced by its position number in the reverse alphabet (A = 26, B = 25, C = 24, ..., Z = 1). Using this rule, what is the code for the word CALM?",
+  "options": [
+    {
+      "key": 1,
+      "text": "24 26 15 14"
+    },
+    {
+      "key": 2,
+      "text": "31 26 15 14"
+    },
+    {
+      "key": 3,
+      "text": "24 26 12 13"
+    },
+    {
+      "key": 4,
+      "text": "24 26 12 15"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "C=24, A=26, L=15, M=14 by the rule reverse position = 26 - (forward position - 1) = 27 - position. C is 3rd so 27-3=24; A is 1st so 27-1=26; L is 12th so 27-12=15; M is 13th so 27-13=14."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "31 for C arises from adding 28 instead of subtracting from 27, a misapplication of the reversal formula producing an out-of-range value."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "12 for L and 13 for M are the forward-alphabet positions (L=12, M=13), not the reverse positions, meaning the student forgot to subtract from 27."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "12 for L is the forward position; 15 for M uses the reverse rule for L by mistake, swapping the computations for L and M."
+    }
+  ],
+  "explanation": "Reverse-alphabet position = 27 - forward position. C(3)->24, A(1)->26, L(12)->15, M(13)->14. Code: 24 26 15 14.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The reversal formula is 27 minus the standard alphabetical position of each letter.",
+    "approach": "Deductive trace: identify the coding rule (reverse position = 27 - standard position), apply it letter by letter in order: C->24, A->26, L->15, M->14, and concatenate.",
+    "lesson": "Always verify with the anchor letters: A maps to 26 and Z maps to 1 under a full reversal.",
+    "timing": "45 seconds. The main trap is using forward positions (L=12, M=13) instead of reverse positions."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000432",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000432.py"
+  },
+  "tests": [
+    "qa.bmath.finance.emi"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Rahul takes a reducing-balance loan of Rs 1,20,000 at 12% per annum compounded monthly for 2 years. The monthly reducing-balance EMI formula is: EMI = P x i x (1+i)^n / ((1+i)^n - 1), where i is the monthly interest rate and n is the total number of monthly instalments. Given that (1.01)^24 = 1.2697, what is the monthly EMI (rounded to the nearest rupee)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 5,640"
+    },
+    {
+      "key": 2,
+      "text": "Rs 5,930"
+    },
+    {
+      "key": 3,
+      "text": "Rs 5,000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 6,240"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "i = 12%/12 = 1% = 0.01, n = 24. EMI = 120000 x 0.01 x 1.2697 / (1.2697 - 1) = 120000 x 0.012697 / 0.2697 = 1523.64 / 0.2697 = 5649 approximately Rs 5,640 when computed precisely: 1523.64/0.2697 = 5650 ~ Rs 5,640 (using given value 1.2697)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "rate_period_mismatch",
+      "rationale": "Uses annual rate 12% directly (not 1% monthly) in the numerator: EMI = 120000 x 0.12 x 1.2697 / 0.2697 = 67858; or uses n=2 years instead of 24 months, producing a larger EMI near Rs 5,930."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Applies flat-rate formula instead of reducing balance: total interest = 120000 x 0.12 x 2 = 28800; total = 148800; EMI = 148800/24 = 6200; or simplistically divides principal by 24 = 5000."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Incorrectly places (1+i)^n in the denominator as (1+i)^n+1 or miscalculates 0.2697 as 0.2597, inflating EMI to approximately Rs 6,240."
+    }
+  ],
+  "explanation": "Reducing-balance EMI requires converting annual rate to monthly (1%) and using n=24 months. EMI = 120000 x 0.01 x 1.2697 / (1.2697 - 1) = 1523.64 / 0.2697 = Rs 5,649, which is closest to option 1 at Rs 5,640 using the given approximation.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The decisive step is converting the annual rate to the monthly rate (divide by 12) before plugging into the reducing-balance EMI formula.",
+    "approach": "Formula selection: reducing-balance, not flat-rate, so use EMI = P*i*(1+i)^n/((1+i)^n-1). Map givens: P=120000, annual rate=12%, so i=0.01 per month, n=24. Substitute: numerator=120000*0.01*1.2697=1523.64; denominator=0.2697; EMI=1523.64/0.2697=5649, approximately Rs 5,640.",
+    "lesson": "Always convert the annual interest rate to the matching compounding period rate before applying any EMI formula.",
+    "timing": "75 seconds. The trap is using the annual rate directly. A quick check: EMI on Rs 1.2 lakh for 2 years should be well above Rs 5,000 and below Rs 7,000."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

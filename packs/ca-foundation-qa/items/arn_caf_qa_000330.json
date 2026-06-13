@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000330",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000330.py"
+  },
+  "tests": [
+    "qa.bmath.ratio_indices_log.logarithm"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "If log_a(b) = 3/2 and log_a(c) = 2, find log_a(b^2 / c).",
+  "options": [
+    {
+      "key": 1,
+      "text": "1"
+    },
+    {
+      "key": 2,
+      "text": "3"
+    },
+    {
+      "key": 3,
+      "text": "5"
+    },
+    {
+      "key": 4,
+      "text": "0"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "log_a(b^2/c) = 2*log_a(b) - log_a(c) = 2*(3/2) - 2 = 3 - 2 = 1."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student evaluates only the power part log_a(b^2) = 2*(3/2) = 3 and ignores the division by c, treating log_a(b^2/c) as log_a(b^2) alone."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student applies the wrong log quotient rule, adding log_a(c) instead of subtracting: 2*(3/2) + 2 = 3 + 2 = 5."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student treats b^2/c as b^(2/c) or computes log_a(b^2) - log_a(c^2) using wrong power on c: 2*(3/2) - 2*2 = 3 - 4 = -1, then rounds to 0, or treats log_a(b^2/c) = (3/2)*2 - 2 and mis-multiplies."
+    }
+  ],
+  "explanation": "Using log laws: log_a(b^2/c) = log_a(b^2) - log_a(c) = 2*log_a(b) - log_a(c). Substituting: 2*(3/2) - 2 = 3 - 2 = 1.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Apply log power and quotient laws: 2*(3/2) - 2 = 1.",
+    "approach": "Apply the quotient law log(A/B) = log(A) - log(B) and power law log(A^n) = n*log(A). Map to the given values: log_a(b^2) = 2*(3/2) = 3 and log_a(c) = 2. Subtract: 3 - 2 = 1.",
+    "lesson": "Expand log expressions completely using power and quotient laws before substituting given values.",
+    "timing": "60-75 seconds. The trap is option 3 (adding log_a(c) instead of subtracting) from mistaking division in the argument as multiplication of logs."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

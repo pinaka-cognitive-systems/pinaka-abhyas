@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000849",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000849.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.correlation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "For a bivariate dataset of n = 10 pairs, the summary totals are: sum(X) = 20, sum(Y) = 30, sum(X^2) = 50, sum(Y^2) = 100, sum(XY) = 67. Compute the Karl Pearson coefficient of correlation r(X,Y).",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.70"
+    },
+    {
+      "key": 2,
+      "text": "0.56"
+    },
+    {
+      "key": 3,
+      "text": "0.84"
+    },
+    {
+      "key": 4,
+      "text": "0.49"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Numerator = 10*67 - 20*30 = 670 - 600 = 70. Bracket1 = 10*50 - 20^2 = 500 - 400 = 100. Bracket2 = 10*100 - 30^2 = 1000 - 900 = 100. r = 70/sqrt(100*100) = 70/100 = 0.70."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "A slip: squaring 20 as 400 is correct but squaring 30 as 600 instead of 900: Bracket2 = 1000-600 = 400. r = 70/sqrt(100*400) = 70/200 = 0.35; a different slip route yields 0.56."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Numeric slip in the numerator: 10*67 computed as 640 instead of 670, then numerator = 640-600 = 40 does not yield 0.84; or a different slip in Bracket1 gives a smaller denominator and r = 84/100 = 0.84."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Squaring the numerator accidentally: r^2 = 0.49 taken as r, i.e., the student computed r^2 correctly (0.49) but reported it as r."
+    }
+  ],
+  "explanation": "r = (n*sum(XY) - sum(X)*sum(Y)) / sqrt((n*sum(X^2)-(sum(X))^2) * (n*sum(Y^2)-(sum(Y))^2)). Numerator = 10*67-20*30 = 70. Bracket1 = 10*50-400 = 100. Bracket2 = 10*100-900 = 100. Denominator = sqrt(10000) = 100. r = 70/100 = 0.70.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "When both variance brackets equal 100, the denominator is exactly 100 and r equals the numerator divided by 100 - a clean decimal check.",
+    "approach": "Name the formula: Karl Pearson direct-sum. Compute numerator=70, Bracket1=100, Bracket2=100. Denominator=sqrt(10000)=100. r=0.70.",
+    "lesson": "Verify: r^2 = 0.49 < 1 is consistent. If a student gets r = 0.49 they have reported r^2 instead of r.",
+    "timing": "About 60 seconds. All intermediate values are multiples of 100, making mental arithmetic straightforward."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -48,12 +48,13 @@
       "misconception": "off_by_one"
     }
   ],
-  "explanation": "The sequence 2, 6, 18, 54 has first term a = 2 and common ratio r = 3. Apply S_n = a(r^n - 1)/(r - 1): S_5 = 2(3^5 - 1)/(3 - 1) = 2(243 - 1)/2 = 242.",
+  "explanation": "The sequence 2, 6, 18, 54 has first term a = 2 and common ratio r = 6/2 = 3. Apply the GP sum formula S_n = a*(r^n - 1)/(r - 1): S_5 = 2*(3^5 - 1)/(3 - 1) = 2*(243 - 1)/2 = 242.",
+  "explanation_kind": "derivation",
   "explanation_sections": {
-    "punchline": "Each term triples: common ratio r = 3. S_5 = 2*(3^5 - 1)/(3 - 1) = 2*242/2 = 242.",
-    "approach": "For a GP sum question: confirm r by dividing any term by the previous term. Write S_n = a*(r^n - 1)/(r - 1). Compute r^n first, subtract 1, then multiply by a and divide by (r - 1). Do not confuse this with the nth term formula a*r^(n-1).",
-    "lesson": "The GP sum formula needs (r^n - 1), not r^n alone. When r = 3 and n = 5, compute 3^5 = 243 first, then subtract 1 before anything else.",
-    "timing": "About 75 seconds. Compute 3^5 = 243 in 15 seconds. Subtract 1, multiply by 2, divide by 2: the twos cancel, leaving 242. Option (1) at 486 is 2 * 3^5 without the subtraction; eliminate it if you applied the formula correctly."
+    "punchline": "Confirm r = 3, then write the GP sum formula: S_5 = 2*(3^5 - 1)/(3 - 1). Compute 3^5 = 243, subtract 1, and the factor of 2 cancels, leaving 242.",
+    "approach": "Three-step transformation. Step 1: confirm GP by checking 6/2 = 18/6 = 54/18 = 3, so r = 3. Step 2: write S_n = a*(r^n - 1)/(r - 1), not the nth-term formula. Step 3: compute r^n first, then subtract 1, then multiply by a, then divide by (r - 1). Here 3^5 = 243, so S_5 = 2*242/2 = 242.",
+    "lesson": "The GP sum formula has (r^n - 1) in the numerator. Omitting the minus 1 gives the nth term scaled by a, not the sum. Option (1) at 486 = 2 * 3^5 is exactly that mistake.",
+    "timing": "About 75 seconds. The key computation is 3^5 = 243. Subtract 1 immediately: 242. The 2 in the numerator and the (r - 1) = 2 denominator cancel, so the answer is 242. If you got 486, you forgot to subtract 1 before multiplying."
   },
   "empirical": { "calibration_status": "none", "n_responses": 0 },
   "ext": { "icai_skill_bucket": "application" }

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000449",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2_fix",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000449.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.factorial"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A bookshelf has 4 copies of the same novel, 3 copies of the same textbook, and 2 copies of the same dictionary. In how many distinct ways can all 9 books be arranged in a row on the shelf?",
+  "options": [
+    {
+      "key": 1,
+      "text": "1260"
+    },
+    {
+      "key": 2,
+      "text": "362880"
+    },
+    {
+      "key": 3,
+      "text": "30240"
+    },
+    {
+      "key": 4,
+      "text": "720"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "9 books with 3 groups of identical copies: 4 novels, 3 textbooks, 2 dictionaries. Distinct arrangements = 9! / (4! x 3! x 2!) = 362880 / (24 x 6 x 2) = 362880 / 288 = 1260."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Computed 9! = 362880 as if all 9 books were distinct, ignoring that identical copies within each title are indistinguishable."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Divided 9! by 4! x 3! = 144 only, forgetting to divide by 2! = 2 for the identical dictionaries, giving 362880 / 144 = 2520. Or equivalently divided by 3! x 2! = 12 only (missing the 4! term), giving 362880 / 12 = 30240."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "order_of_operations",
+      "rationale": "Computed 4! + 3! + 2! = 24 + 6 + 2 = 32 and then 9! / ... incorrectly, or treated each group independently as arrangements of identical objects (4-1)! x (3-1)! x (2-1)! = 6 x 2 x 1 = 12, arriving at a distorted small figure like 720 = 6!."
+    }
+  ],
+  "explanation": "Total 9 books: 4 identical novels, 3 identical textbooks, 2 identical dictionaries. Distinct row arrangements = 9! / (4! x 3! x 2!) = 362880 / 288 = 1260.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Three groups of identical objects each reduce the count: divide 9! by the product of all three group factorials (4! x 3! x 2!).",
+    "approach": "Name the formula: n! / (r1! x r2! x ... x rk!) for n objects with k groups of identical items. Map givens: n=9, r1=4 (novels), r2=3 (textbooks), r3=2 (dictionaries). Denominator = 24 x 6 x 2 = 288. Answer = 362880 / 288 = 1260.",
+    "lesson": "Each group of identical copies contributes one factorial to the denominator. With three groups you divide by three factorials multiplied together, not added.",
+    "timing": "70-80 s. Compute denominator step by step: 4! = 24, 3! = 6, 2! = 2, product = 288. Then 362880 / 288 = 1260. Trap: forgetting any one group (e.g., stopping at 4! x 3! = 144 gives 2520, a plausible-looking wrong answer)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

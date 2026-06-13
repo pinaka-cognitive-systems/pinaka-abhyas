@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000493",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000493.py"
+  },
+  "tests": [
+    "qa.bmath.sequence_series.special_series"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 95,
+  "stem": "A trader records daily sales for 8 days. The sales on each day (in units) equal the cube of the day number: day 1 sells 1 unit, day 2 sells 8 units, day 3 sells 27 units, and so on up to day 8. What are the total units sold over the 8 days?",
+  "options": [
+    {
+      "key": 1,
+      "text": "1296"
+    },
+    {
+      "key": 2,
+      "text": "36"
+    },
+    {
+      "key": 3,
+      "text": "204"
+    },
+    {
+      "key": 4,
+      "text": "2916"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Sum of cubes of first n naturals = [n(n+1)/2]^2. For n=8: [8*9/2]^2 = 36^2 = 1296."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Applied only the inner formula n(n+1)/2 = 36 without squaring, giving 36 instead of 36^2 = 1296."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Used the sum-of-squares formula n(n+1)(2n+1)/6 = 8*9*17/6 = 204, misidentifying the series as sum of squares rather than sum of cubes."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Computed [n(n+1)/2]^2 with n=9 instead of n=8 (off-by-one): [9*10/2]^2 = 45^2 = 2025, then a further slip yields 2916 = 54^2, misapplying n=9 and squaring 54."
+    }
+  ],
+  "explanation": "Sales follow 1^3 + 2^3 + ... + 8^3. The sum-of-cubes formula gives [n(n+1)/2]^2 = [8*9/2]^2 = 36^2 = 1296.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Recognise the series as sum of cubes and apply [n(n+1)/2]^2.",
+    "approach": "Derivation plan: identify the series as 1^3 + 2^3 + ... + n^3 with n=8. Apply the formula: [8*9/2]^2 = [36]^2 = 1296. Note the neat fact that sum of first n cubes equals the square of the sum of first n naturals.",
+    "lesson": "Sum of first n cubes = [n(n+1)/2]^2. This equals (sum of first n naturals)^2, a beautiful identity worth memorising.",
+    "timing": "Under 75 seconds. Trap: forgetting to square (giving 36) or confusing with the sum-of-squares formula (giving 204)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

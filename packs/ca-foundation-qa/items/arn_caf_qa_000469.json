@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000469",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000469.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.combinations"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "A committee of 3 members is to be selected from a group of 8 people. In how many ways can this be done?",
+  "options": [
+    {
+      "key": 1,
+      "text": "56"
+    },
+    {
+      "key": 2,
+      "text": "336"
+    },
+    {
+      "key": 3,
+      "text": "24"
+    },
+    {
+      "key": 4,
+      "text": "28"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "C(8,3) = 8! / (3! * 5!) = (8 * 7 * 6) / (3 * 2 * 1) = 336 / 6 = 56."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "permutation_combination_confusion",
+      "rationale": "P(8,3) = 8 * 7 * 6 = 336 counts ordered selections; order does not matter for a committee."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Dividing 8! by (3! * 4!) = 24 confuses the complement size, using 4! instead of 5! in the denominator."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "C(8,3) computed as C(7,3) = 35... actually this path: treating group size as 7 gives C(7,3) = 35, but another slip uses n-1=7 differently giving 28 = C(8,2), confusing 'choose 3 from 8' with 'choose 2 from 8'."
+    }
+  ],
+  "explanation": "Order does not matter when forming a committee, so this is a combination. Apply C(n,r) = n! / (r! * (n-r)!). With n=8, r=3: C(8,3) = (8 x 7 x 6) / (3 x 2 x 1) = 56.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "A committee has no rank ordering among members, so count unordered selections: C(8,3) = 56.",
+    "approach": "Classify: is order relevant? No - a committee {A,B,C} is the same as {C,B,A}. Use C(n,r) = n!/(r!(n-r)!) with n=8, r=3. Numerator: 8*7*6 = 336. Denominator: 3! = 6. Result: 336/6 = 56.",
+    "lesson": "When a group is selected with no internal ranking (committee, team, subset), use combinations C(n,r), not permutations P(n,r).",
+    "timing": "30 seconds. Spot the trap: option 2 is P(8,3)=336, the permutation answer. If you get 336 you counted ordered arrangements."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

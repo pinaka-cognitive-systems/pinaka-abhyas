@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000753",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000753.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.standard_deviation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "The marks of 20 students in a test are distributed as follows:\n\nMarks: 10-20, 20-30, 30-40, 40-50, 50-60\nStudents: 1, 6, 6, 6, 1\n\nUsing assumed mean A = 35 and class width h = 10, find the standard deviation.",
+  "options": [
+    {
+      "key": 1,
+      "text": "10"
+    },
+    {
+      "key": 2,
+      "text": "100"
+    },
+    {
+      "key": 3,
+      "text": "10.26"
+    },
+    {
+      "key": 4,
+      "text": "7.07"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "u values: -2,-1,0,1,2. fu = 0 (symmetric). fu^2 = 4*1+1*6+0+1*6+4*1 = 20. SD = h*sqrt(fu^2/n - (fu/n)^2) = 10*sqrt(20/20 - 0) = 10*sqrt(1) = 10."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student computes variance = h^2 * fu^2/n = 100*1 = 100 but reports variance instead of taking sqrt to get SD=10."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "population_sample_confusion",
+      "rationale": "Student divides sum of squared deviations by n-1=19: variance = 100*20/19 = 105.26, SD = sqrt(105.26) = 10.26."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Student computes SD = h*sqrt(fu^2/n) without squaring h first in the correct form, then divides once more: h*sqrt(fu^2/n)/sqrt(2) = 10/sqrt(2) = 7.07."
+    }
+  ],
+  "explanation": "The step deviation formula for SD is: SD = h * sqrt( (sum fu^2)/n - ((sum fu)/n)^2 ). The assumed mean affects the mean but not the SD when fu = 0.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The decisive setup is recognising that the symmetric distribution makes sum(fu) = 0, reducing the formula to SD = h * sqrt(fu^2/n).",
+    "approach": "Step 1: Compute u = (mid - A)/h for A=35, h=10: u in {-2,-1,0,1,2}. Step 2: fu = 1(-2)+6(-1)+6(0)+6(1)+1(2) = 0. Step 3: fu^2 = 4(1)+1(6)+0(6)+1(6)+4(1) = 20. Step 4: SD = 10*sqrt(20/20 - 0) = 10*1 = 10.",
+    "lesson": "When a distribution is symmetric about the assumed mean, sum(fu)=0 and the formula simplifies; report the SD, not the variance.",
+    "timing": "About 75 seconds. The symmetry (1,6,6,6,1) makes sum(fu) = 0 visible immediately, halving the work."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

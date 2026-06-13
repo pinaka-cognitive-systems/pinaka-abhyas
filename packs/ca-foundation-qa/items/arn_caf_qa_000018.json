@@ -18,10 +18,10 @@
   "tests": [
     "qa.bmath.sets_functions.relations_functions"
   ],
-  "difficulty_label": "L1",
+  "difficulty_label": "L2",
   "taxonomy_version": 4,
   "item_type": "single_best",
-  "expected_seconds": 45,
+  "expected_seconds": 75,
   "stem": "The relation R defined on the set of integers by 'a R b if and only if a is less than or equal to b' (a <= b) is best described as:",
   "options": [
     {
@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "The <= relation on integers is reflexive (a<=a), antisymmetric (a<=b and b<=a implies a=b), and transitive (a<=b, b<=c implies a<=c). Because symmetry fails (1<=2 but not 2<=1), it is a total order, not an equivalence relation. Among the options, 'transitive but not symmetric' is the correct characterisation.",
+  "explanation_kind": "concept",
   "explanation_sections": {
-    "punchline": "The <= relation fails symmetry: 1 <= 2 is true but 2 <= 1 is false. It is transitive but not symmetric.",
-    "approach": "Check the three relation properties in order: reflexive, symmetric, transitive. For each, test with a simple counter-example where needed. For <=: a <= a always holds (reflexive, yes). If a <= b does b <= a always hold? No, pick a=1, b=2 (symmetric, no). If a <= b and b <= c, is a <= c always true? Yes (transitive, yes). Match the surviving properties to the options.",
-    "lesson": "An equivalence relation needs all three: reflexive, symmetric, and transitive. Failing any one disqualifies it. For order relations, symmetry is almost always the property that fails.",
-    "timing": "About 45 seconds. Counter-example test for symmetry takes 5 seconds. Eliminate option (3) in 5 seconds once you confirm symmetry fails."
+    "punchline": "Symmetry fails the moment you pick a=1, b=2: 1 <= 2 is true but 2 <= 1 is false. A relation that fails symmetry cannot be an equivalence relation, and it cannot be symmetric-and-reflexive. It is transitive but not symmetric.",
+    "approach": "State each property, then check it against the definition of <=, contrasting with the confusable equivalence relation. Reflexive: a <= a for all integers, yes. Symmetric: does a <= b always imply b <= a? No - 1 <= 2 but not 2 <= 1, so symmetric fails. Transitive: a <= b and b <= c implies a <= c, yes. Antisymmetric: a <= b and b <= a forces a = b, yes. Result: reflexive, antisymmetric, transitive - a total order, not an equivalence. Match to option 2.",
+    "lesson": "Equivalence requires all three: reflexive, symmetric, transitive. Order relations typically pass reflexivity and transitivity but fail symmetry. One counter-example is enough to kill symmetry.",
+    "timing": "About 45 seconds. Test symmetry first with 1 and 2 - it fails in under 10 seconds. That alone eliminates options 1 and 3. Option 4 (antisymmetric only) ignores that reflexivity and transitivity also hold."
   },
   "empirical": {
     "calibration_status": "none",

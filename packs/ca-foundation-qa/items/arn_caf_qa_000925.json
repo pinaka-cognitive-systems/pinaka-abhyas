@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000925",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000925.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.number_series"
+  ],
+  "difficulty_label": "L1",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 150,
+  "stem": "Find the next number in the series: 1, 2, 5, 10, 13, 26, ?",
+  "options": [
+    {
+      "key": 1,
+      "text": "39"
+    },
+    {
+      "key": 2,
+      "text": "29"
+    },
+    {
+      "key": 3,
+      "text": "52"
+    },
+    {
+      "key": 4,
+      "text": "23"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "39 comes from adding the previous gap 13 again to 26. The gaps 1, 3, 5, 3, 13 are not a single additive pattern; the rule alternates two operations, and the step after a multiply is add 3, giving 29, not a repeated 13."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "The operations alternate: multiply by 2, then add 3, and repeat. 1 times 2 is 2, plus 3 is 5, times 2 is 10, plus 3 is 13, times 2 is 26. The last applied step was a multiply, so the next is add 3: 26 plus 3 is 29."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "52 is 26 times 2, applying multiply again. But the step that produced 26 was itself a multiply (13 times 2), and the rule alternates, so the next operation must be add 3, not another multiply."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "23 is 26 minus 3. The add-3 step is the correct operation here but the sign is flipped to subtraction, a slip; the rule adds 3 to give 29."
+    }
+  ],
+  "explanation": "The series is built by alternating two operations rather than one. Starting from 1, multiply by 2 to get 2, add 3 to get 5, multiply by 2 to get 10, add 3 to get 13, multiply by 2 to get 26. The pattern of operations is multiply, add, multiply, add, multiply, so the next operation is add 3. 26 plus 3 equals 29.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The rule alternates multiply by 2 and add 3; the last step was a multiply, so the next is add 3, giving 26 plus 3 equals 29.",
+    "approach": "When single differences look erratic, test for alternating operations. Write the step from each term to the next: times 2, plus 3, times 2, plus 3, times 2. The pattern is two operations in turn. Identify which one was last applied here it was a multiply that produced 26 and apply the other, add 3, to get 29. Verify the rule regenerates every earlier term.",
+    "lesson": "If the gaps in a series are not a clean single pattern, check whether two operations alternate before forcing one rule.",
+    "timing": "About 145 seconds. Fastest elimination is option (3) 52: it applies multiply twice in a row, which the strict alternation forbids right after the multiply that gave 26."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000499",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000499.py"
+  },
+  "tests": [
+    "qa.bmath.calculus.differentiation"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "A firm's total revenue function is R(x) = 5x^2 + 3x, where x is the number of units sold. What is the marginal revenue when x = 4?",
+  "options": [
+    {
+      "key": 1,
+      "text": "43"
+    },
+    {
+      "key": 2,
+      "text": "40"
+    },
+    {
+      "key": 3,
+      "text": "47"
+    },
+    {
+      "key": 4,
+      "text": "88"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Marginal revenue is dR/dx = 10x + 3. At x = 4: 10(4) + 3 = 40 + 3 = 43."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "power_rule_misapplied",
+      "rationale": "Differentiating 5x^2 as 5x (forgetting to bring down the exponent 2) gives dR/dx = 5x + 3. At x = 4: 20 + 3 = 23 ... or forgetting the constant: 10x gives 40 with no +3 term."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Adding 3 to 44 instead of 40: 10(4) = 40, then 40 + 7 = 47 via a slip in the constant term."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "marginal_vs_average_confused",
+      "rationale": "Computing R(4) directly: 5(16) + 3(4) = 80 + 12 = 92, or R(4) = 5(4^2) + 3(4) = 80 + 12 = 92 is total revenue; the answer 88 arises from R(4) = 5(16) + 3(4) treated as 80 + 8 = 88 (misreading 3x at x=4 as 8)."
+    }
+  ],
+  "explanation": "Marginal revenue is the derivative of total revenue with respect to x. For R(x) = 5x^2 + 3x, apply the power rule to each term: d/dx(5x^2) = 10x and d/dx(3x) = 3. So MR = 10x + 3. At x = 4, MR = 40 + 3 = 43.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Marginal revenue equals the derivative dR/dx evaluated at the given output level, not the total revenue itself.",
+    "approach": "Differentiation of a polynomial revenue function: bring down each exponent and reduce it by one. Map the given x value and substitute into dR/dx.",
+    "lesson": "Marginal quantity always means the derivative of the total quantity with respect to output, never the total divided by x.",
+    "timing": "30-40 seconds. Eliminate opt 4 first (too large - total revenue, not marginal)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

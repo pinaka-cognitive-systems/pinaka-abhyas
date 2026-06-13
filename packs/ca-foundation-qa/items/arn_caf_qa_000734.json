@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000734",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000734.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.range"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "The marks scored by eight students in a class test are: 34, 57, 22, 68, 45, 71, 29, 53. The range of the marks is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "47"
+    },
+    {
+      "key": 2,
+      "text": "49"
+    },
+    {
+      "key": 3,
+      "text": "44"
+    },
+    {
+      "key": 4,
+      "text": "42"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student reads maximum as 69 instead of 71 and computes 69 - 22 = 47."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Range = Maximum - Minimum = 71 - 22 = 49."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student confuses minimum with second-smallest (29) and computes 68 - 24 or uses 71 - 27 = 44 due to a misread."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student computes 71 - 29 = 42, using the second-smallest value (29) as the minimum instead of 22."
+    }
+  ],
+  "explanation": "Range requires only the two extreme values. Maximum = 71, minimum = 22. Range = 71 - 22 = 49.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Always identify both extremes carefully; the minimum here is 22, not 29.",
+    "approach": "Identify range = Max - Min. Sort or scan: min = 22, max = 71. Range = 71 - 22 = 49.",
+    "lesson": "When values are unsorted, list them in order or explicitly mark the smallest before subtracting.",
+    "timing": "25 seconds. Write out the sorted list mentally; the trap is picking 29 as the minimum, giving 42."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

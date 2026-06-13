@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000767",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000767.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.coefficient_of_variation"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 45,
+  "stem": "The mean monthly output of a machine is 50 units and the standard deviation is 10 units. What is the coefficient of variation of the monthly output?",
+  "options": [
+    {
+      "key": 1,
+      "text": "20%"
+    },
+    {
+      "key": 2,
+      "text": "0.20"
+    },
+    {
+      "key": 3,
+      "text": "500%"
+    },
+    {
+      "key": 4,
+      "text": "40 units"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "CV = (SD / mean) * 100 = (10 / 50) * 100 = 20%."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "0.20 = SD/mean = 10/50, the ratio without multiplying by 100. The student computed the ratio but forgot the percentage scaling factor."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "500% = (mean/SD)*100 = (50/10)*100. The student inverted the ratio, dividing the mean by the SD instead of SD by the mean."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "40 units = mean - SD = 50 - 10 = 40. The student subtracted the standard deviation from the mean, confusing the coefficient of variation with a simple arithmetic difference."
+    }
+  ],
+  "explanation": "Coefficient of variation (CV) = (Standard deviation / Mean) * 100 = (10 / 50) * 100 = 20%. It expresses dispersion as a percentage of the mean, enabling comparison across datasets with different units or means.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "CV = (SD / mean) * 100; it is a percentage, not a raw ratio, and SD goes in the numerator.",
+    "approach": "Identify the formula: CV = (SD/mean) * 100. Map the givens: SD=10, mean=50. Compute: 10/50 = 0.20; multiply by 100 to get 20%. One formula, one plug-in - no setup decisions needed.",
+    "lesson": "CV is always SD divided by mean (not mean divided by SD) and is expressed as a percentage by multiplying by 100.",
+    "timing": "30-45 seconds. Trap: inverting the ratio (500%) or forgetting the *100 (0.20)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

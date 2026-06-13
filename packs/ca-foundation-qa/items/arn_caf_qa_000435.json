@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000435",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000435.py"
+  },
+  "tests": [
+    "qa.bmath.finance.emi"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "Suresh is repaying a reducing-balance loan at 12% per annum compounded monthly. He pays a fixed monthly EMI of Rs 9,420. After 12 monthly instalments his outstanding balance (the present value of remaining instalments discounted at the same rate) is Rs 1,06,004. How many monthly instalments did the original loan plan have in total? The outstanding balance after k payments equals the PV of the remaining (n-k) instalments: B_k = EMI x [1-(1+i)^-(n-k)] / i, where i is the monthly rate. Use (1.01)^12 = 1.1268.",
+  "options": [
+    {
+      "key": 1,
+      "text": "24 instalments"
+    },
+    {
+      "key": 2,
+      "text": "18 instalments"
+    },
+    {
+      "key": 3,
+      "text": "36 instalments"
+    },
+    {
+      "key": 4,
+      "text": "12 instalments"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "i=0.01. Solve: 1-(1.01)^-(rem) = 106004*0.01/9420 = 0.11253. So (1.01)^-(rem) = 0.88747, meaning (1.01)^rem = 1.1268. Since (1.01)^12 = 1.1268 exactly (given), remaining = 12. Total n = 12 + 12 = 24."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Misidentifies (1.01)^6 = 1.0615 as the matching power and concludes remaining = 6, giving total n = 18."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "time_factor_dropped",
+      "rationale": "Finds remaining = 24 (by a period-count error doubling the remaining term) and adds 12 paid, giving 36 total."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Ignores the remaining-instalment derivation entirely and reports only the 12 already-paid instalments as the total."
+    }
+  ],
+  "explanation": "Step 1: from B_k = EMI x [1-(1+i)^-(rem)]/i, rearrange: 1-(1.01)^-(rem) = 106004*0.01/9420 = 0.11253. Step 2: (1.01)^-(rem) = 0.88747, so (1.01)^rem = 1.1268. Step 3: from given (1.01)^12 = 1.1268, remaining = 12. Step 4: total n = 12 + 12 = 24 instalments.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Back-calculating the original term requires expressing the outstanding balance as a PV annuity and matching the resulting power to the given hint.",
+    "approach": "Formula: outstanding balance = EMI x [1-(1+i)^-(remaining)]/i. Rearrange to isolate (1+i)^remaining = 1/(1 - outstanding*i/EMI) = 1/(1-0.11253) = 1.1268. Use given hint (1.01)^12=1.1268 to read off remaining=12. Add paid 12 to get n=24.",
+    "lesson": "To find the original term from a mid-loan balance: invert the PV annuity formula to get (1+i)^remaining, then match to the given power table, and add back already-paid periods.",
+    "timing": "120 seconds. Trap 1: treating remaining instalments as total (n=12). Trap 2: not adding the paid 12 to the remaining 12."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

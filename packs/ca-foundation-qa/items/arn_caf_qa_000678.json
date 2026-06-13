@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000678",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000678.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.frequency_distribution"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "A frequency distribution uses inclusive class intervals: 10-19, 20-29, 30-39, 40-49. To convert these to exclusive (continuous) class boundaries, a correction factor equal to half the gap between classes is subtracted from the lower limit and added to the upper limit. The lower class boundary of the class 20-29 is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "19.5"
+    },
+    {
+      "key": 2,
+      "text": "20.0"
+    },
+    {
+      "key": 3,
+      "text": "20.5"
+    },
+    {
+      "key": 4,
+      "text": "18.5"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Gap between consecutive classes = 20 - 19 = 1. Correction factor = 1/2 = 0.5. Lower boundary of 20-29 = 20 - 0.5 = 19.5."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Taking the lower limit as-is without applying any boundary correction, treating inclusive limits as boundaries directly."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "Adding 0.5 to the lower limit (20 + 0.5 = 20.5) instead of subtracting it."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Subtracting 1.5 instead of 0.5 from the lower limit, giving 20 - 1.5 = 18.5."
+    }
+  ],
+  "explanation": "For inclusive class intervals, the gap between consecutive upper limit and next lower limit = 20 - 19 = 1. Correction factor = 0.5. Lower class boundary = lower class limit - 0.5 = 20 - 0.5 = 19.5.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Lower boundary = lower inclusive limit - 0.5 = 20 - 0.5 = 19.5.",
+    "approach": "Identify the model: inclusive to exclusive boundary conversion. Recipe: (1) find the gap between consecutive classes: upper limit of one class (19) to lower limit of next class (20), gap = 1; (2) correction factor = gap/2 = 0.5; (3) lower boundary = lower limit - correction = 20 - 0.5 = 19.5.",
+    "lesson": "When class intervals are inclusive (e.g. 10-19, 20-29), the class boundary is obtained by subtracting 0.5 from the lower limit and adding 0.5 to the upper limit, assuming unit-scale data.",
+    "timing": "30 seconds. Identify gap = 1, halve to 0.5, subtract from lower limit. Trap: option 3 (20.5) adds instead of subtracts."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

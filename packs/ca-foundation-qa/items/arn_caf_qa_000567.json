@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000567",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000567.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.coding_decoding"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "In a code language, CHAIR is written as EJCKT. Using the same code, what does FKOOR stand for in plain English?",
+  "options": [
+    {
+      "key": 1,
+      "text": "DIMMP"
+    },
+    {
+      "key": 2,
+      "text": "FLOOR"
+    },
+    {
+      "key": 3,
+      "text": "FLOOM"
+    },
+    {
+      "key": 4,
+      "text": "DILMP"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "The encoding shifts each letter +2 (C->E, H->J, A->C, I->K, R->T). Decoding reverses with -2: F(6)->D(4), K(11)->I(9), O(15)->M(13), O(15)->M(13), R(18)->P(16), giving DIMMP."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "FLOOR is what you get if no decoding shift is applied - treating the coded word as already plain text, which ignores the +2 rule entirely."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "An arithmetic slip on the last letter makes R(18)-2 = 15 = O instead of the correct 16 = P, producing FLOOM."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Misreading K as J (one letter off) gives K(11)-2 = I correct but the misread makes it J-2 = H, and combining with other small slips yields DILMP."
+    }
+  ],
+  "explanation": "The rule shifts each letter forward by 2 in the alphabet (C->E, H->J, A->C, I->K, R->T). To decode FKOOR, subtract 2 from each: F->D, K->I, O->M, O->M, R->P, giving DIMMP.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Identify the uniform +2 shift from the given pair, confirm it on all five letters, then subtract 2 to decode.",
+    "approach": "Deductive trace: compute the shift for each letter pair - C->E (+2), H->J (+2), A->C (+2), I->K (+2), R->T (+2). Uniform +2 confirmed. Apply -2 to each letter of FKOOR: F(6)->D(4), K(11)->I(9), O(15)->M(13), O(15)->M(13), R(18)->P(16).",
+    "lesson": "Always verify the shift on every letter of the given example before decoding; a uniform shift that holds for all five letters is reliable.",
+    "timing": "About 50-60 seconds. Fastest elimination: FLOOR requires zero shift - rule it out immediately since a shift exists."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

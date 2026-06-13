@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000360",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000360.py"
+  },
+  "tests": [
+    "qa.bmath.inequalities.two_variable"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "The system of inequalities x >= 0, y >= 0, and x + y <= 8 defines a triangular feasible region. How many of the four points (0,0), (8,0), (0,8), and (4,4) lie on the boundary or interior of this region?",
+  "options": [
+    {
+      "key": 1,
+      "text": "2"
+    },
+    {
+      "key": 2,
+      "text": "3"
+    },
+    {
+      "key": 3,
+      "text": "4"
+    },
+    {
+      "key": 4,
+      "text": "1"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Counts only (0,0) and (8,0), missing the other two boundary points."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Missed that (4,4) also satisfies: 4+4=8 which is <= 8."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "All four points: (0,0)->0<=8, (8,0)->8<=8, (0,8)->8<=8, (4,4)->8<=8. All have non-negative coordinates and sum at most 8."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Treats the constraint as strict (x+y < 8) and counts only (0,0)."
+    }
+  ],
+  "explanation": "Check each point against all three constraints x>=0, y>=0, x+y<=8. Every point has non-negative coordinates and their coordinate sum equals 0 or 8, all satisfying the non-strict inequality. All four points lie on the boundary or interior.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Non-strict inequalities include the boundary line x+y=8, so all four points are feasible.",
+    "approach": "For each point compute x+y: (0,0)->0, (8,0)->8, (0,8)->8, (4,4)->8. All <= 8 and both coordinates non-negative. All four pass.",
+    "lesson": "Non-strict inequalities (<=) include the boundary; boundary points ARE part of the feasible region.",
+    "timing": "45 s. The trap is treating the non-strict inequality as strict and excluding the boundary."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

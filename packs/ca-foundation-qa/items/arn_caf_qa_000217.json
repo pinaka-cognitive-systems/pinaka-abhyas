@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "Poonam's father is Suresh's mother's only brother, which makes him Suresh's maternal uncle. Poonam is the daughter of that uncle. The child of one's maternal uncle is one's maternal cousin. Poonam is Suresh's cousin.",
+  "explanation_kind": "deductive_trace",
   "explanation_sections": {
-    "punchline": "Poonam is Suresh's cousin. Her father is Suresh's maternal uncle, and the child of an uncle is always a cousin.",
-    "approach": "Trace one relation at a time. Identify whose parent or sibling is named in the clue. Check the generation level and then the gender label. For blood-relation items, start from the subject and follow each link.",
-    "lesson": "An uncle's child is always a cousin, not a niece or nephew. Niece or nephew applies only to a sibling's child. Check the generation before assigning the term.",
-    "timing": "45 seconds. One-step chain: trace the link in under 20 seconds. Spend the remaining time verifying the gender of the term. Do not overcomplicate a single-link chain."
+    "punchline": "Lock the uncle link first: Poonam's father = Suresh's mother's only brother = Suresh's maternal uncle. That is the cracking move. Once the father is identified as Suresh's uncle, Poonam is immediately Suresh's cousin - no further inference needed.",
+    "approach": "Follow the chain from Suresh outward. Step 1: 'my mother's only brother' = Suresh's maternal uncle. Step 2: Poonam's father = that uncle. Step 3: child of one's uncle = cousin. Poonam is female, so the label is cousin (gender-neutral in this context). Verify: is Poonam in the same generation as Suresh? Yes (uncle's child = cousin, same generation). Confirm answer. One link; no generation jump needed.",
+    "lesson": "Uncle's child = cousin. Sibling's child = niece or nephew. The generation check is the deciding step: cousins share a generation with the speaker; nieces/nephews are one generation below. Clue: 'your father is my uncle' always resolves to cousin.",
+    "timing": "About 40 seconds. One link to trace: 15 seconds. Generation check: 10 seconds. Gender label check: 10 seconds. Trap: option 1 (Niece) places Poonam one generation below Suresh - it violates the uncle link, which puts them in the same generation."
   },
   "empirical": {
     "calibration_status": "none",

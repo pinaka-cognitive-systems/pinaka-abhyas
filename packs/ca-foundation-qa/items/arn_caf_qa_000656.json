@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000656",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000656.py"
+  },
+  "tests": [
+    "qa.lr.blood_relations"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Read the clues below carefully and answer: (1) P is the father of Q. (2) R is the son of S. (3) S is the daughter of P. (4) T is the husband of P's daughter. (5) R has no siblings. Who is T's father-in-law?",
+  "options": [
+    {
+      "key": 1,
+      "text": "P"
+    },
+    {
+      "key": 2,
+      "text": "Q"
+    },
+    {
+      "key": 3,
+      "text": "S"
+    },
+    {
+      "key": 4,
+      "text": "R"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "T is the husband of P's daughter. P is the father of that daughter. Therefore T's father-in-law is P."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Q is P's child (same generation as S). T's father-in-law must be the father of T's wife. Q is not necessarily the father of any of P's daughters mentioned; P is the father."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "kinship_gender_error",
+      "rationale": "S is P's daughter, so S is T's wife (since T is the husband of P's daughter and R has no siblings means S has no sisters, making S uniquely T's wife). S is female, so S cannot be a father-in-law; the father-in-law is S's father, which is P."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "kinship_direction_inverted",
+      "rationale": "R is S's son, so R is one generation below T's wife. A son of one's wife is a stepson, not a father-in-law. This confuses a descendant with an ancestor."
+    }
+  ],
+  "explanation": "From clue 3, S is P's daughter. From clue 5, R has no siblings, so S has only one child (R). From clue 4, T is the husband of P's daughter. Since S is P's daughter, T's wife is S (the only available daughter of P in the clues). T's father-in-law is S's father, which is P.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "T is married to P's daughter S, so T's father-in-law is directly P.",
+    "approach": "Apply clues most-certain-first: Clue 3 gives S as P's daughter. Clue 4 says T is husband of P's daughter => T's wife is S. Father-in-law = wife's father = P.",
+    "lesson": "Father-in-law is the father of one's spouse; trace back from spouse to her father, not sideways or downward.",
+    "timing": "About 70 seconds. Trap is option 3 (S), confusing gender: S is female so cannot be 'father-in-law'. Eliminating S immediately leaves P as the correct answer."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

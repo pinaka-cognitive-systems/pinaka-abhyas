@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000483",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000483.py"
+  },
+  "tests": [
+    "qa.bmath.sequence_series.gp"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "In a geometric progression, the 3rd term is 36 and the 6th term is 972. What is the first term of the progression?",
+  "options": [
+    {
+      "key": 1,
+      "text": "4"
+    },
+    {
+      "key": 2,
+      "text": "12"
+    },
+    {
+      "key": 3,
+      "text": "2"
+    },
+    {
+      "key": 4,
+      "text": "6"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "T_6/T_3 = r^(6-3) = r^3 = 972/36 = 27, so r=3. Then a = T_3/r^2 = 36/9 = 4."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Finds r=3 correctly but then computes a = T_3/r = 36/3 = 12, using r^1 instead of r^(3-1) = r^2 in the term formula."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Correctly finds r=3 and sets up a = 36/r^2 = 36/9, but makes a slip and computes 36/18 = 2 (uses r^2 = 18 instead of 9)."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Applies T_3 = a*r^3 (using the term index as the exponent directly instead of n-1), so a = T_3/r^3 = 36/27 = 4/3, rounded or mishandled to give 6 from a different wrong path where T_3/6 = 6."
+    }
+  ],
+  "explanation": "Step 1: r^3 = T_6/T_3 = 972/36 = 27, so r=3. Step 2: T_3 = a*r^2, so a = 36/9 = 4.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The ratio of two GP terms T_m/T_k = r^(m-k) isolates r without needing a.",
+    "approach": "Formula: T_n = a*r^(n-1). Divide: T_6/T_3 = r^(6-3) = r^3 = 27, so r=3. Substitute back: T_3 = a*r^2 = 9a = 36, giving a=4.",
+    "lesson": "When two non-consecutive terms in a GP are known, use their ratio r^(m-k) to find r, then back-substitute to find a.",
+    "timing": "50-60 seconds. Two steps: (1) isolate r via the ratio, (2) recover a. Trap: using r^(n) instead of r^(n-1) in step 2."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

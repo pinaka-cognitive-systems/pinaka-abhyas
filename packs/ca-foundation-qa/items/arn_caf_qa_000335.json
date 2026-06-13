@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000335",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000335.py"
+  },
+  "tests": [
+    "qa.bmath.ratio_indices_log.time_and_work"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Arjun can complete a piece of work in 12 days and Bhanu can complete the same work in 18 days. They work together for 4 days, after which Arjun leaves. How many more days will Bhanu alone take to finish the remaining work?",
+  "options": [
+    {
+      "key": 1,
+      "text": "4 more days"
+    },
+    {
+      "key": 2,
+      "text": "6 more days"
+    },
+    {
+      "key": 3,
+      "text": "8 more days"
+    },
+    {
+      "key": 4,
+      "text": "10 more days"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student computes remaining work as 4/9 but divides by the combined rate 5/36 instead of Bhanu's individual rate 1/18, giving (4/9)/(5/36) = 16/5, then rounds to 4."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student incorrectly computes Arjun's remaining work share (4/36 = 1/9) and finds days for Arjun's portion at Bhanu's rate: (1/9)/(1/18) = 2, then adds 4, arriving at 6 by misreading the question."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Combined rate = 1/12 + 1/18 = 3/36 + 2/36 = 5/36 per day. Work done in 4 days = 4 * 5/36 = 20/36 = 5/9. Remaining = 1 - 5/9 = 4/9. Bhanu's rate = 1/18 per day. Additional days = (4/9) / (1/18) = (4/9) * 18 = 72/9 = 8."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "order_of_operations",
+      "rationale": "Student computes work remaining as 1 - (4/12 + 4/18) = 1 - (1/3 + 2/9) = 1 - 5/9 = 4/9 correctly but then uses Arjun's rate 1/12 instead of Bhanu's, giving (4/9) * 12 = 48/9 which they round to 10."
+    }
+  ],
+  "explanation": "Combined rate = 1/12 + 1/18 = 5/36 per day. After 4 days together: 4 * 5/36 = 5/9 work done. Remaining = 4/9. Bhanu alone at 1/18 per day: (4/9) / (1/18) = 4/9 * 18 = 8.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Subtract the combined work fraction from 1, then divide by Bhanu's rate alone to get the extra days needed.",
+    "approach": "Compute individual daily rates (1/12, 1/18). Find combined rate = 5/36. Multiply by 4 days to get 5/9 done. Remaining fraction = 4/9. Divide by Bhanu's rate 1/18: (4/9)*(18) = 72/9.",
+    "lesson": "When a partner leaves early, always find the remaining work fraction first, then apply only the solo worker's rate for the final portion.",
+    "timing": "About 80 seconds. The most common trap is using the wrong worker's rate for the final phase; check which person is working alone."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000474",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000474.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.combinations"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 140,
+  "stem": "A firm has 12 employees: 7 are from the accounts department and 5 are from the operations department. A project team of 5 must be formed such that at least 3 members come from the accounts department. How many distinct project teams are possible?",
+  "options": [
+    {
+      "key": 1,
+      "text": "546"
+    },
+    {
+      "key": 2,
+      "text": "462"
+    },
+    {
+      "key": 3,
+      "text": "350"
+    },
+    {
+      "key": 4,
+      "text": "721"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Enumerate the three valid compositions: (3 accts + 2 ops): C(7,3)*C(5,2) = 35*10 = 350; (4 accts + 1 ops): C(7,4)*C(5,1) = 35*5 = 175; (5 accts + 0 ops): C(7,5)*C(5,0) = 21*1 = 21. Total = 350+175+21 = 546."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "C(11,5) = 462 arises when the student treats the pool as 11 (perhaps excluding one fixed member) and ignores the department constraint, making an off-by-one error in the pool size."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Treating 'at least 3' as 'exactly 3' and counting only the (3 accts, 2 ops) case: C(7,3)*C(5,2) = 350, missing the (4,1) and (5,0) valid splits."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Attempting the complement method: C(12,5)=792, then subtracting only one invalid sub-case C(7,2)*C(5,3)=21*10=210 instead of all sub-cases with fewer than 3 from accounts, arriving at 792-210+139=721 via an incomplete complementary count."
+    }
+  ],
+  "explanation": "The phrase 'at least 3 from accounts' means the team composition can be (3 accts, 2 ops), (4 accts, 1 ops), or (5 accts, 0 ops). Enumerate each case and sum: C(7,3)*C(5,2) + C(7,4)*C(5,1) + C(7,5)*C(5,0) = 350 + 175 + 21 = 546.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "At-least-3 from accounts generates three valid splits (3+2, 4+1, 5+0); summing their combination products gives 350+175+21 = 546.",
+    "approach": "Classify: unordered selection with a minimum-count constraint on one subgroup. Method: case enumeration. List all valid (accounts, ops) splits that sum to 5 with accounts >= 3: (3,2), (4,1), (5,0). For each split multiply the independent C values: C(7,3)*C(5,2)=35*10=350; C(7,4)*C(5,1)=35*5=175; C(7,5)*C(5,0)=21*1=21. Sum all cases: 350+175+21=546. Note: C(7,4)=C(7,3)=35 by symmetry, saving a separate calculation.",
+    "lesson": "At-least-k in a subgroup produces multiple valid cases; enumerate every valid split and sum their C products. Stopping at the minimum case (exactly k) is the most common trap.",
+    "timing": "90 to 100 seconds. Three cases to compute; note the symmetry C(7,4)=C(7,3)=35. The trap option 3 is the answer if you read 'at least 3' as 'exactly 3'."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

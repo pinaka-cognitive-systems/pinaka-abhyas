@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000475",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000475.py"
+  },
+  "tests": [
+    "qa.bmath.sequence_series.ap"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "The first term of an arithmetic progression is 7 and the common difference is 5. What is the 12th term of this progression?",
+  "options": [
+    {
+      "key": 1,
+      "text": "57"
+    },
+    {
+      "key": 2,
+      "text": "62"
+    },
+    {
+      "key": 3,
+      "text": "52"
+    },
+    {
+      "key": 4,
+      "text": "67"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Computes a + 11*d - d = 7 + 10*5 = 57, using n-2 instead of n-1 gaps (off-by-one on the index)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Applying T_n = a + (n-1)*d gives T_12 = 7 + 11*5 = 7 + 55 = 62."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computes 7 + 9*5 = 7 + 45 = 52, using n-3 gaps from a miscounting slip."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Computes a + n*d = 7 + 12*5 = 67, adding n multiples of d instead of (n-1), a fencepost off-by-one."
+    }
+  ],
+  "explanation": "The nth term of an AP is T_n = a + (n-1)*d. With a=7, d=5, n=12: T_12 = 7 + 11*5 = 62.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "T_n = a + (n-1)*d requires exactly n-1 steps of d from the first term.",
+    "approach": "Formula: T_n = a + (n-1)*d. Identify a=7, d=5, n=12. Compute (n-1)=11, multiply 11*5=55, add a: 7+55=62.",
+    "lesson": "There are only n-1 common differences in the first n terms of an AP - the first term adds 0 copies of d.",
+    "timing": "20-25 seconds. The trap is adding 12*d instead of 11*d; eliminate options 57 (10 gaps) and 67 (12 gaps) immediately."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

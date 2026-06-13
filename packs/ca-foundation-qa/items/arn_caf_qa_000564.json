@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000564",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000564.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.coding_decoding"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "In a certain code language, STAR is written as TCVU and FARM is written as OTCH. Using the same rule, how will GOLD be written in that code?",
+  "options": [
+    {
+      "key": 1,
+      "text": "EMPH"
+    },
+    {
+      "key": 2,
+      "text": "FNQI"
+    },
+    {
+      "key": 3,
+      "text": "GORJ"
+    },
+    {
+      "key": 4,
+      "text": "IQNF"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "Reversing GOLD to DLOG and shifting each letter by +1 instead of +2 gives D+1=E, L+1=M, O+1=P, G+1=H = EMPH, applying the wrong shift magnitude."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "The rule is: reverse the word, then shift each letter forward by 2. GOLD reversed is DLOG. D+2=F, L+2=N, O+2=Q, G+2=I. Answer: FNQI."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "Reversing GOLD to DLOG and shifting each letter by +3 instead of +2 gives D+3=G, L+3=O, O+3=R, G+3=J = GORJ, applying an inflated shift."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "Applying shift +2 to GOLD without reversing first gives G+2=I, O+2=Q, L+2=N, D+2=F = IQNF, omitting the reversal step."
+    }
+  ],
+  "explanation": "The rule has two steps: (1) reverse the word, (2) shift each letter forward by 2. Verify with STAR: reversed = RATS; R+2=T, A+2=C, T+2=V, S+2=U -> TCVU (matches). Verify with FARM: reversed = MRAF; M+2=O, R+2=T, A+2=C, F+2=H -> OTCH (matches). Apply to GOLD: reversed = DLOG; D+2=F, L+2=N, O+2=Q, G+2=I -> FNQI.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The two-step rule (reverse then shift +2) is detected by noticing the code letters do not match any direct shift of the original word - the reversal must come first.",
+    "approach": "Apply clues most-certain-first: test if STAR->TCVU is a direct shift - S+3=V not T, so direct shift fails. Test reversal: RATS shifted +2 = TCVU (works). Confirm on FARM: MRAF+2 = OTCH (works). Apply to GOLD: DLOG+2 = FNQI.",
+    "lesson": "When a direct letter-shift fails on the first example, test whether reversing the word first and then shifting resolves the pattern - this is the standard two-step coding trap.",
+    "timing": "40 seconds. Two rule-hypothesis tests (direct shift fails, reverse-then-shift works), confirm on second example, apply. Trap: forgetting reversal (gives IQNF) or correct reversal but wrong shift magnitude."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

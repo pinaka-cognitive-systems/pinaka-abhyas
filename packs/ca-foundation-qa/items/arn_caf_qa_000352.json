@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000352",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000352.py"
+  },
+  "tests": [
+    "qa.bmath.equations.cubic"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The product of three consecutive positive integers is 120. What is the largest of the three integers?",
+  "options": [
+    {
+      "key": 1,
+      "text": "4"
+    },
+    {
+      "key": 2,
+      "text": "5"
+    },
+    {
+      "key": 3,
+      "text": "6"
+    },
+    {
+      "key": 4,
+      "text": "7"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "If someone uses n-1 as the middle and sets (n-1)n(n+1)=120, they solve for n=5 (middle), then reads n-1=4 as the answer, confusing which is asked."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "The middle integer is 5 (since 4*5*6=120); the question asks for the LARGEST but the middle value 5 is returned, solving for the wrong quantity."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Let integers be n-1, n, n+1. Product: n(n^2-1)=120 => n^3-n=120. Trying n=5: 125-5=120. So the three integers are 4, 5, 6 and the largest is 6."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Testing n=6 (middle): 5*6*7=210 not 120; an arithmetic slip makes someone accept 7 as the largest."
+    }
+  ],
+  "explanation": "Let the middle integer be n, so the three integers are (n-1), n, (n+1). Their product: (n-1)*n*(n+1) = n*(n^2-1) = n^3-n = 120. Test n=5: 125-5=120. The integers are 4, 5, 6 and the largest is 6.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Centering on the middle integer n gives n^3-n=120; testing n=5 confirms the triple is 4,5,6 and the largest is 6.",
+    "approach": "Consecutive-integer cubic: assign middle value n, write the product as n(n^2-1)=120. Rearrange to n^3-n-120=0. Test integer values: n=4: 64-4=60 no; n=5: 125-5=120 yes. Largest integer = n+1=6.",
+    "lesson": "For three consecutive integers, always centre on the middle value; the product simplifies to n^3-n, making trial substitution fast.",
+    "timing": "65 seconds. Test n=5 first (cube root of 120 is about 4.9). Trap: option 2 gives the middle integer; option 1 gives the smallest."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

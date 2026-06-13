@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000404",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000404.py"
+  },
+  "tests": [
+    "qa.bmath.finance.sinking_fund"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A manufacturing company needs Rs 75000 in 3 years to overhaul its plant. It deposits equal amounts at the end of each half-year into a fund earning 10% per annum compounded half-yearly. What is each half-yearly deposit? [Given: (1.05)^6 = 1.3401, so the FV annuity factor = (1.3401 - 1) / 0.05 = 6.802]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 11026 (approx)"
+    },
+    {
+      "key": 2,
+      "text": "Rs 12500"
+    },
+    {
+      "key": 3,
+      "text": "Rs 10714 (approx)"
+    },
+    {
+      "key": 4,
+      "text": "Rs 13636 (approx)"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Half-yearly rate = 5%, n = 6 half-year periods. R = 75000 / 6.802 = Rs 11026 (approx)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "compound_interest_confusion",
+      "rationale": "Ignoring interest, using 6 equal deposits: 75000 / 6 = Rs 12500."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "rate_period_mismatch",
+      "rationale": "Using annual rate 10% and 3 periods instead of the correct half-yearly setup: 75000 / [(1.10)^3-1]/0.10 = 75000/3.31 = ... but using a factor of 7.0 by mistake: 75000/7.0 = 10714 approx."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "time_factor_dropped",
+      "rationale": "Using only 3 periods (one per year) instead of 6: FV factor using 3 periods at 5% = (1.1576-1)/0.05 = 3.152; 75000/5.5 = 13636 approx."
+    }
+  ],
+  "explanation": "Convert to half-yearly: rate = 10%/2 = 5%, periods = 3*2 = 6. FV annuity factor = (1.3401-1)/0.05 = 6.802. R = 75000/6.802 = Rs 11026 (approx).",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The rate-period conversion to half-yearly is the decisive step before applying the sinking fund formula.",
+    "approach": "Name the formula: R = FV / [(1+i)^m - 1)/i] where i = 10%/2 = 5% and m = 3*2 = 6. From hint FVAF = 6.802. R = 75000 / 6.802 = 11026.",
+    "lesson": "For deposits more frequent than annual, always convert both rate and periods to match the deposit frequency.",
+    "timing": "70-80 seconds. Key step: recognise 3 years with half-yearly deposits = 6 periods at 5%."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

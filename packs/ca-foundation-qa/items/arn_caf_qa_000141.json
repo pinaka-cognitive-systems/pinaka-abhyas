@@ -18,10 +18,10 @@
   "tests": [
     "qa.bmath.finance.effective_rate"
   ],
-  "difficulty_label": "L1",
+  "difficulty_label": "L2",
   "taxonomy_version": 4,
   "item_type": "single_best",
-  "expected_seconds": 60,
+  "expected_seconds": 75,
   "stem": "A bank offers a nominal interest rate of 12% per annum, compounded monthly. What is the effective annual rate of interest? [Use: (1.01) raised to the power 12 = 1.1268]",
   "options": [
     {
@@ -69,12 +69,13 @@
       "misconception": "arithmetic_slip"
     }
   ],
-  "explanation": "Effective annual rate = (1 + r/m)^m - 1, where r = 0.12 and m = 12. This gives (1.01) raised to the power 12 - 1 = 1.1268 - 1 = 12.68%. The nominal rate 12% ignores within-year compounding, so it understates the true cost.",
+  "explanation": "Effective annual rate = (1 + r/m)^m - 1, where r = 0.12 and m = 12. This gives (1.01)^12 - 1 = 1.1268 - 1 = 0.1268 = 12.68%. The nominal rate 12% ignores within-year compounding, so it understates the true return.",
+  "explanation_kind": "formula_selection",
   "explanation_sections": {
-    "punchline": "Monthly compounding means interest earns interest 12 times a year, pushing the effective rate above the 12% nominal figure to 12.68%.",
-    "approach": "Identify the nominal rate r and the number of compounding periods per year m. Compute the periodic rate r/m. Apply the formula (1 + r/m)^m minus 1. Subtract 1 at the very end, after computing the full power, to get the effective rate as a decimal.",
-    "lesson": "The effective rate always exceeds the nominal rate when compounding frequency is greater than once a year. More periods per year means a higher effective rate.",
-    "timing": "About 60 seconds. This is an L1 recall item. The stem provides (1.01)^12 = 1.1268. Subtract 1 to get 0.1268 = 12.68%. Reject option (2) in three seconds: 12% is just the nominal rate restated."
+    "punchline": "The formula for effective annual rate is (1 + r/m)^m minus 1. With r = 0.12 and m = 12, the periodic rate is 0.01, and the stem gives (1.01)^12 = 1.1268, so the effective rate is 12.68%.",
+    "approach": "Name the formula and map the givens: effective rate = (1 + r/m)^m minus 1. Here r = 0.12, m = 12, giving r/m = 0.01. The stem provides (1.01)^12 = 1.1268 to avoid manual computation. Subtract 1 to get 0.1268, then convert to percentage: 12.68%. The only formula choice is whether to use the nominal rate as-is (wrong) or raise the periodic factor to the power m.",
+    "lesson": "The effective rate always exceeds the nominal rate when m is greater than 1. Returning the nominal rate 12% unchanged is the most common error; it ignores that compounding within the year earns interest on interest.",
+    "timing": "About 60 seconds. The stem gives the power value directly. Subtract 1, convert to percent: 10 seconds of work. Reject option (2) in three seconds: 12% is the nominal rate restated, not the effective rate. Reject option (1) in three seconds: 12.36% would require semi-annual compounding, not monthly."
   },
   "empirical": {
     "calibration_status": "none",

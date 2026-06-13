@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000583",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000583.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.odd_man_out"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "Four of the following five numbers share a common mathematical property. Which one does NOT belong to the group? 8, 27, 64, 100, 125",
+  "options": [
+    {
+      "key": 1,
+      "text": "8"
+    },
+    {
+      "key": 2,
+      "text": "27"
+    },
+    {
+      "key": 3,
+      "text": "100"
+    },
+    {
+      "key": 4,
+      "text": "125"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "8 = 2^3 is a perfect cube. A student might flag 8 as odd because it is the smallest, but the shared property is perfect cubes, not magnitude."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "27 = 3^3 is a perfect cube. A student might confuse the grouping property with perfect squares - while 27 is not a perfect square, that is not the relevant property here."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "8=2^3, 27=3^3, 64=4^3, 125=5^3 are all perfect cubes. 100=10^2 is a perfect square but not a perfect cube (cube root of 100 is approximately 4.64, not an integer)."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "125 = 5^3 is a perfect cube. A student who misidentifies the series as consecutive even-base cubes (2,4,6,...) might flag 125 (5^3), but 5 is not even while 2,4 are - the correct grouping is all perfect cubes."
+    }
+  ],
+  "explanation": "8=2^3, 27=3^3, 64=4^3, 125=5^3 - all are perfect cubes. 100=10^2 is a perfect square but has no integer cube root (since 4^3=64 and 5^3=125), so it is the odd one out.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The shared property is perfect cube, not perfect square - 100 is a well-known perfect square that is placed as a trap.",
+    "approach": "Deductive trace: test each number for the most prominent grouping. Check cube roots: cbrt(8)=2, cbrt(27)=3, cbrt(64)=4, cbrt(125)=5 - all integers. cbrt(100)=4.64 - not an integer. Setup decision: recognise cube vs square as the relevant property.",
+    "lesson": "When you spot a mix of powers, test both perfect-square and perfect-cube hypotheses; choose the one that fits four of the five members.",
+    "timing": "50-60 seconds. The trap is 100 being a well-known perfect square (10^2), which tempts misidentification of the grouping property as squares."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000756",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000756.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.standard_deviation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "A set of examination scores has a standard deviation of 5. Each score is transformed by the rule y = 3x - 4, where x is the original score and y is the transformed score. What is the standard deviation of the transformed scores?",
+  "options": [
+    {
+      "key": 1,
+      "text": "15"
+    },
+    {
+      "key": 2,
+      "text": "11"
+    },
+    {
+      "key": 3,
+      "text": "14.46"
+    },
+    {
+      "key": 4,
+      "text": "8.66"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "SD is unaffected by adding a constant. Multiplying by a constant k scales SD by |k|. SD(y) = |3| * SD(x) = 3 * 5 = 15."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "invariance_property_confused",
+      "rationale": "Student applies the entire transformation to SD: SD(y) = 3*5 - 4 = 11, incorrectly subtracting the additive constant from the SD."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Student computes variance(y) = 9*25 - 4^2 = 225 - 16 = 209, incorrectly subtracting the square of the additive constant from the variance, giving SD = sqrt(209) = 14.46."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student computes variance(y) = 3*variance(x) = 3*25 = 75 (multiplying variance by 3 instead of 9), giving SD = sqrt(75) = 8.66."
+    }
+  ],
+  "explanation": "Under a linear transformation y = ax + b: SD(y) = |a| * SD(x). Adding a constant shifts all values equally and does not change the spread. Multiplying by a scales the spread.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The decisive property: adding a constant never changes SD or variance; only the multiplicative factor matters, and it scales SD (not variance) linearly.",
+    "approach": "Step 1: Identify the transformation y = 3x - 4. Step 2: The additive term -4 shifts all values by the same amount; SD is unchanged. Step 3: The multiplicative factor is 3, so SD(y) = 3 * SD(x) = 3 * 5 = 15. Note: Variance(y) = 3^2 * Variance(x) = 9 * 25 = 225.",
+    "lesson": "Variance scales by the square of the multiplicative constant (k^2); SD scales by |k|. The additive constant affects only the mean.",
+    "timing": "About 30 seconds once the property is known. Trap: applying the full transformation (3*5-4=11) to the SD is the most common error."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

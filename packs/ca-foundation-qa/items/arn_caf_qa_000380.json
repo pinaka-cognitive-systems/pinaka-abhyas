@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000380",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000380.py"
+  },
+  "tests": [
+    "qa.bmath.finance.compound_interest"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 130,
+  "stem": "The difference between compound interest (compounded annually) and simple interest on a certain principal at 15% per annum for 2 years is Rs 45. What is the principal?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 2,000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 3,000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 300"
+    },
+    {
+      "key": 4,
+      "text": "Rs 1,800"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "CI - SI (2yr) = P*(R/100)^2. So 45 = P*(0.15)^2 = P*0.0225. P = 45/0.0225 = 2000."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Correctly identifying the formula P*(0.15)^2 = 45 but computing (0.15)^2 = 0.015 (decimal slip - forgetting to square fully): P = 45/0.015 = 3000."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Using diff = P*R/100 (treating the difference as one period's simple interest rather than the square formula): P = 45/0.15 = 300."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "decimal_place_error",
+      "rationale": "Computing (0.15)^2 = 0.025 (misreading 0.15*0.15 = 0.025 instead of 0.0225): P = 45/0.025 = 1800."
+    }
+  ],
+  "explanation": "For 2 years of annual compounding, the excess of CI over SI equals P*(R/100)^2. Set this equal to Rs 45: P*(15/100)^2 = 45 => P*(0.15)^2 = 45 => P*0.0225 = 45 => P = 2000. Verify: SI = 2000*15*2/100 = 600; A = 2000*(1.15)^2 = 2000*1.3225 = 2645; CI = 645; excess = 645 - 600 = 45.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The hidden relationship is that the 2-year CI-SI gap equals P*(R/100)^2, a compact identity that converts a back-calculation into a one-step division.",
+    "approach": "Formula: CI - SI (2yr) = P*(R/100)^2. Identify: given diff and R, solve for P. Set P*(0.15)^2 = 45. Step 1: compute (0.15)^2 = 0.0225 carefully (not 0.015 or 0.025). Step 2: P = 45/0.0225 = 2000.",
+    "lesson": "Precision matters: (0.15)^2 = 0.0225, not 0.015 or 0.025. The three wrong options each correspond to a specific squaring error.",
+    "timing": "90 s. Step 1 (identify the identity) takes 30 s; Step 2 (careful squaring) takes 30 s; Step 3 (division) takes 30 s. Verify with a forward check: 2000*0.0225 = 45."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

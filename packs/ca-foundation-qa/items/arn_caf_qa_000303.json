@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000303",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen_finance_v1",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000303.py"
+  },
+  "tests": [
+    "qa.bmath.finance.compound_interest"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Priya takes a loan of Rs 12,000 at 8% per annum compounded half-yearly. What amount does she owe at the end of 1 year? [Given: (1.04)^2 = 1.0816]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 12,979.20"
+    },
+    {
+      "key": 2,
+      "text": "Rs 12,960"
+    },
+    {
+      "key": 3,
+      "text": "Rs 13,056"
+    },
+    {
+      "key": 4,
+      "text": "Rs 12,998.40"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "verdict": "correct",
+      "option_key": 1,
+      "rationale": "When compounding is more frequent than annual, you must divide the rate and multiply the periods before plugging in; using the annual rate directly gives a wrong (lower) answer."
+    },
+    {
+      "verdict": "incorrect",
+      "misconception": "rate_period_mismatch",
+      "rationale": "Rs 12,960 = 12000 x 1.08 applies the annual rate 8% as if compounding were annual (n = 1 period), ignoring the half-yearly conversion to 4% per half-year over 2 periods.",
+      "option_key": 2
+    },
+    {
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Rs 13,056 = 12000 x (1 + 0.08/2)^4 mistakenly uses n = 4 half-years for a 1-year loan; the borrower doubled the number of periods.",
+      "option_key": 3
+    },
+    {
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Rs 12,998.40 arises from computing 12000 x 1.0832 instead of 1.0816; an arithmetic slip where (1.04)^2 was incorrectly evaluated as 1.0832.",
+      "option_key": 4
+    }
+  ],
+  "explanation": "Half-yearly compounding: rate per period = 8%/2 = 4%; periods = 1 x 2 = 2. A = 12000 x (1.04)^2 = 12000 x 1.0816 = Rs 12,979.20.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "When compounding is more frequent than annual, you must divide the rate and multiply the periods before plugging in; using the annual rate directly gives a wrong (lower) answer.",
+    "approach": "Formula: A = P x (1 + r/m)^(n*m). P = 12000, r = 0.08, m = 2 (half-yearly), n = 1 year. So periodic rate = 0.04, periods = 2. A = 12000 x (1.04)^2 = 12000 x 1.0816 = 12979.20.",
+    "lesson": "The conversion rule is: r_period = r_annual / m and total_periods = n x m. Always perform this two-step conversion before applying the CI formula.",
+    "timing": "75 seconds: identify m = 2, compute 12000 x 1.0816. Trap is option 2 (annual rate applied directly, giving 12960); it is the most common wrong answer."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

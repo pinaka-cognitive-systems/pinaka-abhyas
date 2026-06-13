@@ -19,6 +19,7 @@
     "qa.stats.probability.conditional"
   ],
   "difficulty_label": "L2",
+  "explanation_kind": "model_compute",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 90,
@@ -71,10 +72,10 @@
   ],
   "explanation": "1. After the first draw, one defective item is removed. The batch has 99 items left, of which 19 are defective.\n2. The required probability is conditional on the first item being defective.\n3. KEY STEP: P(second defective | first defective) = 19/99.\n4. The denominator drops to 99, not 100, because one item has been removed.",
   "explanation_sections": {
-    "punchline": "One defective was already removed, so 19 defectives remain in 99 items. The probability is 19/99, not 20/99 or 20/100.",
-    "approach": "For sampling without replacement, update both the numerator and denominator after each draw. Ask: how many of the target type remain? How many items remain in total? Form the fraction from those updated counts. Do not use the original population figures.",
-    "lesson": "Without replacement means both the count of the target type and the total population decrease by one after each draw. Forgetting either update gives a wrong answer.",
-    "timing": "About 90 seconds. Read the setup in 20 seconds. The single update, 20 becomes 19 and 100 becomes 99, takes 10 seconds. Eliminate option (4) in five seconds because 1/5 = 20/100 ignores the first draw entirely."
+    "punchline": "Sampling without replacement forces two simultaneous updates after each draw: defective count drops from 20 to 19 and pool size drops from 100 to 99. The answer is 19/99.",
+    "approach": "Identify the model: conditional probability under sampling without replacement. Assumption: the first draw is confirmed defective, so it is permanently removed. State of the urn after draw 1: 99 items remain, 19 are defective. Required probability = 19/99. Check every distractor against the two-update rule: 20/99 forgets to reduce the defective count; 19/100 forgets to reduce the pool; 1/5 = 20/100 treats draws as independent, ignoring the conditioning entirely.",
+    "lesson": "Without replacement means both the numerator (target count) and the denominator (pool size) decrease. Miss either update and you land on a distractor. The four options systematically cover all combinations of updating correctly vs incorrectly.",
+    "timing": "90 seconds. The only arithmetic is a double subtraction: 20 - 1 = 19 and 100 - 1 = 99. Five seconds. Spend the rest confirming the conditioning is applied. Eliminate option 4 first: 1/5 is the pre-draw probability, not the posterior."
   },
   "empirical": {
     "calibration_status": "none",

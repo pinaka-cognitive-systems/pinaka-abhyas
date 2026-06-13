@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000402",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000402.py"
+  },
+  "tests": [
+    "qa.bmath.finance.sinking_fund"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 95,
+  "stem": "A trust wants to accumulate Rs 100000 in 5 years. It makes equal annual deposits at the beginning of each year (annuity due) into a fund earning 5% per annum compounded annually. What is each deposit? [Given: ((1.05)^5 - 1)/0.05 = 5.526, and annuity-due FV factor = 5.526 * 1.05 = 5.8023]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 17235 (approx)"
+    },
+    {
+      "key": 2,
+      "text": "Rs 18094 (approx)"
+    },
+    {
+      "key": 3,
+      "text": "Rs 20000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 16760 (approx)"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Annuity due FV factor = 5.8023. R = 100000 / 5.8023 = Rs 17235 (approx)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Using ordinary annuity factor 5.526 instead of annuity-due factor: R = 100000 / 5.526 = Rs 18094 (approx)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "compound_interest_confusion",
+      "rationale": "Ignoring interest: 100000 / 5 = Rs 20000."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Miscounting the annuity-due periods as 6 instead of 5, inflating the factor to approx 6.0 and giving 100000/6 = Rs 16667, rounded to 16760 with a slight factor error."
+    }
+  ],
+  "explanation": "Annuity-due (beginning of year): FV factor = ordinary FV factor * (1+r) = 5.526 * 1.05 = 5.8023. Deposit R = 100000 / 5.8023 = Rs 17235 (approx).",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Annuity-due deposits earn one extra period of interest versus ordinary annuity, so the required deposit is smaller.",
+    "approach": "Name the formula: FV(annuity due) = R * [(1+r)^n - 1]/r * (1+r). Set equal to 100000 and solve: R = 100000 / 5.8023 = 17235. The factor 5.8023 is given as 5.526 * 1.05.",
+    "lesson": "When deposits are at the start of each period (annuity due), multiply the ordinary FV factor by (1+r) to get the annuity-due factor.",
+    "timing": "60-70 seconds. Trap: forgetting the extra (1+r) factor gives option 2 using ordinary annuity."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000546",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000546.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.number_series"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "In the series 7, 12, 19, 28, 39, ?, what term follows 39?",
+  "options": [
+    {
+      "key": 1,
+      "text": "48"
+    },
+    {
+      "key": 2,
+      "text": "50"
+    },
+    {
+      "key": 3,
+      "text": "52"
+    },
+    {
+      "key": 4,
+      "text": "56"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Adds 9 to 39 (the same difference as 28 to 39 was 11 minus the step size, misread as 9), giving 48."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Correctly identifies differences 5,7,9,11 and expects 13, but adds 13 to 39 and slips to 50 instead of 52."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Consecutive differences are 5, 7, 9, 11 - an AP with common difference 2. Next difference = 13. Missing term = 39 + 13 = 52."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Adds 17 to 39 assuming differences increase by 3 each time (5, 8, 11, 14, 17), giving 56."
+    }
+  ],
+  "explanation": "The differences between consecutive terms are 5, 7, 9, 11 - an arithmetic sequence increasing by 2 each time. The next difference is 11 + 2 = 13. So the missing term = 39 + 13 = 52.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "When the series itself is not AP or GP, check differences - here the differences form an AP with step 2.",
+    "approach": "Apply clues most-certain-first: differences = 12-7=5, 19-12=7, 28-19=9, 39-28=11. These increase by 2 each step. Next difference = 11+2 = 13. Answer = 39+13 = 52.",
+    "lesson": "A second-level AP (differences of differences are constant) generates a quadratic-looking series. Check differences of differences.",
+    "timing": "35-45 seconds. The key decision is computing the second-level differences to confirm they are constant at +2."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

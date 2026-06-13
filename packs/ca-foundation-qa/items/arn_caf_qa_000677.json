@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000677",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000677.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.frequency_distribution"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "The grouped frequency distribution of the weights (in kg) of 60 students is as follows.\n\nClass: 40-50, Frequency: 8\nClass: 50-60, Frequency: 14\nClass: 60-70, Frequency: 20\nClass: 70-80, Frequency: 12\nClass: 80-90, Frequency: 6\n\nThe median class of the distribution is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "60-70"
+    },
+    {
+      "key": 2,
+      "text": "50-60"
+    },
+    {
+      "key": 3,
+      "text": "70-80"
+    },
+    {
+      "key": 4,
+      "text": "40-50"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "N/2 = 30. Cumulative frequencies: 8, 22, 42, 54, 60. The 30th value falls in the class 60-70 (CF before = 22, CF up to = 42). So median class is 60-70."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "The student picks [50-60] because its cumulative frequency (22) is the highest CF still below N/2 = 30, confusing the class just before the median class with the median class itself."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Locating N/2 incorrectly at 36 (3N/5) and landing in class 70-80 instead of correctly using 30."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Choosing the first class, confusing the median class with the smallest observed class."
+    }
+  ],
+  "explanation": "Median class is the class containing the (N/2)th value. N = 60, N/2 = 30. Build cumulative frequencies: 8, 22, 42. CF before class 60-70 is 22 and CF up to 60-70 is 42. Since 22 < 30 <= 42, the median class is 60-70.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Median class = class where cumulative frequency first meets or exceeds N/2 = 30, which is 60-70.",
+    "approach": "Identify the model: median class in grouped data. Recipe: (1) compute N/2 = 60/2 = 30; (2) build cumulative frequency column: 8, 22, 42, 54, 60; (3) find first class where CF >= 30. CF of 40-50 = 8 (no), CF of 50-60 = 22 (no), CF of 60-70 = 42 (yes). Median class = 60-70.",
+    "lesson": "Always compute N/2 first, then identify the class in which cumulative frequency first reaches that value - not the class containing the mode or the highest frequency.",
+    "timing": "35 seconds. Build cumulative column quickly (8, +14=22, +20=42). Check: 22 < 30 <= 42 so median class is 60-70. Trap: class 50-60 has CF 22 which is less than 30."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

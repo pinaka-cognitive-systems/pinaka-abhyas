@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000509",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000509.py"
+  },
+  "tests": [
+    "qa.bmath.calculus.applications"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 110,
+  "stem": "The demand function for a commodity is D(p) = 400 - 5p, where p is the price. The price elasticity of demand is defined as E = (dD/dp) * (p / D). What is the price elasticity of demand when the price p = 40?",
+  "options": [
+    {
+      "key": 1,
+      "text": "-1"
+    },
+    {
+      "key": 2,
+      "text": "-5"
+    },
+    {
+      "key": 3,
+      "text": "1/5"
+    },
+    {
+      "key": 4,
+      "text": "5"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "dD/dp = -5. At p=40: D(40) = 400-200 = 200. E = (-5) * (40/200) = -5 * 0.2 = -1."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reporting just dD/dp = -5 without multiplying by p/D, i.e., reading the elasticity as the slope of the demand curve alone."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Using p/D instead of (dD/dp)*(p/D): E = p/D = 40/200 = 1/5, omitting the derivative dD/dp entirely from the formula."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Using D/p instead of (dD/dp)*(p/D): E = D/p = 200/40 = 5, inverting both the formula direction and ignoring the derivative."
+    }
+  ],
+  "explanation": "The price elasticity formula is E = (dD/dp)*(p/D). Compute each part: dD/dp = -5 (constant slope). At p=40: D = 400-5*40 = 200. So E = (-5)*(40/200) = (-5)*(1/5) = -1. An elasticity of -1 indicates unit elastic demand at this price.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "All three parts of the elasticity formula must be assembled: the derivative dD/dp, the current price p, and the current demand D; none can be dropped.",
+    "approach": "Elasticity formula application: (1) differentiate D(p) to get dD/dp, (2) evaluate D at the given p, (3) multiply: E = (dD/dp)*(p/D). Check units: E is dimensionless.",
+    "lesson": "Price elasticity is not just the demand slope (dD/dp) and not just the ratio (p/D); it is their product. Omitting either factor gives a wrong answer.",
+    "timing": "60-80 seconds. The calculation is two multiplications once you have D(40)=200 and dD/dp=-5: -5 * 40/200 = -5 * 0.2 = -1."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

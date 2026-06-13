@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000705",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000705.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mean"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Five shop owners report monthly expenditures (in Rs thousands): 10, 15, 18, 22, 25. What is the mean deviation from the arithmetic mean of these expenditures?",
+  "options": [
+    {
+      "key": 1,
+      "text": "4.0"
+    },
+    {
+      "key": 2,
+      "text": "4.4"
+    },
+    {
+      "key": 3,
+      "text": "5.0"
+    },
+    {
+      "key": 4,
+      "text": "5.6"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computing absolute deviations as 8, 3, 0, 4, 7 (error in the first deviation: |10-18|=8 treated as |10-18|=8, correct, but summing incorrectly as 22 / 5 gives 4.0 via a slip)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Mean = 90/5 = 18. Absolute deviations: |10-18|=8, |15-18|=3, |18-18|=0, |22-18|=4, |25-18|=7. Sum = 22. MD = 22/5 = 4.4."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Using the range (25 - 10 = 15) divided by 3 = 5 as a proxy for dispersion, or computing the sum of squared deviations instead of absolute deviations and dividing incorrectly."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Summing absolute deviations as 28 instead of 22 (adding an extra 6 from misreading one deviation) and dividing by 5 gives 5.6."
+    }
+  ],
+  "explanation": "Step 1: Mean = (10+15+18+22+25)/5 = 90/5 = 18. Step 2: Absolute deviations from 18: |10-18|=8, |15-18|=3, |18-18|=0, |22-18|=4, |25-18|=7. Step 3: Sum of absolute deviations = 8+3+0+4+7 = 22. Step 4: MD = 22/5 = 4.4.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Mean deviation uses absolute values to prevent positive and negative deviations from cancelling - the sum of signed deviations from the mean is always zero.",
+    "approach": "Formula: MD = sum(|x_i - x-bar|) / n. Step 1: compute mean x-bar = 18. Step 2: compute each |x_i - 18|: 8, 3, 0, 4, 7. Step 3: sum = 22. Step 4: MD = 22/5 = 4.4.",
+    "lesson": "Mean deviation is always computed from absolute values; if you allow signed deviations the sum is zero and the answer is meaningless.",
+    "timing": "45-55 seconds. The mean (18) is easily seen; the deviations pair as (8,4) and (3,7) giving 12+10 = 22, then divide by 5."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

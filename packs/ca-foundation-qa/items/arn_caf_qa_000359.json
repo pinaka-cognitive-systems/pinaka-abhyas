@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000359",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000359.py"
+  },
+  "tests": [
+    "qa.bmath.inequalities.two_variable"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "Which of the following points satisfies both inequalities 2x + y <= 10 and x + 3y <= 12 simultaneously?",
+  "options": [
+    {
+      "key": 1,
+      "text": "(3, 3)"
+    },
+    {
+      "key": 2,
+      "text": "(5, 2)"
+    },
+    {
+      "key": 3,
+      "text": "(2, 7)"
+    },
+    {
+      "key": 4,
+      "text": "(4, 4)"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "2(3)+3=9<=10 and 3+3(3)=12<=12. Both satisfied."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "2(5)+2=12 which exceeds 10. First inequality fails."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "2(2)+7=11 which exceeds 10. First inequality fails."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "2(4)+4=12 which exceeds 10. First inequality fails."
+    }
+  ],
+  "explanation": "Substitute each point into both inequalities. Option 1 gives 9 <= 10 and 12 <= 12, both true. Every other point violates the first constraint.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Feasibility check: a point is in the feasible region only when ALL constraints hold simultaneously.",
+    "approach": "Substitute each candidate into inequality 1 first (quickest filter), then check inequality 2 only for survivors. For (3,3): 6+3=9<=10 (pass); 3+9=12<=12 (pass). Accept.",
+    "lesson": "Always test ALL constraints; a point passing one may still fail another.",
+    "timing": "45 s. Eliminate options 2, 3, 4 on the first inequality in under 30 s."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

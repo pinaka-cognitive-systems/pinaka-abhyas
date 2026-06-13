@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000486",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000486.py"
+  },
+  "tests": [
+    "qa.bmath.sequence_series.gm"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "Three geometric means are inserted between 2 and 162 so that all five numbers form a geometric progression. What is the value of the second inserted geometric mean?",
+  "options": [
+    {
+      "key": 1,
+      "text": "6"
+    },
+    {
+      "key": 2,
+      "text": "18"
+    },
+    {
+      "key": 3,
+      "text": "54"
+    },
+    {
+      "key": 4,
+      "text": "27"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Correctly finds r=3 but reports G1 = 2*3 = 6 (the first inserted mean) instead of G2 = 2*3^2 = 18 (the second)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "The 5-term GP has T_1=2 and T_5=162. r^4 = 162/2 = 81, so r=3. The second inserted mean is the 3rd term: G2 = 2*3^2 = 18."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Correctly finds r=3 but reports G3 = 2*3^3 = 54 (the third inserted mean), reading second as third in the sequence."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Finds T_5/T_1 = 81 and r=3 correctly, then computes 81/r = 81/3 = 27, mistakenly treating the ratio 81 as a term value and dividing by r to step backwards, rather than computing G2 = a*r^2 = 2*9 = 18."
+    }
+  ],
+  "explanation": "Insert 3 means between 2 and 162 to form a 5-term GP: 2, G1, G2, G3, 162. Since T_5 = T_1 * r^4: r^4 = 162/2 = 81, r = 3. The second inserted mean is T_3 = 2 * 3^2 = 18.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The setup decision: inserting k means creates a (k+2)-term GP; find r from r^(k+1) = last/first.",
+    "approach": "Formula: inserting 3 means gives 5 terms total. T_5/T_1 = r^4, so r = (162/2)^(1/4) = 81^(1/4) = 3. The second inserted mean is the 3rd term overall: T_3 = 2 * 3^2 = 18.",
+    "lesson": "Inserting n geometric means between a and b creates a (n+2)-term GP. Find r via r^(n+1) = b/a, then each inserted mean is a*r^k for k=1,2,...,n.",
+    "timing": "60-80 seconds. Key step: 81 = 3^4, so r=3. Then correctly identify G2 as the 3rd position in the sequence (T_3 = a*r^2)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

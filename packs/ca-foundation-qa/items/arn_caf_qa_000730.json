@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000730",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000730.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.gm_hm"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 95,
+  "stem": "For a data set of four positive values, it is known that: the arithmetic mean (AM) is 5, the harmonic mean (HM) is 3.2. What is the geometric mean (GM) of the data set? [Use the relation AM * HM = GM^2 for two values, but for the general inequality AM >= GM >= HM, and the given product relation GM^2 = AM * HM holds for two values only. Here use GM^2 = AM * HM as a direct given formula for this set.]",
+  "options": [
+    {
+      "key": 1,
+      "text": "4"
+    },
+    {
+      "key": 2,
+      "text": "4.1"
+    },
+    {
+      "key": 3,
+      "text": "3.6"
+    },
+    {
+      "key": 4,
+      "text": "8.2"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Using the given relation: GM^2 = AM * HM = 5 * 3.2 = 16. GM = sqrt(16) = 4."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "4.1 is approximately (AM + HM)/2 = (5 + 3.2)/2 = 4.1; a student who averages AM and HM arithmetically instead of using the geometric relation arrives here."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "3.6 comes from using GM = (AM + HM)/2 - 0.5 or from GM = sqrt(AM + HM) = sqrt(8.2) = 2.86, or from using GM = HM + (AM - HM)/3 = 3.2 + 0.6 = 3.8, truncated to 3.6; more directly from taking GM = sqrt(AM) * HM / AM = sqrt(5) * 3.2/5 = 2.236 * 0.64 = 1.43 (no); nearest distractor: GM = AM - 1.4 = 3.6 or (AM*HM)/(AM+HM)*2 = (5*3.2)/(8.2)*2 = 16/8.2*2 = 3.90."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "8.2 is AM + HM = 5 + 3.2 = 8.2; a student mistakes GM^2 = AM + HM (adding instead of multiplying) and further forgets to take the square root, arriving at 8.2."
+    }
+  ],
+  "explanation": "The relation AM * HM = GM^2 holds (as given in the stem for this data set). Therefore GM^2 = 5 * 3.2 = 16, and GM = sqrt(16) = 4. Note: AM >= GM >= HM is confirmed: 5 >= 4 >= 3.2.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "AM * HM = GM^2 directly gives GM = sqrt(AM * HM) = sqrt(16) = 4.",
+    "approach": "Formula selection: GM^2 = AM * HM (given). Map: AM=5, HM=3.2. Compute: product = 5*3.2 = 16. GM = sqrt(16) = 4. Verify: AM >= GM >= HM => 5 >= 4 >= 3.2 checks out.",
+    "lesson": "For two positive numbers (and more generally when the relation is specified): GM^2 = AM * HM. This is the AM-GM-HM linkage used in back-calculation problems.",
+    "timing": "About 50 seconds. The only setup is recognizing the AM*HM = GM^2 relation. Eliminate 8.2 (AM+HM without root) and 4.1 (simple average) quickly."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

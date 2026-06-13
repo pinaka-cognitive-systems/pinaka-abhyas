@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000857",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000857.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.rank_correlation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Seven trainees are ranked by a mentor on two competencies: technical skill and communication. The ranks are:\nTrainee:     A  B  C  D  E  F  G\nTechnical:   1  2  3  4  5  6  7\nCommunication: 1  3  2  4  6  5  7\nWhat is the Spearman rank correlation coefficient between the two rankings?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.9286"
+    },
+    {
+      "key": 2,
+      "text": "0.9524"
+    },
+    {
+      "key": 3,
+      "text": "0.8571"
+    },
+    {
+      "key": 4,
+      "text": "0.9048"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "d values: 0,-1,1,0,-1,1,0. d^2 values: 0,1,1,0,1,1,0. sum(d^2) = 4. r_s = 1 - 6*4/(7*(49-1)) = 1 - 24/336 = 1 - 1/14 = 13/14 = 0.9286."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Miscounting sum(d^2) as 2 instead of 4 (missing two pairs): r_s = 1 - 12/336 = 324/336 = 0.9643, or computing with sum_d2=2 giving approximately 0.9524."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Using n=6 instead of n=7 in the denominator: 6*(36-1)=210, r_s = 1 - 24/210 = 186/210 = 0.8857, nearest option is 0.8571."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Using sum_d2=8 (doubling the correct value): r_s = 1 - 48/336 = 288/336 = 6/7 = 0.8571, or with n=8 yielding 0.9048."
+    }
+  ],
+  "explanation": "Compute d = technical_rank - communication_rank for each trainee: 0,-1,1,0,-1,1,0. Squaring each: 0,1,1,0,1,1,0. Sum = 4. Apply Spearman: r_s = 1 - 6*4/(7*(49-1)) = 1 - 24/336 = 1 - 1/14 = 13/14 = 0.9286.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Only trainees B,C,E,F have non-zero rank differences; each contributes d^2=1 giving sum=4 and r_s=13/14.",
+    "approach": "Name the formula: r_s = 1 - 6*sum(d^2)/(n*(n^2-1)). Compute d for each trainee: A:0, B:-1, C:1, D:0, E:-1, F:1, G:0. Square and sum: 4. Denominator: 7*(49-1)=7*48=336. Fraction: 24/336=1/14. r_s = 13/14 = 0.9286.",
+    "lesson": "When only a few ranks are swapped the sum(d^2) is small; verify by listing all d values rather than eyeballing.",
+    "timing": "About 70 seconds. The trap is miscounting d^2 contributions or using the wrong n in the denominator."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

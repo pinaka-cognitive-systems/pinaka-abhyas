@@ -30,11 +30,12 @@
     { "option_key": 4, "verdict": "incorrect", "rationale": "Reads 10% as 1% (decimal place shifted): 10000 * 0.01 * 3 = 300.", "misconception": "decimal_place_error" }
   ],
   "explanation": "Simple interest is SI = P * r * t = 10000 * 0.10 * 3 = 3,000. The full time period of 3 years must be used; compounding does not apply here.",
+  "explanation_kind": "formula_selection",
   "explanation_sections": {
-    "punchline": "SI = P * r * t = 10000 * 0.10 * 3 = Rs 3,000. The word 'simple' rules out compounding entirely.",
-    "approach": "Read the question for three things: principal, rate, and time. Write SI = P * r * t immediately. Confirm the question says simple interest before computing. Multiply the three values directly, no exponents needed.",
-    "lesson": "Simple interest grows linearly with time. Use the full period; never compound. If the question says 'simple interest', the answer cannot come from a compound formula.",
-    "timing": "About 45 seconds. One multiplication: 10000 * 0.10 * 3. Option (1) at Rs 3,310 is the compound-interest answer; if you see a number with 310 in it, you used the wrong formula."
+    "punchline": "The word 'simple' settles the formula instantly: SI = P * r * t = 10000 * 0.10 * 3 = Rs 3,000. No exponents, no compounding.",
+    "approach": "Name the formula before touching any number: SI = P * r * t. Map the three givens: P = 10000, r = 10% = 0.10, t = 3 years. Multiply directly. The test is whether you used the full t; dropping one year or compounding the interest are the only ways to go wrong.",
+    "lesson": "Simple interest scales linearly with time. The formula has no exponent. If you see an exponent in your working, you have switched to compound interest by mistake.",
+    "timing": "About 45 seconds. A single three-way multiplication. Option (1) at Rs 3,310 is the compound-interest result for n = 3; eliminate it in three seconds the moment you confirm this is a simple-interest problem."
   },
   "empirical": { "calibration_status": "none", "n_responses": 0 },
   "ext": { "icai_skill_bucket": "application" }

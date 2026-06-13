@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000418",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000418.py"
+  },
+  "tests": [
+    "qa.bmath.finance.cagr"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "A company's revenue was Rs 1,00,000 three years ago. Its revenue has grown at a CAGR of 12% per annum. [Given: (1.12)^3 = 1.4049] What is its current revenue?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 1,36,000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 1,40,490"
+    },
+    {
+      "key": 3,
+      "text": "Rs 1,25,440"
+    },
+    {
+      "key": 4,
+      "text": "Rs 1,12,000"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "compound_interest_confusion",
+      "rationale": "Applies simple growth: 1,00,000 * (1 + 3 * 0.12) = 1,00,000 * 1.36 = 1,36,000, treating CAGR as a simple annual rate."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "V_n = V_0 * (1 + CAGR)^n = 1,00,000 * (1.12)^3 = 1,00,000 * 1.4049 = 1,40,490."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "time_factor_dropped",
+      "rationale": "Uses only 2 years of compounding: 1,00,000 * (1.12)^2 = 1,00,000 * 1.2544 = 1,25,440."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Applies growth for only 1 year: 1,00,000 * 1.12 = 1,12,000, compounding just once instead of three times."
+    }
+  ],
+  "explanation": "To project a value forward using CAGR, apply V_n = V_0 * (1 + CAGR)^n. The given power avoids manual computation.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "V_n = V_0 * (1 + CAGR)^n: compound the base value by the given power, not by simple multiplication.",
+    "approach": "Name the formula V_n = V_0 * (1 + r)^n. Map: V_0 = 1,00,000, r = 0.12, n = 3. Use the given hint (1.12)^3 = 1.4049. V_n = 1,00,000 * 1.4049 = 1,40,490.",
+    "lesson": "CAGR implies compound growth, not simple. Always raise (1 + CAGR) to the power n, not multiply n * CAGR.",
+    "timing": "25 seconds. Look for the given hint, substitute once, done. The distractor at 1,36,000 is the simple interest trap."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

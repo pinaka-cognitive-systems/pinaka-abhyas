@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000743",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000743.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mean_deviation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "The ages (in years) of five members in a study group are: 28, 10, 37, 15, 20. The mean deviation from the median is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "8.0 years"
+    },
+    {
+      "key": 2,
+      "text": "8.4 years"
+    },
+    {
+      "key": 3,
+      "text": "10.0 years"
+    },
+    {
+      "key": 4,
+      "text": "15.0 years"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Sorted data: 10, 15, 20, 28, 37. Median = 3rd value = 20. Absolute deviations: |28-20|=8, |10-20|=10, |37-20|=17, |15-20|=5, |20-20|=0. Sum = 40. MD = 40/5 = 8.0."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "Student uses the mean (22) instead of the median: deviations sum to 42, giving MD = 42/5 = 8.4."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "population_sample_confusion",
+      "rationale": "Student correctly computes sum of absolute deviations from median (40) but divides by (n - 1) = 4: 40/4 = 10.0."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Student does not sort the data and takes the 3rd value of the unsorted list (37) as the median, then computes sum of deviations from 37 and divides by 5: 75/5 = 15.0."
+    }
+  ],
+  "explanation": "Step 1: sort the data to find the median. Sorted: 10, 15, 20, 28, 37. Median = 20 (3rd of 5). Step 2: compute |x_i - 20| for each value: 10, 5, 0, 8, 17. Sum = 40. MD = 40/5 = 8.0.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Sorting is mandatory before identifying the median; using an unsorted middle value gives a wrong anchor and inflates MD.",
+    "approach": "Identify the measure: MD from median. Sort first: 10, 15, 20, 28, 37. Median = 20. Compute absolute deviations, sum (40), divide by n (5). MD = 8.0.",
+    "lesson": "Always sort data before computing the median. MD uses median (not mean) when the problem specifies it.",
+    "timing": "55 seconds. Sorting (15 sec) + 5 deviations (20 sec) + division (5 sec). Trap: using mean (22) or an unsorted middle element (37)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

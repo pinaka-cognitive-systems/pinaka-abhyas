@@ -69,12 +69,13 @@
       "misconception": "concept_definition_confused"
     }
   ],
-  "explanation": "The price relative expresses the current price as a percentage of the base price: Price relative = (P_current / P_base) x 100 = (50 / 40) x 100 = 125. A price relative of 125 means prices rose by 25%, not that the relative itself is 25.",
+  "explanation": "The price relative expresses the current price as a percentage of the base price: Price relative = (P1 / P0) x 100 = (50 / 40) x 100 = 125. A price relative of 125 means prices rose by 25%; the relative itself is not 25.",
+  "explanation_kind": "formula_selection",
   "explanation_sections": {
-    "punchline": "Price relative = (current price / base price) x 100 = (50 / 40) x 100 = 125. It is not the percentage change; it is the current price expressed as a percentage of the base.",
-    "approach": "Identify P0 (base year price) and P1 (current year price). Apply the formula: price relative = (P1 / P0) x 100. Do not subtract P0 from P1 first. The result will be 100 if prices are unchanged, above 100 if prices rose, below 100 if they fell.",
-    "lesson": "Price relative and percentage change are different. Price relative = (P1/P0) x 100. Percentage change = ((P1 - P0)/P0) x 100. The relative includes the base 100; the change does not.",
-    "timing": "About 45 seconds. This is a direct formula question. Write the formula, substitute, compute. If you get a value less than 100 for a price that clearly rose, you have inverted the ratio."
+    "punchline": "Price relative is (current/base) x 100, not the percentage change. Here (50/40) x 100 = 125.",
+    "approach": "Name the formula and confirm why it applies: the price relative anchors the current price to the base year by expressing it as a percentage, so P1 goes in the numerator and P0 in the denominator. Apply (P1 / P0) x 100 directly without subtracting first. A result above 100 confirms prices rose; below 100 means they fell. If the result looks like a small percentage change (25 or 20), you have subtracted before dividing, which gives the percentage change formula, not the price relative.",
+    "lesson": "Price relative = (P1/P0) x 100 includes the base 100. Percentage change = ((P1 - P0)/P0) x 100 does not. Confusing them produces 25 (option 3), which is only the rise above 100.",
+    "timing": "About 30 seconds. Write the formula, confirm P1 = 50 and P0 = 40, divide, multiply by 100. If you land below 100 on a rising price, you have put P0 in the numerator."
   },
   "empirical": {
     "calibration_status": "none",

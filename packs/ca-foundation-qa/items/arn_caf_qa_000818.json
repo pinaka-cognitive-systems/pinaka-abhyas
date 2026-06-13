@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000818",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000818.py"
+  },
+  "tests": [
+    "qa.stats.probability.bayes_theorem"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A bag contains 4 red and 6 blue balls. A ball is drawn at random and found to be red. Given this, the ball is put back and a second ball is drawn. What is the probability that the second ball is also red? (Assume independence between the two draws given the composition remains the same.)",
+  "options": [
+    {
+      "key": 1,
+      "text": "4/10"
+    },
+    {
+      "key": 2,
+      "text": "3/9"
+    },
+    {
+      "key": 3,
+      "text": "16/100"
+    },
+    {
+      "key": 4,
+      "text": "4/9"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "With replacement, the composition is unchanged: P(second is red) = 4/10 regardless of the first draw's outcome."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "independence_assumed",
+      "rationale": "Treating the problem as without-replacement: after drawing a red, 3 red remain in 9 total, giving P = 3/9."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Computing P(both red) = (4/10)*(4/10) = 16/100 and treating this joint probability as the conditional probability for the second draw."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reading the problem as without-replacement but computing P(second red | first red) = 3/9 and then miswriting as 4/9, confusing the numerator."
+    }
+  ],
+  "explanation": "The problem states 'with replacement', so the bag composition is restored before the second draw. P(second is red) = 4/10. The first draw's result is irrelevant since the ball is put back.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "With replacement restores the original composition, so subsequent draws are independent and each has P(red) = 4/10.",
+    "approach": "Identify model: sampling with replacement means independence between draws. The phrase 'put back' signals this. Given the first was red and replaced, P(second is red) = 4/10. No Bayes update needed because the population is unchanged.",
+    "lesson": "With-replacement sampling preserves independence; without-replacement sampling creates dependence. Always identify the replacement rule before computing conditional probabilities.",
+    "timing": "50 seconds. The key decision is recognising 'put back' implies independence. The trap is using without-replacement logic (3/9) as if the drawn ball was not returned."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

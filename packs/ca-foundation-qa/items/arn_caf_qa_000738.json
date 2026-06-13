@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000738",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000738.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.range"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 85,
+  "stem": "The monthly salaries (in Rs) of five employees in a firm are: 18000, 24000, 31000, 27000, 21000. If each employee receives an increment of Rs 3000, the range of the new salary distribution is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 13000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 16000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 10000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 19000"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Range is invariant under a shift (adding the same constant to each value). Original range = 31000 - 18000 = 13000. After increment, range remains 13000."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "invariance_property_confused",
+      "rationale": "Student adds the increment to the original range: 13000 + 3000 = 16000, incorrectly believing a shift changes the range."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student subtracts the increment from the original range: 13000 - 3000 = 10000."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "invariance_property_confused",
+      "rationale": "Student adds the increment twice (once to each extreme): 13000 + 3000 + 3000 = 19000, as if both endpoints shift by 3000 in opposite directions."
+    }
+  ],
+  "explanation": "When a constant is added to every observation, the maximum and minimum each increase by the same amount. So the difference (range) stays unchanged at 31000 - 18000 = 13000.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Range is invariant under a change of origin; adding a constant to all values does not change the range.",
+    "approach": "Identify property: range = Max - Min. After adding constant c to all values, new range = (Max + c) - (Min + c) = Max - Min = original range. Compute: 31000 - 18000 = 13000.",
+    "lesson": "Measures of dispersion that use differences (range, mean deviation, standard deviation) are unaffected by adding a constant to all data points.",
+    "timing": "30 seconds. Recognise invariance immediately; compute original range once. Trap: adding 3000 to the range."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000716",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000716.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mode"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The following frequency distribution shows the number of hours spent studying per week by 60 students:\n\nHours:     10-20, 20-30, 30-40, 40-50, 50-60\nStudents:  6,     10,    28,    12,    4\n\nUsing the interpolation formula, find the modal hours.",
+  "options": [
+    {
+      "key": 1,
+      "text": "35.29"
+    },
+    {
+      "key": 2,
+      "text": "34.71"
+    },
+    {
+      "key": 3,
+      "text": "30.00"
+    },
+    {
+      "key": 4,
+      "text": "35.00"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Modal class is 30-40 (highest frequency 28). f0=10 (preceding class), f1=28 (modal class), f2=12 (following class). Mode = 30 + ((28-10)/(2*28-10-12))*10 = 30 + (18/34)*10 = 30 + 5.29 = 35.29."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "34.71 results from using (f1-f2) in the numerator instead of (f1-f0): 30 + ((28-12)/(2*28-10-12))*10 = 30 + (16/34)*10 = 30 + 4.71 = 34.71."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "30 is the lower boundary of the modal class; the student identifies the class but does not apply the interpolation formula."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "35.00 arises from rounding (18/34)*10 = 5.29 to 5, giving 30 + 5 = 35.00."
+    }
+  ],
+  "explanation": "Modal class = 30-40 (f1 = 28, highest). f0 = 10 (class before), f2 = 12 (class after). Using the formula: Mode = L + ((f1 - f0)/(2*f1 - f0 - f2))*h = 30 + ((28-10)/(2*28-10-12))*10 = 30 + (18/34)*10 = 30 + 5.29 = 35.29.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The mode formula weights toward the class boundary opposite to the smaller flanking frequency.",
+    "approach": "Identify model: grouped continuous data, use interpolation formula. Locate modal class (max frequency = 28). f0=10, f1=28, f2=12. Mode = L + ((f1-f0)/(2f1-f0-f2))*h = 30+(18/34)*10 = 35.56.",
+    "lesson": "In the numerator use (f1 - f0), the excess over the preceding class; denominator is 2f1 - f0 - f2.",
+    "timing": "75 s. Modal class identification: 1 step. Formula substitution: 1 step. Trap: using f1-f2 in numerator."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000919",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000919.py"
+  },
+  "tests": [
+    "qa.lr.direction_tests"
+  ],
+  "difficulty_label": "L2",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 165,
+  "stem": "Five points P, Q, R, M and N lie on flat ground. Q is 10 m to the east of P. R is 6 m to the north of Q. M is 14 m to the west of R. N is 4 m to the south of P. In which direction is M with respect to N?",
+  "options": [
+    {
+      "key": 1,
+      "text": "North-east"
+    },
+    {
+      "key": 2,
+      "text": "South-west"
+    },
+    {
+      "key": 3,
+      "text": "North-west"
+    },
+    {
+      "key": 4,
+      "text": "South-east"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "net_displacement_error",
+      "rationale": "North is right, but east is wrong. M lies at x = -4 and N at x = 0, so M is 4 m west of N, not east; reading the west offset as east flips the horizontal leg."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "net_displacement_error",
+      "rationale": "West is right, but south is wrong. M lies at y = 6 and N at y = -4, so M is 10 m north of N, not south; flipping the vertical leg gives south."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Take P at the origin with east as +x and north as +y. Q is at (10, 0), R at (10, 6), so M at 14 m west of R is at (-4, 6). N at 4 m south of P is at (0, -4). M minus N is (-4 - 0, 6 - (-4)) = (-4, +10): 4 m west and 10 m north, so M is to the north-west of N."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "South-east is the direction of N with respect to M, the forward reading. The question asks for M with respect to N, which reverses both legs to north-west."
+    }
+  ],
+  "explanation": "Lay the points on a grid with P at the origin, east as +x and north as +y. Q is 10 m east of P at (10, 0). R is 6 m north of Q at (10, 6). M is 14 m west of R at (10 - 14, 6) = (-4, 6). N is 4 m south of P at (0, -4). The question is reversed: it asks for M relative to N, so subtract N from M: (-4 - 0, 6 - (-4)) = (-4, +10). The horizontal part is negative (west) and the vertical part is positive (north), so M lies to the north-west of N.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Subtracting N from M gives (-4, +10): 4 m west and 10 m north, so M is north-west of N. The trap is answering the forward direction, south-east.",
+    "approach": "Pin P at the origin and walk the chain to coordinates: Q (10, 0), R (10, 6), M (-4, 6), N (0, -4). For a reversed query, find the vector from the reference point N to the target M by computing M minus N. A negative x is west, a positive y is north; combine them into north-west. Verify by checking the forward vector N minus M points the opposite way, south-east.",
+    "lesson": "For 'direction of A with respect to B', always compute A minus B; the reference point is the one named after 'with respect to'.",
+    "timing": "About 160 seconds. Fastest elimination is option (4) South-east: that is N relative to M, the un-reversed reading, so it is rejected the moment you note the query names N as the reference."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

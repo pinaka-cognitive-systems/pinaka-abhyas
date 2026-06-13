@@ -18,10 +18,10 @@
   "tests": [
     "qa.bmath.inequalities.one_variable"
   ],
-  "difficulty_label": "L2",
+  "difficulty_label": "L1",
   "taxonomy_version": 4,
   "item_type": "single_best",
-  "expected_seconds": 90,
+  "expected_seconds": 30,
   "stem": "Solve the inequality: 3x - 7 > 2x + 1. Which of the following describes all solutions?",
   "options": [
     {
@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "Subtract 2x from both sides: x - 7 > 1. Add 7 to both sides: x > 8.",
+  "explanation_kind": "derivation",
   "explanation_sections": {
-    "punchline": "Collecting x terms gives x > 1 + 7, which is x > 8. Moving terms across the inequality sign changes their sign, not the direction of the inequality.",
-    "approach": "Linear inequality problems are solved exactly like linear equations, with one rule added: if you multiply or divide both sides by a negative number, flip the inequality sign. Here all operations are addition and subtraction, so the sign stays the same. Collect all x terms on one side, all constants on the other.",
-    "lesson": "The inequality direction flips only when you multiply or divide by a negative number. Adding or subtracting on both sides never changes the direction.",
-    "timing": "About 90 seconds. Two steps: subtract 2x, then add 7. Eliminate option x < 8 in five seconds: the inequality direction is wrong."
+    "punchline": "Two moves: subtract 2x from both sides (x - 7 > 1), then add 7 (x > 8). The inequality sign never flips because no negative multiplication or division occurs.",
+    "approach": "Linear inequality in one variable: treat it exactly like a linear equation - collect x terms on one side, constants on the other. The only additional rule is: flip the inequality sign only when multiplying or dividing both sides by a negative number. Here both operations are subtraction and addition, so the direction x > stays unchanged throughout.",
+    "lesson": "Flip the inequality only when multiplying or dividing by a negative. Adding or subtracting preserves the direction. This is the one rule that separates inequalities from equations.",
+    "timing": "About 30 seconds. Two arithmetic steps. Eliminate x < 8 immediately: the direction is reversed with no negative multiplication in sight."
   },
   "empirical": {
     "calibration_status": "none",

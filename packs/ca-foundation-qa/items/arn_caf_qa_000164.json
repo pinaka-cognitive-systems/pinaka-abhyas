@@ -18,10 +18,10 @@
   "tests": [
     "qa.bmath.ratio_indices_log.indices"
   ],
-  "difficulty_label": "L1",
+  "difficulty_label": "L2",
   "taxonomy_version": 4,
   "item_type": "single_best",
-  "expected_seconds": 60,
+  "expected_seconds": 75,
   "stem": "Simplify: (2² × 2³) ÷ 2³.",
   "options": [
     {
@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "Index law for multiplication: 2² × 2³ = 2 to the power (2+3) = 2 to the power 5 = 32. Index law for division: 32 ÷ 2³ = 32 ÷ 8 = 4, or equivalently 2 to the power (5-3) = 2² = 4.",
+  "explanation_kind": "derivation",
   "explanation_sections": {
-    "punchline": "Add exponents when multiplying: 2 + 3 = 5. Subtract when dividing: 5 - 3 = 2. So the answer is 2² = 4.",
-    "approach": "Index simplification problems with a single base use two rules in sequence: multiply by adding exponents, divide by subtracting exponents. Write the running exponent at each step. Here: 2² × 2³ = 2^5, then 2^5 ÷ 2³ = 2² = 4.",
-    "lesson": "Same base, multiplication: add the exponents. Same base, division: subtract the exponents. Never multiply the exponents unless the operation is a power of a power.",
-    "timing": "About 60 seconds. The exponent arithmetic is two additions. Eliminate option 2 in five seconds: that would mean the net exponent is 1, which is 2+3-3-1 = 2, not 1."
+    "punchline": "Two index laws applied in sequence: multiply same base by adding exponents (2+3=5), divide same base by subtracting (5-3=2). Result: 2^2 = 4.",
+    "approach": "Single-base index simplification applies two rules in order. Step 1 - multiplication: a^m x a^n = a^(m+n). Here 2^2 x 2^3 = 2^5. Step 2 - division: a^m / a^n = a^(m-n). Here 2^5 / 2^3 = 2^2 = 4. Write the running exponent explicitly at each step to avoid arithmetic slips. The common mistake is multiplying exponents (2 x 3 = 6) instead of adding - that rule applies only to a power raised to another power: (a^m)^n = a^(mn).",
+    "lesson": "Multiply: add exponents. Divide: subtract exponents. Power of a power: multiply exponents. Do not confuse these three distinct operations.",
+    "timing": "About 30 seconds. Two exponent operations on a single base. Eliminate option 2 immediately: a net exponent of 1 would require 2+3-3 = 2, not 1."
   },
   "empirical": {
     "calibration_status": "none",

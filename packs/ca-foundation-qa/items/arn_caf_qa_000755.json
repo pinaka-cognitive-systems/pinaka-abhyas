@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000755",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000755.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.standard_deviation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 110,
+  "stem": "Department A of a firm has 40 employees with mean salary Rs 30,000 and standard deviation Rs 6,000. Department B has 60 employees with mean salary Rs 40,000 and standard deviation Rs 8,000. Find the combined standard deviation of all 100 employees.",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 8,763"
+    },
+    {
+      "key": 2,
+      "text": "Rs 7,000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 7,265"
+    },
+    {
+      "key": 4,
+      "text": "Rs 7,071"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Combined mean = (40*30+60*40)/100 = 3600/100 = 36 (thousands). d1 = 30-36 = -6, d2 = 40-36 = 4. Combined variance = (40*36 + 60*64 + 40*36 + 60*16)/100 = (1440+3840+1440+960)/100 = 7680/100 = 76.8. Combined SD = sqrt(76.8) = 8.763 thousand = Rs 8,763."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Student computes SD as simple average (6+8)/2 = 7, using arithmetic mean of the two SDs instead of the combined variance formula."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student ignores the between-group term (d1^2 and d2^2): combined variance = (40*36+60*64)/100 = 5280/100 = 52.8, SD = sqrt(52.8) = 7.265."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student computes sqrt((var1+var2)/2) = sqrt((36+64)/2) = sqrt(50) = 7.071, using the simple average of the variances."
+    }
+  ],
+  "explanation": "The combined variance formula accounts for both within-group variance and between-group variance (the squared difference between each group mean and the combined mean).",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The critical between-group term n1*d1^2 + n2*d2^2 always increases the combined variance above the weighted average of the individual variances.",
+    "approach": "Step 1: Combined mean = (40*30+60*40)/100 = 36. Step 2: d1 = 30-36 = -6, d2 = 40-36 = 4. Step 3: Combined variance = [40*(36)+60*(64)+40*(36)+60*(16)] / 100 = [1440+3840+1440+960]/100 = 76.8. Step 4: SD = sqrt(76.8) = 8.763.",
+    "lesson": "Simply averaging the SDs or variances ignores the between-group spread; the combined SD is always at least as large as the larger individual SD when the means differ.",
+    "timing": "About 90 seconds. The main computation is the four-product sum; keep track of d1^2=36 and d2^2=16 carefully."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

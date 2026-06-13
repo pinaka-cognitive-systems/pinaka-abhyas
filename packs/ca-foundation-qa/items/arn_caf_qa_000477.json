@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000477",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000477.py"
+  },
+  "tests": [
+    "qa.bmath.sequence_series.ap"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A company awards annual increments to its employees. An employee starts with a monthly salary of Rs 18,000 and receives an annual increment of Rs 1,200 each year. In which year will the employee's monthly salary first reach Rs 27,000?",
+  "options": [
+    {
+      "key": 1,
+      "text": "8th year"
+    },
+    {
+      "key": 2,
+      "text": "9th year"
+    },
+    {
+      "key": 3,
+      "text": "7th year"
+    },
+    {
+      "key": 4,
+      "text": "10th year"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Finds that after 8 increments salary = 18000 + 8*1200 = 27600, and calls that the 8th year, confusing the number of increments received with the year number (which is increments + 1)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "T_n = 18000 + (n-1)*1200 >= 27000. So (n-1)*1200 >= 9000, n-1 >= 7.5, n >= 8.5. First integer n = 9. The salary in the 9th year is 18000 + 8*1200 = 27600 >= 27000."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computes 9000/1200 = 7.5 and rounds down to 7 instead of up, concluding year 7 (where salary is still 26400)."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Uses T_n = a + n*d (n full increments, not n-1), getting n = 9000/1200 = 7.5 rounded to 8 full increments, then adds 2 extra years from a mis-setup giving year 10."
+    }
+  ],
+  "explanation": "The salary forms an AP with a=18000, d=1200. Set T_n >= 27000: 18000 + (n-1)*1200 >= 27000, (n-1) >= 7.5, n >= 8.5. First integer year is n=9.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Set T_n >= target and solve for the smallest integer n; rounding up from 8.5 gives year 9.",
+    "approach": "Formula: T_n = a + (n-1)*d. Set T_n = 27000: 18000 + (n-1)*1200 = 27000, (n-1) = 9000/1200 = 7.5. Since n must be an integer and T_n must meet or exceed 27000, round up: n-1=8, so n=9. Verify: T_9 = 18000 + 8*1200 = 27600 >= 27000.",
+    "lesson": "When solving for the first term that meets an inequality, always round up to the next integer, not down.",
+    "timing": "50-70 seconds. The key step is converting the inequality to a division then rounding correctly. Trap: confusing n with n-1."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

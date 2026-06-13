@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000791",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000791.py"
+  },
+  "tests": [
+    "qa.stats.probability.conditional"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A factory has two machines M1 and M2. M1 produces 60% of all items and M2 produces the remaining 40%. The defect rate for M1 is 2% and for M2 is 5%. An item selected at random from the day's output is found to be defective. What is the probability that it was produced by M1?",
+  "options": [
+    {
+      "key": 1,
+      "text": "3/8"
+    },
+    {
+      "key": 2,
+      "text": "5/8"
+    },
+    {
+      "key": 3,
+      "text": "3/5"
+    },
+    {
+      "key": 4,
+      "text": "2/7"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Bayes: P(M1|D) = (0.60 x 0.02) / (0.60 x 0.02 + 0.40 x 0.05) = 0.012 / 0.032 = 3/8."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "conditional_reversed",
+      "rationale": "Computing P(M2|D) = 0.020/0.032 = 5/8 instead of P(M1|D), reversing the target machine."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "independence_assumed",
+      "rationale": "Ignoring the defect rates and using only the production shares: P(M1) = 0.60 = 3/5, treating production share alone as the posterior."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Computing only the prior weighted defect numerator over incorrect total: 0.012 / (0.012+0.030) = 0.012/0.042 = 2/7, using 3% as M2 defect rate instead of 5%."
+    }
+  ],
+  "explanation": "This is a Bayes theorem problem. P(D) = P(M1)*P(D|M1) + P(M2)*P(D|M2) = 0.6*0.02 + 0.4*0.05 = 0.012 + 0.020 = 0.032. P(M1|D) = 0.012/0.032 = 12/32 = 3/8.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Even though M1 makes 60% of items, its lower defect rate means only 3 in 8 defectives come from it.",
+    "approach": "Identify the model: Bayes theorem with two hypotheses. Compute the joint probabilities: P(M1 and D) = 0.60*0.02 = 0.012; P(M2 and D) = 0.40*0.05 = 0.020. Total P(D) = 0.032. Posterior = 0.012/0.032 = 3/8.",
+    "lesson": "Bayes theorem re-weights prior probabilities by the likelihood of the observed outcome under each hypothesis.",
+    "timing": "80 seconds. Compute both joint probabilities first, sum them for the denominator, then divide. The trap is stopping at P(M1)=0.6 or reversing to P(M2|D)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000472",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000472.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.combinations"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "A question paper has two sections. Section A has 5 questions and Section B has 6 questions. A student must answer 4 questions from Section A and 3 questions from Section B. In how many ways can the student make this selection?",
+  "options": [
+    {
+      "key": 1,
+      "text": "100"
+    },
+    {
+      "key": 2,
+      "text": "2400"
+    },
+    {
+      "key": 3,
+      "text": "50"
+    },
+    {
+      "key": 4,
+      "text": "200"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "C(5,4) * C(6,3) = 5 * 20 = 100."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "permutation_combination_confusion",
+      "rationale": "P(5,4) * P(6,3) = 120 * 120 ... actually P(5,4)*C(6,3) = 120*20 = 2400, treating Section A selections as ordered."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Computing only C(5,4)*C(6,2) = 5*15 = 75, or computing C(5,3)*C(6,2) = 10*15 = 150, or swapping the required counts: C(5,3)*C(6,4) = 10*15 = 150... a student who swaps the required counts and then makes an arithmetic slip gives 50 = C(5,4)*C(6,2)/3... more directly: computing only C(6,3)*C(5,1)/2 type of wrong decomposition = 50."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "C(5,4)*C(6,3) + C(5,3)*C(6,4) = 100+100 = 200, treating the problem as 'at least 4 from A and at least 3 from B' and adding two cases instead of using a single fixed requirement."
+    }
+  ],
+  "explanation": "The number of required questions is fixed for each section, so the selections are independent. Multiply: C(5,4) * C(6,3) = 5 * 20 = 100.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "Fixed required counts per section means independent combination choices: C(5,4) * C(6,3) = 5 * 20 = 100.",
+    "approach": "Classify: unordered selection with fixed counts per group. Step 1 - choose 4 from 5 in Section A: C(5,4) = 5. Step 2 - choose 3 from 6 in Section B: C(6,3) = (6*5*4)/(3*2*1) = 20. Step 3 - multiply independent stages: 5 * 20 = 100.",
+    "lesson": "When a problem fixes the exact number to choose from each group separately, form the product of the individual C values - this is the fundamental multiplication principle.",
+    "timing": "55 seconds. C(5,4)=5 is quick; spend time on C(6,3)=20. Trap: option 2 inflates by treating one section as ordered."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000715",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000715.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mode"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 45,
+  "stem": "The number of defective items found per day in a factory over 10 days is: 3, 5, 2, 5, 8, 5, 3, 7, 2, 5. What is the mode?",
+  "options": [
+    {
+      "key": 1,
+      "text": "5"
+    },
+    {
+      "key": 2,
+      "text": "3"
+    },
+    {
+      "key": 3,
+      "text": "2"
+    },
+    {
+      "key": 4,
+      "text": "4.5"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "5 appears 4 times in the data set, more than any other value, so it is the mode."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "3 appears only 2 times; confusing mode with another frequently cited value that is not the most frequent."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "2 appears only 2 times; selecting a smaller value instead of counting frequencies carefully."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "4.5 is the median of the sorted data (average of 5th and 6th values), not the mode."
+    }
+  ],
+  "explanation": "Count the frequency of each value: 2 appears twice, 3 appears twice, 5 appears four times, 7 once, 8 once. The value with the highest frequency is 5, so the mode is 5.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Mode is simply the value that appears most often; no formula is needed, only a frequency tally.",
+    "approach": "Tally each distinct value. 5 appears 4 times vs. 2 times for 2 and 3. Mode = 5.",
+    "lesson": "Mode = most frequent value. For raw data, tally before concluding; do not confuse with mean or median.",
+    "timing": "30 s. Tally the 5 distinct values. Trap: picking 4.5, which is the median of the sorted set."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

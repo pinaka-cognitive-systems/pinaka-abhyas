@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000690",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000690.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.sampling"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "A quality control inspector tests a production line by examining every 15th item after a random start between 1 and 15. From a batch of 300 items, how many items will be selected in the sample?",
+  "options": [
+    {
+      "key": 1,
+      "text": "15"
+    },
+    {
+      "key": 2,
+      "text": "20"
+    },
+    {
+      "key": 3,
+      "text": "30"
+    },
+    {
+      "key": 4,
+      "text": "45"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "15 is the sampling interval itself; confusing the interval with the resulting sample size gives this wrong answer."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "In systematic sampling, sample size = population size / sampling interval = 300 / 15 = 20."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "30 results from computing 300 / 10 instead of 300 / 15, using the wrong denominator."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "45 results from computing 300 / 15 x 2.25 or erroneously using 300 / (15 - something), reflecting an arithmetic error in applying the formula."
+    }
+  ],
+  "explanation": "Systematic sampling selects every k-th unit from a list of N units after a random start. The sample size n = N / k = 300 / 15 = 20.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The setup decision is recognising that systematic sampling gives n = N/k; the calculation is then a single division: 300/15 = 20.",
+    "approach": "Identify the model: systematic sampling with sampling interval k = 15. State the formula: n = N/k. Map the givens: N = 300, k = 15. Compute: n = 300/15 = 20.",
+    "lesson": "In systematic sampling, the sampling interval k = N/n; equivalently, n = N/k. Never confuse k (the interval) with n (the sample size).",
+    "timing": "30 seconds. The trap is reading the question as 'how many items per group' and reporting 15 (the interval). Divide, do not report the divisor."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

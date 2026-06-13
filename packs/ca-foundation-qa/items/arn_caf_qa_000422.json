@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000422",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000422.py"
+  },
+  "tests": [
+    "qa.bmath.finance.nominal_real_return"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A debenture yields a nominal return of 12% per annum. An investor needs a real return of at least 7% per annum. What is the maximum inflation rate (to the nearest 0.01%) the investor can tolerate before the real return falls below 7%?",
+  "options": [
+    {
+      "key": 1,
+      "text": "4.67%"
+    },
+    {
+      "key": 2,
+      "text": "5%"
+    },
+    {
+      "key": 3,
+      "text": "7%"
+    },
+    {
+      "key": 4,
+      "text": "19%"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "From Fisher: (1 + 0.12) = (1 + 0.07)(1 + r_inf). So 1 + r_inf = 1.12/1.07 = 1.04673. Max inflation = 4.67%."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Simple subtraction: 12% - 7% = 5%, ignoring the Fisher multiplicative correction that reduces the tolerance slightly."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reported the required real return (7%) as the maximum inflation the investor can tolerate."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Added nominal and real: 12% + 7% = 19%, misapplying the Fisher equation by adding rates instead of rearranging the multiplicative form."
+    }
+  ],
+  "explanation": "Rearranging the Fisher equation: (1 + r_nom) = (1 + r_real)(1 + r_inf). So (1 + r_inf) = (1 + r_nom)/(1 + r_real) = 1.12/1.07 = 1.04673. Maximum tolerable inflation = 4.67%.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Rearranging the Fisher equation back-solves for inflation given nominal and real.",
+    "approach": "Formula: r_inf = (1 + r_nom)/(1 + r_real) - 1. Map: r_nom = 0.12, r_real = 0.07. Compute 1.12/1.07 = 1.04673. Max inflation = 4.67%. The setup decision is identifying this as a Fisher back-solve.",
+    "lesson": "To find the break-even inflation, rearrange the Fisher formula; never use simple subtraction.",
+    "timing": "60 seconds. Compute 1.12/1.07 = 1.0467. Eliminate option 2 (simple subtraction) as the common trap."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

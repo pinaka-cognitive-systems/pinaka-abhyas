@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000803",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000803.py"
+  },
+  "tests": [
+    "qa.stats.probability.random_variable"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "A discrete random variable X has the following probability distribution: P(X=0) = 0.1, P(X=1) = 0.3, P(X=2) = k, P(X=3) = 0.2. What is the value of k?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.4"
+    },
+    {
+      "key": 2,
+      "text": "0.3"
+    },
+    {
+      "key": 3,
+      "text": "0.6"
+    },
+    {
+      "key": 4,
+      "text": "0.2"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "All probabilities must sum to 1: 0.1 + 0.3 + k + 0.2 = 1 => k = 1 - 0.6 = 0.4."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "0.3 arises from summing only P(X=0) and P(X=3) as 0.1+0.2=0.3 and setting k=0.3, misreading the constraint."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "0.6 arises from computing the sum of the known probabilities (0.1+0.3+0.2=0.6) but then setting k=0.6 rather than k=1-0.6=0.4."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "0.2 is the value of P(X=3), not k; the student misreads which probability is the unknown."
+    }
+  ],
+  "explanation": "A valid probability distribution must satisfy the axiom that all probabilities sum to 1. Solving: 0.1 + 0.3 + k + 0.2 = 1 gives k = 0.4.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Sum of all PMF values = 1 is the defining constraint for any valid probability distribution.",
+    "approach": "Identify model: discrete random variable PMF completeness. Apply sum rule: sum of all P(X=x) = 1. Substitute known values: 0.1 + 0.3 + k + 0.2 = 1. Solve: k = 1 - 0.6 = 0.4.",
+    "lesson": "Every probability distribution must sum to exactly 1; use this to find any missing probability.",
+    "timing": "25 seconds. Sum the known values (0.6), subtract from 1. Trap: using the sum (0.6) as the answer instead of 1 - 0.6."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

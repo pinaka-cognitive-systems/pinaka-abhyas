@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000338",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000338.py"
+  },
+  "tests": [
+    "qa.bmath.equations.simple"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "A shopkeeper sells an article for Rs 840 and earns a profit equal to 20% of its cost price. What is the cost price of the article?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 700"
+    },
+    {
+      "key": 2,
+      "text": "Rs 672"
+    },
+    {
+      "key": 3,
+      "text": "Rs 720"
+    },
+    {
+      "key": 4,
+      "text": "Rs 800"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Selling price = Cost price + 20% of Cost price = 1.2 * CP. So CP = 840 / 1.2 = 700."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student computes 20% of selling price: 0.20 * 840 = 168, then CP = 840 - 168 = 672. They apply the deduction to SP rather than writing SP = 1.2 * CP and inverting correctly."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student correctly sets up CP = 840/1.2 but performs division as 840/1.167 or makes a slip, getting 720."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student interprets profit as Rs 40 (a round difference) or solves 840 - 40 = 800, treating the profit amount as fixed rather than percentage-based."
+    }
+  ],
+  "explanation": "Profit is 20% of cost price, so selling price = CP + 0.2 * CP = 1.2 * CP. Therefore CP = 840 / 1.2 = 700. Cost price is Rs 700.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Profit percentage is always on cost price, so SP = 1.2 * CP; invert to get CP = SP / 1.2.",
+    "approach": "Translate '20% profit on CP' as SP = CP * (1 + 0.20). Substitute SP = 840. Solve: CP = 840 / 1.2 = 700.",
+    "lesson": "In profit/loss problems, the percentage base is always the cost price, not the selling price.",
+    "timing": "About 45 seconds. The classic trap: taking 20% of 840 and subtracting, which gives 672. That method uses SP as base."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

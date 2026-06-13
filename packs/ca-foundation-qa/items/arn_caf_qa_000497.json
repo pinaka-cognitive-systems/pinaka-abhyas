@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000497",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000497.py"
+  },
+  "tests": [
+    "qa.bmath.calculus.differentiation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A firm's total cost function is C(x) = 2x^2 + 5x + 100, where x is the quantity produced. What is the marginal cost when x = 10?",
+  "options": [
+    {
+      "key": 1,
+      "text": "45"
+    },
+    {
+      "key": 2,
+      "text": "35"
+    },
+    {
+      "key": 3,
+      "text": "40"
+    },
+    {
+      "key": 4,
+      "text": "41"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "MC = dC/dx = 4x + 5. At x=10: 4*10 + 5 = 45."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "marginal_vs_average_confused",
+      "rationale": "Computed average cost AC = C(10)/10 = (200+50+100)/10 = 350/10 = 35, confusing marginal cost with average cost."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "differentiation_rule_confused",
+      "rationale": "Differentiated correctly to 4x+5 but then evaluated at x=10 without adding the constant term: computed only 4*10 = 40, dropping the +5 from the derivative of the linear term."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Evaluated MC at x=9 instead of x=10: 4*9+5 = 41, off by one in the substitution."
+    }
+  ],
+  "explanation": "Marginal cost is the derivative of total cost. MC = dC/dx = d/dx(2x^2 + 5x + 100) = 4x + 5. At x=10: MC = 4(10)+5 = 45.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Marginal cost = derivative of total cost function; differentiate then substitute the given quantity.",
+    "approach": "Derivation plan: identify marginal cost as dC/dx (not C/x which is average cost). Differentiate 2x^2+5x+100 using the power rule: dC/dx = 4x+5. Substitute x=10: 4*10+5=45.",
+    "lesson": "Marginal cost = dC/dx (slope of total cost). Average cost = C(x)/x (height divided by x). These are distinct concepts; 35 is AC, 45 is MC.",
+    "timing": "Under 70 seconds. The decisive move is recognising MC = derivative, not quotient. Trap: computing C(10)/10 = 35 instead."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

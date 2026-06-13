@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000622",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000622.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "Five students P, Q, R, S, T are seated in a row. T is at the leftmost seat. Q is seated immediately to the right of P. R is not adjacent to S. S is seated to the left of Q. Who is seated second from the right?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Q"
+    },
+    {
+      "key": 2,
+      "text": "P"
+    },
+    {
+      "key": 3,
+      "text": "R"
+    },
+    {
+      "key": 4,
+      "text": "S"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "T at pos 1 (leftmost). S left of Q, Q right of P: this forces the chain ...S...P,Q... With T at pos 1 and S somewhere left of Q, the valid order is T,S,P,Q,R placing Q at position 4 (second from right)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Ignoring that R must not be adjacent to S, one possible order could be T,P,Q,S,R. Here P is second from left not second from right; picking P at second from right ignores the non-adjacency constraint."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "Placing R immediately right of S (reversing the non-adjacency tie-breaker to adjacency) forces a different arrangement where R occupies the second-from-right position."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reading 'second from the right' as 'second from the left' gives S (who is at position 2 in the correct arrangement T,S,P,Q,R)."
+    }
+  ],
+  "explanation": "T anchors position 1 (leftmost). S must be left of Q, and Q must be immediately right of P. The chain S,P,Q must fit in positions 2-4 or later. Placing S,P,Q at positions 2,3,4 leaves R at position 5. Check: R(5) and S(2) are not adjacent (|5-2|=3). Valid unique arrangement: T,S,P,Q,R. Second from right = position 4 = Q.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The non-adjacency clue (R not next to S) is the tie-breaker that fixes R at the far right, not Q.",
+    "approach": "Apply clues most-certain-first: T at pos 1. S left of Q and Q right of P gives the block ...S...P,Q. Only placement fitting T at left is T,S,P,Q,? with R at pos 5. Verify R-S non-adjacency: |5-2|=3 passes. Second from right (pos 4) = Q.",
+    "lesson": "Negative clues (not adjacent) serve as tie-breakers; test them last after the positive chain is placed.",
+    "timing": "About 80-90 seconds. The trap is misreading second from right as second from left, giving S."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

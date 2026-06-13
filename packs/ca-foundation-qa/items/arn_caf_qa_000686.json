@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000686",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000686.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.graphical"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "A 'less-than' ogive for a distribution is drawn by plotting cumulative frequencies against the upper class boundaries. For a frequency distribution with classes 0-10, 10-20, 20-30, 30-40, and 40-50 having frequencies 5, 12, 18, 10, and 5 respectively, what is the cumulative frequency plotted against the upper boundary of the class 20-30?",
+  "options": [
+    {
+      "key": 1,
+      "text": "18"
+    },
+    {
+      "key": 2,
+      "text": "30"
+    },
+    {
+      "key": 3,
+      "text": "35"
+    },
+    {
+      "key": 4,
+      "text": "17"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "18 is just the frequency of the class 20-30, not the cumulative frequency up to its upper boundary; the student confused individual frequency with cumulative frequency."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "30 results from adding only the first two class frequencies (5 + 12 = 17) incorrectly as 18 + 12 = 30, an arithmetic slip in the cumulation."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Cumulative frequency up to upper boundary 30 = 5 + 12 + 18 = 35. This is the less-than cumulative frequency for the class 20-30."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "17 results from adding only the first two classes (5 + 12 = 17), stopping one class too early and missing the current class frequency of 18."
+    }
+  ],
+  "explanation": "For a less-than ogive, each point represents the total count of observations below the upper class boundary. Up to boundary 30, we sum all frequencies in classes ending at or before 30: 5 + 12 + 18 = 35.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The cumulative frequency at any upper boundary is the running total of ALL class frequencies from the start up to and including that class - not just the class's own frequency.",
+    "approach": "Identify the model: less-than ogive uses cumulative frequencies at upper class boundaries. Map the givens: classes 0-10 (f=5), 10-20 (f=12), 20-30 (f=18). Cumulative at upper boundary 30 = 5 + 12 + 18 = 35.",
+    "lesson": "A less-than ogive always uses running totals; the cumulative frequency at any boundary includes every class up to and including that class.",
+    "timing": "40 seconds. The trap is reading off just the class frequency (18) instead of the running cumulative sum. Eliminate option 1 (= individual frequency) and option 4 (= stops one class short) first."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

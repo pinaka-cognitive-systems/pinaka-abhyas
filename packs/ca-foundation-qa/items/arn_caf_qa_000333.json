@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000333",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000333.py"
+  },
+  "tests": [
+    "qa.bmath.ratio_indices_log.time_and_work"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "Pipe A can fill a tank in 6 hours. Pipe B can empty the same tank in 10 hours. If both pipes are opened simultaneously when the tank is empty, how many hours will it take to fill the tank completely?",
+  "options": [
+    {
+      "key": 1,
+      "text": "4 hours"
+    },
+    {
+      "key": 2,
+      "text": "16 hours"
+    },
+    {
+      "key": 3,
+      "text": "8 hours"
+    },
+    {
+      "key": 4,
+      "text": "15 hours"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student adds the rates instead of subtracting: 1/6 + 1/10 = 5/30 + 3/30 = 8/30 = 4/15, giving time = 15/4 which they round to 4."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student computes net rate = 1/6 - 1/10 = 2/30 correctly but then inverts as 30/2 = 15, and then adds 1 for an off-by-one, giving 16."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student computes net rate as 1/6 - 1/10 = 1/8 (wrong arithmetic: 10-6=4 over 60, giving 4/60=1/15 but student makes error and gets 1/8), giving 8."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "Net fill rate = 1/6 - 1/10 = 5/30 - 3/30 = 2/30 = 1/15 tank per hour. Time = 15 hours."
+    }
+  ],
+  "explanation": "Pipe A fills at 1/6 tank per hour. Pipe B drains at 1/10 tank per hour. Net rate with both open = 1/6 - 1/10. LCM of 6 and 10 is 30: 5/30 - 3/30 = 2/30 = 1/15. Time to fill = 1/(1/15) = 15 hours.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Net rate = fill rate - drain rate = 1/6 - 1/10 = 1/15 tank/hour, so 15 hours to fill.",
+    "approach": "Assign signs: filling pipe contributes positive rate, emptying pipe contributes negative rate. Net rate = 1/6 - 1/10. Use LCM = 30: 5/30 - 3/30 = 2/30 = 1/15. Time = reciprocal of net rate = 15.",
+    "lesson": "Emptying pipes subtract from the combined rate. Never add a drain rate to a fill rate.",
+    "timing": "70-85 seconds. The trap is option 1 (4 hours) from adding rates instead of subtracting."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

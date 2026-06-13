@@ -18,10 +18,11 @@
   "tests": [
     "qa.stats.data_representation.frequency_distribution"
   ],
-  "difficulty_label": "L3",
+  "difficulty_label": "L1",
+  "explanation_kind": "model_compute",
   "taxonomy_version": 4,
   "item_type": "single_best",
-  "expected_seconds": 120,
+  "expected_seconds": 60,
   "stem": "The class intervals are 10-15, 15-20, 20-25, 25-30, 30-35. A student uses assumed mean A = 22.5 and class width h = 5. The total frequency is n = 40 and sum(f*u) = 2. What is the arithmetic mean?",
   "options": [
     {
@@ -71,10 +72,10 @@
   ],
   "explanation": "1. The step-deviation method formula is: Mean = A + h * (sum(f*u) / n).\n2. Substitute: A = 22.5, h = 5, sum(f*u) = 2, n = 40.\n3. KEY STEP: Correction term = 5 * (2/40) = 5 * 0.05 = 0.25.\n4. Mean = 22.5 + 0.25 = 22.75.",
   "explanation_sections": {
-    "punchline": "The step-deviation formula is A + h x (sum(f x u) / n). All three factors, h, sum(f x u), and n, must appear. The correction term here is 0.25, giving 22.75.",
-    "approach": "When a question gives you A, h, sum(f x u), and n directly, plug into Mean = A + h x (sum(f x u) / n). Compute the fraction sum(f x u) / n first. Then multiply by h. Then add to A. Do not skip the multiplication by h.",
-    "lesson": "The step-deviation correction term is h x (sum(f x u) / n). Omitting h gives a value too close to A. Forgetting to divide by n gives a value far too large. Both are trap options.",
-    "timing": "About 120 seconds. The substitution is mechanical once you identify the four given values. Spend 30 seconds confirming each of A, h, sum(f x u), and n before substituting. Eliminate option (4) in five seconds because 32.75 is far above all class boundaries."
+    "punchline": "The step-deviation formula is Mean = A + h x (sum(f x u) / n). All four inputs are given directly; this is a single substitution. Correction = 5 x (2/40) = 0.25, so Mean = 22.75.",
+    "approach": "Identify the model: step-deviation (coding) method. The formula is Mean = A + h x (sum(f x u) / n). Map the givens: A = 22.5, h = 5, sum(f x u) = 2, n = 40. Compute the correction term in one pass: h x (sum(f x u) / n) = 5 x 0.05 = 0.25. Add to A: 22.75. No other calculation is needed - all inputs are pre-supplied.",
+    "lesson": "The correction term has three parts: h, sum(f x u), and n. Omitting h gives 22.55 (option 3). Not dividing by n gives a correction of 10, yielding 32.5 (option 4 neighbourhood). Both are real distractors from the same formula with one piece missing.",
+    "timing": "60 seconds. Read off the four values in 15 seconds. Single multiplication and addition in 15 seconds. Eliminate option 4 instantly: 32.75 sits above all class boundaries, a sanity-check kill."
   },
   "empirical": {
     "calibration_status": "none",

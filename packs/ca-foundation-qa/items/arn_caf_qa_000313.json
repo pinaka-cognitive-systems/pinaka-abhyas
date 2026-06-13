@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000313",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000313.py"
+  },
+  "tests": [
+    "qa.bmath.ratio_indices_log.ratio"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The present ages of a mother and her daughter are in the ratio 9 : 4. Five years hence, the ratio of their ages will be 2 : 1. What is the mother's present age?",
+  "options": [
+    {
+      "key": 1,
+      "text": "36 years"
+    },
+    {
+      "key": 2,
+      "text": "45 years"
+    },
+    {
+      "key": 3,
+      "text": "20 years"
+    },
+    {
+      "key": 4,
+      "text": "40 years"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "A student who correctly sets up 9k + 5 = 2(4k + 5) but computes 2 x 5 = 8 instead of 10, getting 9k + 5 = 8k + 8, so k = 3, then reports 9 x 4 = 36."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Let mother = 9k and daughter = 4k. Five years later: (9k + 5)/(4k + 5) = 2/1, so 9k + 5 = 8k + 10, giving k = 5. Mother = 9 x 5 = 45 years."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reporting the daughter's present age (4 x 5 = 20) instead of the mother's."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "ratio_inverted",
+      "rationale": "Swapping the current ratio to 4:9 and solving: (4k + 5)/(9k + 5) = 2/1 gives 4k + 5 = 18k + 10, so 14k = -5. Student instead reads ratio future as 1:2, solving (9k+5)/(4k+5)=1/2 gives 18k+10=4k+5, 14k=-5. Taking absolute value and computing 9 x 5 = 45 but then subtracting 5 gives 40."
+    }
+  ],
+  "explanation": "Let the mother's present age be 9k and the daughter's 4k. In 5 years the ratio becomes 2:1, so 9k + 5 = 2(4k + 5) = 8k + 10. This gives k = 5 and mother's age = 9 x 5 = 45 years.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Setting future mother's age equal to twice the future daughter's age directly gives k = 5.",
+    "approach": "Ratio algebra: express both ages as multiples of k (9k and 4k). Write the future-ratio equation: (9k + 5) = 2(4k + 5). Expand, collect k terms, solve for k, then multiply by 9 for the mother's age.",
+    "lesson": "In age-ratio problems, add the time offset to each person's age before forming the future ratio equation.",
+    "timing": "60 seconds. Trap: reporting the daughter's age (20) instead of the mother's (45)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

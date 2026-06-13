@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000874",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000874.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.construction"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "For a group of commodities, the Laspeyres Price Index is 130 and the Paasche Price Index is 120 (both with base year = 100). Compute the Fisher Ideal Price Index.",
+  "options": [
+    {
+      "key": 1,
+      "text": "125.00"
+    },
+    {
+      "key": 2,
+      "text": "124.90"
+    },
+    {
+      "key": 3,
+      "text": "124.80"
+    },
+    {
+      "key": 4,
+      "text": "130.00"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "125.00 is the arithmetic mean (130+120)/2 = 125. Fisher uses the geometric mean, not the arithmetic mean."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Fisher = sqrt(Laspeyres * Paasche) = sqrt(130 * 120) = sqrt(15600) = 124.90."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "124.80 is the harmonic mean 2*130*120/(130+120) = 31200/250 = 124.80; Fisher is a geometric, not harmonic, mean."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "130.00 reports only the Laspeyres index without combining it with the Paasche index."
+    }
+  ],
+  "explanation": "Fisher Ideal Index = sqrt(Laspeyres * Paasche) = sqrt(130 * 120) = sqrt(15600) = 124.90. Fisher is called 'ideal' because it is the geometric mean of Laspeyres and Paasche, and it satisfies both the time-reversal and factor-reversal tests. The arithmetic mean gives 125.00 - a common distractor - but the defining formula is the geometric mean.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Fisher = geometric mean of L and P, not arithmetic. sqrt(130*120) = 124.90, not (130+120)/2 = 125.00.",
+    "approach": "Formula selection: Fisher = sqrt(L * P). The decisive move: recognise this is the geometric mean. Multiply L and P, take the square root: sqrt(15600) = 124.90.",
+    "lesson": "Fisher is 'ideal' for two reasons: it uses both base-year and current-year quantities, and it satisfies both the time-reversal test and the factor-reversal test. Always geometric, never arithmetic.",
+    "timing": "About 60-75 seconds. One multiplication, one square root. The trap is using the arithmetic mean, which gives 125.00."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000843",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000843.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.correlation"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "For a bivariate dataset, n = 5, sum of X values = 15, sum of Y values = 20, sum of squares of X = 55, sum of squares of Y = 90, and sum of products of X and Y = 65. What is the Karl Pearson coefficient of correlation?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.50"
+    },
+    {
+      "key": 2,
+      "text": "0.65"
+    },
+    {
+      "key": 3,
+      "text": "0.75"
+    },
+    {
+      "key": 4,
+      "text": "0.40"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Numerator = n*sum(XY) - sum(X)*sum(Y) = 5*65 - 15*20 = 325 - 300 = 25. Bracket1 = n*sum(X^2) - (sum(X))^2 = 5*55 - 225 = 50. Bracket2 = n*sum(Y^2) - (sum(Y))^2 = 5*90 - 400 = 50. r = 25/sqrt(50*50) = 25/50 = 0.50."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Mistakenly using sum(XY)/n as the numerator directly without adjusting: 65/5 = 13 and computing 13/20 = 0.65."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Arithmetic slip: computing Bracket2 as 5*90-225 = 225 instead of using (sum Y)^2 = 400, then 25/sqrt(50*225) = 25/106 which is then misread, or a slip gives 0.75."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "An arithmetic slip in the numerator: computing 5*65-15*20 = 325-350 = -25 in absolute value over a different denominator giving 0.40."
+    }
+  ],
+  "explanation": "Use the direct formula: r = (n*sum(XY) - sum(X)*sum(Y)) / sqrt((n*sum(X^2) - (sum(X))^2) * (n*sum(Y^2) - (sum(Y))^2)). Numerator = 5*65 - 15*20 = 325 - 300 = 25. Bracket1 = 5*55 - 15^2 = 275 - 225 = 50. Bracket2 = 5*90 - 20^2 = 450 - 400 = 50. Denominator = sqrt(50 * 50) = 50. r = 25/50 = 0.50.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "When both variance brackets equal the same value, the denominator is simply that value and r = numerator / that value.",
+    "approach": "Name the formula (Karl Pearson raw-sum form). Map givens: n=5, sum(XY)=65, sum(X)=15, sum(Y)=20, sum(X^2)=55, sum(Y^2)=90. Compute three quantities: numerator, Bracket1, Bracket2. Here Bracket1 = Bracket2 = 50, so denominator = 50, r = 25/50 = 0.50.",
+    "lesson": "Compute numerator and both brackets independently before combining - a slip in one bracket changes the denominator significantly.",
+    "timing": "About 55 seconds. Three multiplications and two subtractions for brackets; one more for the numerator. Shortcut: when the two brackets are equal, denominator = that bracket."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

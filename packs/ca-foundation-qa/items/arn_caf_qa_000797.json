@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000797",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000797.py"
+  },
+  "tests": [
+    "qa.stats.probability.independent_events"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 120,
+  "stem": "Three independent events A, B, and C have probabilities P(A) = 1/2, P(B) = 1/3, and P(C) = 1/4. What is the probability that exactly one of the three events occurs?",
+  "options": [
+    {
+      "key": 1,
+      "text": "11/24"
+    },
+    {
+      "key": 2,
+      "text": "3/4"
+    },
+    {
+      "key": 3,
+      "text": "1/24"
+    },
+    {
+      "key": 4,
+      "text": "1/4"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "P(exactly one) = P(A)*P(B')*P(C') + P(A')*P(B)*P(C') + P(A')*P(B')*P(C) = (1/2)(2/3)(3/4) + (1/2)(1/3)(3/4) + (1/2)(2/3)(1/4) = 1/4 + 1/8 + 1/12 = 6/24 + 3/24 + 2/24 = 11/24."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Computing P(at least one) = 1 - P(none) = 1 - (1/2)(2/3)(3/4) = 1 - 1/4 = 3/4, solving for at-least-one instead of exactly-one."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Computing P(all three occur) = P(A)*P(B)*P(C) = (1/2)(1/3)(1/4) = 1/24, solving for all-three instead of exactly-one."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Computing only the P(only A) = (1/2)(2/3)(3/4) = 1/4 term without adding the other two exactly-one terms."
+    }
+  ],
+  "explanation": "P(exactly one) requires summing three mutually exclusive terms: A occurs while B and C do not, plus B occurs while A and C do not, plus C occurs while A and B do not. Each term multiplies the relevant probabilities using independence. Sum = 6/24 + 3/24 + 2/24 = 11/24.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Exactly-one means one event fires and the other two do not, requiring three separate product terms.",
+    "approach": "Identify the model: exactly-one for independent events = sum of three disjoint scenarios. P(A only) = (1/2)(2/3)(3/4) = 1/4; P(B only) = (1/2)(1/3)(3/4) = 1/8; P(C only) = (1/2)(2/3)(1/4) = 1/12. Common denominator 24: 6+3+2 = 11/24.",
+    "lesson": "Exactly-one is not the same as at-least-one: you must multiply in the complement of each non-occurring event.",
+    "timing": "100 seconds. Work through all three cases systematically. The trap is stopping after one term (1/4) or computing at-least-one instead (3/4)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000820",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000820.py"
+  },
+  "tests": [
+    "qa.stats.probability.bayes_theorem"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 110,
+  "stem": "A medical test for a disease is 90% sensitive (correctly identifies a diseased person) and 80% specific (correctly identifies a healthy person). The disease prevalence is 10%. A person tests positive. What is the probability the person actually has the disease?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.333"
+    },
+    {
+      "key": 2,
+      "text": "0.900"
+    },
+    {
+      "key": 3,
+      "text": "0.450"
+    },
+    {
+      "key": 4,
+      "text": "0.111"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "P(D|+) = P(+|D)*P(D) / [P(+|D)*P(D) + P(+|not D)*P(not D)] = (0.9*0.1) / (0.9*0.1 + 0.2*0.9) = 0.09 / (0.09 + 0.18) = 0.09/0.27 = 1/3 = 0.333."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "conditional_reversed",
+      "rationale": "Returning the test sensitivity P(+|D) = 0.90 as P(D|+), confusing the direction of conditioning."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Computing (sensitivity + prevalence) / 2 = (0.9 + 0.1) / 2 = 0.5, or averaging sensitivity and specificity: (0.9 + 0.8) / 2 = 0.85, then arriving at 0.45 by halving 0.9."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Using only P(D)*P(+|D) = 0.1*0.9 = 0.09 and dividing by P(D) alone (0.1 is not the right denominator), giving 0.09/0.81 = 0.111 via a denominator composition error."
+    }
+  ],
+  "explanation": "Bayes theorem: P(D|+) = P(+|D)*P(D) / [P(+|D)*P(D) + P(+|not D)*P(not D)]. P(+|D) = 0.9, P(D) = 0.1, P(+|not D) = 1 - 0.8 = 0.2, P(not D) = 0.9. So P(D|+) = (0.9*0.1) / (0.9*0.1 + 0.2*0.9) = 0.09/0.27 = 1/3.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "A positive test does not mean disease; low prevalence (10%) means most positives are false alarms even with 90% sensitivity.",
+    "approach": "Identify model: Bayes theorem with prior = prevalence. Map: P(+|D) = sensitivity = 0.9, P(+|H) = 1 - specificity = 0.2, P(D) = 0.1, P(H) = 0.9. Compute P(+) = 0.9*0.1 + 0.2*0.9 = 0.09 + 0.18 = 0.27. P(D|+) = 0.09/0.27 = 1/3.",
+    "lesson": "False-positive rate (1 - specificity) drives down positive predictive value when prevalence is low; never equate sensitivity with the positive predictive value.",
+    "timing": "90 seconds. Three multiplications and one division. The unavoidable trap is returning sensitivity (0.9) as the answer; the correct answer is only 1/3."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

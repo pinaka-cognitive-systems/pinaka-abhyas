@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000421",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000421.py"
+  },
+  "tests": [
+    "qa.bmath.finance.nominal_real_return"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "A savings bond offers a nominal return of 9% per annum. If the inflation rate is 4% per annum, what is the approximate real return using the Fisher equation?",
+  "options": [
+    {
+      "key": 1,
+      "text": "4.81%"
+    },
+    {
+      "key": 2,
+      "text": "5%"
+    },
+    {
+      "key": 3,
+      "text": "13%"
+    },
+    {
+      "key": 4,
+      "text": "4%"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Fisher equation: (1 + real) = (1 + nominal)/(1 + inflation) = 1.09/1.04 = 1.04808. Real return = 4.808% approx 4.81%."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Simply subtracted inflation from nominal: 9% - 4% = 5%, ignoring the multiplicative Fisher correction."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Added nominal and inflation instead of using the Fisher ratio: 9% + 4% = 13%, a sign-direction error in the formula."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reported the inflation rate (4%) as the real return, confusing which quantity the question asks for."
+    }
+  ],
+  "explanation": "The Fisher equation gives the exact real return: (1 + r_real) = (1 + r_nominal)/(1 + r_inflation). So r_real = 1.09/1.04 - 1 = 1.04808 - 1 = 4.808%, reported as 4.81%.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Subtracting inflation percentages ignores the compounding interaction; the Fisher ratio gives the exact answer.",
+    "approach": "Formula: r_real = (1 + r_nom)/(1 + r_inf) - 1. Map: r_nom = 0.09, r_inf = 0.04. Compute 1.09/1.04 = 1.04808, subtract 1: real = 4.81%.",
+    "lesson": "Always use the multiplicative Fisher equation; the simple subtraction r_nom - r_inf underestimates when both rates are non-trivial.",
+    "timing": "45 seconds. Divide 1.09 by 1.04 directly. Eliminate option 2 (simple subtraction) and option 3 (addition) quickly."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

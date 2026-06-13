@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000896",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000896.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.tests_adequacy"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "The factor-reversal test for an index number requires that the product of the price index and the quantity index (computed by the same formula, with prices and quantities interchanged) equals the value ratio of the current period to the base period. Which formula satisfies this test?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Laspeyre's index"
+    },
+    {
+      "key": 2,
+      "text": "Paasche's index"
+    },
+    {
+      "key": 3,
+      "text": "Fisher's ideal index"
+    },
+    {
+      "key": 4,
+      "text": "Simple aggregative index"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Laspeyre's price index uses base quantities; if you swap prices and quantities the result is a Laspeyre's quantity index. Their product does not equal the value ratio, so Laspeyre's fails the factor-reversal test."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Paasche's uses current-period quantities; swapping roles gives a Paasche's quantity index. Their product also does not equal the value ratio, so Paasche's fails the factor-reversal test."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Fisher's ideal index satisfies both the time-reversal test and the factor-reversal test. The product of Fisher's price index and Fisher's quantity index equals sum(p1 q1) / sum(p0 q0), the value ratio."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "The simple aggregative index divides sum of current prices by sum of base prices without quantity weights. Its factor-reversal counterpart does not yield the correct value ratio."
+    }
+  ],
+  "explanation": "The factor-reversal test states: P01 x Q01 = V01, where V01 = sum(p1 q1) / sum(p0 q0). Fisher's ideal index is the only standard formula that satisfies this. Its price and quantity indices are each geometric means of the Laspeyre and Paasche versions, and their product telescopes to the value ratio by construction.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Fisher's ideal index is the unique standard formula satisfying the factor-reversal test: P01 x Q01 = sum(p1 q1) / sum(p0 q0).",
+    "approach": "Name the formula and map each given: factor-reversal test = P01 x Q01 = V01. Laspeyre's and Paasche's each fix one period's weights so the product mismatch. Only Fisher's geometric-mean construction makes the product exact.",
+    "lesson": "Fisher's ideal index satisfies both adequacy tests (time-reversal and factor-reversal), which is why it earns the label 'ideal'.",
+    "timing": "30-40 s recall. If unsure, eliminate all single-weight formulas: any formula that fixes quantities at one period cannot simultaneously satisfy both tests."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

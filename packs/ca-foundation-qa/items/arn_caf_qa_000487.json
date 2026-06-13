@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000487",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000487.py"
+  },
+  "tests": [
+    "qa.bmath.sequence_series.gm"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "Three numbers are in geometric progression. Their product is 216. What is the middle term of the progression?",
+  "options": [
+    {
+      "key": 1,
+      "text": "6"
+    },
+    {
+      "key": 2,
+      "text": "8"
+    },
+    {
+      "key": 3,
+      "text": "4"
+    },
+    {
+      "key": 4,
+      "text": "12"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "When three terms are written as a/r, a, ar their product is a^3 = 216, so a = 6. The middle term is 6."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Treated the product as 3a instead of a^3, solving 3a = 216 gives a = 72, then took cube root incorrectly arriving at 8."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computed cube root of 216 as 4 due to an arithmetic slip (4^3 = 64, not 216)."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Divided the product by 3 treating the GP terms as an AP (216/3 = 72), then halved again by mistake to get 12."
+    }
+  ],
+  "explanation": "For three terms in GP written as a/r, a, ar, the product simplifies beautifully: (a/r)(a)(ar) = a^3. Setting a^3 = 216 gives a = 6, the middle term, without needing to find r.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Represent three GP terms symmetrically as a/r, a, ar so the product collapses to a^3.",
+    "approach": "Derivation plan: write the three terms as a/r, a, ar (symmetric GP form). Multiply: (a/r)(a)(ar) = a^3. Set a^3 = 216 and solve: a = 6. The middle term equals a directly.",
+    "lesson": "Three terms in GP are always best written as a/r, a, ar; their product is a^3 and their sum is a(1/r + 1 + r), avoiding r entirely when only the product is given.",
+    "timing": "Under 40 seconds. The moment you recognise 216 = 6^3, you are done. The trap is writing the terms as a, ar, ar^2 and struggling to isolate a without knowing r."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

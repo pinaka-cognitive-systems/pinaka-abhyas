@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000847",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000847.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.correlation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "For a sample of n = 5 pairs of observations on variables X and Y, the following totals are available: sum(X) = 10, sum(Y) = 15, sum(X^2) = 40, sum(Y^2) = 65, sum(XY) = 46. Calculate the coefficient of correlation r(X,Y).",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.80"
+    },
+    {
+      "key": 2,
+      "text": "0.64"
+    },
+    {
+      "key": 3,
+      "text": "0.90"
+    },
+    {
+      "key": 4,
+      "text": "0.70"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Numerator = 5*46 - 10*15 = 230 - 150 = 80. Bracket1 = 5*40 - 10^2 = 200 - 100 = 100. Bracket2 = 5*65 - 15^2 = 325 - 225 = 100. r = 80/sqrt(100*100) = 80/100 = 0.80."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "A slip: computing the numerator as 5*46-10*15 = 280-150 = 130 (misreading 5*46=280), then 130/sqrt(100*100) = 1.30, rounding or taking a squared version gives 0.64."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "A bracket slip: computing Bracket1 = 5*40 - 10^2 = 200 - 10 = 190 (using 10 instead of 100) reduces the denominator to sqrt(190*100), giving r = 80/137.8 = 0.58, then misread as 0.90 if signs are confused."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "An arithmetic slip in sum(Y)^2: using 15^2 = 125 instead of 225 gives Bracket2 = 325-125 = 200, then r = 80/sqrt(100*200) = 80/141.4 = 0.566, misread or rounded to 0.70."
+    }
+  ],
+  "explanation": "r = (n*sum(XY) - sum(X)*sum(Y)) / sqrt((n*sum(X^2) - (sum(X))^2) * (n*sum(Y^2) - (sum(Y))^2)). Numerator = 5*46 - 10*15 = 230-150 = 80. Bracket1 = 5*40 - 100 = 100. Bracket2 = 5*65 - 225 = 100. r = 80/sqrt(10000) = 80/100 = 0.80.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "When both variance brackets are equal, the denominator equals that bracket value and r = numerator / bracket.",
+    "approach": "Name the formula: Karl Pearson direct-sum. Map givens: n=5, sum(XY)=46, sum(X)=10, sum(Y)=15, sum(X^2)=40, sum(Y^2)=65. Numerator=80, Bracket1=100, Bracket2=100. Denominator = sqrt(10000) = 100. r=0.80.",
+    "lesson": "Always compute (sum(X))^2 and (sum(Y))^2 carefully - squaring the totals, not the sum of squares.",
+    "timing": "About 60 seconds. Note 10^2=100 and 15^2=225 must be exact. Both brackets being equal is a good internal consistency check."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

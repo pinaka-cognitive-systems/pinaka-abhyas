@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000702",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000702.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mean"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A firm's annual profits (in Rs lakhs) over four consecutive years were 2, 8, 32, and 128. What is the geometric mean of these profits?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 16 lakhs"
+    },
+    {
+      "key": 2,
+      "text": "Rs 32 lakhs"
+    },
+    {
+      "key": 3,
+      "text": "Rs 42.5 lakhs"
+    },
+    {
+      "key": 4,
+      "text": "Rs 48 lakhs"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "GM = (2 * 8 * 32 * 128)^(1/4) = (32768)^(1/4). 32768 = 2^15, so GM = 2^(15/4) = 2^3.75 = 16."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Taking the square root of the product of only the two extreme values: sqrt(2 * 128) = sqrt(256) = 16, or confusing GM of 4 terms with GM of 2 terms (sqrt of product) gives 16 - but if n is mistakenly taken as 3, GM = (2*8*32*128)^(1/3) = 32768^(1/3) approximately 32."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "Computing the arithmetic mean instead of geometric mean: (2 + 8 + 32 + 128)/4 = 170/4 = 42.5."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Incorrectly computing the product as 2 x 8 x 32 x 128 = 65536 (doubling error) and taking the 4th root: 65536^(1/4) = 16, or miscomputing to 48 via an arithmetic slip in the product."
+    }
+  ],
+  "explanation": "Geometric mean of n values = (product of all values)^(1/n). Product = 2 * 8 * 32 * 128 = 32768. GM = 32768^(1/4). Express as powers of 2: 2 = 2^1, 8 = 2^3, 32 = 2^5, 128 = 2^7. Product = 2^(1+3+5+7) = 2^16. GM = (2^16)^(1/4) = 2^4 = 16.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Writing each profit as a power of 2 makes the GM calculation a simple average of exponents: (1+3+5+7)/4 = 4, so GM = 2^4 = 16.",
+    "approach": "Geometric mean formula: GM = (x1 * x2 * ... * xn)^(1/n). Identify: n = 4, values = 2, 8, 32, 128. Convert to common base 2: 2^1, 2^3, 2^5, 2^7. Product = 2^(1+3+5+7) = 2^16. GM = 2^(16/4) = 2^4 = 16.",
+    "lesson": "For a GP-like sequence, convert to a common base: the GM exponent is the arithmetic mean of the individual exponents.",
+    "timing": "40-50 seconds. Recognise the values are a GP with ratio 4. GM of a GP equals the middle term when n is odd, or sqrt(product of middle two) when n is even: sqrt(8 * 32) = sqrt(256) = 16."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

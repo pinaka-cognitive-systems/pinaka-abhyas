@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000779",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000779.py"
+  },
+  "tests": [
+    "qa.stats.probability.classical"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Three balls are drawn at random without replacement from an urn containing 6 white and 4 black balls. What is the probability that at least one ball is black?",
+  "options": [
+    {
+      "key": 1,
+      "text": "5/6"
+    },
+    {
+      "key": 2,
+      "text": "2/3"
+    },
+    {
+      "key": 3,
+      "text": "11/30"
+    },
+    {
+      "key": 4,
+      "text": "1/6"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "P(at least one black) = 1 - P(none black) = 1 - C(6,3)/C(10,3) = 1 - 20/120 = 1 - 1/6 = 5/6."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computes 1 - C(6,3)/C(10,3) but uses C(10,3) = 90 (wrong: should be 120), giving 1 - 20/90 = 70/90 = 7/9, then rounds to 2/3."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "complement_confusion",
+      "rationale": "Directly adds P(exactly 1 black) only = C(4,1)*C(6,2)/C(10,3) = 60/120 - but miscalculates, arriving at 11/30 while omitting the exactly-2 and exactly-3 cases."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "complement_confusion",
+      "rationale": "Reads P(no black) = C(6,3)/C(10,3) = 20/120 = 1/6 but reports this complement probability as the final answer instead of subtracting from 1."
+    }
+  ],
+  "explanation": "Use the complement: at least one black = 1 - (all white). P(all white) = C(6,3)/C(10,3) = 20/120 = 1/6. So P(at least one black) = 1 - 1/6 = 5/6.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "At-least-one is fastest via complement: 1 - P(all white) = 1 - 1/6 = 5/6.",
+    "approach": "Identify model: classical probability, without-replacement draws -> combinations. Setup decision: use complement because at-least-one problems have multiple favourable sub-cases; complement (none) is a single case. Compute P(all 3 white) = C(6,3)/C(10,3) = 20/120 = 1/6. Subtract from 1.",
+    "lesson": "For at-least-one problems, always evaluate the complement (none of that type) and subtract from 1 - it is almost always the quickest route.",
+    "timing": "35 seconds. C(10,3) = 120, C(6,3) = 20 are quick to compute. The trap is option 4 which stops at the complement value."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000665",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000665.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.diagrammatic"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "A pie chart is drawn for the following expenditure breakdown of a firm: Raw materials Rs 180000, Labour Rs 120000, Overheads Rs 60000, Profit Rs 40000. What is the angle (in degrees) of the sector representing Labour?",
+  "options": [
+    {
+      "key": 1,
+      "text": "108"
+    },
+    {
+      "key": 2,
+      "text": "120"
+    },
+    {
+      "key": 3,
+      "text": "90"
+    },
+    {
+      "key": 4,
+      "text": "96"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Total = 180000 + 120000 + 60000 + 40000 = 400000. Labour sector angle = (120000/400000) x 360 = 0.3 x 360 = 108 degrees."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "120 degrees = 120000/360000 x 360; total was mis-summed as 360000 excluding Profit, giving the wrong base."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "90 degrees = 1/4 of 360; the student may have taken Labour as 1/4 of total rather than computing the actual ratio."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "96 degrees = 120000/450000 x 360; the total was wrongly inflated to 450000 by double-counting one entry, an arithmetic slip in summing the four categories."
+    }
+  ],
+  "explanation": "Total expenditure = 180000 + 120000 + 60000 + 40000 = 400000. Labour proportion = 120000/400000 = 3/10. Sector angle = (3/10) x 360 = 108 degrees.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Labour proportion = 120/400 = 3/10; sector angle = 3/10 x 360 = 108 degrees.",
+    "approach": "Identify the model: pie chart sector angle = (category value / total) x 360. Step 1: sum all categories to get total 400000. Step 2: form ratio for Labour: 120000/400000 = 3/10. Step 3: multiply by 360.",
+    "lesson": "Always include every category in the total before computing a pie chart angle; omitting any category inflates the sector.",
+    "timing": "80 s. Simplify: 120000/400000 = 3/10; then 3 x 36 = 108."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

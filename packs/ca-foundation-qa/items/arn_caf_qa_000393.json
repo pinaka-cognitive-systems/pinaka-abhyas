@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000393",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000393.py"
+  },
+  "tests": [
+    "qa.bmath.finance.present_value"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A vendor offers to sell equipment with deferred payment: Rs 3,000 at the end of each year for 4 years instead of a lump-sum payment today. The applicable discount rate is 8% per annum. What maximum lump-sum amount should a buyer agree to pay today to make the deferred deal equally attractive?  [Given: (1.08)^4 = 1.3605, (1.08)^(-4) = 0.7350]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 13,519"
+    },
+    {
+      "key": 2,
+      "text": "Rs 12,000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 10,733"
+    },
+    {
+      "key": 4,
+      "text": "Rs 9,937.50"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Using the FV formula rather than PV gives 3000 x (1.3605-1)/0.08 = 3000 x 4.506 = Rs 13,519; this is the future value of the annuity, not the present value."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Summing the four undiscounted payments gives 3000 x 4 = Rs 12,000, ignoring the time value of money."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Multiplying the correct PV by (1.08) as if payments start at period zero (annuity-due) gives 9937.50 x 1.08 = Rs 10,733, incorrectly using the annuity-due adjustment for ordinary annuity payments."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "PV = 3000 x [1 - (1.08)^(-4)] / 0.08 = 3000 x (1 - 0.7350) / 0.08 = 3000 x 3.3125 = Rs 9,937.50."
+    }
+  ],
+  "explanation": "The maximum fair lump-sum equals the present value of all future payments. PV = A x [1-(1+i)^(-n)]/i = 3000 x (1-0.7350)/0.08 = 3000 x 3.3125 = Rs 9,937.50.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The PV of the annuity is the highest lump sum a rational buyer should pay - paying more would make the deferred scheme cheaper.",
+    "approach": "Formula: PV = A x [1-(1+i)^(-n)]/i. Map: A = Rs 3,000, i = 0.08, n = 4, (1.08)^(-4) = 0.7350. Factor = (1-0.7350)/0.08 = 0.265/0.08 = 3.3125. PV = 3000 x 3.3125 = Rs 9,937.50.",
+    "lesson": "PV of an ordinary annuity uses the discount factor [1-(1+i)^(-n)] not the growth factor [(1+i)^n - 1]; confusing them gives the future value instead.",
+    "timing": "80 seconds. Direct annuity PV formula. Trap: option 1 uses FV formula; option 3 applies annuity-due adjustment."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

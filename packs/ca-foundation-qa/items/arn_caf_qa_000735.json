@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000735",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000735.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.range"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 45,
+  "stem": "The coefficient of range for a data set is defined as (Max - Min) / (Max + Min). If the maximum value of a data set is 80 and the minimum value is 20, the coefficient of range is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.50"
+    },
+    {
+      "key": 2,
+      "text": "0.60"
+    },
+    {
+      "key": 3,
+      "text": "0.40"
+    },
+    {
+      "key": 4,
+      "text": "0.67"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Student computes (80 - 20) / (80 + 20 + 20) = 60 / 120 = 0.50, incorrectly adding min twice in denominator."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Coefficient of range = (Max - Min) / (Max + Min) = (80 - 20) / (80 + 20) = 60 / 100 = 0.60."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student uses (Max - Min) / (2 * Max) = 60 / 150 = 0.40, applying an incorrect denominator."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Student computes (Max - Min) / (Max) = 60 / 80 = 0.75, but rounds to 0.67 or uses denominator of only the range difference in denominator approach."
+    }
+  ],
+  "explanation": "Coefficient of range = (Max - Min) / (Max + Min). With Max = 80 and Min = 20: numerator = 60, denominator = 100, so coefficient = 0.60.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The denominator is Max + Min (sum of extremes), not 2*Max or any other combination.",
+    "approach": "Apply coefficient of range formula directly: (80 - 20) / (80 + 20) = 60 / 100 = 0.60.",
+    "lesson": "Coefficient of range standardises the range; denominator = Max + Min, a relative measure between 0 and 1.",
+    "timing": "20 seconds. Plug in directly. The trap is using Max alone or 2*Max in the denominator."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

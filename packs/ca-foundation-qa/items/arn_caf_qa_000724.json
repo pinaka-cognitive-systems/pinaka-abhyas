@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000724",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000724.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.gm_hm"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "The geometric mean of the two numbers 4 and 16 is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "8"
+    },
+    {
+      "key": 2,
+      "text": "10"
+    },
+    {
+      "key": 3,
+      "text": "6.4"
+    },
+    {
+      "key": 4,
+      "text": "64"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "GM = sqrt(4 * 16) = sqrt(64) = 8."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "10 is the arithmetic mean (4+16)/2 = 10; a student uses the wrong average formula and computes AM instead of GM."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "6.4 is the harmonic mean 2/(1/4 + 1/16) = 2/(4/16 + 1/16) = 2/(5/16) = 32/5 = 6.4; a student uses HM formula instead of GM formula."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "64 is the product 4*16 = 64 without taking the square root; a student applies GM = a*b forgetting the nth root step."
+    }
+  ],
+  "explanation": "For two numbers a and b, the geometric mean is sqrt(a * b). Here GM = sqrt(4 * 16) = sqrt(64) = 8.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "GM is the square root of the product, not the average of the two numbers.",
+    "approach": "Identify the model: GM of n values = (product of all values)^(1/n). For n=2: GM = sqrt(a*b). Map givens a=4, b=16. Compute: 4*16=64, sqrt(64)=8.",
+    "lesson": "GM of two numbers a and b equals sqrt(a*b). For n numbers it is the nth root of their product.",
+    "timing": "Under 30 seconds. Direct single-formula application. Eliminate 64 immediately (product without root) and 10 (arithmetic mean)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

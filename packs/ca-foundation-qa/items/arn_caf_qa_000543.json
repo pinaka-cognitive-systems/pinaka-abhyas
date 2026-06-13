@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000543",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000543.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.number_series"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "What is the missing number in the series: 1, 4, 9, 16, ?, 36?",
+  "options": [
+    {
+      "key": 1,
+      "text": "20"
+    },
+    {
+      "key": 2,
+      "text": "22"
+    },
+    {
+      "key": 3,
+      "text": "25"
+    },
+    {
+      "key": 4,
+      "text": "28"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Adds successive even numbers (3, 5, 7, 9, ...) but makes a step error and lands on 20 instead of 25."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Recognises the sequence of differences 3, 5, 7, 9 but slips and adds 8 to 16 to get 24, rounding to 22 - a computational slip."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "The series is squares of natural numbers: 1^2=1, 2^2=4, 3^2=9, 4^2=16, 5^2=25, 6^2=36. The missing term is 5^2 = 25."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Adds 12 to 16 (doubling the previous difference of 7) under a wrong assumption that differences double each step."
+    }
+  ],
+  "explanation": "The series consists of perfect squares of consecutive natural numbers: 1^2, 2^2, 3^2, 4^2, 5^2, 6^2 = 1, 4, 9, 16, 25, 36. The missing term is 5^2 = 25.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Recognising the series as n^2 immediately pins the missing term as 5^2 = 25.",
+    "approach": "Apply clues most-certain-first: check if terms are perfect squares: 1=1^2, 4=2^2, 9=3^2, 16=4^2. Pattern confirmed. 5th term = 5^2 = 25; verify 6th = 6^2 = 36.",
+    "lesson": "When differences grow by 2 each step (3, 5, 7, ...) the series is n^2 - recognise this shortcut.",
+    "timing": "20-25 seconds. Spot the squares pattern quickly; 25 is the only perfect square among the options."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

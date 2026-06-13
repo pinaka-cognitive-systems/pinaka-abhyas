@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "Integrate term by term: ∫6x² dx = 2x³ and ∫4x dx = 2x². The general antiderivative is 2x³ + 2x² + C.",
+  "explanation_kind": "derivation",
   "explanation_sections": {
-    "punchline": "Integration raises the power by 1 and divides by the new power: 6x²/3 = 2x³ and 4x/2 = 2x². The constant of integration C is mandatory.",
-    "approach": "Indefinite integration of polynomials applies the reverse power rule term by term. For each term ax^n, the integral is ax^(n+1) / (n+1). Raise the power by 1, divide the coefficient by the new power, and add C at the end. Always check: could the answer be verified by differentiating it?",
-    "lesson": "Reverse power rule: raise the power by 1, divide by the new power. An indefinite integral always needs + C. Omitting C is a mark-losing error.",
-    "timing": "About 90 seconds. Two terms, two integrations, one C. Eliminate option 12x + 4 in five seconds: that is the derivative of the integrand, not the integral."
+    "punchline": "Reverse power rule: raise the power by 1, divide by the new power. Int(6x^2) = 6x^3/3 = 2x^3. Int(4x) = 4x^2/2 = 2x^2. Add C. Result: 2x^3 + 2x^2 + C.",
+    "approach": "Indefinite polynomial integration applies the reverse power rule term by term: Int(ax^n) = ax^(n+1) / (n+1) + C. Work term by term. Int(6x^2): raise power to 3, divide: 6/3 = 2, gives 2x^3. Int(4x^1): raise power to 2, divide: 4/2 = 2, gives 2x^2. Combine and append + C. Verification shortcut: differentiate 2x^3 + 2x^2 + C - you should recover 6x^2 + 4x. The trap in option 4 is the correct antiderivative with C omitted - a definite mark penalty.",
+    "lesson": "Reverse power rule: raise the exponent by 1, divide the coefficient by the new exponent, add C. C is not optional for an indefinite integral. Omitting it is always wrong.",
+    "timing": "About 60 seconds. Two terms, two integrations. Eliminate option 12x + 4 in five seconds: that is d/dx of the integrand, not the integral - someone differentiated instead."
   },
   "empirical": {
     "calibration_status": "none",

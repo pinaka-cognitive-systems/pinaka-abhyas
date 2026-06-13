@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000652",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000652.py"
+  },
+  "tests": [
+    "qa.lr.blood_relations"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "Sunita says to Priya, 'Your mother's husband's sister's son is my brother.' How is Sunita related to Priya?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Cousin"
+    },
+    {
+      "key": 2,
+      "text": "Aunt"
+    },
+    {
+      "key": 3,
+      "text": "Sister"
+    },
+    {
+      "key": 4,
+      "text": "Niece"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Priya's mother's husband = Priya's father. His sister = Priya's aunt (paternal). Her son = Priya's cousin (paternal). Sunita says that person is her brother, so Sunita's brother is Priya's cousin, meaning Sunita and Priya are cousins."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Aunt would place Sunita in Priya's parents' generation. But Sunita is in Priya's own generation (the aunt's son and Sunita are siblings, both one generation below the aunt, same as Priya)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Sister would require a direct sibling link. Priya's cousin being Sunita's brother does not make Sunita Priya's sister; the link passes through a different branch of the family."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "kinship_direction_inverted",
+      "rationale": "A niece is one generation below. Sunita and the named cousin are both in Priya's generation, not one below."
+    }
+  ],
+  "explanation": "Step 1: Priya's mother's husband = Priya's father. Step 2: Priya's father's sister = Priya's paternal aunt. Step 3: That aunt's son = Priya's cousin. Step 4: Sunita says that person is her brother. Therefore Sunita and Priya's cousin are siblings, so Sunita is also a child of Priya's paternal aunt, making Sunita Priya's cousin.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The chain resolves the middle person to Priya's cousin; since Sunita is that person's sibling, Sunita is also Priya's cousin.",
+    "approach": "Apply clues most-certain-first. Resolve 'mother's husband' to father, then trace the chain: father -> sister (aunt) -> son (cousin). Then use the sibling link to place Sunita at the same generation level as Priya's cousin, which is cousin to Priya.",
+    "lesson": "When someone says 'X is my brother/sister' at the end of a chain, the asker is a sibling of X, placing them at the same generational level and branch as X.",
+    "timing": "About 60-75 seconds. Trap is option 2 (aunt), confusing the aunt in the chain with Sunita's relation. Eliminate aunt first because Sunita is in Priya's generation, not her parents' generation."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

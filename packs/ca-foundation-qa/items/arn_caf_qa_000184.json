@@ -18,7 +18,7 @@
   "tests": [
     "qa.lr.direction_tests"
   ],
-  "difficulty_label": "L2",
+  "difficulty_label": "L1",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 90,
@@ -69,12 +69,13 @@
       "rationale": "Start N, CW 90 degrees -> E, walk 8 m. ACW 90 degrees from E -> N, walk 6 m. 180 degrees from N -> S. Final direction: South."
     }
   ],
-  "explanation": "Start facing North. Turn CW 90 degrees: now facing East. Walk 8 m. Turn ACW 90 degrees from East: now facing North. Walk 6 m. Turn 180 degrees from North: now facing South.",
+  "explanation": "Start facing North. CW 90: East. Walk 8 m (direction unchanged). ACW 90 from East: North. Walk 6 m (direction unchanged). 180 from North: South. Final facing: South.",
+  "explanation_kind": "deductive_trace",
   "explanation_sections": {
-    "punchline": "After two turns that cancel each other out, Meera is again facing North. A final 180-degree turn points her South.",
-    "approach": "For direction problems, track only the facing direction at each step. Write a short chain: N, CW 90 = E, ACW 90 from E = N, 180 from N = S. Distance walked does not change the facing direction. Apply turns in order and do not skip any.",
-    "lesson": "A clockwise 90-degree turn followed by an anticlockwise 90-degree turn returns you to the original direction. A 180-degree turn always points you in the exact opposite direction.",
-    "timing": "About 90 seconds. Each turn takes under 10 seconds to resolve. The entire chain has three turns. Read every turn before writing down the final answer to avoid missing the last step."
+    "punchline": "Lock the first turn: CW 90 from North gives East. That is the cracking move because it anchors every subsequent facing. The final 180 from North returns South.",
+    "approach": "Apply turns in left-to-right order, most certain first. Step 1 (fixed start): North. Step 2 (CW 90): East. Step 3 (ACW 90 from East): North. Step 4 (180 from North): South. Distance walked at each step is irrelevant to facing direction - ignore it. Verify: did you apply all three turns? Yes. Final facing: South. This recipe works for any chained-turn direction problem: write each heading before reading the next turn.",
+    "lesson": "A CW 90 followed by an ACW 90 is a net zero rotation - you return to your original heading. A 180 always gives the exact opposite direction. Use these shortcuts to sanity-check your chain.",
+    "timing": "About 60 seconds. Each turn resolves in under 10 seconds. Three turns total. The trap is skipping the last 180 turn and reporting North (option 2) - always count how many turns are in the stem before you start."
   },
   "empirical": {
     "calibration_status": "none",

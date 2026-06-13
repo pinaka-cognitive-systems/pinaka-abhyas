@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000900",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000900.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.tests_adequacy"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 140,
+  "stem": "For a set of commodities, the following index numbers have been computed with 2020 as base year and 2022 as current year: Laspeyre's price index L01 = 150, Paasche's price index P01 = 96. The reverse Laspeyre's price index, computed with 2020 as current year and 2022 as base year (using 2022 quantities as weights), is L10 = 80. Using the time-reversal property of Fisher's ideal index, find the reverse Fisher price index F10 (to the nearest whole number).",
+  "options": [
+    {
+      "key": 1,
+      "text": "67"
+    },
+    {
+      "key": 2,
+      "text": "80"
+    },
+    {
+      "key": 3,
+      "text": "83"
+    },
+    {
+      "key": 4,
+      "text": "104"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "67 comes from applying the time-reversal formula to Laspeyre's forward index alone: 10000/150 = 66.67 rounded to 67. This treats Laspeyre's as if it satisfies the time-reversal test, but Laspeyre's does not satisfy that test."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "80 is simply L10, the reverse Laspeyre's index already given. Reading this as the reverse Fisher index ignores the difference between Laspeyre's and Fisher's reverse index values; only Fisher's satisfies F01 x F10 = 10000."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Step 1: Compute F01 = sqrt(L01 x P01) = sqrt(150 x 96) = sqrt(14400) = 120. Step 2: By the time-reversal test property of Fisher's index, F01 x F10 = 10000 (in index-number form). So F10 = 10000 / 120 = 83.33, which rounds to 83."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "104 comes from applying the time-reversal formula to Paasche's forward index: 10000/96 = 104.17 rounded to 104. This treats Paasche's as satisfying the time-reversal test, but Paasche's index does not satisfy it either."
+    }
+  ],
+  "explanation": "The decisive insight is that Fisher's ideal index satisfies the time-reversal test: F01 x F10 = 10000 (both expressed as index numbers with base 100). Step 1: F01 = sqrt(L01 x P01) = sqrt(150 x 96) = sqrt(14400) = 120. Step 2: F10 = 10000 / F01 = 10000 / 120 = 83.33, rounds to 83. The trap: L10 = 80 is given, and a careless reader might report it as the reverse Fisher index, but L01 x L10 = 150 x 80 / 100 = 120, which does not equal 100 - confirming that Laspeyre's fails the time-reversal test and L10 is irrelevant to finding F10.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "First compute Fisher's forward index (sqrt(150 x 96) = 120), then use the time-reversal property (F01 x F10 = 10000) to back-calculate F10 = 10000/120 = 83; L10 = 80 is a deliberate decoy.",
+    "approach": "Name the formula: Fisher's time-reversal property means F10 = 10000/F01. Map each given: L01 and P01 are needed to compute F01; L10 is irrelevant for Fisher's reverse (it confirms Laspeyre's fails the test). Compute F01 = sqrt(14400) = 120, then F10 = 10000/120 = 83.33.",
+    "lesson": "To find the reverse Fisher index, compute F01 first and divide 10000 by it. Never use the reverse Laspeyre's or Paasche's indices as substitutes for the reverse Fisher index.",
+    "timing": "About 120-140 s. Fastest path: ignore L10 once you identify the time-reversal property; compute sqrt(150*96)=120 then 10000/120=83. Traps: options 67 (1/L01), 80 (L10 given), 104 (1/P01)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

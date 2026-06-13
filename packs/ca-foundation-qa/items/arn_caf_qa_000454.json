@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000454",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000454.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.permutations"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "How many distinct 3-digit numbers can be formed using the digits 2, 3, 5, 7, 9 with no digit repeated?",
+  "options": [
+    {
+      "key": 1,
+      "text": "60"
+    },
+    {
+      "key": 2,
+      "text": "125"
+    },
+    {
+      "key": 3,
+      "text": "10"
+    },
+    {
+      "key": 4,
+      "text": "30"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "No digit repeated means ordered selection of 3 from 5 distinct digits. P(5, 3) = 5 x 4 x 3 = 60."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Computed 5^3 = 125, allowing repetition (each of 3 positions has 5 choices) instead of applying no-repetition constraint."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "permutation_combination_confusion",
+      "rationale": "Computed C(5, 3) = 10, treating the selection as unordered (choosing 3 digits without regard to their order in the number)."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Computed 5 x 3 x 2 = 30 by using the wrong descending sequence (5, 3, 2) instead of (5, 4, 3)."
+    }
+  ],
+  "explanation": "All 5 digits are distinct and no repetition is allowed. A 3-digit number requires order, so the count is P(5, 3) = 5 x 4 x 3 = 60.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "Order matters and no repetition: hundreds digit has 5 choices, tens has 4, units has 3 - giving 5 x 4 x 3 = 60.",
+    "approach": "Classify: order matters (different arrangements form different numbers) + no repetition -> P(5, 3). Expand: first position 5 choices, second 4 (one used), third 3 (two used) = 60.",
+    "lesson": "For n-digit numbers from a set of k distinct digits without repetition, the count is P(k, n) = k x (k-1) x ... x (k-n+1).",
+    "timing": "45-55 s. Key step: confirm no repetition by reading 'no digit repeated'. Trap: 5^3 = 125 arises from allowing repetition, which the problem explicitly forbids."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

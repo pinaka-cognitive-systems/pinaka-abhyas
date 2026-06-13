@@ -69,12 +69,13 @@
       "misconception": "misread_quantity"
     }
   ],
-  "explanation": "1. When equal amounts are spent at different rates, the harmonic mean is the correct average.\n2. HM = n / (sum of reciprocals) = 3 / (1/2 + 1/4 + 1/8).\n3. KEY STEP: 1/2 + 1/4 + 1/8 = 4/8 + 2/8 + 1/8 = 7/8.\n4. HM = 3 / (7/8) = 24/7 = 3.43 kg per rupee.",
+  "explanation": "Equal rupee amounts spent at different rates: the harmonic mean is the appropriate average for this situation. HM = n / sum(1/x_i) = 3 / (1/2 + 1/4 + 1/8). Common denominator 8: 4/8 + 2/8 + 1/8 = 7/8. HM = 3 / (7/8) = 24/7 = 3.43 kg per rupee.",
+  "explanation_kind": "model_compute",
   "explanation_sections": {
-    "punchline": "Equal money spent at different rates calls for the harmonic mean. HM = 3 / (1/2 + 1/4 + 1/8) = 24/7 = 3.43 kg per rupee.",
-    "approach": "When equal amounts of money (or time, or distance) are spent and the variable is a rate, use the harmonic mean. HM = n / (sum of 1/x_i). List the reciprocals, find a common denominator, sum them, then divide n by that sum. Do not use arithmetic or geometric mean here.",
-    "lesson": "Use harmonic mean when equal investment buys varying quantities. Use arithmetic mean when quantities are equal. Mixing these up is the primary error on rate-averaging questions.",
-    "timing": "About 90 seconds. Deciding which mean applies takes 10 seconds. Computing the sum of reciprocals over a common denominator takes 30 seconds. Eliminate option (4) in 5 seconds: 4.67 is the arithmetic mean."
+    "punchline": "Equal money spent at different rates signals the harmonic mean. HM = 3 / (7/8) = 24/7 = 3.43.",
+    "approach": "First identify the correct mean: equal amounts of money are spent, and the variable is a rate. That pattern requires the harmonic mean, not the arithmetic or geometric mean. Then apply HM = n / sum(1/x_i). List the reciprocals (1/2, 1/4, 1/8), convert to a common denominator of 8 (4/8 + 2/8 + 1/8 = 7/8), and divide n = 3 by 7/8. If instead equal quantities were purchased, the arithmetic mean would be correct.",
+    "lesson": "Equal money at unequal rates: harmonic mean. Equal quantities at unequal prices: arithmetic mean. The condition in the stem is the decisive signal. Computing an arithmetic mean here gives 4.67, which overstates the average rate.",
+    "timing": "About 75 seconds. Mean-type identification takes 10 seconds. Computing the sum of reciprocals with a common denominator takes 30 seconds. Distractor 4 is the geometric mean (cube root of 64); distractor 4.67 is the arithmetic mean. Both vanish once you commit to HM."
   },
   "empirical": {
     "calibration_status": "none",

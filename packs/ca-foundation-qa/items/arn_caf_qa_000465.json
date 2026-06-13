@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000465",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000465.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.permutations_restrictions"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "In how many ways can all the letters of the word JOURNAL be arranged so that the three vowels (O, U, A) always appear together as a group?",
+  "options": [
+    {
+      "key": 1,
+      "text": "720"
+    },
+    {
+      "key": 2,
+      "text": "2160"
+    },
+    {
+      "key": 3,
+      "text": "120"
+    },
+    {
+      "key": 4,
+      "text": "5040"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "JOURNAL has vowels O, U, A and consonants J, R, N, L. Treating vowels as 1 block gives 5 units. Arrangements of 5 units: 5! = 120. Vowels within the block: 3! = 6. Total = 120 x 6 = 720."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computed 5! x 3! x 3 = 120 x 6 x 3 = 2160, incorrectly multiplying by an extra factor of 3, perhaps double-counting the block position choices."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "permutation_combination_confusion",
+      "rationale": "Computed only 5! = 120, correctly reducing n but forgetting to multiply by 3! for the internal arrangements of the 3 vowels within the block."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Computed 7! = 5040, the total unrestricted arrangements, ignoring that vowels must stay together."
+    }
+  ],
+  "explanation": "JOURNAL has 7 letters: vowels O, U, A and consonants J, R, N, L. Bundle the 3 vowels into one block to get 5 objects. Arrange these 5 objects in a row: 5! = 120 ways. Within the vowel block, the 3 vowels can be in any of 3! = 6 orders. Total = 120 x 6 = 720.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "Bundle the vowels into one block, count arrangements of the resulting 5 objects, then restore vowel order within the block.",
+    "approach": "Classify: linear arrangement, group-together restriction. Step 1 - merge 3 vowels: n reduces from 7 to 5. Step 2 - arrangements of 5 units: 5! = 120. Step 3 - internal vowel arrangements: 3! = 6. Total: 120 x 6 = 720.",
+    "lesson": "Group-together restriction: merge the group, compute (new n)!, multiply by (group size)!.",
+    "timing": "30 seconds: 5! x 3! = 120 x 6 = 720. Trap: computing 5! = 120 and forgetting the 3! inside the vowel group."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

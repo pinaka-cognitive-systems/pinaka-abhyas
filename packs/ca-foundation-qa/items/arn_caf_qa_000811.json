@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000811",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000811.py"
+  },
+  "tests": [
+    "qa.stats.probability.expectation"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "A random variable X takes values 1, 2, 3 and 4 with probabilities 0.1, 0.3, 0.4 and 0.2 respectively. What is E(X)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "2.5"
+    },
+    {
+      "key": 2,
+      "text": "2.7"
+    },
+    {
+      "key": 3,
+      "text": "3.0"
+    },
+    {
+      "key": 4,
+      "text": "2.0"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Averaging values 1+2+3+4 divided by 4 gives 2.5, ignoring the probability weights entirely."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "E(X) = 1(0.1) + 2(0.3) + 3(0.4) + 4(0.2) = 0.1 + 0.6 + 1.2 + 0.8 = 2.7."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Using unweighted sum of values divided by 2 (midpoint of range) yields 3.0."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Using only value multiplied by the first probability 0.1 scaled by 20 produces 2.0, misreading the distribution."
+    }
+  ],
+  "explanation": "Expected value is the probability-weighted average of all values. Multiply each value by its probability and sum: 1x0.1 + 2x0.3 + 3x0.4 + 4x0.2 = 0.1 + 0.6 + 1.2 + 0.8 = 2.7.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "E(X) is the weighted sum of all values using probabilities as weights, not a simple average of the values.",
+    "approach": "Identify the model: discrete random variable with given probability mass function. Map each (x, p) pair, compute x*p for each, then sum. Here: 0.1 + 0.6 + 1.2 + 0.8 = 2.7.",
+    "lesson": "E(X) = sum of (value times probability) over all outcomes; never divide by n unless all probabilities are equal.",
+    "timing": "45 seconds. Write out 4 products mentally and add. The trap is using the simple mean 2.5 instead of the weighted mean."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

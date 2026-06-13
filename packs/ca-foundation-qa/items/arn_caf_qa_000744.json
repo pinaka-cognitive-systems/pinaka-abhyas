@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000744",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000744.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mean_deviation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 110,
+  "stem": "The following table shows the distribution of units sold by a sales executive over 20 working days:\n\nUnits sold (x):   10,  30,  50,  70\nFrequency (f):     2,   8,   8,   2\n\nThe mean deviation from the arithmetic mean is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "14.0 units"
+    },
+    {
+      "key": 2,
+      "text": "14.7 units"
+    },
+    {
+      "key": 3,
+      "text": "20.0 units"
+    },
+    {
+      "key": 4,
+      "text": "30.0 units"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Mean = (2*10 + 8*30 + 8*50 + 2*70) / 20 = (20 + 240 + 400 + 140) / 20 = 800 / 20 = 40. Absolute deviations: |10-40|=30, |30-40|=10, |50-40|=10, |70-40|=30. Weighted sum = 2*30 + 8*10 + 8*10 + 2*30 = 60 + 80 + 80 + 60 = 280. MD = 280/20 = 14.0."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "population_sample_confusion",
+      "rationale": "Student divides the weighted sum of absolute deviations (280) by (n - 1) = 19 instead of n = 20: 280/19 = 14.74, rounded to 14.7."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Student computes the unweighted mean of absolute deviations ignoring the frequency column: (30 + 10 + 10 + 30) / 4 = 80 / 4 = 20."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student measures deviation of each x from the minimum value (10) rather than from the mean (40), computing the weighted average of (x - 10): (0*2 + 20*8 + 40*8 + 60*2)/20 = 600/20 = 30."
+    }
+  ],
+  "explanation": "For a discrete frequency distribution, MD = sum(f_i * |x_i - mean|) / sum(f_i). Step 1: mean = 800/20 = 40. Step 2: |d_i| = 30, 10, 10, 30. Step 3: f_i * |d_i| = 60, 80, 80, 60. Sum = 280. MD = 280/20 = 14.0.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "In a frequency distribution, deviations must be weighted by their frequencies before dividing by the total count.",
+    "approach": "Compute weighted mean first (40), then compute f_i * |x_i - 40| for each row, sum all products (280), and divide by n = 20. Do not divide by the number of classes (4) or by (n - 1).",
+    "lesson": "MD for grouped/discrete data uses sum(f * |d|) / n. The denominator is the total number of observations, not the number of class values.",
+    "timing": "60 seconds. Symmetric distribution makes the calculation quick: two pairs of equal deviations. Trap: forgetting to apply frequencies, giving 20 instead of 14."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

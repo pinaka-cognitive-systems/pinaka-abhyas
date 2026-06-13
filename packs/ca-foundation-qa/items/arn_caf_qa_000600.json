@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000600",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000600.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.odd_man_out"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 140,
+  "stem": "Four number groups are given, each with four numbers. Three groups satisfy both of two hidden rules simultaneously; one does not. Identify the group that does NOT follow the rules: Group P: (3, 5, 34, 16), Group Q: (2, 6, 40, 12), Group R: (4, 7, 65, 28), Group S: (5, 8, 89, 40).",
+  "options": [
+    {
+      "key": 1,
+      "text": "Group P"
+    },
+    {
+      "key": 2,
+      "text": "Group Q"
+    },
+    {
+      "key": 3,
+      "text": "Group R"
+    },
+    {
+      "key": 4,
+      "text": "Group S"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Group P: (3, 5, 34, 16). Rule 1 check: 3^2 + 5^2 = 9 + 25 = 34 (passes). Rule 2 check: 3 * 5 = 15, but the fourth element is 16 (fails). Group P breaks the second rule."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Group Q: (2, 6, 40, 12). Rule 1: 2^2+6^2=40 (pass). Rule 2: 2*6=12 (pass). Both rules satisfied; Q is not the odd one out."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Group R: (4, 7, 65, 28). Rule 1: 4^2+7^2=16+49=65 (pass). Rule 2: 4*7=28 (pass). Both rules satisfied; R is not the odd one out."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Group S: (5, 8, 89, 40). Rule 1: 5^2+8^2=25+64=89 (pass). Rule 2: 5*8=40 (pass). Both rules satisfied; S is not the odd one out."
+    }
+  ],
+  "explanation": "The two hidden rules for each group (a, b, c, d) are: Rule 1: c = a^2 + b^2, and Rule 2: d = a * b. Q=(2,6,40,12): 40=4+36 and 12=2*6 (both pass). R=(4,7,65,28): 65=16+49 and 28=4*7 (both pass). S=(5,8,89,40): 89=25+64 and 40=5*8 (both pass). P=(3,5,34,16): 34=9+25 (Rule 1 passes), but 3*5=15 not 16 (Rule 2 fails). Group P is the odd one out.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Rule 1 (c = a^2+b^2) passes for all four groups; the trap is Rule 2 (d = a*b), which Group P fails by one: 3*5=15 but d=16.",
+    "approach": "Apply clues most-certain-first: test Rule 1 (c = a^2+b^2) for all groups - all four pass, so this test alone cannot identify the outlier. Then test Rule 2 (d = a*b) for all groups: Q gives 12=2*6 (pass), R gives 28=4*7 (pass), S gives 40=5*8 (pass), P gives 15 but d=16 (fail). Group P is the outlier.",
+    "lesson": "When all four groups pass the first obvious test, apply a second independent test. A one-unit off-by-one in Group P (d=16 vs expected 15) is the vault-level trap, invisible to quick inspection.",
+    "timing": "About 120 seconds. Step 1 (c rule, ~50s) falsely clears all four. Step 2 (d rule, ~40s) uniquely identifies P. The trap is stopping after step 1."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

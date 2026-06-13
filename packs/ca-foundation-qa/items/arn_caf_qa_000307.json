@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000307",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen_finance_v1",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000307.py"
+  },
+  "tests": [
+    "qa.bmath.finance.compound_interest"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 95,
+  "stem": "A finance company advertises an effective annual rate of return. If it compounds interest at 8% per annum half-yearly, what is the effective annual rate (EAR)? [Given: (1.04)^2 = 1.0816]",
+  "options": [
+    {
+      "key": 1,
+      "text": "8.00%"
+    },
+    {
+      "key": 2,
+      "text": "8.16%"
+    },
+    {
+      "key": 3,
+      "text": "8.24%"
+    },
+    {
+      "key": 4,
+      "text": "8.32%"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "verdict": "incorrect",
+      "misconception": "compound_interest_confusion",
+      "rationale": "8.00% treats the nominal rate as already being the effective rate, ignoring that more-frequent compounding raises the effective return above the stated nominal rate.",
+      "option_key": 1
+    },
+    {
+      "verdict": "correct",
+      "option_key": 2,
+      "rationale": "The effective annual rate always exceeds the nominal rate when compounding is more frequent than annual; the formula is EAR = (1 + r/m)^m - 1."
+    },
+    {
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "8.24% = (1.04)^3 - 1 x 100 is obtained by using three half-year periods (n = 3) instead of two for one year; a period-count error.",
+      "option_key": 3
+    },
+    {
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "8.32% comes from adding 2 x 4% = 8% and then adding 0.32% as the interest-on-interest via an arithmetic slip (4% x 4% should be 0.16%, not 0.32%); a doubling error.",
+      "option_key": 4
+    }
+  ],
+  "explanation": "EAR = (1 + 0.08/2)^2 - 1 = (1.04)^2 - 1 = 1.0816 - 1 = 0.0816 = 8.16%.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The effective annual rate always exceeds the nominal rate when compounding is more frequent than annual; the formula is EAR = (1 + r/m)^m - 1.",
+    "approach": "EAR = (1 + r/m)^m - 1. r = 0.08, m = 2 (half-yearly). EAR = (1.04)^2 - 1 = 1.0816 - 1 = 0.0816 = 8.16%. The extra 0.16% is the interest earned on the first half-year's interest.",
+    "lesson": "Nominal rate = what is advertised; effective rate = what you actually earn. They differ whenever compounding is more frequent than the quoted period. EAR > nominal rate for m > 1.",
+    "timing": "70 seconds: apply EAR formula, use the given (1.04)^2 = 1.0816, subtract 1 and convert to percent. Trap is option 1 (nominal = effective confusion)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

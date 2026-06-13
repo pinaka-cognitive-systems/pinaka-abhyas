@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000704",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000704.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mean"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "The mean of 25 observations was computed as 40. It was later found that one observation was misread as 32 instead of the correct value 52. What is the corrected mean?",
+  "options": [
+    {
+      "key": 1,
+      "text": "40.2"
+    },
+    {
+      "key": 2,
+      "text": "40.4"
+    },
+    {
+      "key": 3,
+      "text": "40.8"
+    },
+    {
+      "key": 4,
+      "text": "41.2"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Adding only half the error (52 - 32)/2 = 10 as a correction to the mean: 40 + 10/50 = 40.2, incorrectly dividing by 2n instead of n."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computing the error as 52 - 32 = 10 (halved by mistake) and dividing by n = 25 gives 40 + 10/25 = 40.4."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Error = correct value - wrong value = 52 - 32 = 20. Correction to mean = 20/n = 20/25 = 0.8. Corrected mean = 40 + 0.8 = 40.8."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computing error as 52 - 32 = 20 but dividing by a wrong n (say 16 or misreading n=25 as n=16): 20/16 = 1.25 gives approximately 41.2, or computing error as 30 instead of 20."
+    }
+  ],
+  "explanation": "Corrected mean = wrong mean + (correct value - wrong value) / n. Wrong sum = 25 * 40 = 1000. Corrected sum = 1000 - 32 + 52 = 1020. Corrected mean = 1020 / 25 = 40.8.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The correction to the mean is just the correction to the sum divided by n - a correction of 20 spread over 25 observations adds exactly 0.8 to the mean.",
+    "approach": "Formula: corrected mean = original mean + (correct value - wrong value) / n. Compute the correction: 52 - 32 = 20. Divide by n = 25: 20/25 = 0.8. Add to original mean: 40 + 0.8 = 40.8. Alternatively: wrong sum = 1000, corrected sum = 1000 - 32 + 52 = 1020, corrected mean = 1020/25 = 40.8.",
+    "lesson": "When one value is corrected, the mean shifts by (new - old) / n regardless of where in the data the error was.",
+    "timing": "30-40 seconds. Find the error (20), divide by 25 (= 0.8), add to the original mean."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

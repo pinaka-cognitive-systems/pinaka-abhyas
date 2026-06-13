@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000836",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000836.py"
+  },
+  "tests": [
+    "qa.stats.distributions.normal"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "If X follows a normal distribution N(mu, sigma^2), what proportion of observations lie within one standard deviation of the mean, i.e., between (mu - sigma) and (mu + sigma)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Approximately 99.73%"
+    },
+    {
+      "key": 2,
+      "text": "Approximately 68.27%"
+    },
+    {
+      "key": 3,
+      "text": "Approximately 95.45%"
+    },
+    {
+      "key": 4,
+      "text": "Exactly 50%"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "99.73% is the coverage for plus-or-minus three standard deviations (the 3-sigma rule), not one sigma."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "The empirical rule states that approximately 68.27% of a normal distribution falls within plus-or-minus one standard deviation of the mean."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "95.45% is the coverage for plus-or-minus two standard deviations (the 2-sigma rule), not one sigma."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "50% is the coverage for zero standard deviations, i.e., exactly at the mean; it corresponds to a degenerate interval and confuses the median property with an interval coverage."
+    }
+  ],
+  "explanation": "The empirical 68-95-99.7 rule for normal distributions: approximately 68.27% of data lies within 1 sigma of mu, 95.45% within 2 sigma, and 99.73% within 3 sigma. These come from integrating the standard normal density from -1 to 1, -2 to 2, and -3 to 3 respectively.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "The 1-sigma interval captures about 68.27% of a normal distribution, not 95% or 99.7%.",
+    "approach": "Identify the distribution model (normal) and the property tested (empirical rule). Memorise the three thresholds: 1 sigma = 68.27%, 2 sigma = 95.45%, 3 sigma = 99.73%. The question asks for 1 sigma, so select 68.27%.",
+    "lesson": "The 68-95-99.7 rule is a fixed property of the normal curve; pair the sigma count with the right percentage before selecting.",
+    "timing": "Pure recall, 20-30 seconds. The trap is confusing the three sigma levels; one sigma always gives ~68%."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

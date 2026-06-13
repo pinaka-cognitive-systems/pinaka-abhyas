@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000545",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000545.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.number_series"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 70,
+  "stem": "Find the missing number: 5, 10, 20, ?, 80, 160.",
+  "options": [
+    {
+      "key": 1,
+      "text": "35"
+    },
+    {
+      "key": 2,
+      "text": "40"
+    },
+    {
+      "key": 3,
+      "text": "45"
+    },
+    {
+      "key": 4,
+      "text": "50"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Treats the series as AP with difference 5 then 10 then 15 then 20... and adds 15 to 20 = 35."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "The series is a GP with common ratio 2: 5, 10, 20, 40, 80, 160. Missing term = 20 x 2 = 40."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Correctly identifies doubling but slips to 45 instead of 40 when doubling 20."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Adds 30 (double the previous difference) to 20 = 50, misidentifying the rule as an arithmetic pattern with growing differences."
+    }
+  ],
+  "explanation": "The series is a geometric progression with first term 5 and common ratio 2: 5, 10, 20, 40, 80, 160. Each term doubles the previous, so the missing term is 20 x 2 = 40.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "A constant ratio of 2 runs through every pair - the series is a pure GP, not an AP.",
+    "approach": "Apply clues most-certain-first: check ratios: 10/5=2, 20/10=2, 80/40=2, 160/80=2. All equal 2, confirming GP with r=2. Missing term = 20 x 2 = 40.",
+    "lesson": "Always test ratios alongside differences; when ratios are constant, use GP formula, not AP.",
+    "timing": "25-30 seconds. The confirming check is the ratio after the gap (80/40=2) which locks in 40."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

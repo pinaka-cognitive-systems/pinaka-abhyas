@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000861",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000861.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.regression"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "The regression coefficient of Y on X is b_yx = 2.0 and the means are X-bar = 10 and Y-bar = 15. Which of the following is the regression line of Y on X?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Y = -5 + 2X"
+    },
+    {
+      "key": 2,
+      "text": "Y = 5 + 2X"
+    },
+    {
+      "key": 3,
+      "text": "Y = -5 + 0.5X"
+    },
+    {
+      "key": 4,
+      "text": "Y = 15 + 2X"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "a = Y-bar - b_yx * X-bar = 15 - 2*10 = 15 - 20 = -5. Line: Y = -5 + 2X."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computing a = Y-bar - b_yx + X-bar = 15 - 2 + 10 = 23, or miscomputing 15 - 2*10 as 15 - 10 - 2 = 3... the trap here is a = Y-bar + b_yx - X-bar = 15 + 2 - 10 = 7, not 5. Actually: a = Y-bar - b_yx * X-bar = 15 - 2*5 = 5 uses the wrong mean (using 5 instead of 10). Student who computes Y-bar minus b_yx times half X-bar gets +5."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Using b_xy = 1/b_yx = 0.5 instead of b_yx = 2 as the slope, while still using a = -5 from the correct Y-on-X computation."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Placing Y-bar = 15 as the intercept without subtracting b_yx*X-bar, effectively setting a = Y-bar = 15 instead of a = Y-bar - b_yx*X-bar."
+    }
+  ],
+  "explanation": "The regression line of Y on X passes through (X-bar, Y-bar) with slope b_yx. The intercept a = Y-bar - b_yx * X-bar = 15 - 2 * 10 = -5. Equation: Y = -5 + 2X. Verify: when X=10, Y = -5+20 = 15 = Y-bar.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The line must pass through (10,15); compute a = 15 - 2*10 = -5, giving Y = -5 + 2X.",
+    "approach": "Formula: Y = a + b_yx * X where a = Y-bar - b_yx * X-bar. Substitute: a = 15 - 2*10 = -5. Write equation. Verify by checking (X-bar, Y-bar) lies on the line.",
+    "lesson": "The regression line always passes through (X-bar, Y-bar); use this to find the intercept and as a quick verification.",
+    "timing": "Under 30 seconds. The trap is placing Y-bar as the intercept (option 4) or using b_xy instead of b_yx as the slope (option 3)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000550",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000550.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.number_series"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 85,
+  "stem": "Find the missing number: 2, 6, 12, 20, 30, ?, 56.",
+  "options": [
+    {
+      "key": 1,
+      "text": "36"
+    },
+    {
+      "key": 2,
+      "text": "40"
+    },
+    {
+      "key": 3,
+      "text": "42"
+    },
+    {
+      "key": 4,
+      "text": "46"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Adds 6 to 30 as if differences grow by a constant of 0 (constant differences), giving 36."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Identifies the rule as n(n+1) but computes 6 x 7 = 40 by using n=6 instead of n=6 correctly (which is 42), a position-counting slip."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Each term is n(n+1): 1x2=2, 2x3=6, 3x4=12, 4x5=20, 5x6=30, 6x7=42, 7x8=56. The 6th term = 6 x 7 = 42."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Adds 16 (double the previous difference of 10 minus 4) to 30 = 46, misidentifying the second-level difference rule."
+    }
+  ],
+  "explanation": "The series is n(n+1) for n = 1, 2, 3, ...: 1x2=2, 2x3=6, 3x4=12, 4x5=20, 5x6=30, 6x7=42, 7x8=56. The missing 6th term is 6 x 7 = 42.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Each term is the product of two consecutive integers n and n+1; position 6 gives 6 x 7 = 42.",
+    "approach": "Apply clues most-certain-first: check products of consecutive integers: 1x2=2, 2x3=6, 3x4=12, 4x5=20, 5x6=30. Pattern confirmed at n(n+1). Position 6: 6x7=42. Verify position 7: 7x8=56.",
+    "lesson": "The oblong number series n(n+1) has differences 4, 6, 8, 10, 12, ... - even numbers. If differences are even and grow by 2, test n(n+1).",
+    "timing": "40-50 seconds. Verify with the term after the gap (7x8=56 matches) to confirm."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

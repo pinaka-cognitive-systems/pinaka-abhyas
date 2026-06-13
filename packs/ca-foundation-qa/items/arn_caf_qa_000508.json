@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000508",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000508.py"
+  },
+  "tests": [
+    "qa.bmath.calculus.applications"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 105,
+  "stem": "A firm faces the revenue function R(x) = 200x - 4x^2. What is the maximum total revenue, and at what output level does it occur? (Report the maximum revenue value.)",
+  "options": [
+    {
+      "key": 1,
+      "text": "2500"
+    },
+    {
+      "key": 2,
+      "text": "0"
+    },
+    {
+      "key": 3,
+      "text": "2496"
+    },
+    {
+      "key": 4,
+      "text": "5000"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "MR = dR/dx = 200 - 8x. Set MR=0: x=25. R''(x)=-8<0 confirms maximum. R(25) = 200*25 - 4*625 = 5000 - 2500 = 2500."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "power_rule_misapplied",
+      "rationale": "Differentiating -4x^2 as -4x (not -8x): MR = 200-4x=0 gives x=50. R(50) = 200*50 - 4*2500 = 10000-10000 = 0."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Setting MR=0 correctly to get x=25 but evaluating R at x=26 (off-by-one): R(26) = 200*26 - 4*676 = 5200-2704 = 2496."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Computing only the linear part of revenue at the optimal output: 200*x = 200*25 = 5000, ignoring the -4x^2 term."
+    }
+  ],
+  "explanation": "Differentiate R(x) = 200x - 4x^2 to get MR = 200 - 8x. Setting MR = 0: x = 25. Check R''(x) = -8 < 0, confirming a maximum. Maximum revenue: R(25) = 200*25 - 4*25^2 = 5000 - 4*625 = 5000 - 2500 = 2500.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The setup decision is identifying that maximum revenue requires MR = dR/dx = 0 and confirming the second derivative is negative.",
+    "approach": "Revenue maximisation: differentiate R(x) to get MR, set MR=0 to find the critical x, verify R'' < 0, then substitute x back into R(x) for the maximum value.",
+    "lesson": "d/dx(-4x^2) = -8x (bring down exponent 2 and multiply): this gives x=25, not x=50. The missing factor of 2 in the derivative is the most common error here.",
+    "timing": "70-90 seconds. Compute 4*625 = 2500 as 4*600+4*25 = 2400+100 = 2500 to avoid arithmetic errors."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

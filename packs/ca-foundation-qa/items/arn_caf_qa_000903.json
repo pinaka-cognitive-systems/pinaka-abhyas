@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000903",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000903.py"
+  },
+  "tests": [
+    "qa.bmath.ratio_indices_log.ratio"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 160,
+  "stem": "A box holds coins of Rs 1, Rs 2 and Rs 5 only. The numbers of these coins are in the ratio 3 : 4 : 2, and the total value of all the coins is Rs 420. How many Rs 2 coins are there?",
+  "options": [
+    {
+      "key": 1,
+      "text": "80"
+    },
+    {
+      "key": 2,
+      "text": "40"
+    },
+    {
+      "key": 3,
+      "text": "20"
+    },
+    {
+      "key": 4,
+      "text": "60"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Let the counts be 3x, 4x, 2x. Total value = 1*(3x) + 2*(4x) + 5*(2x) = 3x + 8x + 10x = 21x = 420, so x = 20. The number of Rs 2 coins is 4x = 80."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Solves x = 20 correctly but reports the count of Rs 5 coins (2x = 40) instead of the Rs 2 coins asked for, reading the last ratio term as the target.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Stops at the multiplier x = 20 and reports it as the answer, mistaking the scaling parameter for the number of Rs 2 coins.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Builds the value equation using the ratio terms as values directly, or divides Rs 420 by the wrong total, and lands on the Rs 1 count 3x = 60 rather than the Rs 2 count.",
+      "misconception": "ratio_inverted"
+    }
+  ],
+  "explanation": "Introduce a common multiplier x so the counts are 3x (Rs 1), 4x (Rs 2), 2x (Rs 5). The total value sums count times denomination: 1*(3x) + 2*(4x) + 5*(2x) = 3x + 8x + 10x = 21x. Set 21x = 420, so x = 20. The question asks for the number of Rs 2 coins, which is 4x = 4*20 = 80. Do not stop at x or report a different coin's count.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The 21x total falls out cleanly, but the prize is 4x = 80, not the multiplier x and not the Rs 5 count. Read the question's target one more time before answering.",
+    "approach": "For mixed-denomination ratio problems, parametrize counts with one shared multiplier, build the value equation as sum of count times denomination, solve for the multiplier, then substitute back into the exact quantity asked.",
+    "lesson": "A ratio gives you counts only up to a common factor; the value equation pins the factor. Always map the solved factor back to the specific term the question wants.",
+    "timing": "About 160 seconds. The fastest elimination is to discard 20 immediately: it is the bare multiplier x, the classic stop-too-early trap, not any coin count."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

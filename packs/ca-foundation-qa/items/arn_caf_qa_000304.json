@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000304",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen_finance_v1",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000304.py"
+  },
+  "tests": [
+    "qa.bmath.finance.compound_interest"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A bank offers two schemes on a deposit of Rs 20,000 for 2 years: Scheme A pays 10% per annum simple interest; Scheme B pays 9.5% per annum compounded annually. Which scheme gives a higher return and by how much? [Given: (1.095)^2 = 1.199025]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Scheme A by Rs 19.50"
+    },
+    {
+      "key": 2,
+      "text": "Scheme B by Rs 19.50"
+    },
+    {
+      "key": 3,
+      "text": "Scheme A by Rs 180.50"
+    },
+    {
+      "key": 4,
+      "text": "Both give equal returns"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "verdict": "correct",
+      "option_key": 1,
+      "rationale": "A higher nominal rate under SI can outperform a lower rate under CI over short horizons; do not assume compounding always wins."
+    },
+    {
+      "verdict": "incorrect",
+      "misconception": "compound_interest_confusion",
+      "rationale": "Choosing Scheme B incorrectly assumes compounding always beats simple interest regardless of rate; here the SI rate (10%) is high enough that SI returns more than CI at 9.5% over 2 years.",
+      "option_key": 2
+    },
+    {
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Rs 180.50 comes from subtracting Scheme B interest of Rs 3819.50 from an incorrectly computed Scheme A interest of Rs 4000, confusing 20000 x 0.10 x 2 correctly but misreading Scheme B factor as 1.1900 instead of 1.199025, giving 20000 x 0.19 = 3800 and a difference of 200, further rounded to 180.50.",
+      "option_key": 3
+    },
+    {
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Stating both are equal misapplies the equivalence formula for effective annual rate; 10% SI and 9.5% CI are only numerically equal when n = 1, not n = 2.",
+      "option_key": 4
+    }
+  ],
+  "explanation": "SI(A) = 20000 x 0.10 x 2 = Rs 4000. CI(B) = 20000 x (1.199025 - 1) = Rs 3980.50. Difference = 4000 - 3980.50 = Rs 19.50 in favour of Scheme A.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "A higher nominal rate under SI can outperform a lower rate under CI over short horizons; do not assume compounding always wins.",
+    "approach": "Scheme A: SI = P x r x n = 20000 x 0.10 x 2 = 4000. Scheme B: CI = P x ((1.095)^2 - 1) = 20000 x 0.199025 = 3980.50. Difference = 4000 - 3980.50 = 19.50 in favour of A.",
+    "lesson": "When comparing SI vs CI across schemes, always compute both returns numerically rather than assuming CI dominates. The crossover depends on both rate and horizon.",
+    "timing": "90 seconds: compute SI in one step (flat multiplication), CI in one step using the hint, then subtract. Trap is option 2; the distractor banks on the reflex that compounding beats simple interest."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

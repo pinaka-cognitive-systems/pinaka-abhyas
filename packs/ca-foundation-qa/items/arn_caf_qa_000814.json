@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000814",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000814.py"
+  },
+  "tests": [
+    "qa.stats.probability.expectation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Two cards are drawn at random without replacement from a well-shuffled deck of 52 cards. Let X be the number of kings drawn. What is E(X)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "2/13"
+    },
+    {
+      "key": 2,
+      "text": "1/13"
+    },
+    {
+      "key": 3,
+      "text": "4/51"
+    },
+    {
+      "key": 4,
+      "text": "8/663"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "E(X) = n * p = 2 * (4/52) = 2 * (1/13) = 2/13 by linearity of expectation; each draw has P(king) = 4/52 = 1/13 and the two draws are exchangeable."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Using E(X) = p for a single draw only (1/13), forgetting to multiply by n = 2 draws."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Computing P(second card is a king given first was a king) = 3/51 and then forming 4/51 as a hybrid, misidentifying conditional probability as expectation."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "independence_assumed",
+      "rationale": "Computing P(both kings) = (4/52)(3/51) = 12/2652 = 1/221 incorrectly scaled, or using (4/52)^2 = 16/2704, and treating joint probability as E(X)."
+    }
+  ],
+  "explanation": "By linearity of expectation, E(X) = E(X_1) + E(X_2) where X_i = 1 if draw i is a king. Each draw is exchangeable, so P(X_i = 1) = 4/52 = 1/13. Therefore E(X) = 1/13 + 1/13 = 2/13.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Linearity of expectation works even when draws are dependent; E(X) = n * (4/52) regardless of replacement.",
+    "approach": "Identify model: sum of indicator random variables X_1 + X_2 where X_i = 1 if draw i is a king. Use E(X) = E(X_1) + E(X_2) (linearity, no independence required). Each P(X_i=1) = 4/52 by symmetry. So E(X) = 2*(4/52) = 2/13.",
+    "lesson": "Linearity of expectation holds even for dependent random variables; never confuse E(X_1 + X_2) with E(X_1 * X_2), which would require independence.",
+    "timing": "75 seconds. The setup decision is recognizing the indicator decomposition. The trap is computing P(both kings) = (4/52)(3/51) and calling that E(X)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

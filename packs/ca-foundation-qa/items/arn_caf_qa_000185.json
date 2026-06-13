@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "Clue 3: Charu=1. Clue 1: Anil-Beena consecutive block can be at seats (2,3) or (3,4). Clue 2: Dev not at seat 1 or 4. If block at (2,3), the only remaining seat is 4 for Dev, violating clue 2. If block at (3,4), the remaining seat is 2 for Dev, allowed. Unique solution: Charu=1, Dev=2, Anil=3, Beena=4. Seat 3 = Anil.",
+  "explanation_kind": "deductive_trace",
   "explanation_sections": {
-    "punchline": "Placing the Anil-Beena block at seats 2 and 3 forces Dev to seat 4, which clue 2 bans. The block must go to seats 3 and 4, putting Anil at seat 3.",
-    "approach": "For row-seating problems, write out the seat slots first. Place any person fixed by a clue. Then list the possible positions for each adjacency block. Test each position against the remaining constraints. Eliminate positions that create a violation. The position with no violations gives the answer.",
-    "lesson": "Always test every candidate arrangement against all constraints before recording the answer. A placement that satisfies one clue can still break another.",
-    "timing": "About 90 seconds. Placing Charu takes 5 seconds. Listing two block positions takes 10 seconds. Testing each against clue 2 takes 20 seconds. If you reach a contradiction, the other position is the answer."
+    "punchline": "Lock the fixed seat first: clue 3 places Charu at seat 1. That is the cracking move - it eliminates seat 1 for everyone else and forces the Anil-Beena block into seats 2-3 or 3-4.",
+    "approach": "Order of clue application: (1) Fixed positions first - clue 3 gives Charu=1. (2) Enumerate adjacency block - clue 1 means Anil-Beena must occupy two consecutive seats from {2,3,4}. Candidates: (2,3) or (3,4). (3) Negative clue eliminates - clue 2 says Dev not at seat 1 or 4. If block=(2,3), remaining seat is 4 for Dev, violating clue 2. Eliminated. If block=(3,4), remaining seat is 2 for Dev, allowed. Unique solution: Charu=1, Dev=2, Anil=3, Beena=4. Verify all three clues against this arrangement before confirming. Seat 3 = Anil. This recipe applies to any row-seating puzzle: fix anchors, enumerate blocks, apply negatives to eliminate.",
+    "lesson": "Test every candidate arrangement against ALL constraints before recording. A placement satisfying one clue can still violate another - clue 2 here is the eliminator that rules out the (2,3) block.",
+    "timing": "About 75 seconds. Placing Charu: 5 seconds. Listing two block positions: 10 seconds. Testing each against clue 2: 20 seconds each. The trap is option 1 (Dev at seat 3) - it comes from ignoring clue 2 and accepting the (2,3) block without checking."
   },
   "empirical": {
     "calibration_status": "none",

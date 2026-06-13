@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000615",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000615.py"
+  },
+  "tests": [
+    "qa.lr.direction_tests"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Amit faces South-West. He turns 135 degrees clockwise. Which direction is he now facing?",
+  "options": [
+    {
+      "key": 1,
+      "text": "North"
+    },
+    {
+      "key": 2,
+      "text": "North-East"
+    },
+    {
+      "key": 3,
+      "text": "East"
+    },
+    {
+      "key": 4,
+      "text": "South-East"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "South-West is 225 degrees from North (measuring clockwise). Adding 135 degrees gives 225 + 135 = 360 degrees = 0 degrees = North."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "225 + 135 = 360 but misreading as 360 - 45 = 315 degrees gives North-West, or miscomputing 225 + 135 = 345 gives North-North-West; rounding to North-East reflects a slip landing at 45 degrees instead of 0."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "direction_turn_error",
+      "rationale": "Applying 135 degrees counter-clockwise from South-West: 225 - 135 = 90 degrees = East, confusing the turn direction."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "Starting from South-East (135 degrees) instead of South-West (225 degrees) and adding 135 gives 270 = West, or treating South-West as 135 degrees and adding 135 = 270 gives West; adjusting to nearest compass point gives South-East by reversing the starting direction."
+    }
+  ],
+  "explanation": "Compass degrees clockwise from North: N=0, NE=45, E=90, SE=135, S=180, SW=225, W=270, NW=315. SW = 225 deg. Add 135 deg clockwise: 225 + 135 = 360 = 0 = North.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "South-West plus a 135-degree clockwise rotation completes exactly one full circle back to North.",
+    "approach": "Apply clues most-certain-first: assign numeric degree to SW (225). Add clockwise rotation (135). Reduce modulo 360: (225+135) mod 360 = 0 = North. This rotation covers SW -> W -> NW -> N.",
+    "lesson": "Convert intercardinal starting directions to degree values before applying rotations to avoid turn-direction errors.",
+    "timing": "About 60-80 seconds. The trap is applying the turn counter-clockwise (giving East) or misplacing SW at 135 degrees (giving a wrong start)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

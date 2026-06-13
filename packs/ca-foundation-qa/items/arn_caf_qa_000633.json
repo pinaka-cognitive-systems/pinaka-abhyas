@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000633",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000633.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 95,
+  "stem": "Six people Anand, Beena, Charan, Deepti, Farida, and Gopal sit around a circular table (seats 1 to 6 clockwise) facing the centre. Anand sits at seat 1. Deepti sits directly opposite Anand. Charan is the immediate clockwise neighbour of Anand. Farida is the immediate clockwise neighbour of Deepti. Beena sits directly opposite Gopal. Gopal is not adjacent to Charan. Who sits immediately to the right of Anand (from Anand's perspective, facing the centre)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Beena"
+    },
+    {
+      "key": 2,
+      "text": "Charan"
+    },
+    {
+      "key": 3,
+      "text": "Farida"
+    },
+    {
+      "key": 4,
+      "text": "Gopal"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Beena ends up at seat 3 (derived from Beena-opposite-Gopal and Gopal-not-adjacent-to-Charan). Seat 3 is not adjacent to Anand at seat 1 (distance 2 in the circle). Placing Beena as Anand's right neighbor ignores the derived seat for Beena."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "direction_turn_error",
+      "rationale": "Charan is at seat 2, which is the CLOCKWISE (left-hand) neighbor of Anand when facing the centre. Selecting Charan as Anand's right neighbor confuses left and right for a person seated facing inward toward the centre."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Farida is the immediate clockwise neighbor of Deepti (seat 4), so Farida=5. Seat 5 is not adjacent to Anand at seat 1. Selecting Farida ignores the placement derived for Farida from the Deepti clue."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "Anand=1, Deepti=4 (opposite). Charan=2 (CW from Anand). Farida=5 (CW from Deepti). Beena and Gopal are at seats 3 and 6 (opposite pair). Gopal not adjacent to Charan(2): seat 3 is adjacent to seat 2 (|3-2|=1), so Gopal cannot be at seat 3. Gopal=6, Beena=3. Anand's right (facing centre, CCW direction) = seat (1-2+6)%6+1 = seat 6 = Gopal."
+    }
+  ],
+  "explanation": "Anand=1. Deepti directly opposite: Deepti=4. Charan immediately CW from Anand: Charan=2. Farida immediately CW from Deepti: Farida=5. Beena and Gopal occupy the remaining opposite pair: seats 3 and 6. Gopal not adjacent to Charan(2): seat 3 is adjacent to seat 2, so Gopal cannot be at seat 3. Therefore Gopal=6 and Beena=3. When Anand at seat 1 faces the centre, his right hand points in the counter-clockwise direction toward seat 6. Seat 6 is Gopal. Gopal is immediately to Anand's right.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Gopal-not-adjacent-to-Charan forces Gopal to seat 6, which is precisely the CCW (right-hand) neighbor of Anand facing the centre.",
+    "approach": "Apply clues most-certain-first: anchor Anand(1), derive opposite seat Deepti(4), then CW neighbours Charan(2) and Farida(5). The remaining opposite pair {3,6} is assigned via the Gopal-Charan non-adjacency clue: seat 3 is adjacent to Charan(2), so Gopal goes to seat 6. Apply facing-centre direction rule: right = CCW = seat 6.",
+    "lesson": "In 6-person circular seating, four directed clues leave one opposite pair; a single non-adjacency check on one member of the pair resolves the assignment.",
+    "timing": "95 seconds. Four chained derivations, one adjacency check, one direction-rule step."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

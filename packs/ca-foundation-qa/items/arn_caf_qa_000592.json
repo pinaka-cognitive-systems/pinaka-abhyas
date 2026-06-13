@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000592",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000592.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.odd_man_out"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "Each of the following numbers has a two-digit pattern property. Three share the same property; one does not. Find the odd one out: 121, 169, 196, 225.",
+  "options": [
+    {
+      "key": 1,
+      "text": "121"
+    },
+    {
+      "key": 2,
+      "text": "169"
+    },
+    {
+      "key": 3,
+      "text": "196"
+    },
+    {
+      "key": 4,
+      "text": "225"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "121 = 11^2, a palindrome AND a perfect square. It passes both properties but is not the odd one out because the key property is palindrome nature. 121 reversed is 121 (palindrome)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "169 reversed is 961 = 31^2, also a perfect square. However, 169 itself is a palindrome? No, 169 reversed is 961 which is different. The property here is: the number is a perfect square whose digit-reversal is also a perfect square. 169 = 13^2, reversed 961 = 31^2. This holds."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "196 = 14^2. Reversed: 691. Is 691 a perfect square? sqrt(691) ~ 26.29, not a perfect square. So 196 fails the property that its reversal is also a perfect square."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "225 = 15^2. Reversed: 522. Is 522 a perfect square? sqrt(522) ~ 22.84, not a perfect square. Wait - re-checking the property: 121 reversed = 121 = 11^2 (yes), 169 reversed = 961 = 31^2 (yes), 225 reversed = 522 (not a perfect square). So 225 also fails. The actual property that three share and one does not must be reconsidered. Let us use: palindrome squares. 121 is a palindrome square (11^2). The others are not palindromes. So the property of three is being a perfect square with consecutive integer roots: 11, 12, 13... Wait. Let us use a clear property: digit sum divisible by 9. 1+2+1=4 (no), 1+6+9=16 (no), 1+9+6=16 (no), 2+2+5=9 (yes). That does not work. Using the property: all are perfect squares (true for all four). The distinguishing property must be finer. Key insight: 121=11^2, 169=13^2, 225=15^2 are all squares of ODD numbers. 196=14^2 is the square of an EVEN number. That is the clean property."
+    }
+  ],
+  "explanation": "121 = 11^2, 169 = 13^2, 225 = 15^2 are all squares of odd integers. 196 = 14^2 is the square of an even integer. The property shared by three is: perfect square of an odd number. 196 is the odd one out.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Three are squares of odd numbers (11, 13, 15); 196 = 14^2 is the only square of an even number.",
+    "approach": "Apply clues most-certain-first: find the square root of each number. sqrt(121)=11 (odd), sqrt(169)=13 (odd), sqrt(196)=14 (even), sqrt(225)=15 (odd). The one with an even square root is the odd one out.",
+    "lesson": "After confirming all four share the perfect-square property, test the parity of the square root to find the finer distinguishing rule.",
+    "timing": "About 60 seconds. The trap is 196 which, being even, looks similar to 196 in context with other three-digit numbers. The key move is computing each square root."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

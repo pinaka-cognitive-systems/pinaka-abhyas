@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000646",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000646.py"
+  },
+  "tests": [
+    "qa.lr.blood_relations"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "In a family of six members, Pavan is the father of Qira. Qira is married to Raj. Raj is the son of Sona and Tarun. Usha is the sister of Tarun. How is Usha related to Qira?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Sister-in-law"
+    },
+    {
+      "key": 2,
+      "text": "Aunt"
+    },
+    {
+      "key": 3,
+      "text": "Mother-in-law"
+    },
+    {
+      "key": 4,
+      "text": "Cousin"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Treating Usha as Raj's sibling rather than as Raj's father's sibling places Usha in Qira's generation, giving sister-in-law."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Raj is Qira's husband. Raj's father is Tarun. Usha is Tarun's sister. So Usha is Raj's paternal aunt. By marriage extension, Usha is Qira's husband's aunt = Qira's aunt by marriage (colloquially called 'aunt' in Indian family usage)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "kinship_direction_inverted",
+      "rationale": "Confusing Usha with Sona (Raj's mother) by collapsing the Tarun-Usha sibling link gives mother-in-law."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "kinship_gender_error",
+      "rationale": "Treating Usha as Raj's cousin rather than Raj's father's sibling misidentifies the generation, giving cousin."
+    }
+  ],
+  "explanation": "Qira married Raj. Raj's father is Tarun. Usha is Tarun's sister, making Usha Raj's paternal aunt. By marriage, Usha is Qira's aunt (husband's paternal aunt).",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Usha is Tarun's sister; Tarun is Raj's father; Raj is Qira's husband - so Usha is Qira's (husband's) aunt.",
+    "approach": "Apply most-certain first: map the full tree. Pavan-Qira (father-daughter). Qira married Raj. Raj's parents: Sona and Tarun. Usha = Tarun's sister = Raj's paternal aunt. Through marriage, Usha is Qira's aunt by relation.",
+    "lesson": "In marriage-extended trees, trace back to the spouse's parents before determining the relation, then extend through the marriage link.",
+    "timing": "About 85 s. Trap: option 1 (sister-in-law) by confusing Usha's generation with Raj's generation."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

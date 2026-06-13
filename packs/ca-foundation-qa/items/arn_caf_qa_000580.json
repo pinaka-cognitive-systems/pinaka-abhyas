@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000580",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000580.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.coding_decoding"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "In a code language, each letter of a word is first replaced by its mirror letter in the alphabet (A<->Z, B<->Y, C<->X, and so on), and then the entire word is reversed. Using this rule, STAR is coded as IZGH and BOND is coded as YLMW. What is the code for LAMP?",
+  "options": [
+    {
+      "key": 1,
+      "text": "KNZO"
+    },
+    {
+      "key": 2,
+      "text": "ONZK"
+    },
+    {
+      "key": 3,
+      "text": "KNYP"
+    },
+    {
+      "key": 4,
+      "text": "OZNO"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Mirror each letter: L->O, A->Z, M->N, P->K. Then reverse OZNK to get KNZO."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "ONZK is the mirrored word without reversing: O,Z,N,K in original order. The student applied only the mirror step and skipped the reversal step."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "KNYP: K is correct for P mirrored, N is correct for M mirrored, but Y is the mirror of B (not A), and P is the mirror of K (not L), showing the student applied the mirror to wrong letters - a systematic shift error in mirror lookup."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "OZNO results from treating the mirror step as mapping each letter one position back in its reverse-alphabet position rather than a full mirror, confusing the rule pattern."
+    }
+  ],
+  "explanation": "Two-step rule: (1) mirror each letter (A<->Z, B<->Y ... L<->O, M<->N, P<->K); (2) reverse the resulting string. LAMP: L->O, A->Z, M->N, P->K gives OZNK; reversed = KNZO. Verified: STAR: S->H, T->G, A->Z, R->I gives HGZI; reversed = IZGH.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "There are two separate operations in sequence - mirror, then reverse - and both must be applied in that exact order.",
+    "approach": "Deductive trace: identify the two operations from the given examples (confirm both STAR and BOND satisfy mirror-then-reverse), then apply sequentially to LAMP. Setup decision: recognise the order of operations from the example verification.",
+    "lesson": "When a code involves two operations, order matters: always verify which step comes first using the given examples.",
+    "timing": "80-90 seconds. The main trap is reversing the order of operations (reversing before mirroring, which gives a different result, or doing only one step)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

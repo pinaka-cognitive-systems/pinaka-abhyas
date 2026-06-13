@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000548",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000548.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.number_series"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "Find the next term in the series: 3, 6, 11, 18, 27, 38, ?",
+  "options": [
+    {
+      "key": 1,
+      "text": "49"
+    },
+    {
+      "key": 2,
+      "text": "51"
+    },
+    {
+      "key": 3,
+      "text": "54"
+    },
+    {
+      "key": 4,
+      "text": "57"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Adds 11 (same as the previous difference) to 38 instead of noting that differences increase by 2 each step."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Consecutive differences are 3, 5, 7, 9, 11 (odd numbers increasing by 2). Next difference = 13. Missing term = 38 + 13 = 51."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Identifies next difference as 13 but adds to 38 to get 51 then rounds up by 3 to 54 by a computational slip."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Assumes differences increase by 3 each step (3, 6, 9, 12, 15, 19...) and gets 38 + 19 = 57."
+    }
+  ],
+  "explanation": "The differences between consecutive terms are 3, 5, 7, 9, 11 - odd numbers forming an AP with common difference 2. The next difference = 13. Answer = 38 + 13 = 51.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Differences of 3, 5, 7, 9, 11 are consecutive odd numbers - the next must be 13.",
+    "approach": "Apply clues most-certain-first: compute differences: 6-3=3, 11-6=5, 18-11=7, 27-18=9, 38-27=11. Differences are odd and increase by 2. Next difference = 13. Answer = 38 + 13 = 51.",
+    "lesson": "Odd-number differences (3, 5, 7, ...) generate a quadratic-looking series. Check second-level differences first.",
+    "timing": "35-45 seconds. Once differences are listed as 3, 5, 7, 9, 11, the pattern is obvious. No trap in computation - just add 13 to 38."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

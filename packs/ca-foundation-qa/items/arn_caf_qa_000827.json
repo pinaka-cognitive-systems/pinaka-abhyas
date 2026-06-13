@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000827",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000827.py"
+  },
+  "tests": [
+    "qa.stats.distributions.binomial"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A student appears for a multiple-choice test with 8 questions. Each question has 4 options with exactly one correct answer. The student answers every question purely by random guessing. What is the probability that the student gets exactly 3 questions correct? [Given: (3/4)^5 = 0.2373]",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.2076"
+    },
+    {
+      "key": 2,
+      "text": "0.0586"
+    },
+    {
+      "key": 3,
+      "text": "0.3164"
+    },
+    {
+      "key": 4,
+      "text": "0.1406"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Binomial(8, 1/4): P(X=3) = C(8,3)*(1/4)^3*(3/4)^5 = 56*(1/64)*0.2373 = 56*0.003708 = 0.20763 approx 0.2076."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "0.0586 = C(8,3)*(1/4)^3*(1/4)^5 = 56*(1/4)^8; the student used p=1/4 for both success and failure factors, ignoring q=3/4."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "complement_confusion",
+      "rationale": "0.3164 = C(8,3)*(3/4)^3*(1/4)^5; the student swapped p and q, treating 3/4 as the success probability."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "0.1406 = C(8,2)*(1/4)^2*(3/4)^6; the student applied the binomial formula for k=2 instead of k=3, computing P(X=2) rather than P(X=3)."
+    }
+  ],
+  "explanation": "With p=1/4 per question, model as Binomial(8, 1/4). P(X=3) = C(8,3)*(1/4)^3*(3/4)^5 = 56*(1/64)*0.2373 = 0.2076.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Identify the success probability as 1/4 (not 1/2) and use the given hint for (3/4)^5 to avoid lengthy computation.",
+    "approach": "Model: Binomial(n=8, p=1/4). Map givens: n=8 trials, p=0.25, q=0.75, k=3. Formula: P(X=3)=C(8,3)*(0.25)^3*(0.75)^5=56*(1/64)*0.2373. Compute 56/64=0.875, then 0.875*0.2373=0.2076.",
+    "lesson": "For multiple-choice guessing, p = 1/(number of options); remember to use q = 1 - p in the failure factor.",
+    "timing": "75 seconds. C(8,3)=56 quickly; use provided (3/4)^5=0.2373. Main trap: swapping p and q."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

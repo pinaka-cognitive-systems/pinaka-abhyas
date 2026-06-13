@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000398",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000398.py"
+  },
+  "tests": [
+    "qa.bmath.finance.future_value"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A firm deposits Rs 20000 in a savings scheme that offers 6% per annum compounded half-yearly. What will be the accumulated value at the end of 1 year? [Given: (1.03)^2 = 1.0609]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 21218"
+    },
+    {
+      "key": 2,
+      "text": "Rs 21200"
+    },
+    {
+      "key": 3,
+      "text": "Rs 21000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 21060"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Half-yearly rate = 3%, n = 2 periods. FV = 20000 * (1.03)^2 = 20000 * 1.0609 = Rs 21218."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "compound_interest_confusion",
+      "rationale": "Using annual simple interest: 20000 + 20000 * 0.06 * 1 = Rs 21200."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "rate_period_mismatch",
+      "rationale": "Using 6% as the half-yearly rate instead of 3%: 20000 + 20000 * 0.06 = 21200 then rounding further, or using only one period giving 20000 * 1.03 = 20600 or applying 5% by mistake to get 21000."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "time_factor_dropped",
+      "rationale": "Compounding for only one half-year period at 3%: 20000 * 1.03 = 20600 then some rounding or misread giving 21060."
+    }
+  ],
+  "explanation": "Half-yearly compounding: divide the annual rate by 2 to get the period rate, and double the number of periods. Rate per period = 6%/2 = 3%, n = 2. FV = 20000 * (1.03)^2 = 20000 * 1.0609 = Rs 21218.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The decisive move is converting to half-yearly: halve the rate, double the periods, then apply FV = P*(1+r)^n.",
+    "approach": "Name the formula: FV = P*(1+i)^m where i = r/2 = 0.03 and m = 1*2 = 2. Map: P = 20000. Use given hint (1.03)^2 = 1.0609: FV = 20000 * 1.0609 = 21218.",
+    "lesson": "Whenever interest is compounded k times per year, the period rate is r/k and number of periods is n*k.",
+    "timing": "50-60 seconds. The rate-period conversion is the only setup step. Trap: using annual rate of 6% for only 1 period gives 21200."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

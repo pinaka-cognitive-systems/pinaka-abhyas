@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000876",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000876.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.construction"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "The prices (in Rs per unit) for three commodities in the base year and the current year are:\nCommodity P: p0 = 20, p1 = 26\nCommodity Q: p0 = 30, p1 = 36\nCommodity R: p0 = 50, p1 = 63\nCompute the Simple Aggregative Price Index (base year = 100).",
+  "options": [
+    {
+      "key": 1,
+      "text": "125.33"
+    },
+    {
+      "key": 2,
+      "text": "121.00"
+    },
+    {
+      "key": 3,
+      "text": "125.00"
+    },
+    {
+      "key": 4,
+      "text": "124.19"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "125.33 is the simple average of individual price relatives: (26/20 + 36/30 + 63/50)/3 * 100 = (1.30 + 1.20 + 1.26)/3 * 100 = 125.33. This is a different method, not the simple aggregative."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "percentage_base_confusion",
+      "rationale": "121.00 results from using 20+30+50+21=121 or confusing the percent increase (25%) with the absolute sums; the correct denominator is sum of base prices = 100."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Simple Aggregative Price Index = (sum p1)/(sum p0)*100 = (26+36+63)/(20+30+50)*100 = 125/100*100 = 125.00."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "124.19 is the Laspeyres index when quantities q0 = 10, 15, 8 are used as weights; this is a weighted formula, not the simple aggregative method."
+    }
+  ],
+  "explanation": "Simple Aggregative Price Index = (sum p1)/(sum p0)*100. Sum of current prices: 26+36+63 = 125. Sum of base prices: 20+30+50 = 100. Index = 125/100*100 = 125.00. No quantity weights are used; the index simply sums all prices in each year. This method is simple but ignores different usage levels of each commodity.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Simple aggregative sums all prices in each period; no weights, no relatives. (26+36+63)/(20+30+50)*100 = 125.00.",
+    "approach": "Formula selection: Simple Aggregative = (sum p1)/(sum p0)*100. Decisive move: identify this as the unweighted aggregative method - just add up the prices for each period. The setup decision is recognising that quantities are not needed here.",
+    "lesson": "Simple Aggregative is dominated by the highest-priced commodity (here R at Rs 50). A doubling in R's price would dominate the index even if R is rarely bought. This is its key weakness.",
+    "timing": "About 45-60 seconds. Three additions, one division. Trap: computing individual price relatives and averaging them instead."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000640",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000640.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Six persons P, Q, R, S, T and U are sitting in a straight row facing north. P sits third from the left. Q sits to the immediate right of P. R sits at one of the ends. U sits to the immediate left of R. T sits between S and U. S is not adjacent to R. Who sits second from the right?",
+  "options": [
+    {
+      "key": 1,
+      "text": "T"
+    },
+    {
+      "key": 2,
+      "text": "S"
+    },
+    {
+      "key": 3,
+      "text": "Q"
+    },
+    {
+      "key": 4,
+      "text": "U"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Omitting the 'T between S and U' constraint and placing T at position 5 gives an invalid arrangement."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "Reading 'U immediately left of R' as 'U immediately right of R' shifts U to position 6 and places S at position 5."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Placing Q at position 4 and then solving for second from left rather than second from right yields Q as the answer."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "R at an end with U immediately left: R=6, U=5. P=3, Q=4. Remaining positions 1 and 2 for S and T. T between S and U means S < T < U positionally, so S=1, T=2. S(1) not adjacent to R(6). Arrangement: S-T-P-Q-U-R. Second from right = position 5 = U."
+    }
+  ],
+  "explanation": "R must be at the right end (R=6) because U immediately left of R would put U at position 0 if R=1. So R=6, U=5. P=3, Q=4 (immediately right of P). S and T fill positions 1 and 2. T between S and U (U=5) means S=1, T=2. Final order: S-T-P-Q-U-R. Second from right is position 5 which is U.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "R must be at the right end (not left) because 'U immediately left of R' would be invalid at position 1; this chains U to position 5, the second from right.",
+    "approach": "Apply clues most-certain-first: test both ends for R - R=1 forces U=0 (impossible), so R=6, U=5. P given at 3, Q at 4. Positions 1 and 2 remain for S and T; 'T between S and U' forces S=1, T=2. Verify S not adjacent to R: 1 and 6 are not adjacent. Row: S-T-P-Q-U-R. Second from right = position 5 = U.",
+    "lesson": "Use impossibility to fix the end: if one assignment creates an out-of-bounds seat, the other end is forced.",
+    "timing": "80-90 s. Key trap: reading 'second from right' as position 2 from left (giving T or S) instead of position 5."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

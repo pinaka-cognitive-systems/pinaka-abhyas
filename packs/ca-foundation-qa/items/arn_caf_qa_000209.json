@@ -18,10 +18,11 @@
   "tests": [
     "qa.bmath.sequence_series.ap"
   ],
-  "difficulty_label": "L3",
+  "difficulty_label": "L2",
+  "explanation_kind": "derivation",
   "taxonomy_version": 4,
   "item_type": "single_best",
-  "expected_seconds": 120,
+  "expected_seconds": 90,
   "stem": "In an arithmetic progression, the 5th term is 22 and the 12th term is 50. Find the sum of the first 15 terms.",
   "options": [
     {
@@ -71,10 +72,10 @@
   ],
   "explanation": "Step 1: T_5 = a + 4d = 22 and T_12 = a + 11d = 50. Subtract the first from the second: 7d = 28, so d = 4. Step 2: a = 22 - 4*4 = 6. Step 3: S_15 = 15/2 * (2*6 + 14*4) = 15/2 * (12 + 56) = 15/2 * 68 = 15 * 34 = 510. The common traps: using T_n = a + n*d, which is off by one. Or treating the two given terms as the first and last of the 15-term series.",
   "explanation_sections": {
-    "punchline": "The sum is 510. Subtract the two term equations to get d = 4, then back-substitute to get a = 6, then apply S_n = n/2 * (2a + (n-1)d).",
-    "approach": "When the first term and common difference are not given directly, write two T_n equations using the given terms and solve simultaneously. Then substitute a and d into the sum formula. Keep the formula T_n = a + (n-1)d in front of you to avoid the common off-by-one of writing a + nd.",
-    "lesson": "T_n = a + (n-1)d, not a + nd. Using a + nd shifts the value of a by one step, causing a chain error in every subsequent calculation.",
-    "timing": "About 120 seconds. Solving the two equations for d and a takes 40 seconds. Applying the sum formula takes 30 seconds. Check 15*34 as 15*30 + 15*4 = 450 + 60 = 510."
+    "punchline": "Sum = 510. Subtracting the two T_n equations eliminates a cleanly (7d = 28, d = 4), back-substitution gives a = 6, then S_15 = 15/2 * (12 + 56) = 510.",
+    "approach": "Transformation plan: (1) write T_5 = a + 4d = 22 and T_12 = a + 11d = 50 using T_n = a + (n-1)d. (2) Subtract equation 1 from equation 2: 7d = 28, d = 4. (3) Back-substitute: a = 22 - 4*4 = 6. (4) Apply S_n = n/2 * (2a + (n-1)d): S_15 = 15/2 * (12 + 56) = 15 * 34 = 510. Write n-1 explicitly at every step to avoid the +1 error.",
+    "lesson": "T_n = a + (n-1)d, never a + n*d. Using a + n*d shifts a by one step, making a = 2 instead of 6 and cascading the error into the sum. The off-by-one in T_n is the single most common AP error.",
+    "timing": "About 90 seconds. Subtraction step is instant once both equations are written. Back-substitution 10 seconds. Sum formula 20 seconds. Compute 15 * 34 as 15 * 30 + 15 * 4 = 450 + 60 = 510."
   },
   "empirical": {
     "calibration_status": "none",

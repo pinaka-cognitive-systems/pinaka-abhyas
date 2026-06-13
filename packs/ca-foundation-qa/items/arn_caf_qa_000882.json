@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000882",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2_fix",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000882.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.deflating"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A firm's sales revenue was Rs 4,50,000 in Year 1 and Rs 5,85,000 in Year 2. The wholesale price index was 120 in Year 1 and 156 in Year 2 (base = Year 0). By what percentage did the firm's real sales volume change from Year 1 to Year 2?",
+  "options": [
+    {
+      "key": 1,
+      "text": "No change (0%)"
+    },
+    {
+      "key": 2,
+      "text": "30% increase"
+    },
+    {
+      "key": 3,
+      "text": "20% decrease"
+    },
+    {
+      "key": 4,
+      "text": "13% increase"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Real sales Year 1 = 450000/1.20 = Rs 375000. Real sales Year 2 = 585000/1.56 = Rs 375000. Change = (375000-375000)/375000 = 0%. Real volume is identical; the entire nominal increase reflects price inflation."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Computed percentage change in nominal sales without deflating: (585000-450000)/450000 = 135000/450000 = 30% increase. This is the nominal change, not the real change."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Deflated Year 2 by Year 1 index and Year 1 by Year 2 index (inverted): Year 1 real = 450000/1.56 = 288462; Year 2 real = 585000/1.20 = 487500; change = approx +69%, or alternatively a different inversion path gives a negative result near -20%."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "percentage_base_confusion",
+      "rationale": "Used the ratio of the indices themselves (156/120 = 1.30) as the deflator applied incorrectly: 585000/1.30 = 450000 and then miscomputed the percentage change from a wrong base, or divided the nominal change (135000) by the price change factor (1.30) giving 103846 and then took 103846/450000 = 23%, rounded to 13% with a slip."
+    }
+  ],
+  "explanation": "Real sales Year 1 = 450000/(120/100) = 375000; Real sales Year 2 = 585000/(156/100) = 375000. Real change = 0%. The nominal 30% rise equals exactly the 30% rise in the price index (156/120 = 1.30), so no real volume growth occurred.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "When nominal values rise by the same proportion as the price index, real volume is unchanged - deflating reveals the illusion of growth.",
+    "approach": "Name the formula: Real value = Nominal / (Index/100). Map givens: Year 1 nominal=450000, Index=120; Year 2 nominal=585000, Index=156. Compute: Real1=450000/1.20=375000; Real2=585000/1.56=375000. Change = 0%.",
+    "lesson": "Always deflate both years before comparing. A 30% nominal rise matched by a 30% price-index rise implies zero real growth. The trap is comparing nominal figures directly.",
+    "timing": "80-90 s. Two deflations (each a single division) then one percentage change. Notice that 585000/450000 = 1.30 and 156/120 = 1.30 - identical ratios signal zero real change without full computation."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000599",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000599.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.odd_man_out"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Each of the following sets of three numbers has a hidden relationship. Three sets follow the same rule; one does not. Find the odd one out: (2, 3, 13), (3, 4, 25), (4, 5, 41), (5, 6, 60).",
+  "options": [
+    {
+      "key": 1,
+      "text": "(2, 3, 13)"
+    },
+    {
+      "key": 2,
+      "text": "(3, 4, 25)"
+    },
+    {
+      "key": 3,
+      "text": "(4, 5, 41)"
+    },
+    {
+      "key": 4,
+      "text": "(5, 6, 60)"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "(2, 3, 13): 2^2 + 3^2 = 4 + 9 = 13. Follows the rule: third = first^2 + second^2."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "(3, 4, 25): 3^2 + 4^2 = 9 + 16 = 25. Follows the rule: third = first^2 + second^2."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "(4, 5, 41): 4^2 + 5^2 = 16 + 25 = 41. Follows the rule: third = first^2 + second^2."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "(5, 6, 60): 5^2 + 6^2 = 25 + 36 = 61, not 60. The given third element is 60, which is one less than 61. This set breaks the rule third = first^2 + second^2."
+    }
+  ],
+  "explanation": "The rule is: third number = (first)^2 + (second)^2. Checking: 2^2+3^2=13 (match), 3^2+4^2=25 (match), 4^2+5^2=41 (match), but 5^2+6^2=61 while the fourth set gives 60. So (5, 6, 60) is the odd one out.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The rule is c = a^2 + b^2; the fourth set gives 60 but 5^2 + 6^2 = 61.",
+    "approach": "Apply clues most-certain-first: for each triple (a, b, c), test whether c = a^2 + b^2. The triple where c differs from a^2+b^2 is the outlier.",
+    "lesson": "Sum-of-squares is a standard number-relation pattern in odd-man-out. Always verify by computing the expected value and comparing to the given third element.",
+    "timing": "About 70 seconds. Trap: 60 and 61 are close, and 5+6=11 and 5*6=30 are both plausible-looking relationships. Compute a^2+b^2 explicitly."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

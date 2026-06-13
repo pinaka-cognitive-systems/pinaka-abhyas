@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000670",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000670.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.frequency_distribution"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A grouped frequency distribution has 50 observations. The class intervals are [0-10], [10-20], [20-30], [30-40], [40-50] with frequencies 4, 11, 18, 12, 5 respectively. What is the relative frequency (as a decimal) of the class [20-30]?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.36"
+    },
+    {
+      "key": 2,
+      "text": "0.18"
+    },
+    {
+      "key": 3,
+      "text": "0.40"
+    },
+    {
+      "key": 4,
+      "text": "0.30"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Total = 4 + 11 + 18 + 12 + 5 = 50. Relative frequency of [20-30] = 18/50 = 0.36."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "decimal_place_error",
+      "rationale": "0.18 = 18/100; the student divided by 100 instead of 50, a decimal-place slip."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "0.40 = 20/50; this arises if the frequency of [20-30] is read as 20 instead of 18."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "0.30 = 15/50; this arises if the frequency is mis-summed as 15 for that class."
+    }
+  ],
+  "explanation": "Total observations N = 50. Relative frequency of [20-30] = class frequency / N = 18/50 = 0.36.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Relative frequency = class frequency / total = 18/50 = 0.36.",
+    "approach": "Identify the model: relative frequency = f/N. Verify N = sum of all frequencies = 50. Then 18/50 = 0.36.",
+    "lesson": "Relative frequency uses the total N as denominator, not 100 or any other base.",
+    "timing": "90 s. Verify N first; 18/50 = 9/25 = 0.36."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

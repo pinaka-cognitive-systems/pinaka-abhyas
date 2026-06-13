@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000561",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000561.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.coding_decoding"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "In a certain code language, CAT is written as DBU. Using the same rule, how is DOG written in that code?",
+  "options": [
+    {
+      "key": 1,
+      "text": "EPG"
+    },
+    {
+      "key": 2,
+      "text": "EPH"
+    },
+    {
+      "key": 3,
+      "text": "FPH"
+    },
+    {
+      "key": 4,
+      "text": "EQH"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "Shifting only the first and second letters by +1 but leaving G unchanged gives EPG, misapplying the rule to only two of the three letters."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "The rule is: each letter is shifted forward by 1 position in the alphabet. D+1=E, O+1=P, G+1=H. So DOG becomes EPH."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Shifting D by +2 instead of +1 gives F for the first letter, resulting in FPH instead of EPH."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "Shifting D+1=E correctly but O+2=Q (adding 2 instead of 1 to O) and G+1=H gives EQH, misapplying the shift inconsistently."
+    }
+  ],
+  "explanation": "Checking the given code: C(3)+1=D(4), A(1)+1=B(2), T(20)+1=U(21). So CAT becomes DBU by adding 1 to each letter's position. Applying the same rule to DOG: D+1=E, O+1=P, G+1=H. The code for DOG is EPH.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The single consistent rule is +1 shift to every letter, verified across all three letters of the example before applying it.",
+    "approach": "Apply clues most-certain-first: decode each letter of the example (C->D, A->B, T->U) to confirm the rule; shift = +1 for all letters. Apply to DOG: D->E, O->P, G->H. Answer: EPH.",
+    "lesson": "Always verify the coding rule on all letters of the given example before applying it; a rule that works for only one letter may be a coincidence.",
+    "timing": "20 seconds. Verify rule on example (3 checks), apply to target (3 shifts). Trap: inconsistent shifting (applying +2 to some letters) or leaving one letter unchanged."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

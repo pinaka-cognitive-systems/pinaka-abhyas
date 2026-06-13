@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000444",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000444.py"
+  },
+  "tests": [
+    "qa.bmath.finance.bond_valuation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 110,
+  "stem": "A bond has a face value of Rs 1,000 and a stated coupon of 10% per annum, paid semi-annually. The bond matures in exactly 1 year and the market requires a return of 8% per annum compounded semi-annually. What is the bond's fair price? [Given: (1.04)^2 = 1.0816]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 946.50"
+    },
+    {
+      "key": 2,
+      "text": "Rs 949.93"
+    },
+    {
+      "key": 3,
+      "text": "Rs 1,000.00"
+    },
+    {
+      "key": 4,
+      "text": "Rs 1,018.86"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "rate_period_mismatch",
+      "rationale": "Using the full annual rate (8%) as the per-period rate for each half-year: PV = 50/1.08 + 50/1.1664 + 1000/1.1664 = 46.30 + 42.87 + 857.34 = 946.50. The student did not halve the annual rate to match the semi-annual payment frequency."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Ignoring the semi-annual structure and treating the bond as annual: annual coupon = 100, annual rate = 8%, 1-year maturity. PV = 100/1.08 + 1000/1.08^2 = 92.59 + 857.34 = 949.93. The student failed to recognise that coupons are paid semi-annually and converted accordingly."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Discounting the semi-annual cash flows at the coupon rate (5% per period) rather than the market rate (4% per period): PV = 50/1.05 + 50/1.1025 + 1000/1.1025 = 47.62 + 45.35 + 907.03 = 1000.00. When the discount rate equals the coupon rate the bond prices at par, but the market rate is 4%, not 5%."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "Semi-annual coupon = 1000 x 10%/2 = Rs 50. Semi-annual required rate = 8%/2 = 4%. Two periods: PV = 50/1.04 + 50/1.0816 + 1000/1.0816 = 48.08 + 46.23 + 924.56 = 1018.86."
+    }
+  ],
+  "explanation": "The decisive setup move is recognising the semi-annual frequency: convert the annual coupon rate and annual required return both to a per-period (6-month) basis before discounting. Semi-annual coupon = Rs 50, semi-annual rate = 4%, n = 2 periods. PV = 50/1.04 + 50/1.0816 + 1000/1.0816 = 48.08 + 46.23 + 924.56 = Rs 1018.86. The bond trades at a premium because the coupon rate (10%) exceeds the required return (8%).",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The rate-period conversion is the whole game: half the annual rate and double the number of periods before discounting semi-annual coupons.",
+    "approach": "Bond pricing formula: P = sum of C_t/(1+r_semi)^t + F/(1+r_semi)^n. Formula choice: identify semi-annual frequency, so r_semi = 8%/2 = 4% and n = 2. Map each given: C = 1000 x 10%/2 = 50 per period, F = 1000, r_semi = 0.04, n = 2. Hint: (1.04)^2 = 1.0816. Compute: 50/1.04 = 48.08, 50/1.0816 = 46.23, 1000/1.0816 = 924.56, total = 1018.86.",
+    "lesson": "For any bond with non-annual coupons, always convert the annual market rate to a per-coupon-period rate and use the number of coupon periods as n.",
+    "timing": "100 seconds. Fastest elimination: option 3 (par) only holds when yield equals coupon rate, which it does not here. Primary trap: using the full 8% as the per-period rate (option 1)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

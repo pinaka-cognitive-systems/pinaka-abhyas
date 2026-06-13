@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000480",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000480.py"
+  },
+  "tests": [
+    "qa.bmath.sequence_series.ap"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 130,
+  "stem": "Three numbers are in arithmetic progression. Their sum is 21 and the sum of their squares is 155. What is the product of the three numbers?",
+  "options": [
+    {
+      "key": 1,
+      "text": "315"
+    },
+    {
+      "key": 2,
+      "text": "343"
+    },
+    {
+      "key": 3,
+      "text": "280"
+    },
+    {
+      "key": 4,
+      "text": "336"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Represent the three AP terms symmetrically as (a-d), a, (a+d). Sum=3a=21 gives a=7. Sum of squares = 3a^2+2d^2 = 147+2d^2=155, so 2d^2=8, d=2. Terms: 5, 7, 9. Product = 5*7*9 = 315."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Finds a=7 correctly but misapplies the product formula, computing a^3 = 343 under the mistaken belief that the product of a symmetric AP is the cube of the middle term (ignoring d^2's effect on outer terms)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Uses the sum-of-squares formula as 3a^2+d^2 (missing the factor 2 on d^2), getting 147+d^2=155, d^2=8, d=2sqrt(2) approximately 3. With d=3: terms 4, 7, 10, product=280."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Finds d^2=4 correctly but takes d=1 (perhaps confusing d^2=4 with d=4/4=1), giving terms 6, 7, 8 and product 6*7*8=336."
+    }
+  ],
+  "explanation": "Use the symmetric AP representation (a-d), a, (a+d). Sum=3a=21 gives a=7. Sum of squares = (a-d)^2+a^2+(a+d)^2 = 3a^2+2d^2 = 147+2d^2 = 155, so d=2. Terms: 5, 7, 9. Product=315.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Symmetric AP representation (a-d), a, (a+d) is the hidden relationship that unlocks both equations cleanly.",
+    "approach": "Represent three AP terms as (a-d), a, (a+d). This gives: (1) sum = 3a, solving a instantly. (2) sum of squares = 3a^2+2d^2, a quadratic in d. Solve: 3*49+2d^2=155, 2d^2=8, d=2. Recover terms 5, 7, 9. Compute product = 315.",
+    "lesson": "For three quantities in AP, always use (a-d), a, (a+d) - the sum collapses to 3a immediately and the sum of squares splits cleanly into 3a^2 + 2d^2.",
+    "timing": "90-130 seconds. The decisive move is the symmetric substitution. Traps: omitting the factor of 2 in 2d^2, and taking d=cube-root instead of square-root."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

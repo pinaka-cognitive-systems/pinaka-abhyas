@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000450",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000450.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.factorial"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 130,
+  "stem": "How many distinct 5-digit even numbers can be formed using the digits 1, 1, 2, 2, 3 (using all five digits exactly once)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "12"
+    },
+    {
+      "key": 2,
+      "text": "30"
+    },
+    {
+      "key": 3,
+      "text": "6"
+    },
+    {
+      "key": 4,
+      "text": "24"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "For the number to be even, the units digit must be 2. Fix one 2 at the units place. The remaining 4 digits are 1, 1, 2, 3 (with one 2 still present and 1 repeated twice). Distinct arrangements of these 4 remaining digits = 4! / 2! = 24 / 2 = 12. Since the two 2's are identical, fixing either 2 at the end gives the same set of numbers, so no double-count issue."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Computed the total distinct arrangements 5! / (2! x 2!) = 30 without restricting to even numbers, ignoring the even-digit constraint."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Computed 3! = 6 by treating only the non-repeated digits (2, 3, and one 1) as free after fixing the last digit, effectively halving the remaining count twice instead of once."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Computed 4! = 24 for the remaining 4 positions after fixing last digit = 2, but forgot to divide by 2! for the two identical 1's in the remaining digits."
+    }
+  ],
+  "explanation": "Even number requires units digit = 2. Fix 2 at units place. Remaining digits: 1, 1, 2, 3. Distinct arrangements = 4! / 2! = 12. Both 2's are identical so there is no double-counting of the choice of which 2 goes last.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "Lock the units digit to 2, then count arrangements of the remaining 1,1,2,3 with the repeated 1: 4!/2! = 12.",
+    "approach": "Classify as restricted arrangements with repetitions. Step 1 - identify the even-digit constraint: last digit must be 2. Step 2 - fix the last position to 2. The remaining pool is {1, 1, 2, 3}, which still has 1 repeated twice. Step 3 - count distinct arrangements of remaining 4 digits: 4! / 2! = 12. Step 4 - verify no double-count: the two 2's are identical, so choosing either 2 for the last position gives the same result - no doubling needed.",
+    "lesson": "For restricted arrangements (fixing a digit's position), fix that position first, then apply the repeated-objects formula to the remainder. Check carefully which repetitions survive in the remaining pool.",
+    "timing": "110-130 s. Trap 1: forgetting to divide by 2! for the two 1's in the remainder (gives 24). Trap 2: computing the unrestricted total 30 and halving it (gives 15, which is not an option here). Trap 3: thinking two choices of which 2 to place last means multiplying by 2 (incorrect since the 2's are identical)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

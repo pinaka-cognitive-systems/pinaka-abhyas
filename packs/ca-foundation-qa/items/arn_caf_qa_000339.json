@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000339",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000339.py"
+  },
+  "tests": [
+    "qa.bmath.equations.simple"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A vessel contains 80 litres of pure milk. Some milk is drawn out and replaced by an equal volume of water. After the replacement, the ratio of milk to water in the vessel is 3 : 1. How many litres were drawn out and replaced?",
+  "options": [
+    {
+      "key": 1,
+      "text": "15 litres"
+    },
+    {
+      "key": 2,
+      "text": "20 litres"
+    },
+    {
+      "key": 3,
+      "text": "25 litres"
+    },
+    {
+      "key": 4,
+      "text": "16 litres"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student correctly sets up (80-x)/x = 3 but solves as 80 - x = 3 then x = 77, or makes a slip arriving at x = 15."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Let x litres be drawn out. Remaining milk = 80 - x, water = x. Ratio: (80 - x)/x = 3, so 80 - x = 3x, 80 = 4x, x = 20."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student uses total parts = 3+1 = 4, then x = 80/4 = 20 is correct, but if they set milk part = 3/4 of 80 = 60 and water = 1/4 = 20 they get 20; for 25: student uses 3+1=4 parts, removes 80*(1/4+small) arriving at 25 via a wrong model."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student writes the ratio as water:milk = 3:1 instead of milk:water = 3:1, setting x/(80-x) = 3, so 3(80-x) = x, 240 = 4x, x = 60. Alternatively, using the flipped fraction 1:3 gives 80*(1/5) = 16."
+    }
+  ],
+  "explanation": "Let x litres be removed and replaced by water. Milk remaining = 80 - x litres, water = x litres. Given ratio = 3:1, so (80-x)/x = 3. Cross-multiplying: 80-x = 3x, 80 = 4x, x = 20 litres.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Set up milk/water = 3/1 after replacement; the numerator decreases and denominator equals what was removed.",
+    "approach": "Identify the decision: replacement means milk fraction decreases and water equals the removed volume. Write (80-x)/x = 3, cross-multiply to get 80 = 4x, then x = 20.",
+    "lesson": "In equal replacement problems, the volume of water added equals the volume removed, so water = x and milk = initial - x.",
+    "timing": "About 75 seconds. Trap: inverting the ratio (water:milk = 3:1) gives x = 60, which is more than the total. Eliminate any answer above 80."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

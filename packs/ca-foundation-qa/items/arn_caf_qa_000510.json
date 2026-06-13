@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000510",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000510.py"
+  },
+  "tests": [
+    "qa.bmath.calculus.applications"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 140,
+  "stem": "A firm's total cost function is C(x) = x^3 - 9x^2 + 30x + 5, where x is the output in hundreds of units. What is the minimum value of the marginal cost?",
+  "options": [
+    {
+      "key": 1,
+      "text": "3"
+    },
+    {
+      "key": 2,
+      "text": "0"
+    },
+    {
+      "key": 3,
+      "text": "6"
+    },
+    {
+      "key": 4,
+      "text": "30"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "MC = dC/dx = 3x^2 - 18x + 30. Minimise MC: d(MC)/dx = 6x - 18 = 0 gives x = 3. d^2(MC)/dx^2 = 6 > 0 confirms minimum. MC(3) = 3*9 - 18*3 + 30 = 27 - 54 + 30 = 3."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reporting the value of d(MC)/dx at the critical point instead of MC: d(MC)/dx = 6x-18, which equals 0 at x=3. Student states minimum MC = 0 (the value of the derivative, not MC itself)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Correctly finding x=3 as the critical point but evaluating MC at x=2 (off by one): MC(2) = 3*4-18*2+30 = 12-36+30 = 6."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Evaluating MC at x=0 (the initial output) instead of at the minimising output: MC(0) = 3*0 - 18*0 + 30 = 30. This confuses 'minimum' with the value when production has not yet begun."
+    }
+  ],
+  "explanation": "Step 1: Differentiate C(x) to get MC = 3x^2 - 18x + 30. Step 2: To minimise MC, differentiate again: d(MC)/dx = 6x - 18. Set to zero: x = 3. Step 3: Second derivative of MC = 6 > 0, so x=3 gives a minimum. Step 4: MC(3) = 3(9) - 18(3) + 30 = 27 - 54 + 30 = 3.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Minimising marginal cost requires a second round of differentiation: differentiate C to get MC, then differentiate MC to find where MC is stationary.",
+    "approach": "Two-level optimisation: (1) differentiate C(x) to get MC, (2) differentiate MC to get d(MC)/dx, (3) set d(MC)/dx = 0 and solve for x, (4) verify d^2(MC)/dx^2 > 0 for a minimum, (5) substitute x back into MC (not into d(MC)/dx). The subtle trap is reporting the zero value of d(MC)/dx instead of MC itself.",
+    "lesson": "After finding the critical point x=3 where d(MC)/dx=0, always substitute x=3 back into MC (the original first derivative of C), not into d(MC)/dx, which is zero by construction.",
+    "timing": "110-130 seconds. Two differentiation steps plus one substitution. The trap option 2 (zero) is tempting because students report what they set equal to zero."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

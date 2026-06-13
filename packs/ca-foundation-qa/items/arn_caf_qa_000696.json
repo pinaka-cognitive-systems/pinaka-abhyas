@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000696",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000696.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.sampling"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "A firm has 4 departments: A (120 employees), B (80 employees), C (60 employees), and D (40 employees). A proportionate stratified sample of 60 employees is to be drawn from the entire firm. Additionally, it is required that at least 4 employees selected from Department C must be 'long-serving' (more than 5 years tenure). Department C has 20 long-serving employees out of its 60. Which statement about proportionate allocation is CORRECT?",
+  "options": [
+    {
+      "key": 1,
+      "text": "12 are selected from C, and the minimum of 4 long-serving is automatically guaranteed"
+    },
+    {
+      "key": 2,
+      "text": "12 are selected from C, but the minimum of 4 long-serving is NOT automatically guaranteed by proportionate allocation"
+    },
+    {
+      "key": 3,
+      "text": "9 are selected from C, and the minimum of 4 long-serving is automatically guaranteed"
+    },
+    {
+      "key": 4,
+      "text": "9 are selected from C, but the minimum of 4 long-serving is NOT automatically guaranteed"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "n_C = 12 is correct, but claiming it automatically guarantees 4 long-serving employees conflates expected value with certainty. The actual number of long-serving employees in the C-sample is random (hypergeometrically distributed) and can fall below 4."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "N = 120+80+60+40 = 300. n_C = (60/300) x 60 = 12. Expected long-serving in the C-sample = (20/60) x 12 = 4, which meets the minimum in expectation only. Random sampling may yield fewer than 4; a guaranteed minimum requires a further stratification within C on tenure."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "9 from C is an arithmetic error: using the wrong total N = 400 (phantom count) instead of the correct N = 300 gives (60/400) x 60 = 9. With the correct N = 300, n_C = 12."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "n_C = 9 is an arithmetic error (correct N = 300 gives n_C = 12, not 9). The conclusion about non-guarantee is correct but is attached to the wrong sample-size calculation."
+    }
+  ],
+  "explanation": "Step 1: N = 120 + 80 + 60 + 40 = 300. Step 2: Proportionate allocation for C: n_C = (60/300) x 60 = 12. Step 3: Expected long-serving in the C-sample = (20/60) x 12 = 4, which just meets the requirement in expectation. Step 4: But 'expected equals 4' is not 'guaranteed to be at least 4'. The actual count follows a hypergeometric distribution and can be 0, 1, 2, or 3 with positive probability. A guaranteed minimum requires treating long-serving and non-long-serving within C as two separate sub-strata.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The hidden relationship: when expected value exactly equals the required minimum, the requirement is NOT guaranteed - random variation means it will sometimes fall short. Only a nested stratification removes this risk.",
+    "approach": "Identify the model: two-level proportionate stratified allocation. Step 1 - sum N: 120+80+60+40 = 300. Step 2 - formula n_i = (N_i/N) x n: n_C = (60/300) x 60 = 12. Step 3 - check sub-requirement in expectation: (20/60) x 12 = 4. Step 4 - conceptual decision: meeting target in expectation is not meeting it with certainty; conclude sub-requirement is NOT automatically satisfied.",
+    "lesson": "Proportionate allocation secures population proportions in expectation; only a second layer of within-stratum stratification (disproportionate allocation) can guarantee specific sub-group counts.",
+    "timing": "90 seconds. Trap 1: adding N incorrectly (300 not 400) eliminates options 3 and 4 quickly. Trap 2: seeing expected long-serving = 4 and concluding 'guaranteed' is the vault-level distinction that separates option 1 from option 2."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

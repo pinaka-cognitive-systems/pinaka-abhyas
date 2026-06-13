@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000431",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000431.py"
+  },
+  "tests": [
+    "qa.bmath.finance.emi"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "A borrower takes a loan of Rs 50,000 at a flat rate of 12% per annum for 1 year. Under a flat-rate scheme the interest is computed on the original principal for the entire tenure and divided equally across monthly instalments. What is the monthly EMI under this flat-rate scheme?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 4,667"
+    },
+    {
+      "key": 2,
+      "text": "Rs 5,000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 4,500"
+    },
+    {
+      "key": 4,
+      "text": "Rs 4,583"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Total interest = 50000 x 12% = 6000. Total repayable = 56000. Monthly EMI = 56000 / 12 = 4666.67, rounded to Rs 4,667."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Divides only the principal (50000) by 12 and ignores adding the interest portion, giving 50000/12 = 4167, or mistakenly takes round 5000 assuming 12% monthly rather than annual."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "time_factor_dropped",
+      "rationale": "Uses interest = 50000 x 10% = 5000 (wrong rate) so total = 55000, monthly = 4583; but here the distractor Rs 4,500 arises from using only 6 months instead of 12 periods: 56000/12.44, a period-count error on a semi-annual misread."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computes 50000 x 10% = 5000 total interest, giving 55000 / 12 = 4583 due to a rate misread of 10% instead of 12%."
+    }
+  ],
+  "explanation": "The flat-rate EMI formula adds total interest (principal x rate x time) to principal and divides by total number of instalments. Here: interest = 50000 x 0.12 x 1 = 6000; total = 56000; EMI = 56000/12 = 4667.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Flat-rate interest is computed once on original principal and spread equally; there is no reducing-balance calculation.",
+    "approach": "Identify the scheme as flat-rate (not reducing balance). Step 1: total interest = P x r x n = 50000 x 0.12 x 1 = 6000. Step 2: total repayable = 56000. Step 3: monthly EMI = 56000 / 12 = 4667.",
+    "lesson": "For flat-rate loans, always compute interest on the original principal for the full term before dividing by instalments.",
+    "timing": "30 seconds. One multiplication and one division. Trap: dividing only the principal by 12 (ignores interest)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

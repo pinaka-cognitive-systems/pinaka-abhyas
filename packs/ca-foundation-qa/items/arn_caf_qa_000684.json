@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000684",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000684.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.graphical"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 130,
+  "stem": "A grouped frequency distribution with unequal class widths has the following data.\n\nClass: 0-10, Frequency: 12\nClass: 10-20, Frequency: 18\nClass: 20-40, Frequency: 30\nClass: 40-50, Frequency: 16\nClass: 50-80, Frequency: 24\n\nIn a correctly drawn histogram (where bar height represents frequency density), which class has the tallest bar?",
+  "options": [
+    {
+      "key": 1,
+      "text": "10-20"
+    },
+    {
+      "key": 2,
+      "text": "20-40"
+    },
+    {
+      "key": 3,
+      "text": "50-80"
+    },
+    {
+      "key": 4,
+      "text": "0-10"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Frequency densities: 0-10: 12/10=1.2, 10-20: 18/10=1.8, 20-40: 30/20=1.5, 40-50: 16/10=1.6, 50-80: 24/30=0.8. Maximum density is 1.8 for class 10-20."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Choosing the class with the highest raw frequency (30 in 20-40) instead of highest frequency density. For unequal widths, raw frequency does not determine bar height."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Selecting class 50-80 because it has a relatively large frequency (24) without noting its wide class width (30) reduces its density to only 0.8."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Selecting class 0-10 because it is first or without computing densities; its density is 1.2, lower than 10-20's density of 1.8."
+    }
+  ],
+  "explanation": "For unequal class widths, histogram bar height = frequency density = frequency / class width. Compute for each class: 0-10: 12/10=1.2, 10-20: 18/10=1.8, 20-40: 30/20=1.5, 40-50: 16/10=1.6, 50-80: 24/30=0.8. The maximum density is 1.8 for class 10-20, so class 10-20 has the tallest bar.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Tallest bar = highest frequency density = 10-20 (density 1.8), not 20-40 which merely has the highest raw frequency.",
+    "approach": "Identify the model: histogram with unequal class widths requires frequency density. Recipe: (1) compute frequency density = frequency / class width for every class; (2) rank the densities; (3) identify the maximum. Densities: 0-10: 12/10=1.2; 10-20: 18/10=1.8; 20-40: 30/20=1.5; 40-50: 16/10=1.6; 50-80: 24/30=0.8. Maximum = 1.8 at class 10-20. The hidden trap: class 20-40 has the largest raw frequency (30) but its density (1.5) is second, not first.",
+    "lesson": "When class widths are unequal, histogram bar height is frequency density (f/h), not raw frequency. A wide class with high frequency can have a low bar; check every class.",
+    "timing": "60-90 seconds. Compute all five densities: write each as fraction then compare. The critical insight is that the wide class 20-40 (width 20) and very wide class 50-80 (width 30) dilute their frequencies. Trap: most students pick 20-40 (highest raw frequency = 30) without dividing by class width."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

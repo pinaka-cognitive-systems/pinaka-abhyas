@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000709",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000709.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.median"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "The marks scored by 7 students in a test are: 15, 22, 8, 31, 18, 27, 11. What is the median mark?",
+  "options": [
+    {
+      "key": 1,
+      "text": "18"
+    },
+    {
+      "key": 2,
+      "text": "22"
+    },
+    {
+      "key": 3,
+      "text": "19"
+    },
+    {
+      "key": 4,
+      "text": "15"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Sorting the 7 values gives 8, 11, 15, 18, 22, 27, 31. The middle (4th) value is 18."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "22 is the value at position 5 in the sorted list; picking it confuses the median position with one position further right."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "19 is the arithmetic mean (132/7 = 18.86 rounded to 19), so the student used the average instead of locating the sorted middle."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "15 is the 3rd value in the sorted list; a slip in computing the middle position as 3 instead of 4 (i.e., applying (7-1)/2 = 3 rather than (7+1)/2 = 4) gives this."
+    }
+  ],
+  "explanation": "Sort the 7 observations in ascending order: 8, 11, 15, 18, 22, 27, 31. For n = 7 (odd), the median is the ((7+1)/2) = 4th value, which is 18.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "For an odd number of observations the median is the exact middle value of the sorted list.",
+    "approach": "Identify the model: raw unsorted data, odd n. Sort the data, locate position (n+1)/2 = 4, read off the value directly.",
+    "lesson": "Always sort first; median is a position, not a formula applied to the original order.",
+    "timing": "45 s. Sort mentally in two passes. The trap is reading off the wrong position or computing the mean instead."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000389",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000389.py"
+  },
+  "tests": [
+    "qa.bmath.finance.annuity"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A business wants to accumulate a sinking fund of Rs 46,410 by making equal annual deposits at the end of each year for 4 years. The deposits earn 10% per annum compounded annually. What annual deposit is required?  [Given: (1.1)^4 = 1.4641]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 11,602.50"
+    },
+    {
+      "key": 2,
+      "text": "Rs 10,000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 9,090.91"
+    },
+    {
+      "key": 4,
+      "text": "Rs 7,602"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Dividing the target Rs 46,410 by 4 (the number of periods) without accounting for compounding gives Rs 11,602.50, a simple division with no discounting."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "FV annuity factor = [(1.1)^4 - 1]/0.1 = (1.4641 - 1)/0.1 = 0.4641/0.1 = 4.641. Annual deposit A = 46410 / 4.641 = Rs 10,000."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Dividing by the annuity-due factor [4.641 x 1.1 = 5.1051] instead of the ordinary annuity factor gives Rs 46,410 / 5.1051 = Rs 9,090.91; this applies end-of-year formula logic to a beginning-of-year formula."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Using n = 5 instead of n = 4: FV factor = [(1.1)^5-1]/0.1 = (1.6105-1)/0.1 = 6.105; A = 46410/6.105 = Rs 7,602, an off-by-one period error."
+    }
+  ],
+  "explanation": "Rearrange the FV annuity formula: A = FV / [(1+i)^n - 1] x i. With FV = 46,410, i = 0.10, n = 4 and (1.1)^4 = 1.4641: factor = (1.4641 - 1)/0.10 = 4.641. A = 46,410 / 4.641 = Rs 10,000.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Divide the required FV by the FV annuity factor to find the equal periodic deposit - it is the FV formula solved in reverse.",
+    "approach": "Formula: A = FV x i / [(1+i)^n - 1]. Map givens: FV = Rs 46,410, i = 0.10, n = 4. Compute factor: (1.4641-1)/0.10 = 4.641. A = 46,410/4.641 = Rs 10,000.",
+    "lesson": "Whenever a target future amount is given and the payment is unknown, invert the FV annuity formula: A = FV x i / [(1+i)^n - 1].",
+    "timing": "75 seconds. Compute the factor, then divide. Trap: option 1 = simple division; option 4 uses wrong n."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

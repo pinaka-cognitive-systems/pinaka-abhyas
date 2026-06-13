@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000423",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000423.py"
+  },
+  "tests": [
+    "qa.bmath.finance.nominal_real_return"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A fixed deposit earns 8.5% nominal return. Inflation rises from 3% to 5.5% between two periods. By approximately how much does the real return change (to the nearest 0.01%), comparing the two periods using the Fisher equation?",
+  "options": [
+    {
+      "key": 1,
+      "text": "decreases by 2.37%"
+    },
+    {
+      "key": 2,
+      "text": "decreases by 2.50%"
+    },
+    {
+      "key": 3,
+      "text": "decreases by 5.5%"
+    },
+    {
+      "key": 4,
+      "text": "increases by 2.5%"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computed the Fisher division but introduced a slip in the subtraction step, arriving at 2.37% instead of the correct 2.50%."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Period 1: r_real1 = 1.085/1.03 - 1 = 5.340%. Period 2: r_real2 = 1.085/1.055 - 1 = 2.844%. Change = 2.844% - 5.340% = -2.496%, which rounds to a decrease of 2.50%."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reported the new inflation rate 5.5% as the magnitude of change in real return, solving for inflation rather than the change in real return."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Computed the magnitude 2.5% correctly but stated it as an increase rather than a decrease, misreading which direction a rise in inflation pushes the real return."
+    }
+  ],
+  "explanation": "Using Fisher for each period: r_real1 = 1.085/1.03 - 1 = 5.340%; r_real2 = 1.085/1.055 - 1 = 2.844%. The real return falls by 5.340% - 2.844% = 2.496%, approximately 2.50%.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Higher inflation compresses the Fisher denominator, reducing real return by slightly less than the simple inflation difference.",
+    "approach": "Formula: r_real = (1 + r_nom)/(1 + r_inf) - 1, applied twice. Period 1: 1.085/1.03 - 1 = 5.340%; Period 2: 1.085/1.055 - 1 = 2.844%. Change = 2.844 - 5.340 = -2.496% approx -2.50%.",
+    "lesson": "Compare real returns by computing each independently via Fisher; the change is not exactly equal to the inflation difference.",
+    "timing": "75 seconds. Two Fisher divisions then a subtraction. Eliminate option 4 (sign wrong) and option 3 (wrong quantity) before computing."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

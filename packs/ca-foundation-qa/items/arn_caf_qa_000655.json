@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000655",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000655.py"
+  },
+  "tests": [
+    "qa.lr.blood_relations"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "Kavya says, 'Asha is the wife of my brother Ravi. Ravi's father Mohan is my father. Ravi and I have no other siblings.' How is Kavya related to Asha?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Sister-in-law"
+    },
+    {
+      "key": 2,
+      "text": "Sister"
+    },
+    {
+      "key": 3,
+      "text": "Daughter-in-law"
+    },
+    {
+      "key": 4,
+      "text": "Cousin"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Asha is the wife of Kavya's brother Ravi. The wife of one's sibling is one's sister-in-law. So Kavya is Asha's sister-in-law (from Asha's perspective, Kavya is the sister of her husband Ravi)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "kinship_direction_inverted",
+      "rationale": "Sister would mean Asha and Kavya share parents. Asha married into the family; she is not a blood sister of Kavya."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Daughter-in-law is the wife of one's son. Kavya is Ravi's sister, not Ravi's mother, so Asha cannot be Kavya's daughter-in-law."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Cousin requires the parents to be siblings of each other. Asha is Ravi's wife, not a blood relative, so there is no cousin relationship between Kavya and Asha."
+    }
+  ],
+  "explanation": "Kavya and Ravi are siblings (same father Mohan, no other siblings). Asha is Ravi's wife. The wife of Kavya's brother is Kavya's sister-in-law.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Wife of a sibling = sister-in-law; the direction from Kavya to Asha is straightforward once the sibling link is established.",
+    "approach": "Apply clues most-certain-first: Ravi is Kavya's brother (same father, no other siblings confirmed). Asha is Ravi's wife => Asha is Kavya's sister-in-law (Kavya is Asha's sister-in-law from Asha's viewpoint too).",
+    "lesson": "The wife of your brother is your sister-in-law; your relation to her mirrors her relation to you.",
+    "timing": "About 45 seconds. This is straightforward once the sibling link is noted. The trap is option 2 (sister), treating a married-in member as a blood sibling."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

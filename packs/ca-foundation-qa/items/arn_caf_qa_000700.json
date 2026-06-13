@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000700",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000700.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mean"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The ages (in years) of employees in a department are grouped as follows.\n\nAge group: 20-30, 30-40, 40-50, 50-60\nFrequency:   8,    14,    12,     6\n\nUsing the assumed mean method with assumed mean A = 40, what is the arithmetic mean age?",
+  "options": [
+    {
+      "key": 1,
+      "text": "37.5 years"
+    },
+    {
+      "key": 2,
+      "text": "38.0 years"
+    },
+    {
+      "key": 3,
+      "text": "38.5 years"
+    },
+    {
+      "key": 4,
+      "text": "39.0 years"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Using class boundaries (20, 30, 40, 50) as midpoints instead of (25, 35, 45, 55) and applying assumed mean method with those boundaries shifts the result to approximately 37.5."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computing sum(f*d) as -80 instead of the correct -40 (a doubling slip) and dividing by 40 gives -2, so mean = 40 - 2 = 38."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Summing f*d products as -120 - 70 + 60 + 90 but making an arithmetic slip to get -60 instead of -40, then mean = 40 + (-60/40) = 40 - 1.5 = 38.5."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "Midpoints: 25, 35, 45, 55. d = midpoint - 40: -15, -5, 5, 15. f*d: -120, -70, 60, 90. Sum(f*d) = -40. N = 40. Mean = 40 + (-40)/40 = 39."
+    }
+  ],
+  "explanation": "Assumed mean A = 40. Class midpoints: 25, 35, 45, 55. Deviations d = midpoint - 40: -15, -5, 5, 15. Products f*d: 8(-15) = -120, 14(-5) = -70, 12(5) = 60, 6(15) = 90. Sum(f*d) = -120 - 70 + 60 + 90 = -40. N = 8 + 14 + 12 + 6 = 40. Mean = 40 + (-40/40) = 40 - 1 = 39.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The deviation correction term sum(f*d)/N shifts the assumed mean to the true mean - here the negative sum pulls it down by exactly 1 year.",
+    "approach": "Formula: x-bar = A + sum(f*d)/N. Step 1: find class midpoints (25, 35, 45, 55). Step 2: compute d_i = m_i - A for A = 40 giving (-15, -5, 5, 15). Step 3: compute f_i * d_i = (-120, -70, 60, 90). Step 4: sum(f*d) = -40, N = 40. Step 5: x-bar = 40 + (-40/40) = 39.",
+    "lesson": "Always use class midpoints, not class boundaries or lower limits, when computing the mean of grouped data.",
+    "timing": "60-75 seconds. Compute the four fd products in pairs: (-120 + 90) + (-70 + 60) = -30 + (-10) = -40. Then divide and adjust."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

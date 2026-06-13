@@ -19,6 +19,7 @@
     "qa.stats.distributions.normal"
   ],
   "difficulty_label": "L2",
+  "explanation_kind": "model_compute",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 90,
@@ -71,10 +72,10 @@
   ],
   "explanation": "1. Standardise: z = (65 - 50) / 10 = 1.5.\n2. The stem gives P(Z < 1.5) = 0.9332.\n3. KEY STEP: P(X > 65) = P(Z > 1.5) = 1 - 0.9332 = 0.0668.\n4. Reading the CDF value directly gives the lower tail, not the upper tail.",
   "explanation_sections": {
-    "punchline": "The table gives the lower-tail area 0.9332. The question asks for the upper tail, so the answer is 1 minus 0.9332 = 0.0668.",
-    "approach": "Step one: standardise the value to get z = (x minus mean) divided by standard deviation. Step two: identify whether the question asks for the area below or above z. Step three: if above, subtract the given CDF value from 1. The stem always provides the lower-tail value, so any \"more than\" question needs the complement.",
-    "lesson": "A normal table gives P(Z < z). For P(X > x), always apply 1 minus that value. Confusing lower and upper tail is the single most common normal distribution error.",
-    "timing": "About 90 seconds. Compute z = 1.5 in 10 seconds. Reject option (4) immediately: the table value 0.9332 is the lower tail, not the answer. Reject option (2): 0.5 applies only when x equals the mean."
+    "punchline": "The table always gives a lower-tail area. The question asks for the upper tail. Standardise to z = 1.5, then apply 1 - 0.9332 = 0.0668.",
+    "approach": "Model: Normal(mean=50, sd=10). Step 1 - standardise: z = (65 - 50) / 10 = 1.5. Step 2 - identify tail direction: 'more than 65' means the right tail. Step 3 - convert: P(X > 65) = P(Z > 1.5) = 1 - P(Z < 1.5) = 1 - 0.9332 = 0.0668. The stem supplies the lower-tail probability; any 'greater than' question requires the complement step.",
+    "lesson": "A standard normal table gives P(Z < z), the lower tail. For 'greater than', always subtract from 1. Skipping the complement step produces the lower-tail distractor 0.9332 directly.",
+    "timing": "60-90 seconds. Compute z = 1.5 in 10 seconds. Eliminate option (4) = 0.9332 immediately: that is the table value itself, the lower tail, not the answer. Eliminate option (2) = 0.5: 0.5 is P(X > mean), not P(X > 65)."
   },
   "empirical": {
     "calibration_status": "none",

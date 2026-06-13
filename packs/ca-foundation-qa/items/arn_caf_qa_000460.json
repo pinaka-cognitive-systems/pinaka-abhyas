@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000460",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000460.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.circular_permutations"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "Five friends - Priya, Qasim, Rita, Suresh, and Tara - are to be seated around a circular table. Priya and Qasim refuse to sit adjacent to each other. In how many ways can the group be seated?",
+  "options": [
+    {
+      "key": 1,
+      "text": "12"
+    },
+    {
+      "key": 2,
+      "text": "24"
+    },
+    {
+      "key": 3,
+      "text": "36"
+    },
+    {
+      "key": 4,
+      "text": "6"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Total circular arrangements = (5-1)! = 24. Arrangements where Priya and Qasim ARE adjacent = (4-1)! x 2 = 6 x 2 = 12. Valid arrangements = 24 - 12 = 12."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Computes the total unrestricted circular arrangements (5-1)! = 24 but omits the subtraction of forbidden cases, treating the unconstrained total as the answer."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Computed (5-1)! + (4-1)! = 24 + 12 = 36 rather than subtracting the forbidden cases."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "permutation_combination_confusion",
+      "rationale": "Computed (4-1)! = 6, treating the problem as fixing one person without accounting for internal swaps in the pair."
+    }
+  ],
+  "explanation": "Use complementary counting. Total unrestricted circular arrangements of 5 people = (5-1)! = 24. Count the bad cases where Priya and Qasim ARE adjacent: merge them into 1 block, giving 4 units in a circle = (4-1)! = 6, with 2! = 2 internal swaps, so 6 x 2 = 12 bad arrangements. Subtract: 24 - 12 = 12.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "Complement approach: subtract the forbidden adjacent arrangements from the total.",
+    "approach": "Classify: circular arrangement, never-adjacent restriction. Step 1 - total: (5-1)! = 24. Step 2 - forbidden (P and Q adjacent): treat as 1 block => (4-1)! x 2! = 6 x 2 = 12. Step 3 - valid = 24 - 12 = 12.",
+    "lesson": "Never-adjacent circular problems: total minus (merge-block count x internal factorial).",
+    "timing": "35 seconds: (5-1)! - (4-1)! x 2 = 24 - 12 = 12. Trap: forgetting the internal swap in the forbidden count."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

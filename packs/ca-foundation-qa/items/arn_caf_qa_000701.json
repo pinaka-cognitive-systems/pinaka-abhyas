@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000701",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000701.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mean"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "Group A of 30 students has a mean score of 72 marks. Group B of 20 students has a mean score of 83 marks. What is the combined arithmetic mean score of all 50 students?",
+  "options": [
+    {
+      "key": 1,
+      "text": "76.4 marks"
+    },
+    {
+      "key": 2,
+      "text": "77.0 marks"
+    },
+    {
+      "key": 3,
+      "text": "77.5 marks"
+    },
+    {
+      "key": 4,
+      "text": "78.0 marks"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Combined mean = (n1*x1_bar + n2*x2_bar) / (n1+n2) = (30*72 + 20*83)/50 = (2160 + 1660)/50 = 3820/50 = 76.4."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computing 20 x 83 as 1700 instead of 1660 gives total = 3860, divided by 50 = 77.2, then rounded to 77.0."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "Taking the simple unweighted average of the two group means: (72 + 83)/2 = 77.5, ignoring that Group A is larger than Group B."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Dividing by the number of groups (2) rather than total students: (30*72 + 20*83)/2 = 3820/2 = 1910, clearly wrong, or using only one group weight: (30*72 + 20*83)/30 = 127.3 - another approach gives 78 by using equal weights on the wrong denominator."
+    }
+  ],
+  "explanation": "Combined mean = (n1 * x1_bar + n2 * x2_bar) / (n1 + n2). Group A contributes 30 * 72 = 2160 total marks; Group B contributes 20 * 83 = 1660 total marks. Grand total = 3820 marks across 50 students. Combined mean = 3820 / 50 = 76.4 marks.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The combined mean is pulled toward Group A's mean because Group A is larger - the result 76.4 is closer to 72 than to 83.",
+    "approach": "Formula: x-bar_combined = (n1 * x1_bar + n2 * x2_bar) / (n1 + n2). Identify: n1 = 30, x1_bar = 72, n2 = 20, x2_bar = 83. Recover total marks per group: 30 x 72 = 2160 and 20 x 83 = 1660. Grand sum = 3820. Divide by total n = 50. Answer = 76.4.",
+    "lesson": "Never average group means directly when group sizes differ; recover total sum (n * mean) for each group first, then divide by grand total n.",
+    "timing": "40-50 seconds. Compute 30 x 72 and 20 x 83 separately, then add and divide by 50."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

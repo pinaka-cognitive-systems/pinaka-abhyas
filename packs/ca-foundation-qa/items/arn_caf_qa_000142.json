@@ -18,7 +18,7 @@
   "tests": [
     "qa.bmath.finance.present_value"
   ],
-  "difficulty_label": "L2",
+  "difficulty_label": "L1",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 90,
@@ -69,12 +69,13 @@
       "misconception": "formula_misapplied"
     }
   ],
-  "explanation": "Present value = Future value / (1 + r)^n. With FV = 1,21,000, r = 0.10, n = 2: PV = 1,21,000 / 1.21 = 1,00,000. Discounting only one year gives 1,10,000, a common error when n is misread.",
+  "explanation": "Present value = FV / (1 + r)^n. With FV = 1,21,000, r = 0.10, n = 2: PV = 1,21,000 / 1.21 = 1,00,000. Discounting only one year gives 1,10,000, the off-by-one trap.",
+  "explanation_kind": "formula_selection",
   "explanation_sections": {
-    "punchline": "Dividing Rs 1,21,000 by (1.1)^2 = 1.21 gives exactly Rs 1,00,000, the present value two years back.",
-    "approach": "Read the number of years carefully from the stem before touching numbers. Write PV = FV divided by (1 + r)^n. The stem provides (1.1)^2 = 1.21, so the division is straightforward. Confirm the exponent matches the number of years stated, not one less.",
-    "lesson": "The exponent in the discounting formula equals the number of periods between now and the cash flow. Using n = 1 instead of n = 2 is an off-by-one error that produces a nearby distractor.",
-    "timing": "About 90 seconds. Reject option (4) in three seconds: the future amount is never the present value. Reject option (3) in five seconds: subtracting 10% twice as a flat deduction is not discounting."
+    "punchline": "Discounting moves money backward in time. PV = FV / (1 + r)^n = 1,21,000 / 1.21 = Rs 1,00,000. The stem supplies (1.1)^2 = 1.21 to make the division exact.",
+    "approach": "Name the formula: PV = FV divided by (1 + r)^n. Map the givens: FV = 1,21,000, r = 0.10, n = 2 (the question says end of 2 years). Use the supplied power value 1.21 directly. The only decision is confirming n = 2, not n = 1.",
+    "lesson": "The exponent equals the number of periods between today and the cash flow. Using n = 1 instead of n = 2 produces Rs 1,10,000, a closely spaced wrong option that traps students who count only one discount step.",
+    "timing": "About 60 seconds. Confirm n = 2, divide 1,21,000 by 1.21: the result is exactly Rs 1,00,000. Reject option (4) in two seconds: never return the future amount as the present value. Reject option (1) in two seconds: that requires only one year of discounting."
   },
   "empirical": {
     "calibration_status": "none",

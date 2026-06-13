@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000926",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000926.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.coefficient_of_variation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "A frequency distribution has class marks 15, 25, 35, 45, 55 with frequencies 8, 12, 15, 10, 5 respectively. Using an assumed mean of 15 and the deviations d = x - 15, a student finds Sigma f*d = 920 and Sigma f*d^2 = 24200 over N = 50. What is the coefficient of variation of the distribution (to two decimals)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "65.87%"
+    },
+    {
+      "key": 2,
+      "text": "36.11%"
+    },
+    {
+      "key": 3,
+      "text": "36.47%"
+    },
+    {
+      "key": 4,
+      "text": "12.06%"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Omits the correction term: takes variance = Sigma f*d^2 / N = 24200/50 = 484, so SD = 22 and CV = 22/33.4*100 = 65.87%. The deviations are measured from 15, not from the mean, so (Sigma f*d / N)^2 must be subtracted.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Mean = 15 + 920/50 = 33.4. Variance = 24200/50 - (920/50)^2 = 484 - 338.56 = 145.44, SD = 12.06, CV = 12.06/33.4*100 = 36.11%."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Divides the corrected sum of squares by N-1 = 49 instead of N = 50, using the sample formula on a full distribution: SD = sqrt((24200 - 920^2/50)/49) = 12.12, CV = 36.47%.",
+      "misconception": "population_sample_confusion"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Reports the SD value 12.06 as if it were a percentage and stops, never dividing by the mean to form the coefficient of variation.",
+      "misconception": "wrong_formula"
+    }
+  ],
+  "explanation": "With deviations taken from an assumed mean A = 15, the variance is Sigma f*d^2 / N minus the correction (Sigma f*d / N)^2. Mean = 15 + 920/50 = 33.4; variance = 484 - 338.56 = 145.44; SD = 12.06; CV = SD/mean*100 = 36.11%. Dropping the correction term inflates the SD to 22 and the CV to 65.87%, which is the central trap.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The deviations are measured from the assumed mean 15, not the true mean, so the variance carries a correction term: var = Sigma f*d^2 / N - (Sigma f*d / N)^2 = 484 - 338.56 = 145.44, never the bare 484.",
+    "approach": "Model: assumed-mean (shortcut) variance, then CV = SD/mean*100. Assumption: deviations d = x - A with A = 15, so A is offset from the mean and the offset must be removed. Recipe in five steps. (1) Mean = A + Sigma f*d / N = 15 + 920/50 = 33.4. (2) Raw second moment about A = Sigma f*d^2 / N = 24200/50 = 484. (3) Correction = (Sigma f*d / N)^2 = (18.4)^2 = 338.56. (4) Variance = 484 - 338.56 = 145.44, SD = 12.06. (5) CV = 12.06/33.4*100 = 36.11%.",
+    "lesson": "When deviations are taken from an assumed mean rather than the actual mean, always subtract (Sigma f*d / N)^2 from Sigma f*d^2 / N before taking the square root.",
+    "timing": "About 130 seconds: one mean, one second moment, one correction, one root, one ratio. Eliminate 65.87% immediately as the no-correction trap, and reject 12.06% on sight because it is the SD reported without dividing by the mean."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

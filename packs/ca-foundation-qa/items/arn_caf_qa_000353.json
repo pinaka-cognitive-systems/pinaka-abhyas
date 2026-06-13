@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000353",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000353.py"
+  },
+  "tests": [
+    "qa.bmath.equations.cubic"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "If x = 2 is a root of the equation x^3 - kx^2 + 5x - 2 = 0, what is the value of k?",
+  "options": [
+    {
+      "key": 1,
+      "text": "k = 2"
+    },
+    {
+      "key": 2,
+      "text": "k = 3"
+    },
+    {
+      "key": 3,
+      "text": "k = 4"
+    },
+    {
+      "key": 4,
+      "text": "k = 5"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Substituting x=2: 8-4k+10-2=0 gives 16-4k=0; an arithmetic slip when adding 8+10-2 as 16 but then writing 4k=12 gives k=3 or k=2 depending on the error."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computing 8-4k+10-2=0 but mistakenly summing 8+10 as 15 gives 15-4k-2=0 => 4k=13 => k approximately 3."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Substitute x=2: 2^3 - k*(2^2) + 5*(2) - 2 = 0 => 8 - 4k + 10 - 2 = 0 => 16 - 4k = 0 => k = 4."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "order_of_operations",
+      "rationale": "Grouping incorrectly as (8+10-2)-(4k)=0 but computing 8+10 then -4k-2 i.e. adding -2 to the k term: 18-4k-2=0? No, a classic BODMAS error: computing -k*(2^2) as -k*2*2 but evaluating left to right as (-k*2)*2=-2k*2 gives 8-2k+10-2=0 => 16-2k=0 => k=8, or another BODMAS mistake gives k=5."
+    }
+  ],
+  "explanation": "Substitute x=2 into x^3 - kx^2 + 5x - 2 = 0: (2)^3 - k*(2)^2 + 5*(2) - 2 = 0 => 8 - 4k + 10 - 2 = 0 => 16 - 4k = 0 => 4k = 16 => k = 4.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Plugging x=2 directly gives 16-4k=0, so k=4 in one step.",
+    "approach": "Factor-root substitution: since x=2 is a root, f(2)=0. Replace every x with 2, compute each term carefully (2^3=8, 2^2=4), collect constants: 8+10-2=16, so 16-4k=0 => k=4.",
+    "lesson": "When a root is given, always substitute directly into the equation and solve for the unknown parameter; this is faster than full factoring.",
+    "timing": "50 seconds. Straightforward substitution. Trap: evaluate 2^2=4 and 2^3=8 first before any algebra to avoid order-of-operations errors."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

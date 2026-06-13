@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000792",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000792.py"
+  },
+  "tests": [
+    "qa.stats.probability.conditional"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Two fair dice are thrown simultaneously. Given that the sum of the two numbers is at least 9, what is the probability that the sum is exactly 11?",
+  "options": [
+    {
+      "key": 1,
+      "text": "1/5"
+    },
+    {
+      "key": 2,
+      "text": "1/18"
+    },
+    {
+      "key": 3,
+      "text": "2/10"
+    },
+    {
+      "key": 4,
+      "text": "1/6"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "P(sum=11 | sum>=9) = n(sum=11 and sum>=9) / n(sum>=9) = 2/10 = 1/5. The 10 outcomes with sum>=9 are listed; exactly 2 give sum=11 ((5,6) and (6,5))."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "independence_assumed",
+      "rationale": "Computing P(sum=11) over the full 36 outcomes: 2/36 = 1/18, ignoring the conditioning on sum>=9 and using the unreduced sample space."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Correctly finding 2 favourable outcomes and 10 in the restricted space but leaving the answer as 2/10 instead of simplifying to 1/5."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Counting only 12 outcomes for sum>=9 instead of the correct 10, giving 2/12 = 1/6."
+    }
+  ],
+  "explanation": "The restricted sample space for sum>=9 has exactly 10 outcomes. Within that space, sum=11 corresponds to 2 outcomes: (5,6) and (6,5). P = 2/10 = 1/5.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Conditional probability reduces the sample space to only those outcomes satisfying the given condition.",
+    "approach": "Identify the model: conditional probability by restricted sample space. List sum>=9 outcomes: (3,6),(4,5),(4,6),(5,4),(5,5),(5,6),(6,3),(6,4),(6,5),(6,6) = 10 total. Of these, sum=11: (5,6),(6,5) = 2. P = 2/10 = 1/5.",
+    "lesson": "Always re-enumerate the restricted sample space rather than using the full 36 outcomes when a condition is given.",
+    "timing": "75 seconds. Systematically list sum>=9 outcomes row by row. The trap is forgetting the condition and dividing by 36 instead of 10."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

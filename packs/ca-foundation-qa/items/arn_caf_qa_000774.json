@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000774",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000774.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.coefficient_of_variation"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "The monthly output (in units) of 40 workers in a factory is distributed as follows. Class intervals: 10-20 (frequency 1), 20-30 (frequency 4), 30-40 (frequency 17), 40-50 (frequency 10), 50-60 (frequency 8). Using the assumed-mean method with assumed mean A = 35, compute the coefficient of variation of the output.",
+  "options": [
+    {
+      "key": 1,
+      "text": "25%"
+    },
+    {
+      "key": 2,
+      "text": "33.33%"
+    },
+    {
+      "key": 3,
+      "text": "27.95%"
+    },
+    {
+      "key": 4,
+      "text": "2.5%"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Midpoints: 15,25,35,45,55. h=10, d=(m-35)/10: -2,-1,0,1,2. fd: -2,-4,0,10,16; sum_fd=20. fd^2: 4,4,0,10,32; sum_fd2=50. Mean = 35+10*(20/40)=40. Variance = 10^2*(50/40-(20/40)^2)=100*(1.25-0.25)=100. SD=10. CV=(10/40)*100=25%."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "Student subtracts instead of adds the correction to the assumed mean: mean = 35 - 10*(20/40) = 35 - 5 = 30. With correct SD=10, CV = (10/30)*100 = 33.33%."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Student omits the correction term -(sum_fd/N)^2 in the variance formula: variance = 10^2*(50/40) = 125 instead of 100. SD = sqrt(125) ~ 11.18. CV = (11.18/40)*100 ~ 27.95%."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student recovers the coded variance term correctly (var_d = 1.0) but forgets to multiply by h^2=100 when computing actual SD: SD = sqrt(1.0) = 1 (not 10). CV = (1/40)*100 = 2.5%."
+    }
+  ],
+  "explanation": "Step 1: Midpoints m = 15,25,35,45,55. Step 2: Choose A=35, h=10. Coded deviations d = (m-35)/10 = -2,-1,0,1,2. Step 3: Compute fd (-2,-4,0,10,16) and fd^2 (4,4,0,10,32). Step 4: sum_fd = 20, sum_fd2 = 50. Step 5: Mean = A + h*(sum_fd/N) = 35 + 10*(20/40) = 35+5 = 40. Step 6: Variance = h^2*[sum_fd2/N - (sum_fd/N)^2] = 100*[50/40 - (0.5)^2] = 100*[1.25 - 0.25] = 100. SD = 10. Step 7: CV = (10/40)*100 = 25%.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The assumed-mean method compresses computation, but two traps lurk: the correction term -(sum_fd/N)^2 MUST be subtracted from sum_fd2/N, and SD = h*sqrt(var_d), not just sqrt(var_d).",
+    "approach": "Model: grouped data SD via assumed-mean step-deviation shortcut. (1) Compute midpoints and code: d=(m-A)/h. (2) Build fd and fd^2 columns, sum them. (3) Mean = A + h*(sum_fd/N) - ADDITION, not subtraction. (4) Variance = h^2*[sum_fd2/N - (sum_fd/N)^2] - the correction term is the square of the mean coded deviation. (5) CV = (SD/mean)*100. Each step must be executed; skipping the correction term inflates variance by 25%.",
+    "lesson": "Variance shortcut: sigma^2 = h^2*[sum(fd^2)/N - (sum(fd)/N)^2]. The term (sum_fd/N)^2 = (correction to mean_d)^2 must NOT be omitted, even when it looks small.",
+    "timing": "About 140 seconds. Build the 5-row table first (2 min), then apply formulas. Three traps in order of danger: (a) wrong sign in mean formula gives 33.33%; (b) dropping correction from variance gives 27.95%; (c) forgetting h^2 scaling gives 2.5%."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

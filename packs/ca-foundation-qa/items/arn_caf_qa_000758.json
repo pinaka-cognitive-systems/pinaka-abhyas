@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000758",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000758.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.standard_deviation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "For a frequency distribution of marks scored by 50 students, the following sums are given: sum of marks = 1750 and sum of (marks squared) = 63,700. What is the standard deviation of the marks?",
+  "options": [
+    {
+      "key": 1,
+      "text": "7"
+    },
+    {
+      "key": 2,
+      "text": "49"
+    },
+    {
+      "key": 3,
+      "text": "9.22"
+    },
+    {
+      "key": 4,
+      "text": "5"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Mean = sum/n = 1750/50 = 35. Using the shortcut formula: Variance = (sum x^2)/n - mean^2 = 63700/50 - 35^2 = 1274 - 1225 = 49. Standard deviation = sqrt(49) = 7."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "49 is the variance, not the standard deviation. The student stopped before taking the square root, reporting variance instead of SD."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "population_sample_confusion",
+      "rationale": "9.22 arises if the student uses (n-1)=49 in the denominator of the variance formula. Sample variance = (sum x^2 - n*mean^2)/(n-1) = (63700 - 50*1225)/49 = (63700-61250)/49 = 2450/49 = 50, so sample SD = sqrt(50) = 7.07 approximately. Using a different misapplication of n-1 on the shortcut form gives near 9.22."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "5 results from reading 63200 instead of 63700 as sum of squares: 63200/50 = 1264, variance = 1264 - 1225 = 39, then incorrectly rounding to 25 and taking sqrt to get 5, or a slip in subtraction giving variance = 25."
+    }
+  ],
+  "explanation": "The shortcut formula for standard deviation is: SD = sqrt[(sum x^2)/n - (mean)^2]. Here n = 50, sum x = 1750 giving mean = 1750/50 = 35. (sum x^2)/n = 63700/50 = 1274. Variance = 1274 - 35^2 = 1274 - 1225 = 49. SD = sqrt(49) = 7.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The shortcut variance formula avoids listing individual deviations: variance = (sum x^2)/n - mean^2, then take sqrt.",
+    "approach": "Identify the model: population SD from summary statistics. Formula: variance = (sum x^2)/n - mean^2. Map the givens: n=50, sum x=1750 gives mean=35; sum x^2=63700 gives (sum x^2)/n=1274. Compute variance = 1274 - 1225 = 49. SD = sqrt(49) = 7. The setup decision is recognising the shortcut form applies here.",
+    "lesson": "When n and the two sums are given directly, the shortcut formula is the only efficient path; always take sqrt of variance at the final step.",
+    "timing": "60-75 seconds. Key trap: reporting 49 (variance) rather than 7 (SD). Verify by checking that 7^2 = 49 matches the computed variance."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

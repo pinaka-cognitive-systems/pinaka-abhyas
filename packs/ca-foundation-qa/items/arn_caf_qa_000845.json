@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000845",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000845.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.correlation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "For n = 5 pairs of values, a researcher applies the change-of-origin transformation u = x - 5 and v = y - 3. Using the transformed data, the following sums are computed: sum(u) = 0, sum(v) = 0, sum(u^2) = 10, sum(v^2) = 40, sum(uv) = 12. What is the Karl Pearson coefficient of correlation r(x,y)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.60"
+    },
+    {
+      "key": 2,
+      "text": "0.50"
+    },
+    {
+      "key": 3,
+      "text": "0.72"
+    },
+    {
+      "key": 4,
+      "text": "0.24"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "r(x,y) = r(u,v) because a change of origin (shift) does not affect correlation. Compute r(u,v): numerator = 5*12 - 0*0 = 60. Bracket1 = 5*10 - 0 = 50. Bracket2 = 5*40 - 0 = 200. r = 60/sqrt(50*200) = 60/sqrt(10000) = 60/100 = 0.60."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "invariance_property_confused",
+      "rationale": "Believing that the shift constants (5 and 3) somehow affect r: incorrectly scaling r by the ratio 3/5 or 5/(5+3) gives values around 0.50."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "An arithmetic slip: computing bracket2 as 5*40 - 0 = 200 but then using only the numerator 60/sqrt(50*100) = 60/70.7 = 0.849, later misread as 0.72."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Using sum(uv) / (sum(u^2) * sum(v^2)) = 12/(10*40) = 12/400 = 0.03, or forgetting to multiply by n and computing 12/50 = 0.24."
+    }
+  ],
+  "explanation": "Correlation is invariant under change of origin (adding or subtracting constants). So r(x,y) = r(u,v) where u = x - 5, v = y - 3. With sum(u)=sum(v)=0, the formula simplifies: numerator = 5*12 = 60, Bracket1 = 5*10 = 50, Bracket2 = 5*40 = 200. r = 60/sqrt(50*200) = 60/100 = 0.60.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "A change of origin (shifting by constants) leaves the correlation coefficient unchanged; only a change of scale can alter |r|.",
+    "approach": "Name the formula: r is invariant under origin shifts. Confirm: u = x - constant, v = y - constant are pure shifts. Then compute r(u,v) using the direct-sum formula. With sum(u)=sum(v)=0, the terms sum(u)*sum(v) and (sum(u))^2 both vanish, simplifying the calculation.",
+    "lesson": "r is invariant under change of origin but changes sign if a scale factor is negative and remains unchanged in magnitude under any scale change.",
+    "timing": "About 60 seconds. With both sums equal to 0, the formula reduces to n*sum(uv) / sqrt(n*sum(u^2) * n*sum(v^2)), and the n^2 in numerator and denominator cancel."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

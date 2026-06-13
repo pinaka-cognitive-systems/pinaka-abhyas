@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000630",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000630.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 85,
+  "stem": "Six employees Arjun, Chitra, Dinesh, Ekta, Farha, and Bhanu sit in a row at positions 1 to 6. Arjun sits at position 1. Bhanu sits at position 6. Farha sits at position 4. Chitra sits immediately to the left of Dinesh. Ekta is not adjacent to Arjun. Who sits at position 5?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Arjun"
+    },
+    {
+      "key": 2,
+      "text": "Chitra"
+    },
+    {
+      "key": 3,
+      "text": "Dinesh"
+    },
+    {
+      "key": 4,
+      "text": "Ekta"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Arjun is fixed at position 1. Placing Arjun at position 5 ignores his explicit placement clue."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "Chitra is immediately left of Dinesh, meaning Chitra occupies the smaller-numbered seat of the CD pair. Placing Chitra at position 5 would mean Dinesh is at position 6, but Bhanu is at position 6. This reverses or ignores the anchored positions."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Dinesh at position 5 requires Chitra at position 4, but position 4 is Farha. Placing Dinesh at 5 omits the Farha-at-4 constraint."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "Fixed positions: Arjun=1, Farha=4, Bhanu=6. Remaining: Chitra, Dinesh, Ekta in {2,3,5}. Chitra immediately left of Dinesh: CD pairs from {2,3,5}: only (2,3) is adjacent. So C=2, D=3. Ekta=5. Check Ekta not adjacent to Arjun: |5-1|=4, not adjacent. Valid. Position 5 = Ekta."
+    }
+  ],
+  "explanation": "Three positions are fixed: Arjun(1), Farha(4), Bhanu(6). Chitra, Dinesh, and Ekta fill positions 2, 3, and 5. The Chitra-immediately-left-of-Dinesh constraint requires an adjacent CD pair. Among {2,3,5}, the only adjacent pair is (2,3). So Chitra=2 and Dinesh=3, leaving Ekta at position 5. Verifying: Ekta at 5 is not adjacent to Arjun at 1 (distance 4), satisfying the final constraint.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Among the three unassigned positions {2,3,5}, only positions 2 and 3 are adjacent, forcing the Chitra-Dinesh block there and Ekta to position 5.",
+    "approach": "Apply clues most-certain-first: fix three anchors (Arjun, Farha, Bhanu). Identify the non-consecutive gap in the remaining positions {2,3,5}. The adjacency requirement for the CD block uniquely picks positions 2 and 3. Verify Ekta's non-adjacency to Arjun as a final check.",
+    "lesson": "When remaining positions are non-consecutive, an adjacent-pair constraint automatically resolves to the only consecutive subset.",
+    "timing": "85 seconds. Fix three anchors, spot that {2,3,5} has one adjacent pair, assign CD block, confirm Ekta's constraint."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

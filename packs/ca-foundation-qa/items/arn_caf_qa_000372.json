@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000372",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000372.py"
+  },
+  "tests": [
+    "qa.bmath.finance.simple_interest"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "A sum of money doubles itself in 8 years under simple interest. In how many years will the same sum become five times itself at the same rate of interest?",
+  "options": [
+    {
+      "key": 1,
+      "text": "32 years"
+    },
+    {
+      "key": 2,
+      "text": "40 years"
+    },
+    {
+      "key": 3,
+      "text": "24 years"
+    },
+    {
+      "key": 4,
+      "text": "16 years"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Doubling means SI = P, so P*R*8/100 = P giving R = 12.5%. For 5x: SI = 4P, so P*12.5*T/100 = 4P giving T = 32 years."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Mistakenly scaling: 8 * 5 = 40, treating the multiplier as directly proportional to total amount (including principal) rather than to interest."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Thinking SI needed is 3P (triple the original) instead of 4P (four times), giving 8 * 3 = 24 years."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Doubling time is 8 years for SI = P; a slip treating 5x as needing SI = 2P gives T = 2 * 8 = 16 years."
+    }
+  ],
+  "explanation": "When a sum doubles under SI, the interest earned equals the principal. With T = 8: R = 100 / 8 = 12.5% p.a. For the sum to become 5 times, SI must equal 4 times the principal. Using SI = P*R*T/100: 4P = P * 12.5 * T / 100, so T = 400 / 12.5 = 32 years.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The decisive move is translating 'doubles' into SI = P and '5 times' into SI = 4P before applying the rate.",
+    "approach": "Formula: SI = P*R*T/100. Step 1 - extract rate: doubling means A = 2P, so SI = P; 8 = 100/R gives R = 12.5. Step 2 - apply rate to new target: 5x means A = 5P, so SI = 4P; T = 4*100/12.5 = 32.",
+    "lesson": "Under SI, multiply-by-n means SI = (n-1)*P, not n*P. The interest is always (multiple - 1) times the principal.",
+    "timing": "60 s. The trap in option 2 is multiplying the 8-year baseline by 5 - quickly eliminated once you note SI not total amount is proportional to time."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

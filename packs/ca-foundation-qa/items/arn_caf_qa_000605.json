@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000605",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000605.py"
+  },
+  "tests": [
+    "qa.lr.direction_tests"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "Suresh starts from point P. He walks 5 km North, then turns and walks 12 km East to reach point Q. What is the straight-line distance from P to Q?",
+  "options": [
+    {
+      "key": 1,
+      "text": "13 km"
+    },
+    {
+      "key": 2,
+      "text": "17 km"
+    },
+    {
+      "key": 3,
+      "text": "11 km"
+    },
+    {
+      "key": 4,
+      "text": "15 km"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "North and East are perpendicular; distance = sqrt(5^2 + 12^2) = sqrt(25+144) = sqrt(169) = 13 km."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "net_displacement_error",
+      "rationale": "17 = 5 + 12, the total path length; this adds legs instead of applying Pythagoras."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "net_displacement_error",
+      "rationale": "11 = 12 - 1 or comes from subtracting legs rather than using the Pythagorean formula."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "15 = sqrt(225) would require 9^2+12^2 or 9+12, a slip substituting 9 for 5 in the formula."
+    }
+  ],
+  "explanation": "North and East are perpendicular directions. The route forms a right triangle with legs 5 and 12. The straight-line distance PQ is the hypotenuse: sqrt(5^2+12^2) = sqrt(169) = 13 km. The 5-12-13 Pythagorean triple is worth memorising.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "A classic 5-12-13 right triangle: sqrt(25+144)=sqrt(169)=13 km.",
+    "approach": "Deductive trace: identify that North and East are perpendicular, forming a right triangle. Legs are 5 and 12. Hypotenuse = sqrt(5^2+12^2) = 13. The triple 5-12-13 can be verified: 25+144=169=13^2.",
+    "lesson": "Memorise common Pythagorean triples (3-4-5, 5-12-13, 8-15-17); in direction problems, whenever two legs are perpendicular, straight-line distance = hypotenuse.",
+    "timing": "30-40 seconds. The trap is adding 5+12=17 (option 2). Recognising the 5-12-13 triple eliminates all computation."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

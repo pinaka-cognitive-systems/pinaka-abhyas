@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000448",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000448.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.factorial"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 85,
+  "stem": "Four boys and three girls are to be seated in a row. In how many ways can they be seated so that all three girls sit together?",
+  "options": [
+    {
+      "key": 1,
+      "text": "720"
+    },
+    {
+      "key": 2,
+      "text": "5040"
+    },
+    {
+      "key": 3,
+      "text": "144"
+    },
+    {
+      "key": 4,
+      "text": "210"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Treat the 3 girls as one block: 4 boys + 1 block = 5 units. These 5 units can be arranged in 5! = 120 ways. The 3 girls within their block can be internally arranged in 3! = 6 ways. Total = 5! x 3! = 120 x 6 = 720."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Computed 7! = 5040, the total unrestricted arrangements without applying the girls-together constraint."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Computed 4! x 3! = 24 x 6 = 144, forming only 4 units instead of 5 (treated the block as replacing one boy rather than adding one extra unit to 4 boys)."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "permutation_combination_confusion",
+      "rationale": "Computed C(7,3) = 35 for choosing positions then multiplied by 6 = 210, confusing selection of positions with the block-arrangement method."
+    }
+  ],
+  "explanation": "Bundle the 3 girls into one block. Now 5 units (4 boys + 1 block) can be arranged in 5! = 120 ways. The girls rearrange internally in 3! = 6 ways. Product: 120 x 6 = 720.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "Gluing the girls into one block converts a 7-seat problem into a 5-unit problem, then multiply by internal arrangements: 5! x 3! = 720.",
+    "approach": "Classify as an arrangement with a group-together constraint. Step 1 - merge the constrained group into a single block, counting the block as one unit. Step 2 - count external arrangements of the resulting (n - group_size + 1) units: here 4 + 1 = 5 units -> 5!. Step 3 - count internal arrangements of the group: 3!. Step 4 - multiply: 5! x 3! = 120 x 6 = 720.",
+    "lesson": "When a subset must stay together, replace it with a single block. The new unit count is (total - group_size + 1), and you multiply by (group_size)! for internal arrangements.",
+    "timing": "70-80 s. Trap: computing 4! x 3! = 144 by treating the 4 boys as the only external units and forgetting the block itself is a 5th unit."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

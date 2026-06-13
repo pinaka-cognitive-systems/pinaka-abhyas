@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000364",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000364.py"
+  },
+  "tests": [
+    "qa.bmath.inequalities.solution_space"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Solve the compound inequality: -4 <= 2x - 6 <= 8. The solution set is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "1 <= x <= 7"
+    },
+    {
+      "key": 2,
+      "text": "-5 <= x <= 1"
+    },
+    {
+      "key": 3,
+      "text": "1 <= x <= 14"
+    },
+    {
+      "key": 4,
+      "text": "-1 <= x <= 7"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Add 6 throughout: -4+6 <= 2x <= 8+6 => 2 <= 2x <= 14. Divide by 2: 1 <= x <= 7."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "Added -6 instead of +6 to the constant side: -4-6=-10, giving -5 <= x <= 1. Wrong direction of the shift."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Added 6 correctly (2 <= 2x <= 14) but forgot to divide by 2, giving 2 <= x <= 14, mistakenly reported as 1<=x<=14."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Left bound error: -4+6=2 divided by 2 gives 1, not -1. A sign slip on the left constant."
+    }
+  ],
+  "explanation": "Add 6 to all three parts: 2 <= 2x <= 14. Divide by 2: 1 <= x <= 7. The key step is operating on all three parts of the compound inequality simultaneously.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Compound inequalities are solved by applying the same arithmetic operation to all three parts.",
+    "approach": "Isolate x in the middle: add 6 throughout (-4+6=2, 8+6=14), then divide by 2 (positive, no flip). Result: 1 <= x <= 7.",
+    "lesson": "Always operate on ALL three parts of a compound inequality. Forgetting the middle or changing only one side corrupts the solution.",
+    "timing": "60 s. Two arithmetic steps. Trap: sign error on the constant (option 2) or forgetting division (option 3)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

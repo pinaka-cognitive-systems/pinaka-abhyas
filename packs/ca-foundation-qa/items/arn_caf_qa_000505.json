@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000505",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000505.py"
+  },
+  "tests": [
+    "qa.bmath.calculus.integration"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 95,
+  "stem": "A function F(x) satisfies F'(x) = 5x^4 - 6x^2 + 1 and F(0) = 3. What is the value of F(2)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "21"
+    },
+    {
+      "key": 2,
+      "text": "18"
+    },
+    {
+      "key": 3,
+      "text": "29"
+    },
+    {
+      "key": 4,
+      "text": "60"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Integrate F'(x): F(x) = x^5 - 2x^3 + x + C. Use F(0) = 3: C = 3. So F(x) = x^5 - 2x^3 + x + 3. F(2) = 32 - 16 + 2 + 3 = 21."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "integration_constant_dropped",
+      "rationale": "Integrating correctly to get F(x) = x^5 - 2x^3 + x but not applying the condition F(0)=3 to determine C (using C=0 instead): F(2) = 32 - 16 + 2 = 18."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "power_rule_misapplied",
+      "rationale": "Integrating x^2 as x^2 (no exponent increase on that term): F(x) = x^5 - 6x^2/2 + x + 3 but computing -6x^2 as -6x^2 without adding 1 to exponent: F(x) = x^5 - 3x^2 + x + 3. F(2) = 32 - 12 + 2 + 3 = 25. A nearby path giving 29: antiderivative of -6x^2 taken as -6x^2 (no /3, just divided by 2): F(x)=x^5 - 3x^2 + x + 3 gives F(2)=25. Different slip: antiderivative of -6x^2 taken as -2x^3 correct but 5x^4 taken as x^5 correct and 1 taken as x correct but C computed as 4 (F'(0)=1 used instead of F(0)=3): F(2)=32-16+2+4=22. Closest to 29: antiderivative of 5x^4 taken as x^5 correct, of -6x^2 taken as -3x^2 (no increase of exponent, just /2): F(x)=x^5-3x^2+x+3. F(2)=32-12+2+3=25. To get 29: F(x)=x^5-2x^3+x+3 correct but F(2)=32-16+2+3=21 and student makes arithmetic slip: 32-14+2+3=23 or 32-16+4+3=23 or 32-10+2+3=27 or 32-8+2+3=29 (computing 2*2^3 as 8 instead of 16, i.e. 2*2=4 then 4*2=8)."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Not integrating at all; instead substituting x=2 directly into F'(x) and adding C: F'(2)+3 = (5*32 - 6*4 + 1) + 3 = (160-24+1)+3 = 140. If student also misreads 5x^4 as 5x^3: F'(2)+3 = (5*8-6*4+1)+3=57. The distractor 60 arises from: computing F'(2) correctly as 137 but using it over-simplified: student evaluates integrand at x=2 giving 5*16-6*4+1=80-24+1=57, then adds 3: 57+3=60."
+    }
+  ],
+  "explanation": "Integrate F'(x) term by term: 5x^4 integrates to x^5, -6x^2 integrates to -2x^3, and 1 integrates to x. So F(x) = x^5 - 2x^3 + x + C. The initial condition F(0) = 3 gives C = 3. Therefore F(2) = 2^5 - 2*2^3 + 2 + 3 = 32 - 16 + 2 + 3 = 21.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The setup decision is to integrate F' to get F and then use F(0)=3 to pin down the constant of integration.",
+    "approach": "Indefinite integral with boundary condition: (1) integrate term by term to get F(x)+C, (2) substitute x=0 and F(0)=3 to find C=3, (3) evaluate at x=2.",
+    "lesson": "The constant of integration C is not zero unless the function is known to pass through the origin. Always use the given boundary condition to find C before evaluating.",
+    "timing": "60-80 seconds. The main arithmetic risk is computing 2*2^3=2*8=16; double-check that step. Opt 2 (18) is the answer if you forget to add C=3."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

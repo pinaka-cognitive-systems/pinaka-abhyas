@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000934",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000934.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.frequency_distribution"
+  ],
+  "difficulty_label": "L1",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 175,
+  "stem": "A 'less than' cumulative frequency table reads: less than 10 -> 4, less than 20 -> 16, less than 30 -> 40, less than 40 -> 76, less than 50 -> 96, less than 60 -> 100. What is the arithmetic mean of the underlying distribution (to two decimals)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "41.39"
+    },
+    {
+      "key": 2,
+      "text": "31.80"
+    },
+    {
+      "key": 3,
+      "text": "36.80"
+    },
+    {
+      "key": 4,
+      "text": "28.20"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Treats the cumulative figures 4, 16, 40, 76, 96, 100 themselves as the class frequencies without differencing them: weighted mean = Sigma(cf*midpoint)/Sigma cf = 41.39. The cumulative table must first be converted to simple frequencies.",
+      "misconception": "concept_definition_confused"
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Differencing gives frequencies 4, 12, 24, 36, 20, 4 (N = 100). With midpoints 5, 15, 25, 35, 45, 55, Sigma f*x = 20+180+600+1260+900+220 = 3180, so mean = 3180/100 = 31.80."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Uses the upper class boundaries 10, 20, 30, 40, 50, 60 as the representative values instead of the midpoints 5, 15, ..., 55: Sigma f*upper/100 = 36.80. The class mark is the midpoint, not the upper limit.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Reads the 'less than' table as if it were 'more than', reversing the frequency-to-class assignment so the largest frequency lands on the lowest class: this gives mean = 28.20.",
+      "misconception": "concept_definition_confused"
+    }
+  ],
+  "explanation": "A 'less than' cumulative table must be differenced to recover class frequencies: 4, 16-4, 40-16, 76-40, 96-76, 100-96 = 4, 12, 24, 36, 20, 4 over classes 0-10 to 50-60 (N = 100). Using midpoints 5, 15, 25, 35, 45, 55, Sigma f*x = 3180, so mean = 31.80. Treating the cumulative figures as frequencies gives 41.39; using upper limits instead of midpoints gives 36.80.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Difference the cumulative column before averaging: frequencies are 4, 12, 24, 36, 20, 4 (not the cumulative 4, 16, 40, 76, ...), and then the midpoint-weighted mean is 3180/100 = 31.80.",
+    "approach": "Model: reconstruct simple frequencies from a 'less than' cumulative table, then compute the grouped mean. Assumption: each class frequency is the increment in the cumulative total, and the representative value is the class midpoint. Recipe in five steps. (1) Difference successive cumulatives: 4, 12, 24, 36, 20, 4. (2) Confirm N = 100 (matches the last cumulative). (3) Midpoints: 5, 15, 25, 35, 45, 55. (4) Sigma f*x = 20 + 180 + 600 + 1260 + 900 + 220 = 3180. (5) Mean = 3180/100 = 31.80.",
+    "lesson": "Always convert a cumulative ('less than' or 'more than') table to simple class frequencies by differencing before computing any average, and weight by midpoints, not class limits.",
+    "timing": "About 155 seconds: difference six entries, build the f*x column, divide. Reject 41.39 as the use-cumulatives-as-frequencies trap and 36.80 as the upper-limit-instead-of-midpoint trap."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

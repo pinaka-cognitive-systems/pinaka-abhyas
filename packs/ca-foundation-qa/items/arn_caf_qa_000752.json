@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000752",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000752.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.standard_deviation"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "For a set of 10 observations, the sum of all values is 100 and the sum of their squares is 1090. What is the standard deviation?",
+  "options": [
+    {
+      "key": 1,
+      "text": "3"
+    },
+    {
+      "key": 2,
+      "text": "3.16"
+    },
+    {
+      "key": 3,
+      "text": "10.44"
+    },
+    {
+      "key": 4,
+      "text": "9.95"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Mean = 100/10 = 10. Using the shortcut: variance = (sum x^2)/n - (mean)^2 = 1090/10 - 100 = 109 - 100 = 9. SD = sqrt(9) = 3."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "population_sample_confusion",
+      "rationale": "Student computes sum of squared deviations = n*variance = 10*9=90, then divides by n-1=9: SD = sqrt(90/9) = sqrt(10) = 3.16."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Student uses SD = sqrt(sum x^2 / n) = sqrt(1090/10) = sqrt(109) = 10.44, forgetting to subtract the squared mean."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student uses SD = sqrt(sum x^2 / n - mean) = sqrt(109 - 10) = sqrt(99) = 9.95, subtracting the mean instead of the square of the mean."
+    }
+  ],
+  "explanation": "The shortcut variance formula is: variance = (sum x^2)/n - (sum x / n)^2. Both terms involve n in the denominator.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The decisive move is applying variance = (sum x^2)/n - mean^2, subtracting the SQUARE of the mean.",
+    "approach": "Step 1: Mean = sum x / n = 100/10 = 10. Step 2: Variance = (sum x^2)/n - mean^2 = 1090/10 - 10^2 = 109 - 100 = 9. Step 3: SD = sqrt(9) = 3.",
+    "lesson": "In the shortcut formula, you subtract mean^2 (not the mean itself); confusing mean with mean^2 produces a plausible but wrong answer.",
+    "timing": "Under 30 seconds. Three arithmetic operations: 1090/10=109, 100^2/10=100, 109-100=9, sqrt(9)=3."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

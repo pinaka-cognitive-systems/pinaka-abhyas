@@ -18,7 +18,7 @@
   "tests": [
     "qa.lr.direction_tests"
   ],
-  "difficulty_label": "L2",
+  "difficulty_label": "L1",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 90,
@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "Track facing direction at each turn. Start: North. Turn right = East (walk 7 m). Turn right = South (walk 3 m). Turn right = West (walk 7 m). Final facing: West. Net displacement check: 5 N - 3 S = 2 m North, 7 E - 7 W = 0. The final point is 2 m due North of P, which is a different quantity from the facing direction.",
+  "explanation_kind": "deductive_trace",
   "explanation_sections": {
-    "punchline": "Three consecutive right turns from North rotate the compass by 270 degrees clockwise, which gives West. The answer is West.",
-    "approach": "For direction-test questions, track facing direction step by step. Write the current heading after each turn before moving to the next leg. Do not mix up the facing direction with the direction from the start point to the final position.",
-    "lesson": "Right turn rotates facing clockwise by 90 degrees; left turn rotates anticlockwise by 90 degrees. Three right turns equal one left turn (270 degrees clockwise = 90 degrees anticlockwise).",
-    "timing": "About 90 seconds. Writing four headings (one per leg) takes under 30 seconds. If the route has more than three turns, a quick 90-degree rotation diagram saves time."
+    "punchline": "Lock the first right turn: North + right = East. That is the cracking move - it anchors the chain. Two more right turns give South then West. Final facing: West.",
+    "approach": "Apply each right turn in sequence, writing the new heading before reading the next clue. Start: North. Right turn 1: East (walk 7 m, direction unchanged). Right turn 2: South (walk 3 m, direction unchanged). Right turn 3: West (walk 7 m, direction unchanged). Final facing: West. Verify: three right turns = 270 degrees clockwise = same as one left turn from North = West. Confirm. Note: the question asks for facing direction, not the direction from P to the final point - those are different quantities.",
+    "lesson": "Three right turns (270 degrees CW) equal one left turn (90 degrees CCW). Use this shortcut to sanity-check a three-right-turn chain. Distance walked never affects facing direction.",
+    "timing": "About 60 seconds. Writing three headings takes under 20 seconds. The trap is option 3 (North) - it confuses the direction from start point P to Kavya's final position (2 m North) with the facing direction. Always answer what was asked."
   },
   "empirical": {
     "calibration_status": "none",

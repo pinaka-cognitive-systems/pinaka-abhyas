@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000763",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000763.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.quartile_deviation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "For a distribution, the third quartile Q3 is 44 and the quartile deviation is 8. What is the first quartile Q1?",
+  "options": [
+    {
+      "key": 1,
+      "text": "28"
+    },
+    {
+      "key": 2,
+      "text": "36"
+    },
+    {
+      "key": 3,
+      "text": "16"
+    },
+    {
+      "key": 4,
+      "text": "52"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "QD = (Q3 - Q1)/2 => 8 = (44 - Q1)/2 => 44 - Q1 = 16 => Q1 = 28."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "36 = (Q1+Q3)/2 = 72/2, the mid-quartile range, not Q1. The student added Q3 and QD or computed (Q1+Q3)/2 without correctly identifying Q1."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "16 is 2*QD = the inter-quartile range. The student computed 2*8 = 16 and reported the IQR instead of using it to find Q1."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "52 = Q3 + 2*QD = 44 + 16 = 60, or Q3 + QD = 44 + 8 = 52. The student added the IQR (or QD) to Q3 instead of subtracting it."
+    }
+  ],
+  "explanation": "Quartile deviation QD = (Q3 - Q1)/2. Rearranging: Q1 = Q3 - 2*QD = 44 - 2*8 = 44 - 16 = 28.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Rearrange QD = (Q3-Q1)/2 to get Q1 = Q3 - 2*QD; do not subtract QD once but twice (as it is the half-range).",
+    "approach": "Identify the model: back-calculation from QD. Formula: QD = (Q3-Q1)/2. Rearrange: Q1 = Q3 - 2*QD. Map: Q3=44, QD=8. Compute: Q1 = 44 - 16 = 28. The setup decision is recognising that 2*QD = IQR.",
+    "lesson": "QD is the semi-IQR, so IQR = 2*QD; always multiply QD by 2 before subtracting from Q3.",
+    "timing": "45-60 seconds. Trap: computing Q3 - QD = 44 - 8 = 36 (subtracting QD once) instead of Q3 - 2*QD."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

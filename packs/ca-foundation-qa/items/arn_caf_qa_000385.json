@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000385",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000385.py"
+  },
+  "tests": [
+    "qa.bmath.finance.effective_rate"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A debenture pays a nominal annual coupon rate of 10% compounded half-yearly. A bond pays 10.25% compounded annually. Which instrument offers the higher effective annual yield, and by how many basis points?  [Given: (1.05)^2 = 1.1025]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Debenture offers 10.25% EAR; the two yields are exactly equal"
+    },
+    {
+      "key": 2,
+      "text": "Bond offers higher yield by 25 basis points"
+    },
+    {
+      "key": 3,
+      "text": "Debenture offers higher yield by 100 basis points"
+    },
+    {
+      "key": 4,
+      "text": "Bond offers higher yield by 50 basis points"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Debenture EAR = (1 + 0.10/2)^2 - 1 = (1.05)^2 - 1 = 1.1025 - 1 = 10.25%. Bond EAR = 10.25% (already annual). Both yield 10.25% EAR, so they are exactly equal."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Mistakenly comparing the bond's stated 10.25% against the debenture's nominal 10% (not its EAR) gives a spurious 25-basis-point advantage to the bond."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "compound_interest_confusion",
+      "rationale": "Confusing nominal vs effective by incorrectly computing the debenture yield as 10% + 1% (simple interest bonus) = 11%, then claiming a 100 bp advantage."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Applying a simple interest approximation of r/2 * 2 + (r/2)^2 and rounding wrongly to 0.5% extra gives the bond a 50 bp edge, ignoring the correct compounding outcome."
+    }
+  ],
+  "explanation": "The half-yearly debenture EAR = (1.05)^2 - 1 = 10.25%. The annual bond EAR = 10.25%. They are exactly equal, illustrating how a lower nominal rate with more frequent compounding can match a higher nominal rate compounded annually.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "10% compounded half-yearly is exactly equivalent to 10.25% compounded annually - convert both to EAR before comparing.",
+    "approach": "Formula: EAR = (1 + r/m)^m - 1. Debenture: r = 0.10, m = 2; EAR = (1.05)^2 - 1 = 0.1025 = 10.25%. Bond: already annual, EAR = 10.25%. Equal - neither dominates.",
+    "lesson": "Always convert to EAR before comparing yields quoted at different compounding frequencies.",
+    "timing": "70 seconds. One EAR calculation using the given hint settles the comparison. Trap: option 2 compares nominal to EAR."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

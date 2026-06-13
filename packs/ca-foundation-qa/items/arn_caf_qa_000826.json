@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000826",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000826.py"
+  },
+  "tests": [
+    "qa.stats.distributions.binomial"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A random variable X follows a Binomial distribution with mean 4 and variance 2.4. What is the number of trials n?",
+  "options": [
+    {
+      "key": 1,
+      "text": "10"
+    },
+    {
+      "key": 2,
+      "text": "8"
+    },
+    {
+      "key": 3,
+      "text": "6"
+    },
+    {
+      "key": 4,
+      "text": "20"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Mean = np = 4, Variance = npq = 2.4. Dividing: q = 2.4/4 = 0.6, so p = 0.4. Then n = 4/0.4 = 10."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "8 comes from np = 4 with p = 0.5 assumed (equal probability), giving n = 4/0.5 = 8, ignoring the variance information."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "6 results from computing q = variance/mean = 2.4/4 = 0.6 correctly but then taking n = mean/p = 4/0.6 instead of 4/0.4."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "20 comes from n = mean * mean/variance = 4*4/2.4 = 6.67, rounded up, or from using n = npq/(pq) incorrectly leading to n = variance * n/mean = 2.4*n/4 solved backwards giving ~20."
+    }
+  ],
+  "explanation": "For Binomial: mean = np = 4 and variance = npq = 2.4. Divide to get q = variance/mean = 0.6, so p = 0.4, and n = mean/p = 4/0.4 = 10.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Dividing variance by mean cancels n and directly gives q, the key that unlocks p and then n.",
+    "approach": "Model: Binomial. Identify the model parameters: np=4, npq=2.4. Divide equation 2 by equation 1 to get q=0.6, then p=0.4. Substitute into np=4 to get n=10.",
+    "lesson": "When both mean and variance of a Binomial are given, always divide variance by mean to find q in one step.",
+    "timing": "60 seconds. Two simple divisions; no powers needed. Trap: assuming p = 0.5 and ignoring variance."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

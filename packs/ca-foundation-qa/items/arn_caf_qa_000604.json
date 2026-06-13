@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000604",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000604.py"
+  },
+  "tests": [
+    "qa.lr.direction_tests"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 70,
+  "stem": "Meena starts facing West. She turns right, then turns right again, then turns left. Which direction does she now face?",
+  "options": [
+    {
+      "key": 1,
+      "text": "North"
+    },
+    {
+      "key": 2,
+      "text": "East"
+    },
+    {
+      "key": 3,
+      "text": "South"
+    },
+    {
+      "key": 4,
+      "text": "West"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "West -> right(CW) = North -> right(CW) = East -> left(ACW) = North."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "East is the result after two right turns only; the final left turn was not applied."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "direction_turn_error",
+      "rationale": "South results from treating all three turns as right turns (West->N->E->S), ignoring that the last turn is a left."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "net_displacement_error",
+      "rationale": "West is the starting direction; a right followed by a left cancel, but a second right in between shifts the net result."
+    }
+  ],
+  "explanation": "Track heading after each turn: West + right(CW) = North; North + right(CW) = East; East + left(ACW) = North. Final direction is North.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Right-right-left from West: N, then E, then back to N - the last left undoes only one of the two rights.",
+    "approach": "Deductive trace: apply turns one at a time using clockwise order N->E->S->W. Right = +1 step, Left = -1 step. Start West(3): +1=N(0), +1=E(1), -1=N(0). Final: North.",
+    "lesson": "Count each turn separately using a direction index; do not try to combine or cancel turns mentally without tracking intermediate headings.",
+    "timing": "40-50 seconds. The main trap is stopping after two right turns (gives East, option 2). Another trap is treating left as another right (gives South, option 3)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

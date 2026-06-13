@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000629",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000629.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "Five people Kiran, Lata, Manish, Nisha, and Prem sit in a row at positions 1 to 5. Prem is at position 1. Manish is at position 5. Lata sits immediately to the left of Nisha. Kiran is not at position 2. Who sits at position 4?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Kiran"
+    },
+    {
+      "key": 2,
+      "text": "Lata"
+    },
+    {
+      "key": 3,
+      "text": "Manish"
+    },
+    {
+      "key": 4,
+      "text": "Nisha"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Prem=1, Manish=5. Lata-Nisha block (L immediately left of N) can sit at (2,3) or (3,4). If at (3,4): Kiran goes to position 2, violating Kiran-not-at-2. If at (2,3): Kiran goes to position 4. Valid. Arrangement: Prem(1) Lata(2) Nisha(3) Kiran(4) Manish(5). Position 4 = Kiran."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Lata is at position 2 (left end of the LN block). Placing Lata at position 4 would require Nisha at position 5, but Manish is fixed at position 5. This option omits the Manish-at-5 constraint."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Manish is explicitly placed at position 5, not position 4. Selecting Manish at position 4 misreads the fixed placement clue."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "Placing Nisha at position 4 forces Lata at position 3 (LN block at 3,4) and Kiran at position 2. But Kiran is not at position 2, which is violated. This results from reversing the Kiran-not-at-2 constraint or not applying it."
+    }
+  ],
+  "explanation": "Prem=1 and Manish=5 are fixed. The Lata-Nisha block (Lata immediately left of Nisha) occupies two consecutive positions from {2,3,4}. The block can sit at (2,3) or (3,4). If the block is at (3,4): Kiran is the only remaining person and goes to position 2 - but Kiran must not be at position 2, so this is invalid. The block must be at (2,3): Lata=2, Nisha=3, Kiran=4. Position 4 is Kiran.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The Kiran-not-at-2 constraint eliminates the (3,4) placement of the Lata-Nisha block, uniquely placing Kiran at position 4.",
+    "approach": "Apply clues most-certain-first: anchor Prem(1) and Manish(5). Slide the LN block through its two candidate positions in {2,3,4}. Apply the Kiran-not-at-2 constraint to reject one placement. Read position 4 from the surviving arrangement.",
+    "lesson": "When an adjacent-pair block has two candidate positions, a negative constraint on the leftover person resolves the ambiguity in one step.",
+    "timing": "80 seconds. Two anchors, two block positions, one negative check, done."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "Apply the power rule to each term. d/dx(3x³) = 9x², d/dx(-5x²) = -10x, d/dx(7) = 0. So dy/dx = 9x² - 10x.",
+  "explanation_kind": "derivation",
   "explanation_sections": {
-    "punchline": "The power rule gives 9x² - 10x. Multiply by the exponent and reduce the power by 1 for each term. Constants disappear.",
-    "approach": "Polynomial differentiation applies the power rule term by term. For each term ax^n, the derivative is n × ax^(n-1). Do three steps in order: multiply coefficient by exponent, reduce the power by 1, drop constants. Write the results before combining.",
-    "lesson": "Power rule: d/dx(ax^n) = n × a × x^(n-1). The exponent comes down as a multiplier and the power drops by 1. Forgetting to reduce the power is the most common slip.",
-    "timing": "About 90 seconds. Three terms, three applications of the power rule. Eliminate option 3x² - 5x in 10 seconds: that result did not bring down the exponent as a multiplier."
+    "punchline": "Apply d/dx(ax^n) = n x a x x^(n-1) to each term: 3x^3 gives 9x^2, -5x^2 gives -10x, constant 7 gives 0. Result: 9x^2 - 10x.",
+    "approach": "Polynomial differentiation transforms each term using the power rule: bring down the exponent as a multiplier, then reduce the exponent by 1. Work term by term. d/dx(3x^3): bring down 3, multiply: 3 x 3 = 9, reduce power: x^2. Result: 9x^2. d/dx(-5x^2): bring down 2, multiply: (-5) x 2 = -10, reduce power: x^1. Result: -10x. d/dx(7): constant, derivative = 0. The two planted traps are: (option 2) forgetting to multiply by the exponent, and (option 3) forgetting to reduce the power.",
+    "lesson": "Power rule: bring the exponent down as a multiplier, then reduce the exponent by 1. Both steps must happen together. Missing either step is a partial rule application.",
+    "timing": "About 60 seconds. Three terms at roughly 15 seconds each. Eliminate option 3x^2 - 5x in 10 seconds: that skipped the multiply-by-exponent step entirely."
   },
   "empirical": {
     "calibration_status": "none",

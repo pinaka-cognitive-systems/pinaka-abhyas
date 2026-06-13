@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000687",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000687.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.graphical"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "The following frequency distribution shows the marks scored by 60 students. A histogram is drawn for this data. The width of each bar is 10. Which class interval will have the tallest bar in the histogram?\n\nMarks: 0-10, 10-20, 20-30, 30-40, 40-50\nNumber of students: 8, 14, 22, 10, 6",
+  "options": [
+    {
+      "key": 1,
+      "text": "10-20 with height 14"
+    },
+    {
+      "key": 2,
+      "text": "20-30 with height 22"
+    },
+    {
+      "key": 3,
+      "text": "30-40 with height 10"
+    },
+    {
+      "key": 4,
+      "text": "0-10 with height 8"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "14 is the second-highest frequency; misreading the table or stopping the search early leads to this selection, but 22 > 14 so 20-30 is taller."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "When all class widths are equal, the tallest bar corresponds to the class with the highest frequency. Class 20-30 has frequency 22, which is the maximum among 8, 14, 22, 10, 6."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Class 30-40 has frequency 10, which is less than 22; selecting this reflects misreading the given frequency table."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Class 0-10 has frequency 8, the lowest; this is an error in identifying the maximum from the table."
+    }
+  ],
+  "explanation": "In a histogram with equal class widths, bar height equals the class frequency. The tallest bar is for the class with the maximum frequency. Scanning 8, 14, 22, 10, 6 gives 22 as the maximum, corresponding to class 20-30.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Equal class widths mean bar height = frequency directly; find the class with the largest frequency to find the tallest bar.",
+    "approach": "Identify the model: histogram with equal class widths uses frequency as bar height. Map the givens: frequencies are 8, 14, 22, 10, 6. Identify the maximum: 22 belongs to class 20-30.",
+    "lesson": "When class widths are equal in a histogram, height = frequency; when widths differ, height = frequency density = frequency/class width.",
+    "timing": "30 seconds. Scan the frequency column for the maximum. The trap is selecting the second-highest (14 for 10-20) by stopping the scan early."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

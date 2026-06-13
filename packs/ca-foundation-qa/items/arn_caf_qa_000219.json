@@ -18,10 +18,10 @@
   "tests": [
     "qa.stats.data_representation.frequency_distribution"
   ],
-  "difficulty_label": "L3",
+  "difficulty_label": "L2",
   "taxonomy_version": 4,
   "item_type": "single_best",
-  "expected_seconds": 120,
+  "expected_seconds": 90,
   "stem": "A frequency distribution has class intervals 0-10, 10-20, 20-30, and 30-40, with frequencies 6, f, 10, and 4 respectively. The total frequency is 20+f and the arithmetic mean is 18. What is the value of f?",
   "options": [
     {
@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "Use midpoints: 5, 15, 25, 35. The weighted sum is 5x6 + 15xf + 25x10 + 35x4 = 420+15f. Set mean = weighted sum / total frequency: (420+15f)/(20+f)=18. Cross-multiplying gives 420+15f = 360+18f, so 3f=60 and f=20.",
+  "explanation_kind": "model_compute",
   "explanation_sections": {
-    "punchline": "f = 20. Setting up mean = Sum(f x midpoint)/Sum(f) and solving the resulting linear equation in f is the only correct method.",
-    "approach": "Assign midpoints to each class, form the equation mean = Sum(f_i x x_i)/N where N includes f, then cross-multiply and isolate f. Always use total frequency N as the denominator, never the sum of midpoints.",
-    "lesson": "The denominator in the mean formula is total frequency, not the number of classes or the sum of midpoints. Any denominator error changes the equation completely. Verify by substituting f back to confirm the mean.",
-    "timing": "120 seconds. Computing the known part of the weighted sum (30+250+140=420) takes about 20 seconds. Setting up and cross-multiplying the equation takes 30 seconds. Solving 3f=60 takes under 10 seconds. Use remaining time to substitute f=20 back and confirm mean=18."
+    "punchline": "The mean formula for grouped data gives (420 + 15f)/(20 + f) = 18. Cross-multiplying and solving yields f = 20.",
+    "approach": "Identify the model: arithmetic mean of a frequency distribution = Sum(f_i * x_i) / Sum(f_i), where x_i are class midpoints. Decisive move: express both the numerator and the total frequency as functions of the unknown f, then solve the resulting equation. Steps: (1) compute midpoints (5, 15, 25, 35), (2) build Sum(f_i*x_i) = 5*6 + 15*f + 25*10 + 35*4 = 420+15f, (3) set (420+15f)/(20+f) = 18, (4) cross-multiply: 420+15f = 360+18f, (5) 3f = 60, f = 20.",
+    "lesson": "The denominator in the mean formula is total frequency, not the sum of midpoints. Using sum of midpoints (80) as denominator is the wrong-formula trap (gives f=68). Always use Sum(f_i) = 20+f.",
+    "timing": "90 seconds. Known weighted sum (30+250+140=420) in 20 seconds. Set up and cross-multiply the equation in 30 seconds. Solve 3f=60 in 5 seconds. Substitute f=20 back to verify: (420+300)/40 = 720/40 = 18 confirmed."
   },
   "empirical": {
     "calibration_status": "none",

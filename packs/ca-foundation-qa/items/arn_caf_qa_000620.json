@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000620",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000620.py"
+  },
+  "tests": [
+    "qa.lr.direction_tests"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 145,
+  "stem": "Mohan starts at point P facing North. He walks 20 km, turns right, walks 15 km, turns left, walks 5 km, turns right, walks 5 km, then turns right and walks 25 km to reach point Q. Point F is the midpoint of the straight line PQ. How far is F from Q, and in which direction does F lie from Q?",
+  "options": [
+    {
+      "key": 1,
+      "text": "10 km, West"
+    },
+    {
+      "key": 2,
+      "text": "10 km, East"
+    },
+    {
+      "key": 3,
+      "text": "20 km, West"
+    },
+    {
+      "key": 4,
+      "text": "10 km, South-West"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "P=(0,0). North 20->(0,20). Right (East) 15->(15,20). Left (North) 5->(15,25). Right (East) 5->(20,25). Right (South) 25->(20,0)=Q. |PQ|=20 km East. F=(10,0). Q=(20,0). F-Q=(-10,0): F is 10 km West of Q."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "Reporting the direction of Q from F (East) instead of F from Q (West), reversing the reference point of the query."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "net_displacement_error",
+      "rationale": "Using |PQ|=20 as QF instead of half of it (10), giving 20 km West by failing to halve the distance for the midpoint."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "direction_turn_error",
+      "rationale": "Misidentifying the first left turn (from East) as South instead of North displaces Q off the x-axis, creating a diagonal PQ and a South-West direction for F from Q."
+    }
+  ],
+  "explanation": "Track coordinates from P=(0,0): N 20->(0,20); right->East, E 15->(15,20); left->North, N 5->(15,25); right->East, E 5->(20,25); right->South, S 25->(20,0)=Q. All North segments (20+5=25) equal the South segment (25): they cancel. Net displacement: 20 East. |PQ|=20. F=midpoint=(10,0). From Q=(20,0): F=(10,0) is 10 km to the West.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The hidden insight is that the scattered North legs (20+5=25) and the final South leg (25) cancel exactly, so PQ is purely East.",
+    "approach": "Apply clues most-certain-first: build the coordinate path. Turn types: right from North=East, left from East=North, right from North=East, right from East=South. The last South leg spans all prior North movement. Net: (20,0). F=midpoint=(10,0). Direction of F from Q=(20,0): negative x-shift = West.",
+    "lesson": "In multi-leg paths, collect all same-axis components before computing displacement; then for a midpoint query, halve |PQ| and note the reversal when asking direction of start from end.",
+    "timing": "About 120-140 seconds. Two traps: (1) misidentifying left from East as South (gives wrong Q), and (2) reporting direction of Q from F instead of F from Q."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

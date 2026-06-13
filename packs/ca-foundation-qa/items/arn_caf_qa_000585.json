@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000585",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000585.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.odd_man_out"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 65,
+  "stem": "In each of the following two-digit numbers, the product of the two digits follows a pattern in three of them. Which number does NOT fit the pattern? 34, 43, 62, 39",
+  "options": [
+    {
+      "key": 1,
+      "text": "34"
+    },
+    {
+      "key": 2,
+      "text": "43"
+    },
+    {
+      "key": 3,
+      "text": "62"
+    },
+    {
+      "key": 4,
+      "text": "39"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "34: 3 x 4 = 12. The digit product is 12, fitting the pattern. A student may focus on the digit sum (3+4=7) instead of the digit product."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "43: 4 x 3 = 12. The digit product is 12, same as 34. Both 34 and 43 are digit-reversal pairs, so a student might flag 43 as a duplicate of 34, but duplicates are allowed in the pattern group."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "62: 6 x 2 = 12. The digit product is 12, fitting the pattern. A student misapplying the pattern as digit sum might compute 6+2=8 and incorrectly flag 62."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "39: 3 x 9 = 27, not 12. The other three (34, 43, 62) all have a digit product of 12. 39 has a digit product of 27, breaking the pattern."
+    }
+  ],
+  "explanation": "The common property: digit product = 12. 34: 3x4=12; 43: 4x3=12; 62: 6x2=12; 39: 3x9=27. Only 39 fails the digit-product=12 rule, so it is the odd one out.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The property to test is the product of digits, not their sum - identifying which operation unifies three numbers is the key setup decision.",
+    "approach": "Deductive trace: test digit sum first (34: 7, 43: 7, 62: 8, 39: 12 - not uniform), then digit product (34: 12, 43: 12, 62: 12, 39: 27 - three are uniform). Setup decision: choose the right operation (product, not sum) to identify the pattern.",
+    "lesson": "For digit-based odd-one-out, test both digit sum and digit product; the one that makes three values equal is the governing property.",
+    "timing": "55-65 seconds. Trap: computing digit sum (which gives 7,7,8,12 - no clear pattern) and picking 62 because its sum differs from 34 and 43."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

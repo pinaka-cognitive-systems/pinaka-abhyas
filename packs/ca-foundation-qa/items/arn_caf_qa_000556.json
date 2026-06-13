@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000556",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000556.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.number_series"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "In the series 1, 2, 4, 7, 11, 16, what is the next term?",
+  "options": [
+    {
+      "key": 1,
+      "text": "20"
+    },
+    {
+      "key": 2,
+      "text": "21"
+    },
+    {
+      "key": 3,
+      "text": "22"
+    },
+    {
+      "key": 4,
+      "text": "23"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Applying a constant difference of 4 to the last term (16 + 4 = 20) misidentifies the incrementing difference pattern."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Correctly identifying differences 1,2,3,4,5 but adding 5 (not 6) to 16, a slip in tracking the next difference increment."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "The differences between consecutive terms are 1, 2, 3, 4, 5 - an increasing sequence. The next difference is 6, so 16 + 6 = 22."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computing the next difference as 7 instead of 6 (skipping one step in the incrementing series), giving 16 + 7 = 23."
+    }
+  ],
+  "explanation": "The differences between consecutive terms are: 2-1=1, 4-2=2, 7-4=3, 11-7=4, 16-11=5. The differences themselves form a series increasing by 1 each step. The next difference is 6, so the next term is 16 + 6 = 22.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The first differences form an AP (1,2,3,4,5,...), so this is a second-order series requiring two layers of differencing.",
+    "approach": "Apply clues most-certain-first: compute first differences 1,2,3,4,5; these increase by 1 each time (constant second difference = 1). Next first-difference = 6. Next term = 16 + 6 = 22.",
+    "lesson": "When first differences are not constant, compute second differences. A constant second difference signals a quadratic sequence.",
+    "timing": "30 seconds. Compute all 5 first-differences, spot the +1 pattern, then extrapolate. Trap: treating the last visible difference (5) as the constant step."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

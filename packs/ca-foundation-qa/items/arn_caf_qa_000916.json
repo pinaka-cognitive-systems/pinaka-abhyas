@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000916",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000916.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 170,
+  "stem": "Eight people A, B, C, D, E, F, G and H sit in a single row of eight seats, all facing north. D is fourth to the left of A. C is third to the right of D. F sits at one of the two ends. B is an immediate neighbour of A. E sits immediately to the right of G. H does not sit at either end. B also sits at one of the two ends. Who sits third from the right end of the row?",
+  "options": [
+    {
+      "key": 1,
+      "text": "A"
+    },
+    {
+      "key": 2,
+      "text": "C"
+    },
+    {
+      "key": 3,
+      "text": "G"
+    },
+    {
+      "key": 4,
+      "text": "E"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "A sits second from the right end (seat 7), not third. Counting in from the right as right-end, then A, lands one seat short of the third position, an off-by-one slip in the count."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "The two gap clues fix D, A and C together: D at seat 3, A at seat 7, C at seat 6. With F and B at the two ends and B beside A, B takes seat 8 and F seat 1. E right of G fills the gap as G at 4, E at 5, leaving H at seat 2. The order is F, H, D, G, E, C, A, B; the seat third from the right end (seat 6) is C."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "G sits at seat 4. Reaching G ignores the clue C is third to the right of D, which forces C into seat 6, the third seat from the right; G is not placed by that count."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "E sits at seat 5, which is third from the LEFT end. Counting third from the left instead of third from the right reverses the direction the question specifies."
+    }
+  ],
+  "explanation": "Anchor on the two gap clues. D is fourth to the left of A and C is third to the right of D, so the trio sits at seats 3, 6 and 7 (D, C, A) because no earlier start keeps all three on the row of eight while leaving an end seat free for both F and B. F and B occupy the two ends; since B neighbours A, B takes seat 8 and F seat 1. E immediately right of G slots G into seat 4 and E into seat 5, and H, barred from the ends, takes seat 2. The full row left to right is F, H, D, G, E, C, A, B. Third from the right end is seat 6, which is C.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The clue 'C is third to the right of D' is the cracker: combined with D fourth-left-of-A it pins D, C, A to seats 3, 6, 7, and the third seat from the right is C.",
+    "approach": "Apply the most rigid clues first. The two fixed-gap clues force D, C and A onto seats 3, 6, 7 as the only placement that fits a row of eight and still leaves both ends free for F and B. Place F and B at the ends, using B-beside-A to send B to seat 8 and F to seat 1. Then E-right-of-G fills G at 4 and E at 5, and the end-exclusion clue drops H into the only seat left, seat 2. Read off seat 6 from the completed row F, H, D, G, E, C, A, B, then verify every clue against it.",
+    "lesson": "In a fixed-gap chain, place the linked block before the loose neighbours; the gaps usually leave only one window that keeps everyone on the row.",
+    "timing": "About 165 seconds. Fastest elimination is option (4) E: it sits third from the LEFT, so anyone counting from the correct end rejects it on sight as the reversed-direction trap."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

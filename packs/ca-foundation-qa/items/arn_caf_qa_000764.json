@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000764",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000764.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.quartile_deviation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "The number of defects per batch recorded over 7 production runs (in ascending order) is: 10, 25, 35, 40, 45, 55, 65. What is the quartile deviation for this data?",
+  "options": [
+    {
+      "key": 1,
+      "text": "15"
+    },
+    {
+      "key": 2,
+      "text": "30"
+    },
+    {
+      "key": 3,
+      "text": "25"
+    },
+    {
+      "key": 4,
+      "text": "40"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "n=7. Q1 at (7+1)/4 = 2nd value = 25. Q3 at 3*(7+1)/4 = 6th value = 55. QD = (Q3-Q1)/2 = (55-25)/2 = 30/2 = 15."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "30 is the inter-quartile range (Q3-Q1 = 55-25 = 30). The student correctly found Q1 and Q3 but forgot to divide by 2 to get the quartile deviation."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "25 is Q1 itself. The student correctly located Q1 at the 2nd observation but reported Q1 as the quartile deviation."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "40 is the median (the 4th value = 40). The student confused Q1, Q3, and the median, reporting the median of the dataset as the quartile deviation."
+    }
+  ],
+  "explanation": "For n=7, the quartile positions use (n+1)/4. Q1 is at position (7+1)/4 = 2nd observation = 25. Q3 is at position 3*(7+1)/4 = 6th observation = 55. QD = (Q3-Q1)/2 = (55-25)/2 = 15.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "With an odd n, the (n+1)/4 formula lands on exact integer positions, making the quartile lookup a direct read from the sorted list.",
+    "approach": "Identify the model: ungrouped raw data QD. Step 1: confirm data is sorted. Step 2: n=7, Q1 position = (7+1)/4 = 2 (exact), so Q1 = 2nd value = 25. Step 3: Q3 position = 3*8/4 = 6 (exact), so Q3 = 6th value = 55. Step 4: QD = (55-25)/2 = 15.",
+    "lesson": "For raw data with n+1 divisible by 4, quartile positions are integers and no interpolation is needed; just count from the sorted list.",
+    "timing": "45-60 seconds. Trap: reporting the IQR (30) without halving. Quick check: 2nd value is 25, 6th value is 55."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

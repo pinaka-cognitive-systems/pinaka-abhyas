@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000594",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000594.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.odd_man_out"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "Three of the following four items belong to the same category; one does not. Which one is the odd one out? Thermometer, Barometer, Hygrometer, Telescope.",
+  "options": [
+    {
+      "key": 1,
+      "text": "Thermometer"
+    },
+    {
+      "key": 2,
+      "text": "Barometer"
+    },
+    {
+      "key": 3,
+      "text": "Hygrometer"
+    },
+    {
+      "key": 4,
+      "text": "Telescope"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "A thermometer measures temperature, an atmospheric or physical quantity. It belongs to the group of measuring instruments for atmospheric conditions."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "A barometer measures atmospheric pressure. It belongs to the group of instruments that measure atmospheric conditions."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "A hygrometer measures atmospheric humidity. It belongs to the group of instruments that measure atmospheric conditions."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "A telescope is an optical instrument used to observe distant objects, not to measure an atmospheric condition. Thermometer, Barometer, and Hygrometer all measure atmospheric properties (temperature, pressure, humidity). Telescope is the odd one out."
+    }
+  ],
+  "explanation": "Thermometer, Barometer, and Hygrometer all measure atmospheric conditions (temperature, pressure, humidity respectively). A telescope is an optical observation device, not an atmospheric measuring instrument. Hence Telescope is the odd one out.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Three measure atmospheric quantities; Telescope is an optical viewing device, not a meter.",
+    "approach": "Apply clues most-certain-first: identify what each instrument does. Thermometer = measures temperature (atmospheric), Barometer = measures air pressure (atmospheric), Hygrometer = measures humidity (atmospheric), Telescope = views distant objects (optical). The instrument that does not measure an atmospheric quantity is Telescope.",
+    "lesson": "Category-based odd-man-out requires naming the precise property: not just measuring instruments but measuring-instruments-for-atmospheric-conditions. Telescope is the only non-atmospheric one.",
+    "timing": "About 45 seconds. Trap: all four are scientific instruments, so the surface category is the same. The finer distinction is atmospheric measurement vs optical observation."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

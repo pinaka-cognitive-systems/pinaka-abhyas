@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000341",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000341.py"
+  },
+  "tests": [
+    "qa.bmath.equations.simultaneous_linear"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Two unknown quantities x and y satisfy: 2x + 3y = 16 and x + 2y = 9. What is the value of x + y?",
+  "options": [
+    {
+      "key": 1,
+      "text": "5"
+    },
+    {
+      "key": 2,
+      "text": "7"
+    },
+    {
+      "key": 3,
+      "text": "9"
+    },
+    {
+      "key": 4,
+      "text": "3"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student solves correctly for x = 5 and y = 2 but reports only x instead of x + y."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "From x + 2y = 9: x = 9 - 2y. Substituting into 2x + 3y = 16: 2(9-2y) + 3y = 16, 18 - 4y + 3y = 16, 18 - y = 16, y = 2. Then x = 9 - 4 = 5. So x + y = 7."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "Student drops a sign during elimination: multiplies second equation by 2 to get 2x + 4y = 18, then subtracts first: y = 2 correctly, but when solving for x uses the wrong equation getting x = 7, so x + y = 9."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student substitutes y = 2 back incorrectly into 2x + 3y = 16 as 2x + 6 = 16, x = 5 is right, but then computes x + y = 5 - 2 = 3 by subtracting instead of adding."
+    }
+  ],
+  "explanation": "From x + 2y = 9: x = 9 - 2y. Substitute: 2(9 - 2y) + 3y = 16, so 18 - y = 16, y = 2. Then x = 5. Therefore x + y = 7.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Express one variable from the simpler equation, substitute, find both, then add as asked.",
+    "approach": "Identify the simpler equation (x + 2y = 9) and isolate x = 9 - 2y. Substitute into 2x + 3y = 16 to get a single-variable equation. Solve for y = 2, back-substitute to get x = 5, then sum x + y = 7.",
+    "lesson": "Read the question precisely - it asks for x + y, not x or y individually. Solve for both before computing the final expression.",
+    "timing": "About 80 seconds. Trap: reporting only x = 5. After solving, pause to re-read what the question asks."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

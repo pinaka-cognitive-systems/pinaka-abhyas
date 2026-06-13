@@ -69,12 +69,13 @@
       "misconception": "rate_period_mismatch"
     }
   ],
-  "explanation": "NPV = sum of present values of cash flows minus the initial cost. PV1 = 60,500 / 1.1 = 55,000. PV2 = 66,550 / (1.1)² = 66,550 / 1.21 = 55,000. NPV = 55,000 + 55,000 - 1,00,000 = Rs 10,000.",
+  "explanation": "NPV = sum of present values of cash flows minus the initial cost. PV1 = 60,500 / 1.1 = 55,000. PV2 = 66,550 / (1.1)^2 = 66,550 / 1.21 = 55,000. NPV = 55,000 + 55,000 - 1,00,000 = Rs 10,000.",
+  "explanation_kind": "formula_selection",
   "explanation_sections": {
-    "punchline": "Each cash flow discounts to Rs 55,000, so total PV is Rs 1,10,000 against an outlay of Rs 1,00,000, giving NPV = Rs 10,000.",
-    "approach": "Set up a column for each cash flow with its year, amount, and discount factor. PV = Cash flow divided by (1 + r)^year. Sum all present values, then subtract the initial investment. Never add undiscounted cash flows: every amount except the initial outlay must be discounted.",
-    "lesson": "In NPV problems, each future cash flow uses its own discount factor with the correct year as the exponent. Forgetting to discount year 2 is a partial-work error, not an algebra error.",
-    "timing": "About 90 seconds. Reject option (2) in five seconds: Rs 27,050 is the undiscounted surplus, not the NPV. Reject option (3): that result means year 2 was not discounted. Use the given factors 0.9091 and 0.8264 to check your PVs quickly."
+    "punchline": "Both cash flows discount to exactly Rs 55,000 each. Total PV = Rs 1,10,000 minus initial outlay Rs 1,00,000 gives NPV = Rs 10,000.",
+    "approach": "Name the formula: NPV = sum of [CF_t / (1 + r)^t] minus initial outlay. Map each cash flow to its year and the corresponding discount factor from the stem: year 1 uses 1/1.1, year 2 uses 1/(1.1)^2. Compute each PV, sum them, subtract Rs 1,00,000. Every future cash flow gets its own period-specific denominator; the initial outlay at t = 0 is not discounted.",
+    "lesson": "Each cash flow is discounted by its own (1 + r)^t factor. Using the year-1 factor for year-2 cash flow, or summing undiscounted cash flows, are the two principal traps. Option (2) at Rs 27,050 is the raw surplus with no discounting at all.",
+    "timing": "About 90 seconds. Set up two divisions: 60,500 / 1.1 = 55,000 and 66,550 / 1.21 = 55,000. Both equal 55,000 exactly. Sum them to 1,10,000, subtract 1,00,000: 10,000. Reject option (2) in five seconds by noting it ignores discounting entirely."
   },
   "empirical": {
     "calibration_status": "none",

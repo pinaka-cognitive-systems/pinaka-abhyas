@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000883",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000883.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.deflating"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "A worker's nominal wage in 2024 is Rs 18,000 per month. The price index for 2024 with base year 2020 = 100 stands at 150. What is the real wage of the worker in terms of 2020 prices?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 12,000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 27,000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 18,150"
+    },
+    {
+      "key": 4,
+      "text": "Rs 16,500"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Real wage = Nominal wage / Price index * 100 = 18000 / 150 * 100 = Rs 12,000. Dividing by the index and multiplying by 100 deflates the nominal figure to base-year prices."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Multiplying 18000 by 1.5 instead of dividing gives Rs 27,000, inflating rather than deflating the nominal wage."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Adding the index increment (150 - 100 = 50) to the nominal wage: 18000 + 150 = 18150 is a procedural confusion between an additive and ratio-based deflation."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "percentage_base_confusion",
+      "rationale": "Subtracting 50% of 150 (= 300 / 6 = 300... actually: thinking the 50-point rise means deduct 50 as 50/18000 leads to 16500 via wrong percentage base) arises from confusing the base as 18000 rather than 100."
+    }
+  ],
+  "explanation": "To convert a nominal value to real terms, divide by the price index and multiply by 100. Here: 18000 * 100 / 150 = Rs 12,000. This removes the effect of inflation since the base year.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Deflation divides the nominal figure by the price index (expressed as a ratio to 100), not the other way around.",
+    "approach": "Identify the deflation formula: Real value = (Nominal value / Price index) x 100. Map the givens: nominal = 18000, index = 150, base = 100. Compute: 18000 / 150 x 100 = 12000.",
+    "lesson": "Deflating always means dividing by (index/100); inflating does the reverse. Never add or subtract the index points directly.",
+    "timing": "Under 30 seconds with one division. Trap: multiplying by 150/100 instead of dividing gives Rs 27,000."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

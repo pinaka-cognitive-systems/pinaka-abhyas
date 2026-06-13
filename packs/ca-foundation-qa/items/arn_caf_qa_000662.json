@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000662",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000662.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.diagrammatic"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 45,
+  "stem": "Which of the following graphical tools is most appropriate for displaying the cumulative frequency of a grouped frequency distribution?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Histogram"
+    },
+    {
+      "key": 2,
+      "text": "Frequency polygon"
+    },
+    {
+      "key": 3,
+      "text": "Ogive"
+    },
+    {
+      "key": 4,
+      "text": "Pie chart"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "A histogram shows class frequencies as bar heights, not cumulative frequencies."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "A frequency polygon connects midpoints of class frequencies; it does not plot cumulative values."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "An ogive (cumulative frequency curve) is specifically constructed by plotting cumulative frequency against upper class boundaries."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "A pie chart shows proportional composition of a total; it is not used for cumulative frequency."
+    }
+  ],
+  "explanation": "An ogive is the graph of cumulative frequency against class boundaries. It is the standard tool for reading off medians, quartiles, and percentiles graphically from a frequency distribution.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "Cumulative frequency is displayed by an ogive, not a histogram or polygon.",
+    "approach": "Match each chart type to its purpose: histogram = frequencies, polygon = shape of distribution, ogive = cumulative, pie = composition.",
+    "lesson": "Ogive plots cumulative frequency; it is the only one of the standard four that accumulates.",
+    "timing": "45 s. Direct recall item; verify by the definition of each diagram."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000943",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000943.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.deflating"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 170,
+  "stem": "A worker's annual money income and the consumer price index (base = 100) are: 2021 income Rs 24,000 at index 100; 2022 income Rs 27,000 at index 120; 2023 income Rs 33,000 at index 150; 2024 income Rs 39,000 at index 160. In which year was the worker's real income the lowest?",
+  "options": [
+    {
+      "key": 1,
+      "text": "2023"
+    },
+    {
+      "key": 2,
+      "text": "2021"
+    },
+    {
+      "key": 3,
+      "text": "2024"
+    },
+    {
+      "key": 4,
+      "text": "2022"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Real income = money income / price index * 100. 2021: 24000. 2022: 27000/120*100 = 22500. 2023: 33000/150*100 = 22000. 2024: 39000/160*100 = 24375. The minimum is 22000 in 2023, even though its money income exceeds 2021 and 2022."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Picks 2021 because it has the smallest money income, comparing nominal figures without deflating. After deflation 2021 has the second-highest real income, not the lowest.",
+      "misconception": "percentage_base_confusion"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Picks 2024 because its price index 160 is the highest, assuming the highest deflator must give the lowest real income. But 2024's large money income offsets it, giving the highest real income of 24375.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Lands on 2022 (real 22500), the second-lowest, by an arithmetic slip in dividing 33000 by 150 and overstating 2023's real income above 22500.",
+      "misconception": "arithmetic_slip"
+    }
+  ],
+  "explanation": "Money income rises every year, which hides the real story. Deflate each year by real = money income / price index * 100: 2021 = 24000, 2022 = 27000/120*100 = 22500, 2023 = 33000/150*100 = 22000, 2024 = 39000/160*100 = 24375. Real income actually falls from 2021 to 2023 and only recovers in 2024. The lowest real income is 22000 in 2023, despite its money income being higher than both 2021 and 2022. Comparing nominal figures alone would wrongly point to 2021.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Rising money income masks falling purchasing power: deflate each year (real = money/index*100) and 2023 is the trough at Rs 22,000, not the lowest-nominal 2021.",
+    "approach": "Name the formula: real income = money income / price index * 100. Map givens row by row, dividing each year's income by its own index and rescaling by 100. Compute all four reals, then take the minimum. The decisive move is deflating before comparing, because the nominal series is monotone increasing and misleading.",
+    "lesson": "Never compare money incomes across years directly; deflate each by its own price index first, since a higher money income can still be lower in real terms.",
+    "timing": "About 150 seconds: four divisions and a comparison. Reject 2021 in five seconds: it is the lowest money income, the un-deflated trap, but it deflates to the second-highest real income."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

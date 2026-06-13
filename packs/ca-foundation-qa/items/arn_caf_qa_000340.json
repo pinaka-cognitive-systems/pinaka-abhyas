@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000340",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000340.py"
+  },
+  "tests": [
+    "qa.bmath.equations.simple"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Aryan and Deepa invest Rs 30,000 and Rs 50,000 respectively in a business for a full year. At year-end the total profit is Rs 24,000. What is Aryan's share of the profit?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 9,000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 10,000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 12,000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 15,000"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Total investment = 30000 + 50000 = 80000. Aryan's ratio = 30000/80000 = 3/8. Aryan's profit = (3/8) * 24000 = 9000."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student uses ratio 3:5 (correct) but then computes 3/5 * 24000/2 or makes an arithmetic slip treating the total parts as 5 instead of 8, giving 3/5 * something = 10000 via 3*(24000/8) miscalculation."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student divides profit equally: 24000/2 = 12000, ignoring the differing investment amounts."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student uses the larger partner's fraction (5/8) instead of Aryan's correct fraction (3/8), computing (5/8) * 24000 = 15000 and attributing Deepa's share to Aryan."
+    }
+  ],
+  "explanation": "Profit is shared in the ratio of investments = 30000 : 50000 = 3 : 5. Total parts = 8. Aryan's share = (3/8) * 24000 = Rs 9000.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Reduce the investments to their simplest ratio; then multiply the corresponding fraction by total profit.",
+    "approach": "Ratio of investments = 30000 : 50000 = 3 : 5. Total parts = 3 + 5 = 8. Aryan's fraction = 3/8. Profit share = (3/8) * 24000 = 9000.",
+    "lesson": "In partnership, profits are shared in the ratio of capital when both invest for equal time.",
+    "timing": "About 60 seconds. Trap: taking 3/5 instead of 3/8 as Aryan's fraction, omitting the +5 in the denominator."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

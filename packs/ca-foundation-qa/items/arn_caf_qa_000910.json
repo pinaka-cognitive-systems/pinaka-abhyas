@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000910",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000910.py"
+  },
+  "tests": [
+    "qa.bmath.finance.sinking_fund"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 180,
+  "stem": "A machine costing Rs 200000 must be replaced after 5 years, when its scrap value will be Rs 20000. A sinking fund earning 8 percent per annum compounded annually is set up with equal year-end deposits to cover the net replacement outlay. Using (1.08)^5 = 1.4693, what is the annual deposit (nearest rupee)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 30684"
+    },
+    {
+      "key": 2,
+      "text": "Rs 34093"
+    },
+    {
+      "key": 3,
+      "text": "Rs 36000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 9801"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Net target = cost - scrap = 200000 - 20000 = 180000. The sinking-fund deposit is R = F*i/((1+i)^n - 1) = 180000*0.08/(1.4693 - 1) = 14400/0.4693 = Rs 30684."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Uses the full cost 200000 as the target and forgets to subtract the Rs 20000 scrap value: 200000*0.08/0.4693 = 34093. The net-outlay step was skipped.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Divides the net target evenly across years, 180000/5 = 36000, treating it as equal saving with no interest accumulation.",
+      "misconception": "time_factor_dropped"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Divides by (1+i)^n instead of ((1+i)^n - 1): 14400/1.4693 = 9801; the minus-one in the annuity accumulation factor was dropped.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "First find the net amount the fund must build: cost minus scrap = 200000 - 20000 = 180000. A sinking fund accumulates equal year-end deposits at compound interest, so the deposit is R = F*i/((1+i)^n - 1). With F = 180000, i = 0.08, and (1.08)^5 = 1.4693: R = 180000*0.08/(1.4693 - 1) = 14400/0.4693 = Rs 30684. The two hidden steps are subtracting scrap and using the minus-one accumulation factor.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Two traps stack here: the fund targets cost minus scrap (Rs 180000, not 200000), and the accumulation factor is (1+i)^n minus 1, not (1+i)^n.",
+    "approach": "For a sinking fund, set the target to the net amount required, then invert the future-value-of-annuity factor: R = F*i/((1+i)^n - 1). Confirm the target net of any salvage and keep the minus-one in the denominator.",
+    "lesson": "Sinking-fund deposit R = F*i/((1+i)^n - 1); the fund need is the net outlay after salvage, and the denominator carries a minus one.",
+    "timing": "About 180 seconds. The fastest elimination is to reject Rs 34093, which uses the gross cost and ignores the stated scrap value."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

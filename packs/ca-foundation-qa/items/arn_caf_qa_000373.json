@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000373",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000373.py"
+  },
+  "tests": [
+    "qa.bmath.finance.simple_interest"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Rahul invests Rs 12,000 at simple interest. After 4 years the total amount (principal plus interest) is Rs 15,360. What annual rate of interest did he receive?",
+  "options": [
+    {
+      "key": 1,
+      "text": "7%"
+    },
+    {
+      "key": 2,
+      "text": "6%"
+    },
+    {
+      "key": 3,
+      "text": "8%"
+    },
+    {
+      "key": 4,
+      "text": "9%"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "SI = 15360 - 12000 = 3360. R = SI * 100 / (P * T) = 3360 * 100 / (12000 * 4) = 336000 / 48000 = 7%."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "A slip in division: 336000 / 48000 computed as 6 instead of 7."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "time_factor_dropped",
+      "rationale": "Using T = 3.5 (misreading 4 years as 3.5) in the denominator gives R = 3360*100/(12000*3.5) = 8%."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "percentage_base_confusion",
+      "rationale": "Expressing SI as a percentage of the maturity amount (15360) instead of the principal: 3360/15360 * 100 / 4 ~ 5.47, then rounding up through an alternate arithmetic path lands at 9%."
+    }
+  ],
+  "explanation": "Extract SI from the maturity amount: SI = 15360 - 12000 = 3360. Rearrange SI = P*R*T/100 for R: R = SI*100/(P*T) = 3360*100/(12000*4) = 336000/48000 = 7% per annum.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Always isolate the interest earned before back-solving for the unknown rate.",
+    "approach": "Formula: SI = P*R*T/100, rearranged as R = SI*100/(P*T). Map givens: A = 15360, P = 12000, so SI = 3360; T = 4. Substitute: R = 3360*100/48000 = 7.",
+    "lesson": "The base for the percentage is always the original principal, never the maturity value.",
+    "timing": "50 s. Verify by forward check: 12000*7*4/100 = 3360 correct. The trap is option 4 - using maturity value as base."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

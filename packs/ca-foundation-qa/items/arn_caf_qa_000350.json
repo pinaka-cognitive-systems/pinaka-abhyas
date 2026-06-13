@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000350",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000350.py"
+  },
+  "tests": [
+    "qa.bmath.equations.quadratic"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A father's present age equals the square of his son's present age. One year ago the father was 10 times as old as his son. What is the son's present age?",
+  "options": [
+    {
+      "key": 1,
+      "text": "7 years"
+    },
+    {
+      "key": 2,
+      "text": "8 years"
+    },
+    {
+      "key": 3,
+      "text": "9 years"
+    },
+    {
+      "key": 4,
+      "text": "10 years"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "A computational slip when solving (s-1)(s+1)=10(s-1) gives s+1=10 misread as s-1=10, yielding s=11 then rounded down to 7."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "Writing 'one year ago' as (s+1) and (s^2+1) instead of subtracting, giving (s^2+1)=10(s+1) => s^2-10s-9=0, solved as s~8 due to approximation."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Let son's age = s. Father's age = s^2. One year ago: s^2-1=10(s-1) => (s-1)(s+1)=10(s-1) => s+1=10 (dividing by s-1, since s>1) => s=9. Check: father=81, one year ago son=8, father=80=10*8."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Solving s^2=10s directly (ignoring the one-year-ago condition) gives s=10."
+    }
+  ],
+  "explanation": "Let son's age = s. Then father's age = s^2. One year ago son was (s-1) and father was (s^2-1). Condition: s^2-1 = 10(s-1). Factor the left side: (s-1)(s+1)=10(s-1). Divide both sides by (s-1), valid since s>1: s+1=10, so s=9. Verify: son=9, father=81; one year ago son=8, father=80=10*8. Confirmed.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Factoring s^2-1=(s-1)(s+1) and dividing by (s-1) collapses the equation to s+1=10, giving s=9 in one line.",
+    "approach": "Age-quadratic setup: assign son age s, father age s^2. Write the 'one year ago' equation: s^2-1=10(s-1). Recognise left side as difference of squares (s-1)(s+1). Cancel the common factor (s-1). Solve the resulting linear equation.",
+    "lesson": "When a quadratic age equation has the form s^2 - t^2 = k*(s-t), always factor as (s-t)(s+t) and cancel (s-t) first; it avoids the quadratic formula entirely.",
+    "timing": "70 seconds. The key move is recognising the difference-of-squares on the left. Trap: option 4 skips the time-shift and directly equates father to 10 times son now."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

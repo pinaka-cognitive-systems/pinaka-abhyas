@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "For a Poisson process with rate r per unit time, the parameter over t time units is lambda = r x t. Here lambda = 4 x 2 = 8. The key property of the Poisson distribution is that variance = lambda = 8. The variance scales linearly with time, not as t^2.",
+  "explanation_kind": "model_compute",
   "explanation_sections": {
-    "punchline": "For a Poisson distribution, variance equals the mean (lambda). Scale the rate to the given period first: lambda = 4 x 2 = 8, so variance = 8.",
-    "approach": "Read the time period carefully. Scale the rate: lambda = rate x time. Then recall the defining property of the Poisson distribution: mean = variance = lambda. Do not square lambda and do not multiply by t again after computing lambda.",
-    "lesson": "Poisson variance = lambda, not lambda squared. And lambda must use the correct time window, not the per-unit rate.",
-    "timing": "About 75 seconds. Two steps: compute lambda in 15 seconds, then state variance = lambda. If you arrive at 16 or 64, you have squared something that should not be squared."
+    "punchline": "Name the model first: Poisson, where variance equals the mean lambda. Scale the rate to the asked window, lambda = 4 x 2 = 8, so the variance is 8.",
+    "approach": "For a Poisson question, fix two things before computing. First the model property: mean and variance are both equal to lambda. Second the parameter: lambda = rate x time, scaled to the exact period the question names, here 2 hours, so lambda = 8. Then read off whatever is asked. Variance is lambda itself, with no extra step.",
+    "lesson": "Poisson variance equals lambda, never lambda squared, and lambda scales linearly with time (rate x t), not with t squared. Get the time window right, then remember mean = variance = lambda.",
+    "timing": "About 75 seconds. Scaling lambda takes 15 seconds; stating variance = lambda takes 5. If you land on 16 or 64 you have squared something: 16 squares the time, 64 squares lambda. Neither belongs in a Poisson variance."
   },
   "empirical": {
     "calibration_status": "none",

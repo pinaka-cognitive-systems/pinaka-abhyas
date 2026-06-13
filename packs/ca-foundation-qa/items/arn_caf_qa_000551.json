@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000551",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000551.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.number_series"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 85,
+  "stem": "In the series 1, 2, 4, 7, 11, 16, 22, what is the next term?",
+  "options": [
+    {
+      "key": 1,
+      "text": "27"
+    },
+    {
+      "key": 2,
+      "text": "28"
+    },
+    {
+      "key": 3,
+      "text": "29"
+    },
+    {
+      "key": 4,
+      "text": "30"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Adds 5 (same as the previous difference between 16 and 11) to 22, giving 27. Does not notice differences are increasing."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Correctly identifies differences 1, 2, 3, 4, 5, 6 and expects 7, but adds 7 to 22 as 28 due to a slip (22+7=29, not 28)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Consecutive differences are 1, 2, 3, 4, 5, 6 - natural numbers. Next difference = 7. Missing term = 22 + 7 = 29."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Assumes differences increase by 2 each step and adds 8 to 22 = 30, misidentifying the second-level difference."
+    }
+  ],
+  "explanation": "The differences between consecutive terms are 1, 2, 3, 4, 5, 6 - consecutive natural numbers. The next difference is 7. So the next term = 22 + 7 = 29.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Differences 1, 2, 3, 4, 5, 6 are natural numbers in order - the next difference is 7, making the next term 22 + 7 = 29.",
+    "approach": "Apply clues most-certain-first: compute differences: 2-1=1, 4-2=2, 7-4=3, 11-7=4, 16-11=5, 22-16=6. These are n = 1, 2, 3, 4, 5, 6. Next difference = 7. Next term = 22 + 7 = 29.",
+    "lesson": "When differences themselves are consecutive natural numbers (1, 2, 3, ...), the n-th term formula is T(n) = 1 + n(n-1)/2.",
+    "timing": "35-40 seconds. The trap is using the same gap again (27) - always list all differences before extrapolating."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

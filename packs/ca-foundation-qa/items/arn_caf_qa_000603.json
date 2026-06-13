@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000603",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000603.py"
+  },
+  "tests": [
+    "qa.lr.direction_tests"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "Anil faces South. He turns 180 degrees. He then turns 90 degrees clockwise. Which direction does he now face?",
+  "options": [
+    {
+      "key": 1,
+      "text": "East"
+    },
+    {
+      "key": 2,
+      "text": "West"
+    },
+    {
+      "key": 3,
+      "text": "North"
+    },
+    {
+      "key": 4,
+      "text": "South"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "South + 180 degrees = North. From North, 90 degrees clockwise (N->E) = East."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "direction_turn_error",
+      "rationale": "West results from taking a 90-degree anticlockwise turn from North, confusing the direction of rotation."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "North is the position after the 180-degree turn only; the second 90-degree clockwise turn was not applied."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "net_displacement_error",
+      "rationale": "South is the starting position; failing to apply both turns gives the wrong answer."
+    }
+  ],
+  "explanation": "Starting from South: a 180-degree turn faces North. From North, a 90-degree clockwise turn (N->E) faces East. Two sequential turns must both be applied.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "180 degrees from South reaches North; one more clockwise quarter-turn from North reaches East.",
+    "approach": "Deductive trace: apply turns one at a time. Clockwise order is N->E->S->W. South + 180 = North (two clockwise steps). North + 90 CW = East (one clockwise step). Final answer: East.",
+    "lesson": "Apply each turn in sequence, tracking the current heading; do not skip any step or mix up clockwise and anticlockwise.",
+    "timing": "20-30 seconds. The main traps are stopping after the first turn (gives North, option 3) and turning anticlockwise instead of clockwise after the 180 (gives West, option 2)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

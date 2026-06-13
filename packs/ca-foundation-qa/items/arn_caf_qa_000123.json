@@ -19,6 +19,7 @@
     "qa.stats.probability.independent_events"
   ],
   "difficulty_label": "L2",
+  "explanation_kind": "model_compute",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 90,
@@ -71,10 +72,10 @@
   ],
   "explanation": "1. For independent events, P(neither) = P(A does not solve) × P(B does not solve) = (3/5)(4/7) = 12/35.\n2. KEY STEP: P(at least one) = 1 - P(neither) = 1 - 12/35 = 23/35.\n3. Adding P(A) + P(B) directly gives 29/35. That double-counts the case in both solve.\n4. P(both solve) = 6/35 answers a different question.",
   "explanation_sections": {
-    "punchline": "For independent events, P(at least one) = 1 - P(neither). Neither solves has probability (3/5)(4/7) = 12/35, so at least one = 23/35.",
-    "approach": "When you see 'at least one' with independent events, use the complement method. Find each person's failure probability. Multiply them for P(neither). Subtract from 1. This avoids the double-counting error that comes from adding P(A) + P(B) directly.",
-    "lesson": "P(at least one) = 1 - P(none). This complement route is faster and safer than the inclusion-exclusion addition formula when events are independent.",
-    "timing": "About 90 seconds. Compute two failure probabilities in 20 seconds. Multiply in 15 seconds. Subtract from 1 in five seconds. Eliminate option (4) in five seconds because 29/35 double-counts the case where both solve."
+    "punchline": "P(at least one) = 1 - P(neither solves). Independence lets you multiply the failure probabilities: (3/5)(4/7) = 12/35, so the answer is 1 - 12/35 = 23/35.",
+    "approach": "Identify the model: 'at least one' with two independent events. The decisive move is the complement method, not direct addition. Assumption: independence means failure probabilities multiply. P(Priya fails) = 3/5, P(Rohan fails) = 4/7. P(neither) = (3/5)(4/7) = 12/35. P(at least one) = 1 - 12/35 = 23/35. The addition route P(A) + P(B) = 29/35 double-counts the joint success case and is slower.",
+    "lesson": "The complement method is the standard route for 'at least one': compute P(none succeed) then subtract from 1. Direct addition P(A) + P(B) overcounts whenever P(A intersection B) is nonzero, which it always is for independent positive-probability events.",
+    "timing": "90 seconds. Convert two solve-probabilities to fail-probabilities in 10 seconds. Multiply fractions in 20 seconds. Subtract from 1 in 5 seconds. Kill option 4 (29/35) at once: it is the no-intersection-subtracted sum. Kill option 3 (6/35): that is P(both solve), the exact opposite of the question."
   },
   "empirical": {
     "calibration_status": "none",

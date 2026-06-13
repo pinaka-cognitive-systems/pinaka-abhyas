@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000839",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000839.py"
+  },
+  "tests": [
+    "qa.stats.distributions.normal"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "The monthly electricity consumption (in kWh) in a housing colony follows a normal distribution with mean 300 and standard deviation 25. Given P(Z < 2) = 0.9772 and P(Z < 0) = 0.5000, what is the probability that a randomly chosen household uses between 300 and 350 kWh?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.9772"
+    },
+    {
+      "key": 2,
+      "text": "0.4772"
+    },
+    {
+      "key": 3,
+      "text": "0.0228"
+    },
+    {
+      "key": 4,
+      "text": "0.5228"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "complement_confusion",
+      "rationale": "P(Z < 2) = 0.9772 is the full left tail up to 350; using it directly ignores the lower limit at the mean (300)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Z at 350 = (350 - 300)/25 = 2; Z at 300 = 0. P(300 < X < 350) = P(0 < Z < 2) = P(Z < 2) - P(Z < 0) = 0.9772 - 0.5000 = 0.4772."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "complement_confusion",
+      "rationale": "1 - 0.9772 = 0.0228 is the right tail beyond 350; it answers the probability above 350, not between 300 and 350."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "0.9772 - 0.5 + 0.05 = 0.5272 (approximately 0.5228) arises from incorrectly adding a small fraction to the correct answer, reflecting a computation error."
+    }
+  ],
+  "explanation": "Standardise the limits: Z_lower = (300 - 300)/25 = 0 and Z_upper = (350 - 300)/25 = 2. The required probability is P(0 < Z < 2) = Phi(2) - Phi(0) = 0.9772 - 0.5000 = 0.4772. The lower limit being exactly at the mean (Z = 0) is the key setup decision, since Phi(0) = 0.5 exactly.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Because the lower limit is exactly the mean, Phi(0) = 0.5 exactly, giving 0.9772 - 0.5000 = 0.4772.",
+    "approach": "Identify model (normal), standardise both limits. Z_lower = 0 (mean), Z_upper = 2. P(between) = Phi(2) - Phi(0) = 0.9772 - 0.5000. Recognise that the lower limit being the mean is the setup decision that pins Phi(0) = 0.5 without a table lookup.",
+    "lesson": "When one limit is the mean, Phi(0) = 0.5 exactly. The answer is always Phi(z_upper) - 0.5 for intervals starting at mu.",
+    "timing": "About 60-75 seconds. The trap is reading off 0.9772 directly, forgetting to subtract the lower tail."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

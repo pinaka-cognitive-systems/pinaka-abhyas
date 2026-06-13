@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000538",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000538.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.continuity"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A piecewise function g is defined as: g(x) = 2x + 3 when x < 1, g(1) = 7, and g(x) = x^2 + 4 when x > 1. Which of the following correctly describes the behaviour of g at x = 1?",
+  "options": [
+    {
+      "key": 1,
+      "text": "g is continuous at x = 1 because g(1) is defined"
+    },
+    {
+      "key": 2,
+      "text": "g is continuous at x = 1 because the left-hand limit equals the right-hand limit"
+    },
+    {
+      "key": 3,
+      "text": "g is discontinuous at x = 1 because the left-hand limit (5) does not equal g(1) = 7 even though both one-sided limits are equal"
+    },
+    {
+      "key": 4,
+      "text": "g is discontinuous at x = 1 because the left-hand limit does not exist"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Checks only whether g(1) is defined (it is, equals 7) and ignores whether the limit of g equals that value."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "LHL = lim(x->1-) (2x+3) = 5 and RHL = lim(x->1+) (x^2+4) = 5; the two limits are indeed equal, but continuity also requires the limit to equal g(1) = 7, which it does not. Stops short at one condition."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "LHL = 2(1)+3 = 5. RHL = 1^2+4 = 5. So the two-sided limit = 5. But g(1) = 7, which is not 5. All of f(a) defined, limit exists, but limit is not equal to f(a), so g is discontinuous at x = 1 (a removable discontinuity)."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Incorrectly claims the left-hand limit does not exist; lim(x->1-) (2x+3) = 2(1)+3 = 5, which is well-defined."
+    }
+  ],
+  "explanation": "Both one-sided limits equal 5 so the two-sided limit exists, but g(1) = 7 is not equal to 5, making x = 1 a removable discontinuity.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "The two-sided limit exists and equals 5, but g(1) = 7 is not equal to 5, so the third continuity condition fails.",
+    "approach": "Identify the model: check continuity conditions one by one. (1) g(1) = 7 is defined. (2) LHL = 2(1)+3 = 5; RHL = 1^2+4 = 5; limit exists and equals 5. (3) Limit (5) is not equal to g(1) (7). Condition 3 fails, so g is discontinuous. This is a removable discontinuity repairable by setting g(1) = 5.",
+    "lesson": "Even when both one-sided limits agree, continuity fails if the function value at the point does not equal that limit.",
+    "timing": "75-90 seconds. Two substitutions take 20 seconds. Trap: option 2 is seductive because the one-sided limits do agree."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000438",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000438.py"
+  },
+  "tests": [
+    "qa.bmath.finance.depreciation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "An asset was purchased for Rs 1,00,000 with a residual value of Rs 10,000 and a useful life of 5 years. The company uses the straight-line method of depreciation. What is the annual depreciation charge and what is the book value at the end of 3 years?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Annual depreciation Rs 18,000; book value Rs 46,000"
+    },
+    {
+      "key": 2,
+      "text": "Annual depreciation Rs 20,000; book value Rs 40,000"
+    },
+    {
+      "key": 3,
+      "text": "Annual depreciation Rs 18,000; book value Rs 64,000"
+    },
+    {
+      "key": 4,
+      "text": "Annual depreciation Rs 10,000; book value Rs 70,000"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "SLM annual depreciation = (Cost - Residual) / Life = (100000 - 10000) / 5 = 18000. Book value after 3 years = 100000 - 3 x 18000 = 100000 - 54000 = 46000."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "percentage_base_confusion",
+      "rationale": "Ignores residual value and depreciates full cost: 100000/5 = 20000 per year; book value = 100000 - 60000 = 40000."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Correctly calculates Rs 18,000 annual depreciation but subtracts only 2 years of depreciation instead of 3: 100000 - 2 x 18000 = 64000."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Uses residual value (10000) as the annual depreciation charge instead of computing (Cost - Residual)/Life; gives book value = 100000 - 3 x 10000 = 70000."
+    }
+  ],
+  "explanation": "SLM with residual value: annual depreciation = (cost - salvage) / useful life = (100000 - 10000) / 5 = 18000. After 3 years: accumulated = 54000; book value = 100000 - 54000 = 46000.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "When a residual (salvage) value exists, SLM depreciates only the depreciable amount (cost minus residual), not the full cost.",
+    "approach": "Formula: SLM with salvage. Annual charge = (C - S)/n = (100000-10000)/5 = 18000. Accumulated over 3 years = 54000. Book value = C - accumulated = 100000 - 54000 = 46000.",
+    "lesson": "Always subtract residual value before dividing by life in SLM; failing to do so overstates annual depreciation.",
+    "timing": "60 seconds. Trap: depreciating full cost (ignoring residual). Quick check: book value must not fall below Rs 10,000 residual."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

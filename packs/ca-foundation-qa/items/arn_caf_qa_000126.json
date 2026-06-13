@@ -18,7 +18,8 @@
   "tests": [
     "qa.stats.probability.expectation"
   ],
-  "difficulty_label": "L3",
+  "difficulty_label": "L2",
+  "explanation_kind": "model_compute",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 120,
@@ -71,10 +72,10 @@
   ],
   "explanation": "1. Compute E[X] = 1×(1/4) + 3×(1/2) + 5×(1/4) = 0.25 + 1.5 + 1.25 = 3.\n2. Compute E[X²] = 1²×(1/4) + 3²×(1/2) + 5²×(1/4) = 0.25 + 4.5 + 6.25 = 11.\n3. KEY STEP: Var(X) = E[X²] - (E[X])² = 11 - 3² = 11 - 9 = 2.\n4. Subtracting E[X] instead of (E[X])² gives 11 - 3 = 8, a common formula error.",
   "explanation_sections": {
-    "punchline": "Variance = E[X squared] - (E[X]) squared. You must square the mean before subtracting. Here 11 - 9 = 2, not 11 - 3 = 8.",
-    "approach": "Compute E[X] first by multiplying each value by its probability and summing. Then compute E[X squared] by multiplying each squared value by its probability and summing. Finally subtract (E[X]) squared. Set up two separate weighted-sum columns to avoid errors.",
-    "lesson": "Var(X) = E[X squared] - (E[X]) squared. The subtracted term is the square of the mean, not the mean itself. Confusing E[X squared] with (E[X]) squared, or subtracting E[X] instead of (E[X]) squared, are both common formula errors.",
-    "timing": "About 120 seconds. Computing E[X] takes 30 seconds. Computing E[X squared] takes 40 seconds. The final subtraction takes 10 seconds. Eliminate option (2) in five seconds because 11 is E[X squared], a raw moment, not the variance."
+    "punchline": "Variance requires squaring the mean before subtracting. E[X squared] = 11 and (E[X]) squared = 9, so Var(X) = 11 - 9 = 2, not 11 - 3 = 8.",
+    "approach": "Model: discrete RV with given distribution. Step 1 - compute E[X] = sum of (value times probability). Step 2 - compute E[X squared] = sum of (value squared times probability). Step 3 - Var(X) = E[X squared] - (E[X]) squared. Keep two separate running totals; never mix the two moments. This recipe works for any finite discrete distribution.",
+    "lesson": "Var(X) = E[X squared] - (E[X]) squared. The subtracted term is the mean squared, not the mean itself. Subtracting E[X] instead of (E[X]) squared is the trap that produces distractor (1) = 8.",
+    "timing": "90-120 seconds. Reject option (2) in under 5 seconds: 11 is E[X squared], a raw second moment, not the variance. If you see option (1) = 8 tempting you, that is the E[X squared] - E[X] trap: you subtracted the mean, not its square."
   },
   "empirical": {
     "calibration_status": "none",

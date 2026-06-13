@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000464",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000464.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.permutations_restrictions"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "How many distinct arrangements of all the letters in the word MARKET can be formed such that the letters M and K always appear together (in any order relative to each other)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "240"
+    },
+    {
+      "key": 2,
+      "text": "120"
+    },
+    {
+      "key": 3,
+      "text": "720"
+    },
+    {
+      "key": 4,
+      "text": "480"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Treat M and K as one block: 5 objects (MK-block, A, R, E, T) arrange in 5! = 120 ways. MK block has 2! = 2 internal orders (MK or KM). Total = 120 x 2 = 240."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "permutation_combination_confusion",
+      "rationale": "Computed 5! = 120 without multiplying by 2! for the internal arrangements of M and K within the block."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Computed 6! = 720, the total unrestricted arrangements, ignoring the constraint that M and K must be together."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computed 6! / (6!/240) = 480, perhaps halving 6! or using an incorrect divisor."
+    }
+  ],
+  "explanation": "Merge M and K into one block. Now there are 5 units to arrange in a row: (MK-block), A, R, E, T. That gives 5! = 120 arrangements. Within the block, M and K can be in 2 orders (MK or KM): multiply by 2! = 2. Total = 120 x 2 = 240.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "Merge the constrained letters into one block, arrange the blocks, then restore internal order of the block.",
+    "approach": "Classify: linear arrangement, always-together restriction. Step 1 - merge M and K: n reduces from 6 to 5. Step 2 - arrangements of 5 units: 5! = 120. Step 3 - internal arrangements of the block: 2! = 2. Multiply: 120 x 2 = 240.",
+    "lesson": "Always-together: merge into block, compute (reduced n)!, multiply by (block size)!.",
+    "timing": "25 seconds: 5! x 2 = 240. Trap: computing 5! = 120 and forgetting to multiply by 2 for internal block order."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

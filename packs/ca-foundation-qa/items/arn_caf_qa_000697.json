@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000697",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000697.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mean"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 45,
+  "stem": "The marks scored by five students in a test are 48, 56, 62, 70, and 84. What is the arithmetic mean of these marks?",
+  "options": [
+    {
+      "key": 1,
+      "text": "60"
+    },
+    {
+      "key": 2,
+      "text": "62"
+    },
+    {
+      "key": 3,
+      "text": "64"
+    },
+    {
+      "key": 4,
+      "text": "66"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Summing only the middle three values (56 + 62 + 70 = 188) and dividing by 3 gives 62.67, rounded to 60 - a partial-sum error."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Incorrect addition of the five values (totalling 310 instead of 320) divided by 5 gives 62."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Sum = 48 + 56 + 62 + 70 + 84 = 320; Mean = 320 / 5 = 64."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "decimal_place_error",
+      "rationale": "Sum computed correctly as 320 but divided by 4 (perhaps counting only non-extreme values) gives 80, misread as 66 - a count error variant."
+    }
+  ],
+  "explanation": "Add all five marks: 48 + 56 + 62 + 70 + 84 = 320. Divide by the count 5 to get arithmetic mean = 64.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Sum every observation and divide by the total count - no shortcut is needed for five values.",
+    "approach": "Arithmetic mean: compute the sum of all observations and divide by n. Here n = 5, sum = 48 + 56 + 62 + 70 + 84 = 320, mean = 320 / 5 = 64.",
+    "lesson": "Always include every data point in the sum; partial sums or wrong counts are the main error sources.",
+    "timing": "15-20 seconds. Add pairs: (48 + 62) = 110, (56 + 84) = 140, add 70 gives 320, divide by 5."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

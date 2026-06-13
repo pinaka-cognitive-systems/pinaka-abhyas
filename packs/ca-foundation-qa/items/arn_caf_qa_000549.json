@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000549",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000549.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.number_series"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "What is the missing term? 144, 121, 100, 81, ?, 49.",
+  "options": [
+    {
+      "key": 1,
+      "text": "60"
+    },
+    {
+      "key": 2,
+      "text": "62"
+    },
+    {
+      "key": 3,
+      "text": "63"
+    },
+    {
+      "key": 4,
+      "text": "64"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Identifies the series as a decreasing AP and subtracts 21 from 81 to get 60, ignoring the square root pattern."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Correctly identifies squares but miscomputes 8^2 as 62 due to a multiplication slip."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Correctly identifies squares but computes 8^2 = 63, a slip of 1."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "The series is squares of descending integers: 12^2=144, 11^2=121, 10^2=100, 9^2=81, 8^2=64, 7^2=49. Missing term = 8^2 = 64."
+    }
+  ],
+  "explanation": "The series consists of squares of consecutive integers in descending order: 12^2, 11^2, 10^2, 9^2, 8^2, 7^2 = 144, 121, 100, 81, 64, 49. The missing term is 8^2 = 64.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Decreasing perfect squares: once you identify 144=12^2 and 49=7^2, the 5th position must be 8^2 = 64.",
+    "approach": "Apply clues most-certain-first: compute square roots: sqrt(144)=12, sqrt(121)=11, sqrt(100)=10, sqrt(81)=9, sqrt(49)=7. Position 5 is for n=8. 8^2 = 64.",
+    "lesson": "When terms decrease and are recognisable squares, list their roots and find the root at the missing position.",
+    "timing": "30-35 seconds. 64 is the only perfect square in the options - the others (60, 62, 63) are not perfect squares."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

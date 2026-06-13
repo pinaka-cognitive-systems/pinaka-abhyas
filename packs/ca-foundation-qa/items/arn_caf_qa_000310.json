@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000310",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen_finance_v1",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000310.py"
+  },
+  "tests": [
+    "qa.bmath.finance.compound_interest"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "Sunita invests Rs 50,000 in a fixed deposit. For the first 2 years the bank compounds interest at 10% per annum; for the next 3 years the rate changes to 12% per annum. What is the total amount at the end of 5 years? [Given: (1.10)^2 = 1.21 and (1.12)^3 = 1.404928]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 80,525.50"
+    },
+    {
+      "key": 2,
+      "text": "Rs 84,998.14"
+    },
+    {
+      "key": 3,
+      "text": "Rs 88,117"
+    },
+    {
+      "key": 4,
+      "text": "Rs 78,000"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "verdict": "incorrect",
+      "misconception": "rate_period_mismatch",
+      "rationale": "Rs 80,525.50 = 50000 x (1.10)^5 applies the first-phase rate of 10% for all 5 years, ignoring that the rate changes to 12% after Year 2; the rate-period combination is mismatched.",
+      "option_key": 1
+    },
+    {
+      "verdict": "correct",
+      "option_key": 2,
+      "rationale": "A rate change partitions the timeline into phases; the output of each phase becomes the input principal of the next, so you chain the multiplications rather than averaging or adding."
+    },
+    {
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Rs 88,117 = 50000 x (1.12)^5 applies the second-phase rate of 12% for all 5 years, ignoring that the first 2 years earned 10%; the formula is applied to the full horizon at the wrong rate.",
+      "option_key": 3
+    },
+    {
+      "verdict": "incorrect",
+      "misconception": "compound_interest_confusion",
+      "rationale": "Rs 78,000 = 50000 + 50000 x (0.10 x 2 + 0.12 x 3) computes simple interest for each phase and adds them together, treating both phases as SI instead of CI; the compounding is entirely dropped.",
+      "option_key": 4
+    }
+  ],
+  "explanation": "Phase 1: A1 = 50000 x (1.10)^2 = 50000 x 1.21 = Rs 60,500. Phase 2: A2 = 60500 x (1.12)^3 = 60500 x 1.404928 = Rs 84,998.14.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "A rate change partitions the timeline into phases; the output of each phase becomes the input principal of the next, so you chain the multiplications rather than averaging or adding.",
+    "approach": "Phase 1 (Years 1-2): A1 = 50000 x (1.10)^2 = 50000 x 1.21 = 60500. Phase 2 (Years 3-5): A2 = A1 x (1.12)^3 = 60500 x 1.404928 = 84998.14. The Rs 60,500 is the bridge linking the two phases.",
+    "lesson": "Two-phase problems require exactly two multiplications chained. Never average the rates or apply a single multi-year factor across the full period at one rate.",
+    "timing": "120 seconds: one multiplication per phase plus one chain. Trap is option 1 (first-phase rate extended to 5 years), the most natural mistake when students stop after Phase 1 and use n = 5."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

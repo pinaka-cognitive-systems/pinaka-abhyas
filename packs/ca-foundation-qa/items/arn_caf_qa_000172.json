@@ -18,10 +18,11 @@
   "tests": [
     "qa.bmath.inequalities.solution_space"
   ],
-  "difficulty_label": "L2",
+  "difficulty_label": "L1",
+  "explanation_kind": "derivation",
   "taxonomy_version": 4,
   "item_type": "single_best",
-  "expected_seconds": 90,
+  "expected_seconds": 60,
   "stem": "A feasible region is defined by 2x + y ≤ 10, x ≥ 0, y ≥ 0. Which point lies outside this region?",
   "options": [
     {
@@ -71,10 +72,10 @@
   ],
   "explanation": "Check each point against 2x + y ≤ 10. For (4, 3): 2(4) + 3 = 11 > 10. This violates the constraint. All other points satisfy it.",
   "explanation_sections": {
-    "punchline": "Substituting (4, 3) gives 2(4) + 3 = 11, which exceeds 10 and breaks the constraint. Every other point gives a value of 10 or less.",
-    "approach": "For feasible region questions, test each option directly in the inequality. Substitute the x and y values, compute the left side, and compare with the right side. A point is outside if the inequality is violated. Do not try to sketch unless time permits.",
-    "lesson": "To check if a point is in a feasible region, substitute it into every constraint and verify each one holds. One violation is enough to place it outside.",
-    "timing": "About 90 seconds. Spend 10 seconds per option on arithmetic. If two options look close, check the boundary case first."
+    "punchline": "(4, 3) gives 2(4) + 3 = 11, which exceeds 10. One inequality violation is enough to place a point outside the feasible region.",
+    "approach": "Direct plug-in test: substitute each candidate's x and y into 2x + y, compare with 10. The question asks which violates the constraint, so stop at the first point that does. The x >= 0 and y >= 0 non-negativity checks are trivially satisfied by all options with positive coordinates.",
+    "lesson": "A point is outside a feasible region if even one constraint is violated. Boundary points (where equality holds) are inside or on the boundary, not outside.",
+    "timing": "Under 60 seconds. Each substitution is a two-step multiplication and addition. Note that (3, 4) gives exactly 10, making it a boundary trap; 11 > 10 is unambiguous for (4, 3)."
   },
   "empirical": {
     "calibration_status": "none",

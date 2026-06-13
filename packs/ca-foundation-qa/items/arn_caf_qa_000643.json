@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000643",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000643.py"
+  },
+  "tests": [
+    "qa.lr.blood_relations"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "Anita says to Priya, 'Your mother's husband's sister is my mother.' How is Priya related to Anita?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Cousin"
+    },
+    {
+      "key": 2,
+      "text": "Niece"
+    },
+    {
+      "key": 3,
+      "text": "Aunt"
+    },
+    {
+      "key": 4,
+      "text": "Sister"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Priya's mother's husband = Priya's father. Priya's father's sister = Priya's aunt. That aunt is Anita's mother. So Anita is Priya's aunt's daughter = Priya's cousin. From Anita's side: Priya is also Anita's cousin."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Placing Priya one generation below Anita instead of at the same generation gives niece - a generation confusion."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "kinship_direction_inverted",
+      "rationale": "Inverting the chain: following the relation from Priya to Anita in the wrong direction makes Anita seem to be Priya's aunt rather than cousin."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "kinship_gender_error",
+      "rationale": "Ignoring that the shared link is through a sibling (father's sister) rather than the same parents, and treating the two as same-parent siblings, gives sister."
+    }
+  ],
+  "explanation": "Chain: Priya's mother's husband = Priya's father. Priya's father's sister = Priya's aunt (paternal). That aunt is Anita's mother. Anita is therefore Priya's aunt's daughter = Priya's cousin.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Mother's husband = father; father's sister = aunt; aunt's daughter = cousin.",
+    "approach": "Apply clues most-certain-first: decode 'mother's husband' to 'father' (redundant phrasing is a distractor). Then 'father's sister' = paternal aunt. Anita says that aunt is her own mother. Anita is the daughter of Priya's paternal aunt = Priya's cousin.",
+    "lesson": "'Mother's husband' is a deliberately verbose way to say 'father'. Simplify each link before chaining.",
+    "timing": "About 70-80 s. Trap: option 3 (aunt) - that is the relation of the intermediate person (Anita's mother) to Priya, not Anita's own relation."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

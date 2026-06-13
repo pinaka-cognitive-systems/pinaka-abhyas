@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000754",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000754.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.standard_deviation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Two series of annual sales figures are summarised below:\n\nSeries P: Mean = 25 lakhs, Standard Deviation = 5 lakhs\nSeries Q: Mean = 20 lakhs, Standard Deviation = 6 lakhs\n\nWhich series shows GREATER relative variability and what is its coefficient of variation?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Series Q; CV = 30%"
+    },
+    {
+      "key": 2,
+      "text": "Series P; CV = 20%"
+    },
+    {
+      "key": 3,
+      "text": "Series Q; CV = 24%"
+    },
+    {
+      "key": 4,
+      "text": "Both series have equal relative variability"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "CV_P = (5/25)*100 = 20%. CV_Q = (6/20)*100 = 30%. Series Q has higher CV so it shows greater relative variability."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Student compares the SD values (5 vs 6) and concludes P is less variable, then incorrectly selects P as having greater variation due to confusing the question direction; or uses mean as the comparator since P has a higher mean."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Student computes CV_Q = (SD_Q / mean_P)*100 = (6/25)*100 = 24%, mixing up the denominators of the two series."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "invariance_property_confused",
+      "rationale": "Student confuses CV with an invariant property and incorrectly believes that since the two SDs are close (5 and 6) the relative variation must be similar."
+    }
+  ],
+  "explanation": "Coefficient of variation = (SD / mean) * 100. It measures relative dispersion and is the correct tool for comparing variability across series with different means.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The setup decision is using CV (not raw SD) when comparing variability across series with different means.",
+    "approach": "Step 1: Identify the right measure: different means require CV for valid comparison. Step 2: CV_P = (5/25)*100 = 20%. Step 3: CV_Q = (6/20)*100 = 30%. Step 4: 30% > 20%, so Series Q has greater relative variability.",
+    "lesson": "Raw SD is only comparable when the two means are equal; use CV for relative comparisons across different scales.",
+    "timing": "About 45 seconds. Two divisions and two comparisons. The trap is to choose Q because its SD is larger (6 > 5), which happens to be correct here but for the wrong reason."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000578",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000578.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.coding_decoding"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 70,
+  "stem": "In a code language, if BOLD is written as EROG and CAPE is written as FDSH, then how is FIRM written in that code?",
+  "options": [
+    {
+      "key": 1,
+      "text": "ILUP"
+    },
+    {
+      "key": 2,
+      "text": "HMQO"
+    },
+    {
+      "key": 3,
+      "text": "ILTO"
+    },
+    {
+      "key": 4,
+      "text": "GKUP"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "The rule is shift each letter 3 places forward: F->I, I->L, R->U, M->P. Verified: B->E, O->R, L->O, D->G for BOLD->EROG; C->F, A->D, P->S, E->H for CAPE->FDSH. FIRM->ILUP."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "HMQO results from applying a shift of +2 instead of +3 (F->H, I->K... wait, actually shift +2: F->H, I->K, R->T, M->O gives HKTO). HMQO arises from an inconsistent shift - H means F+2, M means I+4, Q means R-1, O means M+2 - a scrambled mix indicating the student guessed the shift incorrectly."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "ILTO: I and L are correct (F+3 and I+3), but T is R+2 and O is M+2, showing the student applied a +3 shift to the first two letters but then switched to a +2 shift for the last two."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "GKUP: G=F+1, K=I+2, U=R+3, P=M+3 - the student identified an incrementing shift pattern (1,2,3,...) rather than a constant +3 shift."
+    }
+  ],
+  "explanation": "From BOLD->EROG and CAPE->FDSH: B+3=E, O+3=R, L+3=O, D+3=G; C+3=F, A+3=D, P+3=S, E+3=H. The rule is a constant forward shift of 3. Applying to FIRM: F+3=I, I+3=L, R+3=U, M+3=P gives ILUP.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Decode the rule from two given examples first, then apply it - both examples confirm a constant +3 shift.",
+    "approach": "Deductive trace: apply the rule-identification step (map known word to known code letter by letter), confirm consistency across both examples, then apply the verified rule to FIRM. Setup decision: recognise constant shift vs incrementing shift from the evidence.",
+    "lesson": "Always verify the coding rule with at least two example pairs before applying it - a single pair might fit multiple patterns.",
+    "timing": "60-70 seconds. Trap: assuming an incrementing shift (1,2,3,...) instead of a constant shift of 3."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

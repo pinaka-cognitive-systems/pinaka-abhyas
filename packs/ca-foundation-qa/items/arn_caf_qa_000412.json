@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000412",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000412.py"
+  },
+  "tests": [
+    "qa.bmath.finance.npv"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "A small business requires an initial investment of Rs 33,000 and is expected to generate Rs 15,000 per year for the next 3 years. The discount rate is 12% per annum. [Given: PV annuity factor for 3 years at 12% = 2.4018] What is the NPV of this investment?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 12,000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 3,027"
+    },
+    {
+      "key": 3,
+      "text": "Rs -3,027"
+    },
+    {
+      "key": 4,
+      "text": "Rs 45,000"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Adds undiscounted inflows 3 * 15,000 = 45,000 then subtracts outlay 33,000, getting 12,000 without applying any discounting."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "PV of inflows = 15,000 * 2.4018 = 36,027. NPV = 36,027 - 33,000 = 3,027."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computes 36,027 - 33,000 = 3,027 correctly but reverses the subtraction order to 33,000 - 36,027, reporting -3,027."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reports the undiscounted sum of inflows 3 * 15,000 = 45,000 without deducting the initial outlay."
+    }
+  ],
+  "explanation": "NPV = PV of cash inflows - initial investment. A positive NPV means the project earns more than the required rate and should be accepted.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "NPV = (CF * PVAF) - C_0; the given annuity factor converts all future inflows to present value in one multiplication.",
+    "approach": "Name the formula NPV = CF * PVAF - C_0. Map: CF = Rs 15,000, PVAF = 2.4018, C_0 = Rs 33,000. Compute PV = 15,000 * 2.4018 = 36,027. NPV = 36,027 - 33,000 = 3,027 (positive, accept).",
+    "lesson": "Always discount future cash flows before comparing them to the initial outlay. Positive NPV = accept; negative = reject.",
+    "timing": "20 seconds. The stem gives the factor; the only work is one multiplication and one subtraction. Watch for the sign."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

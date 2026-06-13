@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000342",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000342.py"
+  },
+  "tests": [
+    "qa.bmath.equations.simultaneous_linear"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "At a stationery shop, 3 pencils and 2 pens cost Rs 28, while 4 pencils and 5 pens cost Rs 56. What is the price of one pen?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 4"
+    },
+    {
+      "key": 2,
+      "text": "Rs 6"
+    },
+    {
+      "key": 3,
+      "text": "Rs 8"
+    },
+    {
+      "key": 4,
+      "text": "Rs 10"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student solves the system correctly (pencil = 4, pen = 8) but reports the price of a pencil instead of a pen."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student correctly eliminates pencils by multiplying first equation by 4 and second by 3, getting 12p + 8q = 112 and 12p + 15q = 168, then 7q = 56 correctly, but makes a slip: 7q = 42 (using 168 - 126 from a wrong step), giving q = 6."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Let pencil price = p, pen price = q. Equations: 3p + 2q = 28 and 4p + 5q = 56. Multiply first by 4 and second by 3: 12p + 8q = 112 and 12p + 15q = 168. Subtract: 7q = 56, q = 8."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "Student eliminates p by multiplying first equation by 4 and second by 3 but adds instead of subtracts: 24q = 280, q = 280/24 which they round to 10; or uses wrong sign in substitution."
+    }
+  ],
+  "explanation": "Let p = pencil price, q = pen price. System: 3p + 2q = 28, 4p + 5q = 56. Multiply first by 4 and second by 3 to equalise p: 12p + 8q = 112 and 12p + 15q = 168. Subtract first from second: 7q = 56, so q = Rs 8.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Eliminate one variable by finding equal coefficients; the subtraction directly gives the other variable.",
+    "approach": "Choose the variable to eliminate (pencil). Make its coefficients equal by multiplying equations by 4 and 3. Subtract to eliminate 12p on both sides. The result 7q = 56 gives q = 8 directly.",
+    "lesson": "In elimination, identify the LCM of the target variable's coefficients and scale both equations accordingly.",
+    "timing": "About 80 seconds. Trap: solving for pencil price and reporting 4 instead of pen price 8; re-read which item is being asked."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

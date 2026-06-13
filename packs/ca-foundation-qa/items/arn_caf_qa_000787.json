@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000787",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000787.py"
+  },
+  "tests": [
+    "qa.stats.probability.addition_theorem"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "A card is drawn at random from a well-shuffled deck of 52 playing cards. What is the probability that the card drawn is either a King or a Heart?",
+  "options": [
+    {
+      "key": 1,
+      "text": "4/13"
+    },
+    {
+      "key": 2,
+      "text": "17/52"
+    },
+    {
+      "key": 3,
+      "text": "16/52"
+    },
+    {
+      "key": 4,
+      "text": "1/4"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "P(King or Heart) = P(King) + P(Heart) - P(King of Hearts) = 4/52 + 13/52 - 1/52 = 16/52 = 4/13."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "set_operation_confused",
+      "rationale": "Adding P(King) + P(Heart) = 4/52 + 13/52 = 17/52 without subtracting the overlap (King of Hearts), treating the events as if they share no element."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Applying the inclusion-exclusion formula but mis-simplifying 16/52 without converting to lowest terms, leaving the answer as 16/52 instead of 4/13."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "complement_confusion",
+      "rationale": "Using only the Heart count alone: 13/52 = 1/4, ignoring the King events entirely."
+    }
+  ],
+  "explanation": "The addition theorem states P(A or B) = P(A) + P(B) - P(A and B) for any two events. Here A = King (4 cards), B = Heart (13 cards), and A and B = King of Hearts (1 card). So P = (4 + 13 - 1)/52 = 16/52 = 4/13.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The overlap (King of Hearts) is counted in both King and Heart groups, so it must be subtracted once.",
+    "approach": "Identify the model: addition theorem for non-mutually-exclusive events. Map each given: n(King)=4, n(Heart)=13, n(King and Heart)=1, total=52. Apply P(A or B) = P(A) + P(B) - P(A and B) = (4+13-1)/52 = 16/52 = 4/13.",
+    "lesson": "Whenever two events can occur simultaneously, always subtract their intersection to avoid double-counting.",
+    "timing": "45 seconds. Eliminate 1/4 first (only counts Hearts). The trap is forgetting to subtract the King of Hearts."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "In cluster sampling, the population is divided into groups called clusters. A random sample of clusters is chosen and every unit in the selected clusters is surveyed. Here the zones are clusters, so this is cluster sampling.",
+  "explanation_kind": "concept",
   "explanation_sections": {
-    "punchline": "The answer is cluster sampling. The zones are the clusters. Whole zones are selected at random, then every member in those zones is surveyed.",
-    "approach": "Check whether subgroups are formed and whether the whole subgroup or a sample from it is taken. Whole subgroup selected = cluster. Sample from each subgroup = stratified.",
-    "lesson": "Cluster sampling selects entire groups. Stratified sampling selects from within each group. The distinguishing step is whether you survey all members of the selected groups.",
-    "timing": "45 seconds. Read the two key facts: groups are formed, then entire groups are selected. Match these to the cluster definition and move on."
+    "punchline": "Cluster sampling selects whole groups as the sampling unit, then surveys every member in the selected groups. That is exactly what happens here: 3 zones are picked, and every person in those zones is surveyed.",
+    "approach": "State the definition: cluster sampling = divide population into groups (clusters), randomly select some clusters, survey all members of each selected cluster. Contrast the confusable: stratified sampling also groups the population first but then draws a sample from within each group - not all members. Decision shortcut: ask whether the whole group is taken or a subset from each group.",
+    "lesson": "The only structural difference between cluster and stratified sampling is what happens after grouping. Cluster: select some groups, take all members of those groups. Stratified: keep all groups, take a sample from each.",
+    "timing": "45 seconds. Two facts decide it: groups are formed, then entire groups are surveyed. Match to cluster definition and mark. 20 seconds is sufficient."
   },
   "empirical": {
     "calibration_status": "none",

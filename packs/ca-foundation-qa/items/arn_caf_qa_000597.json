@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000597",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000597.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.odd_man_out"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "Four number pairs are given. Three pairs follow the same rule; one does not. Identify the odd pair: (5, 26), (7, 50), (9, 82), (11, 121).",
+  "options": [
+    {
+      "key": 1,
+      "text": "(5, 26)"
+    },
+    {
+      "key": 2,
+      "text": "(7, 50)"
+    },
+    {
+      "key": 3,
+      "text": "(9, 82)"
+    },
+    {
+      "key": 4,
+      "text": "(11, 121)"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "(5, 26): 5^2 + 1 = 25 + 1 = 26. Follows the rule second = first^2 + 1."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "(7, 50): 7^2 + 1 = 49 + 1 = 50. Follows the rule second = first^2 + 1."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "(9, 82): 9^2 + 1 = 81 + 1 = 82. Follows the rule second = first^2 + 1."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "(11, 121): 11^2 = 121, so the second number equals 11^2 + 0 = 121, not 11^2 + 1 = 122. The rule is second = first^2 + 1, which gives 122 not 121. Hence (11, 121) breaks the rule."
+    }
+  ],
+  "explanation": "The pattern is: second number = (first number)^2 + 1. Checking: 5^2+1=26 (match), 7^2+1=50 (match), 9^2+1=82 (match), but 11^2+1=122 while the pair gives 121. So (11, 121) is the odd one out.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The rule is second = first^2 + 1; for (11, 121), 11^2 + 1 = 122, not 121.",
+    "approach": "Apply clues most-certain-first: for each pair (a, b), compute a^2 + 1 and compare to b. If a^2 + 1 = b, the pair conforms. The pair where a^2 + 1 differs from b is the outlier.",
+    "lesson": "In number-pair odd-man-out, derive the rule from the majority (three pairs) and verify the fourth against it. Off-by-one differences (122 vs 121) are a classic trap.",
+    "timing": "About 65 seconds. Trap: 11^2 = 121 is a well-known square, making (11, 121) look correct. The key step is adding 1 to 121 and checking against the given value."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

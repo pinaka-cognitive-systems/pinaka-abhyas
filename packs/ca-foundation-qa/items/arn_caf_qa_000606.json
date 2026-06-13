@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000606",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000606.py"
+  },
+  "tests": [
+    "qa.lr.direction_tests"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "Kavita starts at point A and walks 4 km East to reach point B. From B, she walks 3 km South and reaches point C. What is the straight-line distance from A to C, and in which direction is C from A?",
+  "options": [
+    {
+      "key": 1,
+      "text": "5 km, South-East"
+    },
+    {
+      "key": 2,
+      "text": "7 km, South-East"
+    },
+    {
+      "key": 3,
+      "text": "5 km, North-East"
+    },
+    {
+      "key": 4,
+      "text": "5 km, South-West"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Distance = sqrt(4^2+3^2) = 5 km. C is East and South of A, so direction is South-East."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "net_displacement_error",
+      "rationale": "7 = 4+3 km, the total path length rather than the straight-line hypotenuse."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "direction_turn_error",
+      "rationale": "North-East is wrong; C is South of B (which is East of A), placing C to the South-East, not North-East."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "South-West would require C to be West of A; but Kavita walked East first, so C is East of A."
+    }
+  ],
+  "explanation": "From A, Kavita goes 4 km East and 3 km South. C is East and South of A, i.e., in the South-East quadrant. Distance AC = sqrt(4^2+3^2) = sqrt(25) = 5 km (the 3-4-5 triple).",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "East then South places C in the South-East; 3-4-5 triple gives 5 km.",
+    "approach": "Deductive trace: place A at origin. B is at (4,0). C is at (4,-3) (3 km South). Distance AC = sqrt(4^2+3^2)=5. Direction: C is right and below A, which is South-East.",
+    "lesson": "For a two-leg route with perpendicular directions, the final position is in the quadrant determined by the two legs; straight-line distance uses Pythagoras.",
+    "timing": "35-45 seconds. The trap is adding 4+3=7 (option 2). Recognise the 3-4-5 triple instantly to avoid computation."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

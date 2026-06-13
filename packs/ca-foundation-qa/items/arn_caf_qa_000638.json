@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000638",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000638.py"
+  },
+  "tests": [
+    "qa.lr.blood_relations"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "Pointing to a photograph, Meena says, 'He is the only son of my father's father.' How is the person in the photograph related to Meena?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Father"
+    },
+    {
+      "key": 2,
+      "text": "Uncle"
+    },
+    {
+      "key": 3,
+      "text": "Grandfather"
+    },
+    {
+      "key": 4,
+      "text": "Brother"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Meena's father's father is her grandfather. The only son of her grandfather is her father. So the person is Meena's father."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Treating 'father's father' as one generation up (i.e. treating father's father as if he were father's brother) incorrectly gives uncle."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "kinship_direction_inverted",
+      "rationale": "Mistakenly associating 'father's father' directly with the person asked about rather than with the person whose son is being described gives grandfather."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "kinship_gender_error",
+      "rationale": "Forgetting the clue specifies 'only son' and instead linking the same generation to Meena gives brother - ignoring the generation step through grandfather."
+    }
+  ],
+  "explanation": "Meena's father's father = grandfather. Grandfather's only son = Meena's father. Therefore the person in the photograph is Meena's father.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Two-step chain: grandfather's only son is the father, not the grandfather himself and not a sibling.",
+    "approach": "Apply clues most-certain-first: identify the reference person (Meena's father's father = grandfather), then identify the target (only son of grandfather = father). The chain has two links, both must be traversed.",
+    "lesson": "Always traverse every link in the description chain; stopping one link short places the answer at the wrong generation.",
+    "timing": "Under 50 s. Trap is option 3 (grandfather) - it stops after the first link; option 2 (uncle) comes from treating the second link as a sibling instead of a child."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

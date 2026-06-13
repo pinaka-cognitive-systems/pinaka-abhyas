@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "Step 1: 'my father's father' = Rajan's grandfather. Step 2: 'only son of grandfather' = Rajan's father (the grandfather's unique male child). Step 3: 'daughter of Rajan's father' = Rajan's sister. The key step is recognising that 'only son of grandfather' refers to Rajan's own father, not a separate uncle.",
+  "explanation_kind": "deductive_trace",
   "explanation_sections": {
-    "punchline": "The girl is Rajan's sister. Grandfather's only son is Rajan's father, and the girl is that man's daughter.",
-    "approach": "Draw the kinship chain as a path: person A is related to B who is related to C. Follow each link in order, writing the relationship from Rajan's viewpoint at each step. The last link gives the answer.",
-    "lesson": "When a chain contains 'only son of grandfather', that person is the father of the speaker, not an uncle. If the grandfather had more than one son the relationship could branch, but 'only' collapses it to one path.",
-    "timing": "About 45 seconds. Two links to trace. Write each link in 10 seconds. If stuck, replace names with generic terms: grandfather, father, sibling."
+    "punchline": "Lock the middle link first: 'only son of my father's father' can only be Rajan's own father - the word 'only' eliminates any uncle branch. Once that is fixed, 'daughter of Rajan's father' = Rajan's sister.",
+    "approach": "Follow each link from left to right in the stated chain. Link 1: 'my father's father' = Rajan's grandfather. Link 2: 'only son of grandfather' - the word 'only' means there is exactly one son; that son is Rajan's father (not an uncle). Link 3: 'daughter of Rajan's father' = Rajan's sister. Verify: does any other option fit? A cousin would require the middle link to be an uncle (grandfather's other son), but 'only' rules that out. Clue 'only son' is the constraint that violates option 1 (Cousin). Confirm: Sister.",
+    "lesson": "The word 'only' in a kinship chain collapses a potential branch to a single path. 'Only son of grandfather' = the speaker's father, not an uncle. Without 'only', the answer would be ambiguous.",
+    "timing": "About 45 seconds. Two links, each under 15 seconds. The trap is option 1 (Cousin) - it ignores the word 'only' and treats the middle person as an uncle. Always read 'only' as a branch-eliminator."
   },
   "empirical": {
     "calibration_status": "none",

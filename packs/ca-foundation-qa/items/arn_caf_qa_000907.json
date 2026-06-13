@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000907",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000907.py"
+  },
+  "tests": [
+    "qa.bmath.finance.compound_interest"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "Rs 16000 is invested for 2 years. Interest is compounded annually at 5 percent in the first year and 15 percent in the second year. What is the amount at the end of 2 years?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 19320"
+    },
+    {
+      "key": 2,
+      "text": "Rs 19360"
+    },
+    {
+      "key": 3,
+      "text": "Rs 19200"
+    },
+    {
+      "key": 4,
+      "text": "Rs 21160"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Apply each year's rate in turn: after year 1, 16000*1.05 = 16800; after year 2, 16800*1.15 = 19320. The factor is 16000*(1.05)*(1.15) = Rs 19320."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Averages the two rates to 10 percent and compounds: 16000*(1.10)^2 = 19360. Averaging then squaring is not the same as multiplying the two distinct year factors.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Adds the rates to a single 20 percent and applies it once: 16000*1.20 = 19200, treating two compounding years as one simple step.",
+      "misconception": "rate_period_mismatch"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Applies 15 percent in both years, 16000*(1.15)^2 = 21160, by reading the higher rate as the rate for the whole term and dropping the 5 percent first year.",
+      "misconception": "time_factor_dropped"
+    }
+  ],
+  "explanation": "With a different rate each year the growth factor is the product of the yearly factors, not an averaged or summed single rate. Year 1: 16000*(1 + 5/100) = 16000*1.05 = 16800. Year 2: 16800*(1 + 15/100) = 16800*1.15 = 19320. So the amount is 16000*1.05*1.15 = Rs 19320.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Two-phase compounding multiplies the year factors, 1.05 times 1.15, in sequence. There is no single equivalent rate you can square or add.",
+    "approach": "When the rate changes between periods, build the amount as P times the product of (1 + each period rate). Apply each factor to the running balance one period at a time; never average or sum the rates.",
+    "lesson": "Amount with changing rates = P*(1+i1)*(1+i2)*...; the equivalent single rate is the geometric, not arithmetic, combination.",
+    "timing": "About 150 seconds. The fastest elimination is to reject Rs 19360, the averaged-rate trap, since 1.05*1.15 = 1.2075 is below 1.10^2 = 1.21."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

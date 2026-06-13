@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000932",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000932.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.quartile_deviation"
+  ],
+  "difficulty_label": "L2",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 175,
+  "stem": "A grouped distribution has classes 0-10, 10-20, 20-30, 30-40, 40-50 with frequencies 6, 10, 18, 12, 4 (N = 50). What is the quartile deviation (to two decimals)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "16.42"
+    },
+    {
+      "key": 2,
+      "text": "0.33"
+    },
+    {
+      "key": 3,
+      "text": "8.21"
+    },
+    {
+      "key": 4,
+      "text": "8.40"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "rationale": "Computes the inter-quartile range Q3 - Q1 = 32.92 - 16.50 = 16.42 but forgets to halve it. Quartile deviation is (Q3 - Q1)/2, the semi-inter-quartile range.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Computes the coefficient of quartile deviation (Q3 - Q1)/(Q3 + Q1) = 16.42/49.42 = 0.33, a relative measure, instead of the absolute quartile deviation that the question asks for.",
+      "misconception": "concept_definition_confused"
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Cumulative frequencies 6, 16, 34, 46, 50. Q1 at N/4 = 12.5 lies in 10-20: Q1 = 10 + ((12.5-6)/10)*10 = 16.50. Q3 at 3N/4 = 37.5 lies in 30-40: Q3 = 30 + ((37.5-34)/12)*10 = 32.92. QD = (32.92 - 16.50)/2 = 8.21."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Uses (N+1)/4 and 3(N+1)/4 as the quartile positions instead of N/4 and 3N/4, mixing the discrete rule into grouped interpolation: Q1 = 16.65, Q3 = 33.44, QD = 8.40.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "Quartile deviation = (Q3 - Q1)/2, where each quartile comes from interpolation. Cumulative frequencies are 6, 16, 34, 46, 50. Q1 at N/4 = 12.5 falls in 10-20: 10 + ((12.5-6)/10)*10 = 16.50. Q3 at 3N/4 = 37.5 falls in 30-40: 30 + ((37.5-34)/12)*10 = 32.92. QD = (32.92 - 16.50)/2 = 8.21. Forgetting the /2 gives the inter-quartile range 16.42; the relative coefficient gives 0.33.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Two separate interpolations, then halve the gap: Q1 = 16.50 from the 10-20 class, Q3 = 32.92 from the 30-40 class, so QD = (Q3 - Q1)/2 = 8.21, never the un-halved 16.42.",
+    "approach": "Model: grouped quartile deviation via interpolation. Assumption: quartile positions for grouped data are N/4 and 3N/4 (not (N+1)/4). Recipe in six steps. (1) Cumulative frequencies: 6, 16, 34, 46, 50. (2) Q1 position = N/4 = 12.5, which sits in 10-20 (cf before 6, f 10). (3) Q1 = 10 + ((12.5-6)/10)*10 = 16.50. (4) Q3 position = 3N/4 = 37.5, in 30-40 (cf before 34, f 12). (5) Q3 = 30 + ((37.5-34)/12)*10 = 32.92. (6) QD = (32.92 - 16.50)/2 = 8.21.",
+    "lesson": "Quartile deviation is the semi-inter-quartile range (Q3 - Q1)/2; locate each quartile with N/4 and 3N/4 in grouped data and always halve the difference.",
+    "timing": "About 155 seconds: cumulative column, two interpolations, one halving. Reject 16.42 immediately as the un-halved IQR and 0.33 as the relative coefficient rather than the absolute QD."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

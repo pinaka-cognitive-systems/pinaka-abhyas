@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000880",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2_fix",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000880.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.construction"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 160,
+  "stem": "The following data are given for three commodities. Compute the Fisher Ideal Price Index for the current year (base year = 0).\n\nCommodity | Base price (p0) | Current price (p1) | Base qty (q0) | Current qty (q1)\nA         | 10              | 15                 | 100           | 20\nB         | 20              | 24                 | 50            | 50\nC         | 30              | 33                 | 10            | 80",
+  "options": [
+    {
+      "key": 1,
+      "text": "123.1"
+    },
+    {
+      "key": 2,
+      "text": "131.7"
+    },
+    {
+      "key": 3,
+      "text": "115.0"
+    },
+    {
+      "key": 4,
+      "text": "123.4"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Laspeyres: sum p1*q0 = 15*100+24*50+33*10 = 1500+1200+330 = 3030; sum p0*q0 = 10*100+20*50+30*10 = 1000+1000+300 = 2300; L = 3030/2300*100 = 131.74. Paasche: sum p1*q1 = 15*20+24*50+33*80 = 300+1200+2640 = 4140; sum p0*q1 = 10*20+20*50+30*80 = 200+1000+2400 = 3600; P = 4140/3600*100 = 115.0. Fisher = sqrt(131.74*115.0) = sqrt(15150) = 123.1."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Computed only the Laspeyres index (131.7) and reported it as Fisher, skipping the Paasche step and the geometric mean."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Computed only the Paasche index (115.0) and reported it as Fisher, using current-year quantities exclusively and ignoring the Laspeyres component."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Computed the arithmetic mean of Laspeyres and Paasche instead of the geometric mean: (131.74+115.0)/2 = 123.4. Fisher uses sqrt(L*P), not (L+P)/2; the arithmetic mean is slightly higher than the geometric mean here."
+    }
+  ],
+  "explanation": "Fisher Ideal Index = sqrt(Laspeyres * Paasche). Laspeyres = 3030/2300*100 = 131.7; Paasche = 4140/3600*100 = 115.0; Fisher = sqrt(131.7*115.0) = sqrt(15150.7) = 123.1.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Fisher = geometric mean of L and P; forgetting either index, or replacing the geometric mean with an arithmetic mean, produces a wrong answer that looks plausible.",
+    "approach": "Step 1 - Laspeyres: use q0 weights; compute sum p1*q0 = 3030 and sum p0*q0 = 2300; L = 131.7. Step 2 - Paasche: use q1 weights; compute sum p1*q1 = 4140 and sum p0*q1 = 3600; P = 115.0. Step 3 - Fisher = sqrt(L*P) = sqrt(131.7*115.0) = sqrt(15150) = 123.1.",
+    "lesson": "Fisher is called Ideal because it satisfies both the time-reversal and factor-reversal tests, properties the arithmetic mean of L and P does not share. The gap between L (131.7) and P (115.0) arises because consumers shifted heavily toward the cheapest commodity (C) in the current year.",
+    "timing": "140-150 s. Eight products (four for each index), two sums each, then sqrt. Budget time: Laspeyres row products 40 s, Paasche row products 40 s, square root step 20 s."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

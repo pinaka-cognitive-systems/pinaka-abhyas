@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000627",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000627.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "Five students Anil, Bina, Charu, Deepak, and Esha sit in a row in positions 1 (leftmost) to 5 (rightmost). Bina sits at position 5. Deepak sits at one of the two end positions. Anil sits immediately to the left of Charu. Esha is not adjacent to Bina. Who sits at position 3?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Anil"
+    },
+    {
+      "key": 2,
+      "text": "Bina"
+    },
+    {
+      "key": 3,
+      "text": "Charu"
+    },
+    {
+      "key": 4,
+      "text": "Deepak"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Bina=5. Deepak must be at an end: since Bina=5, Deepak=1. The AC block (Anil immediately left of Charu) fits in {2,3} or {3,4}. Esha goes to the remaining spot. If AC at (2,3): Esha=4, adjacent to Bina(5)? |4-5|=1, adjacent - violates the constraint. If AC at (3,4): Esha=2, adjacent to Bina(5)? |2-5|=3, not adjacent - valid. Arrangement: Deepak(1) Esha(2) Anil(3) Charu(4) Bina(5). Position 3 = Anil."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Bina is fixed at position 5, not position 3. Placing Bina at position 3 ignores the explicit placement clue."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Placing Charu at position 3 gives the AC block at (2,3), which forces Esha to position 4. But Esha at 4 is adjacent to Bina at 5, violating the non-adjacency constraint. Omitting this check yields Charu as a wrong answer."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "Deepak is correctly placed at position 1 (the left end) because Bina occupies position 5 (the right end). Reading the end constraint as placing Deepak at position 3 instead of at an actual end reverses the clue's meaning."
+    }
+  ],
+  "explanation": "Bina is fixed at position 5, so Deepak (the other end person) must occupy position 1. The Anil-Charu adjacent block can fit at (2,3) or (3,4). Testing (2,3): Esha lands at position 4, which is adjacent to Bina at 5 - this violates the Esha-not-adjacent-to-Bina clue. Testing (3,4): Esha lands at position 2, not adjacent to Bina - valid. The unique arrangement is Deepak(1) Esha(2) Anil(3) Charu(4) Bina(5), so position 3 is Anil.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The Esha-not-adjacent-to-Bina constraint eliminates the (2,3) placement of the AC block, uniquely forcing Anil to position 3.",
+    "approach": "Apply clues most-certain-first: place Bina(5) and Deepak(1) from direct and end clues. Treat Anil-Charu as a sliding block. Test each valid position for the block, use the Esha-Bina constraint to reject the one invalid placement.",
+    "lesson": "A non-adjacency constraint is the tie-breaker when an adjacent-pair block has exactly two candidate positions in the remaining seats.",
+    "timing": "60 seconds. Fix two anchors, slide the block through two slots, one constraint eliminates one slot. Read off the answer."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

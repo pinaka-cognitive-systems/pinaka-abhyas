@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000519",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000519.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.venn"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Out of 200 students in a school, 120 study Mathematics, 90 study Science, and 40 study neither. Using a Venn diagram approach, find the number of students who study both Mathematics and Science.",
+  "options": [
+    {
+      "key": 1,
+      "text": "50"
+    },
+    {
+      "key": 2,
+      "text": "10"
+    },
+    {
+      "key": 3,
+      "text": "30"
+    },
+    {
+      "key": 4,
+      "text": "70"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "n(M union S) = 200 - 40 = 160. By inclusion-exclusion: 160 = 120 + 90 - n(both), so n(both) = 210 - 160 = 50."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "This comes from 120 + 90 - 200 = 10, subtracting the total instead of the union count, a slip in applying the formula."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "This comes from 200 - 40 - 120 - 90 + 60 = 10... or from (120+90)/4 = 52.5 rounded to 30, a rough estimation error."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "set_operation_confused",
+      "rationale": "This comes from using n(neither) = 40 to write n(both) = 120 + 90 - 200 + 40 + 20 = 70, confusing neither with the intersection in the formula."
+    }
+  ],
+  "explanation": "n(M union S) = n(total) - n(neither) = 200 - 40 = 160. By inclusion-exclusion: n(M union S) = n(M) + n(S) - n(M intersect S). So 160 = 120 + 90 - n(both), giving n(both) = 210 - 160 = 50.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "The neither count tells you n(union) = 160, then inclusion-exclusion back-solves for the intersection.",
+    "approach": "Step 1: n(union) = n(U) - n(neither) = 200 - 40 = 160. Step 2: inclusion-exclusion n(M intersect S) = n(M) + n(S) - n(union) = 120 + 90 - 160 = 50.",
+    "lesson": "When neither is given, compute n(union) first; then the intersection follows from inclusion-exclusion.",
+    "timing": "60 s. The trap is subtracting n(U) instead of n(union) in the inclusion-exclusion step."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -18,7 +18,8 @@
   "tests": [
     "qa.stats.index_numbers.deflating"
   ],
-  "difficulty_label": "L3",
+  "difficulty_label": "L2",
+  "explanation_kind": "formula_selection",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 120,
@@ -71,10 +72,10 @@
   ],
   "explanation": "Deflate each year: Real = (Nominal / Index) × 100. 2020: 20,000. 2021: 22,000/110×100 = 20,000. 2022: 25,000/120×100 = 20,833. 2023: 28,000/140×100 = 20,000. The real wage peaked in 2022, though the nominal wage kept rising.",
   "explanation_sections": {
-    "punchline": "Only 2022 gives a deflated real wage above Rs 20,000. Every other year deflates back to exactly Rs 20,000.",
-    "approach": "Deflating problems require one calculation per row: Real wage = (Nominal wage / Price index) × 100. Build a small column of real wages before comparing. Never compare nominal wages directly when prices have changed across years.",
-    "lesson": "A rising nominal wage does not mean a rising real wage. Always deflate before comparing purchasing power across time periods.",
-    "timing": "About 120 seconds. Four divisions with simple numbers. Eliminate 2023 in 10 seconds by noting the index rose proportionally with wages. Work 2022 last if time is short."
+    "punchline": "Formula: Real wage = (Nominal / Index) * 100 applied to each year. Three years deflate back to exactly Rs 20,000; only 2022 gives Rs 20,833, so 2022 wins despite having neither the highest nor lowest nominal wage.",
+    "approach": "Name the formula: Real = (Nominal / Index) * 100. Apply it to all four rows before comparing. 2020: (20,000/100)*100 = 20,000. 2021: (22,000/110)*100 = 20,000. 2022: (25,000/120)*100 = 20,833. 2023: (28,000/140)*100 = 20,000. Build the column first; only then compare. A rising nominal wage means nothing without knowing how fast the index rose relative to wages.",
+    "lesson": "A rising nominal wage does not imply a rising real wage. When the index rises proportionally with wages, purchasing power stays flat. Only when wages outpace the index does real purchasing power increase.",
+    "timing": "90-120 seconds. Four simple divisions. Fastest elimination: check 2023 first - index rose from 100 to 140 (+40%), wages rose from 20,000 to 28,000 (+40%), so real wage is unchanged at 20,000, eliminate option (4). Then compute 2022 to confirm the win."
   },
   "empirical": {
     "calibration_status": "none",

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000516",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000516.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.venn"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "In a Venn diagram with two overlapping circles for sets A and B inside a universal set U, which region represents A intersect B?",
+  "options": [
+    {
+      "key": 1,
+      "text": "The overlapping region common to both circles"
+    },
+    {
+      "key": 2,
+      "text": "The entire area covered by both circles"
+    },
+    {
+      "key": 3,
+      "text": "The region inside circle A but outside circle B"
+    },
+    {
+      "key": 4,
+      "text": "The region outside both circles"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "The intersection A intersect B is the set of elements belonging to both A and B, shown as the overlapping lens region."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "set_operation_confused",
+      "rationale": "The entire area covered by both circles is A union B, not A intersect B."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "set_operation_confused",
+      "rationale": "The region inside A only (excluding the overlap) is A minus B, not A intersect B."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "The region outside both circles is (A union B)', the complement of the union, not the intersection."
+    }
+  ],
+  "explanation": "In a two-circle Venn diagram, A intersect B is the lens-shaped region where the two circles overlap, because it contains exactly the elements that belong to both sets simultaneously.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "Intersection lives in the overlap; union covers the whole area of both circles.",
+    "approach": "State the property: A intersect B = {x : x belongs to A AND x belongs to B}. On a Venn diagram AND means the shared region.",
+    "lesson": "Intersection = shared overlap. Union = total area of both circles. Set difference = one circle minus the overlap.",
+    "timing": "30 s. The classic trap is confusing union (entire area) with intersection (overlap only)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

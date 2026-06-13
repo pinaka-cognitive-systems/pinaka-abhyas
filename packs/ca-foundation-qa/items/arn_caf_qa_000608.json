@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000608",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000608.py"
+  },
+  "tests": [
+    "qa.lr.direction_tests"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "At sunrise, Sita faces East (towards the sun). She then turns 90 degrees to her right. In which direction does her shadow now fall?",
+  "options": [
+    {
+      "key": 1,
+      "text": "To her right"
+    },
+    {
+      "key": 2,
+      "text": "To her left"
+    },
+    {
+      "key": 3,
+      "text": "In front of her"
+    },
+    {
+      "key": 4,
+      "text": "Behind her"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "The sun is in the East so shadows always fall West at sunrise. After a right turn from East, Sita faces South. West is to the right of someone facing South."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "direction_turn_error",
+      "rationale": "Left of a person facing South is East, not West. Choosing left confuses the relative direction after the turn."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "In front means South (the direction she faces), but shadows fall opposite to the sun; the sun is East so the shadow is West, not South."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Behind a South-facing person is North, not West; the shadow direction was not re-mapped after the turn."
+    }
+  ],
+  "explanation": "At sunrise the sun is in the East, so shadows fall in the opposite direction - West. This does not change when Sita turns. After turning 90 degrees right from East, she faces South. For a person facing South, West is to their right. So the shadow falls to her right.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Shadow is always West at sunrise regardless of which way Sita turns; facing South, West is to her right.",
+    "approach": "Deductive trace: Step 1 - fix shadow direction: sun in East means shadow always falls West. Step 2 - determine new facing: East + right 90 = South. Step 3 - orient West relative to South-facing person: facing South, left=East, right=West. Shadow is to her right.",
+    "lesson": "Shadow direction depends only on the sun's position, not the person's facing. After fixing the absolute shadow direction, map it to left/right/front/back relative to the new heading.",
+    "timing": "45-60 seconds. The two-step trap: first establish absolute shadow direction (West), then determine relative side for the new facing (South). Mixing up left and right for a South-facing person is the key error (options 1 vs 2)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

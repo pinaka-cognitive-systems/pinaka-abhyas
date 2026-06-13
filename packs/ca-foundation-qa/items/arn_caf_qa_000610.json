@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000610",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000610.py"
+  },
+  "tests": [
+    "qa.lr.direction_tests"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Asha and Bina start from the same point X. Asha walks 3 km East and then turns left and walks 2 km more. Bina walks 3 km North and then turns left and walks 2 km more. Who is to the East of the other, and by how much?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Asha is 5 km East of Bina"
+    },
+    {
+      "key": 2,
+      "text": "Bina is 5 km East of Asha"
+    },
+    {
+      "key": 3,
+      "text": "Asha is 3 km East of Bina"
+    },
+    {
+      "key": 4,
+      "text": "They are at the same East-West position"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Asha ends at (3,2); Bina ends at (-2,3). Asha's x-coordinate minus Bina's: 3-(-2)=5. So Asha is 5 km East of Bina."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "direction_turn_error",
+      "rationale": "Bina being East of Asha would require Bina to have a higher x-coordinate; but Bina walked North then turned left (West), ending at x=-2, while Asha is at x=3."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "3 km ignores Bina's westward walk of 2 km; the East-West separation is 3-(-2)=5, not just 3."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "net_displacement_error",
+      "rationale": "Same East-West position would require x-coordinates to be equal; Asha ends at x=3 and Bina at x=-2, which differ by 5."
+    }
+  ],
+  "explanation": "Set up coordinates with East=+x, North=+y. Asha: 3 East -> (3,0), then turns left (now faces North), walks 2 -> (3,2). Bina: 3 North -> (0,3), then turns left (now faces West), walks 2 -> (-2,3). East-West separation = 3-(-2) = 5 km, with Asha to the East.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Asha ends at x=3, Bina ends at x=-2; Asha is 5 km East of Bina.",
+    "approach": "Deductive trace: assign coordinates. Asha: East 3 -> (3,0); left from East = North, walk 2 -> (3,2). Bina: North 3 -> (0,3); left from North = West, walk 2 -> (-2,3). Compare x-coordinates: 3 vs -2; difference = 5, Asha is further East.",
+    "lesson": "In multi-person direction problems, track coordinates for each person separately; compare the same axis (x for East-West) to answer 'who is East/West of whom'.",
+    "timing": "55-70 seconds. The trap is forgetting Bina's turn sends her West (reducing her x to -2), making the gap only 3 km (option 3) if that second leg is ignored."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

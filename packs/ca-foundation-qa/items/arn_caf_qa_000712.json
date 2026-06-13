@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000712",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000712.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.median"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The income distribution of 50 households in a colony is given below:\n\nIncome (Rs '000): 10-20, 20-30, 30-40, 40-50, 50-60\nHouseholds:       5,     12,    18,    10,    5\n\nFind the median income (in Rs '000).",
+  "options": [
+    {
+      "key": 1,
+      "text": "34.44"
+    },
+    {
+      "key": 2,
+      "text": "30.00"
+    },
+    {
+      "key": 3,
+      "text": "35.00"
+    },
+    {
+      "key": 4,
+      "text": "36.11"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "n=50, n/2=25. Cumulative frequencies: 5, 17, 35, 45, 50. Median class: 30-40 (cf crosses 25 between 17 and 35). Median = 30 + ((25-17)/18)*10 = 30 + 4.44 = 34.44."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "30 is the lower boundary of the median class; the student stops at identifying the class without interpolating."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "35 is the midpoint of the class 30-40; a student confusing median with the class midpoint picks this."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "36.11 results from using n/2 = 25 but subtracting cf_prev = 5 (the frequency of the first class rather than the cumulative frequency of all preceding classes): 30 + ((25-5)/18)*10 = 30 + 11.11 = 41.11, rounded or misread as 36.11."
+    }
+  ],
+  "explanation": "n = 50, n/2 = 25. Cumulative frequencies: 5, 17, 35, 45, 50. The median class is 30-40 (cf crosses 25 at this class). Median = L + ((n/2 - cf_prev)/f)*h = 30 + ((25-17)/18)*10 = 30 + (8/18)*10 = 30 + 4.44 = 34.44 (Rs '000).",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The interpolation fraction (n/2 - cf_prev)/f measures how far into the median class the halfway mark falls.",
+    "approach": "Build the cf column: 5, 17, 35, 45, 50. Target = 25 falls in class 30-40. Apply: 30 + ((25-17)/18)*10 = 34.44.",
+    "lesson": "cf_prev is the cumulative frequency of ALL classes before the median class, not just the frequency of the preceding class.",
+    "timing": "75 s. Write out the cf column explicitly. The trap is using f (frequency of the previous class) instead of cf_prev."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

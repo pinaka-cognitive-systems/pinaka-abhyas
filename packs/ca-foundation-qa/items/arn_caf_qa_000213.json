@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "The coefficient of correlation is r = sqrt(byx x bxy). Here byx = 0.8 and bxy = 0.2. Product = 0.16. Square root = 0.40. Both regression coefficients are positive, so r is positive.",
+  "explanation_kind": "formula_selection",
   "explanation_sections": {
-    "punchline": "r = sqrt(0.8 x 0.2) = sqrt(0.16) = 0.40. The formula uses the geometric mean of the two regression coefficients, not their arithmetic mean.",
-    "approach": "Write r = sqrt(byx x bxy). Multiply the two coefficients first, then take the square root. Check the sign: r has the same sign as the regression coefficients. If both are positive, r is positive.",
-    "lesson": "Correlation equals the geometric mean of the two regression coefficients. A common error is to use the arithmetic mean or to forget the square root. The product alone is r squared, not r.",
-    "timing": "45 seconds. Multiply 0.8 x 0.2 = 0.16 mentally. sqrt(0.16) = 0.4 directly. Write the answer and move on."
+    "punchline": "r = sqrt(byx x bxy) = sqrt(0.8 x 0.2) = 0.40. The product 0.16 is r-squared, not r itself; the square root is mandatory.",
+    "approach": "Formula: r = sqrt(byx * bxy). Why: r squared equals the product of the two regression coefficients, so r is their geometric mean. Steps: (1) identify byx and bxy from the stem, (2) multiply them, (3) take the positive square root (sign of r matches sign of both coefficients), (4) verify r^2 is at most 1.",
+    "lesson": "The product byx * bxy = r^2, not r. Forgetting the square root gives distractor 0.16. Using the arithmetic mean (0.8 + 0.2)/2 instead of the geometric mean gives 0.50. Both traps appear as distractors here.",
+    "timing": "45 seconds. 0.8 * 0.2 = 0.16 in one step. sqrt(0.16) = 0.4 by recognition. Total under 20 seconds, leaving time for a sign check."
   },
   "empirical": {
     "calibration_status": "none",

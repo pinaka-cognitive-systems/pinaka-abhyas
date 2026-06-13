@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000745",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000745.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mean_deviation"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "The marks scored by five students in a test are: 10, 20, 30, 40, 50. What is the mean deviation about the mean?",
+  "options": [
+    {
+      "key": 1,
+      "text": "12"
+    },
+    {
+      "key": 2,
+      "text": "10"
+    },
+    {
+      "key": 3,
+      "text": "15"
+    },
+    {
+      "key": 4,
+      "text": "30"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Mean = (10+20+30+40+50)/5 = 30. Deviations from mean: |10-30|=20, |20-30|=10, |30-30|=0, |40-30|=10, |50-30|=20. Sum = 60. MD = 60/5 = 12."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student sums deviations as 50 (dropping the 10 from one term) and divides by 5 giving 10."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Student divides total absolute deviation 60 by 4 (using n-1 instead of n), giving 15."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student reports the mean (30) instead of the mean deviation."
+    }
+  ],
+  "explanation": "Mean deviation about the mean = (1/n) * sum of |xi - mean|. First compute the mean, then sum absolute deviations, then divide by n.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The decisive move is computing absolute deviations from the arithmetic mean, not signed deviations.",
+    "approach": "Identify the model: mean deviation about the mean. Step 1: compute mean = sum/n = 150/5 = 30. Step 2: compute each |xi - 30|: 20, 10, 0, 10, 20. Step 3: MD = (20+10+0+10+20)/5 = 60/5 = 12.",
+    "lesson": "Mean deviation always uses absolute values of deviations; the signed deviations sum to zero and cannot be used directly.",
+    "timing": "About 45 seconds. Fast path: notice the data is an AP with mean = middle value 30, so deviations are symmetric: 20, 10, 0, 10, 20 by inspection."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

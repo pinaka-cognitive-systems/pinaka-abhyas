@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000539",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000539.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.continuity"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 95,
+  "stem": "A function h(x) = (x^2 - 16) / (x - 4) for x not equal to 4, and h(4) = p. If h is continuous everywhere on the real line, what is the value of p?",
+  "options": [
+    {
+      "key": 1,
+      "text": "p = 4"
+    },
+    {
+      "key": 2,
+      "text": "p = 8"
+    },
+    {
+      "key": 3,
+      "text": "p = 16"
+    },
+    {
+      "key": 4,
+      "text": "p = 0"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reads the limit point x = 4 itself as the value of p rather than evaluating (x + 4) at x = 4."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Factor: x^2 - 16 = (x-4)(x+4). Cancel (x-4) to get (x+4). At x = 4: limit = 4 + 4 = 8. Set p = 8 to satisfy the continuity condition h(4) = limit."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Squares the limit point: 4^2 = 16, treating h(4) as the unreduced numerator value instead of the simplified expression."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Substitutes into the indeterminate form directly: (4^2 - 16)/(4-4) = 0/0 and reports 0, ignoring the need to resolve the indeterminate form."
+    }
+  ],
+  "explanation": "Factoring the numerator and cancelling the removable singularity reduces h(x) to (x + 4), whose value at x = 4 is 8.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "Cancel (x - 4) to get h(x) = x + 4 for x not equal to 4; the limit at 4 is 8, so p = 8 restores continuity.",
+    "approach": "Identify the model: continuity requires p = lim(x->4) h(x). Resolve the 0/0 form by factoring: x^2 - 16 = (x-4)(x+4), cancel (x-4), leaving (x+4). Substitute x = 4: 4 + 4 = 8. Set p = 8.",
+    "lesson": "A function defined piecewise with a 0/0 form away from one point has a removable discontinuity that is fixed by setting the function value at that point equal to the limit.",
+    "timing": "70-95 seconds. Factoring step takes 15 seconds. Trap: option 3 = 16 tempts those who substitute into the numerator alone."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

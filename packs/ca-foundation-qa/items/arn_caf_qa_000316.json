@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000316",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000316.py"
+  },
+  "tests": [
+    "qa.bmath.ratio_indices_log.proportion"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "Find the fourth proportional to 4, 6, and 8.",
+  "options": [
+    {
+      "key": 1,
+      "text": "10"
+    },
+    {
+      "key": 2,
+      "text": "12"
+    },
+    {
+      "key": 3,
+      "text": "6"
+    },
+    {
+      "key": 4,
+      "text": "9"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student adds 2 to the third term (8 + 2 = 10), treating the proportional as an arithmetic step rather than a ratio relationship."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Fourth proportional x satisfies 4:6 = 8:x, so x = (6 x 8) / 4 = 48 / 4 = 12."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reporting the second term (6) as the answer, confusing the fourth proportional with one of the given terms."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "ratio_inverted",
+      "rationale": "Computing x = (4 x 6) / 8 * (3/2) = 9 by inverting the ratio, i.e., treating it as 6:4 = 8:x, giving x = (4 x 8)/6 which is not integer, then using 4:8 = 6:x giving x = 12. A student who writes 4:8 = x:6 gets x = 3; another who writes 6:4 = 8:x gets x = (4x8)/6 = 16/3. The distractor 9 arises from writing 4:6 = x:... wait: 8:12 simplified = 2:3 = 4:6. Student solves 4:8 = 6:x -> x = 12. Alternatively student solving 6:8 = 4:x gets x = (4x8)/6 = 32/6. Let me use: student computes fourth proportional using wrong formula x = (a x c)/b = (4x8)/6... not 9. Student computes mean proportional instead: sqrt(4x6) or sqrt(6x8). sqrt(4x6) = 4.9, sqrt(6x8) = 6.9. Not 9. Student computes third proportional to 6,8: 8^2/6 = 10.7. Not 9. Student uses formula a:b::b:x (third proportional): x = b^2/a = 36/4 = 9."
+    }
+  ],
+  "explanation": "For the fourth proportional x in 4:6 = 8:x, use the cross-product rule: x = (second x third) / first = (6 x 8) / 4 = 12.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The fourth proportional uses the cross-product: x = (b x c) / a where a:b = c:x.",
+    "approach": "Formula selection: identify this as a fourth-proportional problem (a:b::c:x). Apply x = (b x c) / a = (6 x 8) / 4 = 12. Check: 4/6 = 8/12 = 2/3. Correct.",
+    "lesson": "Fourth proportional: a:b::c:x gives x = bc/a. Third proportional: a:b::b:x gives x = b^2/a. Memorise which formula uses which given terms.",
+    "timing": "30 seconds. Trap: using b^2/a (third proportional formula) which gives 9 here."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000740",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000740.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.range"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 95,
+  "stem": "A data set has 10 observations. The minimum value is 15 and the coefficient of range is 0.6. A new observation equal to 52 is added to the data set. Which of the following statements is correct?\n\nI. If the new observation does not change the minimum, the range increases by at most 12.\nII. The original maximum value was 60.\nIII. The original range was 45.",
+  "options": [
+    {
+      "key": 1,
+      "text": "Only II and III are correct"
+    },
+    {
+      "key": 2,
+      "text": "Only III is correct"
+    },
+    {
+      "key": 3,
+      "text": "All three are correct"
+    },
+    {
+      "key": 4,
+      "text": "Only I and II are correct"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Coefficient of range = (Max - Min)/(Max + Min) = 0.6; Min = 15. So Max - 15 = 0.6*(Max + 15) gives Max - 15 = 0.6*Max + 9, so 0.4*Max = 24, Max = 60. Range = 60 - 15 = 45. Adding 52: since 15 <= 52 <= 60, the new observation falls within the existing range and does not change Max or Min, so range stays 45. Statement I is false (range does not increase). Statements II and III are correct."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student correctly finds Range = 45 but makes an arithmetic error deriving Max = 60, so accepts only III."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Student misreads Statement I as true because they assume any new observation extends the range, without checking whether 52 lies within [15, 60]."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Student confuses coefficient of range formula direction, computes Max incorrectly, but accepts I from faulty reasoning, giving I and II."
+    }
+  ],
+  "explanation": "Given Min = 15 and coeff = 0.6: (Max - 15)/(Max + 15) = 0.6 implies Max - 15 = 0.6*Max + 9, so 0.4*Max = 24, Max = 60. Range = 60 - 15 = 45. The new value 52 lies in [15, 60] so the range stays 45, making Statement I false. Statements II and III are correct.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Back-solve for Max using the coefficient equation, then check whether the new observation falls inside or outside the existing interval.",
+    "approach": "Set up (Max - Min)/(Max + Min) = 0.6 with Min = 15. Solve: Max = 60, Range = 45. Check 52 vs [15, 60]: 52 is inside, so range unchanged. Evaluate each statement.",
+    "lesson": "Adding an observation within the existing range does not change Max or Min, so range is unaffected.",
+    "timing": "60 seconds. Solve for Max first (the decisive setup step), then evaluate all three statements. Trap: assuming any new observation changes the range."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

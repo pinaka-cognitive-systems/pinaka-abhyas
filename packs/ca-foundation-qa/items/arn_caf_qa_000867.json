@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000867",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000867.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.regression"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "For 8 pairs of observations: mean of X = 4, mean of Y = 11, the corrected sum of squared deviations of X from its mean is 20, and the corrected sum of products of deviations of X and Y from their respective means is 50. What is the regression equation of Y on X?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Y = 2.5X + 1"
+    },
+    {
+      "key": 2,
+      "text": "Y = 2.5X + 3"
+    },
+    {
+      "key": 3,
+      "text": "Y = 0.4X + 9.4"
+    },
+    {
+      "key": 4,
+      "text": "Y = 2X + 3"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "b_yx = 50/20 = 2.5. Intercept a = Y_bar - b_yx * X_bar = 11 - 2.5*4 = 11 - 10 = 1. Equation: Y = 2.5X + 1."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "a = 11 - 2.5*4 = 1, not 3. This arises from computing 2.5*4 = 8 instead of 10, giving a = 11 - 8 = 3."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "b = 0.4 is the coefficient b_xy (X on Y), computed as 20/50 = 0.4. The student used the X-on-Y formula for the Y-on-X line."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "b = 2 arises from dividing the sum of products by the number of observations (50/8 = 6.25 -> another error) or from a miscount. Specifically, treating corrected sum of products as n*covariance and dividing again gives approximately 2."
+    }
+  ],
+  "explanation": "Step 1: slope b_yx = corrected sum of products / corrected sum of squares of X = 50/20 = 2.5. Step 2: intercept a = Y_bar - b_yx * X_bar = 11 - 2.5*4 = 11 - 10 = 1. Step 3: the regression equation of Y on X is Y = 2.5X + 1.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The slope is the ratio of the corrected products sum to the corrected X-squares sum; the intercept anchors the line at the means.",
+    "approach": "Formula-selection for Y on X: b_yx = sum((xi-Xbar)(yi-Ybar)) / sum((xi-Xbar)^2) = 50/20 = 2.5. Then a = Ybar - b_yx * Xbar = 11 - 2.5*4 = 1. Assemble: Y = 2.5X + 1. The decisive setup decision is choosing the Y-on-X formula (denominator is X-deviations) not the X-on-Y formula (denominator would be Y-deviations).",
+    "lesson": "For the Y-on-X line, the denominator is always the corrected sum of squares of the predictor X, not of Y.",
+    "timing": "75 seconds. Trap: option 3 uses b_xy = 20/50 = 0.4, the reciprocal slope, a common swap error."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

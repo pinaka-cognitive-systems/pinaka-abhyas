@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000531",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000531.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.limits"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "The value of lim(x -> 2) [(x^2 - 4) / (x - 2)] is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "2"
+    },
+    {
+      "key": 2,
+      "text": "4"
+    },
+    {
+      "key": 3,
+      "text": "0"
+    },
+    {
+      "key": 4,
+      "text": "Does not exist"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Cancelling (x-2) and then substituting x=2 correctly gives x+2=4, but computing x (the variable alone) instead of x+2, yielding 2 instead of 4."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Factor: x^2-4 = (x+2)(x-2). Cancel (x-2) (valid since x approaches but does not equal 2): lim(x->2)(x+2) = 2+2 = 4."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Substituting x=2 directly into the original expression without factoring, giving (4-4)/(2-2)=0/0 and incorrectly concluding the limit equals 0 rather than recognising this as an indeterminate form to be resolved."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "Seeing 0/0 at x=2 and concluding the limit does not exist, without applying algebraic simplification to resolve the indeterminate form."
+    }
+  ],
+  "explanation": "Factoring the numerator resolves the 0/0 indeterminate form; after cancelling (x-2), direct substitution gives x+2 = 4.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "A 0/0 form at a point does not mean the limit is zero or undefined: factor, cancel the common factor, then substitute.",
+    "approach": "State the property: a limit can exist even when the function is undefined at the point. Factor x^2-4=(x+2)(x-2). Since x approaches 2 (not equals 2), (x-2) is non-zero and can be cancelled: lim = lim(x->2)(x+2) = 4. Contrast the confusable: substituting x=2 without factoring gives 0/0, which is indeterminate, not zero.",
+    "lesson": "When substitution gives 0/0, always try to factor and cancel the common factor before concluding about the limit.",
+    "timing": "About 40 seconds. Spot the 0/0 form, factor the numerator, cancel, substitute. No trap once the factoring step is applied."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

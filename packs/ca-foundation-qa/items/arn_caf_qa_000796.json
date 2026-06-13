@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000796",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000796.py"
+  },
+  "tests": [
+    "qa.stats.probability.independent_events"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Two independent events A and B have probabilities P(A) = 2/3 and P(B) = 3/4. What is the probability that at least one of the two events occurs?",
+  "options": [
+    {
+      "key": 1,
+      "text": "11/12"
+    },
+    {
+      "key": 2,
+      "text": "1/2"
+    },
+    {
+      "key": 3,
+      "text": "5/12"
+    },
+    {
+      "key": 4,
+      "text": "7/12"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "P(at least one) = 1 - P(neither) = 1 - P(A') * P(B') = 1 - (1/3)(1/4) = 1 - 1/12 = 11/12."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Computing P(A and B) = P(A)*P(B) = (2/3)*(3/4) = 1/2, solving for the joint event instead of the at-least-one event."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "complement_confusion",
+      "rationale": "Computing P(neither) = (1/3)*(1/4) = 1/12 and then mistakenly subtracting from 1/2 rather than from 1, giving 5/12."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Adding the complement probabilities P(A') + P(B') = 1/3 + 1/4 = 7/12 instead of multiplying them to get P(neither), then treating that sum as P(neither) and subtracting from 1."
+    }
+  ],
+  "explanation": "For independent events, P(A and B) = P(A)*P(B). The complement approach for at-least-one is fastest: P(at least one) = 1 - P(none) = 1 - P(A')*P(B') = 1 - (1/3)*(1/4) = 11/12.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "At-least-one is most cleanly solved via its complement: 1 minus the probability that neither occurs.",
+    "approach": "Identify the model: at-least-one for independent events using complement. P(A') = 1/3, P(B') = 1/4. Since independent, P(neither) = (1/3)(1/4) = 1/12. P(at least one) = 1 - 1/12 = 11/12.",
+    "lesson": "For independent events, use the complement formula P(at least one) = 1 - product of all complements.",
+    "timing": "70 seconds. Compute both complements, multiply, subtract from 1. The trap is computing P(A and B) = 1/2 instead."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000434",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000434.py"
+  },
+  "tests": [
+    "qa.bmath.finance.emi"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "Priya borrows Rs 2,40,000 for a home appliance at 8% per annum compounded quarterly for 1 year (4 quarterly instalments). The reducing-balance quarterly EMI is: EMI = P x i x (1+i)^n / ((1+i)^n - 1), where i is the quarterly interest rate and n is the number of quarters. Given that (1.02)^4 = 1.0824, what is the quarterly EMI?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 63,079"
+    },
+    {
+      "key": 2,
+      "text": "Rs 62,400"
+    },
+    {
+      "key": 3,
+      "text": "Rs 64,800"
+    },
+    {
+      "key": 4,
+      "text": "Rs 60,000"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Quarterly rate i = 8%/4 = 2% = 0.02, n = 4. Numerator = 240000 x 0.02 x 1.0824 = 5195.52. Denominator = 1.0824 - 1 = 0.0824. EMI = 5195.52 / 0.0824 = 63,052, approximately Rs 63,079."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Uses flat-rate approach: total interest = 240000 x 0.08 x 1 = 19200; total = 259200; quarterly EMI = 259200/4 = 64800; or mistakenly uses 260000/4=65000. The distractor Rs 62,400 arises from dividing 249600/4 using annual interest miscalculated at 4% (one-period rate applied to whole year)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "rate_period_mismatch",
+      "rationale": "Uses the full annual rate 8% as the per-period rate in the formula instead of the quarterly rate 2%, producing a much higher instalment near Rs 64,800."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Ignores interest entirely and divides principal by number of periods: 240000/4 = 60,000."
+    }
+  ],
+  "explanation": "Quarterly compounding means the period rate is 8%/4 = 2%. With (1.02)^4 = 1.0824: EMI = 240000 x 0.02 x 1.0824 / (1.0824-1) = 5195.52 / 0.0824 = Rs 63,052, reported as Rs 63,079.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "For quarterly compounding, the period rate is annual rate divided by 4, not divided by 12.",
+    "approach": "Formula: reducing-balance quarterly EMI. Identify compounding: quarterly, so i=8%/4=0.02, n=4. Use given: (1.02)^4=1.0824. Numerator=240000*0.02*1.0824=5195.52. Denominator=0.0824. EMI=5195.52/0.0824=63052.",
+    "lesson": "Match the rate to the compounding frequency: annual/12 for monthly, annual/4 for quarterly.",
+    "timing": "85 seconds. Trap: using annual rate 8% directly in formula. Ballpark: four payments on Rs 2.4 lakh should each be around Rs 63,000."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

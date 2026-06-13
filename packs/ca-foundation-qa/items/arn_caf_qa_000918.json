@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000918",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000918.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 175,
+  "stem": "Seven friends L, M, N, O, P, Q and R sit in a row of seven seats numbered 1 to 7 from the left, all facing north. L is third to the left of Q. M sits immediately to the right of L. N and O are immediate neighbours of each other. R sits at one of the two ends. P does not sit at either end. O sits somewhere to the right of Q. N sits immediately to the right of Q. L sits at the extreme left end. Who is the immediate left neighbour of Q?",
+  "options": [
+    {
+      "key": 1,
+      "text": "R"
+    },
+    {
+      "key": 2,
+      "text": "P"
+    },
+    {
+      "key": 3,
+      "text": "N"
+    },
+    {
+      "key": 4,
+      "text": "L"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "R sits in seat 7, the right end. Choosing R ignores P-not-at-either-end together with the L, M, _, Q block, which forces P into seat 3, the seat immediately left of Q; R is pinned to the far end instead."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "L at the left end with L third-to-left-of-Q puts L at 1 and Q at 4, and M-right-of-L puts M at 2. N-right-of-Q puts N at 5, and N, O neighbours with O right of Q puts O at 6. R at an end takes seat 7, and P, the only person left and barred from the ends, takes seat 3. The row is L, M, P, Q, N, O, R, so the immediate left neighbour of Q is P."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "N sits in seat 5, immediately to the RIGHT of Q, not the left. Picking N reads the requested neighbour on the wrong side of Q."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "L sits in seat 1, three seats to the left of Q, not immediately left of it. Treating third-to-the-left as directly-left collapses the gap and misreads L as Q's neighbour."
+    }
+  ],
+  "explanation": "Anchor on L at the left end. Third-to-the-left-of-Q then fixes L at seat 1 and Q at seat 4, and M immediately right of L takes seat 2. N immediately right of Q takes seat 5, and since N and O are neighbours with O right of Q, O takes seat 6. R sits at an end, and seat 7 is the only end free, so R is at seat 7. P, the last person and barred from both ends, drops into the only remaining seat, seat 3, immediately to the left of Q. The full row is L, M, P, Q, N, O, R, so Q's immediate left neighbour is P.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "L at the left end is the cracker: it pins Q to seat 4 through the third-to-the-left gap, and the only seat left next to Q on the left is seat 3, which P must take.",
+    "approach": "Apply the most rigid clues first. L-at-the-left-end plus L-third-to-left-of-Q fixes seats 1 and 4; M-right-of-L gives seat 2; N-right-of-Q gives seat 5; the N, O block and O-right-of-Q give seat 6; R-at-an-end takes the last free end, seat 7. The only seat left is 3, and P, barred from the ends, fits there. Build L, M, P, Q, N, O, R and verify every clue, then read off the seat directly left of Q.",
+    "lesson": "A gap clue like third-to-the-left is not adjacency: keep the empty seats between the two people explicit so you do not collapse the distance.",
+    "timing": "About 170 seconds. Fastest elimination is option (3) N: it sits to the right of Q, not the left, so it is rejected on sight as the wrong-side trap."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

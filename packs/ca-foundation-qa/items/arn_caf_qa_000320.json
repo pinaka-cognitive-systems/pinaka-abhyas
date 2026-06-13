@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000320",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000320.py"
+  },
+  "tests": [
+    "qa.bmath.ratio_indices_log.proportion"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "If 3, x, and 48 are in continued proportion, find the value of x.",
+  "options": [
+    {
+      "key": 1,
+      "text": "16"
+    },
+    {
+      "key": 2,
+      "text": "12"
+    },
+    {
+      "key": 3,
+      "text": "24"
+    },
+    {
+      "key": 4,
+      "text": "144"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student computes (3 + 48) / 2 - 9 = 16.5 rounded to 16, using the arithmetic mean of the outer terms instead of the geometric mean."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "In continued proportion a, x, b: x^2 = a x b. So x^2 = 3 x 48 = 144, giving x = 12."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student uses x = (a + b)/2 = (3 + 48)/2 = 25.5 rounded to 24. This applies the arithmetic mean formula instead of the geometric mean."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "order_of_operations",
+      "rationale": "Student computes x = a x b = 3 x 48 = 144 without taking the square root, stopping after the multiplication step."
+    }
+  ],
+  "explanation": "For a, x, b in continued proportion: a:x = x:b, so x^2 = a x b = 3 x 48 = 144. Therefore x = sqrt(144) = 12.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Continued proportion means the middle term is the geometric mean of the outer two terms: x = sqrt(ab).",
+    "approach": "Formula selection: continued proportion a, x, b means a:x::x:b, cross-multiplying gives x^2 = ab. Compute ab = 3 x 48 = 144, then take the positive square root: x = 12.",
+    "lesson": "Middle term in continued proportion = geometric mean of the extremes = sqrt(product of extremes), not arithmetic mean.",
+    "timing": "30 seconds. Trap: stopping at 144 (forgetting the square root)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000403",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000403.py"
+  },
+  "tests": [
+    "qa.bmath.finance.sinking_fund"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A sinking fund accumulates to Rs 40000 at the end of 4 years. Annual deposits are made at the end of each year and the fund earns 8% per annum compounded annually. What is the annual deposit? [Given: (1.08)^4 = 1.3605, so the FV annuity factor = (1.3605 - 1)/0.08 = 4.506]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 8878 (approx)"
+    },
+    {
+      "key": 2,
+      "text": "Rs 10000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 8500 (approx)"
+    },
+    {
+      "key": 4,
+      "text": "Rs 9574 (approx)"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "R = FV / annuity factor = 40000 / 4.506 = Rs 8878 (approx)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "compound_interest_confusion",
+      "rationale": "Ignoring interest entirely: 40000 / 4 = Rs 10000."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "decimal_place_error",
+      "rationale": "Using factor as 4.706 instead of 4.506 (misreading 1.3605 - 1 as 0.4706 or arithmetic slip): 40000 / 4.706 = Rs 8500 approx."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "rate_period_mismatch",
+      "rationale": "Using the PV annuity factor (1 - 1/1.3605)/0.08 = 3.312/0.08 (incorrect approach) or using simple interest factor 4.32 giving 40000/4.18 = 9574 approx."
+    }
+  ],
+  "explanation": "Sinking fund deposit: R = FV / FVAF where FVAF = ((1+r)^n - 1)/r. With FV = 40000 and FVAF = 4.506 (from hint), R = 40000 / 4.506 = Rs 8878 (approx).",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Dividing the target FV by the future-value annuity factor gives the required periodic deposit.",
+    "approach": "Name the formula: R = FV * r / ((1+r)^n - 1) = FV / FVAF. Map: FV = 40000, FVAF = (1.3605 - 1)/0.08 = 0.3605/0.08 = 4.506. R = 40000 / 4.506 = Rs 8878.",
+    "lesson": "The FV annuity factor is always greater than n because interest on accumulated deposits; dividing by it yields a deposit less than FV/n.",
+    "timing": "50-60 seconds. Compute 0.3605/0.08 = 4.506 from the hint, then divide 40000 by it."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000598",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000598.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.odd_man_out"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 85,
+  "stem": "Four words are given. Three belong to the same logical class and one does not. Identify the odd one out: Violin, Sitar, Tabla, Cello.",
+  "options": [
+    {
+      "key": 1,
+      "text": "Violin"
+    },
+    {
+      "key": 2,
+      "text": "Sitar"
+    },
+    {
+      "key": 3,
+      "text": "Tabla"
+    },
+    {
+      "key": 4,
+      "text": "Cello"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Violin is a stringed instrument. It is played by bowing or plucking strings, matching the string instrument category."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Sitar is a stringed instrument (plucked). It belongs to the string instrument category."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Tabla is a percussion instrument (membranophone - a drum). Violin, Sitar, and Cello are all string instruments. Tabla is the odd one out."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Cello is a stringed instrument (bowed). It belongs to the string instrument category with Violin and Sitar."
+    }
+  ],
+  "explanation": "Violin, Sitar, and Cello are all string instruments. Tabla is a percussion/drum instrument. The unifying property of three is being a string instrument; Tabla violates this and is the odd one out.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Three are string instruments; Tabla is a percussion instrument.",
+    "approach": "Apply clues most-certain-first: classify each instrument by sound-production category. Violin = bowed strings, Sitar = plucked strings, Cello = bowed strings, Tabla = struck membrane (drum). The one from a different instrument family is Tabla.",
+    "lesson": "Musical instrument odd-man-out requires knowing the instrument family. Stringed (chord) instruments produce sound via vibrating strings; percussion instruments produce sound by striking a membrane or surface.",
+    "timing": "About 40 seconds. Trap: Sitar is an Indian instrument and Tabla is also Indian, so students may mentally group them together. The decisive criterion is sound production method, not cultural origin."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

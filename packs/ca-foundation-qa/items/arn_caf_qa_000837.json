@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000837",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000837.py"
+  },
+  "tests": [
+    "qa.stats.distributions.normal"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The scores of candidates in a competitive exam follow a normal distribution with mean 72 and standard deviation 8. The passing mark is 80. Using the standard normal table where P(Z < 1) = 0.8413, what is the approximate percentage of candidates who pass?",
+  "options": [
+    {
+      "key": 1,
+      "text": "84.13%"
+    },
+    {
+      "key": 2,
+      "text": "15.87%"
+    },
+    {
+      "key": 3,
+      "text": "34.13%"
+    },
+    {
+      "key": 4,
+      "text": "50.00%"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "complement_confusion",
+      "rationale": "P(Z < 1) = 0.8413 means 84.13% score below 80, not above; failing to take the complement gives this wrong answer."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Z = (80 - 72) / 8 = 1. P(pass) = P(X > 80) = P(Z > 1) = 1 - P(Z < 1) = 1 - 0.8413 = 0.1587, i.e., approximately 15.87%."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "34.13% is P(0 < Z < 1), the area in only the right half between the mean and one sigma; it mistakes the one-sided tail for the symmetric sub-region."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "50% would be correct only if the passing mark equalled the mean (72), but 80 is one sigma above the mean."
+    }
+  ],
+  "explanation": "Standardise: Z = (80 - 72) / 8 = 1. The passing region is X > 80, equivalently Z > 1. From the table P(Z < 1) = 0.8413, so P(Z > 1) = 1 - 0.8413 = 0.1587. The critical move is taking the complement of the table value, because tables give left-tail probabilities.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "After standardising to Z = 1, the pass rate is the right-tail probability 1 - 0.8413 = 15.87%, not the table value itself.",
+    "approach": "Identify the model (normal) and standardise: Z = (x - mu) / sigma = (80 - 72) / 8 = 1. The table gives P(Z < z); for P(X > 80) = P(Z > 1), apply complement: 1 - 0.8413 = 0.1587. Convert to percentage: 15.87%.",
+    "lesson": "Normal table values are always left-tail (cumulative). For 'greater than' questions, subtract from 1.",
+    "timing": "About 60-70 seconds. The only trap is using the table value directly instead of taking 1 minus it."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

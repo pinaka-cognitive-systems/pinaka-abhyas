@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000520",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000520.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.venn"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 95,
+  "stem": "In a hostel of 150 residents, 70 subscribe to newspaper X and 50 subscribe to newspaper Y. If 20 subscribe to both newspapers, what is the ratio of those subscribing to exactly one newspaper to those subscribing to both?",
+  "options": [
+    {
+      "key": 1,
+      "text": "4 : 1"
+    },
+    {
+      "key": 2,
+      "text": "3 : 1"
+    },
+    {
+      "key": 3,
+      "text": "5 : 1"
+    },
+    {
+      "key": 4,
+      "text": "2 : 1"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Only X = 70 - 20 = 50; only Y = 50 - 20 = 30; exactly one = 50 + 30 = 80. Ratio = 80 : 20 = 4 : 1."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "This comes from computing exactly one as 70 + 50 - 20 - 40 = 60, subtracting an extra 20 from the union, giving ratio 60:20 = 3:1."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "set_operation_confused",
+      "rationale": "This comes from using n(union) = 70 + 50 - 20 = 100 as the exactly-one count, giving ratio 100:20 = 5:1 instead of correctly removing those in both."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "This comes from computing exactly one as only the larger set minus both = 70 - 20 = 50 (ignoring the Y-only group), giving ratio 50:20 = 2.5:1, then rounding to 2:1."
+    }
+  ],
+  "explanation": "Only X = n(X) - n(both) = 70 - 20 = 50. Only Y = n(Y) - n(both) = 50 - 20 = 30. Exactly one newspaper = 50 + 30 = 80. Ratio of exactly one to both = 80 : 20 = 4 : 1.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "Exactly one requires stripping the overlap from each set; the ratio is then (nX + nY - 2*both) : both.",
+    "approach": "State the formula: exactly one = n(X) + n(Y) - 2*n(both). Compute 70 + 50 - 40 = 80. Form ratio with n(both) = 20 and simplify.",
+    "lesson": "Exactly one = n(A only) + n(B only) = n(A) + n(B) - 2*n(A intersect B); do not confuse with union which subtracts the overlap only once.",
+    "timing": "60 s. The trap is picking 5:1 by using the union count (100) instead of the exactly-one count (80)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

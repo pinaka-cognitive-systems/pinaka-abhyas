@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000766",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000766.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.quartile_deviation"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 120,
+  "stem": "For a frequency distribution, the inter-quartile range is 40 and the coefficient of quartile deviation is 0.25. What is the value of the first quartile Q1?",
+  "options": [
+    {
+      "key": 1,
+      "text": "60"
+    },
+    {
+      "key": 2,
+      "text": "20"
+    },
+    {
+      "key": 3,
+      "text": "100"
+    },
+    {
+      "key": 4,
+      "text": "80"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "IQR = Q3 - Q1 = 40. Coefficient of QD = (Q3-Q1)/(Q3+Q1) = 40/(Q3+Q1) = 0.25, so Q3+Q1 = 40/0.25 = 160. Solving: Q3 = (160+40)/2 = 100, Q1 = (160-40)/2 = 60."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "20 = IQR/2 = 40/2, which is the quartile deviation itself. The student computed QD from the IQR but did not use the coefficient of QD to find Q1."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "100 is Q3, not Q1. The student correctly solved the two-equation system but reported Q3 = (160+40)/2 = 100 instead of Q1 = (160-40)/2 = 60."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "80 arises from computing Q3+Q1 = 160 and then assuming Q1 = (Q3+Q1)/2 = 80, i.e. treating the sum as if both quartiles were equal, ignoring the IQR constraint."
+    }
+  ],
+  "explanation": "Two equations connect Q1 and Q3. First: Q3 - Q1 = IQR = 40. Second: coefficient of QD = (Q3-Q1)/(Q3+Q1) = 0.25, so Q3 + Q1 = 40/0.25 = 160. Adding: 2*Q3 = 200, Q3 = 100. Subtracting: 2*Q1 = 120, Q1 = 60.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The two given quantities translate into a simultaneous pair: Q3 - Q1 = IQR and Q3 + Q1 = IQR / (coeff of QD), giving Q1 and Q3 by addition and subtraction.",
+    "approach": "Identify the model: system of two equations in Q1 and Q3. Step 1: IQR = Q3 - Q1 = 40. Step 2: coeff QD = (Q3-Q1)/(Q3+Q1) = 0.25, so Q3 + Q1 = 40/0.25 = 160. Step 3: Q3 = (160+40)/2 = 100. Step 4: Q1 = (160-40)/2 = 60. Step 5: verify: coeff = 40/160 = 0.25 and IQR = 100-60 = 40 (both check). The hidden relationship is that the coefficient of QD gives Q3+Q1 directly when IQR is known.",
+    "lesson": "Coefficient of QD = IQR / (Q1+Q3); rearranging gives Q1+Q3 = IQR / coefficient, which pairs with Q3-Q1 = IQR to yield both quartiles.",
+    "timing": "90-120 seconds. Trap: reporting Q3 = 100 instead of Q1 = 60, or reporting QD = 20 (a different quantity entirely). Always label which quartile is which after solving."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000478",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000478.py"
+  },
+  "tests": [
+    "qa.bmath.sequence_series.ap"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "The 5th term of an arithmetic progression is 17 and the 13th term is 41. What is the sum of the first 25 terms?",
+  "options": [
+    {
+      "key": 1,
+      "text": "1025"
+    },
+    {
+      "key": 2,
+      "text": "1225"
+    },
+    {
+      "key": 3,
+      "text": "1175"
+    },
+    {
+      "key": 4,
+      "text": "1100"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "d = (41-17)/(13-5) = 24/8 = 3. a = 17 - 4*3 = 5. S_25 = 25/2*(2*5 + 24*3) = 25/2*82 = 1025."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computes d = 24/8 correctly as 3, but then slips and uses d=4 when finding a and the sum: a=17-16=1, S_25=25/2*(2+96)=1225."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Uses T_5=17 as the first term of the progression instead of computing a, giving S_25=25/2*(17+T_25)=25/2*(17+89)=1325 - or uses T_5 as start giving 25/2*(17+77)=1175."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Applies the special series formula n*(n+1)/2 for sum of natural numbers mixed with d: 25*26/2*3 + 25*5 = 975+125=1100."
+    }
+  ],
+  "explanation": "Step 1: d = (T_13 - T_5)/(13-5) = 24/8 = 3. Step 2: a = T_5 - 4*d = 17-12 = 5. Step 3: S_25 = 25/2*(2*5+24*3) = 25/2*82 = 1025.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Two-term setup: use the index gap to find d, then back-calculate a before applying S_n.",
+    "approach": "Formula chain: (1) d = (T_m - T_k)/(m-k) for any two known terms. (2) a = T_k - (k-1)*d. (3) S_n = n/2*(2a+(n-1)*d). Here: d=(41-17)/8=3, a=17-12=5, S_25=25/2*82=1025.",
+    "lesson": "When two non-consecutive terms are given, the common difference is the term difference divided by the index gap.",
+    "timing": "60-80 seconds. Two setup steps before plugging into S_n. Trap: using T_5 as the first term a."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000890",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000890.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.deflating"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 130,
+  "stem": "A consultant currently earns Rs 30,000 per month (nominal). Consumer prices are expected to rise at 8% per year compoundly for the next 2 years. [Given: (1.08)^2 = 1.1664] By what percentage must the nominal salary increase at the end of 2 years so that the consultant's real purchasing power remains unchanged?",
+  "options": [
+    {
+      "key": 1,
+      "text": "16.64%"
+    },
+    {
+      "key": 2,
+      "text": "16%"
+    },
+    {
+      "key": 3,
+      "text": "8%"
+    },
+    {
+      "key": 4,
+      "text": "17%"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "The price index in 2 years = 100 x 1.1664 = 116.64. To maintain real purchasing power: nominal needed = 30000 x 116.64 / 100 = 34992. Percentage rise = (34992 - 30000) / 30000 x 100 = 16.64%."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Using simple interest compounding: 8% x 2 = 16% applies only if interest is not compounded. Compound growth adds the cross-term: 8 + 8 + (8 x 8 / 100) = 16.64%, not 16%."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Taking only a single year's inflation rate of 8% treats a 2-year span as if only one year of price rises must be compensated."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "rounding_error",
+      "rationale": "Rounding 16.64% up to 17% before computing the final percentage increase results in an answer that overstates the required raise."
+    }
+  ],
+  "explanation": "Step 1: Determine the future price index. Prices rise at 8% compound for 2 years, so the index = 100 x (1.08)^2 = 100 x 1.1664 = 116.64. Step 2: Required nominal salary to maintain real value = 30000 x 116.64 / 100 = Rs 34,992. Step 3: Percentage rise = (34992 - 30000) / 30000 x 100 = 4992 / 30000 x 100 = 16.64%. The cross-year compounding adds 0.64% on top of the simple 16% - a small but testable trap.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Compound inflation requires a compound nominal raise: 16.64% beats the simple-rate answer of 16% by exactly the cross-term 0.64%.",
+    "approach": "Identify the three-step plan: (1) compute future price level using compound growth = 100 x (1.08)^2; (2) reverse-deflate the current salary using the new index to get required nominal; (3) compute percentage change. Use the given hint: (1.08)^2 = 1.1664 throughout.",
+    "lesson": "Maintaining purchasing power over multiple periods requires compounding the inflation rate, not summing it. The required nominal rise equals the cumulative index ratio minus 1.",
+    "timing": "About 2 minutes. Trap: option 2 (16%) is the simple-interest answer and a very strong distractor. The distinguishing step is using the compound factor 1.1664 rather than 1.16."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

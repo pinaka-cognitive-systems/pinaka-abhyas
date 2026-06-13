@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000710",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000710.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.median"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "The ages (in years) of 6 employees are: 34, 28, 45, 22, 38, 31. What is the median age?",
+  "options": [
+    {
+      "key": 1,
+      "text": "34"
+    },
+    {
+      "key": 2,
+      "text": "32.5"
+    },
+    {
+      "key": 3,
+      "text": "33"
+    },
+    {
+      "key": 4,
+      "text": "38"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "34 is the 4th value in the sorted list; taking the 4th value alone (instead of averaging the 3rd and 4th) is a slip in applying the even-n median rule."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Sorted: 22, 28, 31, 34, 38, 45. For n=6 (even), median = average of 3rd and 4th values = (31+34)/2 = 32.5."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "33 results from rounding 32.5 up incorrectly; the exact midpoint is 32.5."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "38 is the 5th value in the sorted list; this error arises from misidentifying the position for even n."
+    }
+  ],
+  "explanation": "Sorted ages: 22, 28, 31, 34, 38, 45. With n = 6 (even), the median is the mean of the (n/2)th and (n/2 + 1)th values, i.e., (31 + 34)/2 = 65/2 = 32.5.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "For an even number of observations the median is the average of the two middle values, not just one of them.",
+    "approach": "Sort the data. With n=6 even, take positions 3 and 4 in the sorted list, average them: (31+34)/2 = 32.5.",
+    "lesson": "When n is even, median = (value at n/2 + value at n/2+1) / 2; do not round, keep the 0.5.",
+    "timing": "50 s. Sort the 6 values (two passes), identify middle pair. Watch out for rounding the 0.5 away."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

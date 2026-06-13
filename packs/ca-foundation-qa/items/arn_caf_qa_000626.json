@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000626",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000626.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "Four people Priya, Qazi, Raj, and Suman sit around a circular table facing the centre. The seats are numbered 1 to 4 going clockwise. Priya sits directly opposite Raj. Suman sits in the seat immediately clockwise from Priya. Who sits to the immediate left of Raj (from Raj's own perspective, facing the centre)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Priya"
+    },
+    {
+      "key": 2,
+      "text": "Qazi"
+    },
+    {
+      "key": 3,
+      "text": "Raj"
+    },
+    {
+      "key": 4,
+      "text": "Suman"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Priya is directly opposite Raj, not adjacent to him. Placing Priya as his immediate left neighbor ignores the opposite-seat constraint."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Fix Priya=1. Raj is directly opposite Priya: Raj=3. Suman is immediately clockwise from Priya: Suman=2. Qazi occupies the only remaining seat: Qazi=4. When Raj (seat 3) faces the centre, his left side points clockwise (toward seat 4 = Qazi). So Qazi is to the immediate left of Raj."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Raj cannot be to his own left. This option misreads the question as asking for Raj's own position rather than his left neighbor."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "direction_turn_error",
+      "rationale": "Suman is at seat 2, which is Raj's right neighbor (facing centre), not his left. Confusing left and right for a person facing the centre of a circular table places Suman on the wrong side."
+    }
+  ],
+  "explanation": "Fix Priya at seat 1. Since Priya and Raj are directly opposite in a 4-person circle, Raj is at seat 3. Suman is immediately clockwise from Priya, so Suman is at seat 2. Qazi takes the last seat (4). When Raj at seat 3 faces the centre, his left hand points in the clockwise direction, toward seat 4. Qazi is at seat 4, so Qazi is to the immediate left of Raj.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "For a person facing the centre, left = clockwise direction; placing Priya and building the circle from there puts Qazi one clockwise step from Raj.",
+    "approach": "Apply clues most-certain-first: anchor Priya=1, derive Raj=3 (opposite), Suman=2 (CW from Priya), Qazi=4 (only remaining seat). Then apply the facing-centre left-right rule: left of any seated person is the seat one step clockwise.",
+    "lesson": "When seated facing the centre of a circle, your left is the clockwise direction and your right is the anticlockwise direction. Do not swap them.",
+    "timing": "55 seconds. Two direct placements then one seat assignment, then apply the facing-centre direction rule once."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000888",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000888.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.deflating"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A state's exports at current prices were Rs 80 lakh in base year 2020 and Rs 1,32 lakh in 2024. The export price index for 2024 (base 2020 = 100) is 110. What is the increase in export volume at constant 2020 prices?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 52 lakh"
+    },
+    {
+      "key": 2,
+      "text": "Rs 40 lakh"
+    },
+    {
+      "key": 3,
+      "text": "Rs 8 lakh"
+    },
+    {
+      "key": 4,
+      "text": "Rs 1,20 lakh"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Subtracting nominal export values directly (132 - 80 = 52 lakh) ignores the need to deflate and overstates the volume increase."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Real exports 2024 = 132 x 100 / 110 = 120 lakh. Increase = 120 - 80 = Rs 40 lakh at constant prices."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "percentage_base_confusion",
+      "rationale": "Computing 10% of 80 lakh (= 8 lakh) and treating the index change of 10 points as a volume-equivalent addition confuses the percentage base."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reporting the deflated 2024 value (Rs 1,20 lakh) instead of the change from the base year misreads the question as asking for the level rather than the increase."
+    }
+  ],
+  "explanation": "Deflate 2024 exports: 132 x 100 / 110 = 120 lakh. Volume increase = 120 - 80 = 40 lakh. The remaining 12 lakh of the 52 lakh nominal rise is attributable to higher export prices, not greater export volume.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Deflating separates the volume gain (40 lakh) from the pure price gain (12 lakh) embedded in the nominal 52 lakh rise.",
+    "approach": "Formula: Real = Nominal / Index x 100. Map: nominal 2024 = 132, index = 110. Deflate: 132 / 110 x 100 = 120 lakh. Change = 120 - 80 = 40 lakh.",
+    "lesson": "The nominal change always overstates real volume growth when prices have risen. Deflation quantifies how much.",
+    "timing": "About 60 seconds. Fastest check: 132/1.1 = 120, then 120-80 = 40. Trap is option 1 (the raw nominal difference)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

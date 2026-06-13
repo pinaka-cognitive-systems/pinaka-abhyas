@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000877",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000877.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.construction"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A statistician uses base-year expenditure shares as weights to construct a price index. The data for three goods are:\nGood A: p0 = 10, q0 = 5, p1 = 15\nGood B: p0 = 4, q0 = 25, p1 = 5\nGood C: p0 = 2, q0 = 50, p1 = 3\nCompute the Weighted Average of Price Relatives index (weights = p0 * q0).",
+  "options": [
+    {
+      "key": 1,
+      "text": "141.67"
+    },
+    {
+      "key": 2,
+      "text": "143.75"
+    },
+    {
+      "key": 3,
+      "text": "140.00"
+    },
+    {
+      "key": 4,
+      "text": "137.50"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "141.67 is the simple (unweighted) average of price relatives: (150 + 125 + 150)/3 = 141.67. This ignores the value weights p0*q0."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "143.75 is the Simple Aggregative Price Index: (15+5+3)/(10+4+2)*100 = 23/16*100 = 143.75. This uses summed prices, not weighted relatives."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Compute I_i = (p1/p0)*100 and w_i = p0*q0 for each good. A: I=150, w=50; B: I=125, w=100; C: I=150, w=100. Index = (150*50 + 125*100 + 150*100)/(50+100+100) = 35000/250 = 140.00."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "137.50 arises from computing the weighted average using only quantities q0 as weights (ignoring base price): (150*5 + 125*25 + 150*50)/(5+25+50) = 10875/80 = 135.94 or a variant arithmetic error."
+    }
+  ],
+  "explanation": "Weighted Average of Price Relatives = sum(I_i * w_i) / sum(w_i), where I_i = (p1/p0)*100 and w_i = p0*q0 (base-year expenditure). Good A: I=150, w=50; Good B: I=125, w=100; Good C: I=150, w=100. Numerator: 150*50 + 125*100 + 150*100 = 7500 + 12500 + 15000 = 35000. Denominator: 50+100+100 = 250. Index = 35000/250 = 140.00. This equals the Laspeyres index exactly when base-year value weights are used.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Weighted average of price relatives with value weights (p0*q0) gives exactly 140.00, which equals the Laspeyres index by algebraic identity.",
+    "approach": "Formula selection: compute each price relative I_i = (p1/p0)*100, then compute value weight w_i = p0*q0. Weighted average = sum(I_i * w_i) / sum(w_i). The setup decision: use base-year VALUE weights, not just quantity weights.",
+    "lesson": "Weighted Average of Price Relatives with base-year value weights is algebraically equivalent to Laspeyres. Both give 140.00 here.",
+    "timing": "About 90-105 seconds. Three price relatives, three value products, one weighted average. Trap: averaging the relatives without weights (gives 141.67)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

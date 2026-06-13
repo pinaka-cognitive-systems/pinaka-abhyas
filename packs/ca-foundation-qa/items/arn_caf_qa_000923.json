@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000923",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000923.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.coding_decoding"
+  ],
+  "difficulty_label": "L1",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 150,
+  "stem": "In a code language, each word maps to exactly one symbol. 'ban koo dee' means 'she is clever', 'koo fee zee' means 'he is tall', and 'dee zee moo' means 'clever tall boy'. Which symbol stands for 'tall'?",
+  "options": [
+    {
+      "key": 1,
+      "text": "koo"
+    },
+    {
+      "key": 2,
+      "text": "zee"
+    },
+    {
+      "key": 3,
+      "text": "dee"
+    },
+    {
+      "key": 4,
+      "text": "moo"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "koo is the symbol shared by sentences 1 and 2, whose only common word is 'is', so koo means 'is'. Matching 'tall' to the wrong overlapping pair takes the symbol for 'is' instead."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Sentences 2 and 3 share exactly the symbol zee, and the only word common to 'he is tall' and 'clever tall boy' is 'tall'. So zee means 'tall'. Cross-checking, koo (in 1 and 2) is 'is' and dee (in 1 and 3) is 'clever', leaving zee for 'tall' uniquely."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "dee is the symbol shared by sentences 1 and 3, whose only common word is 'clever', so dee means 'clever'. It is decoded by the wrong sentence pair for the word 'tall'."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "moo appears only in sentence 3. After dee is fixed as 'clever' and zee as 'tall', moo is the leftover symbol for 'boy', not 'tall'."
+    }
+  ],
+  "explanation": "Find each word by intersecting the sentences that share it. Sentences 1 and 2 share only the symbol koo, and 'she is clever' and 'he is tall' share only the word 'is', so koo means 'is'. Sentences 1 and 3 share only dee, and 'she is clever' and 'clever tall boy' share only 'clever', so dee means 'clever'. Sentences 2 and 3 share only zee, and 'he is tall' and 'clever tall boy' share only 'tall', so zee means 'tall'. The leftover symbols ban, fee and moo map to 'she', 'he' and 'boy'.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Sentences 2 and 3 overlap only in the symbol zee and only in the word 'tall', so zee means 'tall'.",
+    "approach": "Treat the code as a strict one-to-one map and pin each word by overlap. For each pair of sentences, intersect their symbols and intersect their words; when both intersections have a single member, that symbol equals that word. koo from sentences 1 and 2 is 'is', dee from 1 and 3 is 'clever', zee from 2 and 3 is 'tall'. Confirm consistency by checking the leftover symbols cover the leftover words with no clash.",
+    "lesson": "Decode overlapping sentences by intersecting shared symbols against shared words; a single common symbol and a single common word pin each other.",
+    "timing": "About 145 seconds. Fastest elimination is option (1) koo: it is the symbol common to sentences 1 and 2, whose shared word is 'is', so it cannot code 'tall'."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

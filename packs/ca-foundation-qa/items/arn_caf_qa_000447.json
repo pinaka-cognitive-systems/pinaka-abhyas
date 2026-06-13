@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000447",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000447.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.factorial"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "How many distinct arrangements can be made using all the letters of the word BALLOON?",
+  "options": [
+    {
+      "key": 1,
+      "text": "1260"
+    },
+    {
+      "key": 2,
+      "text": "5040"
+    },
+    {
+      "key": 3,
+      "text": "2520"
+    },
+    {
+      "key": 4,
+      "text": "630"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "BALLOON has 7 letters with L repeated twice and O repeated twice. Distinct arrangements = 7! / (2! x 2!) = 5040 / 4 = 1260."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Computed 7! = 5040 as if all letters were distinct, ignoring the two repeated pairs L and O."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Divided 7! by only one 2! instead of two, giving 5040 / 2 = 2520, accounting for one repeated letter but missing the second."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "order_of_operations",
+      "rationale": "Divided 7! by (2! + 2!) = 4 rather than by (2! x 2!) = 4, a coincidental value here; or equivalently computed 7! / 8 = 630 by treating denominators additively."
+    }
+  ],
+  "explanation": "BALLOON: B, A, L, L, O, O, N - 7 letters with L(2) and O(2). Distinct arrangements = 7! / (2! x 2!) = 5040 / 4 = 1260.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "Two repeated pairs (L and O) each reduce the count by a factor of 2!, giving 7! / (2! x 2!) = 1260.",
+    "approach": "Classify as arrangements of n objects with repetitions. Step 1 - list every letter: B(1), A(1), L(2), O(2), N(1). Step 2 - write the formula: n! / (r1! x r2! x ...) = 7! / (2! x 2!). Step 3 - compute: 5040 / 4 = 1260.",
+    "lesson": "For every repeated letter frequency k, divide by k!. If two letters each repeat twice, divide by 2! x 2! = 4, not by 2! + 2! = 4 (numerically same here but the principle differs for other frequencies).",
+    "timing": "60-70 s. Fastest path: cancel 7! / 2! = 2520 then halve again for the second repeat: 2520 / 2 = 1260. Trap: forgetting the second repeated letter O and stopping at 2520."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

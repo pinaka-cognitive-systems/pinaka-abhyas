@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000938",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000938.py"
+  },
+  "tests": [
+    "qa.stats.distributions.binomial"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 170,
+  "stem": "A binomial distribution has mean 2 and variance 4/3. For this same distribution, what is the probability of at least one success?",
+  "options": [
+    {
+      "key": 1,
+      "text": "665/729"
+    },
+    {
+      "key": 2,
+      "text": "64/729"
+    },
+    {
+      "key": 3,
+      "text": "728/729"
+    },
+    {
+      "key": 4,
+      "text": "1/3"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "From np = 2 and npq = 4/3, q = (4/3)/2 = 2/3, so p = 1/3 and n = 2/(1/3) = 6. P(at least one) = 1 - P(0) = 1 - q^n = 1 - (2/3)^6 = 1 - 64/729 = 665/729."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Computes P(0 successes) = q^n = (2/3)^6 = 64/729 and reports it, forgetting that at-least-one is the complement 1 - P(0).",
+      "misconception": "complement_confusion"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Swaps p and q, taking P(0) = p^n = (1/3)^6 = 1/729, then 1 - 1/729 = 728/729. The no-success term must use q = 1 - p, not p.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Stops after deriving the per-trial success probability p = 1/3 and reports that, never building the n-trial at-least-one probability.",
+      "misconception": "misread_quantity"
+    }
+  ],
+  "explanation": "The success probability is not given; it must be derived. Use mean = np and variance = npq. Dividing variance by mean gives q = (4/3)/2 = 2/3, hence p = 1/3. Then n = mean/p = 2/(1/3) = 6. Now P(at least one success) = 1 - P(zero successes) = 1 - q^n = 1 - (2/3)^6. Since (2/3)^6 = 64/729, the answer is 1 - 64/729 = 665/729, about 0.912.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "You are not handed p; recover it from variance/mean = q, then complement. q = (4/3)/2 = 2/3, p = 1/3, n = 6, and P(at least one) = 1 - (2/3)^6 = 665/729.",
+    "approach": "Model: binomial with unknown parameters. The decisive move is to back out p before any probability: divide variance by mean because npq/np = q, giving q = 2/3 and p = 1/3, then n = mean/p = 6. Assumption to navigate: at-least-one is cheapest as the complement of zero successes, so compute q^n = (2/3)^6 = 64/729 and subtract from 1.",
+    "lesson": "For a binomial, variance divided by mean equals q; derive p and n first, then use 1 - q^n for at-least-one. The zero-success term always carries q, never p.",
+    "timing": "About 150 seconds: one division for q, one for n, one power, one subtraction. Reject 64/729 in five seconds: that is P(zero), the complement, not at-least-one."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

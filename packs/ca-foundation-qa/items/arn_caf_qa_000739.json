@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000739",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000739.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.range"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The production output (in units) of a factory over six weeks is: 520, 485, 610, 540, 475, 590. The manager doubles each week's output figure to express it in half-units. What is the range of the transformed data?",
+  "options": [
+    {
+      "key": 1,
+      "text": "270"
+    },
+    {
+      "key": 2,
+      "text": "135"
+    },
+    {
+      "key": 3,
+      "text": "67.5"
+    },
+    {
+      "key": 4,
+      "text": "540"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Original range = 610 - 475 = 135. When every observation is multiplied by 2, range scales by the same factor: 135 * 2 = 270."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "invariance_property_confused",
+      "rationale": "Student reports the original range (135) without scaling, confusing scale-invariance with origin-invariance."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Student divides original range by 2 instead of multiplying: 135 / 2 = 67.5."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student computes 2 * max - min = 2*610 - 475 = 1220 - 475 = 745, or applies the multiplier to max alone and subtracts original min: 1220 - 950 = 270 is correct, but some path gives 2*max - 2*min using wrong original values, arriving at 540."
+    }
+  ],
+  "explanation": "When each observation x_i is replaced by k*x_i, range scales by |k|. Original range = 610 - 475 = 135. New range = 2 * 135 = 270.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Multiplying all data by a constant scales the range by that constant; it is NOT invariant under scale changes.",
+    "approach": "Identify transformation type: scale change (multiply by 2). New max = 2*610 = 1220, new min = 2*475 = 950. New range = 1220 - 950 = 270. Equivalently, range * 2 = 135 * 2 = 270.",
+    "lesson": "Range is invariant under origin shifts (adding a constant) but NOT under scale changes (multiplying by a constant).",
+    "timing": "40 seconds. Compute original range first (135), then multiply by scale factor 2. Trap: reporting 135 as if range were scale-invariant."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

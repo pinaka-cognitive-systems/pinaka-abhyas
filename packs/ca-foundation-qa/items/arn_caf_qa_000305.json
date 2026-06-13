@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000305",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen_finance_v1",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000305.py"
+  },
+  "tests": [
+    "qa.bmath.finance.compound_interest"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Meena invests Rs 15,000 at 12% per annum compounded quarterly for 1 year. What is the amount she receives at maturity? [Given: (1.03)^4 = 1.12551]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 16,800"
+    },
+    {
+      "key": 2,
+      "text": "Rs 16,882.65"
+    },
+    {
+      "key": 3,
+      "text": "Rs 17,025"
+    },
+    {
+      "key": 4,
+      "text": "Rs 16,830"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "verdict": "incorrect",
+      "misconception": "rate_period_mismatch",
+      "rationale": "Rs 16,800 = 15000 x 1.12 uses the annual rate applied once (n = 1 annual period), failing to convert to the quarterly rate of 3% over 4 periods.",
+      "option_key": 1
+    },
+    {
+      "verdict": "correct",
+      "option_key": 2,
+      "rationale": "Quarterly compounding splits the annual rate into four 3% steps; each step grows the running balance, so four multiplications (not one at 12%) are needed."
+    },
+    {
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Rs 17,025 = 15000 x (1.03)^5 uses 5 quarters instead of 4, adding an extra period; a period-count error from misreading '1 year quarterly' as 5 compounding events.",
+      "option_key": 3
+    },
+    {
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Rs 16,830 = 15000 x 1.122 comes from rounding (1.03)^4 to 1.122 instead of using the given 1.12551, introducing an arithmetic slip.",
+      "option_key": 4
+    }
+  ],
+  "explanation": "Quarterly compounding: rate per quarter = 12%/4 = 3%; periods = 1 x 4 = 4. A = 15000 x (1.03)^4 = 15000 x 1.12551 = Rs 16,882.65.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Quarterly compounding splits the annual rate into four 3% steps; each step grows the running balance, so four multiplications (not one at 12%) are needed.",
+    "approach": "Formula: A = P x (1 + r/m)^(n*m). P = 15000, r = 0.12, m = 4, n = 1. Periodic rate = 3%, periods = 4. A = 15000 x 1.12551 = 16882.65.",
+    "lesson": "Quarterly compounding always yields more than annual compounding at the same nominal rate, but the key step is the conversion: divide rate by 4 and multiply periods by 4.",
+    "timing": "70 seconds: convert rate (12%/4 = 3%), confirm hint (1.03)^4 = 1.12551, multiply 15000 x 1.12551. Trap is option 1 (annual rate applied directly)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

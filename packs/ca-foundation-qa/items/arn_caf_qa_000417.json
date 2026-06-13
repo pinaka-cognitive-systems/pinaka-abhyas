@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000417",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000417.py"
+  },
+  "tests": [
+    "qa.bmath.finance.cagr"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "A mutual fund unit was valued at Rs 10,000 four years ago and is worth Rs 14,641 today. What is the Compound Annual Growth Rate (CAGR) of this investment?",
+  "options": [
+    {
+      "key": 1,
+      "text": "12% per annum"
+    },
+    {
+      "key": 2,
+      "text": "10% per annum"
+    },
+    {
+      "key": 3,
+      "text": "16.41% per annum"
+    },
+    {
+      "key": 4,
+      "text": "8% per annum"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Estimates CAGR roughly as total return / years: (14641 - 10000) / (4 * 10000) = 4641/40000 = 11.6%, rounds up to 12%."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "CAGR = (14641 / 10000)^(1/4) - 1 = (1.4641)^0.25 - 1 = 1.10 - 1 = 0.10 = 10% (since 1.1^4 = 1.4641)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Computes simple total percentage growth: (14641 - 10000) / 10000 = 46.41%, then divides by years: 46.41% / 4 = 16.41%, using average simple return instead of geometric."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "decimal_place_error",
+      "rationale": "Mistakes the 4-year factor 1.4641 for a 2-year factor at some rate, back-calculates 8% per annum without correct root extraction."
+    }
+  ],
+  "explanation": "CAGR is the constant annual rate that grows the initial value to the final value over n years: CAGR = (V_n / V_0)^(1/n) - 1.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "CAGR = (V_n / V_0)^(1/n) - 1: take the n-th root of the total growth multiple, then subtract 1.",
+    "approach": "Name the formula CAGR = (V_n / V_0)^(1/n) - 1. Map: V_0 = 10,000, V_n = 14,641, n = 4. Ratio = 14,641 / 10,000 = 1.4641. Note that 1.1^4 = 1.4641. So CAGR = 10%.",
+    "lesson": "CAGR is a geometric average, not an arithmetic average. Dividing total percentage return by years gives a simple average return, which overstates CAGR.",
+    "timing": "20 seconds. Recognise 1.4641 = 1.1^4. If you know (1.1)^4, the answer is immediate."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

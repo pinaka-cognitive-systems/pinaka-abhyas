@@ -19,6 +19,7 @@
     "qa.stats.index_numbers.deflating"
   ],
   "difficulty_label": "L2",
+  "explanation_kind": "formula_selection",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 90,
@@ -71,10 +72,10 @@
   ],
   "explanation": "Deflating converts a nominal value to real terms using the price index. Real value = (Nominal value / Price index) × 100. Here: (42,000 / 140) × 100 = Rs 30,000. Multiplying instead of dividing inflates the value, a common reversal.",
   "explanation_sections": {
-    "punchline": "To express a nominal value in base-year prices, divide by the current index and multiply by 100. Rs 42,000 / 140 times 100 = Rs 30,000.",
-    "approach": "Identify the nominal value, the current index, and the base-year index (always 100). Apply: Real = (Nominal / Current index) times base index. Dividing removes the effect of price inflation since the base year. Do not multiply by the index: that would scale up, not down.",
-    "lesson": "Deflating means dividing by the current index, then scaling back to base 100. Multiplying instead is the mirror-image error that produces the inflated distractor.",
-    "timing": "About 90 seconds. Reject option (1) Rs 58,800 in five seconds: that is the result of multiplying, not dividing. Reject option (3) Rs 300: that is the correct division result before multiplying by 100, so the multiplication step was simply forgotten."
+    "punchline": "Formula: Real value = (Nominal / Current index) * 100. Dividing by the index strips out cumulative inflation since the base year. Here (42,000 / 140) * 100 = Rs 30,000.",
+    "approach": "Name the formula first: deflation converts a nominal monetary value to base-year real terms using Real = (Nominal / Current index) * 100. Map the givens: Nominal = 42,000, Current index = 140, Base = 100. Divide first, then multiply by 100. Why divide? The index of 140 means prices are 1.4 times the base, so dividing removes that scaling. Multiplying would amplify prices further, the opposite of deflating.",
+    "lesson": "Deflate by dividing nominal by the index, then multiplying by 100. Multiplying by the index instead of dividing is the mirror-image error that gives the inflated distractor Rs 58,800. Stopping after dividing (answer Rs 300) forgets the * 100 scaling step.",
+    "timing": "60-90 seconds. Reject option (1) = Rs 58,800 in 5 seconds: that is 42,000 * (140/100), the inflation direction. Reject option (3) = Rs 300: that is 42,000 / 140 without the *100 step."
   },
   "empirical": {
     "calibration_status": "none",

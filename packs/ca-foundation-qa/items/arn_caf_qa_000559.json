@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000559",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000559.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.number_series"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Find the next term in the series: 1, 1, 2, 3, 5, 8, 13, ?",
+  "options": [
+    {
+      "key": 1,
+      "text": "18"
+    },
+    {
+      "key": 2,
+      "text": "20"
+    },
+    {
+      "key": 3,
+      "text": "21"
+    },
+    {
+      "key": 4,
+      "text": "22"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Adding 5 to 13 (the difference between 13 and 8) gives 18, misidentifying the rule as adding a fixed number rather than the sum of two preceding terms."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "A slip in adding the last two terms: 13 + 8 computed incorrectly as 20 instead of 21."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "This is the Fibonacci series where each term is the sum of the two preceding terms: 8 + 13 = 21."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Misreading the second-to-last term as 9 instead of 8 gives 9 + 13 = 22."
+    }
+  ],
+  "explanation": "The series follows the Fibonacci rule: each term is the sum of the two terms immediately before it. Checking: 1+1=2, 1+2=3, 2+3=5, 3+5=8, 5+8=13. The next term is 8 + 13 = 21.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The Fibonacci rule (each term = sum of preceding two) is confirmed by checking any three consecutive terms.",
+    "approach": "Apply clues most-certain-first: verify 5+8=13 (holds); the rule is T(n) = T(n-1) + T(n-2). Next term = 8 + 13 = 21.",
+    "lesson": "For series where differences are not constant but each term equals the sum of two predecessors, identify the Fibonacci pattern and add the last two given terms.",
+    "timing": "25 seconds. Verify the rule on the last triplet, then add the final pair. Trap: adding the difference to the last term (arithmetic pattern confusion)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

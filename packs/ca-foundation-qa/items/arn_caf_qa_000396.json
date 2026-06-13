@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000396",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000396.py"
+  },
+  "tests": [
+    "qa.bmath.finance.future_value"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "A trader invests Rs 5000 at a simple interest rate of 8% per annum. What amount will he receive at the end of 3 years?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 6200"
+    },
+    {
+      "key": 2,
+      "text": "Rs 5400"
+    },
+    {
+      "key": 3,
+      "text": "Rs 6000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 6300"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "FV = P(1 + r*n) = 5000 * (1 + 0.08 * 3) = 5000 * 1.24 = Rs 6200."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "time_factor_dropped",
+      "rationale": "Only one year of interest applied: 5000 * 1.08 = 5400, ignoring n = 3."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Slip in multiplying: 5000 + 5000 * 0.08 * 3 computed as 5000 + 1000 = 6000 instead of 5000 + 1200 = 6200."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Using n = 3 but counting from year 0 incorrectly as 4 periods or adding one extra year: 5000 + 5000 * 0.08 * 3.25 = 6300 approximately."
+    }
+  ],
+  "explanation": "FV under simple interest = P(1 + rn). P = 5000, r = 0.08, n = 3 gives 5000 * 1.24 = Rs 6200.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The simple-interest future value formula multiplies principal by (1 + rate x time), not by a power.",
+    "approach": "Name the formula: FV = P(1 + rn). Map: P = 5000, r = 8% = 0.08, n = 3. Compute: 5000 * 1.24 = 6200.",
+    "lesson": "Simple interest grows linearly; do not raise (1+r) to a power here.",
+    "timing": "About 20 seconds mental multiplication. Watch for compound-interest trap."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

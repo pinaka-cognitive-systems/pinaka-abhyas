@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000639",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000639.py"
+  },
+  "tests": [
+    "qa.lr.blood_relations"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "Ravi introduces Kiran to his friend saying, 'Kiran is the son of the only daughter of my grandfather.' How is Kiran related to Ravi?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Son"
+    },
+    {
+      "key": 2,
+      "text": "Nephew"
+    },
+    {
+      "key": 3,
+      "text": "Cousin"
+    },
+    {
+      "key": 4,
+      "text": "Brother"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "kinship_direction_inverted",
+      "rationale": "Treating the relation from Kiran's perspective toward Ravi instead of from Ravi's perspective places Kiran as Ravi's son, which reverses the direction."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Placing Ravi's mother one generation higher than she actually is (treating her as an aunt) yields nephew rather than brother."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "kinship_gender_error",
+      "rationale": "Treating 'only daughter of grandfather' as a sister of Ravi's father rather than as Ravi's mother (because a male sibling is imagined) leads to cousin."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "Ravi's grandfather's only daughter is Ravi's mother. Kiran is the son of Ravi's mother, so Kiran is Ravi's brother."
+    }
+  ],
+  "explanation": "Ravi's grandfather's only daughter = Ravi's mother. Son of Ravi's mother = Ravi's brother. Therefore Kiran is Ravi's brother.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Grandfather's only daughter must be Ravi's mother; her son is therefore Ravi's brother.",
+    "approach": "Apply clues most-certain-first: 'only daughter of Ravi's grandfather' uniquely identifies Ravi's mother (she is the only female child at that level). Son of Ravi's mother = sibling of Ravi, i.e. brother.",
+    "lesson": "When a descriptor uniquely pins someone in the tree (only daughter), use that pin to resolve the chain without ambiguity.",
+    "timing": "Under 50 s. Common trap: cousin (option 3) arises by misreading 'grandfather' as 'father', making the daughter an aunt instead of a mother."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000802",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000802.py"
+  },
+  "tests": [
+    "qa.stats.probability.independent_events"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "Three students Arjun, Bhavna, and Chetan independently attempt to solve a problem. Their respective probabilities of solving it are 1/3, 1/4, and 1/5. What is the probability that the problem is solved by exactly one of the three students?",
+  "options": [
+    {
+      "key": 1,
+      "text": "13/30"
+    },
+    {
+      "key": 2,
+      "text": "3/5"
+    },
+    {
+      "key": 3,
+      "text": "1/2"
+    },
+    {
+      "key": 4,
+      "text": "1/60"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "P(A only) = (1/3)(3/4)(4/5) = 12/60 = 1/5. P(B only) = (2/3)(1/4)(4/5) = 8/60 = 2/15. P(C only) = (2/3)(3/4)(1/5) = 6/60 = 1/10. Total = 12/60 + 8/60 + 6/60 = 26/60 = 13/30."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "complement_confusion",
+      "rationale": "3/5 = 1 - (2/3)(3/4)(4/5) = 1 - 2/5 is the probability that at least one solves it, not exactly one."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "1/2 arises from computing only two of the three exactly-one cases and forgetting the third, giving an inflated sum."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "independence_assumed",
+      "rationale": "1/60 = (1/3)(1/4)(1/5) is the probability all three solve it simultaneously, not exactly one."
+    }
+  ],
+  "explanation": "P(exactly one) = P(A only) + P(B only) + P(C only) = (1/3)(3/4)(4/5) + (2/3)(1/4)(4/5) + (2/3)(3/4)(1/5) = 12/60 + 8/60 + 6/60 = 26/60 = 13/30.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Exactly-one decomposes into three mutually exclusive cases - each student succeeds while both others fail.",
+    "approach": "Identify model: three independent Bernoulli trials, exactly-one query. Decisive move: enumerate three mutually exclusive cases. For each case multiply: (prob success) * (prob failure for other two). Sum the three cases. Do not use complement here since complement gives at-least-one.",
+    "lesson": "Exactly-k with independent trials: list C(n,k) cases, multiply within, sum across. Never use complement for exactly-k (complement gives at-least-k).",
+    "timing": "90 seconds. Trap: 3/5 is at-least-one (complement of none). Trap: 1/60 is all-three. Need all three mutually exclusive exactly-one cases."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

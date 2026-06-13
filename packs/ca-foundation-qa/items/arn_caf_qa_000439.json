@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000439",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000439.py"
+  },
+  "tests": [
+    "qa.bmath.finance.depreciation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A company bought a computer for Rs 75,000. After 2 years the book value under the WDV method is Rs 48,000. What is the annual rate of depreciation (WDV rate) applied?",
+  "options": [
+    {
+      "key": 1,
+      "text": "20%"
+    },
+    {
+      "key": 2,
+      "text": "25%"
+    },
+    {
+      "key": 3,
+      "text": "18%"
+    },
+    {
+      "key": 4,
+      "text": "36%"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "WDV: BV = Cost x (1-r)^n. So (1-r)^2 = 48000/75000 = 0.64. Taking square root: 1-r = 0.8. Therefore r = 0.20 = 20%."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Uses straight-line approach: total depreciation = 27000 over 2 years, so annual = 13500, rate = 13500/75000 = 18%; or assumes (1-r)^2 = 0.75 giving r = 25%."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computes total depreciation 27000/75000 = 36% and divides by 2 to get 18%, using a linear-average approach on a geometric problem."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "percentage_base_confusion",
+      "rationale": "Computes (75000-48000)/75000 = 27000/75000 = 36% as if this is the single-year rate, ignoring that the 36% covers 2 compounding years."
+    }
+  ],
+  "explanation": "Rearrange WDV formula: (1-r)^2 = BV/Cost = 48000/75000 = 0.64. Taking the positive square root: 1-r = sqrt(0.64) = 0.8. So r = 0.20, i.e. 20% per annum.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Back-calculating the WDV rate requires taking the nth root of (BV/Cost) and subtracting from 1.",
+    "approach": "Formula: BV = C x (1-r)^n. Rearrange: (1-r)^n = BV/C = 48000/75000 = 0.64. Take nth root (n=2): 1-r = sqrt(0.64) = 0.8. r = 20%.",
+    "lesson": "To find the WDV rate from two data points, compute the ratio of book value to cost, take the appropriate root, then find r = 1 - root.",
+    "timing": "65 seconds. Trap: dividing total percentage drop by number of years (linearising a geometric decay)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

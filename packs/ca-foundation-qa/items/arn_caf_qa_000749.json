@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000749",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000749.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mean_deviation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 105,
+  "stem": "The wages of 50 workers in a factory are distributed as follows:\n\nWages (Rs): 100-200, 200-300, 300-400, 400-500\nNumber of workers: 5, 10, 20, 15\n\nFind the mean deviation about the median.",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 70"
+    },
+    {
+      "key": 2,
+      "text": "Rs 74"
+    },
+    {
+      "key": 3,
+      "text": "Rs 90"
+    },
+    {
+      "key": 4,
+      "text": "Rs 71.43"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Cumulative frequencies: 5, 15, 35, 50. n/2=25. Median class is 300-400 (cf before = 15, f=20). Median = 300 + ((25-15)/20)*100 = 350. Deviations: |150-350|*5 + |250-350|*10 + |350-350|*20 + |450-350|*15 = 1000+1000+0+1500 = 3500. MD = 3500/50 = 70."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "Student computes MD about the arithmetic mean (340) instead of the median: sum of f*|mid-340| = 3700, MD = 3700/50 = 74."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Student uses cumulative frequency of 5 (class before 200-300) instead of 15 when interpolating: median = 300+((25-5)/20)*100 = 400, then MD about 400 = 4500/50 = 90."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "population_sample_confusion",
+      "rationale": "Student correctly finds median=350 and sum of deviations=3500 but divides by n-1=49 giving 3500/49 = 71.43."
+    }
+  ],
+  "explanation": "For grouped data MD about median: first interpolate the median, then compute sum of f*|midpoint - median|, then divide by n.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The setup decision is identifying the correct median class using cumulative frequencies and interpolating correctly.",
+    "approach": "Step 1: Build cumulative frequencies: 5, 15, 35, 50. Step 2: n/2=25; median class is 300-400 (previous cf=15). Step 3: Median = 300 + ((25-15)/20)*100 = 350. Step 4: Weighted absolute deviations: 5*200 + 10*100 + 20*0 + 15*100 = 3500. Step 5: MD = 3500/50 = 70.",
+    "lesson": "The interpolation formula for median uses the cumulative frequency *before* the median class, not the cumulative frequency of the class itself.",
+    "timing": "About 100 seconds. With 4 classes the computation is manageable; watch that the cumulative frequency used in interpolation is the one before the median class."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

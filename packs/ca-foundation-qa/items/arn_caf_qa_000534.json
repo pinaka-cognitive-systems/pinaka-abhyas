@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000534",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000534.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.limits"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The value of lim(x -> infinity) [(3x^2 - 2x + 1) / (5x^2 + x - 4)] is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "3/5"
+    },
+    {
+      "key": 2,
+      "text": "-2/1"
+    },
+    {
+      "key": 3,
+      "text": "1/4"
+    },
+    {
+      "key": 4,
+      "text": "infinity"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Divide numerator and denominator by x^2 (the highest power). Numerator: 3 - 2/x + 1/x^2. Denominator: 5 + 1/x - 4/x^2. As x -> infinity, all terms with 1/x or 1/x^2 go to 0. Limit = 3/5."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Dividing by x (linear term) instead of x^2, looking at the ratio of the x^1 coefficients (-2 in numerator and 1 in denominator) and reporting -2/1, instead of comparing the leading quadratic coefficients."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Using the constant terms (1 in numerator and -4 in denominator) as if they dominate at infinity, computing 1/(-4) and then reporting a positive version 1/4, ignoring that constant terms are dominated by quadratic terms."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "Reasoning that both numerator and denominator grow to infinity as x -> infinity and concluding the ratio is also infinite, without recognising that both numerator and denominator are degree-2 polynomials so the ratio is finite."
+    }
+  ],
+  "explanation": "For a rational function where numerator and denominator have the same degree, the limit at infinity is the ratio of leading coefficients; here 3/5.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "At infinity, only the leading terms survive; for equal-degree polynomials the limit is the ratio of leading coefficients.",
+    "approach": "State the property then contrast the confusable one. Both polynomials are degree 2. Divide by x^2: (3 - 2/x + 1/x^2)/(5 + 1/x - 4/x^2). As x->inf every 1/x and 1/x^2 term vanishes. Limit = 3/5. Contrast: comparing x^1 coefficients (wrong degree) gives -2/1; comparing constants (wrong degree) gives 1/(-4); seeing inf/inf and stopping gives 'infinity', but the ratio is bounded.",
+    "lesson": "For lim of P(x)/Q(x) as x->inf with deg(P)=deg(Q), the limit is always (leading coeff of P)/(leading coeff of Q).",
+    "timing": "About 70 seconds. Identify equal degrees (10 sec), read off leading coefficients (10 sec), write ratio (10 sec). Trap: using lower-degree coefficients."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

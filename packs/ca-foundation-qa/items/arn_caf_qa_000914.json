@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000914",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000914.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.circular_permutations"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 160,
+  "stem": "Seven people are to be seated around a circular table. In how many arrangements are two particular people NOT seated next to each other?",
+  "options": [
+    {
+      "key": 1,
+      "text": "480"
+    },
+    {
+      "key": 2,
+      "text": "240"
+    },
+    {
+      "key": 3,
+      "text": "600"
+    },
+    {
+      "key": 4,
+      "text": "720"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Total circular arrangements of 7 = (7-1)! = 720. Arrangements with the two together: treat them as one block, giving (6-1)! = 120 circular arrangements, times 2! = 2 for the block's internal order = 240. Not together = 720 - 240 = 480."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Reports the count of arrangements where the two ARE together (240) instead of not together, answering the complement of the question.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Subtracts the block arrangements without the internal 2!: 720 - (6-1)! = 720 - 120 = 600, forgetting the two people can swap inside the block.",
+      "misconception": "permutation_combination_confusion"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Gives the total circular arrangements (7-1)! = 720 and ignores the not-together restriction entirely.",
+      "misconception": "wrong_formula"
+    }
+  ],
+  "explanation": "Around a circle, n people arrange in (n-1)! ways, so 7 people give (7-1)! = 720. Count the unwanted arrangements where the two sit together by gluing them into one block: 6 units arrange in (6-1)! = 120 circular ways, and the two inside the block can order in 2! = 2 ways, giving 120*2 = 240. The required count is total minus together: 720 - 240 = 480. The two easy-to-miss steps are using (n-1)! for circular seating and the internal 2! for the block.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "Circular seating is (n-1)!, and the together-block carries an internal 2!. Both must be right, or you land on 600 or 720 instead of 480.",
+    "approach": "For a not-together circular restriction, count total circular arrangements (n-1)!, then subtract the together case by gluing the pair into a block: ((n-1)-1)! for the blocks times the internal arrangements of the block.",
+    "lesson": "Circular arrangements of n is (n-1)!; a glued block of k still carries k! internal orderings. Subtract the together count to get the not-together count.",
+    "timing": "About 160 seconds. The fastest elimination is to reject 240, the together count, since the question asks for the larger not-together set."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

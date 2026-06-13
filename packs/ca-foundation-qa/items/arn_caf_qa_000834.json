@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000834",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000834.py"
+  },
+  "tests": [
+    "qa.stats.distributions.poisson"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A Poisson random variable X has P(X=0) = P(X=1). What is the mean of X?",
+  "options": [
+    {
+      "key": 1,
+      "text": "1"
+    },
+    {
+      "key": 2,
+      "text": "2"
+    },
+    {
+      "key": 3,
+      "text": "0.5"
+    },
+    {
+      "key": 4,
+      "text": "e"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "P(X=0) = e^(-lambda) and P(X=1) = e^(-lambda)*lambda. Setting them equal: e^(-lambda) = e^(-lambda)*lambda => lambda = 1."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "2 results from incorrectly setting P(X=0) = P(X=2) instead of P(X=1), which gives lambda^2/2 = 1, so lambda = sqrt(2) ~ 1.41, then rounded up; or from a doubling error in the derivation."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "0.5 arises from dividing both sides by 2 instead of equating coefficients; the student solved e^(-lambda) = e^(-lambda)*lambda/2 (introducing an extra /2) giving lambda=2 then halving."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "e (Euler's number ~2.718) is confused with the Poisson parameter; the student may have thought the mean equals the base of the natural log used in the formula."
+    }
+  ],
+  "explanation": "P(X=0) = e^(-lambda), P(X=1) = lambda*e^(-lambda). Equating: e^(-lambda) = lambda*e^(-lambda). Dividing both sides by e^(-lambda) (which is nonzero): lambda = 1. Mean = 1.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Set the two Poisson probability expressions equal and divide by their common e^(-lambda) factor to isolate lambda in one step.",
+    "approach": "Model: Poisson(lambda). Write P(X=0)=e^(-lambda) and P(X=1)=lambda*e^(-lambda). Set equal: cancel e^(-lambda) from both sides. Solve: lambda=1.",
+    "lesson": "For back-calculation in Poisson, write both probability expressions, identify the common factor, and cancel before solving.",
+    "timing": "60 seconds. Algebraic; no numerical computation needed. Trap: confusing e (the constant) with the parameter lambda."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

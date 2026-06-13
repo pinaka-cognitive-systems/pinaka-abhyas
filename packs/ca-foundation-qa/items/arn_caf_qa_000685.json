@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000685",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000685.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.graphical"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 45,
+  "stem": "In a frequency distribution, the class mid-points are plotted on the X-axis and the corresponding frequencies on the Y-axis, and consecutive points are joined by straight line segments. The diagram so formed is called a:",
+  "options": [
+    {
+      "key": 1,
+      "text": "Histogram"
+    },
+    {
+      "key": 2,
+      "text": "Frequency polygon"
+    },
+    {
+      "key": 3,
+      "text": "Ogive"
+    },
+    {
+      "key": 4,
+      "text": "Bar chart"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "A histogram uses class boundaries (not mid-points) on the X-axis and draws adjacent rectangles whose areas represent frequencies; it is not formed by joining plotted points."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "A frequency polygon is constructed by plotting the mid-point of each class against its frequency and connecting successive points with straight lines; it directly matches the description."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "An ogive (cumulative frequency curve) plots cumulative frequencies against class boundaries, not individual frequencies against mid-points."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "A bar chart uses discrete categories on one axis and draws separate rectangular bars; it is not applicable to a continuous frequency distribution described by mid-points and joined lines."
+    }
+  ],
+  "explanation": "The frequency polygon is the graphical form that uses class mid-points on the X-axis, plots frequencies, and joins consecutive points with line segments - exactly the description given.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "The decisive identifier is 'mid-points joined by line segments' - that is precisely the frequency polygon, not the histogram (which uses bars between class boundaries).",
+    "approach": "State the property: a frequency polygon joins (mid-point, frequency) pairs with straight lines. Contrast the confusables: histogram draws rectangles between class limits; ogive plots cumulative frequencies; bar chart applies to discrete data with gaps between bars.",
+    "lesson": "Whenever a graphical description mentions class mid-points joined by lines, it is always a frequency polygon.",
+    "timing": "20 seconds by direct recall. The only trap is confusing histogram (rectangles, class limits) with frequency polygon (points joined, mid-points)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

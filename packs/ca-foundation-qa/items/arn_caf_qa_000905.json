@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000905",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000905.py"
+  },
+  "tests": [
+    "qa.bmath.inequalities.optimization"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 180,
+  "stem": "A workshop makes x units of product A and y units of product B. Each unit of A earns Rs 40 profit and each unit of B earns Rs 30. Machine time limits the plan by 2x + y <= 100 and labour limits it by x + y <= 80, with x >= 0 and y >= 0. The maximum profit is reached at one corner of the feasible region. What is the maximum total profit?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 2600"
+    },
+    {
+      "key": 2,
+      "text": "Rs 2400"
+    },
+    {
+      "key": 3,
+      "text": "Rs 2000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 3200"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Corner points: (0,0) profit 0; (50,0) profit 2000; (0,80) profit 2400; and the intersection of 2x+y=100 with x+y=80, which is (20,60) with profit 40*20 + 30*60 = 800 + 1800 = 2600. The largest is Rs 2600 at (20,60)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Evaluates the objective only at the axis intercepts (50,0) and (0,80), missing the interior intersection vertex (20,60). The best of the axis points is Rs 2400, which is not the true maximum.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Takes (50,0) from the machine line 2x + y = 100 as the answer because A has the higher per-unit profit, a greedy single-vertex choice giving Rs 2000.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Uses the infeasible point (80,0) by reading the labour line x + y = 80 as x = 80 with y = 0 and ignoring 2x + y <= 100, giving 40*80 = Rs 3200; this point violates the machine constraint.",
+      "misconception": "arithmetic_slip"
+    }
+  ],
+  "explanation": "In a two-variable linear program the optimum sits at a corner of the feasible region. Find every corner. The axes and lines give (0,0), (50,0) from 2x+y=100, (0,80) from x+y=80, and the intersection of 2x+y=100 and x+y=80. Subtracting the second from the first: x = 20, then y = 60, so (20,60). Evaluate profit P = 40x + 30y at each feasible corner: 0, 2000, 2400, and 800+1800 = 2600. The maximum is Rs 2600 at (20,60). Every corner must be tested, including the interior intersection.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The winning corner is the intersection of the two binding constraints, (20,60), not either axis intercept. Skip it and you cap out at Rs 2400 and lose.",
+    "approach": "List all corners of the feasible region: each axis intercept of each constraint and the intersection of the two constraint lines. Solve the lines simultaneously for the interior vertex, drop any point that violates another constraint, then evaluate the objective at every survivor and take the best.",
+    "lesson": "A linear objective is optimised at a vertex of the feasible polygon, so the candidate set is finite. The intersection of binding constraints is the corner most often forgotten.",
+    "timing": "About 180 seconds. The fastest elimination is to reject Rs 3200: it comes from (80,0), which fails 2x + y <= 100, so it is infeasible."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

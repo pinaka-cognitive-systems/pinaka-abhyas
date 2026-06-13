@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000369",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000369.py"
+  },
+  "tests": [
+    "qa.bmath.inequalities.optimization"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A trader can spend at most Rs 12,000 on two types of goods X and Y. Type X costs Rs 200 per unit and type Y costs Rs 300 per unit. He must buy at least 10 units of X and at least 20 units of Y. He earns Rs 50 profit per unit of X and Rs 60 per unit of Y. Which combination gives him the maximum profit within his budget?",
+  "options": [
+    {
+      "key": 1,
+      "text": "x = 30, y = 20 (profit Rs 2700)"
+    },
+    {
+      "key": 2,
+      "text": "x = 10, y = 30 (profit Rs 2300)"
+    },
+    {
+      "key": 3,
+      "text": "x = 10, y = 20 (profit Rs 1700)"
+    },
+    {
+      "key": 4,
+      "text": "x = 20, y = 25 (profit Rs 2500)"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Budget: 200(30)+300(20)=6000+6000=12000<=12000. Minimums: x=30>=10, y=20>=20. Profit: 50(30)+60(20)=1500+1200=2700."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Budget: 200(10)+300(30)=2000+9000=11000<=12000. Profit: 500+1800=2300. Feasible but not maximum."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Budget: 2000+6000=8000<=12000. Profit: 500+1200=1700. Feasible minimum corner but far from maximum."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Budget: 200(20)+300(25)=4000+7500=11500<=12000. Profit: 1000+1500=2500. Feasible but below 2700."
+    }
+  ],
+  "explanation": "Check feasibility (budget <= 12000, x >= 10, y >= 20) for each option, then compare profits. All four options are feasible; option 1 gives the highest profit of Rs 2700.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Among feasible options, maximum profit goes to the combination that best exploits the remaining budget after satisfying minimum requirements.",
+    "approach": "For each option: verify 200x+300y<=12000, x>=10, y>=20. Then compute 50x+60y. Results: option1->2700, option2->2300, option3->1700, option4->2500. Pick 2700.",
+    "lesson": "In bounded LPP word problems, always check all constraints before comparing objectives. Spending the full budget does not guarantee maximum profit.",
+    "timing": "90 s. Fastest route: compute profits first (option 3 obviously low), check feasibility of top two."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000618",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000618.py"
+  },
+  "tests": [
+    "qa.lr.direction_tests"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "Deepak stands at point X facing North. He walks 12 km, turns 90 degrees to his right, walks 5 km, turns 90 degrees to his right again, and walks 12 km. How far is he from X, and in which direction does X lie from his current position?",
+  "options": [
+    {
+      "key": 1,
+      "text": "5 km, West"
+    },
+    {
+      "key": 2,
+      "text": "5 km, East"
+    },
+    {
+      "key": 3,
+      "text": "12 km, South"
+    },
+    {
+      "key": 4,
+      "text": "17 km, South-West"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "North 12 -> right (East) 5 -> right (South) 12. Final position: (5, 0). X=(0,0). Deepak is at (5,0). Distance to X = 5 km. X is West of his current position."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "Reversing the question asks direction of current position from X (East), not direction of X from current position (West)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Reporting the last leg length (12 km) and only considering the South direction omits the East displacement and the cancellation of North and South legs."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "net_displacement_error",
+      "rationale": "Adding 12 + 5 = 17 km as a total path length and guessing South-West ignores the need to compute net vector displacement."
+    }
+  ],
+  "explanation": "Coordinates from X=(0,0): North 12 -> (0,12). Right turn (East) 5 -> (5,12). Right turn (South) 12 -> (5,0). Deepak is at (5,0). X=(0,0) is 5 km to his West.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "North and South legs cancel; Deepak ends up 5 km East of X, so X is 5 km West of him.",
+    "approach": "Apply clues most-certain-first: track coordinates. Two right turns from North: North->East->South. North 12 and South 12 cancel vertically. Net displacement is 5 East, so Deepak is at (5,0). X is in the West direction from there.",
+    "lesson": "The question asks for the direction of the START from the END, not the direction of travel. Reverse the displacement vector.",
+    "timing": "About 75-90 seconds. The trap is reporting East (direction of current position from start) instead of West (direction of start from current position)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

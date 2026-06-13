@@ -18,7 +18,7 @@
   "tests": [
     "qa.bmath.permutations_combinations.permutations"
   ],
-  "difficulty_label": "L3",
+  "difficulty_label": "L2",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 110,
@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "Use complementary counting. Total ways = 7! = 5040. Count arrangements where Arjun and Meena are adjacent by treating them as a single block: 6! arrangements of 6 units, times 2! internal arrangements = 720 x 2 = 1440. Subtract: 5040 - 1440 = 3600.",
+  "explanation_kind": "counting",
   "explanation_sections": {
-    "punchline": "The answer is 3600. Subtracting adjacent arrangements (6! x 2! = 1440) from the total (7! = 5040) gives 3600. The factor of 2! for internal swaps within the pair is the step most students miss.",
-    "approach": "For not-adjacent problems, use complementary counting: compute total arrangements, then subtract arrangements where the two people are adjacent. When treating two people as one block, count the block-arrangements (n-1)! and then multiply by 2! because the two people can swap inside the block.",
-    "lesson": "Treating two adjacent people as a block reduces n elements to n-1 units. Always multiply by 2! to account for the two orders within the block. Forgetting that factor undercounts the adjacent cases and overcounts the answer.",
-    "timing": "110 seconds. Write 7! = 5040 and 6! x 2! = 1440 directly. Subtract in one step. If pressed for time, eliminate options less than 7! / 2 = 2520 as implausibly small for an arrangement of 7 with only one pair excluded."
+    "punchline": "Count the opposite and subtract. Total orders = 7! = 5040; orders with Arjun and Meena together = treat them as one block, 6! x 2! = 1440. So apart = 5040 - 1440 = 3600.",
+    "approach": "When a constraint says not together, count everything and subtract the together cases. To count together, glue the two people into a single block: that leaves 6 units in a row, so 6! ways, then multiply by 2! because the pair can sit in two internal orders. The 2! is the step that is easiest to drop.",
+    "lesson": "Two adjacent people form a block: n people become n-1 units, counted (n-1)! and then doubled by 2! for the swap inside the block. For not-adjacent, subtract that from n!. Order matters throughout, so these are permutations, not combinations.",
+    "timing": "About 110 seconds. Write 7! = 5040 and 6! x 2! = 1440, then subtract, in under a minute. Quick trap check: forgetting the 2! gives 4320, and using a choose formula gives 2520. Anything that low cannot be right when only one pair is restricted."
   },
   "empirical": {
     "calibration_status": "none",

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000708",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000708.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mean"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "The daily sales (in Rs thousands) of 40 outlets are grouped below. A statistician applies the step-deviation method with assumed mean A = 35 and h = 10.\n\nSales (Rs 000s): 10-20  20-30  30-40  40-50  50-60\nNumber of outlets:  2      1     20      9      8\n\nComputed step-deviation totals: sum(f*u) = 20, sum(f*u^2) = 50 (these are given to save computation time).\n\nWhat is the coefficient of variation (CV) of daily sales?",
+  "options": [
+    {
+      "key": 1,
+      "text": "20%"
+    },
+    {
+      "key": 2,
+      "text": "22.5%"
+    },
+    {
+      "key": 3,
+      "text": "25%"
+    },
+    {
+      "key": 4,
+      "text": "28%"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Computing CV = (SD / A) x 100 using the assumed mean (35) as the divisor instead of the true mean (40): CV = 10/35 x 100 = 28.57%, then approximating to 20% - or forgetting to multiply variance by h^2 giving SD = sqrt(50/40 - 0.25) = 1, then CV = 1/40 x 100 = 2.5%, misread as 20%."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computing the variance correctly as 100 but using the wrong mean of 44.44 (a slip in the mean: 35 + 20/40 x 10 = 35 + 0.5 x 10 = 40, but if sum_fu is mistakenly divided by 10h = 100 instead of N, mean = 35 + 20/100 x 10 = 37, and CV = 10/37 x 100 = 27% approximated to 22.5%)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Mean = A + (sum_fu / N) x h = 35 + (20/40) x 10 = 35 + 5 = 40. Variance = h^2 x [sum_fu2/N - (sum_fu/N)^2] = 100 x [50/40 - (20/40)^2] = 100 x [1.25 - 0.25] = 100 x 1 = 100. SD = 10. CV = (10/40) x 100 = 25%."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "Omitting the correction term -(sum_fu/N)^2 in the variance formula: variance = h^2 x sum_fu2/N = 100 x 50/40 = 125, SD = sqrt(125) = 11.18, CV = 11.18/40 x 100 = 27.95%, rounded to 28%."
+    }
+  ],
+  "explanation": "Step 1 - Mean: x-bar = A + (sum_fu / N) x h = 35 + (20/40) x 10 = 35 + 5 = 40. Step 2 - Variance using step-deviation formula: sigma^2 = h^2 x [sum_fu2/N - (sum_fu/N)^2] = 100 x [50/40 - (0.5)^2] = 100 x [1.25 - 0.25] = 100 x 1 = 100. Step 3 - SD: sigma = sqrt(100) = 10. Step 4 - CV: CV = (sigma / x-bar) x 100 = (10/40) x 100 = 25%.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The trap is the correction term -(sum_fu/N)^2 in the variance formula: omitting it inflates variance from 100 to 125 and moves CV from 25% to 28%.",
+    "approach": "Model: coefficient of variation from grouped data via step-deviation. Four sequential steps: (1) compute mean using A + (sum_fu/N)*h; (2) compute variance as h^2 * [sum_fu2/N - (sum_fu/N)^2], applying the correction term; (3) SD = sqrt(variance); (4) CV = (SD/mean)*100. The assumed mean only affects the computation path - the correction term restores the true variance.",
+    "lesson": "The variance formula under step deviation has two parts: the raw second moment (sum_fu2/N) minus the squared first moment (sum_fu/N)^2 - dropping the second term is the single most common L3 trap.",
+    "timing": "100-120 seconds. Mean is one substitution (40 seconds). Variance needs careful handling of the correction term (40 seconds). CV is then trivial (20 seconds). Eliminate option 4 first: it uses the uncorrected variance."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

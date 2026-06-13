@@ -49,11 +49,12 @@
     }
   ],
   "explanation": "Track coordinates: start at (0, 0) facing North. Walk 6 km North to (0, 6). Turn right (now East), walk 8 km to (8, 6). Turn right (now South), walk 6 km to (8, 0). Distance from O = 8 km, direction East.",
+  "explanation_kind": "deductive_trace",
   "explanation_sections": {
-    "punchline": "Two right turns from North give East then South. The northward and southward legs cancel, leaving 8 km due East.",
-    "approach": "Assign coordinates to each waypoint. Two consecutive right turns from North produce a Z-shape: North, East, South. The first and third legs are parallel and opposite. If they are equal, they cancel completely, leaving only the lateral (East-West) displacement as the net distance.",
-    "lesson": "When the first and last legs are equal and opposite, net displacement equals only the middle leg. Recognise this pattern to save computation.",
-    "timing": "About 75 seconds. Notice the first and third legs are both 6 km but in opposite directions: they cancel in five seconds. Net distance = 8 km East. Option (1) at 20 km is the scalar-sum trap; eliminate it immediately."
+    "punchline": "Two right turns from North give East then South. The 6 km North and 6 km South legs cancel exactly, leaving only the 8 km East leg. Priya is 8 km due East of O.",
+    "approach": "Apply each clue in movement order. Start: (0,0) facing North. Leg 1: 6 km North to (0,6). Right turn: now facing East. Leg 2: 8 km East to (8,6). Right turn: now facing South. Leg 3: 6 km South to (8,0). Distance from O = sqrt(8 squared + 0 squared) = 8 km. Final x is positive so direction is East. Verify every clue against the path before selecting an option.",
+    "lesson": "Spot cancellation before computing. When the first and last legs are equal in length but opposite in direction, they cancel to zero; the only net displacement is the middle leg.",
+    "timing": "About 75 seconds. The cancellation can be spotted in 5 seconds and eliminates the Pythagorean calculation. Option (1) at 20 km is the scalar-sum trap; cross it off first. Option (2) West is the left-turn trap."
   },
   "empirical": { "calibration_status": "none", "n_responses": 0 },
   "ext": { "icai_skill_bucket": "application" }

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000512",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000512.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.sets"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "Sets A and B are subsets of a universal set U where n(U) = 50, n(A) = 22, n(B) = 18, and n(A intersect B) = 7. How many elements are in neither A nor B?",
+  "options": [
+    {
+      "key": 1,
+      "text": "17"
+    },
+    {
+      "key": 2,
+      "text": "33"
+    },
+    {
+      "key": 3,
+      "text": "10"
+    },
+    {
+      "key": 4,
+      "text": "25"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "n(A union B) = 22 + 18 - 7 = 33, so n(neither) = 50 - 33 = 17."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "This is n(A union B) = 33, not the count outside both sets."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "set_operation_confused",
+      "rationale": "This adds n(A) + n(B) - n(U) = 22 + 18 - 50 + 10, confusing the inclusion-exclusion direction and subtracting from the wrong base."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "This comes from 50 - 22 - 7 + 4 = 25, a slip in computing the union before subtracting."
+    }
+  ],
+  "explanation": "By inclusion-exclusion: n(A union B) = n(A) + n(B) - n(A intersect B) = 22 + 18 - 7 = 33. Elements in neither A nor B = n(U) - n(A union B) = 50 - 33 = 17.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "Neither A nor B is the complement of their union, found by subtracting n(A union B) from n(U).",
+    "approach": "State inclusion-exclusion: n(A union B) = n(A) + n(B) - n(A intersect B). Compute the union count, then complement it against U.",
+    "lesson": "Always compute n(A union B) first using inclusion-exclusion, then subtract from n(U) for the outside count.",
+    "timing": "50 s. The trap is stopping at n(A union B) = 33 and selecting it as the answer."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

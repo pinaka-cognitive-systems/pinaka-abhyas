@@ -18,10 +18,10 @@
   "tests": [
     "qa.stats.central_tendency_dispersion.gm_hm"
   ],
-  "difficulty_label": "L3",
+  "difficulty_label": "L2",
   "taxonomy_version": 4,
   "item_type": "single_best",
-  "expected_seconds": 120,
+  "expected_seconds": 90,
   "stem": "The geometric mean of a set of 4 positive numbers is 6. Three of the numbers are 2, 3, and 9. What is the fourth number?",
   "options": [
     {
@@ -69,12 +69,13 @@
       "misconception": "arithmetic_slip"
     }
   ],
-  "explanation": "1. By definition, GM of n numbers = (product of all n numbers)^(1/n).\n2. Here GM = 6 and n = 4. So product of all four numbers = 6^4 = 1296.\n3. KEY STEP: Isolate the fourth number. Product of known three: 2 * 3 * 9 = 54.\n4. Fourth number = 1296 / 54 = 24.",
+  "explanation": "GM of n numbers = G means the product of all n numbers = G^n. Here G = 6 and n = 4, so total product = 6^4 = 1296. The three known numbers multiply to 2 x 3 x 9 = 54. Fourth number = 1296/54 = 24.",
+  "explanation_kind": "model_compute",
   "explanation_sections": {
-    "punchline": "GM = (product of all four numbers)^(1/4) = 6 means the product = 6^4 = 1296. Divide by 2 x 3 x 9 = 54 to get 24.",
-    "approach": "Reverse the GM definition: if GM of n numbers is G, then the product of all n numbers is G^n. Compute G^n first. Then multiply the known numbers together. Divide G^n by that product to isolate the missing number. Work with the product, not the sum of the known values.",
-    "lesson": "To find a missing number given the GM, raise GM to the power n to recover the total product, then divide by the product of the known values. Summing the known values instead of multiplying them is the most common mistake.",
-    "timing": "About 120 seconds. Computing 6^4 = 1296 takes 20 seconds. Multiplying 2 x 3 x 9 = 54 takes 10 seconds. Division 1296 / 54 = 24 takes 15 seconds. Eliminate option (2) in 5 seconds: 1296 is the total product, not the fourth number."
+    "punchline": "Reverse the GM definition: product of all four numbers = 6^4 = 1296. Known product = 54. Missing number = 1296/54 = 24.",
+    "approach": "Identify the model: GM of n numbers = G means G^n equals the product of all n numbers. Raise G to the power n to recover the total product (step 1). Multiply all known numbers together (step 2). Divide to isolate the missing one (step 3). The three steps are: (1) 6^4 = 1296, (2) 2 x 3 x 9 = 54, (3) 1296/54 = 24. Work with products throughout. Summing the known values (2 + 3 + 9 = 14) is the primary error and produces a nonsensical division.",
+    "lesson": "GM reversal: total product = G^n. Divide by the product of the known values to find the missing one. Never replace the product of knowns with their sum.",
+    "timing": "About 75 seconds. 6^4 takes 20 seconds (6^2 = 36, 36^2 = 1296). 2 x 3 x 9 = 54 takes 5 seconds. 1296/54 = 24 takes 10 seconds. Option 1296 is the total product, not the answer; eliminate it in five seconds."
   },
   "empirical": {
     "calibration_status": "none",

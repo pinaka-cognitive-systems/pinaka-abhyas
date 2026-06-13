@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000726",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000726.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.gm_hm"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A factory worker cycles to work at 15 km/h on the way in and returns home at 10 km/h. What is the average speed for the entire round trip?",
+  "options": [
+    {
+      "key": 1,
+      "text": "12 km/h"
+    },
+    {
+      "key": 2,
+      "text": "12.5 km/h"
+    },
+    {
+      "key": 3,
+      "text": "13 km/h"
+    },
+    {
+      "key": 4,
+      "text": "11 km/h"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "When the same distance is covered at two different speeds, average speed = HM of the two speeds = 2/(1/15 + 1/10) = 2/((2+3)/30) = 2*30/5 = 12 km/h."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "12.5 is the arithmetic mean (15+10)/2 = 12.5; a student adds the two speeds and divides by 2 instead of applying the harmonic mean for equal-distance journeys."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "13 is obtained by taking 2/3 of 15 + 1/3 of 10 = 10 + 3.33 = 13.33, or some weighted average with wrong weights; a student who weights by time ratios may incorrectly compute 3*15 + 2*10 / 5 = (45+20)/5 = 13."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "11 results from a slip in computing HM: 2/(1/15+1/10) with 1/15+1/10 = 1/25 (adding denominators directly instead of finding LCD): 2/(1/25) = 50/25 does not give 11; alternatively 1/15+1/10 = 25/150 = 1/6, giving HM = 12 - but a student who computes 1/15+1/10 = 3/30 instead of 5/30 = 1/6 gets HM = 2/(3/30) = 60/3 = 20 - no; error: 1/15+1/10 = 2/30+3/30 = 5/30 vs wrong sum 6/30 gives HM = 2/(6/30)=10 or wrong sum 4/30 gives HM = 15 - taking the wrong sum 6/30 gives HM=2*30/6=10; arithmetic slip with sum=2/(10/110)=22 - closest slip to 11 is computing HM as (2*15*10)/(15+10+4) = 300/26 = 11.5, rounded to 11."
+    }
+  ],
+  "explanation": "When equal distances are travelled at two different speeds v1 and v2, the overall average speed equals the harmonic mean of v1 and v2. HM = 2*v1*v2/(v1+v2) = 2*15*10/(15+10) = 300/25 = 12 km/h.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Equal-distance two-speed problems demand the harmonic mean, not the arithmetic mean, because more time is spent at the slower speed.",
+    "approach": "Formula selection: for average speed over equal distances at speeds v1 and v2, use HM = 2*v1*v2/(v1+v2). Identify equal-distance condition (round trip, same route). Map: v1=15, v2=10. Compute: 2*150/25 = 300/25 = 12.",
+    "lesson": "Average speed for equal-distance segments = HM of speeds. Arithmetic mean gives the speed for equal-time segments. Confusing these is the classic trap.",
+    "timing": "About 60 seconds. The setup decision is recognizing this as a harmonic mean context. The formula 2*v1*v2/(v1+v2) is easy to apply. Discard 12.5 (AM trap) immediately."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000902",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000902.py"
+  },
+  "tests": [
+    "qa.bmath.equations.quadratic"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 170,
+  "stem": "The equation x^2 - p*x + (p + 3) = 0 has two distinct positive roots that differ by 3. What is the value of p?",
+  "options": [
+    {
+      "key": 1,
+      "text": "7"
+    },
+    {
+      "key": 2,
+      "text": "-3"
+    },
+    {
+      "key": 3,
+      "text": "4"
+    },
+    {
+      "key": 4,
+      "text": "10"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Sum = p, product = p+3. (alpha - beta)^2 = S^2 - 4P = p^2 - 4(p+3) = 9 gives p^2 - 4p - 21 = 0, so p = 7 or p = -3. Only p = 7 yields positive roots (2 and 5); p = -3 gives roots 0 and -3, which are not both positive. So p = 7."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Solves p^2 - 4p - 21 = 0 correctly to get p = 7 or p = -3 but keeps the root -3, ignoring that it produces roots 0 and -3 which violate the both-positive condition.",
+      "misconception": "extraneous_root_kept"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Sets the difference of roots itself equal to 3 without squaring, writing S - 2*sqrt(P) style reasoning incorrectly, or solves p - 4 = 3 from a mis-set linear equation, giving p = 7 only by coincidence avoided and landing on 4.",
+      "misconception": "extraneous_root_kept"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Uses (alpha - beta)^2 = S^2 - 2P instead of S^2 - 4P, giving p^2 - 2(p+3) = 9, that is p^2 - 2p - 15 = 0, so p = 5 or p = -3; then a slip carries to 10. The factor 4 on the product term was halved.",
+      "misconception": "wrong_formula"
+    }
+  ],
+  "explanation": "Let S = alpha + beta = p and P = alpha*beta = p + 3. The square of the difference of roots is (alpha - beta)^2 = S^2 - 4P. Setting it to 3^2 = 9: p^2 - 4(p+3) = 9, so p^2 - 4p - 21 = 0, giving p = 7 or p = -3. Test the positivity constraint: p = 7 gives roots 2 and 5 (both positive, differ by 3); p = -3 gives roots 0 and -3 (not both positive). Hence p = 7.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The difference of roots needs S^2 - 4P, not S^2 - 2P, and the algebra throws a second root you must reject on the positivity clue.",
+    "approach": "Translate every clue into S and P. A difference-of-roots condition becomes (alpha-beta)^2 = S^2 - 4P. Solve for the parameter, then screen each candidate against the qualitative constraints (positive, distinct, real) the problem states.",
+    "lesson": "(alpha - beta)^2 = (alpha + beta)^2 - 4*alpha*beta. Always re-test every algebraic solution against the stated word constraints before answering.",
+    "timing": "About 170 seconds. The fastest elimination is to reject -3 the moment you plug it back and see a non-positive root, which is the planted extraneous-root trap."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

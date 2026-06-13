@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000571",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000571.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.coding_decoding"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 85,
+  "stem": "In a code, each vowel in a word is shifted 1 place backward in the alphabet and each consonant is shifted 3 places forward. For example, GIFT is coded as JHIW. Using this rule, what is the code for BLEND?",
+  "options": [
+    {
+      "key": 1,
+      "text": "EODQG"
+    },
+    {
+      "key": 2,
+      "text": "EOHQG"
+    },
+    {
+      "key": 3,
+      "text": "AKHMC"
+    },
+    {
+      "key": 4,
+      "text": "DNDPF"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Consonants +3, vowels -1: B(cons)+3=E, L(cons)+3=O, E(vowel)-1=D, N(cons)+3=Q, D(cons)+3=G, giving EODQG."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "Applying +3 to all letters (ignoring the vowel rule): B+3=E, L+3=O, E+3=H, N+3=Q, D+3=G gives EOHQG. The vowel exception was missed."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Swapping the rules (vowels +3, consonants -1): B-1=A, L-1=K, E+3=H, N-1=M, D-1=C gives AKHMC."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "Using +2 for consonants instead of +3: B+2=D, L+2=N, E-1=D, N+2=P, D+2=F gives DNDPF."
+    }
+  ],
+  "explanation": "Identify each letter's type first: B(cons), L(cons), E(vowel), N(cons), D(cons). Apply consonant rule (+3) to B,L,N,D and vowel rule (-1) to E. B->E, L->O, E->D, N->Q, D->G = EODQG. Verify from example: G(cons)+3=J, I(vowel)-1=H, F(cons)+3=I, T(cons)+3=W = JHIW (matches).",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The decisive move is classifying every letter as vowel or consonant before coding - the most common error is applying +3 to the vowel E.",
+    "approach": "Deductive trace: classify each letter in BLEND (B-cons, L-cons, E-vowel, N-cons, D-cons), then apply +3 to consonants and -1 to vowels. Verify classification against the GIFT example: I is a vowel (I-1=H correct).",
+    "lesson": "In vowel/consonant split coding, scan for all vowels (A,E,I,O,U) in the target word before coding to avoid missing any.",
+    "timing": "About 75-90 seconds. Fastest elimination: EOHQG differs from the correct answer only at position 3 (H vs D) - the tell is whether E is coded as H (+3) or D (-1)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

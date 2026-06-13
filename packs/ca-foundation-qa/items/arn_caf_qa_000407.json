@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000407",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000407.py"
+  },
+  "tests": [
+    "qa.bmath.finance.perpetuity"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "A charity trust receives a perpetual annual donation of Rs 12,000. If the relevant discount rate is 8% per annum, what is the present value of this perpetuity?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 96,000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 1,50,000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 1,20,000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 1,44,000"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "unit_confusion",
+      "rationale": "Divides Rs 12,000 by 12.5% (i.e., 100/8) instead of by 0.08, obtaining 12000 / 0.125 = 96,000."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "PV of perpetuity = Annual payment / rate = 12000 / 0.08 = 1,50,000."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "decimal_place_error",
+      "rationale": "Computes 12000 / 0.10 = 1,20,000 by misreading 8% as 10%."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Multiplies 12,000 by 12 instead of dividing by 0.08, arriving at 1,44,000."
+    }
+  ],
+  "explanation": "Dividing the fixed perpetual cash flow by the discount rate gives the present value because an infinite geometric series with first term C and ratio 1/(1+r) sums to C/r.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "PV of perpetuity = C / r; the formula is a direct one-step plug-in once the rate is expressed as a decimal.",
+    "approach": "Name the formula PV = C / r. Map the given: C = Rs 12,000, r = 0.08. Compute 12000 / 0.08 = 1,50,000. No period conversion needed because both cash flow and rate are annual.",
+    "lesson": "A perpetuity has no maturity; its PV is simply C / r. Do not multiply by any factor of n.",
+    "timing": "15 seconds. If you see a rounded answer like 96,000 you are dividing by 12.5 rather than 0.08 - that is the unit-confusion trap."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

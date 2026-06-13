@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000886",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000886.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.deflating"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A manufacturing firm's revenue was Rs 5,00,000 in base year 2019 and Rs 7,26,000 in 2024. The price index for 2024 (base 2019 = 100) is 132. What is the increase in real revenue at constant 2019 prices?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 2,26,000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 50,000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 1,60,000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 5,50,000"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Subtracting nominal revenues directly (726000 - 500000 = 226000) fails to deflate the 2024 figure, mixing price and volume effects."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Real revenue 2024 = 726000 x 100 / 132 = Rs 5,50,000. Increase = 5,50,000 - 5,00,000 = Rs 50,000 in real terms."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Inflating the base-year revenue by the index then taking the difference: 500000 x 32/100 = 160000. This measures how much the old base revenue would grow at the new price level, not the actual real change."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reporting the real 2024 revenue (Rs 5,50,000) instead of the change from 2019 misreads the question as asking for the deflated level, not the increase."
+    }
+  ],
+  "explanation": "Deflate 2024 nominal: 7,26,000 x 100 / 132 = Rs 5,50,000. The real increase = 5,50,000 - 5,00,000 = Rs 50,000. The remaining Rs 1,76,000 of the nominal Rs 2,26,000 gain is a pure price effect, not a volume gain.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Of a Rs 2,26,000 nominal rise, only Rs 50,000 is real growth; Rs 1,76,000 is inflation.",
+    "approach": "Formula: Real value = Nominal / Index x 100. Map: nominal = 7,26,000, index = 132. Deflate: 7,26,000 / 132 x 100 = 5,50,000. Subtract base: 5,50,000 - 5,00,000 = 50,000.",
+    "lesson": "Always deflate before comparing over time. The nominal gap overstates real growth whenever prices have risen.",
+    "timing": "About 60 seconds. Trap: option 1 (Rs 2,26,000) is the nominal difference and a strong pull. Verify: 7,26,000 / 1.32 = 5,50,000 exactly."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

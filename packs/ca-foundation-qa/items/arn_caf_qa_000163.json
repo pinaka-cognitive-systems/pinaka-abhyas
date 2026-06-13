@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "12 = 4 × 3 = 2² × 3. So log10(12) = log10(2²) + log10(3) = 2 × 0.3010 + 0.4771 = 0.6020 + 0.4771 = 1.0791.",
+  "explanation_kind": "derivation",
   "explanation_sections": {
-    "punchline": "12 = 2² × 3, so log10(12) = 2 × log10(2) + log10(3) = 0.6020 + 0.4771 = 1.0791.",
-    "approach": "Logarithm evaluation problems require factoring the target number into primes whose logs are given. Write the prime factorisation first: 12 = 2² × 3. Then apply log(ab) = log(a) + log(b) and log(a^n) = n × log(a). Substitute the given values last.",
-    "lesson": "Always factorise before expanding. Log of a product equals sum of logs. Log of a power equals the exponent times the log.",
-    "timing": "About 90 seconds. Factorising 12 takes under 10 seconds. Eliminate option 0.7781 in five seconds: that is log10(6), not log10(12)."
+    "punchline": "The transformation plan is: factorise 12 into the given primes, then expand using log-of-product and log-of-power rules. 12 = 2^2 x 3 gives log10(12) = 2 x 0.3010 + 0.4771 = 1.0791.",
+    "approach": "Logarithm evaluation with given values follows a fixed transformation plan: (1) Write the prime factorisation of the target using only primes whose logs are given. 12 = 2^2 x 3. (2) Expand log(a^n x b) = n x log(a) + log(b). (3) Substitute the given values. The method choice here is recognising that 12 = 4 x 3 = 2^2 x 3, not 12 = 2 x 6 = 2 x 2 x 3 written differently - either route gives the same expansion, but the 2^2 route is faster.",
+    "lesson": "Factorise first, expand second, substitute last. The planted trap is log10(6) = log10(2) + log10(3) = 0.7781 - that misses the factor of 2 in 12 = 2^2 x 3.",
+    "timing": "About 90 seconds. Prime factorisation 10 seconds, expansion 20 seconds, arithmetic 20 seconds. Eliminate 0.7781 immediately: that is log10(6). Eliminate 0.6021: that is log10(4) = 2 x log10(2), which drops the log10(3) term."
   },
   "empirical": {
     "calibration_status": "none",

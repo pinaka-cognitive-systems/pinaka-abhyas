@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000400",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000400.py"
+  },
+  "tests": [
+    "qa.bmath.finance.future_value"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 95,
+  "stem": "A person invests Rs 4000 at the end of each year for 3 years at 10% per annum compounded annually. What is the future value of these investments at the end of 3 years? [Given: (1.10)^2 = 1.21, (1.10)^3 = 1.331]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 13240"
+    },
+    {
+      "key": 2,
+      "text": "Rs 12000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 13310"
+    },
+    {
+      "key": 4,
+      "text": "Rs 13200"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "End-of-year ordinary annuity FV. Year 1 payment grows for 2 years: 4000*1.21 = 4840. Year 2 grows for 1 year: 4000*1.10 = 4400. Year 3 stays: 4000. Total = 4840 + 4400 + 4000 = Rs 13240."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "compound_interest_confusion",
+      "rationale": "Ignoring all interest on the deposits: 3 * 4000 = Rs 12000."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Treating the first payment as growing for 3 years instead of 2: 4000*1.331 + 4000*1.21 + 4000*1.10 = 5324 + 4840 + 4400 = 14564, or treating year 3 payment as growing for 1 year giving a different error; here off-by-one on counting periods gives 4000 * 1.331 + 4000 * 1.21 = 5324 + 4840 = 10164 then adding 4000 wrong to get 13310 if year 3 added at face value with (1.10)^3 by mistake."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Applying simple interest accumulation instead of compound: 4000*1.2 + 4000*1.1 + 4000 = 4800 + 4400 + 4000 = 13200."
+    }
+  ],
+  "explanation": "For an ordinary annuity (payments at end of year), compound each payment to the end: first payment earns 2 years interest, second earns 1 year, third earns none. FV = 4000*(1.10)^2 + 4000*(1.10)^1 + 4000*(1.10)^0 = 4840 + 4400 + 4000 = Rs 13240.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Each end-of-year payment grows for the remaining years, not for the full 3 years.",
+    "approach": "Name the model: ordinary annuity FV. Each payment PMT grows to PMT*(1+r)^k where k = years remaining. Sum: 4000*1.21 + 4000*1.10 + 4000 = 4840 + 4400 + 4000 = 13240.",
+    "lesson": "Payments at end of year grow for (n - t) years, not n years; the final payment earns no interest.",
+    "timing": "60-70 seconds. Apply the hint values directly. Trap: if you use (1.10)^3 for the first payment you get 5324 and overshoot."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

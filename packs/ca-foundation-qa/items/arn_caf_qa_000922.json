@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000922",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000922.py"
+  },
+  "tests": [
+    "qa.lr.blood_relations"
+  ],
+  "difficulty_label": "L2",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 150,
+  "stem": "Relationships are coded so that in 'X s Y' the symbol s tells how X is related to Y: + means X is the father of Y, - means X is the sister of Y, * means X is the son of Y, and / means X is the mother of Y. Reading the chain P / Q + R - S, how is P related to S?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Grandmother"
+    },
+    {
+      "key": 2,
+      "text": "Mother"
+    },
+    {
+      "key": 3,
+      "text": "Grandfather"
+    },
+    {
+      "key": 4,
+      "text": "Aunt"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "P / Q decodes to P is the mother of Q, so P is female and a parent of Q. Q + R makes Q the father of R, so R is a child of Q. R - S makes R the sister of S, so S shares R's parent Q. Thus S is a grandchild of P through Q, and P, being female and two generations up, is the grandmother of S."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Mother places P one generation above S. P is the mother of Q, and Q is the parent of both R and S, so P is two generations above S, a grandparent, not a parent."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "kinship_gender_error",
+      "rationale": "Grandfather has the right generation but the wrong gender. The symbol / codes mother, so P is female; the female grandparent of S is the grandmother, not the grandfather. Reading / as father causes this slip."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Aunt would make P a sibling of S's parent. P is the mother of S's father Q, so P is in the direct ancestral line two generations up, a grandmother, not an aunt."
+    }
+  ],
+  "explanation": "Decode each operator on the left operand and chain the parent links. P / Q means P is the mother of Q, so P is female and a parent of Q. Q + R means Q is the father of R, so R is Q's child. R - S means R is the sister of S, so S shares R's parent, namely Q. Therefore S and R are both children of Q, and Q is a child of P. S is two generations below P, a grandchild, and P is female, so P is the grandmother of S.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "P / Q reads as 'P is the mother of Q', and the chain puts S two generations below P, so P is the grandmother of S. The trap is decoding / as father.",
+    "approach": "Decode each symbol on the left operand: P mother of Q, Q father of R, R sister of S. Build the parent links: P over Q, Q over R, and since R is S's sister, Q over S too. Count generations from S up to P: S to Q is one, Q to P is two, so P is a grandparent. Attach P's gender from the / symbol, which is mother, hence female, giving grandmother. Verify each symbol was decoded in the stated direction, X related to Y.",
+    "lesson": "In coded relations decode the symbol as the left person's role toward the right person, then carry both the generation count and the gender to the final label.",
+    "timing": "About 145 seconds. Fastest elimination is option (2) Mother: S descends through Q, who is P's own child, so P is one generation too high to be S's mother."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

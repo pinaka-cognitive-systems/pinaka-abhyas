@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000653",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000653.py"
+  },
+  "tests": [
+    "qa.lr.blood_relations"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "In a family: Rohit is the son of Suresh. Suresh has a sister called Nandini. Nandini's husband is Kapoor. Kapoor and Suresh have no other siblings. What is Rohit's relation to Kapoor?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Nephew"
+    },
+    {
+      "key": 2,
+      "text": "Son"
+    },
+    {
+      "key": 3,
+      "text": "Cousin"
+    },
+    {
+      "key": 4,
+      "text": "Brother"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Kapoor is married to Nandini, who is Suresh's sister. So Kapoor is Suresh's brother-in-law. Rohit is Suresh's son, making Rohit the nephew of Kapoor (Kapoor is Rohit's uncle by marriage through Nandini)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Son would mean Rohit is Kapoor's direct offspring. Rohit is Suresh's son, not Kapoor's son. Confusing brother-in-law with father creates this error."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Cousin would place Rohit and someone in the same generation as children of siblings. The question asks Rohit's relation to Kapoor (adult generation), not to Kapoor's potential children."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "kinship_direction_inverted",
+      "rationale": "Brother would make Rohit a sibling of Kapoor, placing them in the same generation. Rohit is one generation below Kapoor."
+    }
+  ],
+  "explanation": "Nandini is Suresh's sister, and Kapoor married Nandini, making Kapoor Suresh's brother-in-law. Rohit is Suresh's son. A brother-in-law of one's father is one's uncle (by marriage). So Rohit is Kapoor's nephew.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Kapoor is Suresh's brother-in-law; Suresh's son is therefore Kapoor's nephew.",
+    "approach": "Apply clues most-certain-first: Suresh's sister = Nandini, Nandini's husband = Kapoor => Kapoor is Suresh's brother-in-law (uncle to Suresh's children). Rohit = Suresh's son => Rohit is Kapoor's nephew.",
+    "lesson": "A sibling's spouse is an uncle or aunt to the sibling's children; the sibling's children are nephews or nieces to that spouse.",
+    "timing": "About 60 seconds. The trap is option 2 (son), which collapses two generations into one. Eliminate by noting Rohit is in Suresh's family, not Kapoor's direct offspring."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

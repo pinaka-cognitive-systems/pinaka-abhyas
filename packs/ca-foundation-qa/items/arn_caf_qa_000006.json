@@ -69,12 +69,13 @@
       "misconception": "wrong_formula"
     }
   ],
-  "explanation": "Mean = (4+4+4+8+8+8)/6 = 6. Each value deviates by 2 from the mean, so sum of squared deviations = 6 * 4 = 24. Population variance = 24/6 = 4. Population SD = sqrt(4) = 2.",
+  "explanation": "Mean = (4+4+4+8+8+8)/6 = 6. The data is symmetric: all six values sit exactly 2 units from the mean. Sum of squared deviations = 6 x 4 = 24. Population variance = 24/6 = 4. Population SD = sqrt(4) = 2. The question says population, so the denominator is n = 6, not n - 1 = 5.",
+  "explanation_kind": "model_compute",
   "explanation_sections": {
-    "punchline": "Population SD divides by n, not n-1. Mean = 6, variance = 24/6 = 4, SD = sqrt(4) = 2.",
-    "approach": "For standard deviation: (1) compute the mean, (2) find each deviation from the mean, (3) square and sum all deviations, (4) divide by n for population or n-1 for sample, (5) take the square root. Confirm at step 4 whether the question says population or sample before dividing.",
-    "lesson": "Population SD uses n in the denominator; sample SD uses n-1. Forgetting the square root in step 5 gives variance, not standard deviation.",
-    "timing": "About 75 seconds. Recognize the symmetry: three values at 4 and three at 8. Mean = 6 in two seconds. Each squared deviation = 4. Sum = 24. Variance = 4. SD = 2. Option (1) at 4 is the variance itself; eliminate it if you remember the square-root step."
+    "punchline": "Spot the symmetry: three 4s and three 8s give mean = 6 and each deviation = 2. Variance = 24/6 = 4, so SD = sqrt(4) = 2.",
+    "approach": "For a population SD question: (1) compute the mean, (2) find each deviation from the mean and square it, (3) sum all squared deviations, (4) divide by n (not n - 1, because the question says population), (5) take the square root. Confirm the population vs. sample word before step 4. Here the symmetry is the shortcut: every squared deviation is 4, sum = 6 x 4 = 24, variance = 4, SD = 2.",
+    "lesson": "Population SD divides by n; sample SD divides by n - 1. Stopping after the division gives you the variance, not the SD. Both traps appear as distractors here.",
+    "timing": "About 45 seconds. Mean in two seconds, all squared deviations are 4 by symmetry, sum = 24 in three seconds, divide by 6, square-root. Option 1 (value 4) is the variance before the square root; eliminate it instantly if you remember step 5."
   },
   "empirical": {
     "calibration_status": "none",

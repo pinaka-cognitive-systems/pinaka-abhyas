@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000562",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000562.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.coding_decoding"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "In a certain code language, COLD is written as EQNF. Using the same rule, how will WARM be written in that code?",
+  "options": [
+    {
+      "key": 1,
+      "text": "XBSN"
+    },
+    {
+      "key": 2,
+      "text": "YCTO"
+    },
+    {
+      "key": 3,
+      "text": "ZDUP"
+    },
+    {
+      "key": 4,
+      "text": "ZCTO"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "Applying a shift of +1 to each letter of WARM (W+1=X, A+1=B, R+1=S, M+1=N) gives XBSN, misidentifying the shift as +1 instead of +2."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "The rule is each letter is shifted forward by 2 positions: C+2=E, O+2=Q, L+2=N, D+2=F. Applying this to WARM: W+2=Y, A+2=C, R+2=T, M+2=O gives YCTO."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "Applying a shift of +3 to each letter of WARM (W+3=Z, A+3=D, R+3=U, M+3=P) gives ZDUP, misidentifying the shift as +3 instead of +2."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Correctly using shift +2 for all letters except misreading W as X before shifting (X+2=Z), giving ZCTO instead of YCTO."
+    }
+  ],
+  "explanation": "The coding rule is verified from the example: C(3)+2=E(5), O(15)+2=Q(17), L(12)+2=N(14), D(4)+2=F(6), confirming a uniform forward shift of 2. Applying to WARM: W(23)+2=Y(25), A(1)+2=C(3), R(18)+2=T(20), M(13)+2=O(15). The code for WARM is YCTO.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Verifying the shift on all four letters of the example locks the shift at exactly +2 before touching the query word.",
+    "approach": "Apply clues most-certain-first: decode all four letters of COLD->EQNF to confirm shift=+2. Apply shift +2 to each letter of WARM: W->Y, A->C, R->T, M->O. Answer: YCTO.",
+    "lesson": "Always decode every letter in the given code-pair to confirm the rule is uniform before applying it; a single-letter check can mislead if the code uses a different rule for different positions.",
+    "timing": "30 seconds. Four letter-checks on the example, four shifts on the query. Trap: using shift+1 (gives XBSN) or confusing the shift magnitude as +3."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

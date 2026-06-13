@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000379",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000379.py"
+  },
+  "tests": [
+    "qa.bmath.finance.compound_interest"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Vikram borrows Rs 5,000 at 8% per annum. After 2 years, how much more interest would he have paid under compound interest compared to simple interest?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 32"
+    },
+    {
+      "key": 2,
+      "text": "Rs 64"
+    },
+    {
+      "key": 3,
+      "text": "Rs 16"
+    },
+    {
+      "key": 4,
+      "text": "Rs 48"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "SI = 5000*8*2/100 = 800. CI = 5000*(1.08)^2 - 5000 = 5000*1.1664 - 5000 = 832. Difference = 832 - 800 = 32."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Using diff = P*(R/100) = 5000*0.08 = 400; then halving or applying T=2 incorrectly to get 64; or directly: P*(R/100)*2 = 400*2=... a path giving 64 is computing diff = P*(R/100)*T = 5000*0.08*0.16 = 64 (squaring rate differently)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Correctly using diff = P*(R/100)^2 = 5000*(0.08)^2 = 5000*0.0064 = 32, but then halving it as a slip: 32/2 = 16."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "decimal_place_error",
+      "rationale": "Miscomputing (0.08)^2 as 0.0096 instead of 0.0064: 5000*0.0096 = 48."
+    }
+  ],
+  "explanation": "The excess of CI over SI for 2 years equals P*(R/100)^2. With P = 5000 and R = 8%: diff = 5000*(0.08)^2 = 5000*0.0064 = 32. Verify: SI = 800; CI = 5000*1.1664 - 5000 = 832; excess = 32.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "For 2 years, CI exceeds SI by exactly P*(R/100)^2 - the interest earned on the first year's interest.",
+    "approach": "Formula: CI - SI (2yr) = P*(R/100)^2. Identify model: 2-year difference, annual compounding. Map: P=5000, R=8%. Compute: (0.08)^2 = 0.0064; diff = 5000*0.0064 = 32.",
+    "lesson": "P*(R/100)^2 is the shortcut for the 2-year CI-SI difference; no need to fully compute both totals.",
+    "timing": "40 s. Memorise the formula. The trap is option 4: (0.08)^2 = 0.0064, not 0.0096. Option 2 uses R twice instead of R^2."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

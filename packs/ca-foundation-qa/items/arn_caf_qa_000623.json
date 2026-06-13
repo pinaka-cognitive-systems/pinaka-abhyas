@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000623",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000623.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 110,
+  "stem": "Six colleagues A, B, C, D, E, F are seated in a row. C is at the leftmost seat. B is immediately to the right of A. D is immediately to the right of E. F is to the right of E. F is not adjacent to B. E is to the left of A. Who is seated third from the left?",
+  "options": [
+    {
+      "key": 1,
+      "text": "D"
+    },
+    {
+      "key": 2,
+      "text": "E"
+    },
+    {
+      "key": 3,
+      "text": "F"
+    },
+    {
+      "key": 4,
+      "text": "A"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "C at pos 1 (leftmost). E left of A, D right of E: chain E,D. F right of E and F not adjacent to B (B right of A). With C at pos 1, the block E,D and the constraint F>E and F not adjacent to B uniquely give C,E,D,F,A,B. Third from left (pos 3) = D."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Placing E at position 3 ignores that D must be immediately right of E (placing D at pos 4) and F must be right of E but not adjacent to B; without checking the F-B non-adjacency, an arrangement with E at pos 3 can appear plausible."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "Reading the constraint as 'E is immediately right of D' (reversing D-E adjacency) displaces D and places F at position 3."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reading 'third from left' as 'third from right' in the arrangement C,E,D,F,A,B gives A (which is at position 5, third from right)."
+    }
+  ],
+  "explanation": "Fix C at pos 1. E is left of A, so E < A in position. D is immediately right of E. F is right of E. B is immediately right of A. The chain A,B and E,D must fit with F between them and not adjacent to B. Only arrangement satisfying all clues: C(1), E(2), D(3), F(4), A(5), B(6). Third from left = pos 3 = D.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "F-not-adjacent-to-B is the decisive clue that rules out F landing next to B and fixes the unique order.",
+    "approach": "Apply clues most-certain-first: C at pos 1. Build chain E,D (D right of E). A,B chain (B right of A). E left of A means E comes before A. F right of E but not adjacent to B. Try E at pos 2: D at 3, F at 4, A at 5, B at 6. Check F(4) adjacent to B(6)? |4-6|=2 -> not adjacent. Valid!",
+    "lesson": "When two adjacency chains compete for positions, use the non-adjacency tie-breaker to eliminate the alternative placement.",
+    "timing": "About 90-100 seconds. The trap is reversing the D-E order, landing E at the third seat."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

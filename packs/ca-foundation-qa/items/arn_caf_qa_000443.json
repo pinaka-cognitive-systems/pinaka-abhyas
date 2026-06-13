@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000443",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000443.py"
+  },
+  "tests": [
+    "qa.bmath.finance.bond_valuation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A bond has a face value of Rs 1,000 and pays an annual coupon at 9% per annum. The bond matures in 2 years. An investor requires a return of 6% per annum. What is the fair price of the bond today? [Given: (1.06)^2 = 1.1236]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 1,053.57"
+    },
+    {
+      "key": 2,
+      "text": "Rs 1,055.00"
+    },
+    {
+      "key": 3,
+      "text": "Rs 1,000.00"
+    },
+    {
+      "key": 4,
+      "text": "Rs 906.50"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "compound_interest_confusion",
+      "rationale": "Applying simple-interest discounting: total cash inflow = 90 + 90 + 1000 = 1180; divide by (1 + 0.06 x 2) = 1.12 giving 1180/1.12 = 1053.57. This treats the discount factor as simple interest rather than compounding separately for each period."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Discount each cash flow at 6%: PV = 90/1.06 + 90/1.1236 + 1000/1.1236 = 84.91 + 80.10 + 890.00 = 1055.00."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Discounting both coupons and face value at the coupon rate of 9% (instead of the required 6%) always gives exactly the face value Rs 1000, because when yield equals coupon rate the bond prices at par. The student chose the wrong discount rate."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "decimal_place_error",
+      "rationale": "Misreading the coupon as 0.9% instead of 9% gives annual coupon = Rs 9. PV = 9/1.06 + 9/1.1236 + 1000/1.1236 = 8.49 + 8.01 + 890.00 = 906.50. A decimal-place error on the coupon rate."
+    }
+  ],
+  "explanation": "Because the coupon rate (9%) exceeds the required return (6%), investors pay a premium over face value. The bond's price is the sum of the present values of each cash flow: Rs 90 at year 1 discounted at 6%, Rs 90 at year 2 discounted at 6% squared, and Rs 1000 face value at year 2. Using (1.06)^2 = 1.1236: PV = 90/1.06 + 90/1.1236 + 1000/1.1236 = 84.91 + 80.10 + 890.00 = Rs 1055.00.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Coupon rate above required return means the bond prices above face value; the deciding move is discounting each cash flow individually at the required rate, not the coupon rate.",
+    "approach": "Bond pricing formula: P = C/(1+r) + C/(1+r)^2 + ... + (C+F)/(1+r)^n. Formula choice: use the required return r (6%) as the discount rate, not the coupon rate. Map each given: C = 1000 x 9% = 90, F = 1000, r = 6% = 0.06, n = 2. Hint used: (1.06)^2 = 1.1236. Compute: 90/1.06 = 84.91, 90/1.1236 = 80.10, 1000/1.1236 = 890.00, sum = 1055.00.",
+    "lesson": "Always discount at the required return (market yield), not the coupon rate; when required return < coupon rate, the fair price exceeds face value.",
+    "timing": "90 seconds. Fastest elimination: option 3 (Rs 1000) is the par-price only when yield equals coupon rate, which is not the case here. Trap: confusing coupon rate with discount rate."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

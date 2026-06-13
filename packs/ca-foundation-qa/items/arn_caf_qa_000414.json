@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000414",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000414.py"
+  },
+  "tests": [
+    "qa.bmath.finance.npv"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A manufacturing unit costs Rs 50,000 to install. It will generate annual cash savings of Rs 15,000 for 3 years and can be sold as scrap for Rs 20,000 at the end of year 3. The required return is 10% per annum. [Given: PVAF(3, 10%) = 2.4869; PVIF(3, 10%) = 0.7513] What is the NPV of the investment (rounded to the nearest rupee)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 2,330"
+    },
+    {
+      "key": 2,
+      "text": "Rs -184"
+    },
+    {
+      "key": 3,
+      "text": "Rs 7,513"
+    },
+    {
+      "key": 4,
+      "text": "Rs 5,000"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "PV of savings = 15,000 * 2.4869 = 37,303.50. PV of scrap = 20,000 * 0.7513 = 15,026. Total PV = 52,329.50. NPV = 52,329.50 - 50,000 = 2,329.50, rounds to 2,330."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Uses PVAF(3,10%) = 2.4869 for both savings and scrap: (15,000 + 20,000) * 2.4869 = 87,041.50; NPV = 87,041.50 - 50,000 but then deducts scrap twice getting 44,816.50 - 50,000 = -183.50, rounded to -184."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Computes only the PV of scrap value: 20,000 * 0.7513 = 15,026, then subtracts some amount and reports 7,513 (halving the scrap PV by error)."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Computes a rough payback: 50,000 / (15,000 + 20,000/3) = 50,000 / 21,667 = 2.3 years; then estimates NPV as 5,000 without discounting."
+    }
+  ],
+  "explanation": "When a project has both periodic cash flows and a terminal (salvage) value, NPV = PV_annuity + PV_terminal - initial_cost. Use PVAF for recurring flows and PVIF for the lump sum.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "NPV = (CF * PVAF) + (Salvage * PVIF) - C_0: do not apply the annuity factor to the salvage value.",
+    "approach": "Name the two formulas: PV_annuity = CF * PVAF and PV_terminal = Salvage * PVIF(n,r). Map: CF = 15,000, PVAF = 2.4869, Salvage = 20,000, PVIF = 0.7513, C_0 = 50,000. PV_savings = 15,000 * 2.4869 = 37,303.50. PV_scrap = 20,000 * 0.7513 = 15,026. Total PV = 52,329.50. NPV = 52,329.50 - 50,000 = 2,330.",
+    "lesson": "The salvage value is a single cash flow at year n, not an annuity. Use PVIF, not PVAF, for lump sums.",
+    "timing": "50 seconds. The trap is applying PVAF to the scrap value (option 2). Keep periodic and terminal cash flows separate."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

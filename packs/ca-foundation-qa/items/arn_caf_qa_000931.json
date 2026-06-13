@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000931",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000931.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mean"
+  ],
+  "difficulty_label": "L3",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 175,
+  "stem": "A college has three sections. Section A has 40 students with mean marks 60; Section B has 50 students with mean marks 55; Section C has an unknown number of students with mean marks 48. The mean marks of all students taken together is 53. What is the combined mean marks of Sections A and C only (to two decimals)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "52.14"
+    },
+    {
+      "key": 2,
+      "text": "54.00"
+    },
+    {
+      "key": 3,
+      "text": "54.33"
+    },
+    {
+      "key": 4,
+      "text": "57.22"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "From the overall mean: 53*(90 + nC) = 40*60 + 50*55 + 48*nC gives nC*(53-48) = 5150 - 53*90 = 380, so nC = 76. Combined mean of A and C = (40*60 + 76*48)/(40+76) = (2400 + 3648)/116 = 6048/116 = 52.14."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Takes the simple unweighted average of the two section means (60 + 48)/2 = 54, ignoring that A and C have different numbers of students (40 and 76).",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Averages all three section means equally, (60 + 55 + 48)/3 = 54.33, instead of back-calculating nC and weighting only A and C by their sizes.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Computes the combined mean of A and B, (40*60 + 50*55)/90 = 57.22, instead of A and C as asked.",
+      "misconception": "misread_quantity"
+    }
+  ],
+  "explanation": "First recover the unknown section size from the overall mean: 53*(40+50+nC) = 40*60 + 50*55 + 48*nC gives 5*nC = 380, so nC = 76. Then weight only A and C by their sizes: (40*60 + 76*48)/(40+76) = 6048/116 = 52.14. Averaging the section means directly (54 or 54.33) ignores the sizes, and combining A with B answers the wrong pair.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The unknown section size is the hinge: solve 53*(90 + nC) = total marks to get nC = 76, then the A-and-C mean is the size-weighted 6048/116 = 52.14, not a flat average of 60 and 48.",
+    "approach": "Model: combined (weighted) mean with one group size back-calculated. Assumption: every mean weights by its own count, so nC must be found before any sub-combination. Recipe in five steps. (1) Overall total marks = 53*(40 + 50 + nC). (2) Set equal to 40*60 + 50*55 + 48*nC = 5150 + 48*nC. (3) Solve 4770 + 53*nC = 5150 + 48*nC, i.e. 5*nC = 380, nC = 76. (4) Marks in A and C = 2400 + 76*48 = 6048 over 116 students. (5) Combined mean = 6048/116 = 52.14.",
+    "lesson": "A combined mean is always the sum of (count times mean) divided by the total count; recover any missing group size from the overall mean before combining a subset.",
+    "timing": "About 155 seconds: one back-calculation for nC, one weighted mean. Reject 54.00 fast as the equal-weight average of two unequal sections, and 57.22 as the wrong pair (A and B)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

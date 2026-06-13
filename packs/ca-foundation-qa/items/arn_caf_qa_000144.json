@@ -69,12 +69,13 @@
       "misconception": "arithmetic_slip"
     }
   ],
-  "explanation": "A sinking fund requires PMT = FV / [(( 1 + r)^n - 1) / r]. The annuity factor = ((1.1) raised to the power 4 - 1) / 0.10 = 0.4641 / 0.10 = 4.641. PMT = 5,00,000 / 4.641 = Rs 1,07,740.",
+  "explanation": "A sinking fund requires PMT = FV / annuity factor. The FV annuity factor = ((1.1)^4 - 1) / 0.10 = 0.4641 / 0.10 = 4.641. PMT = 5,00,000 / 4.641 = Rs 1,07,740.",
+  "explanation_kind": "formula_selection",
   "explanation_sections": {
-    "punchline": "Dividing the target amount Rs 5,00,000 by the future-value annuity factor 4.641 gives the required annual deposit of Rs 1,07,740.",
-    "approach": "A sinking fund asks: what equal annual payment builds up to a target amount? The formula is PMT = FV divided by the future-value annuity factor. The factor is ((1 + r)^n minus 1) divided by r. The stem provides (1.1)^4 = 1.4641, so the factor = (1.4641 minus 1) / 0.10 = 4.641. Divide FV by this factor.",
-    "lesson": "For a sinking fund, always divide the future target by the FV annuity factor, not the PV annuity factor. Using the PV factor produces a higher deposit and is a common formula mix-up.",
-    "timing": "About 90 seconds. Reject option (4) in five seconds: Rs 1,25,000 is simply 5,00,000 divided by 4, ignoring the time value of money. Confirm you are using the FV factor 4.641, not a PV factor."
+    "punchline": "A sinking fund inverts the annuity: you know the target FV and solve for the deposit. PMT = FV / FV-annuity-factor = 5,00,000 / 4.641 = Rs 1,07,740.",
+    "approach": "Name the formula and WHY this one: PMT = FV / [(1 + r)^n - 1) / r]. The question targets a future amount (sinking fund), so use the FV annuity factor, not the PV annuity factor. Map the givens: FV = 5,00,000, r = 0.10, n = 4. The stem provides (1.1)^4 = 1.4641. Compute the factor: (1.4641 - 1) / 0.10 = 4.641. Divide FV by the factor.",
+    "lesson": "A sinking fund uses the FV annuity factor in the denominator, not the PV factor. Confusing the two gives a higher annual deposit (option 3 at Rs 1,12,525) because the PV factor is smaller than the FV factor.",
+    "timing": "About 90 seconds. Reject option (4) at Rs 1,25,000 in five seconds: that ignores time value entirely (5,00,000 / 4). Confirm the factor is 4.641 from the FV formula, and that the stem's given power 1.4641 is what you subtract 1 from before dividing by 0.10."
   },
   "empirical": {
     "calibration_status": "none",

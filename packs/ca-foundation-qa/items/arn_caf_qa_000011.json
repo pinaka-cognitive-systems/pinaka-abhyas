@@ -49,11 +49,12 @@
     }
   ],
   "explanation": "From O, Vikram walks 4 km North to (0,4). He turns left (now facing West) and walks 3 km to (-3,4). He turns right (now facing North again) and walks 2 km to (-3,6). Relative to O, he is 3 km West and 6 km North, placing him in the North-West direction.",
+  "explanation_kind": "deductive_trace",
   "explanation_sections": {
-    "punchline": "Facing North, a left turn points West and a right turn then points North again. Final position: 3 km West, 6 km North of O, which is North-West.",
-    "approach": "For direction questions, use a coordinate grid. Set O at (0,0). After each segment write the new coordinates. Track the facing direction at every turn: left turns the compass 90 degrees counterclockwise, right turns it 90 degrees clockwise. Name the quadrant at the end.",
-    "lesson": "Always track which direction you are facing after each turn, not just which way you moved. A right turn from North faces East; a left turn from North faces West.",
-    "timing": "About 75 seconds. Three segments, two turns. Spend 15 seconds per segment updating coordinates. Check the final (x, y) sign: negative x means West, positive y means North."
+    "punchline": "Lock each facing direction before moving: North, then left turn gives West, then right turn gives North again. Final coordinates are (-3, 6), which is North-West of O.",
+    "approach": "Apply clues in order of movement. Set O at (0,0) and note initial facing: North. Segment 1: walk 4 km North to (0,4). Turn 1: left from North = now facing West. Segment 2: walk 3 km West to (-3,4). Turn 2: right from West = now facing North. Segment 3: walk 2 km North to (-3,6). Read the quadrant from the final sign: negative x is West, positive y is North, so the direction from O is North-West. Verify by re-reading each instruction against your diagram.",
+    "lesson": "After every turn, update the facing direction before computing the next displacement. The compass turn is the most common error point, not the arithmetic.",
+    "timing": "About 75 seconds. Two turns and three segments. Spend 10 seconds per segment; the critical check is after the left turn at step 2. Option North-East is the mirror trap: it comes from swapping left and right throughout."
   },
   "empirical": { "calibration_status": "none", "n_responses": 0 },
   "ext": { "icai_skill_bucket": "application" }

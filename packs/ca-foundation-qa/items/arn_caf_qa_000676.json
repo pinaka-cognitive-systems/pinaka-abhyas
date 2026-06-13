@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000676",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000676.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.frequency_distribution"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 70,
+  "stem": "The following grouped frequency distribution shows the number of items (out of 80 total) falling in each class.\n\nClass: 0-10, Frequency: 8\nClass: 10-20, Frequency: 20\nClass: 20-30, Frequency: 24\nClass: 30-40, Frequency: 16\nClass: 40-50, Frequency: 12\n\nThe relative frequency (as a percentage) of the class 20-30 is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "30%"
+    },
+    {
+      "key": 2,
+      "text": "24%"
+    },
+    {
+      "key": 3,
+      "text": "25%"
+    },
+    {
+      "key": 4,
+      "text": "20%"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Relative frequency = (class frequency / total frequency) x 100 = (24 / 80) x 100 = 30%."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reporting the raw class frequency 24 as a percentage directly without dividing by the total."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Dividing 20 (class 10-20 frequency) by 80 = 25%, mixing up which class was asked."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computing 16/80 x 100 = 20%, using the frequency of class 30-40 by mistake."
+    }
+  ],
+  "explanation": "Relative frequency percentage = (class frequency / total) x 100. Total = 8+20+24+16+12 = 80. For class 20-30: (24/80) x 100 = 30%.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Relative frequency of 20-30 = 24/80 x 100 = 30%.",
+    "approach": "Identify the model: relative frequency distribution. Formula: RF(%) = (f_i / N) x 100. Given: f_i = 24 for class 20-30, N = 80. Compute: 24/80 = 0.3, multiply by 100 = 30%.",
+    "lesson": "Relative frequency is always the class frequency divided by the total, then expressed as a proportion or percentage - never the raw count itself.",
+    "timing": "25 seconds. Setup: identify correct class and total. Compute 24/80 = 0.3 = 30%. Trap: option 2 (24%) tempts students to read 24 as 24%."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

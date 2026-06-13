@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000366",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000366.py"
+  },
+  "tests": [
+    "qa.bmath.inequalities.solution_space"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 95,
+  "stem": "The feasible region defined by x >= 0, y >= 0, 2x + y <= 10, and x + 2y <= 10 has corner points at the origin, on both axes, and at the intersection of the two slant lines. What are the coordinates of the intersection of 2x + y = 10 and x + 2y = 10?",
+  "options": [
+    {
+      "key": 1,
+      "text": "(10/3, 10/3)"
+    },
+    {
+      "key": 2,
+      "text": "(5, 0)"
+    },
+    {
+      "key": 3,
+      "text": "(2, 6)"
+    },
+    {
+      "key": 4,
+      "text": "(4, 2)"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Subtract: (2x+y)-(x+2y)=10-10 => x-y=0 => x=y. Substitute: 2x+x=10 => x=10/3. Intersection: (10/3, 10/3)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "(5,0) is the x-axis intercept of 2x+y=10, not the intersection of both lines."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Arithmetic error in elimination: (2,6) does not satisfy 2x+y=10 (2(2)+6=10, correct) but check x+2y=10: 2+12=14 not 10. Infeasible intersection."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "(4,2): 2(4)+2=10 satisfies first, but x+2y=4+4=8 not 10. Inconsistent."
+    }
+  ],
+  "explanation": "Subtract the two equations to eliminate the constant: (2x+y)-(x+2y)=0 giving x=y. Substitute into either: 3x=10, x=10/3. Intersection is (10/3, 10/3).",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Subtracting two symmetric linear equations immediately reveals x=y, cutting the algebra to one step.",
+    "approach": "Eliminate by subtraction: 2x+y=10 minus x+2y=10 gives x-y=0, so x=y. Substitute: 3x=10, x=10/3. Verify: 2(10/3)+(10/3)=30/3=10 and (10/3)+2(10/3)=30/3=10. Both satisfied.",
+    "lesson": "When two symmetric linear equations share the same RHS, subtract them first to find x-y=0 (or x+y=const), then substitute.",
+    "timing": "75 s. Recognising symmetry halves the work. Trap: picking an axis intercept (option 2) instead of solving the system."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

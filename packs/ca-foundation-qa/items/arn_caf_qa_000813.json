@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000813",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000813.py"
+  },
+  "tests": [
+    "qa.stats.probability.expectation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A fair die is rolled. A player receives Rs 6 if the number is 6, Rs 3 if the number is 3 or 4, and Rs 0 otherwise. What is the expected payment (in Rs) per roll?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 1.50"
+    },
+    {
+      "key": 2,
+      "text": "Rs 2.00"
+    },
+    {
+      "key": 3,
+      "text": "Rs 1.00"
+    },
+    {
+      "key": 4,
+      "text": "Rs 3.00"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Using P(3 or 4) = 1/6 instead of 2/6, giving E = 6(1/6) + 3(1/6) + 0 = 1 + 0.5 = 1.50."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "E = 6*(1/6) + 3*(2/6) + 0*(3/6) = 1 + 1 + 0 = 2.00."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Computing 6*(1/6) = 1 and ignoring the contribution from outcomes 3 and 4, treating Rs 3 outcomes as zero."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Summing 6 + 3 = 9 then dividing by 3 (number of non-zero outcomes instead of 6 total outcomes), giving 3.00."
+    }
+  ],
+  "explanation": "Group outcomes: outcome 6 has probability 1/6 giving payment Rs 6; outcomes 3 or 4 have combined probability 2/6 giving Rs 3; outcomes 1, 2, 5 have probability 3/6 giving Rs 0. E = 6*(1/6) + 3*(2/6) + 0*(3/6) = 1 + 1 + 0 = Rs 2.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Two outcomes (3 and 4) both yield Rs 3, so their combined probability 2/6 must multiply Rs 3, not 1/6.",
+    "approach": "Identify model: discrete random variable on a fair die sample space. Map each payment to its probability mass: P(payment=6) = 1/6, P(payment=3) = 2/6 (two faces), P(payment=0) = 3/6. E = 6(1/6) + 3(2/6) + 0(3/6) = 1 + 1 = 2.",
+    "lesson": "When multiple elementary outcomes yield the same payoff, sum their individual probabilities first before multiplying by the payoff.",
+    "timing": "60 seconds. The setup decision is grouping faces correctly. The trap is using P=1/6 for the Rs 3 group, halving its contribution."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

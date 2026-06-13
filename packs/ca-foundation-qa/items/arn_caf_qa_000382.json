@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000382",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000382.py"
+  },
+  "tests": [
+    "qa.bmath.finance.effective_rate"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A borrower is offered two loan options: Option A charges 12% per annum compounded quarterly, and Option B charges 12.36% per annum compounded annually. [Given: (1.03)^4 = 1.1255] Which option has the lower effective annual cost, and what is the effective annual rate of Option A?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Option B is cheaper; Option A EAR = 12.55%"
+    },
+    {
+      "key": 2,
+      "text": "Option A is cheaper; Option A EAR = 12.55%"
+    },
+    {
+      "key": 3,
+      "text": "Option A is cheaper; Option A EAR = 12.36%"
+    },
+    {
+      "key": 4,
+      "text": "Both are equal; Option A EAR = 12.00%"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Option A EAR = (1 + 0.12/4)^4 - 1 = (1.03)^4 - 1 = 1.1255 - 1 = 12.55%. Option B EAR = 12.36%. Since 12.55% > 12.36%, Option B is cheaper for the borrower."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "compound_interest_confusion",
+      "rationale": "Correctly computing Option A EAR = 12.55% but incorrectly concluding Option A is cheaper, by comparing nominal rates (12% < 12.36%) instead of effective rates."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "rate_period_mismatch",
+      "rationale": "Failing to convert Option A's nominal rate: treating 12% quarterly as 12% effective (same as Option B's stated 12.36% rounded down), concluding Option A EAR = 12.36% and equal cost."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Treating both options as having the same effective rate as their nominal rates: Option A EAR = 12% and Option B EAR = 12.36%, then misjudging equality."
+    }
+  ],
+  "explanation": "Option A: nominal 12% compounded quarterly means quarterly rate = 3%; EAR = (1.03)^4 - 1 = 1.1255 - 1 = 12.55%. Option B EAR = 12.36% (annual compounding, nominal = effective). Comparing effective rates: 12.55% > 12.36%, so Option B costs less for the borrower.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The decisive move is converting Option A to its effective rate before comparing: the lower nominal rate (12%) hides a higher effective cost once quarterly compounding is accounted for.",
+    "approach": "Formula: EAR = (1 + r_nom/m)^m - 1. Option A: r_nom = 12%, m = 4; quarterly rate = 3%; EAR = (1.03)^4 - 1 = 12.55% using the given hint. Option B: annual compounding, EAR = nominal = 12.36%. Compare: 12.55% > 12.36%; Option B is cheaper.",
+    "lesson": "Never compare loans by nominal rates when compounding frequencies differ. Always compute and compare effective annual rates.",
+    "timing": "70 s. The key trap (option 2) is comparing nominal rates (12% vs 12.36%) and wrongly picking Option A. The given hint (1.03)^4 = 1.1255 makes the EAR calculation mechanical."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

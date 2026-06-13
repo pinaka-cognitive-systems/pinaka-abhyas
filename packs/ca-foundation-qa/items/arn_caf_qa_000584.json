@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000584",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000584.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.odd_man_out"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 70,
+  "stem": "Each option below contains a group of three letters. Four groups share a common structural pattern. Which group does NOT follow the same pattern as the other three? (A) AEI (B) BDF (C) GKO (D) HIJ",
+  "options": [
+    {
+      "key": 1,
+      "text": "AEI"
+    },
+    {
+      "key": 2,
+      "text": "BDF"
+    },
+    {
+      "key": 3,
+      "text": "GKO"
+    },
+    {
+      "key": 4,
+      "text": "HIJ"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "AEI: positions 1, 5, 9 - a uniform skip of 4 between consecutive letters. It fits the equal-gap pattern. A student might flag it as the odd one because all three are vowels, but the structural property tested is alphabetical gap, not vowel status."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "BDF: positions 2, 4, 6 - a uniform skip of 2. It fits the equal-gap pattern with a gap of 2."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "GKO: positions 7, 11, 15 - a uniform skip of 4. It fits the equal-gap pattern. A student might flag GKO because the gap (4) is same as AEI while BDF has gap 2, but all three have equal gaps >=2."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "HIJ: positions 8, 9, 10 - these are consecutive letters with a gap of only 1. AEI (gap 4), BDF (gap 2), and GKO (gap 4) all skip at least one letter between each pair; HIJ does not skip any letters."
+    }
+  ],
+  "explanation": "The shared pattern in AEI, BDF, and GKO is a uniform inter-letter gap of 2 or more alphabetical positions (AEI: +4, +4; BDF: +2, +2; GKO: +4, +4). HIJ uses consecutive letters (H=8, I=9, J=10, gap=+1,+1) and breaks this pattern.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The key structural property is the inter-letter gap size: the three correct groups skip letters, while HIJ does not.",
+    "approach": "Deductive trace: convert each letter to its alphabetical position and compute the gaps within each triplet. AEI: 1->5->9 (gap 4); BDF: 2->4->6 (gap 2); GKO: 7->11->15 (gap 4); HIJ: 8->9->10 (gap 1). Setup decision: identify inter-letter gap as the structural property to test.",
+    "lesson": "For letter-group odd-one-out, always compute the alphabetical position gaps within each group - consistent skipping is the most common structural pattern.",
+    "timing": "60-70 seconds. Trap: focusing on vowel vs consonant status (AEI are all vowels) instead of the positional gap structure."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

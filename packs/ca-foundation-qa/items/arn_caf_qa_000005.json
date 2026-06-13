@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "l + w = 100/2 = 50 and lw = 600 give the quadratic x^2 - 50x + 600 = 0. Discriminant = 2500 - 2400 = 100, so x = (50 + 10)/2 = 30 or 20. The longer side is 30 m.",
+  "explanation_kind": "derivation",
   "explanation_sections": {
-    "punchline": "Halve the perimeter to get l + w = 50, pair it with l * w = 600, solve the quadratic, and pick the larger root: 30 m.",
-    "approach": "For rectangle problems with perimeter and area: write two equations at once. Equation 1: l + w = perimeter/2. Equation 2: l * w = area. Let s = l + w and p = l * w, then form x^2 - s*x + p = 0. Solve for both roots and identify which the question asks for.",
-    "lesson": "The quadratic from a rectangle always yields two roots: the length and the width. Read the question carefully to take the correct root. Both roots are correct numbers; only one is the right answer.",
-    "timing": "About 75 seconds. Derive the quadratic in 20 seconds, compute the discriminant in 20 seconds, solve for both roots in 20 seconds. Option (3) at 20 m is the smaller root; it is correct math but the wrong answer."
+    "punchline": "Turn the two facts into one quadratic: l + w = 50 and l x w = 600 give x^2 - 50x + 600 = 0, with roots 30 and 20. The question asks for the longer side, so the answer is 30 m.",
+    "approach": "Translate before you solve. Two facts about a rectangle become two equations: half the perimeter gives l + w, the area gives l x w. Build the quadratic x^2 - (sum)x + (product) = 0, here x^2 - 50x + 600 = 0. Solve it, then read the question again to pick the root it actually wants.",
+    "lesson": "A perimeter-and-area pair always gives a quadratic whose two roots are the length and the width. Both are real numbers in the problem; only one answers the question. The last step is choosing, not computing.",
+    "timing": "About 75 seconds. Translating to the quadratic should take 20 seconds, the discriminant 20, both roots 20. Save the final 10 seconds to confirm you reported the longer side, not the shorter one. If you got 20 m, you solved it right and answered the wrong question."
   },
   "empirical": {
     "calibration_status": "none",

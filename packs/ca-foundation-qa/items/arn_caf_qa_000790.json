@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000790",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000790.py"
+  },
+  "tests": [
+    "qa.stats.probability.conditional"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "P(A) = 0.4, P(B) = 0.3, and P(A and B) = 0.12. Find P(A | B).",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.4"
+    },
+    {
+      "key": 2,
+      "text": "0.3"
+    },
+    {
+      "key": 3,
+      "text": "0.12"
+    },
+    {
+      "key": 4,
+      "text": "0.52"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "P(A | B) = P(A and B) / P(B) = 0.12 / 0.3 = 0.4."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "conditional_reversed",
+      "rationale": "Returning P(B) = 0.3, confusing P(A|B) with P(B|A) or simply reading the wrong value from the given data."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Returning P(A and B) = 0.12 directly without dividing by P(B), solving for the joint probability instead of the conditional."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "set_operation_confused",
+      "rationale": "Computing P(A) + P(B) - P(A and B) = 0.4 + 0.3 - 0.12 = 0.58... actually applying union formula, or misadding 0.4 + 0.12 = 0.52."
+    }
+  ],
+  "explanation": "The conditional probability formula is P(A | B) = P(A and B) / P(B). Substituting: 0.12 / 0.3 = 0.4. Notice this equals P(A), which is consistent with A and B being independent (0.4 x 0.3 = 0.12).",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "P(A|B) divides the joint probability by the conditioning event's probability.",
+    "approach": "Identify the model: conditional probability definition. Given: P(A and B)=0.12, P(B)=0.3. Apply P(A|B) = P(A and B)/P(B) = 0.12/0.3 = 0.4.",
+    "lesson": "P(A|B) is always the joint probability divided by the probability of the event being conditioned on.",
+    "timing": "45 seconds. Read the formula, substitute, divide. The trap is returning P(B) or P(A and B) directly."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000707",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000707.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.median"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A quality inspector grades 30 batches on a scale from 1 to 5. The frequency distribution is given below.\n\nGrade:      1   2   3   4   5\nFrequency:  4   6   8   5   7\n\nWhat is the median grade?",
+  "options": [
+    {
+      "key": 1,
+      "text": "2"
+    },
+    {
+      "key": 2,
+      "text": "3"
+    },
+    {
+      "key": 3,
+      "text": "3.5"
+    },
+    {
+      "key": 4,
+      "text": "4"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Taking the median position as N/2 = 15 (instead of (N+1)/2 average position) and mistakenly locating the 15th value in the wrong class: cumulative through grade 2 is 10, and if position 15 is placed incorrectly as falling in class 2, the answer is 2."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "N = 30. For even N, median = average of (N/2)th and (N/2+1)th values = average of 15th and 16th values. Cumulative: grade 1=4, grade 2=10, grade 3=18. Both the 15th and 16th values fall in grade 3 (since cumulative through grade 2 is 10 and through grade 3 is 18). Median = 3."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "Averaging grades 3 and 4 to get 3.5, as if the 15th and 16th values fell in different classes (one in grade 3 and one in grade 4)."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Misreading the cumulative frequency table and placing both middle observations in grade 4 (for instance, by using cumulative through grade 3 as only 8 instead of 18 due to an addition error)."
+    }
+  ],
+  "explanation": "N = 30 (even). Median = average of (30/2)th and (30/2+1)th values = average of 15th and 16th values. Cumulative frequencies: grade 1: 4, grade 2: 10, grade 3: 18. The 15th value is in grade 3 (10 < 15 <= 18) and the 16th value is also in grade 3 (10 < 16 <= 18). Median = (3 + 3) / 2 = 3.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Both middle values (15th and 16th) land in grade 3 because that class spans a wide enough range - averaging two identical values gives 3.",
+    "approach": "For even N, locate (N/2)th and (N/2+1)th values using the cumulative frequency table. N = 30, so find 15th and 16th values. Build cumulative: after grade 1 = 4, after grade 2 = 10, after grade 3 = 18. Since 10 < 15 and 16 <= 18, both values are in grade 3. Median = 3.",
+    "lesson": "Build the cumulative frequency column carefully; the median class is the first class where the cumulative frequency first reaches or exceeds the middle position.",
+    "timing": "50-60 seconds. Build the cumulative column by running additions (4, 10, 18) and check whether positions 15 and 16 both fall in the same grade."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

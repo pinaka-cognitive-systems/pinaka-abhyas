@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000492",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000492.py"
+  },
+  "tests": [
+    "qa.bmath.sequence_series.special_series"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Find the sum of the series 1^2 + 2^2 + 3^2 + ... + 12^2.",
+  "options": [
+    {
+      "key": 1,
+      "text": "650"
+    },
+    {
+      "key": 2,
+      "text": "78"
+    },
+    {
+      "key": 3,
+      "text": "576"
+    },
+    {
+      "key": 4,
+      "text": "1014"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Sum of squares formula: n(n+1)(2n+1)/6. For n=12: 12*13*25/6 = 3900/6 = 650."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Confused with the sum of first n naturals formula n(n+1)/2 = 12*13/2 = 78."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Computed n^2(n+1)/6 = 144*13/6 = 312, then added 12^2 = 144 by mistake to get 312 + 264 = 576, or used 12^2 * 4 = 576 by confusing the formula."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computed 12*13*25 = 3900 correctly but divided by 4 instead of 6, giving 975; then confused with nearby value 1014 via a slip in multiplication of 13*26*3 = 1014 using (2n+2) instead of (2n+1)."
+    }
+  ],
+  "explanation": "The sum of squares of first n natural numbers uses the formula n(n+1)(2n+1)/6. For n=12: numerator = 12*13*25 = 3900; divided by 6 gives 650.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Identify this as a sum-of-squares series and apply n(n+1)(2n+1)/6.",
+    "approach": "Derivation plan: recognise the pattern as 1^2 + 2^2 + ... + n^2 with n=12. Apply formula: 12*13*(2*12+1)/6 = 12*13*25/6. Compute step by step: 12/6=2, so 2*13*25 = 650.",
+    "lesson": "Sum of squares = n(n+1)(2n+1)/6. A useful shortcut: simplify 12/6 = 2 first to keep numbers small.",
+    "timing": "Under 75 seconds. Trap: confusing with sum-of-naturals formula (gives 78) or sum-of-cubes formula."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

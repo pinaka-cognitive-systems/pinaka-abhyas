@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000473",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000473.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.combinations"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 85,
+  "stem": "A club has 9 members. A sub-committee of 4 is to be formed. One particular member, Ramesh, must always be included, and another particular member, Suresh, must always be excluded. In how many ways can the sub-committee be formed?",
+  "options": [
+    {
+      "key": 1,
+      "text": "35"
+    },
+    {
+      "key": 2,
+      "text": "126"
+    },
+    {
+      "key": 3,
+      "text": "56"
+    },
+    {
+      "key": 4,
+      "text": "70"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "With Ramesh fixed in and Suresh fixed out, the remaining pool is 9 - 2 = 7 members. Need 4 - 1 = 3 more. C(7,3) = 35."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Ignoring both constraints and applying C(9,4) = 126, treating all 9 members as freely choosable without fixing Ramesh in or removing Suresh."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Applying only one constraint correctly: fixing Ramesh in gives C(8,3) = 56, but forgetting to also exclude Suresh from the 8 remaining."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reducing pool to 7 but still choosing 4 (forgetting Ramesh is already in the slot), giving C(7,4) = 35... wait C(7,4)=35 = C(7,3). Alternate: pool of 8 (excluding Suresh only) choose 3: C(8,3)=56... instead computing C(8,4) = 70 by excluding Suresh from 9 giving 8, then choosing the full 4 without accounting for Ramesh being fixed."
+    }
+  ],
+  "explanation": "Apply constraints before counting. Fix Ramesh in: he occupies 1 of the 4 slots, so 3 more are needed. Exclude Suresh: the available pool shrinks from 9 to 7 (remove Ramesh who is fixed and Suresh who is excluded). Choose 3 from the 7 remaining: C(7,3) = 35.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "Reduce the problem first: 1 slot taken by Ramesh, Suresh removed from pool, so C(7,3) = 35.",
+    "approach": "Classify: combination with inclusion/exclusion constraints on specific individuals. Step 1 - fix Ramesh in: slots remaining = 4-1 = 3. Step 2 - remove Suresh and Ramesh from the choosable pool: available = 9-2 = 7. Step 3 - C(7,3) = (7*6*5)/(3*2*1) = 210/6 = 35.",
+    "lesson": "When specific people must be in or out, reduce both the slot count and the pool size before forming C(n,r). Missing one constraint is the most common error.",
+    "timing": "60 seconds. Two adjustments to make: pool goes from 9 to 7, slots go from 4 to 3. Trap: option 3 makes only one adjustment."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

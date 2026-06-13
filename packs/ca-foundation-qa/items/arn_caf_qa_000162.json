@@ -21,7 +21,7 @@
   "difficulty_label": "L2",
   "taxonomy_version": 4,
   "item_type": "single_best",
-  "expected_seconds": 90,
+  "expected_seconds": 75,
   "stem": "In a class of 60 students, 35 study Mathematics and 30 study Statistics. Every student studies at least one subject. How many students study both subjects?",
   "options": [
     {
@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "Inclusion-exclusion: |M ∪ S| = |M| + |S| - |M ∩ S|. Since every student studies at least one subject, |M ∪ S| = 60. So |M ∩ S| = 35 + 30 - 60 = 5.",
+  "explanation_kind": "concept",
   "explanation_sections": {
-    "punchline": "Inclusion-exclusion gives |M ∩ S| = 35 + 30 - 60 = 5. The phrase \"at least one subject\" tells you the union equals the total class size.",
-    "approach": "Two-set Venn problems give you the union and the two set sizes and ask for the intersection. Write: intersection = |A| + |B| - |A ∪ B|. Identify what plays the role of the union first. \"Every student studies at least one\" means nobody is outside both circles, so |M ∪ S| = total.",
-    "lesson": "\"Every element belongs to at least one set\" means the union equals the universal set. Plug that directly into the inclusion-exclusion formula to find the intersection.",
-    "timing": "About 90 seconds. This is one substitution. Eliminate option 65 in five seconds: it exceeds the class size and therefore cannot be correct."
+    "punchline": "\"Every student studies at least one subject\" means the union equals the class: |M ∪ S| = 60. One plug-in gives |M ∩ S| = 35 + 30 - 60 = 5.",
+    "approach": "State the property: the phrase \"every student studies at least one subject\" is the standard signal that the union covers the whole class, so |M ∪ S| = 60. Contrast the confusable case: if some students studied neither subject, the union would be less than 60. With the union known, the inclusion-exclusion formula is a direct plug-in: |M ∩ S| = |M| + |S| - |M ∪ S| = 35 + 30 - 60 = 5.",
+    "lesson": "\"At least one\" means no element is outside both sets, so the union equals the total. Then intersection = sum of sizes minus total. One formula, one substitution.",
+    "timing": "About 45 seconds. Recognise the union signal, substitute, compute. Eliminate 65 immediately: it exceeds the total class size, which is impossible."
   },
   "empirical": {
     "calibration_status": "none",

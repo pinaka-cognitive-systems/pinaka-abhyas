@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000654",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000654.py"
+  },
+  "tests": [
+    "qa.lr.blood_relations"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "A man points to a woman in a crowd and says, 'She is the mother of the son of my wife's father's only daughter.' How is the woman related to the man?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Wife"
+    },
+    {
+      "key": 2,
+      "text": "Mother-in-law"
+    },
+    {
+      "key": 3,
+      "text": "Sister-in-law"
+    },
+    {
+      "key": 4,
+      "text": "Daughter"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "The man's wife's father's only daughter is the man's wife herself. The son of the man's wife is the man's son. The mother of the man's son is the man's wife. So the woman is the man's wife."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Mother-in-law is the mother of the wife, not the wife. Tracing 'wife's father's daughter' through the father and mistaking the generation gives mother-in-law."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "kinship_direction_inverted",
+      "rationale": "Sister-in-law would be a sister of the wife or the wife of a brother. The 'only daughter' constraint eliminates the sister path, so the clue points back to the wife, not a sister."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Daughter would place the woman one generation below the man. The chain resolves to the wife, who is in the same generation, not below."
+    }
+  ],
+  "explanation": "Step 1: 'My wife's father's only daughter' = the wife's father's daughter = the wife herself (assuming she is the only daughter). Step 2: 'Son of [my wife]' = the man's son. Step 3: 'Mother of [the man's son]' = the man's wife. So the woman is the man's wife.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "'Wife's father's only daughter' self-refers back to the wife; her son's mother is therefore the wife herself.",
+    "approach": "Apply clues from the inside out: wife's father -> daughter (only) = wife. Wife's son = man's son. Mother of man's son = man's wife.",
+    "lesson": "A chain that traces ancestor then back down to the same person via 'only' constraints creates a self-reference; the person asked is the speaker's spouse.",
+    "timing": "About 55-65 seconds. The common trap is option 2 (mother-in-law) from confusing the generational level of 'father's daughter' vs 'father's wife'."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

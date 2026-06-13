@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000381",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000381.py"
+  },
+  "tests": [
+    "qa.bmath.finance.effective_rate"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "A bank advertises a nominal interest rate of 10% per annum compounded half-yearly. What is the effective annual rate of interest?",
+  "options": [
+    {
+      "key": 1,
+      "text": "10.25%"
+    },
+    {
+      "key": 2,
+      "text": "10.00%"
+    },
+    {
+      "key": 3,
+      "text": "10.50%"
+    },
+    {
+      "key": 4,
+      "text": "5.25%"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "EAR = (1 + 0.10/2)^2 - 1 = (1.05)^2 - 1 = 1.1025 - 1 = 10.25%."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "compound_interest_confusion",
+      "rationale": "Taking the nominal rate as the effective rate without accounting for compounding frequency: EAR = nominal = 10.00%."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Using EAR = (1 + 0.10/2)^2 - 1 but computing (1.05)^2 = 1.1050 instead of 1.1025: 10.50%."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "decimal_place_error",
+      "rationale": "Confusing the effective rate per period (5% per half-year) with the effective annual rate, and adding a slip: 5% + 0.25% = 5.25%."
+    }
+  ],
+  "explanation": "Effective annual rate (EAR) = (1 + nominal rate / m)^m - 1, where m is the number of compounding periods per year. Here nominal = 10%, m = 2 (half-yearly). EAR = (1 + 0.05)^2 - 1 = 1.1025 - 1 = 0.1025 = 10.25%.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The effective rate (10.25%) exceeds the nominal rate (10%) because each half-year's interest earns more interest in the second half.",
+    "approach": "Formula: EAR = (1 + r_nominal/m)^m - 1. Map: r_nominal = 10% = 0.10, m = 2. Compute: (1.05)^2 = 1.1025; EAR = 0.1025 = 10.25%.",
+    "lesson": "EAR is always >= nominal rate; they are equal only when compounding is annual. The more frequent the compounding, the higher the EAR.",
+    "timing": "35 s. (1.05)^2 = 1.1025 is a standard value. The trap is option 2 (no conversion) and option 3 (squaring error 1.1050)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

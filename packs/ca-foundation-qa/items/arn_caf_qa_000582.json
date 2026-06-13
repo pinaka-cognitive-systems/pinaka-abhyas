@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000582",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000582.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.odd_man_out"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 45,
+  "stem": "Which word does NOT belong to the same category as the others? Ladle, Whisk, Hammer, Spatula",
+  "options": [
+    {
+      "key": 1,
+      "text": "Ladle"
+    },
+    {
+      "key": 2,
+      "text": "Whisk"
+    },
+    {
+      "key": 3,
+      "text": "Hammer"
+    },
+    {
+      "key": 4,
+      "text": "Spatula"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "A ladle is a kitchen tool used for serving soups and liquids, so it belongs to the cooking-utensil category."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "A whisk is a kitchen tool used for beating and mixing ingredients, so it belongs to the cooking-utensil category."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Ladle, Whisk, and Spatula are all kitchen/cooking utensils. A hammer is a carpentry and construction tool, making it the item that does not belong."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "A spatula is a kitchen tool used for flipping and spreading, so it belongs to the cooking-utensil category."
+    }
+  ],
+  "explanation": "Ladle, Whisk, and Spatula are all cooking utensils used in a kitchen. Hammer is a carpentry tool, not a cooking instrument, so it is the odd one out.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Three items share the category of kitchen cooking tools; the fourth belongs to a completely different domain.",
+    "approach": "Deductive trace: classify each item by its primary use domain. Ladle->kitchen, Whisk->kitchen, Spatula->kitchen, Hammer->carpentry. The one from a different domain is the odd man out.",
+    "lesson": "In category-based odd-one-out, identify the dominant shared property of the majority and test each item against it.",
+    "timing": "30-40 seconds. Straightforward at L1 - no meaningful trap."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

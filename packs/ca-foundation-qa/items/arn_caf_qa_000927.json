@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000927",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000927.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.coefficient_of_variation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 170,
+  "stem": "Machine A's daily output (units) over five days is 100, 120, 80, 110, 90. Machine B's output is 20, 30, 25, 15, 10. Which machine is MORE CONSISTENT in its output, and on what basis?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Machine A, because its coefficient of variation is lower at 14.14% versus B's 35.36%"
+    },
+    {
+      "key": 2,
+      "text": "Machine B, because its standard deviation 7.07 is smaller than A's 14.14"
+    },
+    {
+      "key": 3,
+      "text": "Machine B, because its coefficient of variation is lower at 14.14%"
+    },
+    {
+      "key": 4,
+      "text": "Both are equally consistent, since the ratio of their means equals the ratio of their standard deviations"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "A: mean 100, SD 14.14, CV = 14.14%. B: mean 20, SD 7.07, CV = 35.36%. Consistency is judged by the lower CV, so A is more consistent despite having the larger absolute SD."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Compares standard deviations directly. B's SD (7.07) is smaller, but SD is not comparable across series with different means; relative dispersion (CV) must be used, and B's CV is in fact the larger.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Identifies CV as the right tool but attaches the lower CV (14.14%) to the wrong machine; 14.14% belongs to A, while B's CV is 35.36%.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Asserts equal consistency from a false relation. The CVs are 14.14% and 35.36%, which are not equal, so the machines are not equally consistent.",
+      "misconception": "concept_definition_confused"
+    }
+  ],
+  "explanation": "Consistency means low RELATIVE dispersion, measured by the coefficient of variation CV = SD/mean*100, not by the raw SD. Machine A: mean 100, SD 14.14, CV 14.14%. Machine B: mean 20, SD 7.07, CV 35.36%. Although B has the smaller SD, A has the smaller CV, so A is the more consistent machine. The trap is to compare SDs across series with very different means.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "B has the smaller SD (7.07 vs 14.14) yet A is more consistent: SD is not comparable across different means, so you must compute CV, and A's 14.14% beats B's 35.36%.",
+    "approach": "Model: relative dispersion via CV = SD/mean*100; compute both, then compare. Assumption: 'consistent' means low relative spread, so the smaller CV wins regardless of which SD is larger. Recipe. (1) Mean of A = 100, mean of B = 20. (2) SD of A: deviations 0, 20, -20, 10, -10 give variance 200, SD 14.14. (3) SD of B: deviations 0, 10, 5, -5, -10 give variance 50, SD 7.07. (4) CV of A = 14.14/100*100 = 14.14%. (5) CV of B = 7.07/20*100 = 35.36%. (6) Lower CV is A, so A is more consistent.",
+    "lesson": "To compare consistency or variability of two series with different means, always use the coefficient of variation, never the standard deviation alone.",
+    "timing": "About 150 seconds for two means and two SDs. Reject option 2 fast: it compares raw SDs, which is the classic trap when the means differ. Then a single division settles A over B."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

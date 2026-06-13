@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000322",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000322.py"
+  },
+  "tests": [
+    "qa.bmath.ratio_indices_log.indices"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "If 2^x = 8^3, find the value of x.",
+  "options": [
+    {
+      "key": 1,
+      "text": "3"
+    },
+    {
+      "key": 2,
+      "text": "6"
+    },
+    {
+      "key": 3,
+      "text": "9"
+    },
+    {
+      "key": 4,
+      "text": "24"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student reads the equation as 2^x = 8^3 and incorrectly equates the exponents directly: x = 3. This ignores the different bases."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student converts 8 = 2^3 correctly but then adds the exponents instead of multiplying: 8^3 = 2^(3+3) = 2^6, giving x = 6."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "8 = 2^3, so 8^3 = (2^3)^3 = 2^9. Therefore 2^x = 2^9 and x = 9."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "order_of_operations",
+      "rationale": "Student computes 8^3 = 512 and then sets x = 2 x 8 x 3/2 = 24, or directly multiplies the numbers: x = 8 x 3 = 24, failing to use logarithmic/exponent reasoning."
+    }
+  ],
+  "explanation": "Rewrite the right side with base 2: 8 = 2^3, so 8^3 = (2^3)^3 = 2^(3 x 3) = 2^9. Equating exponents on both sides: x = 9.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Converting both sides to the same base makes the exponents directly comparable.",
+    "approach": "Indices: express 8 as a power of 2 (8 = 2^3). Apply power-of-a-power rule to the right side: (2^3)^3 = 2^(3x3) = 2^9. Match exponents: x = 9.",
+    "lesson": "To solve a^x = b^n, convert b to a power of a, then multiply the exponents. Adding exponents is the multiplication of bases rule, not the power-of-a-power rule.",
+    "timing": "30 seconds. Trap: adding 3 + 3 = 6 instead of multiplying 3 x 3 = 9."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

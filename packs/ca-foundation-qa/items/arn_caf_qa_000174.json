@@ -19,6 +19,7 @@
     "qa.bmath.sets_functions.limits"
   ],
   "difficulty_label": "L2",
+  "explanation_kind": "concept",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 90,
@@ -71,10 +72,10 @@
   ],
   "explanation": "Direct substitution gives 0/0. Factor the numerator: x² - 9 = (x - 3)(x + 3). Cancel the common factor (x - 3) to get lim(x -> 3)(x + 3) = 3 + 3 = 6.",
   "explanation_sections": {
-    "punchline": "Direct substitution produces 0/0. Factor the numerator as (x - 3)(x + 3), cancel the common (x - 3), then substitute x = 3 to get 6.",
-    "approach": "When a limit gives 0/0, do not stop. Factor the numerator using the difference-of-squares or other identities. Cancel the common factor with the denominator. Only then substitute the limit value. This is the standard technique for removable discontinuities.",
-    "lesson": "A 0/0 form at a point does not mean the limit is 0. Factor and cancel first, then substitute. The limit may be a finite nonzero number.",
-    "timing": "About 90 seconds. Identifying the 0/0 form takes 10 seconds. Factoring x² - 9 takes 15 seconds. The rest is substitution. Do not waste time trying L'Hopital at this level."
+    "punchline": "0/0 at a point is an indeterminate form, not zero. The property of removable discontinuities says: factor to cancel the offending term, then evaluate. Here (x^2 - 9) / (x - 3) = (x + 3) after cancellation, giving limit = 6.",
+    "approach": "State the property then contrast: direct substitution is valid only when it does not produce 0/0 or infinity/infinity. When it does, the point is a removable discontinuity. The fix: factorise the numerator (and/or denominator) to expose and cancel the common factor that causes the 0/0. x^2 - 9 is a difference of two squares: a^2 - b^2 = (a - b)(a + b). After cancellation, substitute freely.",
+    "lesson": "0/0 means the function has a hole at that point, not that the limit is zero. Factor to remove the hole, then substitute. Reporting 0 is the most common error on this class of limit.",
+    "timing": "About 60 seconds. Spotting the 0/0 form in 5 seconds, factoring difference-of-squares in 10 seconds, cancelling and substituting in 10 seconds. Kill option 0 first: 0/0 does not simplify to 0."
   },
   "empirical": {
     "calibration_status": "none",

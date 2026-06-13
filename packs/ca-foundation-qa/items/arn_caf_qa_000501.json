@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000501",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000501.py"
+  },
+  "tests": [
+    "qa.bmath.calculus.integration"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "Evaluate the definite integral of 4x^3 with respect to x from x = 1 to x = 2.",
+  "options": [
+    {
+      "key": 1,
+      "text": "15"
+    },
+    {
+      "key": 2,
+      "text": "60"
+    },
+    {
+      "key": 3,
+      "text": "16"
+    },
+    {
+      "key": 4,
+      "text": "80"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Antiderivative of 4x^3 is x^4. Applying limits: 2^4 - 1^4 = 16 - 1 = 15."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "power_rule_misapplied",
+      "rationale": "Forgetting to divide by the new exponent when integrating: antiderivative taken as 4x^4 instead of x^4. Result: 4(2^4) - 4(1^4) = 64 - 4 = 60."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "integration_constant_dropped",
+      "rationale": "Evaluating only at the upper limit and ignoring the lower limit: antiderivative = x^4, so 2^4 = 16, with the lower limit not subtracted."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Using the wrong upper limit, treating the problem as integrating from 1 to 3: 3^4 - 1^4 = 81 - 1 = 80."
+    }
+  ],
+  "explanation": "Integration of a power function: integral of x^n dx = x^(n+1)/(n+1). For 4x^3, the antiderivative is 4 * x^4/4 = x^4. Apply the limits: [x^4] from 1 to 2 = 2^4 - 1^4 = 16 - 1 = 15.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "When the coefficient equals the new exponent, the division cancels out cleanly, giving x^4 as the antiderivative of 4x^3.",
+    "approach": "Power rule for integration: raise the exponent by one and divide by the new exponent. Then subtract the antiderivative at the lower limit from the antiderivative at the upper limit.",
+    "lesson": "Always subtract the lower-limit value from the upper-limit value; omitting the lower limit gives a wrong answer even when the antiderivative is correct.",
+    "timing": "30-40 seconds. Opt 2 (60) is the classic trap of forgetting to divide by the new exponent. Opt 3 (16) is the trap of forgetting to subtract the lower limit."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

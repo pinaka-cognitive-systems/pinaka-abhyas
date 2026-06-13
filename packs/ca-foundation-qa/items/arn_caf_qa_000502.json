@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000502",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000502.py"
+  },
+  "tests": [
+    "qa.bmath.calculus.integration"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Evaluate the definite integral of (3x^2 - 4x + 1) with respect to x from x = 2 to x = 5.",
+  "options": [
+    {
+      "key": 1,
+      "text": "78"
+    },
+    {
+      "key": 2,
+      "text": "36"
+    },
+    {
+      "key": 3,
+      "text": "80"
+    },
+    {
+      "key": 4,
+      "text": "82"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Antiderivative F(x) = x^3 - 2x^2 + x. F(5) = 125 - 50 + 5 = 80. F(2) = 8 - 8 + 2 = 2. Integral = 80 - 2 = 78."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "power_rule_misapplied",
+      "rationale": "Taking the antiderivative of -4x as -4x^2 (raising the exponent but not dividing by the new exponent 2): F(x) = x^3 - 4x^2 + x. F(5) - F(2) = (125-100+5) - (8-16+2) = 30 - (-6) = 36."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "integration_constant_dropped",
+      "rationale": "Evaluating the antiderivative only at the upper limit without subtracting the lower limit: F(5) = 5^3 - 2*5^2 + 5 = 125 - 50 + 5 = 80."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Building the correct antiderivative F(x) = x^3 - 2x^2 + x but adding F(2) to F(5) instead of subtracting: 80 + 2 = 82."
+    }
+  ],
+  "explanation": "Find the antiderivative term by term: integral of 3x^2 is x^3, integral of -4x is -2x^2, integral of 1 is x. So F(x) = x^3 - 2x^2 + x. Evaluate: F(5) = 125 - 50 + 5 = 80 and F(2) = 8 - 8 + 2 = 2. The definite integral = F(5) - F(2) = 80 - 2 = 78.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The setup decision is correctly building the antiderivative term by term and then subtracting (not adding) the lower-limit evaluation.",
+    "approach": "Multi-term polynomial integration: integrate each term using the power rule (raise exponent by 1, divide by new exponent), then apply the Fundamental Theorem: integral = F(upper) - F(lower).",
+    "lesson": "After raising the exponent by one you must also divide by the new exponent. Skipping that division is the most frequent power-rule error in integration.",
+    "timing": "60-80 seconds. Opt 3 (80) signals the student stopped after evaluating at x=5; opt 4 (82) signals an addition sign instead of subtraction."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

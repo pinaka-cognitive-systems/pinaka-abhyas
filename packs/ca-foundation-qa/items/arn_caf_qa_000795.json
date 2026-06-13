@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000795",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000795.py"
+  },
+  "tests": [
+    "qa.stats.probability.conditional"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "In a college, 60% of students come from city schools and 40% come from rural schools. In an aptitude test, 30% of city-school students and 50% of rural-school students score above 80 marks. A student who scored above 80 marks is selected at random. What is the probability that this student is from a city school?",
+  "options": [
+    {
+      "key": 1,
+      "text": "9/19"
+    },
+    {
+      "key": 2,
+      "text": "3/5"
+    },
+    {
+      "key": 3,
+      "text": "10/19"
+    },
+    {
+      "key": 4,
+      "text": "18/38"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "P(City|>80) = P(City)*P(>80|City) / P(>80) = (0.6*0.3)/(0.6*0.3 + 0.4*0.5) = 0.18/(0.18+0.20) = 0.18/0.38 = 9/19."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "independence_assumed",
+      "rationale": "Returning the prior P(City) = 0.6 = 3/5, ignoring the test score information and failing to apply Bayes theorem."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "conditional_reversed",
+      "rationale": "Computing P(Rural|>80) = 0.20/0.38 = 10/19, returning the posterior for rural students instead of city students."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Correctly computing 18/38 but failing to simplify the fraction to 9/19, leaving the answer in unreduced form."
+    }
+  ],
+  "explanation": "P(City and >80) = 0.6 * 0.3 = 0.18. P(Rural and >80) = 0.4 * 0.5 = 0.20. Total P(>80) = 0.38. Posterior P(City|>80) = 0.18/0.38 = 18/38 = 9/19.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "A high score is actually more likely from a rural student here, so the city posterior (9/19) is below the city prior (3/5).",
+    "approach": "Identify the model: Bayes theorem with two hypotheses. Compute joint probabilities: City and >80 = 0.18; Rural and >80 = 0.20. Total = 0.38. P(City|>80) = 0.18/0.38 = 9/19.",
+    "lesson": "After observing an outcome, if one group has a higher rate of that outcome, its posterior rises relative to its prior.",
+    "timing": "80 seconds. Multiply both branches, add for denominator, divide. The trap is using the prior 3/5 without updating."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000725",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000725.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.gm_hm"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "The harmonic mean of the three numbers 2, 3, and 6 is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "3"
+    },
+    {
+      "key": 2,
+      "text": "3.30"
+    },
+    {
+      "key": 3,
+      "text": "3.63"
+    },
+    {
+      "key": 4,
+      "text": "6"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "HM = n / (1/x1 + 1/x2 + 1/x3) = 3 / (1/2 + 1/3 + 1/6) = 3 / (3/6 + 2/6 + 1/6) = 3 / (6/6) = 3 / 1 = 3."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "3.30 approximates the geometric mean: (2*3*6)^(1/3) = (36)^(1/3) = 3.302; a student uses the GM formula instead of the HM formula."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "3.63 is not the exact arithmetic mean (2+3+6)/3 = 11/3 = 3.67, but close; a student computing AM with an arithmetic slip gets 3.63, confusing AM with HM."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "6 is the largest of the three numbers; a student may misidentify the HM as the maximum of the set or compute n*product_of_reciprocals without proper inversion."
+    }
+  ],
+  "explanation": "HM of n values = n / (sum of reciprocals). Here: 1/2 + 1/3 + 1/6 = 3/6 + 2/6 + 1/6 = 6/6 = 1. So HM = 3 / 1 = 3.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The sum of reciprocals of 2, 3, 6 is exactly 1, making the harmonic mean equal to n/1 = 3.",
+    "approach": "Identify the model: HM = n / sum(1/xi). For n=3: compute 1/2=0.5, 1/3=0.333, 1/6=0.167; sum=1.000. HM = 3/1 = 3.",
+    "lesson": "HM is appropriate for averaging rates; it always satisfies HM <= GM <= AM, with equality when all values are equal.",
+    "timing": "Under 35 seconds. The reciprocals of 2, 3, 6 are 1/2, 1/3, 1/6 which sum to 1 by inspection (they form a unit fraction partition). No calculator needed."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000832",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000832.py"
+  },
+  "tests": [
+    "qa.stats.distributions.poisson"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Typing errors in a document follow a Poisson distribution with mean 1.5 errors per page. What is the probability that a randomly chosen page has at least 1 typing error? [Given: e^(-1.5) = 0.2231]",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.7769"
+    },
+    {
+      "key": 2,
+      "text": "0.2231"
+    },
+    {
+      "key": 3,
+      "text": "0.3347"
+    },
+    {
+      "key": 4,
+      "text": "0.5578"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "P(X>=1) = 1 - P(X=0) = 1 - e^(-1.5) = 1 - 0.2231 = 0.7769."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "complement_confusion",
+      "rationale": "0.2231 = P(X=0) = e^(-1.5); the student found the probability of zero errors instead of the complement (at least one)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "0.3347 = P(X=1) = e^(-1.5)*1.5 = 0.2231*1.5 = 0.3347; the student computed exactly one error rather than at least one."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "0.5578 = P(X=0)+P(X=1) = 0.2231+0.3347 = 0.5578; the student summed P(0) and P(1) instead of computing 1 - P(0)."
+    }
+  ],
+  "explanation": "P(at least 1) = 1 - P(X=0) = 1 - e^(-lambda) = 1 - e^(-1.5) = 1 - 0.2231 = 0.7769. Use the complement rule for at-least-one problems.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "At-least-one equals the complement of zero; one subtraction replaces summing infinitely many terms.",
+    "approach": "Model: Poisson(lambda=1.5). Identify: at least 1 means complement of X=0. P(X=0)=e^(-1.5)=0.2231. P(X>=1)=1-0.2231=0.7769.",
+    "lesson": "For Poisson at-least-one questions, always use the complement: P(X>=1) = 1 - e^(-lambda).",
+    "timing": "45 seconds. One subtraction; use the given hint. Trap: choosing e^(-1.5) directly or computing P(X=1) only."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

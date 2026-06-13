@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000881",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2_fix",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000881.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.deflating"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A worker's nominal wages were Rs 18000 per month in the current year. The consumer price index for the current year relative to the base year is 150. What is the worker's real wage in base-year Rs?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 12000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 27000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 18150"
+    },
+    {
+      "key": 4,
+      "text": "Rs 15000"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Real wage = Nominal wage / (CPI/100) = 18000 / (150/100) = 18000 / 1.5 = Rs 12000."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Multiplied nominal wage by the index factor instead of dividing: 18000 * (150/100) = 18000 * 1.5 = Rs 27000. This inflates instead of deflating."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Added the CPI change to the nominal wage instead of deflating: 18000 + (50/100)*18000 would give 27000, or alternatively 18000 + 150 = 18150, treating the index level as an additive rupee adjustment."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "percentage_base_confusion",
+      "rationale": "Deducted the percentage increase (50%) from the nominal wage using the wrong base: 18000 - 18000*(50/150) = 18000 - 6000 = 12000 gives the right answer by coincidence; but using 18000 - 18000*(50/100) = 18000-9000 = 9000 would also arise; a different slip of computing 18000*(100/120) = 15000 by misreading the index as 120."
+    }
+  ],
+  "explanation": "Deflating converts a nominal figure to a real (constant-price) figure. Real wage = Nominal wage * (100/CPI) = 18000 * (100/150) = 18000 / 1.5 = Rs 12000.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "To deflate, divide the nominal value by the price index expressed as a ratio (CPI/100), not multiply.",
+    "approach": "Name the formula: Real value = Nominal value / (Index/100) = Nominal * (100/Index). Map givens: Nominal=18000, CPI=150. Compute: 18000 * (100/150) = 18000 / 1.5 = 12000.",
+    "lesson": "Deflating always reduces (in real terms) when prices have risen (index > 100). If your answer is larger than the nominal figure, you have multiplied instead of divided - a sure sign of an inverted ratio.",
+    "timing": "About 45 seconds. One division: 18000 / 1.5 = 12000. The trap is multiplying by 1.5 to get 27000."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

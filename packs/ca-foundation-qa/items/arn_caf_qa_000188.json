@@ -18,7 +18,7 @@
   "tests": [
     "qa.lr.seating"
   ],
-  "difficulty_label": "L3",
+  "difficulty_label": "L2",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 120,
@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "Clue 1: P=1. Clue 2: Q=P+1=2. Clue 3: R=4. Clue 5: T=R+1=5. Fixed seats: P=1, Q=2, R=4, T=5. Remaining people S and U fill seats 3 and 6. Clue 4: S not at seat 6. So S=3 and U=6. Seat 6 is U.",
+  "explanation_kind": "deductive_trace",
   "explanation_sections": {
-    "punchline": "Four clues fix P, Q, R, and T to seats 1, 2, 4, and 5. Only S and U remain for seats 3 and 6. Clue 4 bans S from seat 6, so U is at seat 6.",
-    "approach": "For six-person row-seating problems, apply fixed-position clues first to lock down as many seats as possible. Then apply adjacency clues to place blocks. List who remains and which seats are open. Use any negative clue (person not at seat X) to resolve the last ambiguity.",
-    "lesson": "After filling fixed and adjacent seats, the remaining people may have only two open seats. A single negative clue then decides which person goes where. Do not overlook negative clues: they are often the final step.",
-    "timing": "About 120 seconds. Four direct clues resolve in under 40 seconds. Identifying the two remaining people and two open seats takes 10 seconds. Applying the negative clue takes 5 seconds. Use remaining time to verify the full arrangement."
+    "punchline": "Lock the certain clues first: P=1, Q=2, R=4, T=5. That leaves only S and U for seats 3 and 6, and Clue 4 bans S from seat 6, so U sits at seat 6.",
+    "approach": "Work clues in order of certainty, not the order given. Place fixed-seat clues first (P at 1, R at 4), then adjacency clues (Q right of P, T right of R). Write the row out and list who and which seats are left. A negative clue (S not at 6) almost always settles the final pair. Then check every clue against your row before answering.",
+    "lesson": "In seating puzzles, certainty comes before sequence: pin the forced seats, and the leftover people often have just two open seats that one negative clue decides. Each wrong answer here comes from skipping or misreading one clue, so account for all five.",
+    "timing": "About 120 seconds. The four positive clues resolve in 40 seconds; spotting the two leftover seats takes 10; the negative clue takes 5. Spend the rest verifying. Fast elimination: Clue 4 bans S from seat 6, so cross S off before computing anything."
   },
   "empirical": {
     "calibration_status": "none",

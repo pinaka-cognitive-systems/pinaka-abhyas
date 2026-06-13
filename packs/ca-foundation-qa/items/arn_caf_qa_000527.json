@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000527",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000527.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.domain_range"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The domain of the function f(x) = 1 / sqrt(x^2 - 5x + 6) is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "x <= 2 or x >= 3"
+    },
+    {
+      "key": 2,
+      "text": "2 <= x <= 3"
+    },
+    {
+      "key": 3,
+      "text": "x < 2 or x > 3"
+    },
+    {
+      "key": 4,
+      "text": "2 < x < 3"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "Correctly identifying x = 2 and x = 3 as critical points but including them in the domain, forgetting that the denominator must be strictly positive (cannot be zero) since dividing by zero is undefined."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "Taking the region where x^2 - 5x + 6 <= 0, which is the region where the expression inside sqrt is non-positive, thinking that is the domain instead of excluding it."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "x^2 - 5x + 6 = (x-2)(x-3). For the function to be defined, we need (x-2)(x-3) > 0 (strictly, because it is in the denominator under a square root). This holds when both factors are positive (x > 3) or both negative (x < 2). So domain is x < 2 or x > 3."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "set_operation_confused",
+      "rationale": "Finding where (x-2)(x-3) < 0 which is 2 < x < 3 and reporting that as the domain. That is actually the excluded region; the domain is the complement."
+    }
+  ],
+  "explanation": "Both a denominator and a square root impose constraints: the argument of sqrt must be > 0 (strictly, since it is also in the denominator) giving x < 2 or x > 3.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "When sqrt is in the denominator, the argument must be strictly positive: the roots of the quadratic and the inner interval are excluded.",
+    "approach": "State the property then contrast the confusable one. Two constraints: (1) argument of sqrt must be >= 0 for sqrt to be real; (2) denominator must not be zero. Combined: x^2 - 5x + 6 > 0 strictly. Factor: (x-2)(x-3) > 0. Product is positive when both factors same sign: x < 2 (both negative) or x > 3 (both positive). The confusable trap is computing (x-2)(x-3) < 0 (which gives 2 < x < 3, the interval between the roots) and reporting that as the answer.",
+    "lesson": "f = 1/sqrt(Q) requires Q > 0 strictly; factor the quadratic, test sign in each region, take the positive regions.",
+    "timing": "About 80 seconds. Factor the quadratic (20 sec), sign chart for three regions (30 sec), merge conditions (20 sec). Main trap: reporting the negative-interval region instead of the positive-region complement."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

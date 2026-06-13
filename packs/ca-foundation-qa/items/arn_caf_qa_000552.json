@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000552",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000552.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.number_series"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 130,
+  "stem": "Observe the series: 3, 10, 29, 66, 127, ?. The third difference of consecutive terms is constant. Find the 6th term.",
+  "options": [
+    {
+      "key": 1,
+      "text": "210"
+    },
+    {
+      "key": 2,
+      "text": "214"
+    },
+    {
+      "key": 3,
+      "text": "216"
+    },
+    {
+      "key": 4,
+      "text": "218"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Uses T(n) = n^3 - n + 3 giving 6^3 - 6 + 3 = 213; or approximates and rounds down to 210 by misreading the constant offset."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Correctly identifies T(n) = n^3 + 2 but computes 6^3 as 212 through a multiplication slip (6^3 = 6x6x6 = 216, not 212), giving 214."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Computes n^3 for n=6 as 216 but forgets to add the constant +2 offset extracted from the residuals, giving only 216."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "Third differences are constant at 6, confirming a cubic T(n) = n^3 + c. Subtracting n^3 from each term gives residual 2 for all n. So T(n) = n^3 + 2 and T(6) = 216 + 2 = 218."
+    }
+  ],
+  "explanation": "Compute first differences: 7, 19, 37, 61. Second differences: 12, 18, 24. Third differences: 6, 6 - constant, confirming a pure cubic. Subtracting n^3 from each term: 3-1=2, 10-8=2, 29-27=2, 66-64=2, 127-125=2. The residual is always 2, so T(n) = n^3 + 2. For n=6: 6^3 + 2 = 216 + 2 = 218.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Constant third differences identify a cubic; stripping n^3 exposes a constant residual of 2, giving T(n) = n^3 + 2 and T(6) = 218.",
+    "approach": "Apply clues most-certain-first: (1) differences: 7, 19, 37, 61; (2) second differences: 12, 18, 24; (3) third differences: 6, 6 - constant at 6, so leading coefficient a = 6/6 = 1; (4) subtract n^3 from each term: all residuals = 2; (5) T(n) = n^3 + 2; (6) T(6) = 216 + 2 = 218.",
+    "lesson": "Constant k-th differences signal a degree-k polynomial. Strip the leading n^k term and inspect the residuals to recover the lower-degree part.",
+    "timing": "90-120 seconds. Three-level difference table is the unavoidable work. The traps are forgetting the +2 offset (giving 216) or a slip in computing 6^3."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

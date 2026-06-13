@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000476",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000476.py"
+  },
+  "tests": [
+    "qa.bmath.sequence_series.ap"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The sum of the first 20 terms of an arithmetic progression is 610. If the first term is 2, what is the common difference?",
+  "options": [
+    {
+      "key": 1,
+      "text": "2"
+    },
+    {
+      "key": 2,
+      "text": "3"
+    },
+    {
+      "key": 3,
+      "text": "4"
+    },
+    {
+      "key": 4,
+      "text": "5"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Uses S_n = n/2*(2a + n*d) instead of (n-1)*d, so 10*(4+20d)=610, d = (61-4)/20 = 2.85 rounded to 2 by this error path."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "S_20 = 20/2*(2*2 + 19*d) = 10*(4+19d) = 610. So 4+19d=61, 19d=57, d=3."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Uses the erroneous form S_n = n*a + n*d, giving 20*2 + 20*d = 610, 20d=570, d=28.5 - or a closely related mis-setup yields d=4 when only half the n*(n-1) factor is applied."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Sets up 10*(4+19d)=610 correctly but makes an arithmetic slip solving: 19d=61 instead of 19d=57, giving d=61/19 approximated as 5 or solved as 5 by slipping 4 away."
+    }
+  ],
+  "explanation": "S_n = n/2*(2a + (n-1)*d). With a=2, n=20, S_20=610: 10*(4+19d)=610, 4+19d=61, 19d=57, d=3.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The setup decision is recognising S_n = n/2*(2a+(n-1)*d) and isolating d algebraically.",
+    "approach": "Formula: S_n = n/2*(2a+(n-1)*d). Substitute a=2, n=20, S_20=610: 10*(4+19d)=610. Divide by 10: 4+19d=61. So 19d=57, d=3.",
+    "lesson": "There are only n-1 common differences in the partial sum formula - confusing n with n-1 shifts d by a full step.",
+    "timing": "45-60 seconds. One linear equation after formula substitution. Trap: off-by-one on the (n-1) factor."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

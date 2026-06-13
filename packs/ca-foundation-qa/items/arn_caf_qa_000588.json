@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000588",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000588.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.odd_man_out"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 130,
+  "stem": "Three of the following four numbers satisfy BOTH of these two properties simultaneously: (i) the number is a product of exactly two distinct prime numbers, and (ii) the number can be written as the sum of two positive perfect squares. Which number fails to satisfy both properties together? 10, 26, 15, 34",
+  "options": [
+    {
+      "key": 1,
+      "text": "10"
+    },
+    {
+      "key": 2,
+      "text": "26"
+    },
+    {
+      "key": 3,
+      "text": "15"
+    },
+    {
+      "key": 4,
+      "text": "34"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "10 = 2 x 5 (product of two distinct primes) AND 10 = 1^2 + 3^2 (sum of two positive squares). Both properties hold. A student may overlook that 10=1+9 is a sum of two perfect squares."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "26 = 2 x 13 (product of two distinct primes) AND 26 = 1^2 + 5^2 (sum of two positive squares). Both properties hold. A student might incorrectly check only 4+22 (not square) and conclude 26 fails, missing the 1+25 decomposition."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "15 = 3 x 5, so property (i) holds. For property (ii): 15 = 1+14 (14 not a square), 4+11 (not), 9+6 (not) - no decomposition into two positive perfect squares exists. 15 satisfies only property (i), not both."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "34 = 2 x 17 (product of two distinct primes) AND 34 = 3^2 + 5^2 = 9 + 25 (sum of two positive squares). Both properties hold. A student who only tests 1+33 and 4+30 without trying 9+25 may incorrectly flag 34."
+    }
+  ],
+  "explanation": "Test both conditions for each number. 10: 2x5 and 1^2+3^2=10. 26: 2x13 and 1^2+5^2=26. 34: 2x17 and 3^2+5^2=34. All three satisfy both conditions. 15: 3x5 (property i holds), but exhaustive check - 1+14(no), 4+11(no), 9+6(no) - shows no representation as sum of two positive squares, so 15 fails property (ii). The hidden trap: all four are products of two distinct primes, so property (i) alone cannot identify the odd one out. The eliminating condition is the sum-of-two-squares test.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "All four numbers satisfy property (i); the discriminating test is property (ii) - sum of two positive perfect squares - which 15 fails.",
+    "approach": "Deductive trace: Step 1 - verify property (i) for all four (all pass). Step 2 - apply property (ii) systematically to each: for n, test all a from 1 to floor(sqrt(n)) and check if n-a^2 is a perfect square. 10: a=1, n-1=9=3^2 (yes). 26: a=1, n-1=25=5^2 (yes). 34: a=3, n-9=25=5^2 (yes). 15: a=1,n-1=14(no); a=2,n-4=11(no); a=3,n-9=6(no) - exhausted, no solution.",
+    "lesson": "When a set of numbers all share one visible property, the odd-one-out condition must be a second, less obvious property. Exhaust all decompositions before concluding a number fails.",
+    "timing": "110-130 seconds. The major trap is stopping at property (i) where all four pass, and then guessing. The second trap for 34 is checking only 1+33 and 4+30 and missing 9+25."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

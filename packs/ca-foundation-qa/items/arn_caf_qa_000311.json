@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000311",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000311.py"
+  },
+  "tests": [
+    "qa.bmath.ratio_indices_log.ratio"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "Two partners Arjun and Bhanu share profits in the ratio 3 : 5. The total profit for the year is Rs 72,000. What is Bhanu's share of the profit?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 27,000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 45,000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 36,000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 40,000"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "ratio_inverted",
+      "rationale": "This is Arjun's share (3/8 * 72000 = 27000). The student swapped the two partners and computed the smaller share instead of Bhanu's."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Bhanu's fraction is 5/(3+5) = 5/8. So Bhanu's share = (5/8) * 72000 = 45000."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "72000/2 = 36000 is an equal split. The student ignored the 3:5 ratio and divided equally."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "40000 arises if the student treats the ratio as 5:4 instead of 5:3, misreading the problem and computing 5/9 * 72000 = 40000."
+    }
+  ],
+  "explanation": "Bhanu holds 5 parts out of a total of 3 + 5 = 8 parts. Bhanu's share = (5/8) x 72000 = Rs 45,000.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The key move is converting the ratio 3:5 into the fraction 5/8 for Bhanu before multiplying.",
+    "approach": "Ratio-to-fraction split: sum the ratio parts (3 + 5 = 8), form the fraction for the required partner (5/8), then multiply by the total amount. Map: total = 72000, Bhanu's portion = 5/8.",
+    "lesson": "Always divide by the sum of ratio parts, not by one part alone.",
+    "timing": "30 seconds. Trap: picking Arjun's share by inverting the ratio."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

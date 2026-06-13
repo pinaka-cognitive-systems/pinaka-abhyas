@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000309",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen_finance_v1",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000309.py"
+  },
+  "tests": [
+    "qa.bmath.finance.compound_interest"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "For a certain principal invested at 10% per annum, the compound interest for 3 years exceeds the simple interest for the same period by Rs 310. Find the principal. [Given: (1.10)^3 = 1.331]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 31,000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 10,333"
+    },
+    {
+      "key": 3,
+      "text": "Rs 10,000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 9,688"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Rs 31,000 comes from applying the n=2 formula CI - SI = P*r^2 (dropping the (3 + r) term that applies for n = 3), giving P = 310 / 0.01 = 31000. The n=2 shortcut is not valid for a 3-year period.",
+      "option_key": 1
+    },
+    {
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Rs 10,333 arises from using CI - SI = P * r^2 * n (replacing (3 + r) with plain n = 3), giving P = 310 / 0.03 = 10333. The coefficient for n=3 is (3 + r) = 3.1, not just 3.",
+      "option_key": 2
+    },
+    {
+      "verdict": "correct",
+      "option_key": 3,
+      "rationale": "The shortcut CI - SI = P*r^2*(3 + r) for n = 3 turns what looks like a two-unknown problem into a one-step division once you recognise the pattern."
+    },
+    {
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Rs 9,688 results from using (3 + r) = 3.2 instead of 3.1, an off-by-one type error where r is taken as 0.2 (20%) instead of 0.1 (10%), giving P = 310 / 0.032 = 9687.5.",
+      "option_key": 4
+    }
+  ],
+  "explanation": "CI - SI = P*r^2*(3 + r) for n = 3. So 310 = P * (0.10)^2 * (3 + 0.10) = P * 0.01 * 3.1 = P * 0.031. Therefore P = 310 / 0.031 = Rs 10,000. Verify: SI = 10000*0.10*3 = 3000; CI = 10000*(1.331-1) = 3310; diff = 310. Confirmed.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The shortcut CI - SI = P*r^2*(3 + r) for n = 3 turns what looks like a two-unknown problem into a one-step division once you recognise the pattern.",
+    "approach": "Derive the difference: CI = P*(1+r)^3 - P = P*(3r + 3r^2 + r^3); SI = 3Pr. Difference = P*(3r^2 + r^3) = P*r^2*(3 + r). Substituting: 310 = P*(0.1)^2*(3.1) = 0.031P, so P = 10000. Verify with hint: CI = 10000*(1.331 - 1) = 3310, SI = 3000, diff = 310.",
+    "lesson": "For n=2: CI-SI = P*r^2. For n=3: CI-SI = P*r^2*(3+r). Memorise these shortcuts; they turn back-calculation problems into single-step algebra.",
+    "timing": "120-130 seconds: recall/derive the n=3 shortcut, substitute, divide. Verify with the given hint. Trap is option 1 (n=2 formula applied to a 3-year problem)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

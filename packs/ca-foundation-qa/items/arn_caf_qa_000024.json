@@ -69,12 +69,13 @@
       "misconception": "formula_misapplied"
     }
   ],
-  "explanation": "The two regression coefficients satisfy b_XY x b_YX = r^2. With b_XY = 0.9 and r = 0.6, we get b_YX = r^2 / b_XY = 0.36 / 0.9 = 0.4. Note that b_YX lies between 0 and 1 here, consistent with r = 0.6.",
+  "explanation": "The identity b_XY x b_YX = r^2 links the two regression coefficients. With b_XY = 0.9 and r = 0.6, b_YX = r^2 / b_XY = 0.36 / 0.9 = 0.4. Both coefficients must carry the same sign as r and neither can be larger in magnitude than 1.",
+  "explanation_kind": "formula_selection",
   "explanation_sections": {
-    "punchline": "The product of the two regression coefficients equals r squared. b_YX = r^2 / b_XY = 0.36 / 0.9 = 0.4.",
-    "approach": "Write the key identity first: b_XY x b_YX = r^2. You are given b_XY and r, so isolate b_YX by dividing r^2 by b_XY. Compute r^2 before dividing. As a quick check, both regression coefficients should have the same sign as r, and neither can exceed 1/r in magnitude.",
-    "lesson": "The product of the two regression coefficients always equals r^2. Knowing any two of the three values lets you find the third.",
-    "timing": "About 75 seconds. Write the identity and solve in 30 seconds. Sanity check: if b_YX came out greater than 1 here, something is wrong since r = 0.6."
+    "punchline": "The one formula to recall: b_XY x b_YX = r^2. Divide both sides by b_XY to get b_YX = 0.36/0.9 = 0.4.",
+    "approach": "Name the identity: the product of the two regression coefficients equals r^2. Given any two of the three quantities (r, b_XY, b_YX), you can find the third by rearranging. Here r and b_XY are given, so compute r^2 = 0.36 first, then divide by b_XY = 0.9. Sanity check: both coefficients must share the sign of r, and if one coefficient exceeds 1 while r < 1, something is wrong.",
+    "lesson": "b_XY x b_YX = r^2 is the linking identity. It does not say b_YX = r x b_XY (that gives 0.54) and does not say b_YX = r^2 directly (that gives 0.36). Two steps: square r, then divide by the known coefficient.",
+    "timing": "About 45 seconds. Write the identity and the rearranged form in 10 seconds. r^2 = 0.36 in five seconds. Division 0.36/0.9 in five seconds. Distractor 0.36 is r^2 itself, the trap for forgetting to divide."
   },
   "empirical": {
     "calibration_status": "none",

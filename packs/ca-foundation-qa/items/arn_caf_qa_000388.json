@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000388",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000388.py"
+  },
+  "tests": [
+    "qa.bmath.finance.annuity"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A borrower receives a loan repaid through four equal annual instalments of Rs 3,000 at the end of each year. The lender charges 8% per annum compound interest. What is the present value of these instalments (i.e., the original loan amount)?  [Given: (1.08)^4 = 1.3605, so (1.08)^(-4) = 0.7350]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 9,937.50"
+    },
+    {
+      "key": 2,
+      "text": "Rs 12,000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 10,732.50"
+    },
+    {
+      "key": 4,
+      "text": "Rs 13,518.75"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "PV = 3000 x [1 - (1.08)^(-4)] / 0.08 = 3000 x (1 - 0.7350) / 0.08 = 3000 x 0.2650 / 0.08 = 3000 x 3.3125 = Rs 9,937.50."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Adding four payments of Rs 3,000 without discounting gives Rs 12,000, ignoring the time value of money."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Multiplying the ordinary-annuity PV by (1.08) as if the payments started at the beginning of the period gives Rs 9,937.50 x 1.08 = Rs 10,732.50, the annuity-due formula applied incorrectly here."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Using the FV formula instead of PV gives 3000 x (1.3605 - 1)/0.08 = 3000 x 4.5063 = Rs 13,518.75, which is the future value, not the present value."
+    }
+  ],
+  "explanation": "The present value of an ordinary annuity is PV = A x [1 - (1+i)^(-n)] / i. With A = Rs 3,000, i = 0.08, n = 4 and (1.08)^(-4) = 0.7350: PV = 3000 x (1-0.7350)/0.08 = 3000 x 3.3125 = Rs 9,937.50.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The loan amount equals the present value of all future repayments discounted at the lending rate - use PV = A x [1-(1+i)^(-n)]/i.",
+    "approach": "Formula: PV = A x [1-(1+i)^(-n)]/i. Map givens: A = Rs 3,000, i = 0.08, n = 4. Read off given: (1.08)^(-4) = 0.7350. Compute discount factor: [1-0.7350]/0.08 = 0.265/0.08 = 3.3125. PV = 3000 x 3.3125 = Rs 9,937.50.",
+    "lesson": "PV uses the discount factor [1-(1+i)^(-n)] whereas FV uses [(1+i)^n - 1]; choosing the wrong one gives the right formula applied to the wrong direction.",
+    "timing": "80 seconds. Identify PV formula, plug in the given inverse power, compute. Trap: option 4 uses FV formula."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

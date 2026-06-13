@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000770",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000770.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.coefficient_of_variation"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "Series A has mean 50 and CV 20%. Series B has mean 80 and CV 15%. Which series is more consistent?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Series A, because its CV is higher"
+    },
+    {
+      "key": 2,
+      "text": "Series B, because its CV is lower"
+    },
+    {
+      "key": 3,
+      "text": "Series A, because its mean is lower"
+    },
+    {
+      "key": 4,
+      "text": "Series B, because its standard deviation is lower"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Confuses the direction: higher CV means MORE variability, hence LESS consistency, not more."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Lower CV indicates less relative variability. Series B (CV = 15%) is more consistent than Series A (CV = 20%)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Uses the mean instead of CV to judge consistency; the mean indicates the level, not the spread relative to the mean."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "SD of B = 0.15 x 80 = 12; SD of A = 0.20 x 50 = 10. Series A actually has a lower absolute SD, so this claim is factually wrong and uses an inappropriate measure for comparing series with different means."
+    }
+  ],
+  "explanation": "Consistency is measured by the coefficient of variation (CV). A lower CV means smaller relative spread. Series B has CV = 15% versus Series A at CV = 20%, so Series B is more consistent. Comparing absolute SDs is incorrect when means differ.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Lower CV means more consistency - CV, not SD, is the correct comparator when means differ.",
+    "approach": "Identify the measure for comparing consistency across series with different means: use CV. Compare directly: CV_A = 20%, CV_B = 15%. Lower CV wins for consistency, so Series B.",
+    "lesson": "For comparing variability across groups with different means or units, always use CV, not absolute SD.",
+    "timing": "About 30 seconds. Recall the rule: lower CV = more consistent. The trap is option 4 which computes actual SDs (A=10, B=12) and picks A - but absolute SD comparison is wrong here."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

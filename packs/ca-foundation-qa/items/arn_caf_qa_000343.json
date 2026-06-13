@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000343",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000343.py"
+  },
+  "tests": [
+    "qa.bmath.equations.simultaneous_linear"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A father's present age is four times his son's age. Five years later, the father's age will be three times his son's age. What is the father's present age?",
+  "options": [
+    {
+      "key": 1,
+      "text": "36 years"
+    },
+    {
+      "key": 2,
+      "text": "40 years"
+    },
+    {
+      "key": 3,
+      "text": "44 years"
+    },
+    {
+      "key": 4,
+      "text": "32 years"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student correctly sets F = 4S and F+5 = 3(S+5), gets S = 10 but then computes F = 4*9 = 36 by a slip on the multiplication."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Let son's age = S, father's age = F = 4S. Five years later: 4S + 5 = 3(S + 5) = 3S + 15. So S = 10. Father's present age = 4 * 10 = 40."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "Student writes F + 5 = 3S + 5 (drops the factor 3 on 5), getting 4S + 5 = 3S + 5, then S = 0, leading to a wrong track and a guess of 44."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student solves for son's age correctly (S = 10) but then adds 5 + 10 + 10 + 7 miscalculation, or uses F = 3*S + 2 from a misread giving 32."
+    }
+  ],
+  "explanation": "Let son = S. Father = 4S. Five years later: 4S + 5 = 3(S + 5), so 4S + 5 = 3S + 15, giving S = 10. Father's present age = 40 years.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Age problems: set up present-age relations first, then form future-age equation and solve.",
+    "approach": "Define son as S, write father as 4S (present relation). Write future equation: F + 5 = 3*(S + 5). Substitute F = 4S: 4S + 5 = 3S + 15. Simplify to S = 10, so father = 40.",
+    "lesson": "In future-age problems both ages increase by the same amount (5 in this case); do not forget to add the 5 to both the son and father on the right side.",
+    "timing": "About 75 seconds. Trap: equating F + 5 = 3S instead of 3(S+5), omitting the +5 on the right."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

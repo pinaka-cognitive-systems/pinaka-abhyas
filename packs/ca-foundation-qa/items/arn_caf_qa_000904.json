@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000904",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000904.py"
+  },
+  "tests": [
+    "qa.bmath.equations.simultaneous_linear"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 170,
+  "stem": "A cashier has only Rs 10, Rs 20 and Rs 50 notes, 20 notes in all, worth Rs 500 together. The Rs 20 notes are twice as many as the Rs 10 notes. How many Rs 50 notes are there?",
+  "options": [
+    {
+      "key": 1,
+      "text": "5"
+    },
+    {
+      "key": 2,
+      "text": "10"
+    },
+    {
+      "key": 3,
+      "text": "8"
+    },
+    {
+      "key": 4,
+      "text": "15"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Let a, b, c be the counts of Rs 10, Rs 20, Rs 50 notes. Then a + b + c = 20, 10a + 20b + 50c = 500 (so a + 2b + 5c = 50), and b = 2a. Substituting b = 2a: 3a + c = 20 and 5a + 5c = 50 (so a + c = 10). Subtracting gives 2a = 10, a = 5, c = 5, b = 10. The Rs 50 count is 5."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Solves the system but reports the Rs 20 count b = 10 instead of the Rs 50 count c = 5, answering the wrong variable.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Drops the relation b = 2a and tries to split 20 notes worth Rs 500 with two equations, picking a plausible but inconsistent value such as c = 8 that satisfies neither equation set fully.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Uses b = 2a but mislabels, treating a (Rs 10) as the Rs 50 count, or solves 3a + c = 20 with a = 5 and reports c as 20 - 5 = 15, forgetting the second equation that fixes a + c = 10.",
+      "misconception": "misread_quantity"
+    }
+  ],
+  "explanation": "Set a = Rs 10 count, b = Rs 20 count, c = Rs 50 count. The three relations are a + b + c = 20, 10a + 20b + 50c = 500, and the easily missed third clue b = 2a. Substitute b = 2a into both: a + 2a + c = 20 gives 3a + c = 20; and a + 2(2a) + 5c = 50 gives 5a + 5c = 50, that is a + c = 10. Subtract a + c = 10 from 3a + c = 20 to get 2a = 10, so a = 5, then c = 5 and b = 10. The number of Rs 50 notes is c = 5.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Two equations in three unknowns is underdetermined; the sentence the eye skips, Rs 20 notes are twice the Rs 10 notes, is the third equation that locks the system.",
+    "approach": "Name one variable per denomination, write the count equation and the value equation, then hunt the prose for the implicit relational clue. Substitute that relation to collapse three unknowns to one before reading off the asked variable.",
+    "lesson": "A three-variable word problem needs three independent relations; a relational sentence (twice as many, equal to, three more than) is a full equation, not flavour text.",
+    "timing": "About 170 seconds. The fastest elimination is to reject 10: that is the Rs 20 count b, the wrong-variable trap, not the Rs 50 count asked."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

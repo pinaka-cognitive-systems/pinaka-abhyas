@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000844",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000844.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.correlation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "For a bivariate sample of n = 8 pairs, the following summary statistics are available: sum(X) = 40, sum(Y) = 56, sum(X^2) = 220, sum(Y^2) = 420, sum(XY) = 302. What is the Karl Pearson coefficient of correlation, rounded to two decimal places?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.93"
+    },
+    {
+      "key": 2,
+      "text": "0.75"
+    },
+    {
+      "key": 3,
+      "text": "0.86"
+    },
+    {
+      "key": 4,
+      "text": "0.80"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Numerator = 8*302 - 40*56 = 2416 - 2240 = 176. Bracket1 = 8*220 - 40^2 = 1760 - 1600 = 160. Bracket2 = 8*420 - 56^2 = 3360 - 3136 = 224. r = 176/sqrt(160*224) = 176/sqrt(35840) = 176/189.31 = 0.9297, which rounds to 0.93."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "A slip in the numerator: computing 8*302-40*56 as 8*292 = 2336 instead of 2416 gives a much smaller numerator and r near 0.75."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "A slip in Bracket2: computing 8*420 - 56^2 as 3360 - 3025 = 335 (using 55^2) instead of 3136 changes the denominator and gives r close to 0.86."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Using n-1 in each bracket instead of the direct formula: (n-1)*sx2 = 7*sx2_bar and similarly for Y, then dividing by n changes the effective denominator and yields approximately 0.80."
+    }
+  ],
+  "explanation": "Apply r = (n*sum(XY) - sum(X)*sum(Y)) / sqrt((n*sum(X^2)-(sum(X))^2) * (n*sum(Y^2)-(sum(Y))^2)). Numerator = 8*302 - 40*56 = 2416 - 2240 = 176. Bracket1 = 8*220 - 1600 = 160. Bracket2 = 8*420 - 3136 = 224. Denominator = sqrt(35840) = 189.31. r = 176/189.31 = 0.93.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The decisive move is computing each bracket (n*sum(x^2) minus (sum(x))^2) separately before multiplying - combining them invites slip errors.",
+    "approach": "Name the formula: Karl Pearson direct-sum form. Map givens: n=8, sum(XY)=302, sum(X)=40, sum(Y)=56, sum(X^2)=220, sum(Y^2)=420. Compute numerator=176, Bracket1=160, Bracket2=224. Then denominator = sqrt(160*224) = sqrt(35840) = 189.3. r = 176/189.3 = 0.93.",
+    "lesson": "When computing (sum(X))^2 vs n*sum(X^2), note that (sum X)^2 is the square of the total, not n times the sum of squares of deviations.",
+    "timing": "About 90 seconds. Two multiplications and two squares for brackets. Check: 40^2=1600 and 56^2=3136 - both are easy but often confused with 40^2=160 (forgetting the second digit)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

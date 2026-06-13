@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000568",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000568.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.coding_decoding"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "In a code, each letter is replaced by the letter that occupies the mirror-image position in the alphabet. That is, A (1st from the start) is coded as Z (1st from the end), B (2nd from start) is coded as Y (2nd from end), and so on (positions always sum to 27). Using this rule, what is the code for STAMP?",
+  "options": [
+    {
+      "key": 1,
+      "text": "HGZNK"
+    },
+    {
+      "key": 2,
+      "text": "HGANK"
+    },
+    {
+      "key": 3,
+      "text": "ABIUX"
+    },
+    {
+      "key": 4,
+      "text": "GFYMJ"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Mirror rule (positions sum to 27): S(19)->H(8), T(20)->G(7), A(1)->Z(26), M(13)->N(14), P(16)->K(11), giving HGZNK."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "Mistakenly coding A as A (forgetting that A mirrors to Z since 1+26=27) gives HGANK with A in the third position unchanged."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Misidentifying the pattern as a fixed +8 shift (since S+8 wraps to A) and applying it uniformly gives ABIUX, not the mirror result."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Using mirror positions that sum to 26 instead of 27 (an off-by-one error throughout) gives S->G, T->F, A->Y, M->M(?), P->J, producing GFYMJ."
+    }
+  ],
+  "explanation": "The mirror rule: if a letter occupies position p from the start, its code occupies position p from the end, so original_pos + coded_pos = 27. Apply to STAMP: S(19)->H(8), T(20)->G(7), A(1)->Z(26), M(13)->N(14), P(16)->K(11) = HGZNK. Verify: 19+8=27, 20+7=27, 1+26=27, 13+14=27, 16+11=27.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The mirror rule pairs letters whose positions sum to 27, not 26 - this off-by-one is the decisive trap.",
+    "approach": "Deductive trace: state the rule precisely (pos1 + pos2 = 27), then compute each pair for STAMP. A quick check: does A map to Z (1+26=27) or Y (1+25=26)? The stem confirms Z, so 27 is the sum.",
+    "lesson": "For mirror-alphabet codes, always verify whether positions sum to 27 (A<->Z) or 26 (A<->Y) before solving.",
+    "timing": "About 75-85 seconds. Fastest elimination: option 3 has A as a mid-letter coded as I (a +8 shift) which contradicts the mirror framing entirely."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

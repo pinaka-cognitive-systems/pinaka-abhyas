@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000682",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000682.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.graphical"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "For a frequency distribution with 120 observations, the less-than ogive and the more-than ogive intersect at the point (47, 60). What is the median of the distribution?",
+  "options": [
+    {
+      "key": 1,
+      "text": "47"
+    },
+    {
+      "key": 2,
+      "text": "60"
+    },
+    {
+      "key": 3,
+      "text": "120"
+    },
+    {
+      "key": 4,
+      "text": "23.5"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "The x-coordinate of the intersection of the less-than and more-than ogives gives the median. The intersection at (47, 60) means the median is 47."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Using the y-coordinate (60) of the intersection point instead of the x-coordinate. The y-value at intersection equals N/2, not the median."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reading the total number of observations (120) as the median, confusing N with the median value."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Halving the y-coordinate (60/2 = 30) or the x-coordinate (47/2 = 23.5), confusing the computation of N/2 with the median itself."
+    }
+  ],
+  "explanation": "The less-than ogive rises from 0 to N, and the more-than ogive falls from N to 0. They intersect when CF = N/2 = 60. The x-coordinate at this intersection is the median. Given the intersection at (47, 60), the median is 47.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Median = x-coordinate of the intersection of the two ogives = 47.",
+    "approach": "Identify the model: reading the median from ogive intersection. The less-than ogive has cumulative frequency = N/2 at the median. The more-than ogive also has cumulative frequency = N/2 at the median. Their intersection is at (median, N/2). Intersection point is (47, 60) and N = 120, so N/2 = 60 confirms the y-value. Therefore median = 47.",
+    "lesson": "The x-coordinate of the intersection of the two ogives gives the median. The y-coordinate at the intersection always equals N/2.",
+    "timing": "15 seconds. The x-coordinate of the intersection is the median. Trap: option 2 (60) is the N/2 value, not the median."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

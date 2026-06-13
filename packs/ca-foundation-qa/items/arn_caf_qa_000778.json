@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000778",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000778.py"
+  },
+  "tests": [
+    "qa.stats.probability.classical"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "A four-digit number is formed by using the digits 1, 2, 3, 4 without repetition. One such number is picked at random. What is the probability that the number is divisible by 4?",
+  "options": [
+    {
+      "key": 1,
+      "text": "1/4"
+    },
+    {
+      "key": 2,
+      "text": "1/6"
+    },
+    {
+      "key": 3,
+      "text": "3/8"
+    },
+    {
+      "key": 4,
+      "text": "1/3"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Total 4-digit numbers = 4! = 24. Divisible by 4 means last two digits form a number divisible by 4. Pairs from {1,2,3,4} divisible by 4: 12, 24, 32. For each pair, 2 remaining digits arrange in 2! = 2 ways. Favourable = 3 x 2 = 6. P = 6/24 = 1/4."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Counts only 4 favourable numbers instead of 6 (misses one valid last-two-digit pair), giving 4/24 = 1/6."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Incorrectly checks divisibility by 4 only by looking at the last digit being even, identifying digits 2 and 4, and over-counting, arriving at 9/24 = 3/8."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Counts 8 favourable outcomes by treating any number ending in an even digit as divisible by 4, giving 8/24 = 1/3."
+    }
+  ],
+  "explanation": "Divisibility by 4 depends on the last two digits. List all two-digit endings from {1,2,3,4} (no repetition) divisible by 4: 12 (div by 4), 24 (div by 4), 32 (div by 4). That is 3 valid endings. For each, the remaining 2 digits fill the first 2 places in 2! = 2 ways. Favourable = 3 x 2 = 6. Total permutations = 4! = 24. P = 6/24 = 1/4.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Divisibility by 4 is determined by the last two digits; enumerate the 3 valid two-digit endings to get 6 favourable out of 24.",
+    "approach": "Identify model: classical probability with permutations. Setup decision: divisibility by 4 depends on the last two digits. Enumerate ordered pairs (ab) from {1,2,3,4} with no repetition where ab is divisible by 4: 12, 24, 32. For each, arrange the remaining 2 digits in 2! ways. Divide by 4! = 24 total permutations.",
+    "lesson": "Divisibility-by-4 requires checking the last TWO digits, not just the last digit. Enumerate valid endings systematically.",
+    "timing": "50 seconds. List ordered two-digit endings from the digit set divisible by 4 (12, 24, 32, 44 - but 44 has repetition so excluded). Multiply by 2, divide by 24."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000713",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000713.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.median"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A distribution has the following data. The median of the distribution is 46. Find the missing frequency x:\n\nClass:     20-30, 30-40, 40-50, 50-60, 60-70\nFrequency: 8,     12,    x,     20,    6\n\nTotal frequency is 70.",
+  "options": [
+    {
+      "key": 1,
+      "text": "24"
+    },
+    {
+      "key": 2,
+      "text": "20"
+    },
+    {
+      "key": 3,
+      "text": "28"
+    },
+    {
+      "key": 4,
+      "text": "16"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Total = 70, so x = 70 - 8 - 12 - 20 - 6 = 24. Verify: cf before 40-50 class = 20, n/2 = 35. Median = 40 + ((35-20)/24)*10 = 40 + 6.25 = 46.25 = ~46. Confirmed x=24."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "x = 20 gives total 66 not 70; a slip in the subtraction 70-46 = 24 read as 20."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "x = 28 gives total 74 not 70; the student added all known values and subtracted from 74 instead of 70."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "x = 16 gives total 62, not 70; a slip in summing the known frequencies as 54 instead of 46 leads to 70-54 = 16."
+    }
+  ],
+  "explanation": "Total frequency = 70. Known frequencies sum: 8 + 12 + 20 + 6 = 46. So x = 70 - 46 = 24. Verify with median = 46: n/2 = 35. Cumulative frequencies: 8, 20, 44, 64, 70. The median class is 40-50 (cf crosses 35 between 20 and 44). Median = 40 + ((35-20)/24)*10 = 40 + 6.25 = 46.25, which is approximately 46. Thus x = 24.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Back-calculate the missing frequency by combining the total constraint with the median interpolation equation.",
+    "approach": "Use total: x = 70 - (8+12+20+6) = 24. Then verify: n/2 = 35 falls in class 40-50, median = 40+((35-20)/x)*10; setting this to 46 also gives x = 24.",
+    "lesson": "Two independent constraints (total frequency and median formula) both determine x; use the simpler total constraint first.",
+    "timing": "80 s. Add known frequencies and subtract from total. Verify median formula as a sanity check."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

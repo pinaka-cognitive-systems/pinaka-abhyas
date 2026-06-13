@@ -19,6 +19,7 @@
     "qa.stats.central_tendency_dispersion.quartile_deviation"
   ],
   "difficulty_label": "L2",
+  "explanation_kind": "model_compute",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 90,
@@ -71,10 +72,10 @@
   ],
   "explanation": "1. Q1 is at position (n+1)/4 = (9+1)/4 = 2.5, so Q1 = average of 2nd and 3rd values = (7+9)/2 = 8.\n2. Q3 is at position 3(n+1)/4 = 7.5, so Q3 = average of 7th and 8th values = (21+25)/2 = 23.\n3. KEY STEP: Quartile deviation = (Q3 - Q1) / 2 = (23 - 8) / 2 = 15 / 2 = 7.5.\n4. Note: QD = (Q3-Q1)/2, not (Q3+Q1)/2 and not just (Q3-Q1).",
   "explanation_sections": {
-    "punchline": "Quartile deviation is (Q3 - Q1) divided by 2, not Q3 - Q1 alone. Here (23 - 8) / 2 = 7.5.",
-    "approach": "First locate Q1 at position (n+1)/4 and Q3 at position 3(n+1)/4. When a position falls between two ranks, average those two values. Then apply the formula: QD = (Q3 - Q1) / 2. The divide-by-2 step is mandatory.",
-    "lesson": "IQR and quartile deviation use the same Q1 and Q3, but IQR stops at subtraction. Quartile deviation divides that result by 2. Keep the two formulas separate.",
-    "timing": "About 90 seconds. Computing Q1 and Q3 each takes 20 seconds. The final division is five seconds. Eliminate option (2) in five seconds because 15 is the IQR, not QD."
+    "punchline": "QD = (Q3 - Q1) / 2, not Q3 - Q1. The divide-by-2 step is the only trap here; Q1 = 8, Q3 = 23, so QD = 15 / 2 = 7.5.",
+    "approach": "Identify the model: quartile deviation on ungrouped data. Find Q1 at position (n+1)/4 = 2.5, so average the 2nd and 3rd values: (7+9)/2 = 8. Find Q3 at position 3(n+1)/4 = 7.5, so average the 7th and 8th values: (21+25)/2 = 23. Apply QD = (Q3 - Q1) / 2 = 15 / 2 = 7.5. The half-IQR step is non-negotiable.",
+    "lesson": "QD is half the interquartile range. IQR stops at (Q3 - Q1). QD goes one step further and divides by 2. If you see a raw subtraction result among the options, it is the IQR distractor.",
+    "timing": "90 seconds. Q1 and Q3 each take 20 seconds; the division is 5 seconds. Kill option 2 immediately: 15 is exactly Q3 - Q1, the IQR-not-divided trap. Kill option 4: (Q3 + Q1)/2 = 15.5 is the coefficient-of-quartile-deviation formula error."
   },
   "empirical": {
     "calibration_status": "none",

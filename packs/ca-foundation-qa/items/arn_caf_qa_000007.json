@@ -69,12 +69,13 @@
       "misconception": "formula_misapplied"
     }
   ],
-  "explanation": "Use the addition rule: P(A or B) = P(A) + P(B) - P(A and B). There are 13 hearts, 4 kings, and 1 card (king of hearts) that is both; (13 + 4 - 1)/52 = 16/52 = 4/13.",
+  "explanation": "Use the addition rule: P(A or B) = P(A) + P(B) - P(A and B). There are 13 hearts, 4 kings, and exactly 1 card that is both (the king of hearts). Favorable outcomes = 13 + 4 - 1 = 16. P = 16/52 = 4/13.",
+  "explanation_kind": "model_compute",
   "explanation_sections": {
-    "punchline": "Hearts and kings overlap at the king of hearts. Apply the addition rule: (13 + 4 - 1)/52 = 16/52 = 4/13.",
-    "approach": "When a question asks for P(A or B), write the addition rule formula first: P(A) + P(B) - P(A and B). Count each component from the deck: 13 hearts, 4 kings, 1 card is both. Subtract the overlap before dividing by 52.",
-    "lesson": "The addition rule always subtracts the intersection. Skipping that step counts the king of hearts twice and overstates the probability.",
-    "timing": "About 75 seconds. Count hearts (13), kings (4), overlap (1): total 16. Divide by 52, simplify to 4/13. Option (4) at 17/52 is the no-subtraction trap; eliminate it in five seconds if you remembered the overlap."
+    "punchline": "Hearts and kings share exactly one card. The addition rule subtracts that overlap once: (13 + 4 - 1)/52 = 16/52 = 4/13.",
+    "approach": "Identify whether A and B can occur together before writing any formula. Hearts and kings can: the king of hearts is in both groups. So use the general addition rule: P(A or B) = P(A) + P(B) - P(A and B). Count each set from the deck (13 hearts, 4 kings, 1 card is both), subtract once for the overlap, then divide by 52. If the two sets were mutually exclusive, you would skip the subtraction. Confirming overlap is the first decision.",
+    "lesson": "Always check for an intersection before applying the addition rule. Forgetting to subtract P(A and B) double-counts every card that belongs to both groups, landing you on 17/52.",
+    "timing": "About 60 seconds. Identifying the overlap (king of hearts) takes 10 seconds. Three additions and one division take under 20 seconds. Distractor 17/52 is the no-subtraction trap; seeing it as a choice confirms you must check for overlap."
   },
   "empirical": {
     "calibration_status": "none",

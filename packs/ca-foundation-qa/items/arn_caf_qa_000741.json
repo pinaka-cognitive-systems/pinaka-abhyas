@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000741",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000741.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.range"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "Two independent samples are drawn from a factory's production records. Sample A has a minimum value of 12 units and a coefficient of range of 0.50. Sample B has a minimum value of 28 units and a range of 18 units. When the two samples are combined into a single data set, what is the range of the combined data?",
+  "options": [
+    {
+      "key": 1,
+      "text": "42 units"
+    },
+    {
+      "key": 2,
+      "text": "24 units"
+    },
+    {
+      "key": 3,
+      "text": "34 units"
+    },
+    {
+      "key": 4,
+      "text": "8 units"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Student adds the two individual ranges: range_A (= 24) + range_B (= 18) = 42. This is incorrect because ranges are not additive when combining groups."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student computes only the range of Sample A (= max_A - min_A = 36 - 12 = 24) and ignores Sample B entirely."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "From Sample A: (max_A - 12)/(max_A + 12) = 0.50, so 0.5*max_A = 18, max_A = 36, range_A = 24. From Sample B: max_B = 28 + 18 = 46. Combined: overall min = min(12, 28) = 12, overall max = max(36, 46) = 46. Combined range = 46 - 12 = 34."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student computes max_A - min_B = 36 - 28 = 8, incorrectly pairing the maximum of one sample with the minimum of the other."
+    }
+  ],
+  "explanation": "Step 1: Back-calculate max_A from the coefficient of range. (max_A - 12)/(max_A + 12) = 0.50 gives 0.5*max_A = 18, so max_A = 36 and range_A = 24. Step 2: max_B = min_B + range_B = 28 + 18 = 46. Step 3: Combined range = overall max - overall min = max(36, 46) - min(12, 28) = 46 - 12 = 34.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Combined range needs the global maximum and global minimum; derive each group's extremes independently, then compare all four.",
+    "approach": "Identify the two-step setup: (1) recover max_A from the coefficient equation, (2) recover max_B from range. Then combined range = max(max_A, max_B) - min(min_A, min_B) = 46 - 12 = 34. Do NOT add individual ranges.",
+    "lesson": "The range of a combined data set is NOT the sum of individual ranges; it is determined solely by the global extremes.",
+    "timing": "90 seconds. Solve for max_A (45 sec), then derive max_B (15 sec), then compare all extremes (15 sec). The classic trap is adding the two ranges (24 + 18 = 42)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

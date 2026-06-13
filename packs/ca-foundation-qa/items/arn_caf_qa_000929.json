@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000929",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000929.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.standard_deviation"
+  ],
+  "difficulty_label": "L2",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 175,
+  "stem": "For 100 observations the mean was computed as 40 and the standard deviation as 5.1. Later it was found that one observation was wrongly recorded as 50 when its correct value was 40. What is the correct standard deviation (to two decimals)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "5.00"
+    },
+    {
+      "key": 2,
+      "text": "5.10"
+    },
+    {
+      "key": 3,
+      "text": "5.83"
+    },
+    {
+      "key": 4,
+      "text": "4.12"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Sigma x = 4000, Sigma x^2 = 100*(5.1^2 + 40^2) = 162601. Correct sums: Sigma x = 4000 - 50 + 40 = 3990, Sigma x^2 = 162601 - 2500 + 1600 = 161701. Correct mean = 39.9, variance = 161701/100 - 39.9^2 = 25.0, SD = 5.00."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Leaves the SD at the originally reported 5.1, assuming a single misrecorded value cannot change the dispersion. Both Sigma x and Sigma x^2 shift, so the SD must be recomputed.",
+      "misconception": "invariance_property_confused"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Corrects Sigma x (new mean 39.9) but forgets to correct Sigma x^2, leaving it at 162601: variance = 162601/100 - 39.9^2 = 34.0, SD = 5.83. The sum of squares must also be adjusted for the swapped value.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Corrects Sigma x^2 to 161701 but keeps the old mean 40 instead of the corrected 39.9: variance = 161701/100 - 40^2 = 17.01, SD = 4.12. The mean used in the variance formula must be the corrected mean.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "Recover the raw sums from the wrong statistics, swap the misrecorded value, then recompute. Sigma x = n*mean = 4000 and Sigma x^2 = n*(SD^2 + mean^2) = 162601. Replacing 50 by 40: Sigma x = 3990, Sigma x^2 = 161701. Corrected mean = 39.9, variance = 1617.01 - 1592.01 = 25.0, SD = 5.00. Both sums and the mean must all be corrected; fixing only one gives 5.83 or 4.12.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "You cannot patch the SD directly: back out Sigma x and Sigma x^2 from the wrong stats, swap 50 for 40 in BOTH, recompute the mean, and only then take the root, which lands exactly on 5.00.",
+    "approach": "Model: corrected SD from misrecorded data via the raw-moment identities. Assumption: SD^2 = Sigma x^2/n - mean^2, so both Sigma x and Sigma x^2 carry the error. Recipe in six steps. (1) Sigma x = 100*40 = 4000. (2) Sigma x^2 = 100*(5.1^2 + 40^2) = 162601. (3) Correct Sigma x = 4000 - 50 + 40 = 3990. (4) Correct Sigma x^2 = 162601 - 50^2 + 40^2 = 161701. (5) Corrected mean = 3990/100 = 39.9. (6) Variance = 161701/100 - 39.9^2 = 1617.01 - 1592.01 = 25, SD = 5.00.",
+    "lesson": "When one observation is corrected, adjust Sigma x and Sigma x^2 by subtracting the wrong value and its square and adding the right value and its square, then recompute the mean before the variance.",
+    "timing": "About 150 seconds for two back-calculations and one recomputation. Reject 5.10 instantly: it assumes the SD is unchanged, but a corrected observation always shifts the dispersion."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000489",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000489.py"
+  },
+  "tests": [
+    "qa.bmath.sequence_series.gm"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 95,
+  "stem": "A company's revenue doubles every year. In Year 1 the revenue was Rs 5 lakhs. What is the geometric mean of revenues over Years 1 through 5 (in Rs lakhs)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "5 * 2^2"
+    },
+    {
+      "key": 2,
+      "text": "5 * 2^(5/2)"
+    },
+    {
+      "key": 3,
+      "text": "5 * 2^(1/5)"
+    },
+    {
+      "key": 4,
+      "text": "5 * 2^4"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Revenues form GP: 5, 10, 20, 40, 80. GM = (product)^(1/5) = (5^5 * 2^(0+1+2+3+4))^(1/5) = 5 * 2^(10/5) = 5 * 2^2 = 20."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Used the GM formula for the series as sqrt of first and last term directly: sqrt(5 * 80) = sqrt(400) = 20, but expressed it incorrectly as 5 * 2^(5/2) = 5 * 5.66, confusing the index of powers."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Computed the nth root of only the first term scaled by r once: 5 * r^(1/n) = 5 * 2^(1/5), misidentifying GM as the geometric root of the common ratio applied to a."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Took the last term (Year 5: 5 * 2^4 = 80) as the GM, confusing the largest term with the geometric mean of all five terms."
+    }
+  ],
+  "explanation": "The five revenues are 5, 10, 20, 40, 80 (a GP with a=5, r=2). Their product is 5^5 * 2^(0+1+2+3+4) = 5^5 * 2^10. The GM is this product raised to the 1/5 power: 5 * 2^2 = 20.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "GM of a GP with n terms equals the nth root of the product, which for a GP simplifies to a * r^((n-1)/2).",
+    "approach": "Derivation plan: identify the GP terms (5, 10, 20, 40, 80). Compute product = a^n * r^(sum of 0..n-1) = 5^5 * 2^10. Take 5th root: GM = 5 * 2^2 = 20. Alternatively use the shortcut GM = sqrt(first * last) = sqrt(5 * 80) = sqrt(400) = 20.",
+    "lesson": "For a GP the geometric mean of all n terms equals the geometric mean of just the first and last terms: sqrt(a * ar^(n-1)) = a * r^((n-1)/2).",
+    "timing": "Under 80 seconds. The fastest route is sqrt(5 * 80) = 20. The trap is taking the last term or the middle term as the GM."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

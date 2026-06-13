@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000579",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000579.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.coding_decoding"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "In a code system, letters are replaced by their alphabetical position numbers (A=1, B=2, ..., Z=26) with one modification: each vowel's position is increased by 1, and each consonant's position is decreased by 1. Using this rule, BAKE is coded as 1-2-10-6 and MEND is coded as 12-6-13-3. What is the code for VAIN?",
+  "options": [
+    {
+      "key": 1,
+      "text": "21-2-10-13"
+    },
+    {
+      "key": 2,
+      "text": "23-2-10-13"
+    },
+    {
+      "key": 3,
+      "text": "21-1-10-13"
+    },
+    {
+      "key": 4,
+      "text": "21-2-8-13"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "V is a consonant at position 22: 22-1=21. A is a vowel at position 1: 1+1=2. I is a vowel at position 9: 9+1=10. N is a consonant at position 14: 14-1=13. Code: 21-2-10-13."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "23 for V results from applying the vowel rule (+1) to a consonant: 22+1=23. The student failed to distinguish V as a consonant and applied +1 instead of -1."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "1 for A applies the consonant rule (-1) to a vowel: 1-1=0... actually 1 is the unmodified position of A, meaning the student left the vowel A unchanged instead of adding 1."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "8 for I applies the consonant rule to a vowel (9-1=8) instead of the vowel rule (9+1=10), confusing I as a consonant rather than a vowel."
+    }
+  ],
+  "explanation": "Step 1: classify each letter as vowel (A,E,I,O,U) or consonant. V=consonant->22-1=21; A=vowel->1+1=2; I=vowel->9+1=10; N=consonant->14-1=13. Code: 21-2-10-13. Verified from given: B(consonant)=2-1=1; A(vowel)=1+1=2; K(consonant)=11-1=10; E(vowel)=5+1=6 -> 1-2-10-6.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The setup decision is classifying each letter as vowel or consonant before computing its code - the rule is different for each class.",
+    "approach": "Deductive trace: first confirm the two-part rule from the given examples (BAKE and MEND), then classify each letter of VAIN and apply the matching rule: vowel -> position+1, consonant -> position-1.",
+    "lesson": "When a coding rule has two branches, verify both branches from the examples before applying to the new word.",
+    "timing": "70-80 seconds. Trap: applying the vowel rule to V because it comes first, or forgetting that I is a vowel."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

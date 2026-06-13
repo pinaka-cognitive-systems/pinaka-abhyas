@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000875",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000875.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.construction"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "An index number formula satisfies the time-reversal test if, when the base year and the current year are interchanged, the product of the two indices equals 1. Which of the following indices satisfies this test?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Laspeyres index only"
+    },
+    {
+      "key": 2,
+      "text": "Paasche index only"
+    },
+    {
+      "key": 3,
+      "text": "Both Laspeyres and Paasche"
+    },
+    {
+      "key": 4,
+      "text": "Fisher Ideal Index"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Laspeyres uses fixed base-year weights; when base and current are swapped the product of the two Laspeyres indices does not equal 1 in general."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Paasche uses current-year weights; swapping base and current gives the same asymmetry problem, so the time-reversal test fails for Paasche too."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Neither Laspeyres nor Paasche satisfies the time-reversal test individually because each relies on a single year's quantities as fixed weights."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "Fisher Ideal Index = sqrt(L * P). When base and current are swapped, each factor inverts and the product of the forward and backward Fisher indices equals exactly 1, satisfying the time-reversal test."
+    }
+  ],
+  "explanation": "The time-reversal test requires: I(0,1) * I(1,0) = 1. Laspeyres and Paasche each fail because their weights are tied to one specific year, creating asymmetry. Fisher, as the geometric mean of Laspeyres and Paasche, satisfies both the time-reversal test and the factor-reversal test, making it the only one of these three that passes both adequacy tests.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "Only Fisher satisfies the time-reversal test; Laspeyres and Paasche each fail because their weights anchor to one year.",
+    "approach": "Identify the property: time-reversal test = I(0->1) * I(1->0) = 1. Check each index: Laspeyres keeps q0 fixed (fails when years swap); Paasche keeps q1 fixed (same problem). Fisher averages both so it cancels the asymmetry.",
+    "lesson": "Fisher is called ideal precisely because it passes both tests (time-reversal and factor-reversal). Laspeyres and Paasche each pass only factor-reversal after adjustment. Memorise: Fisher = both tests satisfied.",
+    "timing": "About 30-45 seconds. Pure recall. The trap is thinking both Laspeyres and Paasche pass the time-reversal test."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000488",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000488.py"
+  },
+  "tests": [
+    "qa.bmath.sequence_series.gm"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The 3rd term of a GP is 18 and the 6th term is 486. Find the first term of the GP.",
+  "options": [
+    {
+      "key": 1,
+      "text": "2"
+    },
+    {
+      "key": 2,
+      "text": "6"
+    },
+    {
+      "key": 3,
+      "text": "3"
+    },
+    {
+      "key": 4,
+      "text": "9"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "T3 = ar^2 = 18, T6 = ar^5 = 486. Dividing: r^3 = 27, r = 3. Then a = 18 / r^2 = 18/9 = 2."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Used T3 = ar^3 and T6 = ar^6 (indexing from 1 as if the exponent equals the term number), giving r^3 = 27, r = 3, a = 18/27 = 2/3 then misidentified T1 as 6 by computing ar = 2."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Correctly found r = 3 but then divided 18 by r (not r^2), obtaining a = 18/3 = 6, which is T2, not T1. Reported 6 but then halved to 3 by a slip."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Divided T3 by r^2 using r = sqrt(T6/T3) = sqrt(27) instead of the cube-root approach, getting an incorrect r and hence a = 9."
+    }
+  ],
+  "explanation": "T3/T6 isolates r: dividing T6 by T3 gives r^3 = 486/18 = 27, so r = 3. Back-substitute into T3 = ar^2: a = 18/9 = 2.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Divide two known terms to strip a and expose r^(difference in positions).",
+    "approach": "Derivation plan: write T_n = a r^(n-1). Form T6/T3 = r^3 = 486/18 = 27, giving r = 3. Substitute back: a(3)^2 = 18, so a = 2. Verify: T1=2, T2=6, T3=18, T6=2*3^5=486.",
+    "lesson": "Always divide two GP terms to eliminate a; the ratio equals r^(gap between positions).",
+    "timing": "Under 75 seconds. Common trap: using r instead of r^2 when recovering a from T3, which gives T2 not T1."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

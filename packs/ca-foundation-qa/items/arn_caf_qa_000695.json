@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000695",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000695.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.sampling"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A market research firm wants to study the buying habits of shoppers in a large city. The city is divided into 80 wards, and a random sample of 8 wards is selected. Data is then collected from every household in each of the selected 8 wards. This sampling method is best described as:",
+  "options": [
+    {
+      "key": 1,
+      "text": "Stratified sampling, because the city is divided into groups"
+    },
+    {
+      "key": 2,
+      "text": "Systematic sampling, because a fixed number of wards is selected"
+    },
+    {
+      "key": 3,
+      "text": "Cluster sampling, because entire groups (wards) are selected and then all units within them are surveyed"
+    },
+    {
+      "key": 4,
+      "text": "Simple random sampling, because wards are chosen randomly"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Stratified sampling requires drawing a random sub-sample from each and every stratum; here only 8 out of 80 wards are selected and the remaining 72 are not sampled at all, which is the defining feature of cluster sampling."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Systematic sampling selects individual units at a fixed interval from an ordered list; selecting entire wards is not interval-based selection of individual units."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Cluster sampling: the population is divided into clusters (wards), a random sample of clusters is selected, and all units within the chosen clusters are observed. Both defining features are present."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Simple random sampling selects individual units (not whole groups) such that every individual has an equal chance of selection; selecting clusters (wards) and surveying all their members is not simple random sampling."
+    }
+  ],
+  "explanation": "The two-stage structure identifies cluster sampling: (1) the population is partitioned into naturally-occurring groups (clusters = wards), (2) a random sample of clusters is chosen, and (3) all elements in the selected clusters are observed.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The decisive feature is that entire naturally-occurring groups (wards) are selected and every member within them is surveyed - that is cluster sampling, not stratified (which samples from every stratum).",
+    "approach": "Identify the model: cluster sampling. Define the clusters (wards), confirm that only selected clusters are sampled and all units within them are observed. Contrast with stratified: in stratified sampling, every group is sampled; in cluster sampling, only randomly selected groups are sampled.",
+    "lesson": "Cluster vs. stratified: in cluster sampling, not all clusters are sampled (cost efficiency); in stratified sampling, every stratum is sampled (representational accuracy).",
+    "timing": "40 seconds. The key distinction: if every group is sampled - stratified; if only some groups are sampled (all members surveyed within selected groups) - cluster."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

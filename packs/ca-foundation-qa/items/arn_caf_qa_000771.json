@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000771",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000771.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.coefficient_of_variation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "For a dataset of 8 observations, sum of x = 120 and sum of x^2 = 1960. Compute the coefficient of variation (CV). [Given: sqrt(20) ~ 4.47]",
+  "options": [
+    {
+      "key": 1,
+      "text": "25%"
+    },
+    {
+      "key": 2,
+      "text": "20%"
+    },
+    {
+      "key": 3,
+      "text": "30%"
+    },
+    {
+      "key": 4,
+      "text": "15%"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "rounding_error",
+      "rationale": "Student rounds sqrt(20) to 4 (instead of 4.47), then CV = (4/15) x 100 ~ 26.7%, and further rounds or misreads this as 25%."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student computes variance = 1960/8 - (120/8)^2 but mistakenly uses 200 for (15)^2 instead of 225, giving variance = 45; then CV = (sqrt(45)/15) x 100 ~ 44.7%, or makes a different slip computing SD ~ 3 and CV = (3/15) x 100 = 20%."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Mean = 120/8 = 15. Variance = 1960/8 - 15^2 = 245 - 225 = 20. SD = sqrt(20) ~ 4.47. CV = (4.47/15) x 100 ~ 29.8% ~ 30%."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student uses SD/sum(x) x 100 instead of SD/mean x 100: (4.47/120) x 100 ~ 3.7%, or confuses the formula path arriving at 15%."
+    }
+  ],
+  "explanation": "Step 1: Mean = sum(x)/n = 120/8 = 15. Step 2: Variance = sum(x^2)/n - mean^2 = 1960/8 - 15^2 = 245 - 225 = 20. Step 3: SD = sqrt(20) ~ 4.47. Step 4: CV = (SD/mean) x 100 = (4.47/15) x 100 ~ 29.8% ~ 30%.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The shortcut variance formula - sum(x^2)/n minus mean^2 - avoids listing all deviations and flows straight to CV.",
+    "approach": "Model: direct computation from raw sums. (1) Compute mean: xbar = sum(x)/n. (2) Compute variance using shortcut: sigma^2 = sum(x^2)/n - xbar^2. (3) SD = sqrt(variance). (4) CV = (SD/xbar) x 100. Givens: n=8, sum(x)=120, sum(x^2)=1960. Execute: xbar=15, sigma^2=245-225=20, SD~4.47, CV~30%.",
+    "lesson": "The shortcut variance formula sum(x^2)/n - xbar^2 is the fastest route when raw sums are given. Never skip computing the mean first.",
+    "timing": "About 80 seconds. Key setup decision: recognise the shortcut variance formula. Trap: rounding sqrt(20) to 4 gives 25%, not 30%."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

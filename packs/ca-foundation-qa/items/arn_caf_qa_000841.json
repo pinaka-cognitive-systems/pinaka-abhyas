@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000841",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000841.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.correlation"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "For two variables X and Y, the covariance cov(X,Y) = 12, the standard deviation of X is 4, and the standard deviation of Y is 5. What is the Karl Pearson coefficient of correlation r(X,Y)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.60"
+    },
+    {
+      "key": 2,
+      "text": "0.48"
+    },
+    {
+      "key": 3,
+      "text": "0.75"
+    },
+    {
+      "key": 4,
+      "text": "1.20"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "r = cov(X,Y) / (sdX * sdY) = 12 / (4 * 5) = 12/20 = 0.60."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Dividing cov by the sum of standard deviations instead of the product: 12/(4+5) = 12/21 approx 0.57, or using 4*5 but adding a spurious factor gives 0.48."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "A slip in the denominator: using 4+5=9 misread as 16 and computing 12/16 = 0.75."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Inverting the formula and computing sdX * sdY / cov instead of the reverse: 20/12 = 1.67, or simply computing 12/(4*5/3)=1.20 via a factor error."
+    }
+  ],
+  "explanation": "The Karl Pearson coefficient of correlation is r = cov(X,Y) / (sdX * sdY). Here r = 12 / (4 * 5) = 12/20 = 0.60. Since -1 <= r <= 1, option 4 (which exceeds 1) is impossible and can be eliminated immediately.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Correlation is covariance scaled by the product of standard deviations, not their sum or any other combination.",
+    "approach": "Name the formula: r = cov(X,Y) / (sdX * sdY). Map the givens: cov = 12, sdX = 4, sdY = 5. Denominator = 4 * 5 = 20. r = 12/20 = 0.60.",
+    "lesson": "Any answer outside [-1, 1] is automatically wrong; use this to eliminate distractors instantly.",
+    "timing": "About 30 seconds. Eliminate option 4 first (r > 1 is impossible). Then one multiplication and one division."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

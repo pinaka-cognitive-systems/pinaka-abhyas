@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000524",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000524.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.relations_functions"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The relation R on the set of integers Z defined by R = {(a, b) : a - b is divisible by 3} is an equivalence relation. How many equivalence classes does R partition Z into?",
+  "options": [
+    {
+      "key": 1,
+      "text": "1"
+    },
+    {
+      "key": 2,
+      "text": "2"
+    },
+    {
+      "key": 3,
+      "text": "3"
+    },
+    {
+      "key": 4,
+      "text": "Infinitely many"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "Thinking all integers are related to each other because 'divisibility by 3 connects everything', missing that the classes are the residues 0, 1, 2 mod 3."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "Thinking in terms of even and odd parity (divisibility by 2) and incorrectly applying that pattern to divisibility by 3, giving two classes instead of three."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Two integers a and b are in the same class exactly when a - b is divisible by 3, meaning they have the same remainder when divided by 3. The possible remainders are 0, 1, and 2, giving exactly 3 equivalence classes: multiples of 3, integers leaving remainder 1, and integers leaving remainder 2."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "set_operation_confused",
+      "rationale": "Confusing the number of elements in Z with the number of equivalence classes; each integer forms its own 'class' thinking only in terms of the set size rather than the partition structure."
+    }
+  ],
+  "explanation": "Divisibility by 3 partitions Z into exactly 3 residue classes corresponding to remainders 0, 1, and 2.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "Congruence modulo n always creates exactly n equivalence classes: the n residue classes mod n.",
+    "approach": "State the property then contrast the confusable one. An equivalence relation partitions its set into equivalence classes where each element belongs to exactly one class. For 'a - b divisible by 3': a ~ b iff a mod 3 = b mod 3. There are exactly 3 possible remainders (0, 1, 2) when dividing by 3, so exactly 3 classes. The trap is confusing the number of classes with the size of the set Z (infinite) or with divisibility by 2 (which gives 2 classes).",
+    "lesson": "Congruence modulo n on Z always produces exactly n equivalence classes, one for each residue 0, 1, ..., n-1.",
+    "timing": "About 75 seconds. Identify this as congruence mod 3, count the distinct remainders. The trap is sliding to mod 2 thinking."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

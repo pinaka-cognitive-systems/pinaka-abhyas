@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000317",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000317.py"
+  },
+  "tests": [
+    "qa.bmath.ratio_indices_log.proportion"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The mean proportional between two numbers is 12. One of the numbers is 4. Find the other number.",
+  "options": [
+    {
+      "key": 1,
+      "text": "48"
+    },
+    {
+      "key": 2,
+      "text": "3"
+    },
+    {
+      "key": 3,
+      "text": "36"
+    },
+    {
+      "key": 4,
+      "text": "144"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student uses mean proportional = (a + b)/2 (arithmetic mean formula) and solves (4 + b)/2 = 12, giving b = 20. Then further confuses and computes 4 x 12 = 48."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "ratio_inverted",
+      "rationale": "Student inverts the formula: instead of x^2 = a x b uses a/x = x/b, solving 4/12 = 12/b, giving b = 144/4 = 36. Then the student picks the mean proportional formula as x = sqrt(a/b) and computes sqrt(4/... ) giving 12/4 = 3."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "If m is the mean proportional between a and b, then m^2 = a x b. So 12^2 = 4 x b, giving 144 = 4b and b = 36."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student correctly writes 12^2 = 4 x b but miscomputes 12^2 = 144 and forgets to divide, reporting 144 directly as the answer."
+    }
+  ],
+  "explanation": "The mean proportional m between a and b satisfies m^2 = a x b, so a x b = m^2 = 144. With a = 4, b = 144 / 4 = 36.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The mean proportional relationship m^2 = ab converts the problem into one division step.",
+    "approach": "Formula selection: mean proportional m between a and b satisfies a:m = m:b, which cross-multiplies to m^2 = ab. Substitute m = 12 and a = 4: 144 = 4b, so b = 36.",
+    "lesson": "Mean proportional uses the geometric mean formula m = sqrt(ab), equivalently m^2 = ab. Do not confuse with the arithmetic mean (a + b)/2.",
+    "timing": "45 seconds. Trap: forgetting to divide m^2 by a, giving 144."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

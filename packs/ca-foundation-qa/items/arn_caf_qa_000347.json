@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000347",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000347.py"
+  },
+  "tests": [
+    "qa.bmath.equations.quadratic"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "A shopkeeper notes that when the selling price of an item is x rupees, his daily profit is given by the expression x^2 - 14x + 40. For what value of x does his profit equal zero and the selling price is the smaller of the two values?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 2"
+    },
+    {
+      "key": 2,
+      "text": "Rs 4"
+    },
+    {
+      "key": 3,
+      "text": "Rs 10"
+    },
+    {
+      "key": 4,
+      "text": "Rs 8"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Factoring error gives (x-2)(x-20)=0, yielding 2 as a root, but this is a slip in identifying the factors of 40 that sum to 14."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "x^2 - 14x + 40 = (x-4)(x-10) = 0, giving x=4 or x=10. The smaller value is 4."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "x=10 is also a root but it is the larger value; the question asks for the smaller one."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Taking the average of the roots (4+10)/2 = 7, then rounding or using product rule incorrectly leads to guessing 8."
+    }
+  ],
+  "explanation": "Factoring x^2 - 14x + 40: find two numbers that multiply to 40 and sum to -14, which are -4 and -10, giving (x-4)(x-10)=0. The roots are 4 and 10; the smaller is 4.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The two roots are 4 and 10; picking the smaller one directly answers the question.",
+    "approach": "Factoring archetype: write x^2 - 14x + 40, seek factor pairs of 40 that sum to 14: (4,10). Set each factor to zero. Compare both roots and select the smaller.",
+    "lesson": "For a monic quadratic ax^2+bx+c, the roots multiply to c/a and sum to -b/a; use this to verify your factors instantly.",
+    "timing": "45 seconds. Spot the factor pair (4,10) in one look; no need for the quadratic formula here. Trap: option 3 is the larger root."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

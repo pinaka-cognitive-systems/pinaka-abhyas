@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000649",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000649.py"
+  },
+  "tests": [
+    "qa.lr.blood_relations"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "Pointing to a photograph, Rajan says, 'She is the daughter of the only son of my grandfather.' How is the person in the photograph related to Rajan?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Sister"
+    },
+    {
+      "key": 2,
+      "text": "Niece"
+    },
+    {
+      "key": 3,
+      "text": "Cousin"
+    },
+    {
+      "key": 4,
+      "text": "Daughter"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "The only son of Rajan's grandfather is Rajan's father. The daughter of Rajan's father is Rajan's sister."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "A niece is the daughter of a sibling, not a person at the same generational level. Placing the relation one generation down gives niece, which is wrong here."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "kinship_direction_inverted",
+      "rationale": "A cousin would require the link to go through a sibling of Rajan's father, but the clue says 'only son', so there are no uncles or aunts to generate a cousin."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Treating 'daughter of my father' as Rajan's own daughter confuses upward and downward generation from Rajan's own position."
+    }
+  ],
+  "explanation": "The only son of Rajan's grandfather is Rajan's father. The daughter of Rajan's father is Rajan's sister. The chain: grandfather -> father (only son) -> daughter = Rajan's sister.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Resolving 'only son of grandfather' immediately collapses the chain to father, making the photograph person Rajan's sister.",
+    "approach": "Apply clues most-certain-first: 'only son of my grandfather' = Rajan's father (no ambiguity). Then 'daughter of [Rajan's father]' = Rajan's sister.",
+    "lesson": "When a clue says 'only son/daughter' of a stated ancestor, collapse that link first; it eliminates all sibling branches and gives a unique path.",
+    "timing": "About 30 seconds. Eliminate option 3 immediately because 'only son' rules out any uncle path for a cousin; then choose between 1 and 4 by noting the relation is lateral (same generation), not descendant."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

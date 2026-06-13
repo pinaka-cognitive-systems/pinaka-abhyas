@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "The differences between successive terms are 3, 5, 7, 9 (consecutive odd numbers). The next difference is 11, so the next term is 27+11=38. Equivalently, the n-th term is n²+2: 1²+2=3, 2²+2=6, 3²+2=11, 4²+2=18, 5²+2=27, 6²+2=38.",
+  "explanation_kind": "deductive_trace",
   "explanation_sections": {
-    "punchline": "The gaps between terms are 3, 5, 7, 9: consecutive odd numbers. The next gap is 11, so the next term is 27 + 11 = 38.",
-    "approach": "For number series, always write the differences between consecutive terms first. If the differences form a pattern of their own, extend that pattern to find the next difference. Add it to the last term. Check your answer with a formula if time allows.",
-    "lesson": "When differences are consecutive odd numbers (or any arithmetic sequence), the next difference follows the same arithmetic step. Do not assume the differences stay constant.",
-    "timing": "About 90 seconds. Listing five differences takes 20 seconds. Spotting the odd-number pattern takes another 10 seconds. Computing 27 + 11 is immediate. Spend the remaining time verifying with the n² + 2 formula."
+    "punchline": "Lock the first-order differences: 3, 5, 7, 9. They are consecutive odd numbers (second-order difference = 2 throughout). The next difference is 11, so the next term is 27 + 11 = 38.",
+    "approach": "Work in two passes. Pass 1: write every first-order difference: 6-3=3, 11-6=5, 18-11=7, 27-18=9. Pass 2: write the second-order differences: 5-3=2, 7-5=2, 9-7=2. Constant value of 2 confirms an arithmetic gap sequence. Extend: next first-order difference = 9+2=11. Answer: 27+11=38. Optional verification: the n-th term is n squared + 2; for n=6: 36+2=38. Confirmed.",
+    "lesson": "A constant second-order difference of 2 means the gaps are odd numbers in sequence. Extend the gap sequence by one step, not the term sequence directly.",
+    "timing": "About 75 seconds. Pass 1 (four differences) takes 15 seconds. Pass 2 (three second-order differences) takes 10 seconds. Option 36 assumes the next gap stays at 9 (not 11); it is the constant-gap trap and the most common wrong pick."
   },
   "empirical": {
     "calibration_status": "none",

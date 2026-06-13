@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000367",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000367.py"
+  },
+  "tests": [
+    "qa.bmath.inequalities.optimization"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "A small factory makes two products A and B. The profit per unit is Rs 5 for A and Rs 4 for B. The constraints (with x = units of A, y = units of B) are: x + y <= 10, x <= 6, y <= 8, x >= 0, y >= 0. The maximum profit in Rs is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "46"
+    },
+    {
+      "key": 2,
+      "text": "50"
+    },
+    {
+      "key": 3,
+      "text": "40"
+    },
+    {
+      "key": 4,
+      "text": "42"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Corner points: (0,0)->0, (6,0)->30, (6,4)->30+16=46, (2,8)->10+32=42, (0,8)->32. Maximum is 46 at (6,4)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Rs 50 would need (10,0) which violates x<=6. Ignoring the individual variable cap gives this inflated answer."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Rs 40 corresponds to (0,10) which violates x+y<=10 and y<=8. Missing both the x=0 case and the binding constraints."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Rs 42 comes from corner (2,8): 5(2)+4(8)=10+32=42. A feasible but non-optimal corner. Stopping evaluation before (6,4)."
+    }
+  ],
+  "explanation": "The maximum of a linear objective occurs at a corner point of the feasible region. Evaluate the profit function Z=5x+4y at each corner: (0,0)=0, (6,0)=30, (6,4)=46, (2,8)=42, (0,8)=32. Maximum is 46.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Optimal value of a linear program always occurs at a corner (vertex) of the feasible region.",
+    "approach": "Find all corner points by intersecting boundary lines and checking feasibility. Corners: origin, axis intercepts, and intersection of x+y=10 with x=6 (giving y=4). Evaluate Z at each and pick the maximum.",
+    "lesson": "Never evaluate the objective at just one or two corners. List ALL corners systematically before comparing.",
+    "timing": "90 s. Five corners to evaluate. Trap: option 4 stops at (2,8) without checking (6,4)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

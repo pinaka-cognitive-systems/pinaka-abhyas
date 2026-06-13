@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000371",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000371.py"
+  },
+  "tests": [
+    "qa.bmath.finance.simple_interest"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "Priya deposits Rs 8,000 in a savings scheme that pays simple interest at 9% per annum. What is the total interest she earns after 3 years?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 2,160"
+    },
+    {
+      "key": 2,
+      "text": "Rs 2,880"
+    },
+    {
+      "key": 3,
+      "text": "Rs 2,400"
+    },
+    {
+      "key": 4,
+      "text": "Rs 720"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "SI = P * R * T / 100 = 8000 * 9 * 3 / 100 = 2160."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "time_factor_dropped",
+      "rationale": "Using T = 4 instead of 3 gives 8000 * 9 * 4 / 100 = 2880, misreading the number of years."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Dividing P*R = 720 by 3 rather than multiplying, i.e. computing 8000 * 9 / 100 * (10/3) ~ 2400; the wrong formula path gives 8000 * 10 * 3 / 100 = 2400 (using 10% instead of 9%)."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "time_factor_dropped",
+      "rationale": "Computing interest for only 1 year: 8000 * 9 * 1 / 100 = 720, dropping the 3-year period."
+    }
+  ],
+  "explanation": "Simple interest uses SI = P * R * T / 100. With P = 8000, R = 9, T = 3: SI = 8000 * 9 * 3 / 100 = 216000 / 100 = 2160.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "SI accumulates linearly: every year adds the same fixed amount P*R/100.",
+    "approach": "Formula: SI = P*R*T/100. Map givens: P = 8000, R = 9% p.a., T = 3 years. Substitute directly. No period conversion needed because rate and time are both annual.",
+    "lesson": "In SI the total interest is directly proportional to time; doubling T doubles SI.",
+    "timing": "Under 30 s. Eliminate option 4 (only 1 year of interest) and option 2 (4 years) by inspection; choose between 1 and 3 by checking 9% not 10%."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000433",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000433.py"
+  },
+  "tests": [
+    "qa.bmath.finance.emi"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A car loan of Rs 3,00,000 is to be repaid in 36 equal monthly instalments under a reducing-balance scheme at 9% per annum compounded monthly. The reducing-balance EMI is: EMI = P x i x (1+i)^n / ((1+i)^n - 1). Given that (1.0075)^36 = 1.3090, what is the monthly EMI?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 9,540"
+    },
+    {
+      "key": 2,
+      "text": "Rs 10,278"
+    },
+    {
+      "key": 3,
+      "text": "Rs 8,333"
+    },
+    {
+      "key": 4,
+      "text": "Rs 9,167"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "i = 9%/12 = 0.75% = 0.0075 per month, n = 36. Numerator = 300000 x 0.0075 x 1.3090 = 2945.25. Denominator = 1.3090 - 1 = 0.3090. EMI = 2945.25 / 0.3090 = 9531, approximately Rs 9,540."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "rate_period_mismatch",
+      "rationale": "Uses i = 9%/4 = 2.25% (quarterly rate) instead of monthly 0.75%, inflating EMI to approximately Rs 10,278."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Divides principal by total number of months (300000/36 = 8333) ignoring interest component entirely."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "time_factor_dropped",
+      "rationale": "Uses n = 12 (one year) instead of n = 36 (three years) in the formula, giving a higher instalment of approximately Rs 9,167 because the loan term is underestimated."
+    }
+  ],
+  "explanation": "Monthly rate i = 9%/12 = 0.0075. With (1.0075)^36 = 1.3090: numerator = 300000 x 0.0075 x 1.3090 = 2945.25; denominator = 0.3090; EMI = 9531 (approximately Rs 9,540).",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Annual rate must be divided by 12 to get the monthly rate before applying the reducing-balance formula.",
+    "approach": "Formula: reducing-balance EMI. Map givens: P=300000, i=0.09/12=0.0075, n=36. Use given power: (1.0075)^36=1.3090. Numerator=300000*0.0075*1.3090=2945.25. Denominator=0.3090. EMI=2945.25/0.3090=9531.",
+    "lesson": "When the loan tenure is given in months and the rate is annual, always convert: monthly rate = annual rate / 12.",
+    "timing": "75 seconds. Trap: using quarterly rate (9%/4) or ignoring compounding. Ballpark check: Rs 9,540 x 36 = Rs 3,43,440 > Rs 3,00,000, consistent with interest accruing."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

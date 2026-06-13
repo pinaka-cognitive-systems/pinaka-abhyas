@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000718",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000718.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mode"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "For a moderately skewed distribution, the mean is 24.5 and the median is 26.1. Using Karl Pearson's empirical relationship, find the mode.",
+  "options": [
+    {
+      "key": 1,
+      "text": "29.3"
+    },
+    {
+      "key": 2,
+      "text": "27.7"
+    },
+    {
+      "key": 3,
+      "text": "52.2"
+    },
+    {
+      "key": 4,
+      "text": "31.3"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Karl Pearson's empirical relation: Mode = 3*Median - 2*Mean = 3*26.1 - 2*24.5 = 78.3 - 49.0 = 29.3."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "27.7 results from using Mode = 2*Median - Mean = 2*26.1 - 24.5 = 52.2 - 24.5 = 27.7 (wrong form of the empirical relation)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "52.2 is the value of 2*Median = 2*26.1, the student stops before subtracting 2*Mean."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "31.3 arises from using Mode = 3*Median - 2*Mean but substituting mean and median in reverse: 3*24.5 - 2*26.1 = 73.5 - 52.2 = 21.3, or adding instead of subtracting at some step."
+    }
+  ],
+  "explanation": "Karl Pearson's empirical relationship for moderately skewed distributions: Mode = 3*Median - 2*Mean. Substituting: Mode = 3*26.1 - 2*24.5 = 78.3 - 49.0 = 29.3.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Karl Pearson's empirical relation Mode = 3*Median - 2*Mean bypasses direct frequency-table computation when mean and median are known.",
+    "approach": "Identify model: empirical relation for moderately skewed distributions. Formula: Mode = 3*Median - 2*Mean. Substitute: 3*26.1 - 2*24.5 = 78.3 - 49 = 29.3.",
+    "lesson": "The coefficient of Median is 3 and of Mean is 2 (not the other way around); this is the only version of Karl Pearson's relation for the mode.",
+    "timing": "45 s. Two multiplications and one subtraction. Trap: getting the coefficients swapped."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -19,6 +19,7 @@
     "qa.bmath.sequence_series.gm"
   ],
   "difficulty_label": "L1",
+  "explanation_kind": "derivation",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 60,
@@ -71,10 +72,10 @@
   ],
   "explanation": "The geometric mean of two numbers a and b is √(a × b). Here GM = √(2 × 8) = √16 = 4.",
   "explanation_sections": {
-    "punchline": "GM of two numbers is the square root of their product. √(2 × 8) = √16 = 4.",
-    "approach": "For geometric mean of two numbers, multiply them and take the positive square root. Do not add them (that gives the arithmetic mean). Do not forget the square root step after multiplying.",
-    "lesson": "Geometric mean of a and b is √(a × b), not (a + b) ÷ 2 and not a × b alone. Keep the three formulas separate: sum for AM, product-root for GM.",
-    "timing": "About 60 seconds. The multiplication and square root together take under 20 seconds for small integers. Use the remaining time to check you did not mix up AM and GM."
+    "punchline": "GM of two numbers is the positive square root of their product. √(2 * 8) = √16 = 4. The product without the root is the most common wrong move.",
+    "approach": "Formula first: GM(a, b) = (a * b)^(1/2). Multiply, then root. For two numbers a and b, the result is a single number. Compare: AM = (a + b) / 2 (sum halved), GM = (a * b)^(1/2) (product rooted). Never mix the operations.",
+    "lesson": "GM = (a * b)^(1/2), not a * b and not (a + b) / 2. The three classical means each use a different operation on the pair.",
+    "timing": "Under 30 seconds. 2 * 8 = 16, √16 = 4. Eliminate 16 (forgot the root) and 5 (used AM) before computing."
   },
   "empirical": {
     "calibration_status": "none",

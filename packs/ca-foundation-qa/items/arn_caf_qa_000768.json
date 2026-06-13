@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000768",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000768.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.coefficient_of_variation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A quality inspector compares two production lines. Line A produces components with a mean diameter of 200 mm and a standard deviation of 40 mm. Line B produces components with a mean diameter of 150 mm and a standard deviation of 45 mm. Which production line shows greater relative variability, and what is its coefficient of variation?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Line B, CV = 30%"
+    },
+    {
+      "key": 2,
+      "text": "Line A, CV = 20%"
+    },
+    {
+      "key": 3,
+      "text": "Line B, CV = 20%"
+    },
+    {
+      "key": 4,
+      "text": "Line A, CV = 30%"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "CV_A = (40/200)*100 = 20%. CV_B = (45/150)*100 = 30%. Since CV_B > CV_A, Line B has greater relative variability, with CV = 30%."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "Line A has the higher absolute standard deviation only if compared incorrectly. CV_A = 20% and CV_B = 30%, so Line A does NOT have greater relative variability. The student may have compared absolute SDs (45 > 40) and incorrectly assigned the result to Line A."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "CV_B = 30% not 20%. An arithmetic slip of computing 45/150 = 0.20 (forgetting to compute it as 30/100 = 0.3) leads to CV_B = 20%."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Line A has CV = 20%, not 30%. The student may have inverted the formula, computing (mean/SD)*100 = (200/40)*100 for a wrong figure, or confused which line has higher CV."
+    }
+  ],
+  "explanation": "Coefficient of variation compares relative dispersion across datasets with different means. CV_A = (SD_A / mean_A) * 100 = (40/200)*100 = 20%. CV_B = (SD_B / mean_B) * 100 = (45/150)*100 = 30%. Since 30% > 20%, Line B shows greater relative variability. The setup decision is recognising that absolute SD comparison (45 > 40) is misleading when means differ.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Relative variability is measured by CV, not by absolute SD; a larger SD with a larger mean can still mean less relative spread.",
+    "approach": "Identify the model: relative dispersion comparison using CV = (SD/mean)*100. Compute for each: CV_A = 40/200 * 100 = 20%; CV_B = 45/150 * 100 = 30%. Identify: CV_B > CV_A, so Line B has greater relative variability. The key setup decision is choosing CV over absolute SD for the comparison.",
+    "lesson": "When comparing variability across groups with different means, always use CV rather than raw standard deviation; the group with the smaller mean can have higher relative spread even with a smaller absolute SD.",
+    "timing": "60-75 seconds. Trap: comparing absolute SDs (45 > 40) and wrongly concluding Line B has higher absolute and Line A lower, then mixing up which answer to state."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

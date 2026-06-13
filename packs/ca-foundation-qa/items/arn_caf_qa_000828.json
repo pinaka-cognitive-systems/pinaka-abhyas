@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000828",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000828.py"
+  },
+  "tests": [
+    "qa.stats.distributions.binomial"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "The probability that a sales representative closes a deal on any given client visit is 0.4, independently of other visits. She visits 5 clients in a day. Find the probability that she closes deals on at least 3 clients. [Given: (0.6)^5 = 0.07776, (0.6)^4 = 0.1296, (0.6)^3 = 0.216, (0.6)^2 = 0.36]",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.31744"
+    },
+    {
+      "key": 2,
+      "text": "0.68256"
+    },
+    {
+      "key": 3,
+      "text": "0.23040"
+    },
+    {
+      "key": 4,
+      "text": "0.08704"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "P(X>=3) = P(3)+P(4)+P(5). P(3)=C(5,3)*(0.4)^3*(0.6)^2=10*0.064*0.36=0.23040. P(4)=C(5,4)*(0.4)^4*(0.6)^1=5*0.0256*0.6=0.07680. P(5)=C(5,5)*(0.4)^5=0.01024. Sum=0.23040+0.07680+0.01024=0.31744."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "complement_confusion",
+      "rationale": "0.68256 = 1 - 0.31744; the student computed P(X<3) instead of P(X>=3) via complement confusion, subtracting from the wrong event."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "0.23040 = P(X=3) only; the student found exactly 3 instead of at least 3, missing P(4) and P(5)."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "0.08704 = P(X=4)+P(X=5) = 0.07680+0.01024; the student started from at least 4 instead of at least 3."
+    }
+  ],
+  "explanation": "Binomial(5, 0.4), find P(X>=3) = P(3)+P(4)+P(5). P(3)=10*0.064*0.36=0.23040; P(4)=5*0.0256*0.6=0.07680; P(5)=0.01024. Total = 0.31744.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "At least 3 from 5 requires three Binomial terms; missing any one gives a wrong answer from four offered distractors.",
+    "approach": "Model: Binomial(n=5, p=0.4). Identify: at least 3 means k=3,4,5. Compute each term using p^k*q^(n-k) with given hints. Sum the three. Cross-check: complement = P(0)+P(1)+P(2) should equal 1-0.31744=0.68256.",
+    "lesson": "For at-least-k problems with small n, enumerate every term above the threshold; never stop at the first term.",
+    "timing": "120 seconds. Three terms; use hints for powers. Trap: choosing only P(X=3)=0.23040 or the complement 0.68256."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

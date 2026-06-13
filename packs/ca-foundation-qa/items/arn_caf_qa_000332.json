@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000332",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000332.py"
+  },
+  "tests": [
+    "qa.bmath.ratio_indices_log.time_and_work"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 110,
+  "stem": "A can do a piece of work in 12 days and B can do it in 18 days. They work together for 4 days, after which A leaves. How many more days will B take alone to finish the remaining work?",
+  "options": [
+    {
+      "key": 1,
+      "text": "6"
+    },
+    {
+      "key": 2,
+      "text": "10"
+    },
+    {
+      "key": 3,
+      "text": "8"
+    },
+    {
+      "key": 4,
+      "text": "4"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student computes combined rate correctly as 5/36, work done in 4 days as 20/36, but then computes remaining as 16/36 instead of 16/36, and B's days as 16/36 / (1/18) = 8. Then arrives at 6 through an arithmetic slip on the division."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student ignores the 4 days already worked and computes B's time for the full job as 18 days, then subtracts 8 somehow, or adds extra days."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Combined rate = 1/12 + 1/18 = 3/36 + 2/36 = 5/36. Work in 4 days = 20/36 = 5/9. Remaining = 1 - 5/9 = 4/9. B alone: (4/9) / (1/18) = (4/9)*18 = 8 days."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student incorrectly assumes B takes the same number of days as they worked together (4 days), or computes B's rate on the remaining work as 4/18 approximately 0.22, multiplied by days giving 4."
+    }
+  ],
+  "explanation": "Combined rate of A and B = 1/12 + 1/18 = 3/36 + 2/36 = 5/36 of the job per day. In 4 days together: 4 * (5/36) = 20/36 = 5/9 done. Remaining = 1 - 5/9 = 4/9. B works alone at 1/18 per day. Days B needs = (4/9) / (1/18) = (4/9) * 18 = 72/9 = 8 days.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "After A and B complete 5/9 of the job in 4 days, B needs 8 more days for the remaining 4/9.",
+    "approach": "Step 1: Compute combined rate 1/12+1/18=5/36. Step 2: Work done in 4 days = 4*(5/36) = 5/9. Step 3: Remaining = 4/9. Step 4: B's days for remaining = (4/9)*(18/1) = 8. The decisive move is correctly computing the remaining fraction before finding B's solo time.",
+    "lesson": "Split work-then-leave problems into two phases: compute work done jointly, subtract from 1, then apply the solo rate to the remainder.",
+    "timing": "90-100 seconds. Trap is option 1 (6 days) from an arithmetic slip when dividing the remaining fraction by B's rate."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

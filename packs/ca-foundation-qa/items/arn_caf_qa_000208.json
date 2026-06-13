@@ -19,6 +19,7 @@
     "qa.bmath.inequalities.one_variable"
   ],
   "difficulty_label": "L2",
+  "explanation_kind": "derivation",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 75,
@@ -71,10 +72,10 @@
   ],
   "explanation": "Expand both sides: -3(2x - 4) = -6x + 12; 6(x + 2) - 12 = 6x + 12 - 12 = 6x. Inequality becomes -6x + 12 >= 6x. Collect x terms: 12 >= 12x, so x <= 1. Key step: when dividing both sides by a negative number, reverse the inequality sign.",
   "explanation_sections": {
-    "punchline": "The answer is x <= 1. After correct expansion and collection, dividing by -12 with the sign reversed gives x <= 1.",
-    "approach": "Expand all brackets first, being careful with signs. Collect all x terms on one side and constants on the other. If you divide or multiply by a negative number at any step, reverse the inequality sign. Check one value: x = 0 satisfies x <= 1, and substituting x = 0 into the original gives 12 >= 0, which is true.",
-    "lesson": "The inequality sign reverses only when both sides are multiplied or divided by a negative number. Adding or subtracting never changes the direction.",
-    "timing": "About 75 seconds. Expansion takes 20 seconds. Collecting terms takes 15 seconds. The sign-flip decision should be an explicit check, not an afterthought."
+    "punchline": "x <= 1. The two transformations that trap students are: (1) expanding -3(2x - 4) with the wrong sign on the constant (+12 not -12), and (2) forgetting to reverse the inequality when dividing by -12.",
+    "approach": "Transformation plan: (1) expand both sides term-by-term, writing every sign explicitly - -3(2x - 4) = -6x + 12, not -6x - 12. (2) Simplify the right side: 6(x + 2) - 12 = 6x. (3) Collect x left: -12x >= -12. (4) Divide by -12: reverse the inequality sign since the divisor is negative. Result: x <= 1. Verify with x = 0: LHS = -3(-4) = 12, RHS = 6(2) - 12 = 0. 12 >= 0. True.",
+    "lesson": "Divide or multiply both sides of an inequality by a negative number and the direction reverses. Adding or subtracting, moving terms - no reversal. The sign-flip is a deliberate check, not an afterthought.",
+    "timing": "About 75 seconds. Expansion 20 seconds, collection 15 seconds, division and sign check 10 seconds, spot-verification 10 seconds. The two wrong options x >= 1 and x <= -1 each correspond to one of the two traps."
   },
   "empirical": {
     "calibration_status": "none",

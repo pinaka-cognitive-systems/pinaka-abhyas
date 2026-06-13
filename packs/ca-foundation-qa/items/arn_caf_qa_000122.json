@@ -18,10 +18,11 @@
   "tests": [
     "qa.stats.probability.conditional"
   ],
-  "difficulty_label": "L3",
+  "difficulty_label": "L2",
+  "explanation_kind": "model_compute",
   "taxonomy_version": 4,
   "item_type": "single_best",
-  "expected_seconds": 120,
+  "expected_seconds": 90,
   "stem": "Events A and B are such that P(A) = 3/8, P(B) = 1/2, and P(A ∩ B) = 1/4. What is P(A | B)?",
   "options": [
     {
@@ -71,10 +72,10 @@
   ],
   "explanation": "1. The definition: P(A | B) = P(A ∩ B) / P(B).\n2. KEY STEP: P(A | B) = (1/4) ÷ (1/2) = 1/2.\n3. A common error is computing P(B | A) = (1/4) / (3/8) = 2/3 instead, which reverses the condition.\n4. Using P(A ∩ B) directly without dividing by P(B) gives 1/4, another trap.",
   "explanation_sections": {
-    "punchline": "P(A | B) = P(A intersection B) divided by P(B). The event after the bar is the denominator. Here (1/4) / (1/2) = 1/2.",
-    "approach": "Read the notation carefully. P(A | B) means A given B. The conditioning event is B, so P(B) goes in the denominator. Write the formula first: P(A | B) = P(A intersection B) / P(B). Then substitute. Do not reverse the two events.",
-    "lesson": "The event that follows the bar symbol is the denominator of the conditional probability formula. Reversing the events gives P(B | A), which is a different quantity entirely.",
-    "timing": "About 120 seconds. Identify the notation in 15 seconds. The single division of fractions takes 20 seconds. Eliminate option (2) in five seconds because 1/4 is the intersection probability, not a conditional probability."
+    "punchline": "P(A|B) = P(A intersection B) / P(B). The event after the bar goes in the denominator, not the numerator. Here (1/4) / (1/2) = 1/2.",
+    "approach": "Identify the model: conditional probability definition. The formula is P(A|B) = P(A intersection B) / P(B). The critical step is matching the bar to the denominator: whatever follows '|' is the conditioning event and goes below. Map givens: P(A intersection B) = 1/4, P(B) = 1/2. Divide: (1/4)/(1/2) = 1/2. The reversal trap is computing P(B|A) = (1/4)/(3/8) = 2/3 by putting P(A) in the denominator instead of P(B).",
+    "lesson": "The bar in P(A|B) means 'given B'. The event after the bar is the denominator. Reversing gives a different quantity P(B|A). These two values are almost never equal; the problem gives you all three probabilities precisely to enable the reversal trap.",
+    "timing": "90 seconds. Identify which event is conditioned on in 10 seconds. One fraction division in 15 seconds. Eliminate option 2: 1/4 is P(A intersection B), not a conditional probability. Eliminate option 3: 3/8 is the unconditioned P(A)."
   },
   "empirical": {
     "calibration_status": "none",

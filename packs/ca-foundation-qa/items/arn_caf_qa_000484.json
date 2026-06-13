@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000484",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000484.py"
+  },
+  "tests": [
+    "qa.bmath.sequence_series.gp"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A ball is dropped from a height of 64 metres. After each bounce it rises to half the height from which it fell. What is the total distance travelled by the ball before it comes to rest? (Consider both downward and upward journeys.)",
+  "options": [
+    {
+      "key": 1,
+      "text": "256 metres"
+    },
+    {
+      "key": 2,
+      "text": "192 metres"
+    },
+    {
+      "key": 3,
+      "text": "128 metres"
+    },
+    {
+      "key": 4,
+      "text": "320 metres"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Uses the infinite GP sum 64/(1-0.5)=128 for the total, then doubles it to 256 without accounting that the initial fall is counted only once."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Initial fall: 64. After each bounce the ball travels up then down again: 32+32, 16+16, ... which is 2*32/(1-0.5) = 128. Total = 64+128 = 192."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Computes only the downward journey total using the infinite GP: 64/(1-0.5) = 128, forgetting to add the upward bounces."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computes the bounce series as 2*64/(1-0.5) = 256 (treating the initial drop as the first term of the bounce series as well), then adds an extra 64 from a double-counting slip: 256+64=320."
+    }
+  ],
+  "explanation": "Initial drop: 64 m. The ball then bounces: up 32, down 32, up 16, down 16, ... The bounce series is infinite GP with first term 2*32=64 and r=0.5. Sum of bounces = 64/(1-0.5) = 128. Total = 64 + 128 = 192 m.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The initial drop is a one-way trip (64 m); every subsequent bounce is a round trip, so split and handle separately.",
+    "approach": "Formula: S_inf = a/(1-r). Initial fall = 64. After the first bounce the ball rises 32 and falls 32; rises 16 and falls 16, etc. This is infinite GP with a=2*32=64 and r=0.5. Sum = 64/0.5 = 128. Total distance = 64+128 = 192.",
+    "lesson": "In bouncing-ball problems, separate the one-time initial drop from the symmetric bounce series - double-counting the initial drop is the standard trap.",
+    "timing": "60-80 seconds. Key step: recognise the bounce distance forms a GP with first term 2*(64/2)=64 and ratio 0.5."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

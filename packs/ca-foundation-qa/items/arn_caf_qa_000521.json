@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000521",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000521.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.relations_functions"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "A relation R on set A = {1, 2, 3} is defined as R = {(1,1), (2,2), (3,3)}. Which property does R satisfy?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Reflexive only"
+    },
+    {
+      "key": 2,
+      "text": "Symmetric only"
+    },
+    {
+      "key": 3,
+      "text": "Transitive only"
+    },
+    {
+      "key": 4,
+      "text": "Equivalence relation (reflexive, symmetric, and transitive)"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "R is reflexive, but it also satisfies symmetric and transitive, so identifying only one property understates it."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "R is symmetric (trivially, since all pairs are of the form (a,a)), but it also has reflexive and transitive properties."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "R is transitive (vacuously and by diagonal pairs), but it also satisfies reflexive and symmetric properties."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "R = identity relation on A. It is reflexive (each (a,a) is present), symmetric ((a,b) in R implies (b,a) in R, trivially true since only equal pairs exist), and transitive (if (a,b) and (b,c) are in R then a=b=c so (a,c) = (a,a) is in R). Hence R is an equivalence relation."
+    }
+  ],
+  "explanation": "The identity relation {(1,1),(2,2),(3,3)} on any set A is the simplest equivalence relation. It is reflexive because every element is related to itself. It is symmetric because (a,b) in R means a=b so (b,a)=(b,b) is also in R. It is transitive because (a,b) and (b,c) both in R force a=b=c, so (a,c)=(a,a) is in R.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "The identity relation {(a,a) : a in A} satisfies all three properties and is the canonical equivalence relation.",
+    "approach": "State the three definitions, test each against the relation, and confirm all hold. For the identity relation every test is trivial.",
+    "lesson": "Reflexive: (a,a) in R for all a. Symmetric: (a,b) in R => (b,a) in R. Transitive: (a,b) and (b,c) in R => (a,c) in R. All three together = equivalence.",
+    "timing": "35 s. Do not stop at reflexive; check all three before choosing."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

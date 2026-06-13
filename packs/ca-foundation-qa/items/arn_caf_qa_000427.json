@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000427",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000427.py"
+  },
+  "tests": [
+    "qa.bmath.finance.nominal_effective_return"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A debenture's effective annual rate (EAR) is 10.25% per annum. Interest is compounded semi-annually. What nominal annual rate corresponds to this EAR?",
+  "options": [
+    {
+      "key": 1,
+      "text": "10%"
+    },
+    {
+      "key": 2,
+      "text": "10.25%"
+    },
+    {
+      "key": 3,
+      "text": "5%"
+    },
+    {
+      "key": 4,
+      "text": "20.5%"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "r_nom = m x ((1 + EAR)^(1/m) - 1) = 2 x ((1.1025)^0.5 - 1) = 2 x (1.05 - 1) = 2 x 0.05 = 10%."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "compound_interest_confusion",
+      "rationale": "Stated that nominal equals the EAR (10.25%), ignoring that semi-annual compounding makes EAR exceed the nominal rate."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "rate_period_mismatch",
+      "rationale": "Reported only the semi-annual periodic rate (5%) rather than multiplying by 2 to get the nominal annual rate."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Doubled the EAR (10.25% x 2 = 20.5%) instead of inverting the compounding formula, treating the EAR as the periodic rate."
+    }
+  ],
+  "explanation": "To find nominal from EAR: r_nom = m x ((1 + EAR)^(1/m) - 1). Here m = 2, EAR = 10.25%. So r_nom = 2 x ((1.1025)^0.5 - 1) = 2 x 0.05 = 10%.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Back-solving from EAR requires taking the mth root of (1 + EAR) then subtracting 1 and multiplying by m.",
+    "approach": "Formula: r_nom = m x ((1 + EAR)^(1/m) - 1). Map: EAR = 0.1025, m = 2. Compute sqrt(1.1025) = 1.05. Subtract 1 = 0.05. Multiply by 2 = 10%. The setup decision is recognising this as a reverse EAR problem.",
+    "lesson": "When EAR and compounding frequency are given, invert the EAR formula to find the nominal rate.",
+    "timing": "60 seconds. Spot that sqrt(1.1025) = 1.05 by recognising 1.05^2 = 1.1025. No calculator needed."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

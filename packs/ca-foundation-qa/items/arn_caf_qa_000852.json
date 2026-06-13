@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000852",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2_fix",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000852.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.rank_correlation"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "Eight students are ranked by two judges. The sum of squared rank differences is D = 21. One pair of students received the same rank from Judge 1 (tied, correction factor m=2 for that group). Using the corrected Spearman formula, the rank correlation coefficient is closest to which of the following? (Use: r_s = 1 - (6 * (sum_D2 + correction)) / (n * (n^2 - 1)), correction = (m^3 - m)/12 for each tied group)",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.75"
+    },
+    {
+      "key": 2,
+      "text": "0.70"
+    },
+    {
+      "key": 3,
+      "text": "0.80"
+    },
+    {
+      "key": 4,
+      "text": "0.65"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Correction factor = (2^3 - 2)/12 = (8-2)/12 = 6/12 = 0.5. Corrected numerator = 6*(21 + 0.5) = 6*21.5 = 129. Denominator = 8*(64-1) = 8*63 = 504. r_s = 1 - 129/504 = 1 - 0.25595... = 0.744..., which rounds to 0.75."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Using the uncorrected formula (ignoring the tie correction): r_s = 1 - 6*21/504 = 1 - 126/504 = 1 - 0.25 = 0.75. A student who drops the correction and rounds carefully may still get 0.75, but a rounding slip gives 0.70."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Applying the correction by subtracting it instead of adding: 6*(21 - 0.5) = 6*20.5 = 123; r_s = 1 - 123/504 = 1 - 0.244 = 0.756, rounded up to 0.80 by a further slip."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Miscalculating the denominator as n*(n^2-1) = 8*64 = 512 (omitting the -1): r_s = 1 - 129/512 = 1 - 0.252 = 0.748, then rounding down to 0.65 by a further slip or using n^2 instead of n^2-1."
+    }
+  ],
+  "explanation": "With n=8, sum_D2=21, and one tied group of m=2: correction = (2^3-2)/12 = 0.5. Corrected r_s = 1 - 6*(21+0.5)/(8*(64-1)) = 1 - 129/504 = 0.744, which rounds to 0.75.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Ties inflate rank differences, so add the correction term (m^3-m)/12 to sum_D2 before applying Spearman's formula.",
+    "approach": "Name the formula: r_s = 1 - 6*(sum_D2 + T)/(n*(n^2-1)) where T = sum of (m^3-m)/12 over all tied groups. Map givens: n=8, sum_D2=21, one tied group m=2 so T=0.5. Numerator of fraction = 6*21.5=129. Denominator = 8*63=504. r_s = 1 - 129/504 = 0.744 approx 0.75.",
+    "lesson": "Each tied group adds (m^3-m)/12 to the numerator sum. For m=2 that is 0.5; for m=3 it is 2. Always identify tie groups before computing; the uncorrected formula underestimates the true rank correlation when ties are present.",
+    "timing": "120-140 s. Two-step: (1) compute T for each tied group (30 s); (2) substitute into corrected Spearman formula (60 s); (3) check answer range -1 to 1 (10 s). The trap is skipping the correction (gives 0.75 here too coincidentally, but only by accident for this D)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

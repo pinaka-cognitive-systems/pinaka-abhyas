@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000769",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000769.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.coefficient_of_variation"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "A dataset has arithmetic mean 40 and standard deviation 10. What is its coefficient of variation?",
+  "options": [
+    {
+      "key": 1,
+      "text": "25%"
+    },
+    {
+      "key": 2,
+      "text": "40%"
+    },
+    {
+      "key": 3,
+      "text": "4%"
+    },
+    {
+      "key": 4,
+      "text": "400%"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "CV = (SD / Mean) x 100 = (10 / 40) x 100 = 25%."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Inverted the ratio: (Mean / SD) x 100 = (40 / 10) x 100 = 400%, then misread; or computed Mean itself as the percentage, giving 40%. This conflates mean with CV."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "decimal_place_error",
+      "rationale": "Computed (SD / Mean) = 10 / 40 = 0.25 but omitted the x 100 multiplication, yielding 0.25 then reading it as 4% after a further misplacement."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Used inverted formula (Mean / SD) x 100 = (40 / 10) x 100 = 400%."
+    }
+  ],
+  "explanation": "CV = (Standard Deviation / Mean) x 100 = (10 / 40) x 100 = 25%. The CV expresses variability as a percentage of the mean, making datasets with different units or magnitudes comparable.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "CV is always SD divided by Mean, multiplied by 100 - not the other way around.",
+    "approach": "Identify the formula: CV = (SD / Mean) x 100. Map givens: SD = 10, Mean = 40. Substitute and compute: 10/40 = 0.25; multiply by 100 to get 25%.",
+    "lesson": "CV = (SD / Mean) x 100. Inversion gives a number greater than 100 when mean exceeds SD, which is a quick sanity check.",
+    "timing": "About 25 seconds. Direct plug-in. The trap is inverting the fraction (Mean/SD), giving 400%."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

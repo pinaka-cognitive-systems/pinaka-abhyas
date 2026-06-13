@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000722",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000722.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mode"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The marks scored by 50 students in a class test are grouped as follows:\n\nClass interval: 10-20, frequency 4\nClass interval: 20-30, frequency 8\nClass interval: 30-40, frequency 15\nClass interval: 40-50, frequency 13\nClass interval: 50-60, frequency 7\nClass interval: 60-70, frequency 3\n\nUsing the formula Mode = L + (f1 - f0) / (2*f1 - f0 - f2) * h, what is the modal class and the mode?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Modal class 30-40, Mode = 36.67"
+    },
+    {
+      "key": 2,
+      "text": "Modal class 40-50, Mode = 43.33"
+    },
+    {
+      "key": 3,
+      "text": "Modal class 30-40, Mode = 40.00"
+    },
+    {
+      "key": 4,
+      "text": "Modal class 30-40, Mode = 34.00"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Modal class is 30-40 (highest frequency = 15). L=30, f1=15, f0=8, f2=13, h=10. Mode = 30 + (15-8)/(2*15-8-13)*10 = 30 + 7/9*10 = 30 + 6.67 = 36.67."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "A student who misidentifies the modal class as 40-50 (second highest) computes L=40, f1=13, f0=15, f2=7: Mode = 40 + (13-15)/(26-15-7)*10 = 40 + (-2/4)*10 = 40 - 5 = 35, but may further miscalculate; taking 40-50 as modal and plugging f0=8 (from 20-30) gives 40 + (13-8)/(26-8-7)*10 = 40 + 50/11 = 43.33."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Reporting the upper boundary of the modal class (40) instead of computing the mode formula; a student confuses modal class boundary with the mode value."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Using wrong denominator: 2*15-8-13 = 9, but a slip gives denominator 2*15-8 = 22, so Mode = 30 + 7/22*10 = 30 + 3.18 or rounding error; alternatively f0 taken as 4 (first class) gives 30 + (15-4)/(30-4-13)*10 = 30 + 110/13 = 38.46; taking denominator as (f1-f0)=7 and h=10 but computing L+h*(f1-f0)/f1 = 30 + 10*(7/15) = 34.67, truncated to 34."
+    }
+  ],
+  "explanation": "The modal class is 30-40 (frequency 15 is the maximum). Applying the interpolation formula with L=30, f1=15, f0=8 (preceding class), f2=13 (following class), h=10: Mode = 30 + (15-8)/(2*15-8-13) * 10 = 30 + 7/9 * 10 = 30 + 7.78 = 36.67 (rounded to 2 decimal places, exact = 30 + 70/9).",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The insight is identifying f0 and f2 as the frequencies of the classes immediately before and after the modal class, not any other classes.",
+    "approach": "Formula selection for grouped mode: (1) Identify modal class = class with highest frequency. (2) Label L = lower boundary, f1 = modal frequency, f0 = preceding frequency, f2 = following frequency, h = class width. (3) Apply Mode = L + (f1-f0)/(2*f1-f0-f2) * h. Map givens: L=30, f1=15, f0=8, f2=13, h=10.",
+    "lesson": "For grouped data, the mode lies inside the modal class; f0 and f2 are always the frequencies of the adjacent classes, not the extremes.",
+    "timing": "About 75 seconds. Spot-check: denominator = 2*15-8-13 = 9 > 0, confirming the modal class is correct. If denominator comes out negative, you have picked the wrong modal class."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

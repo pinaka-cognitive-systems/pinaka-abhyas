@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000405",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000405.py"
+  },
+  "tests": [
+    "qa.bmath.finance.sinking_fund"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A sinking fund requires annual deposits of Rs 6000 at the end of each year for 5 years at 6% per annum compounded annually. What total amount will the fund have accumulated at the end of 5 years? [Given: ((1.06)^5 - 1) / 0.06 = 5.6371]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 33822 (approx)"
+    },
+    {
+      "key": 2,
+      "text": "Rs 30000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 35820 (approx)"
+    },
+    {
+      "key": 4,
+      "text": "Rs 31800 (approx)"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "FV = R * FVAF = 6000 * 5.6371 = Rs 33823 (approx), closest to Rs 33822."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "compound_interest_confusion",
+      "rationale": "Ignoring interest: 6000 * 5 = Rs 30000."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Using FVAF = 5.97 (annuity due factor) by mistake: 6000 * 5.97 = Rs 35820 approx."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Using FVAF for 4 periods instead of 5: ((1.06)^4-1)/0.06 = 4.375; 6000 * 5.3 = 31800 approx."
+    }
+  ],
+  "explanation": "FV of ordinary annuity = R * [(1+r)^n - 1]/r = 6000 * 5.6371 = Rs 33822 (approx).",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The FV annuity formula multiplies the periodic deposit by the accumulated growth factor for the series.",
+    "approach": "Name the formula: FV = R * FVAF. Map: R = 6000, FVAF = 5.6371 (given). Compute: 6000 * 5.6371 = 33822.",
+    "lesson": "The FV annuity factor is always larger than n; never use simple multiplication R*n, which ignores interest on prior deposits.",
+    "timing": "Under 40 seconds using the given factor. Simply multiply 6000 by 5.6371."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

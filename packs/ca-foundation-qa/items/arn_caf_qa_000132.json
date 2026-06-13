@@ -18,7 +18,8 @@
   "tests": [
     "qa.stats.distributions.poisson"
   ],
-  "difficulty_label": "L3",
+  "difficulty_label": "L2",
+  "explanation_kind": "model_compute",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 120,
@@ -71,10 +72,10 @@
   ],
   "explanation": "1. Poisson PMF: P(X=k) = (e^(-lambda) × lambda^k) / k! with lambda = 2.\n2. P(X=0) = e^(-2) × 2^0 / 0! = e^(-2). P(X=1) = e^(-2) × 2^1 / 1! = 2 × e^(-2).\n3. KEY STEP: P(X <= 1) = P(X=0) + P(X=1) = e^(-2) + 2 × e^(-2) = 3 × e^(-2).\n4. The event 'at most 1' includes both k=0 and k=1; omitting either case underestimates.",
   "explanation_sections": {
-    "punchline": "\"At most 1\" covers k = 0 and k = 1. Both terms share e^(-2) as a factor, so they combine to (1 + 2) times e^(-2) = 3 times e^(-2).",
-    "approach": "For Poisson cumulative questions, list every value of k that satisfies the condition. Write the PMF for each k separately. Factor out e^(-lambda) and add the remaining coefficients. For \"at most 1\" that means two terms: k = 0 and k = 1.",
-    "lesson": "\"At most 1\" is not the same as \"exactly 1\" or \"at least 1\". Write out k = 0 and k = 1 explicitly every time to avoid missing a term.",
-    "timing": "About 120 seconds. Reject option (2) in five seconds: that is only k = 0. Reject option (4) in five seconds: that is only k = 1. Reject option (1): that form 1 minus e^(-2) equals P(X at least 1), the opposite event."
+    "punchline": "Model: Poisson(lambda=2). 'At most 1' covers k=0 and k=1. Both terms share e^(-2), so P(X=0) + P(X=1) = e^(-2) + 2*e^(-2) = 3*e^(-2).",
+    "approach": "Identify the model: rare events at a fixed average rate with independent occurrences - that is Poisson with lambda=2. For a cumulative 'at most k' question, list every integer from 0 up to k and write the PMF for each. P(X=0) = e^(-2) * 2^0 / 0! = e^(-2). P(X=1) = e^(-2) * 2^1 / 1! = 2*e^(-2). Sum and factor: e^(-2) * (1 + 2) = 3*e^(-2). The shared e^(-lambda) factor is your shortcut for combining terms.",
+    "lesson": "'At most 1' includes k=0 and k=1. Missing either term produces a wrong answer. 'At least 1' would be the complement 1 - e^(-2), which is the trap in option (1).",
+    "timing": "90-120 seconds. Reject option (2) = e^(-2) in 5 seconds: that is only k=0. Reject option (4) = 2*e^(-2) in 5 seconds: that is only k=1. Reject option (1) = 1 - e^(-2): that expression is P(X >= 1), the 'at least 1' complement, the opposite of what was asked."
   },
   "empirical": {
     "calibration_status": "none",

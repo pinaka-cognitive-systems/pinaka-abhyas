@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000591",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000591.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.odd_man_out"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "Three of the following words relate to each other in one specific way. Find the word that does NOT belong: Mango, Apple, Carrot, Orange.",
+  "options": [
+    {
+      "key": 1,
+      "text": "Mango"
+    },
+    {
+      "key": 2,
+      "text": "Apple"
+    },
+    {
+      "key": 3,
+      "text": "Carrot"
+    },
+    {
+      "key": 4,
+      "text": "Orange"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Mango is a fruit, matching the group property of fruits."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Apple is a fruit, matching the group property of fruits."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Carrot is a vegetable (root vegetable), while Mango, Apple, and Orange are all fruits. Carrot does not share the fruit property, making it the odd one out."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Orange is a fruit, matching the group property of fruits."
+    }
+  ],
+  "explanation": "Mango, Apple, and Orange are all fruits. Carrot is a vegetable. The unifying property of three items is being a fruit; Carrot violates this property and is the odd one out.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Three are fruits and one is a root vegetable; Carrot is the outlier.",
+    "approach": "Apply clues most-certain-first: classify each item by food category. Mango = fruit, Apple = fruit, Orange = fruit, Carrot = vegetable. Exactly one fails the fruit test.",
+    "lesson": "Odd-man-out by category requires testing every member against the group property; the one from a different category is the answer.",
+    "timing": "About 20 seconds. No arithmetic needed. The trap is selecting Orange (thinking of its colour similarity to Carrot)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

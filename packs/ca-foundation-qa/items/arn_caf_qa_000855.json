@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000855",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000855.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.rank_correlation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Six employees are ranked by a supervisor on performance and by a peer on teamwork. The sum of squared rank differences is 21. Calculate the Spearman rank correlation coefficient.",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.40"
+    },
+    {
+      "key": 2,
+      "text": "0.60"
+    },
+    {
+      "key": 3,
+      "text": "-0.40"
+    },
+    {
+      "key": 4,
+      "text": "0.50"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "r_s = 1 - 6*sum(d^2)/(n*(n^2-1)) = 1 - 6*21/(6*35) = 1 - 126/210 = 1 - 0.6 = 0.40."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Returning the fraction 6*21/210 = 0.6 itself instead of subtracting it from 1 to get r_s."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "Applying the formula as 6*sum(d^2)/(n*(n^2-1)) - 1 gives 0.6 - 1 = -0.40 instead of the correct 1 - 0.6 = 0.40."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Miscomputing 126/210 as 0.5 instead of 0.6, then 1 - 0.5 = 0.50."
+    }
+  ],
+  "explanation": "r_s = 1 - 6*sum(d^2)/(n*(n^2-1)). With n=6 and sum(d^2)=21: denominator = 6*(36-1) = 6*35 = 210. Fraction = 6*21/210 = 126/210 = 0.6. r_s = 1 - 0.6 = 0.40.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The denominator is n*(n^2-1) = 210 for n=6; after substitution r_s = 1 - 0.6 = 0.40.",
+    "approach": "Name the formula: r_s = 1 - 6*sum(d^2)/(n*(n^2-1)). Map: n=6, sum(d^2)=21. Denominator: 6*(36-1)=210. Fraction: 126/210=0.6. r_s = 1 - 0.6 = 0.40.",
+    "lesson": "The denominator is n*(n^2-1) = n*(n+1)*(n-1); never confuse it with n*(n-1) or n^2.",
+    "timing": "About 60 seconds. The traps are returning 0.6 (the raw fraction) instead of 1 minus that fraction, or flipping the sign."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

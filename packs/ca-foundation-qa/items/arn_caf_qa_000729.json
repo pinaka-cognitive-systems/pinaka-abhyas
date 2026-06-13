@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000729",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000729.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.gm_hm"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 105,
+  "stem": "Two machines complete a job in 6 hours and 9 hours respectively when working alone. A third machine, working alone, takes 18 hours for the same job. If all three machines work together, how long do they take to finish the job? Express your answer as the harmonic mean context: which of the following equals the time taken?",
+  "options": [
+    {
+      "key": 1,
+      "text": "3 hours"
+    },
+    {
+      "key": 2,
+      "text": "11 hours"
+    },
+    {
+      "key": 3,
+      "text": "4.5 hours"
+    },
+    {
+      "key": 4,
+      "text": "6 hours"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Combined rate = 1/6 + 1/9 + 1/18 = 3/18 + 2/18 + 1/18 = 6/18 = 1/3. Time = 3 hours."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "11 is approximately the arithmetic mean (6+9+18)/3 = 33/3 = 11; a student who averages the individual times instead of combining rates arrives here."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "4.5 could come from combining only the two faster machines: 1/6 + 1/9 = 5/18, time = 18/5 = 3.6; or from a student who uses HM of only two machines (HM of 6 and 9 = 2*54/15 = 7.2) then halves it; or from wrong fraction sum 1/6+1/9 = 3/15 giving time 5, then subtracting the third... Closest route: student computes (6+18)/2 ignoring machine 2, giving average 12, then halves, getting 6; or 1/6+1/18 = 2/9, time = 4.5, dropping machine 2."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "6 is the time of the fastest single machine alone; a student may select the minimum individual time, confusing the combined time with the fastest machine's time."
+    }
+  ],
+  "explanation": "The rate of combined work = sum of individual rates = 1/6 + 1/9 + 1/18. Using LCD = 18: 3/18 + 2/18 + 1/18 = 6/18 = 1/3. Time = 1 / (1/3) = 3 hours.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Work-rate problems are solved by adding rates (1/time), not by averaging times; the combined time = 1 / (sum of rates).",
+    "approach": "Model: combined work rate = sum of individual rates. Rate_1 = 1/6, Rate_2 = 1/9, Rate_3 = 1/18. Sum = 3/18 + 2/18 + 1/18 = 6/18 = 1/3. Time = 3 hours. This is equivalent to the harmonic mean divided by the count: HM(6,9,18)/3 = 9/3 = 3.",
+    "lesson": "For time-to-complete problems, always work with rates (jobs per hour) not times. The combined time is the reciprocal of the sum of rates.",
+    "timing": "About 60 seconds. The LCD of 6, 9, 18 is 18. Spot trap: option 2 is the AM of the individual times."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

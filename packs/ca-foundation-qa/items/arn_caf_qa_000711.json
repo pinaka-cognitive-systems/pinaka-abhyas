@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000711",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000711.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.median"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The following frequency distribution shows the daily wages (in Rs) of 40 workers:\n\nWages (Rs): 100-120, 120-140, 140-160, 160-180, 180-200\nFrequency:   4,       8,       14,       10,       4\n\nWhat is the median wage?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 151.43"
+    },
+    {
+      "key": 2,
+      "text": "Rs 155.00"
+    },
+    {
+      "key": 3,
+      "text": "Rs 148.57"
+    },
+    {
+      "key": 4,
+      "text": "Rs 160.00"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Median class is 140-160 (cumulative frequency 12 < 20 <= 26). Median = 140 + ((20-12)/14) * 20 = 140 + (8/14)*20 = 140 + 11.43 = 151.43."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "155 arises from using (20-12)/14 * 20 = 160/14 = 11.43 but rounding to 15 before adding to 140, giving 155."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "148.57 comes from using cumulative frequency 26 as the numerator component instead of 20 (the n/2 target), i.e., (20 - 6)/14 * 20 + 140."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "160 is taken as the upper boundary of the median class; the student stops at identifying the class but does not interpolate."
+    }
+  ],
+  "explanation": "n = 40, so n/2 = 20. Cumulative frequencies: 4, 12, 26, 36, 40. The median class is 140-160 (cumulative frequency first exceeds 20 at 26). Using the interpolation formula: Median = L + ((n/2 - cf) / f) * h = 140 + ((20 - 12) / 14) * 20 = 140 + (8/14) * 20 = 140 + 11.43 = Rs 151.43.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The interpolation formula locates the exact point within the median class where cumulative frequency crosses n/2.",
+    "approach": "Identify the model: grouped data with equal class width. Build cumulative frequencies, locate the class where cf first >= n/2 = 20. Apply: Median = L + ((n/2 - cf_prev)/f_median)*h, where L=140, cf_prev=12, f=14, h=20.",
+    "lesson": "Use the cumulative frequency just before the median class (not the class boundary cf) in the numerator of the interpolation fraction.",
+    "timing": "75 s. Build cf column (4, 12, 26, 36, 40), locate median class, plug into formula. The trap is using the wrong cf_prev."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

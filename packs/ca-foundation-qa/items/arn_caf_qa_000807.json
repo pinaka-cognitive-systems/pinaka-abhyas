@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000807",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000807.py"
+  },
+  "tests": [
+    "qa.stats.probability.random_variable"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A random variable X follows a Bernoulli distribution with parameter p = 0.6. That is, P(X=1) = 0.6 and P(X=0) = 0.4. What is the variance of X?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.24"
+    },
+    {
+      "key": 2,
+      "text": "0.36"
+    },
+    {
+      "key": 3,
+      "text": "0.60"
+    },
+    {
+      "key": 4,
+      "text": "0.16"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Var(X) = p(1-p) = 0.6 * 0.4 = 0.24."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "0.36 = p^2 = 0.6^2; the student squares p but uses p^2 instead of p*(1-p)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "0.60 is E[X] = p, not Var(X); the student reports the mean instead of the variance."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "0.16 = (1-p)^2 = 0.4^2; the student squares (1-p) instead of computing p*(1-p)."
+    }
+  ],
+  "explanation": "For a Bernoulli(p) random variable, Var(X) = p * q where q = 1 - p. With p = 0.6 and q = 0.4: Var(X) = 0.6 * 0.4 = 0.24. Alternatively E[X^2] = p since X^2 = X for a 0/1 variable, so Var(X) = E[X^2] - (E[X])^2 = 0.6 - 0.36 = 0.24.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Bernoulli variance = pq = p(1-p), not p^2 and not p alone.",
+    "approach": "Identify model: Bernoulli(p) distribution. State formula: Var(X) = p(1-p). Map givens: p=0.6, q=0.4. Compute: 0.6 * 0.4 = 0.24. Cross-check: E[X]=0.6, E[X^2]=0.6 (since X^2=X for 0/1), Var=0.6-0.36=0.24.",
+    "lesson": "Bernoulli variance is p*q = p*(1-p); confusing it with p^2 or p is a classic error.",
+    "timing": "40 seconds. One formula: Var = pq. Trap: reporting 0.6 (the mean) or 0.36 (p squared)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

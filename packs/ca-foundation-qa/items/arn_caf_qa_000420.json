@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000420",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000420.py"
+  },
+  "tests": [
+    "qa.bmath.finance.cagr"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A mutual fund's NAV moved from Rs 25 to Rs 36.45 over 3 years. [Given: (1.1335)^3 = 1.458, (1.1333)^3 approx 1.458, (1.134)^3 approx 1.459]. Which of the following is closest to its CAGR?",
+  "options": [
+    {
+      "key": 1,
+      "text": "13.3%"
+    },
+    {
+      "key": 2,
+      "text": "13.8%"
+    },
+    {
+      "key": 3,
+      "text": "9.65%"
+    },
+    {
+      "key": 4,
+      "text": "45.8%"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "CAGR = (36.45/25)^(1/3) - 1 = (1.458)^(1/3) - 1 approx 1.133 - 1 = 13.3%."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computed the cube root slightly off, estimating (1.458)^(1/3) as 1.138 instead of 1.133, yielding 13.8%."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Applied a simple-interest-based annualised return: (36.45 - 25)/(25 x 3) = 11.45/75 approx 15.3% then misread as 9.65%, reflecting confusion about which formula annualises growth."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "time_factor_dropped",
+      "rationale": "Computed total growth (36.45 - 25)/25 = 45.8% and reported it without applying the nth-root to get the per-year rate."
+    }
+  ],
+  "explanation": "CAGR = (FV/PV)^(1/n) - 1. With PV = 25, FV = 36.45, n = 3: ratio = 36.45/25 = 1.458. Cube root of 1.458 approx 1.133, so CAGR approx 13.3%.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Dividing the ratio into its per-year factor via the nth-root is the only correct annualisation.",
+    "approach": "Formula: CAGR = (FV/PV)^(1/n) - 1. Map: PV = 25, FV = 36.45, n = 3. Ratio = 1.458. Use given hint (1.1335)^3 = 1.458 to read off cube root approx 1.1333, giving CAGR approx 13.3%.",
+    "lesson": "When given power hints, match the ratio to the hint and read the base as the CAGR factor. Never use simple average of total growth.",
+    "timing": "60 seconds. Use the given hint to skip the root computation. Eliminate option 4 immediately as the total-growth trap."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000936",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000936.py"
+  },
+  "tests": [
+    "qa.stats.probability.conditional"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 165,
+  "stem": "A workshop assembles a part on three machines. Machine A makes 50% of the output, Machine B makes 30%, and Machine C makes 20%. The defective rates are 3% on A, 4% on B, and 5% on C. A finished part is drawn at random and found to be defective. What is the probability it was made on Machine B?",
+  "options": [
+    {
+      "key": 1,
+      "text": "12/37"
+    },
+    {
+      "key": 2,
+      "text": "0.04"
+    },
+    {
+      "key": 3,
+      "text": "0.30"
+    },
+    {
+      "key": 4,
+      "text": "12/100"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Total defective rate P(D) = 0.5*0.03 + 0.3*0.04 + 0.2*0.05 = 0.015 + 0.012 + 0.010 = 0.037. By Bayes, P(B|D) = 0.012 / 0.037 = 12/37 = about 0.324."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Reports P(D|B) = 0.04, the defect rate on B, instead of the posterior P(B|D). The conditional has been read in the wrong direction.",
+      "misconception": "conditional_reversed"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Reports the prior P(B) = 0.30, ignoring the defective evidence entirely. The question asks for the updated posterior, not the prior share of output.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Computes only the joint P(B and D) = 0.3*0.04 = 0.012 = 12/100 and stops, never dividing by the total defective probability P(D) = 0.037.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "This is a Bayes-theorem inversion. The defect rates are forward conditionals P(D given machine); the question wants the reverse, P(machine given defect). First find the total defective probability by the law of total probability: P(D) = 0.5*0.03 + 0.3*0.04 + 0.2*0.05 = 0.037. The joint for B is 0.3*0.04 = 0.012. Then P(B|D) = 0.012/0.037 = 12/37, about 0.324, which exceeds B's prior share of 0.30 because B is dirtier than average.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The defect rate 4% is P(defect given B); the question asks the reverse, P(B given defect), so you must invert with Bayes, not quote the rate. Answer 12/37, about 0.324.",
+    "approach": "Identify the model: three mutually exclusive sources partition the sample space, each with a known prior and a known forward defect rate. Assumption to navigate: the part comes from exactly one machine, so the law of total probability applies. Compute P(D) = sum of prior*rate = 0.015 + 0.012 + 0.010 = 0.037. Form the joint for B, 0.3*0.04 = 0.012. Divide: posterior = joint / total = 0.012/0.037 = 12/37.",
+    "lesson": "A posterior P(cause|effect) is always joint over total, never the forward rate itself; compute the full denominator across all sources before dividing.",
+    "timing": "About 150 seconds: three products, one sum, one division. Eliminate option 0.04 in five seconds: it is the given defect rate P(D|B), the reversed conditional, never the answer to P(B|D)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

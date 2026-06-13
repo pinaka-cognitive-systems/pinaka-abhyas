@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000798",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000798.py"
+  },
+  "tests": [
+    "qa.stats.probability.independent_events"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Two independent events A and B have P(A) = 3/5 and P(B) = 1/4. What is the probability that A occurs but B does not occur?",
+  "options": [
+    {
+      "key": 1,
+      "text": "9/20"
+    },
+    {
+      "key": 2,
+      "text": "3/20"
+    },
+    {
+      "key": 3,
+      "text": "1/10"
+    },
+    {
+      "key": 4,
+      "text": "7/10"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "P(A and not B) = P(A) * P(B') = (3/5) * (3/4) = 9/20, using independence to multiply."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Computing P(A and B) = P(A)*P(B) = (3/5)*(1/4) = 3/20, finding the joint probability of both occurring rather than A without B."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "conditional_reversed",
+      "rationale": "Computing P(B but not A) = P(B)*P(A') = (1/4)*(2/5) = 1/10, solving for B without A instead of A without B."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "complement_confusion",
+      "rationale": "Computing P(at least one) = 1 - P(A')*P(B') = 1 - (2/5)*(3/4) = 1 - 3/10 = 7/10, solving for at-least-one rather than exactly A without B."
+    }
+  ],
+  "explanation": "For independent events, P(A and B') = P(A) * P(B'). P(B') = 1 - 1/4 = 3/4. So P(A and not B) = (3/5)*(3/4) = 9/20.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Independence means P(A and B') = P(A)*P(B'), so compute the complement of B first, then multiply.",
+    "approach": "Identify the model: independent events. A occurs and B does not. P(B') = 3/4. P(A and B') = P(A)*P(B') = (3/5)*(3/4) = 9/20.",
+    "lesson": "When an event's complement is involved in an independence calculation, substitute 1-P(event) for the complement.",
+    "timing": "60 seconds. Read B's complement, multiply. The trap is multiplying P(A)*P(B) = 3/20 instead of P(A)*P(B')."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

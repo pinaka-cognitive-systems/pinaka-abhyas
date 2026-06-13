@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000658",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000658.py"
+  },
+  "tests": [
+    "qa.lr.blood_relations"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "Mohan says, 'Lata's father is the only son of my father.' How is Mohan related to Lata?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Father"
+    },
+    {
+      "key": 2,
+      "text": "Grandfather"
+    },
+    {
+      "key": 3,
+      "text": "Uncle"
+    },
+    {
+      "key": 4,
+      "text": "Brother"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "The only son of Mohan's father is Mohan himself. Lata's father is Mohan. So Mohan is Lata's father."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Grandfather would require Mohan to be two generations above Lata. But Mohan is directly Lata's father (one generation above), not two."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "kinship_direction_inverted",
+      "rationale": "Uncle would require Mohan to be a sibling of Lata's father. But Mohan IS Lata's father (the only son of Mohan's father = Mohan), so uncle is wrong."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Brother would place Mohan in Lata's own generation. The chain places Mohan one generation above Lata (as her father), not in the same generation."
+    }
+  ],
+  "explanation": "The only son of Mohan's father is Mohan (self-reference). Lata's father is Mohan. So Mohan is Lata's father.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "'Only son of my father' self-refers to Mohan, making him Lata's father.",
+    "approach": "Apply clues most-certain-first: 'only son of my father' = Mohan (the speaker). Lata's father = Mohan => Mohan is Lata's father.",
+    "lesson": "When a chain resolves 'only son/daughter of my parent', it always resolves to the speaker unless stated otherwise.",
+    "timing": "About 40 seconds. The self-reference is the key insight. Trap is option 2 (grandfather) from over-counting generations."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

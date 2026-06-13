@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000871",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000871.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.construction"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "A price index uses base-year prices as weights. Which of the following named index does this describe?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Paasche Price Index"
+    },
+    {
+      "key": 2,
+      "text": "Laspeyres Price Index"
+    },
+    {
+      "key": 3,
+      "text": "Fisher Ideal Index"
+    },
+    {
+      "key": 4,
+      "text": "Marshall-Edgeworth Index"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Paasche uses current-year quantities as weights, not base-year prices as weights."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "Laspeyres Price Index weights prices by base-year quantities: P_L = (sum p1*q0) / (sum p0*q0) * 100."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Fisher is the geometric mean of Laspeyres and Paasche; it does not use base-year weights exclusively."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Marshall-Edgeworth uses the average of base-year and current-year quantities as weights."
+    }
+  ],
+  "explanation": "The Laspeyres Price Index is defined as the ratio of current-year prices to base-year prices, weighted by base-year quantities: P_L = (sum p1*q0) / (sum p0*q0) * 100. Using base-year weights is the defining characteristic that distinguishes it from Paasche (current-year weights) and other indices.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "Base-year quantity weights identify the Laspeyres index uniquely; Paasche uses current-year quantity weights.",
+    "approach": "Identify the method: recall which named index uses which set of weights. Laspeyres = base-year (q0) weights; Paasche = current-year (q1) weights; Fisher = geometric mean of both; Marshall-Edgeworth = average of q0 and q1.",
+    "lesson": "Laspeyres anchors on the past (base year); Paasche anchors on the present (current year). Memorise the anchor, not the formula.",
+    "timing": "About 30-40 seconds. Pure recall; no computation needed. The trap is confusing Laspeyres with Paasche."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

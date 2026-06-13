@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000558",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000558.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.number_series"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "Which term is missing from the series: 100, 96, 92, 88, ?",
+  "options": [
+    {
+      "key": 1,
+      "text": "82"
+    },
+    {
+      "key": 2,
+      "text": "84"
+    },
+    {
+      "key": 3,
+      "text": "85"
+    },
+    {
+      "key": 4,
+      "text": "86"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Subtracting 6 instead of 4 from 88 gives 82, a slip in reading the common difference."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "The series decreases by 4 each time: 100, 96, 92, 88. The next term is 88 - 4 = 84."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Subtracting 3 instead of 4 from 88 gives 85, a slip in identifying the common difference."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Subtracting 2 instead of 4 from 88 gives 86, underestimating the common difference."
+    }
+  ],
+  "explanation": "The series 100, 96, 92, 88 is an arithmetic progression with common difference d = -4. Each term is 4 less than the previous. The fifth term is 88 - 4 = 84.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "A constant difference of -4 identifies this as a decreasing AP, making the next term a single subtraction.",
+    "approach": "Apply clues most-certain-first: compute 96-100=-4, 92-96=-4, 88-92=-4; constant difference d=-4. Next term = 88 + (-4) = 84.",
+    "lesson": "Decreasing APs have a negative common difference; apply it by subtracting the absolute value from the last term.",
+    "timing": "15 seconds. One difference check confirms d=-4, subtract once. Trap: misreading d as -2 or -3."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000819",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000819.py"
+  },
+  "tests": [
+    "qa.stats.probability.bayes_theorem"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 110,
+  "stem": "Factory A produces 60% of the total output and Factory B produces 40%. The defect rate from A is 2% and from B is 5%. An item selected at random from total output is found to be defective. What is the probability it came from Factory B?",
+  "options": [
+    {
+      "key": 1,
+      "text": "5/16"
+    },
+    {
+      "key": 2,
+      "text": "1/2"
+    },
+    {
+      "key": 3,
+      "text": "5/8"
+    },
+    {
+      "key": 4,
+      "text": "2/7"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computing P(D|B)*P(B) = 0.05*0.4 = 0.02, then incorrectly dividing by 0.064 instead of 0.032, giving 0.02/0.064 = 5/16."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "independence_assumed",
+      "rationale": "Ignoring the prior probabilities and treating both factories as equally likely sources, returning 1/2 without applying Bayes theorem."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "P(B|D) = P(D|B)*P(B) / [P(D|A)*P(A) + P(D|B)*P(B)] = (0.05*0.4) / (0.02*0.6 + 0.05*0.4) = 0.020 / (0.012 + 0.020) = 0.020/0.032 = 5/8."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "conditional_reversed",
+      "rationale": "Using the likelihood P(D|B) = 0.05 directly as the posterior, then approximating 0.05 as 2/7 through a fraction conversion error, instead of applying Bayes theorem."
+    }
+  ],
+  "explanation": "Apply Bayes theorem: P(B|D) = P(D|B)*P(B) / [P(D|A)*P(A) + P(D|B)*P(B)]. P(D|A)*P(A) = 0.02*0.6 = 0.012; P(D|B)*P(B) = 0.05*0.4 = 0.020. Total P(D) = 0.032. P(B|D) = 0.020/0.032 = 5/8.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Bayes theorem reverses the conditioning: we start with a defective item and find the probability of each source factory given the defect.",
+    "approach": "Identify model: Bayes theorem with two mutually exclusive, exhaustive hypotheses (factory A vs B). Step 1: compute each branch weight - P(D and A) = 0.02*0.6 = 0.012, P(D and B) = 0.05*0.4 = 0.020. Step 2: total P(D) = 0.032. Step 3: P(B|D) = 0.020/0.032 = 5/8.",
+    "lesson": "In factory-defect Bayes problems, higher defect rate does not alone determine the posterior; the factory's share of production (prior) also matters.",
+    "timing": "80 seconds. Two multiplications for branch weights, one addition, one division. The classic trap is ignoring the prior and just returning P(B) = 0.4 or P(D|B) = 0.05."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

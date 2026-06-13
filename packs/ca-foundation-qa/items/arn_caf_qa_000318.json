@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000318",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000318.py"
+  },
+  "tests": [
+    "qa.bmath.ratio_indices_log.proportion"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Find the third proportional to 6 and 18.",
+  "options": [
+    {
+      "key": 1,
+      "text": "30"
+    },
+    {
+      "key": 2,
+      "text": "3"
+    },
+    {
+      "key": 3,
+      "text": "54"
+    },
+    {
+      "key": 4,
+      "text": "108"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Adding 12 to 18 (continuing an arithmetic pattern with common difference 6 then 12) gives 30. Student treats the sequence as arithmetic rather than proportional."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "ratio_inverted",
+      "rationale": "Inverting the formula to x = a^2 / b = 36 / 18 = 2 or computing 6 / 18 * 9 = 3 via an inverted proportional."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Third proportional x satisfies 6:18 = 18:x, so x = 18^2 / 6 = 324 / 6 = 54."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student uses x = a x b x 1 = 6 x 18 = 108, multiplying both given numbers together instead of squaring the second and dividing by the first."
+    }
+  ],
+  "explanation": "The third proportional x to a and b satisfies a:b = b:x, i.e., x = b^2 / a = 18^2 / 6 = 324 / 6 = 54.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Third proportional uses x = b^2 / a; the second term is squared, not the first.",
+    "approach": "Formula selection: recognise a:b::b:x as the third proportional setup. Cross-multiply: b^2 = ax, so x = b^2 / a = 324 / 6 = 54.",
+    "lesson": "Third proportional: x = b^2 / a. Fourth proportional: x = bc / a. The squared term is always the middle (repeated) term.",
+    "timing": "45 seconds. Trap: computing a x b = 108 (forgetting to divide by a)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000471",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000471.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.combinations"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "A bag contains 6 red balls and 4 blue balls. A player draws 4 balls at random. In how many ways can the draw contain exactly 2 red and 2 blue balls?",
+  "options": [
+    {
+      "key": 1,
+      "text": "90"
+    },
+    {
+      "key": 2,
+      "text": "360"
+    },
+    {
+      "key": 3,
+      "text": "15"
+    },
+    {
+      "key": 4,
+      "text": "24"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Choose 2 red from 6: C(6,2) = 15. Choose 2 blue from 4: C(4,2) = 6. Multiply (independent choices): 15 * 6 = 90."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "permutation_combination_confusion",
+      "rationale": "Treating the selection as ordered: P(6,2)*C(4,2) or similar = 30*6 = 180 or computing P(6,2)*P(4,2) = 30*12 = 360 by counting arrangements within each colour group."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Computing only C(6,2) = 15 and forgetting to multiply by C(4,2), treating the blue component as already determined."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Using C(6,2) * C(4,2) but with the wrong value C(4,2)=4! incorrectly as 4, giving 15*4=60... or taking C(4,1)*C(6,3) = 4*20 = 80 then misidentifying a different pair-count as 24 = C(4,2)*4."
+    }
+  ],
+  "explanation": "Balls within each colour are identical in kind, and drawing is unordered. Decompose by group: choose 2 from 6 red AND 2 from 4 blue. These are independent choices so multiply: C(6,2) * C(4,2) = 15 * 6 = 90.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "Split the selection by colour group and multiply the independent combination counts: C(6,2) * C(4,2) = 15 * 6 = 90.",
+    "approach": "Classify: unordered draw with a composition constraint (exactly 2 of each colour). Method: decompose into two independent unordered selections. C(6,2) = 15 ways to pick 2 red; C(4,2) = 6 ways to pick 2 blue. Multiply (multiplication principle for independent stages): 15 * 6 = 90.",
+    "lesson": "When a selection must contain fixed numbers from distinct groups, compute C for each group and multiply - do not add.",
+    "timing": "50 seconds. The key decision: recognise it decomposes into two independent C computations. Trap option 2 is the permutation answer for at least one group."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

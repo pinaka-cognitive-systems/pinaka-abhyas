@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000437",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000437.py"
+  },
+  "tests": [
+    "qa.bmath.finance.depreciation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A vehicle costing Rs 5,00,000 is depreciated under the written-down value (WDV) method at 20% per annum. Given that (0.8)^3 = 0.512, what is the book value of the vehicle at the end of 3 years?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 2,56,000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 2,00,000"
+    },
+    {
+      "key": 3,
+      "text": "Rs 2,40,000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 3,00,000"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "WDV book value after n years = Cost x (1 - rate)^n = 500000 x (0.8)^3 = 500000 x 0.512 = 256000."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Uses straight-line: 500000 - 3 x 100000 = 200000 (treating 20% of original cost as annual charge)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "time_factor_dropped",
+      "rationale": "Applies WDV for only 2 years: 500000 x (0.8)^2 = 500000 x 0.64 = 320000; or miscalculates (0.8)^3 as 0.48 giving 240000, an arithmetic slip in the power."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "percentage_base_confusion",
+      "rationale": "Deducts 20% of original cost (100000) for each of 3 years but subtracts only 2 years worth: 500000 - 2*100000 = 300000, a period-count error combined with wrong base usage."
+    }
+  ],
+  "explanation": "WDV method: each year depreciation is applied to the remaining book value, giving a geometric decay. Book value after n years = Cost x (1 - r)^n = 500000 x (0.8)^3 = 500000 x 0.512 = Rs 2,56,000.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "WDV depreciation follows geometric decay: book value = Cost x (1 - rate)^n.",
+    "approach": "Identify method: WDV (reducing balance). Formula: BV = C x (1-r)^n. Map: C=500000, r=0.20, n=3. Use given: (0.8)^3=0.512. BV=500000*0.512=256000.",
+    "lesson": "WDV applies the rate to the declining balance, so use the exponential formula, not the linear subtraction used for SLM.",
+    "timing": "50 seconds. Trap: using SLM (linear) instead of WDV (exponential) formula."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

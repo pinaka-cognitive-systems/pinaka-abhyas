@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000453",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000453.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.permutations"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "If P(n, 3) = 60, what is the value of n?",
+  "options": [
+    {
+      "key": 1,
+      "text": "5"
+    },
+    {
+      "key": 2,
+      "text": "6"
+    },
+    {
+      "key": 3,
+      "text": "4"
+    },
+    {
+      "key": 4,
+      "text": "7"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "P(n, 3) = n(n-1)(n-2) = 60. Try n = 5: 5 x 4 x 3 = 60. Confirmed."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Chose n = 6, but P(6, 3) = 6 x 5 x 4 = 120 which is not 60. Off by one in the candidate value."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Chose n = 4, but P(4, 3) = 4 x 3 x 2 = 24 which is not 60. Off by one in the other direction."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Chose n = 7, perhaps computing 60 / 3 = 20 and misidentifying the cube root or misreading the descending product starting from 7."
+    }
+  ],
+  "explanation": "P(n, 3) = n(n-1)(n-2) = 60. Factoring 60 = 5 x 4 x 3, three consecutive descending integers from 5. Therefore n = 5.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "Factor 60 as a product of three consecutive descending integers: 5 x 4 x 3 = 60, so n = 5.",
+    "approach": "Classify as back-solving a permutation equation. Write P(n, 3) = n(n-1)(n-2) = 60. Trial n = 5: 5 x 4 x 3 = 60 checks out. Alternatively, note 60^(1/3) approx 3.9, so n is around 5, then verify.",
+    "lesson": "To back-solve P(n, r) = k, factor k as r consecutive descending integers. The largest integer is n.",
+    "timing": "50-60 s. Check n = 5 first since 5 x 4 x 3 = 60 is a well-known product. Trap is testing n = 6 giving 120, which is double 60 - a common off-by-one check."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

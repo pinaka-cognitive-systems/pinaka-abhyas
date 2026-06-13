@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000625",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000625.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "Four colleagues Amar, Bela, Chandan, and Diya sit in a row from left to right. Amar sits at the leftmost position. Bela sits immediately to the right of Amar. Diya does not sit at the rightmost position. Who sits immediately to the right of Diya?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Amar"
+    },
+    {
+      "key": 2,
+      "text": "Bela"
+    },
+    {
+      "key": 3,
+      "text": "Chandan"
+    },
+    {
+      "key": 4,
+      "text": "Diya"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Amar is fixed at position 1. No one can be to the right of Diya and also be Amar unless the arrangement is ignored. This answer ignores the fixed-position clue for Amar."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "Bela is immediately right of Amar (position 2), not immediately right of Diya. Reversing the adjacency clue makes Bela appear as Diya's right neighbor."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Amar=1, Bela=2. Remaining: Chandan and Diya in positions 3 and 4. Diya not at position 4 forces Diya=3, Chandan=4. Immediately right of Diya (pos 3) is position 4 = Chandan."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Diya cannot sit immediately to the right of herself. This option misreads the question as asking who Diya is adjacent to rather than who sits to her right."
+    }
+  ],
+  "explanation": "Amar is fixed at position 1 and Bela at position 2. This leaves positions 3 and 4 for Chandan and Diya. The clue that Diya is not at the rightmost position (4) forces Diya to position 3 and Chandan to position 4. The person immediately to the right of Diya (position 3) is therefore Chandan at position 4.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Diya's exclusion from the rightmost seat uniquely places Chandan to Diya's right.",
+    "approach": "Apply clues most-certain-first: fix Amar(1) and Bela(2) from the direct placement clues. Distribute the remaining two persons into positions 3 and 4, using the negative constraint on Diya to settle which is which. Then read off Diya's right neighbor.",
+    "lesson": "In a 4-person row where two positions are directly fixed, a single negative constraint on the remaining two uniquely determines both placements.",
+    "timing": "50 seconds. Two persons, one negative constraint, one step to resolve. No enumeration needed."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

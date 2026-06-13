@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000751",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000751.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.standard_deviation"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "Seven annual performance scores recorded for an employee are: 2, 5, 8, 11, 14, 17, 20. What is the standard deviation of these scores?",
+  "options": [
+    {
+      "key": 1,
+      "text": "6"
+    },
+    {
+      "key": 2,
+      "text": "6.48"
+    },
+    {
+      "key": 3,
+      "text": "36"
+    },
+    {
+      "key": 4,
+      "text": "4.5"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Mean = 77/7 = 11. Sum of squared deviations: 9^2+6^2+3^2+0^2+3^2+6^2+9^2 = 81+36+9+0+9+36+81 = 252. Variance = 252/7 = 36. SD = sqrt(36) = 6."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "population_sample_confusion",
+      "rationale": "Student divides sum of squared deviations by n-1=6 instead of n=7: variance = 252/6 = 42, SD = sqrt(42) = 6.48."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Student computes the variance (36) but reports it as the standard deviation instead of taking the square root."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student uses range/4 = (20-2)/4 = 4.5, confusing standard deviation with a quartile-based measure."
+    }
+  ],
+  "explanation": "Standard deviation = sqrt(variance) = sqrt(sum of (xi-mean)^2 / n). The data is an AP with common difference 3 and mean = middle value = 11.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The decisive shortcut: for an AP, squared deviations from the mean are symmetric and can be read off quickly.",
+    "approach": "Step 1: Mean = 11 (middle of AP). Step 2: Deviations: -9,-6,-3,0,3,6,9. Step 3: Squared deviations: 81,36,9,0,9,36,81. Sum=252. Step 4: Variance = 252/7 = 36. Step 5: SD = sqrt(36) = 6.",
+    "lesson": "Always take the square root of variance to get standard deviation; reporting variance as SD is a common error.",
+    "timing": "About 45 seconds. The AP structure means squared deviations appear in pairs: 2*(81+36+9) = 252 directly."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

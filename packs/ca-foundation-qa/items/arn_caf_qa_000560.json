@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000560",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000560.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.number_series"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 140,
+  "stem": "Examine the series: 2, 5, 11, 20, 32, 47, ?. Which value completes it correctly?",
+  "options": [
+    {
+      "key": 1,
+      "text": "62"
+    },
+    {
+      "key": 2,
+      "text": "64"
+    },
+    {
+      "key": 3,
+      "text": "65"
+    },
+    {
+      "key": 4,
+      "text": "68"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Misidentifying the next first-difference as 15 (rather than 18) gives 47 + 15 = 62, treating the first differences as increasing by 3 each time instead of tracing the true second-difference pattern."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Correctly computing the next first-difference as 17 but slipping to add 17 to 47 as 64 instead of 65."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "First differences: 3, 6, 9, 12, 15. Second differences: all 3. The next first-difference is 18. So the next term is 47 + 18 = 65."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Using a next first-difference of 21 instead of 18 (adding 6 to the last first-difference of 15 instead of 3) gives 47 + 21 = 68."
+    }
+  ],
+  "explanation": "First differences of the series: 5-2=3, 11-5=6, 20-11=9, 32-20=12, 47-32=15. These differences 3,6,9,12,15 form an AP with common difference 3. The next first-difference is 15+3=18. The next term is 47+18=65. Hidden trap: the first differences look like multiples of 3 (3,6,9,12,15) which is itself a GP with ratio 2 only for the first few terms - the genuine pattern is a second-order AP with constant second-difference of 3.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The first differences 3,6,9,12,15 are themselves an AP (d=3), but candidates may confuse this with a GP (ratio 2) for the first few terms - the second-difference test settles it unambiguously.",
+    "approach": "Apply clues most-certain-first: compute first differences 3,6,9,12,15; then second differences 3,3,3,3 (constant at 3). Next first-difference = 15+3 = 18. Next term = 47+18 = 65. Verify: second-difference model predicts T(n) = n^3/2 ... confirm by the quadratic fit.",
+    "lesson": "When first differences are multiples of a number, compute second differences before assuming a GP; a constant second-difference means a quadratic sequence, not geometric.",
+    "timing": "55 seconds. Two rounds of differencing needed plus one arithmetic step. Trap: reading 3,6,12 as a GP with ratio 2 and projecting 24 as the next first-difference (gives 71), or stopping after noticing multiples of 3 without the second-difference check."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

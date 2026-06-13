@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000863",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000863.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.regression"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 110,
+  "stem": "For two variables X and Y, the regression coefficient of Y on X is b_yx = 1.5. New variables are defined as U = (X - 5)/2 and V = (Y - 10)/3. What is the regression coefficient of V on U, denoted b_VU?",
+  "options": [
+    {
+      "key": 1,
+      "text": "1.5"
+    },
+    {
+      "key": 2,
+      "text": "1.0"
+    },
+    {
+      "key": 3,
+      "text": "2.25"
+    },
+    {
+      "key": 4,
+      "text": "0.5"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "invariance_property_confused",
+      "rationale": "Believing the regression coefficient is invariant under any linear transformation, like the correlation coefficient. The correlation r is invariant under linear change of origin and scale, but the regression coefficient b_yx changes with scale."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "b_VU = (d/c)*b_yx where c=1/2 (scale of X) and d=1/3 (scale of Y). b_VU = (1/3)/(1/2) * 1.5 = (2/3)*1.5 = 1.0."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Using b_VU = (c/d)*b_yx = (1/2)/(1/3) * 1.5 = (3/2)*1.5 = 2.25, inverting the ratio of scale factors."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Applying only the Y scale factor: b_VU = b_yx * d = 1.5 * (1/3) = 0.5, ignoring the denominator scale change from U = X/2."
+    }
+  ],
+  "explanation": "When U = (X-5)/2 and V = (Y-10)/3, the scale factors are sigma_U = sigma_X/2 and sigma_V = sigma_Y/3. b_VU = cov(V,U)/var(U). Since cov(V,U) = (1/6)*cov(Y,X) and var(U) = (1/4)*var(X), b_VU = [(1/6)*cov(Y,X)] / [(1/4)*var(X)] = (4/6)*b_yx = (2/3)*1.5 = 1.0.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Scale changes affect b_yx via the ratio of Y-scale to X-scale; b_VU = (d_Y/d_X)*b_yx = (1/3)/(1/2)*1.5 = 1.0.",
+    "approach": "Formula: when Y = d_Y*V + k_Y and X = d_X*U + k_X, then b_VU = (d_Y/d_X)*b_YX. Here d_Y=1/3 and d_X=1/2 (the coefficients multiplying V and U in the inverse transforms). Ratio = (1/3)/(1/2) = 2/3. b_VU = (2/3)*1.5 = 1.0. The origin shifts (5 and 10) have no effect.",
+    "lesson": "The regression coefficient changes under scale change by the factor (scale of Y)/(scale of X); it is NOT invariant the way the correlation coefficient r is.",
+    "timing": "About 80 seconds. The trap is option 1 (thinking b_yx is invariant like r), which is the most common conceptual error in this topic."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

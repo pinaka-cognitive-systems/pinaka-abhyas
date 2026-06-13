@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000641",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000641.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Six people A, B, C, D, E and F are seated in a row facing east. B is second from the left. D is to the immediate right of B. A is at the rightmost end. E and F are neighbours of each other. C is not adjacent to A. E is not adjacent to D. Which person sits at the extreme left?",
+  "options": [
+    {
+      "key": 1,
+      "text": "C"
+    },
+    {
+      "key": 2,
+      "text": "E"
+    },
+    {
+      "key": 3,
+      "text": "F"
+    },
+    {
+      "key": 4,
+      "text": "D"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "B=2, D=3, A=6. Free seats 1,4,5 for C,E,F. E not adjacent to D(3) bars E from seat 4. E-F neighbours: E=5 forces F=4 (F=6 is A). C fills seat 1. Verify: C not adjacent to A(|1-6|=5) ok. Arrangement: C-B-D-F-E-A. Extreme left = C."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Skipping the E-not-adjacent-to-D rule allows E to sit at seat 4, pushing C out of seat 1 and placing E at the extreme left in an invalid arrangement."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "Reading 'E and F are neighbours' as 'E and F cannot be neighbours' frees F to seat 1, yielding the wrong answer F at the extreme left."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Misreading 'D immediately right of B' as 'D at the leftmost end' places D at seat 1, which contradicts the given position of B at seat 2."
+    }
+  ],
+  "explanation": "B=2, D=3 (immediately right of B), A=6. Free seats 1, 4, 5 for C, E, F. E cannot be at 4 (adjacent to D=3). So E is at 1 or 5. E and F must be neighbours: E=1 would require F=2 (taken by B), so E=5 and F=4. C fills seat 1. Verify: C(1) not adjacent to A(6) - distance 5, ok. Final order: C-B-D-F-E-A. Extreme left = C.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Eliminating seat 4 for E (adjacent to D) and using the E-F neighbour constraint forces E=5, F=4, C=1.",
+    "approach": "Apply clues most-certain-first: B=2 and D=3 (from the B-D adjacency). A=6 (rightmost). Remaining seats 1,4,5. Eliminate seat 4 for E (not adjacent to D=3). E must neighbour F: E at seat 1 forces F=2 (blocked). So E=5, F=4, C=1. Final check: C(1) not adjacent to A(6).",
+    "lesson": "Use negative adjacency constraints as seat eliminators first; the positive neighbour pair then snaps into the remaining seats.",
+    "timing": "About 80 s. Common trap: trying E at seat 1 without checking that F=2 is already taken by B."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

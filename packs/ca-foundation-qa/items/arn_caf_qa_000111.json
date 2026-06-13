@@ -19,6 +19,7 @@
     "qa.stats.data_representation.sampling"
   ],
   "difficulty_label": "L1",
+  "explanation_kind": "concept",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 60,
@@ -71,10 +72,10 @@
   ],
   "explanation": "1. The sampling interval k = population size / sample size = 500 / 50 = 10.\n2. KEY STEP: Selecting every kth unit from a list is systematic sampling by definition.\n3. Simple random sampling needs equal independent chances. Stratified sampling needs groups. Cluster sampling needs whole groups selected.\n4. Only systematic sampling matches: a fixed interval applied to an ordered list.",
   "explanation_sections": {
-    "punchline": "Selecting every kth unit from an ordered list is the definition of systematic sampling. No other method uses a fixed interval.",
-    "approach": "For sampling identification questions, check three things in sequence: Is there a fixed interval applied to a list? That is systematic. Are there predefined strata with separate draws? That is stratified. Are whole natural groups selected as units? That is cluster. Everything else with individual random draws is simple random.",
-    "lesson": "Systematic sampling is identified by one feature: a constant interval k between selected units. Once you see that pattern, the answer is certain regardless of what the interval value is.",
-    "timing": "About 60 seconds. Read the description and check for a fixed interval in 15 seconds. If you see it, mark systematic and move on. Do not spend time computing k = 500/50; the interval is already stated as 10."
+    "punchline": "Selecting every kth unit from an ordered list is the definition of systematic sampling. No other sampling method uses a fixed interval.",
+    "approach": "State the property: systematic sampling selects units at a constant interval k from an ordered list. Then contrast the confusables. Stratified: population split into groups, random draws within each group. Cluster: whole natural groups are selected as units. Simple random: every individual unit has an equal independent chance, no order used. The phrase 'every 10th name from an alphabetical list' matches only systematic.",
+    "lesson": "Systematic sampling has one fingerprint: a constant interval between selected units. Strata require predefined subgroups. Clusters require selecting whole groups. Simple random requires independent individual draws. One cue is enough to eliminate all three wrong options.",
+    "timing": "60 seconds. Identify the 'every 10th' cue in under 10 seconds and mark systematic. There is no arithmetic to do; k = 10 is given. Any time spent computing 500/50 is wasted."
   },
   "empirical": {
     "calibration_status": "none",

@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "All members except 35 are perfect squares: 4=2², 9=3², 16=4², 25=5², 49=7². 35=5×7 is not a perfect square, so 35 is the odd one out.",
+  "explanation_kind": "deductive_trace",
   "explanation_sections": {
-    "punchline": "Every number in the group is a perfect square except 35. 35 = 5 × 7 has no integer square root, so it does not belong.",
-    "approach": "For odd-one-out number questions, test a single defining property across all members. Try: perfect squares, perfect cubes, primes, multiples of a fixed number. Write the root or factor of each number beside it. The one that fails the property is the answer.",
-    "lesson": "Not every odd number is a non-square, and not every large number is a non-square. Check each candidate against the integer square root, not just parity or size.",
-    "timing": "About 60 seconds. Computing square roots for each of the six numbers takes roughly 30 seconds. Confirm 35 is not a perfect square in under 10 seconds: 5² = 25, 6² = 36, so 35 falls between two squares."
+    "punchline": "Apply the perfect-square rule to every number in one pass: 4=2^2, 9=3^2, 16=4^2, 25=5^2, 49=7^2. 35 fails: 5^2=25 and 6^2=36 bracket it, so 35 is not a perfect square and does not belong.",
+    "approach": "For odd-one-out problems, hypothesize the defining property from the majority of members, then test every member. Here, most numbers are perfect squares. Verify each: write its integer square root or confirm it falls between two consecutive squares. The number that fails the test is the answer. If your first hypothesis fails more than one member, try another property.",
+    "lesson": "Test the property against all members, not just the suspicious one. Option 49 is a trap because 7 is odd and students sometimes confuse odd base with non-square; 7^2=49 is still a perfect square.",
+    "timing": "About 45 seconds. One sweep through six numbers at 5 seconds each. The bracket test for 35 (5^2=25, 6^2=36) takes 5 seconds and is faster than computing a square root."
   },
   "empirical": {
     "calibration_status": "none",

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000831",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000831.py"
+  },
+  "tests": [
+    "qa.stats.distributions.poisson"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Defects in a roll of cloth follow a Poisson distribution with an average of 2 defects per metre. What is the probability of finding exactly 3 defects in a 2-metre roll? [Given: e^(-4) = 0.0183]",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.1952"
+    },
+    {
+      "key": 2,
+      "text": "0.0732"
+    },
+    {
+      "key": 3,
+      "text": "0.1465"
+    },
+    {
+      "key": 4,
+      "text": "0.0183"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "For a 2-metre roll lambda = 2*2 = 4. P(X=3) = e^(-4)*4^3/3! = 0.0183*64/6 = 0.0183*10.6667 = 0.19520."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "0.0732 = e^(-4)*4^2/2! = 0.0183*16/2 = 0.0183*8 = 0.1464, closest to option 3; 0.0732 = e^(-4)*4^2/2 = 0.0183*8; this is P(X=2) with lambda=4. Actually 0.0732 matches e^(-2)*2^3/3! = 0.1353*8/6 = 0.1804 not quite; 0.0732 is P(X=3) using the un-scaled lambda=2: e^(-2)*8/6=0.1353*1.333=0.1804. Re-derive: 0.0732 = e^(-4)*4^1/1! = 0.0183*4 = 0.0732 = P(X=1) with lambda=4; the student solved P(X=1) instead of P(X=3)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "0.1465 = e^(-4)*4^2/2! = 0.0183*16/2 = 0.1464, which is P(X=2) with lambda=4; the student used k=2 instead of k=3."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "0.0183 = e^(-4) = P(X=0) with lambda=4; the student evaluated the Poisson formula without the power and factorial terms."
+    }
+  ],
+  "explanation": "For 2 metres, scale the rate: lambda = 2 * 2 = 4. P(X=3) = e^(-4)*4^3/3! = 0.0183*64/6 = 0.1952.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The critical setup step is rescaling lambda to the interval asked (2 m * 2/m = 4), not using the per-unit rate directly.",
+    "approach": "Model: Poisson. Setup: rate=2 per m, interval=2 m, so lambda=4. Formula: P(X=3)=e^(-4)*4^3/3!=0.0183*64/6=0.1952. Verify k=3 not k=2.",
+    "lesson": "Always rescale the Poisson rate to match the interval length before plugging into the formula.",
+    "timing": "75 seconds. Rate rescaling is the deciding move. 64/6 is not whole; compute 0.0183*10.667 carefully."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

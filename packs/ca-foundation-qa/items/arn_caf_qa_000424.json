@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000424",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000424.py"
+  },
+  "tests": [
+    "qa.bmath.finance.nominal_real_return"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "An investor earned a nominal return of 15% on a stock over one year. The inflation rate during the year was 6%. What is the real return (to the nearest 0.01%)? Which formula correctly gives this?",
+  "options": [
+    {
+      "key": 1,
+      "text": "8.49%, using (1 + nominal)/(1 + inflation) - 1"
+    },
+    {
+      "key": 2,
+      "text": "9%, using nominal minus inflation"
+    },
+    {
+      "key": 3,
+      "text": "21.9%, using (1 + nominal) x (1 + inflation) - 1"
+    },
+    {
+      "key": 4,
+      "text": "6%, using the inflation rate directly"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Fisher equation: r_real = 1.15/1.06 - 1 = 1.08490... - 1 = 8.49%. The formula is the correct one."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Simple subtraction 15% - 6% = 9% ignores the multiplicative cross-term in the Fisher equation, overstating the real return."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "compound_interest_confusion",
+      "rationale": "Multiplied the gross return factors (1.15 x 1.06 = 1.219) as if stacking both returns instead of dividing by the inflation factor."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Simply reported inflation (6%) as the real return, confusing the inflation rate with the purchasing-power gain."
+    }
+  ],
+  "explanation": "The Fisher equation gives r_real = (1 + r_nom)/(1 + r_inf) - 1 = 1.15/1.06 - 1 = 8.49%. Simple subtraction gives 9%, which exceeds the true value because it ignores the cross-product term.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The Fisher equation divides out inflation; multiplication of the two factors is the opposite of what deflation requires.",
+    "approach": "Formula: r_real = (1 + r_nom)/(1 + r_inf) - 1. Map: r_nom = 0.15, r_inf = 0.06. Compute 1.15/1.06 = 1.08490. Real return = 8.49%. The setup decision is recognising inflation as a deflator (divides) not an adder.",
+    "lesson": "Inflation deflates nominal return; use division in the Fisher formula, not multiplication or subtraction.",
+    "timing": "60 seconds. Divide 1.15 by 1.06. Eliminate option 3 (multiplication) and option 2 (simple subtraction)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

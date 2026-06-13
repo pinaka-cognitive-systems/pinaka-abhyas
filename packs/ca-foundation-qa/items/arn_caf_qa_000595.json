@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000595",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000595.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.odd_man_out"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 85,
+  "stem": "Four numbers are given. Three share a mathematical property and one does not. Identify the odd one out: 6, 28, 36, 496.",
+  "options": [
+    {
+      "key": 1,
+      "text": "6"
+    },
+    {
+      "key": 2,
+      "text": "28"
+    },
+    {
+      "key": 3,
+      "text": "36"
+    },
+    {
+      "key": 4,
+      "text": "496"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "6 is a perfect number: its divisors excluding itself are 1, 2, 3 and 1+2+3=6. It belongs in the group."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "28 is a perfect number: its divisors excluding itself are 1, 2, 4, 7, 14 and 1+2+4+7+14=28. It belongs in the group."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "36 is NOT a perfect number. Divisors of 36 excluding itself: 1, 2, 3, 4, 6, 9, 12, 18. Sum = 55, not 36. Meanwhile 6, 28, and 496 are all perfect numbers (sum of proper divisors equals the number itself)."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "496 is a perfect number: proper divisors sum to 496 (1+2+4+8+16+31+62+124+248=496). It belongs in the group."
+    }
+  ],
+  "explanation": "A perfect number equals the sum of all its proper divisors (divisors other than itself). 6=1+2+3, 28=1+2+4+7+14, 496=1+2+4+8+16+31+62+124+248, all check out. 36 has proper divisors summing to 55, not 36. So 36 is the odd one out.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Three are perfect numbers (sum of proper divisors = the number); 36 fails this test with a divisor-sum of 55.",
+    "approach": "Apply clues most-certain-first: compute the sum of proper divisors for each. For 6: 1+2+3=6 (match). For 28: 1+2+4+7+14=28 (match). For 496: 1+2+...+248=496 (match). For 36: 1+2+3+4+6+9+12+18=55 (mismatch). 36 is the outlier.",
+    "lesson": "Perfect numbers (6, 28, 496, 8128) are a ICAI-tested number-theory category. Recognise them or verify by divisor sum.",
+    "timing": "About 75 seconds. Trap: 36 = 6^2, and 6 is a perfect number, so students may assume 36 also has a perfect property. Must enumerate divisors carefully."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

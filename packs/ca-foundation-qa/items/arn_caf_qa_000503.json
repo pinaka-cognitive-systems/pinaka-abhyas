@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000503",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000503.py"
+  },
+  "tests": [
+    "qa.bmath.calculus.integration"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Evaluate the definite integral of (3x^2 - 12) with respect to x from x = 2 to x = 4.",
+  "options": [
+    {
+      "key": 1,
+      "text": "32"
+    },
+    {
+      "key": 2,
+      "text": "36"
+    },
+    {
+      "key": 3,
+      "text": "16"
+    },
+    {
+      "key": 4,
+      "text": "0"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Antiderivative F(x) = x^3 - 12x. F(4) = 64 - 48 = 16. F(2) = 8 - 24 = -16. Integral = 16 - (-16) = 32."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Evaluating the integrand at the two limits and subtracting instead of integrating: (3*16 - 12) - (3*4 - 12) = 36 - 0 = 36."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "integration_constant_dropped",
+      "rationale": "Evaluating only at the upper limit and ignoring the lower limit: F(4) = 4^3 - 12*4 = 64 - 48 = 16."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computing F(4) = 16 and F(2) = -16 correctly but adding them instead of subtracting: 16 + (-16) = 0."
+    }
+  ],
+  "explanation": "The antiderivative of 3x^2 is x^3 and the antiderivative of -12 is -12x. So F(x) = x^3 - 12x. Applying the limits: F(4) = 64 - 48 = 16 and F(2) = 8 - 24 = -16. The definite integral = F(4) - F(2) = 16 - (-16) = 32.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The antiderivative at the lower limit is negative here, so subtracting it adds to the total; this is where most errors occur.",
+    "approach": "Power rule integration: x^n becomes x^(n+1)/(n+1). For a constant term -12, the antiderivative is -12x. Then apply F(upper) - F(lower) with careful sign handling when F(lower) is negative.",
+    "lesson": "When F(lower bound) is negative, F(upper) - F(lower) is larger than F(upper) alone. Treat it as F(4) - (-16) = 16 + 16 = 32.",
+    "timing": "50-70 seconds. Opt 3 (16) is the tell-tale sign of stopping at F(4); opt 4 (0) flags incorrect addition. Spot the negative lower value first."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

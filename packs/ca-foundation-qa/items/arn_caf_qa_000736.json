@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000736",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000736.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.range"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "A frequency distribution of daily profits (in Rs thousands) of 50 shops is given below:\n\nProfit class: 10-20, 20-30, 30-40, 40-50, 50-60\nFrequency:    4,    12,    18,    10,     6\n\nUsing the exclusive class-interval method, the range of the distribution is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 50 thousand"
+    },
+    {
+      "key": 2,
+      "text": "Rs 40 thousand"
+    },
+    {
+      "key": 3,
+      "text": "Rs 60 thousand"
+    },
+    {
+      "key": 4,
+      "text": "Rs 55 thousand"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "For a grouped frequency distribution, range = upper boundary of last class - lower boundary of first class = 60 - 10 = 50 thousand."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Student uses upper boundary of second-last class minus lower boundary of first class: 50 - 10 = 40, ignoring the final class interval."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Student takes the upper class boundary of the last class as both max and min reference, computing 60 - 0 = 60, or confuses class width with range."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Student uses midpoints: last midpoint 55, first midpoint 15, gives 55 - 15 = 40, or uses 55 - 0 = 55 by a midpoint-boundary confusion."
+    }
+  ],
+  "explanation": "For a grouped distribution with exclusive classes, range = upper limit of highest class - lower limit of lowest class = 60 - 10 = 50 thousand.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Range of a grouped distribution spans from the lower limit of the first class to the upper limit of the last class.",
+    "approach": "Identify the distribution measure (range for grouped data). Lower limit of first class = 10, upper limit of last class = 60. Range = 60 - 10 = 50 thousand.",
+    "lesson": "For grouped data, range uses class boundaries (not midpoints or frequencies). Scan the class column only.",
+    "timing": "30 seconds. Read only the class limits, ignore frequencies. Trap: using the midpoint 55 instead of upper boundary 60."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

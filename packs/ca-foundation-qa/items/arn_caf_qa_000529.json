@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000529",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000529.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.domain_range"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "The function f(x) = x^2 - 6x + 11 is defined on the restricted domain [0, 5]. What is the range of f on this domain?",
+  "options": [
+    {
+      "key": 1,
+      "text": "[2, 11]"
+    },
+    {
+      "key": 2,
+      "text": "[2, 6]"
+    },
+    {
+      "key": 3,
+      "text": "[0, 11]"
+    },
+    {
+      "key": 4,
+      "text": "[3, 11]"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "f(x) = (x-3)^2 + 2 has vertex at x=3, giving minimum f(3) = 2. The maximum on [0,5] is at the endpoint furthest from the vertex x=3, which is x=0 with f(0) = 0-0+11 = 11 (distance 3 from vertex) versus x=5 with f(5) = 25-30+11 = 6 (distance 2 from vertex). So the maximum is 11 and the range is [2, 11]."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Evaluating only at the right endpoint x=5 (giving f(5)=6) as the maximum, missing the farther left endpoint x=0 which gives the larger value f(0)=11."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Using 0 as the minimum by setting the vertex or minimum value to zero, forgetting that the minimum of (x-3)^2+2 is 2, not 0."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "Reporting f(3)=2... actually taking f at some interior point, or confusing the x-coordinate of the vertex (x=3) with the minimum y-value (f(3)=2), giving 3 as the lower bound of the range instead of 2."
+    }
+  ],
+  "explanation": "Complete the square to find the vertex, evaluate at the vertex and at both domain endpoints, then take the minimum and maximum of those three values.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "On a closed domain, the range of a quadratic is determined by the vertex (minimum or maximum) and the domain endpoints; always check both endpoints.",
+    "approach": "State the property then contrast the confusable one. Complete the square: f(x) = (x-3)^2 + 2. Vertex at x=3 with f(3)=2 (minimum, since parabola opens upward). Evaluate at domain endpoints: f(0) = 0-0+11 = 11 and f(5) = 25-30+11 = 6. Three candidate values: {2, 11, 6}. Min=2 (at x=3), Max=11 (at x=0). Range = [2, 11]. The trap is using only the right endpoint x=5 and reporting max=6, missing x=0.",
+    "lesson": "For range of a quadratic on a closed interval: evaluate at vertex (if inside interval) and at both endpoints; the range spans min to max of these values.",
+    "timing": "About 80 seconds. Complete the square (20 sec), evaluate at x=0, 3, 5 (30 sec), compare (15 sec). Trap: evaluating at only one endpoint."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

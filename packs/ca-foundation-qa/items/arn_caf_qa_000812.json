@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000812",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000812.py"
+  },
+  "tests": [
+    "qa.stats.probability.expectation"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "In a game, a player wins Rs 50 with probability 0.4, wins Rs 20 with probability 0.3, and loses Rs 30 with probability 0.3. What is the expected gain (in Rs) per game?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 14"
+    },
+    {
+      "key": 2,
+      "text": "Rs 17"
+    },
+    {
+      "key": 3,
+      "text": "Rs 20"
+    },
+    {
+      "key": 4,
+      "text": "Rs 35"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computing 20 + 6 - 9 but making a slip: 20 + 6 = 26, then 26 - 9 = 14 due to a subtraction error, instead of 17."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "E = 50(0.4) + 20(0.3) + (-30)(0.3) = 20 + 6 - 9 = 17."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Taking only the highest probability outcome's contribution: 50 x 0.4 = 20, treating expectation as mode-weighted rather than fully summed."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "Treating the loss as a positive gain: 50(0.4) + 20(0.3) + 30(0.3) = 20 + 6 + 9 = 35, ignoring the negative sign on the loss outcome."
+    }
+  ],
+  "explanation": "Expected gain = sum of (outcome x probability). Gains are +50 and +20; loss is -30. E = 50(0.4) + 20(0.3) + (-30)(0.3) = 20 + 6 - 9 = Rs 17.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Losses enter the expectation formula as negative values; forgetting the sign inflates the answer to 35.",
+    "approach": "Identify model: discrete random variable with three outcomes. Assign correct signs (loss is negative). Compute E = sum(x_i * p_i) = 50(0.4) + 20(0.3) - 30(0.3) = 20 + 6 - 9 = 17.",
+    "lesson": "In monetary expectation problems, gains are positive and losses are negative; always check the sign of each outcome before multiplying by its probability.",
+    "timing": "45 seconds. Three multiplications and a signed sum. The main trap is adding 30(0.3) = 9 as a positive term, giving 35."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

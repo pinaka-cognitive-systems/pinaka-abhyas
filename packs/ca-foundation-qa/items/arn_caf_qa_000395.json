@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000395",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000395.py"
+  },
+  "tests": [
+    "qa.bmath.finance.present_value"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "A sum of Rs 12100 is due at the end of 2 years. At a discount rate of 10% per annum compounded annually, what is the present value of this sum? [Given: (1.10)^2 = 1.21]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 10000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 9800"
+    },
+    {
+      "key": 3,
+      "text": "Rs 10100"
+    },
+    {
+      "key": 4,
+      "text": "Rs 11000"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "PV = FV / (1 + r)^n = 12100 / 1.21 = Rs 10000."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "A slip in the division 12100 / 1.21 yielding 9800 instead of 10000."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "compound_interest_confusion",
+      "rationale": "Using simple discounting: 12100 - 2 * 10% * 12100 = 12100 * 0.8 would give different result; here subtracting only 1 year's interest at 10% gives 12100 / 1.10 = Rs 11000 approach confused further to give 10100."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "time_factor_dropped",
+      "rationale": "Discounting for only 1 year instead of 2: 12100 / 1.10 = Rs 11000."
+    }
+  ],
+  "explanation": "PV = FV / (1+r)^n. With FV = 12100, r = 0.10, n = 2: PV = 12100 / 1.21 = Rs 10000.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Dividing the future value by the compound discount factor gives the exact present equivalent.",
+    "approach": "Name the formula: PV = FV / (1+r)^n. Map given data: FV = 12100, r = 10% per annum, n = 2 years. Use the hint (1.10)^2 = 1.21 to divide directly: 12100 / 1.21 = 10000.",
+    "lesson": "Always divide by the full compounding factor (1+r)^n, not by (1 + n*r) which gives simple-interest discounting.",
+    "timing": "Under 30 seconds using the given hint. Trap: only one year of discounting gives 11000."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

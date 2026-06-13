@@ -18,10 +18,11 @@
   "tests": [
     "qa.bmath.finance.compound_interest"
   ],
-  "difficulty_label": "L3",
+  "difficulty_label": "L2",
+  "explanation_kind": "formula_selection",
   "taxonomy_version": 4,
   "item_type": "single_best",
-  "expected_seconds": 120,
+  "expected_seconds": 90,
   "stem": "Kavya invests Rs 15000 at 8% per annum compounded quarterly for 2 years. Given that (1.02)^8 = 1.1717, what is the compound interest earned?",
   "options": [
     {
@@ -71,10 +72,10 @@
   ],
   "explanation": "Quarterly compounding means the periodic rate is 8 / 4 = 2%. Over 2 years there are 4 x 2 = 8 periods. Using the given hint (1.02)^8 = 1.1717: A = 15000 x 1.1717 = 17575.50. Compound interest = A - P = 17575.50 - 15000 = 2575.50.",
   "explanation_sections": {
-    "punchline": "CI = Rs 2575.50. The quarterly rate is 2% (not 8%) and there are 8 periods (not 2). Using the hint (1.02)^8 = 1.1717 directly gives CI = 15000 x 0.1717 = 2575.50.",
-    "approach": "For quarterly compounding, divide the annual rate by 4 and multiply the years by 4 to get the periodic rate and period count. Write A = P x (1 + r/m)^(m x n), then CI = A - P. Use any given power hint immediately; do not recompute the power from scratch.",
-    "lesson": "Non-annual compounding requires two adjustments: rate divided by frequency, and periods multiplied by frequency. Missing either step changes the answer. Returning A instead of CI is a misread trap; always subtract the principal.",
-    "timing": "120 seconds. Identify periodic rate and period count in 20 seconds. Multiply 15000 x 1.1717 = 17575.50 in 30 seconds. Subtract 15000 in 5 seconds. Check that your answer is less than A and more than the simple-interest amount (2400) before marking."
+    "punchline": "CI = Rs 2575.50. The two mandatory adjustments for quarterly compounding are: rate / 4 = 2% per period, years * 4 = 8 periods. The question supplies (1.02)^8 = 1.1717 directly, so A = 15000 * 1.1717 and CI = A - P.",
+    "approach": "Formula selection: identify compounding frequency (quarterly = 4 times per year). Name the formula: A = P * (1 + r/m)^(m*n). Map givens: P = 15000, r = 0.08, m = 4, n = 2. Reduce: periodic rate = 0.08/4 = 0.02, periods = 4*2 = 8. Read the hint: (1.02)^8 = 1.1717. Compute A = 15000 * 1.1717 = 17575.50. CI = 17575.50 - 15000 = 2575.50. Never return A as the answer; CI is always A - P.",
+    "lesson": "Non-annual compounding requires both adjustments: rate divided by frequency and years multiplied by frequency. Applying only one gives the wrong power. The provided hint eliminates all computation risk; the only remaining trap is returning A instead of CI.",
+    "timing": "About 75 seconds. Rate and period conversion in 15 seconds. Single multiplication 15000 * 1.1717 in 20 seconds. Subtraction in 5 seconds. Sanity check: CI must exceed simple interest (2400) and be less than A (17575.50)."
   },
   "empirical": {
     "calibration_status": "none",

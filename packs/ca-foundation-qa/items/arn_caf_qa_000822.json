@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000822",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000822.py"
+  },
+  "tests": [
+    "qa.stats.probability.bayes_theorem"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "A company sources components from three suppliers X, Y and Z, contributing 50%, 30% and 20% of total stock respectively. Defective rates from X, Y and Z are 1%, 2% and 3% respectively. One component is drawn at random from the combined stock and found defective. Assuming the stock is very large (so removing one item does not change proportions), a second component is then drawn at random and also found defective. What is the probability that BOTH defective components came from supplier Z?",
+  "options": [
+    {
+      "key": 1,
+      "text": "6/17 (approx 0.353)"
+    },
+    {
+      "key": 2,
+      "text": "36/289 (approx 0.125)"
+    },
+    {
+      "key": 3,
+      "text": "6/289 (approx 0.021)"
+    },
+    {
+      "key": 4,
+      "text": "1/5 (approx 0.200)"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Reporting P(Z | first draw is defective) = 6/17 without extending the analysis to both draws being from Z, answering only the one-draw version of the problem."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "P(D) = 0.5*0.01 + 0.3*0.02 + 0.2*0.03 = 0.017 = 17/1000. P(Z|D) = (0.2*0.03)/0.017 = 0.006/0.017 = 6/17. For the second independent draw, P(Z|D2) = 6/17 again (large stock). P(both Z | both D) = (6/17)*(6/17) = 36/289."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computing P(Z|D1) = 6/17 for first draw, then using P(D|Z) = 3/100 (the raw defect rate) for the second factor instead of the posterior, giving 6/17 * 1/17 = 6/289, a factor of 6 rather than 36 in the numerator."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "independence_assumed",
+      "rationale": "Ignoring the defective information entirely and returning the prior probability of supplier Z: P(Z) = 0.20 = 1/5."
+    }
+  ],
+  "explanation": "Step 1: P(D) = 0.5*0.01 + 0.3*0.02 + 0.2*0.03 = 0.005 + 0.006 + 0.006 = 0.017. Step 2: P(Z|D) = P(D|Z)*P(Z)/P(D) = (0.03*0.2)/0.017 = 0.006/0.017 = 6/17. Step 3: For the second draw from the same (very large) stock, the posterior is the same: P(Z|D2) = 6/17. Step 4: P(both from Z | both defective) = (6/17)^2 = 36/289 = 0.1246.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Two sequential Bayes updates with large-stock independence: the posterior for each draw being from Z is 6/17, so both being from Z has probability (6/17)^2 = 36/289.",
+    "approach": "Identify model: Bayes theorem iterated over two independent draws (justified by large stock). Compute P(D) as weighted average of defect rates: 17/1000. Compute single-draw posterior P(Z|D) = 6/17. Under independence, extend to P(both from Z | both defective) = (6/17)^2 = 36/289 = 0.1246.",
+    "lesson": "For two independent defective draws from a large population, multiply the single-draw posteriors for each hypothesis; the hidden step is recognising that independence means squaring the posterior.",
+    "timing": "130 seconds. The multi-step trap: (1) students stop at 6/17 without extending to the second draw, (2) students ignore the defective condition and use P(Z)^2 = 0.04, (3) students use the raw defect rate for the second factor. All three traps are live distractors."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

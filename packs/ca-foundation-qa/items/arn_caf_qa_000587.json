@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000587",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000587.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.odd_man_out"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 75,
+  "stem": "Three of the following four numbers can each be expressed as the product of two consecutive odd-even pairs (integers differing by exactly 2). Which number does NOT share this property? 15, 24, 35, 55",
+  "options": [
+    {
+      "key": 1,
+      "text": "15"
+    },
+    {
+      "key": 2,
+      "text": "24"
+    },
+    {
+      "key": 3,
+      "text": "35"
+    },
+    {
+      "key": 4,
+      "text": "55"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "15 = 3 x 5, and 5 - 3 = 2, so 15 fits. A student might test 15 = 3 x 5 and flag it as odd because 3 and 5 are both odd, not noticing that the gap criterion (difference = 2) is what matters."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "24 = 4 x 6, and 6 - 4 = 2, so 24 fits. A student who misidentifies the pattern as 'products of two primes' might incorrectly flag 24 since 4 and 6 are not prime."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "35 = 5 x 7, and 7 - 5 = 2, so 35 fits. A student may note that 35 is the only one in the group that is odd and try to flag it, but the property is the factor gap, not the parity of the number."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "55 = 5 x 11, and 11 - 5 = 6 (not 2). There is no pair of integers differing by 2 whose product is 55 (since sqrt(1+55)=sqrt(56) is not an integer). 55 does not fit the pattern."
+    }
+  ],
+  "explanation": "The pattern: each number equals k x (k+2) for some integer k. 15=3x5 (k=3), 24=4x6 (k=4), 35=5x7 (k=5). For 55: we need k(k+2)=55 => k^2+2k-55=0 => k=(-2+sqrt(224))/2=(-2+14.97)/2, which is not an integer. So 55 cannot be expressed this way.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The hidden property is that each number factors into two integers whose difference is exactly 2 - 55 breaks this because sqrt(1+55) is not an integer.",
+    "approach": "Deductive trace: for each candidate n, check if there exists an integer k such that k*(k+2)=n. This is equivalent to testing whether 1+n is a perfect square. 1+15=16=4^2 (yes), 1+24=25=5^2 (yes), 1+35=36=6^2 (yes), 1+55=56 (not a perfect square, hence no).",
+    "lesson": "When testing whether n=k*(k+2), the quick check is: is (1+n) a perfect square? This single test is faster than trial factoring.",
+    "timing": "65-75 seconds. Setup decision: identify the correct property (factor gap of 2) from the examples before testing 55. Trap: grouping by parity (35 is odd, the rest even) and flagging 35."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

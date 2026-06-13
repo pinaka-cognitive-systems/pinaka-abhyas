@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000399",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000399.py"
+  },
+  "tests": [
+    "qa.bmath.finance.future_value"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "A company places Rs 15000 in a fixed deposit at 8% per annum, compounded quarterly for 6 months. What is the maturity value? [Given: (1.02)^2 = 1.0404]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 15606"
+    },
+    {
+      "key": 2,
+      "text": "Rs 15600"
+    },
+    {
+      "key": 3,
+      "text": "Rs 15300"
+    },
+    {
+      "key": 4,
+      "text": "Rs 16200"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Quarterly rate = 8%/4 = 2%, n = 6/3 = 2 quarters. FV = 15000 * (1.02)^2 = 15000 * 1.0404 = Rs 15606."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "compound_interest_confusion",
+      "rationale": "Simple interest for 6 months at 8% pa: 15000 + 15000 * 0.08 * 0.5 = 15000 + 600 = Rs 15600."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "time_factor_dropped",
+      "rationale": "Applying just one quarter: 15000 * 1.02 = 15300, using only 1 period instead of 2."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "rate_period_mismatch",
+      "rationale": "Using the full 8% for the 6-month period as if it were a full year: 15000 * 1.08 = 16200."
+    }
+  ],
+  "explanation": "Quarterly compounding: rate per quarter = 8%/4 = 2%; 6 months = 2 quarters. FV = 15000 * (1.02)^2 = 15000 * 1.0404 = Rs 15606.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Convert the annual rate to quarterly and count the number of quarters, then apply the compound FV formula.",
+    "approach": "Name the formula: FV = P*(1 + r/k)^(n*k). Map: P = 15000, r = 8%, k = 4 (quarterly), n = 0.5 year giving m = 2 periods. Use hint (1.02)^2 = 1.0404: FV = 15000 * 1.0404 = 15606.",
+    "lesson": "Time period conversion is the pivotal step: express the investment horizon in the same unit as the compounding frequency.",
+    "timing": "About 50 seconds. Trap: using annual 8% for only 6 months without converting gives 16200."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

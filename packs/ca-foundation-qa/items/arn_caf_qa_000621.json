@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000621",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000621.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "Five friends P, Q, R, S, T are seated in a straight row, all facing North. The following are known: R is at the leftmost seat. Q is seated immediately to the right of P. S is seated immediately to the right of Q. T is at the rightmost seat. Who occupies the middle seat?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Q"
+    },
+    {
+      "key": 2,
+      "text": "P"
+    },
+    {
+      "key": 3,
+      "text": "S"
+    },
+    {
+      "key": 4,
+      "text": "R"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "R is at position 1 (leftmost). T is at position 5 (rightmost). P, Q, S fill positions 2, 3, 4 in that order because Q is right of P and S is right of Q. So the row is R, P, Q, S, T and the middle seat (position 3) is Q."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "Placing P in the middle (position 3) ignores that S must be immediately right of Q, pushing Q and S to positions 4 and 5, which contradicts T being at the rightmost seat."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "Reversing the chain so that P is right of Q and Q is right of S gives the order R, S, Q, P, T, placing S in the middle, but this reverses the stated direction of adjacency."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reading R as the middle person ignores the explicit clue that R is at the leftmost (not middle) seat."
+    }
+  ],
+  "explanation": "R fixes position 1 (leftmost) and T fixes position 5 (rightmost). The chain P-Q-S (each immediately right of the previous) occupies positions 2, 3, 4. Middle seat = position 3 = Q.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Fix the two end anchors first, then slot in the chain to find the middle.",
+    "approach": "Apply clues most-certain-first: R at leftmost (pos 1), T at rightmost (pos 5). Remaining positions 2-4 must hold P, Q, S with Q right of P and S right of Q: P(2), Q(3), S(4). Middle = pos 3 = Q.",
+    "lesson": "Anchor the ends first, then build the interior chain from adjacency clues.",
+    "timing": "Under 45 seconds. The trap is reversing the adjacency chain, placing S in the middle."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

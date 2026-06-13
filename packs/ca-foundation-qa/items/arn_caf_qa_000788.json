@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000788",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000788.py"
+  },
+  "tests": [
+    "qa.stats.probability.addition_theorem"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "In a group of 100 students, 60 study Mathematics, 45 study Statistics, and 25 study both subjects. A student is chosen at random. What is the probability that the student studies Mathematics or Statistics but not both?",
+  "options": [
+    {
+      "key": 1,
+      "text": "55/100"
+    },
+    {
+      "key": 2,
+      "text": "80/100"
+    },
+    {
+      "key": 3,
+      "text": "25/100"
+    },
+    {
+      "key": 4,
+      "text": "105/100"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "P(M or S but not both) = P(M only) + P(S only) = (60-25)/100 + (45-25)/100 = 35/100 + 20/100 = 55/100."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "set_operation_confused",
+      "rationale": "Computing P(M or S) including the overlap: (60+45-25)/100 = 80/100, which counts students who study both instead of excluding them."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reporting only P(both) = 25/100, solving for the intersection instead of the exclusive-or region."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Adding both sets without subtracting overlap at all: 60/100 + 45/100 = 105/100, exceeding 1, which is impossible for a probability."
+    }
+  ],
+  "explanation": "P(M or S but not both) uses the exclusive union. P(M only) = 60 - 25 = 35, P(S only) = 45 - 25 = 20. Total = 55 out of 100, giving probability 55/100 = 11/20. Contrast with P(M or S) = 80/100 which includes students studying both.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The exclusive union strips out the overlap from both sides, not just once.",
+    "approach": "Identify the model: addition theorem plus exclusive-OR adjustment. Map givens: n(M)=60, n(S)=45, n(M and S)=25. Compute M only = 35, S only = 20. P = (35+20)/100 = 55/100.",
+    "lesson": "Distinguish P(A or B) from P(A or B but not both): the former includes the intersection, the latter excludes it.",
+    "timing": "75 seconds. First eliminate option 4 (>1). The key decision is recognising the question asks for the exclusive union, not the inclusive union."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

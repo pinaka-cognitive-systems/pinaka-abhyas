@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000669",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000669.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.diagrammatic"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 85,
+  "stem": "A component bar chart (sub-divided bar chart) shows the revenue of three branches A, B, C for a year. Branch A contributed 35% of total revenue, B contributed 45%, and C contributed the rest. If the total bar height represents 100 units, and the bar is constructed from bottom with A first, then B, then C, at what height does the segment for C begin?",
+  "options": [
+    {
+      "key": 1,
+      "text": "80 units"
+    },
+    {
+      "key": 2,
+      "text": "35 units"
+    },
+    {
+      "key": 3,
+      "text": "45 units"
+    },
+    {
+      "key": 4,
+      "text": "65 units"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "A occupies 0 to 35, B occupies 35 to 80 (35 + 45 = 80). C begins at height 80."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "35 units is the top of segment A, not the starting point for C."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "45 units is the width of segment B; the starting position of C is not the width of B alone."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "65 = 35 + 30; an arithmetic slip where B's contribution is read as 30% instead of 45%."
+    }
+  ],
+  "explanation": "In a component bar chart, each segment begins where the previous one ends. A (35%) occupies 0 to 35. B (45%) occupies 35 to 35+45 = 80. Therefore C begins at 80 units.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "C begins where B ends: 35 + 45 = 80 units.",
+    "approach": "Identify the model: stacked bar chart accumulates segments. Cumulative height after A = 35; after B = 35 + 45 = 80; C starts at 80.",
+    "lesson": "The starting point of a segment in a component bar chart equals the cumulative total of all segments below it.",
+    "timing": "85 s. 35 + 45 = 80; one-step addition."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

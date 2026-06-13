@@ -18,7 +18,7 @@
   "tests": [
     "qa.bmath.finance.future_value"
   ],
-  "difficulty_label": "L2",
+  "difficulty_label": "L1",
   "taxonomy_version": 4,
   "item_type": "single_best",
   "expected_seconds": 90,
@@ -69,12 +69,13 @@
       "misconception": "compound_interest_confusion"
     }
   ],
-  "explanation": "Future value = P × (1 + r)^n. With P = 50,000, r = 0.08, n = 3: FV = 50,000 × 1.2597 = Rs 62,985. Using the given factor exactly is essential; rounding 1.2597 changes the answer.",
+  "explanation": "Future value = P * (1 + r)^n. With P = 50,000, r = 0.08, n = 3: FV = 50,000 * 1.2597 = Rs 62,985. Using the given factor exactly is essential; rounding 1.2597 changes the answer.",
+  "explanation_kind": "formula_selection",
   "explanation_sections": {
-    "punchline": "Rs 50,000 multiplied by the given factor 1.2597 equals Rs 62,985. Using any rounded version of the factor leads to a wrong option.",
-    "approach": "Write FV = P times (1 + r)^n. The stem provides the exact value of (1.08)^3 to use. Multiply the principal by that factor without rounding it. Always use the factor the stem gives you, not an approximation you compute in your head.",
-    "lesson": "When the stem provides a computed power, use that exact value. Rounding the factor is the trap that produces the nearby wrong options in future-value questions.",
-    "timing": "About 90 seconds. Reject option (1) instantly: Rs 60,000 would be simple interest for only two years at 8% on Rs 50,000. Multiply 50,000 by 1.2597 directly, keeping all four decimal places."
+    "punchline": "FV = P * (1 + r)^n = 50,000 * 1.2597 = Rs 62,985. The stem gives the factor precisely; use it without rounding.",
+    "approach": "Name the formula: FV = P * (1 + r)^n. Map the givens: P = 50,000, r = 0.08, n = 3. The stem provides (1.08)^3 = 1.2597. Multiply 50,000 by exactly 1.2597. Do not approximate this factor in your head; every wrong option is a different rounded version of the same factor.",
+    "lesson": "When the stem gives a computed power, that number is the answer to the hardest part of the problem. Use it exactly. Any rounding of the factor is the trap that generates the nearby wrong options at Rs 62,000 and Rs 63,000.",
+    "timing": "About 60 seconds. One multiplication: 50,000 * 1.2597. Reject option (1) at Rs 60,000 in three seconds: that is less than the simple interest total and cannot be the future value. Confirm you are using all four decimal places of the given factor."
   },
   "empirical": {
     "calibration_status": "none",

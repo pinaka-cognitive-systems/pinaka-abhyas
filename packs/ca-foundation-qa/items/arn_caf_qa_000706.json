@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000706",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000706.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.median"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 105,
+  "stem": "A factory records the daily output (units) of 50 workers in the following distribution.\n\nOutput:    0-10  10-20  20-30  30-40  40-50\nWorkers:     5     10     15     12      8\n\nUsing linear interpolation, what is the median daily output?",
+  "options": [
+    {
+      "key": 1,
+      "text": "25.33 units"
+    },
+    {
+      "key": 2,
+      "text": "26.00 units"
+    },
+    {
+      "key": 3,
+      "text": "26.67 units"
+    },
+    {
+      "key": 4,
+      "text": "28.00 units"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Using cf = 10 (frequency of class 10-20) instead of cumulative frequency before the median class (cf = 15): median = 20 + ((25-10)/15)*10 = 20 + 10 = 30, or an alternative mis-entry gives 25.33."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Substituting (N/2 - cf)/f = (25-15)/15 = 10/15 correctly but approximating as 0.6 (instead of 0.6667) gives median = 20 + 0.6*10 = 26.0."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "N = 50, N/2 = 25. Cumulative frequencies: 5, 15, 30, 42, 50. Median class is 20-30 (cumulative first exceeds 25). L = 20, cf = 15, f = 15, h = 10. Median = 20 + ((25-15)/15)*10 = 20 + (10/15)*10 = 20 + 6.67 = 26.67."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "Using N/2 = 25 with wrong cf = 11 (misread from the frequency column instead of cumulative): (25-11)/15 * 10 = 9.33, added to 20 gives 29.33, or a different misread gives 28."
+    }
+  ],
+  "explanation": "Median for grouped data: Median = L + ((N/2 - cf) / f) * h. Step 1: N = 50, N/2 = 25. Step 2: Build cumulative frequencies: 5, 15, 30. The class 20-30 is the first to exceed 25 - it is the median class. Step 3: L = 20 (lower boundary), cf = 15 (cumulative frequency before median class), f = 15 (frequency of median class), h = 10 (class width). Step 4: Median = 20 + ((25-15)/15) * 10 = 20 + (10/15) * 10 = 20 + 6.67 = 26.67 units.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The interpolation formula asks: how far into the median class do we need to go to accumulate the 25th observation - here we need 10 more out of a class of 15, so we go 10/15 of the way across the class width.",
+    "approach": "Formula: Median = L + ((N/2 - cf)/f) * h. Identify median class first by building the cumulative frequency table until it first exceeds N/2 = 25. Median class = 20-30. Read off L = 20, cf = 15, f = 15, h = 10. Substitute: 20 + (10/15)*10 = 26.67.",
+    "lesson": "cf in the median formula is the cumulative frequency UP TO BUT NOT INCLUDING the median class - use the row above the median class in the cumulative table.",
+    "timing": "75-90 seconds. Build the cumulative column quickly (5, 15, 30 - stop here), then substitute directly."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

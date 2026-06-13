@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000727",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000727.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.gm_hm"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "An investor buys shares of a company at Rs 100 per share. After one year the price grows by 50%, and after another year it falls back to the original level of Rs 100 per share. The geometric mean of the annual growth factors is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "1.00"
+    },
+    {
+      "key": 2,
+      "text": "1.10"
+    },
+    {
+      "key": 3,
+      "text": "1.25"
+    },
+    {
+      "key": 4,
+      "text": "1.22"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Year 1 growth factor = 1.50 (price rises to 150). Year 2 growth factor = 100/150 = 2/3 = 0.6667 (falls back to 100). GM = sqrt(1.50 * 0.6667) = sqrt(1.00) = 1.00. A GM of 1.00 correctly reflects zero net growth."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "1.10 is close to the arithmetic mean of the growth factors: (1.50 + 0.6667)/2 = 2.1667/2 = 1.0833 = 1.08, and a student who rounds loosely to 1.10 is applying AM instead of GM."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "1.25 results from a student who averages the percentage changes (50% and -25%, approximate) as 12.5% growth, or computes (1.50 + 1/1.50)/2 wrongly; or takes GM of 1.50 and 1 (ignoring year-2 factor gives sqrt(1.50) = 1.2247 = 1.22 - but rounding up gives 1.25)."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "1.22 is sqrt(1.50) = 1.2247, which a student obtains by computing GM using only the year-1 growth factor (ignoring or miscomputing the year-2 factor), an off-by-one-period error."
+    }
+  ],
+  "explanation": "The two annual growth factors are: Year 1 = 150/100 = 1.50, Year 2 = 100/150 = 0.6667. GM = sqrt(1.50 * 0.6667) = sqrt(1.0000) = 1.00. This confirms zero net compounded growth, consistent with price returning to its starting value.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "When price returns to its starting value, the product of all growth factors equals 1, so the geometric mean of those factors is also 1.",
+    "approach": "Formula selection: for compounding, use GM of growth factors = (product of growth factors)^(1/n). Identify each factor: f1 = 1.50, f2 = 100/150 = 2/3. Product = 1.50 * (2/3) = 1.00. GM = sqrt(1.00) = 1.00.",
+    "lesson": "GM of growth factors equals the single-period factor that would produce the same total return. When net return is zero, GM = 1 exactly, regardless of intermediate volatility.",
+    "timing": "About 70 seconds. Key setup: compute f2 = (end price / peak price). Trap: using AM of the two raw percentage changes (50% and -33%) overstates the average."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

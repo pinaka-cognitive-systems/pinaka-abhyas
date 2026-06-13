@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000617",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000617.py"
+  },
+  "tests": [
+    "qa.lr.direction_tests"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Neha starts at her office O and walks 10 km North to point A. From A she walks 6 km East to point B. From B she walks 10 km South to point C. What is the straight-line distance from O to C, and in which direction does C lie from O?",
+  "options": [
+    {
+      "key": 1,
+      "text": "6 km, East"
+    },
+    {
+      "key": 2,
+      "text": "6 km, West"
+    },
+    {
+      "key": 3,
+      "text": "10 km, South-East"
+    },
+    {
+      "key": 4,
+      "text": "16 km, South-East"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "O=(0,0). A=(0,10). B=(6,10). C=(6,0). Distance OC = 6 km. C is due East of O since both have y=0 but C has x=6."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "Treating the East walk as West (reversing the direction) places C at (-6,0), making C 6 km West of O."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "net_displacement_error",
+      "rationale": "The North (10) and South (10) legs do not cancel in this computation; instead only the last two legs (6 East, 10 South) are combined as a hypotenuse: sqrt(6^2+10^2) ~ 11.7, roughly approximated as 10 km South-East."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Adding the North and South distances (10+10=20) and the East distance (6) arithmetically gives 16, placed South-East by misidentifying the direction."
+    }
+  ],
+  "explanation": "Track coordinates: O=(0,0), North 10 -> A=(0,10), East 6 -> B=(6,10), South 10 -> C=(6,0). The North and South legs are equal and cancel vertically. C is at (6,0), which is 6 km due East of O.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Equal North and South legs cancel; only the East leg creates net displacement.",
+    "approach": "Apply clues most-certain-first: assign coordinates step by step. North adds +y, East adds +x, South subtracts y. O=(0,0)->A=(0,10)->B=(6,10)->C=(6,0). |OC|=6, direction = East (same latitude, positive x).",
+    "lesson": "Cancel opposite legs first; then identify direction from net x and y components.",
+    "timing": "About 70-80 seconds. The main trap is combining the last two legs into a hypotenuse instead of recognizing the cancellation."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

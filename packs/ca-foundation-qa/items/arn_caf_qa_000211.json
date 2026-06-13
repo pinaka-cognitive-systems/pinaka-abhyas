@@ -18,10 +18,10 @@
   "tests": [
     "qa.stats.data_representation.sampling"
   ],
-  "difficulty_label": "L3",
+  "difficulty_label": "L1",
   "taxonomy_version": 4,
   "item_type": "single_best",
-  "expected_seconds": 110,
+  "expected_seconds": 50,
   "stem": "A quality inspector at a textile mill needs to test fabric from 5 production shifts. Each shift produces 200 rolls. The inspector randomly selects 8 rolls from each shift using a lottery draw within that shift. Which sampling method does this describe?",
   "options": [
     {
@@ -70,11 +70,12 @@
     }
   ],
   "explanation": "The 5 shifts act as strata: non-overlapping sub-groups defined before sampling. A random selection is made inside each stratum. This two-step structure (define strata, then draw randomly within each) is the defining feature of stratified random sampling.",
+  "explanation_kind": "concept",
   "explanation_sections": {
-    "punchline": "Dividing the population into shifts first, then drawing randomly inside each shift, is stratified random sampling. Cluster sampling would select entire shifts; systematic sampling would use a fixed interval across one combined list.",
-    "approach": "For sampling-method questions, check in order: Is the population first split into meaningful sub-groups? If yes, and random draws occur inside each sub-group, the method is stratified. If entire groups are picked as units, it is cluster. If a fixed interval is used on a list, it is systematic. If no sub-grouping occurs at all, it is simple random.",
-    "lesson": "The key distinction between stratified and cluster sampling is what gets selected. Stratified: individual units from inside each sub-group. Cluster: whole sub-groups selected intact. The word per shift signals stratification when random draws follow within each shift.",
-    "timing": "110 seconds. Read the stem and identify the two-step structure in 20 seconds. Check whether whole shifts are selected (cluster) or individual rolls from within each shift (stratified). Decide in 30 seconds and verify against each distractor before marking."
+    "punchline": "Stratified sampling divides the population into sub-groups (strata) and then draws randomly from inside each sub-group. Selecting whole sub-groups intact is cluster sampling, which is the confusable here.",
+    "approach": "State the definition: stratified sampling = form non-overlapping strata, then draw a random sample from within each stratum. The confusable is cluster sampling = form groups, then select entire groups as the sampling unit. Decision rule: ask what gets selected. Individual units drawn from inside each sub-group = stratified. Whole sub-groups selected in their entirety = cluster.",
+    "lesson": "Stratified and cluster sampling both start by grouping the population. The split happens at the second step: stratified selects individuals from every group; cluster selects some groups whole and surveys every member of those groups only.",
+    "timing": "50 seconds. Spot the two-step structure (group then draw within each group) in 15 seconds. Confirm it is not cluster by noting individual rolls are selected, not whole shifts. Mark in under 30 seconds total."
   },
   "empirical": {
     "calibration_status": "none",

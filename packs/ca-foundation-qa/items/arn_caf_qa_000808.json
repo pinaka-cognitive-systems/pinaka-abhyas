@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000808",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000808.py"
+  },
+  "tests": [
+    "qa.stats.probability.random_variable"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 85,
+  "stem": "A random variable X is defined as: X = 1 if a randomly selected product from a batch is defective, and X = 0 if it is non-defective. In a batch, 3 out of every 8 products are defective. What is E[X^2] - (E[X])^2, the variance of X?",
+  "options": [
+    {
+      "key": 1,
+      "text": "15/64"
+    },
+    {
+      "key": 2,
+      "text": "9/64"
+    },
+    {
+      "key": 3,
+      "text": "3/8"
+    },
+    {
+      "key": 4,
+      "text": "25/64"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "p = 3/8, q = 5/8. Var(X) = pq = (3/8)(5/8) = 15/64."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "9/64 = p^2 = (3/8)^2; the student computes p^2 instead of p*q."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "mean_median_mode_confusion",
+      "rationale": "3/8 is E[X] = p; the student reports the mean instead of the variance."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "25/64 = q^2 = (5/8)^2; the student squares q instead of computing p*q."
+    }
+  ],
+  "explanation": "X is a Bernoulli random variable with p = P(defective) = 3/8. The variance is Var(X) = p(1-p) = (3/8)(5/8) = 15/64.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Bernoulli variance = pq: (3/8)(5/8) = 15/64.",
+    "approach": "Identify model: Bernoulli RV (0/1 indicator). Extract p from context: 3/8 defective means p = 3/8, q = 1 - 3/8 = 5/8. Apply Var(X) = pq = (3/8)(5/8) = 15/64.",
+    "lesson": "A 0/1 indicator variable is always Bernoulli; variance = p*q regardless of how the problem is worded.",
+    "timing": "50 seconds. Extract p=3/8, compute q=5/8, multiply: 15/64. Trap: squaring p to get 9/64, or reporting the mean 3/8."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

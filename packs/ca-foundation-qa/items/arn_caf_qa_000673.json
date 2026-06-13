@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000673",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000673.py"
+  },
+  "tests": [
+    "qa.stats.data_representation.frequency_distribution"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 45,
+  "stem": "A frequency distribution has classes 10-20, 20-30, 30-40, 40-50, and 50-60. Each class is of the form [lower limit, upper limit). The class width for every class in this distribution is:",
+  "options": [
+    {
+      "key": 1,
+      "text": "10"
+    },
+    {
+      "key": 2,
+      "text": "5"
+    },
+    {
+      "key": 3,
+      "text": "15"
+    },
+    {
+      "key": 4,
+      "text": "20"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Class width = upper limit - lower limit = 20 - 10 = 10, uniform across all five classes."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Halving the class width by mistake, perhaps dividing the range of the full distribution by the number of classes times 2."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "Reading the span of three consecutive limits (10 to 25) instead of a single class boundary difference."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Confusing class width with the span of two classes, giving 40 - 20 = 20."
+    }
+  ],
+  "explanation": "Class width is simply upper class limit minus lower class limit. For 10-20 that is 20 - 10 = 10, and this holds for every class here since the distribution has equal class widths.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Equal class width = upper limit - lower limit = 10 for every class.",
+    "approach": "Identify the model: this is a uniform-width frequency distribution. The decisive move is computing upper minus lower for any single class. For 10-20: 20 - 10 = 10. Verify with 20-30: 30 - 20 = 10. All classes confirm 10.",
+    "lesson": "Class width is always upper limit minus lower limit for a single class, not the range of the entire distribution.",
+    "timing": "10 seconds. No calculation required beyond simple subtraction. Trap: do not divide total range (60-10=50) by number of classes (5) and get 10 that way - it happens to match here but is not the definition."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

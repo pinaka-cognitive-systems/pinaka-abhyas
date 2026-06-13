@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000858",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000858.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.rank_correlation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 100,
+  "stem": "Six students are ranked by two faculty members on project quality. The rank pairs (Faculty 1, Faculty 2) are: (1,1), (2,2), (3,4), (4,6), (5,3), (6,5). Compute the Spearman rank correlation coefficient.",
+  "options": [
+    {
+      "key": 1,
+      "text": "5/7"
+    },
+    {
+      "key": 2,
+      "text": "6/7"
+    },
+    {
+      "key": 3,
+      "text": "4/7"
+    },
+    {
+      "key": 4,
+      "text": "3/7"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "d: 0,0,-1,-2,2,1. d^2: 0,0,1,4,4,1. sum(d^2)=10. r_s = 1 - 6*10/(6*35) = 1 - 60/210 = 1 - 2/7 = 5/7."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Computing sum(d^2) as 7 by miscounting pair (4,6): d=-2, d^2=4 is counted as d^2=3. 1-42/210=1-1/5=4/5 does not match; or if sum_d2=7: 1-42/210=6/7."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Using n*(n-1)=30 instead of n*(n^2-1)=210 in the denominator: 1-60/30=1-2=-1, or treating the fraction as 60/105=4/7."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Miscounting sum(d^2) as 14 by doubling the contribution of the two larger pairs: 1-84/210=1-2/5=3/5, nearest simple fraction 3/7."
+    }
+  ],
+  "explanation": "Differences d = rank_1 - rank_2: pair (1,1)->0; (2,2)->0; (3,4)->-1; (4,6)->-2; (5,3)->2; (6,5)->1. Squares: 0,0,1,4,4,1. sum = 10. Denominator: 6*(36-1)=210. r_s = 1-60/210 = 1-2/7 = 5/7.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Pairs (4,6) and (5,3) contribute d^2=4 each; total sum=10 gives r_s = 5/7.",
+    "approach": "Name the formula: r_s = 1 - 6*sum(d^2)/(n*(n^2-1)). Compute d for each pair: 0,0,-1,-2,2,1. Square each: 0,0,1,4,4,1, sum=10. Denominator: 6*35=210. Fraction: 60/210=2/7. r_s = 1-2/7 = 5/7.",
+    "lesson": "Large rank reversals (d=-2 and d=+2) dominate sum(d^2); check each pair carefully rather than averaging.",
+    "timing": "About 80 seconds. Pairs (4,6) and (5,3) are the traps; missing that d=2 contributes 4, not 2, halves the actual contribution."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

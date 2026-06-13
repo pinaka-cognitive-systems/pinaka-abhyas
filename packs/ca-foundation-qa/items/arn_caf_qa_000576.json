@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000576",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000576.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.coding_decoding"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 135,
+  "stem": "A code applies two transformations in sequence. First, each letter is replaced by its mirror-image in the alphabet (positions sum to 27, so A->Z, B->Y, ..., M->N). Second, the resulting letter is shifted forward in the alphabet by a number equal to its position in the word (the 1st letter by 1, the 2nd by 2, and so on). Given that DIGIT is coded as XTWVL and BRAND is coded as ZKCQB, using the same rule, what is the code for LIGHT?",
+  "options": [
+    {
+      "key": 1,
+      "text": "PTWWL"
+    },
+    {
+      "key": 2,
+      "text": "ORTSG"
+    },
+    {
+      "key": 3,
+      "text": "MKJLY"
+    },
+    {
+      "key": 4,
+      "text": "NPQOB"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "For LIGHT: L(12) mirror->O(15) +1=P; I(9) mirror->R(18) +2=T; G(7) mirror->T(20) +3=W; H(8) mirror->S(19) +4=W; T(20) mirror->G(7) +5=L. Result: PTWWL."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "Applying only the mirror rule without the position-shift: L->O, I->R, G->T, H->S, T->G gives ORTSG. The second step (position shift) was omitted."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "Applying only the position-shift (without mirror): L+1=M, I+2=K, G+3=J, H+4=L, T+5=Y gives MKJLY. The first step (mirror) was omitted."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "Applying mirror then subtracting the position instead of adding: L mirror->O, O-1=N; I mirror->R, R-2=P; G mirror->T, T-3=Q; H mirror->S, S-4=O; T mirror->G, G-5=B gives NPQOB."
+    }
+  ],
+  "explanation": "Two-step code: (1) mirror each letter (position sums to 27), (2) shift the mirrored letter forward by its word position. For LIGHT step by step: L(12) mirror=O(15), O+1=P; I(9) mirror=R(18), R+2=T; G(7) mirror=T(20), T+3=W; H(8) mirror=S(19), S+4=W; T(20) mirror=G(7), G+5=L. Code = PTWWL. Cross-check: DIGIT: D(4)->W(23), W+1=X; I(9)->R(18), R+2=T; G(7)->T(20), T+3=W; I(9)->R(18), R+4=V; T(20)->G(7), G+5=L -> XTWVL (matches). BRAND: B(2)->Y(25), Y+1=Z; R(18)->I(9), I+2=K; A(1)->Z(26), Z+3=C (wraps: 26+3=29, 29-26=3=C); N(14)->M(13), M+4=Q; D(4)->W(23), W+5=B (wraps: 23+5=28, 28-26=2=B) -> ZKCQB (matches).",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The hidden trap is that the two given examples conceal a wrap-around for certain letters (Z+3 = C, W+5 = B) - LIGHT avoids wrapping but the verification requires it.",
+    "approach": "Deductive trace: extract the rule from two examples by trying mirror-then-shift on DIGIT's first letter (D mirrors to W, W+1=X = first letter of XTWVL), confirm it works for all letters of both examples, then apply to LIGHT. Enumerate each of LIGHT's five letters explicitly.",
+    "lesson": "For composite two-step codes, the second example is insurance - always verify the inferred rule against it before computing the answer, since one example alone can be misleading.",
+    "timing": "About 120-140 seconds. Fastest elimination: option 2 (ORTSG) is pure mirror output for LIGHT - rule it out by checking that DIGIT's first coded letter is X, not W (mirror of D)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

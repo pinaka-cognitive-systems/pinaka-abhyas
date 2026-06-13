@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000899",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000899.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.tests_adequacy"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 80,
+  "stem": "Fisher's ideal index satisfies three of the four standard tests of adequacy for index numbers. Which one test does it fail to satisfy?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Unit test"
+    },
+    {
+      "key": 2,
+      "text": "Time-reversal test"
+    },
+    {
+      "key": 3,
+      "text": "Factor-reversal test"
+    },
+    {
+      "key": 4,
+      "text": "Circular test"
+    }
+  ],
+  "answer_key": {
+    "correct": 4
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "The unit test requires that an index is not affected by the units in which prices and quantities are expressed. Fisher's ideal index, being a ratio of value aggregates, satisfies the unit test."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "The time-reversal test requires F01 x F10 = 1. Fisher's ideal index satisfies this exactly because it is the geometric mean of Laspeyre's and Paasche's, and their combined product simplifies to 1."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "The factor-reversal test requires that the price index multiplied by the corresponding quantity index equals the value ratio. Fisher's ideal index satisfies this test, which is a central reason it is called 'ideal'."
+    },
+    {
+      "option_key": 4,
+      "verdict": "correct",
+      "rationale": "The circular test requires I01 x I12 x I20 = 1 across three time periods. No standard chain-weighted index satisfies this in general, and Fisher's ideal index is no exception - it fails the circular test."
+    }
+  ],
+  "explanation": "Fisher's ideal index earns its name by satisfying two important adequacy tests: the time-reversal test (F01 x F10 = 1) and the factor-reversal test (price index x quantity index = value ratio). It also satisfies the unit test. However, it does not satisfy the circular test, which requires I01 x I12 x I20 = 1. The circular test is satisfied only by fixed-base or simple indices whose weights do not shift between periods; any geometrically weighted index with changing quantities fails it.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Fisher's ideal index satisfies time-reversal, factor-reversal, and unit tests, but no standard chain-weighted formula can satisfy the circular test.",
+    "approach": "Name the formula and map each test: time-reversal = product of two-way indices equals 1 (Fisher passes); factor-reversal = price index x quantity index = value ratio (Fisher passes); unit test = unchanged by measurement units (Fisher passes); circular test = three-period chain product = 1 (Fisher fails, as does every changing-weight index).",
+    "lesson": "No index can satisfy all four tests simultaneously. Fisher's 'ideal' status comes from satisfying time-reversal and factor-reversal, not from satisfying the circular test.",
+    "timing": "60-80 s. Eliminate by recalling Fisher's two namesake properties (time-reversal and factor-reversal). The remaining tests: unit test (trivially satisfied by any ratio index) and circular test (the known gap for Fisher)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

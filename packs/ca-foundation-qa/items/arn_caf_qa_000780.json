@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000780",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000780.py"
+  },
+  "tests": [
+    "qa.stats.probability.classical"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 140,
+  "stem": "A pack of 52 cards is divided at random into two equal groups of 26 cards each. What is the probability that each group contains exactly 2 aces? [Given: C(4,2) = 6. Hint: express the favourable count in terms of choosing ace positions among the 52 slots, then simplify.]",
+  "options": [
+    {
+      "key": 1,
+      "text": "C(26,2)^2 / C(52,4)"
+    },
+    {
+      "key": 2,
+      "text": "C(4,2) / C(52,2)"
+    },
+    {
+      "key": 3,
+      "text": "6 / C(52,4)"
+    },
+    {
+      "key": 4,
+      "text": "C(26,2) / C(52,2)"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Choose 2 aces for group 1 from 4 aces: C(4,2) = 6 ways. Fill the remaining 24 spots of group 1 from 48 non-aces: C(48,24) ways. Total ways to split: C(52,26). This simplifies: 6*C(48,24)/C(52,26) = C(26,2)^2/C(52,4) numerically."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Confuses the problem with choosing 2 aces from the full deck (C(4,2)/C(52,2)), ignoring the two-group partition structure."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Places only C(4,2) = 6 as the numerator and C(52,4) as the denominator, losing the non-ace distribution factor C(48,24) and the total-split denominator structure."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "Uses C(26,2)/C(52,2) by counting only one group's ace selection without squaring (forgetting the second group must also receive exactly 2 aces, which introduces the squared term)."
+    }
+  ],
+  "explanation": "We partition 52 cards into two equal halves. Favourable: choose 2 aces (from 4) for group 1 = C(4,2); then 2 aces automatically go to group 2. Fill group 1's remaining 24 spots from 48 non-aces = C(48,24). Total ways to form group 1 = C(52,26). Simplification: 6*C(48,24)/C(52,26). An elegant equivalent: choose positions of 4 aces among 52 slots = C(52,4), and favourable is both group-1 slots take 2 aces each = C(26,2)*C(26,2). So P = C(26,2)^2/C(52,4) = 325^2/270725.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Partition problem: fix the 4 ace-positions and ask how many fall 2-2 across the halves. P = C(26,2)^2 / C(52,4).",
+    "approach": "Identify model: classical probability on card partitions. Setup: the 4 aces occupy 4 of the 52 positions; total ways to assign their positions = C(52,4). Favourable: choose 2 of the 26 slots in group 1 for aces = C(26,2), the other 2 aces go to group 2 automatically. Favourable = C(26,2) * C(26,2) / 1 = C(26,2)^2 (order of aces within group does not matter). Divide: C(26,2)^2 / C(52,4).",
+    "lesson": "For equal-partition problems, fix the special cards and count how many of their position-slots fall in each half. The denominator is C(total, number_special), not C(total, half).",
+    "timing": "90 seconds. Recognize the reformulation to ace-slots. C(52,4)=270725, C(26,2)=325. Then 325^2/270725 = 105625/270725 approximately 0.390. Trap: forgetting to square (option 4)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

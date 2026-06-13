@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000830",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000830.py"
+  },
+  "tests": [
+    "qa.stats.distributions.poisson"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 60,
+  "stem": "For a Poisson distribution, if the mean is 2, what is the variance?",
+  "options": [
+    {
+      "key": 1,
+      "text": "2"
+    },
+    {
+      "key": 2,
+      "text": "4"
+    },
+    {
+      "key": 3,
+      "text": "sqrt(2)"
+    },
+    {
+      "key": 4,
+      "text": "1"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "For a Poisson distribution, variance equals the mean (lambda). If mean = 2 then variance = 2."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "4 = 2^2; the student squared the mean, confusing variance with mean squared, as in a Normal distribution where sigma^2 can be set independently."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "sqrt(2) is the standard deviation, not the variance; the student confused sigma with sigma^2 for the Poisson."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "1 might arise from believing variance = 1 always for Poisson, or from dividing mean by itself, confusing the Poisson variance formula."
+    }
+  ],
+  "explanation": "The Poisson distribution has the unique property that its variance equals its mean. Both equal the parameter lambda. So if mean = 2, variance = 2.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "The Poisson distribution is the only standard distribution where variance = mean = lambda.",
+    "approach": "State the property: for Poisson(lambda), E(X) = Var(X) = lambda. Contrast with Binomial where variance = npq < mean = np, and Normal where mean and variance are independent parameters.",
+    "lesson": "Poisson variance = mean = lambda; this identity is a defining characteristic used to check whether data fits the Poisson model.",
+    "timing": "20 seconds. Direct recall; eliminate 4 (variance=1) and sqrt(2) (standard deviation) immediately."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

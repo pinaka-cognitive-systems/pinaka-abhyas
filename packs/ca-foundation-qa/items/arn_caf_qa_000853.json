@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000853",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000853.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.rank_correlation"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 50,
+  "stem": "A researcher ranks 6 students on two attributes and finds the sum of squared rank differences (sum of d^2) to be 0. What is the Spearman rank correlation coefficient?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0"
+    },
+    {
+      "key": 2,
+      "text": "-1"
+    },
+    {
+      "key": 3,
+      "text": "1"
+    },
+    {
+      "key": 4,
+      "text": "0.5"
+    }
+  ],
+  "answer_key": {
+    "correct": 3
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "concept_definition_confused",
+      "rationale": "Confusing zero sum of d^2 with zero correlation; when all rank differences are zero the ranks are identical, implying perfect positive agreement, not no correlation."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "Applying the formula but flipping the sign: 1 - 6*0/(6*(36-1)) = 1 - 0 = 1, not -1."
+    },
+    {
+      "option_key": 3,
+      "verdict": "correct",
+      "rationale": "Spearman formula: r_s = 1 - 6*sum(d^2) / (n*(n^2-1)) = 1 - 6*0 / (6*35) = 1 - 0 = 1. Perfect positive rank agreement."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Halving the result or misapplying a scaling factor gives 0.5 instead of using the standard Spearman formula correctly."
+    }
+  ],
+  "explanation": "When the sum of squared rank differences is zero every student has the same rank on both attributes, giving perfect positive correlation. The Spearman formula r_s = 1 - 6*sum(d^2)/(n*(n^2-1)) yields 1 - 0 = 1.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Zero sum of squared differences means identical rank order on both attributes, forcing r_s = 1.",
+    "approach": "Name the formula: r_s = 1 - 6*sum(d^2) / (n*(n^2-1)). Map the given: n=6, sum(d^2)=0. Substitute: r_s = 1 - 6*0/(6*35) = 1 - 0 = 1. No further steps needed.",
+    "lesson": "The Spearman coefficient equals 1 when sum(d^2)=0 and equals -1 when sum(d^2) is at its maximum n*(n^2-1)/6.",
+    "timing": "Direct plug-in, under 25 seconds. Eliminate options that ignore the formula's structure."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

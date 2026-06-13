@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000495",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000495.py"
+  },
+  "tests": [
+    "qa.bmath.sequence_series.special_series"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 95,
+  "stem": "A storekeeper counts inventory by pairing items: the first pair makes 1*2 = 2 units, the second pair makes 2*3 = 6 units, the third pair 3*4 = 12 units, and so on for 9 pairs. What is the total inventory counted across all 9 pairs?",
+  "options": [
+    {
+      "key": 1,
+      "text": "330"
+    },
+    {
+      "key": 2,
+      "text": "165"
+    },
+    {
+      "key": 3,
+      "text": "990"
+    },
+    {
+      "key": 4,
+      "text": "440"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Series is sum(k(k+1), k=1..9) = n(n+1)(n+2)/3 = 9*10*11/3 = 330."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Used n(n+1)(n+2)/6 = 9*10*11/6 = 165, confusing the product-pair formula with the combination formula C(n+2,3)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "Computed 9*10*11 = 990 without dividing by 3, omitting the denominator of the special-series formula."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "off_by_one",
+      "rationale": "Used n=10 instead of n=9: 10*11*12/3 = 440, counting an extra pair beyond the 9 specified."
+    }
+  ],
+  "explanation": "Each term is k(k+1) = k^2 + k. Summing over k=1 to n: sum(k^2) + sum(k) = n(n+1)(2n+1)/6 + n(n+1)/2 = n(n+1)/2 * [(2n+1)/3 + 1] = n(n+1)(n+2)/3. For n=9: 9*10*11/3 = 330.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Recognise k(k+1) as k^2 + k and combine the two standard-series formulas to get n(n+1)(n+2)/3.",
+    "approach": "Derivation plan: split k(k+1) = k^2 + k. Apply sum of squares and sum of naturals: n(n+1)(2n+1)/6 + n(n+1)/2. Factor n(n+1): n(n+1)[(2n+1)/6 + 1/2] = n(n+1)(2n+4)/6 = n(n+1)(n+2)/3. Substitute n=9: 9*10*11/3 = 330.",
+    "lesson": "Sum of k(k+1) for k=1..n equals n(n+1)(n+2)/3. This can be derived or remembered as 3! * C(n+2,3).",
+    "timing": "About 80 seconds. Trap: dividing by 6 (using C(n+2,3) logic) gives 165. The formula denominator is 3, not 6."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

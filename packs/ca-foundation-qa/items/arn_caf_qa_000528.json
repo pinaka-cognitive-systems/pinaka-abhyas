@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000528",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000528.py"
+  },
+  "tests": [
+    "qa.bmath.sets_functions.domain_range"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "What is the range of the function f(x) = (x^2 + 1) / (x^2 + 2) for all real x?",
+  "options": [
+    {
+      "key": 1,
+      "text": "[1/2, 1)"
+    },
+    {
+      "key": 2,
+      "text": "(1/2, 1)"
+    },
+    {
+      "key": 3,
+      "text": "[1/2, 1]"
+    },
+    {
+      "key": 4,
+      "text": "(0, 1)"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Let y = (x^2+1)/(x^2+2). Then y(x^2+2) = x^2+1 => x^2(y-1) = 1-2y => x^2 = (1-2y)/(y-1). For real x we need x^2 >= 0, so (1-2y)/(y-1) >= 0. Since y < 1 always (numerator x^2+1 < x^2+2), y-1 < 0. So we need 1-2y <= 0, i.e. y >= 1/2. At x=0, y = 1/2 (minimum achieved). y approaches 1 as x -> infinity but never equals 1. So range = [1/2, 1)."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "Excluding the minimum value y = 1/2 by using open interval, forgetting that at x = 0 the value f(0) = 1/2 is achieved."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "relation_property_misidentified",
+      "rationale": "Including y = 1 in the range, which would require x^2+1 = x^2+2 (i.e. 1 = 2), which is impossible. The value 1 is a limit but is never attained."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "wrong_formula",
+      "rationale": "Reporting (0,1) by noting f is always between 0 and 1 and not carefully computing the actual minimum value, missing that the ratio x^2+1 over x^2+2 is at least 1/2 for all real x."
+    }
+  ],
+  "explanation": "Setting y = (x^2+1)/(x^2+2) and solving for x^2 reveals x^2 = (1-2y)/(y-1) >= 0, which forces y >= 1/2; the minimum 1/2 is achieved at x=0 and y=1 is a limit never reached.",
+  "explanation_kind": "concept",
+  "explanation_sections": {
+    "punchline": "To find the range of a rational function, solve for x^2 in terms of y and impose the non-negativity constraint; the boundary y=1/2 is achieved but y=1 is not.",
+    "approach": "State the property then contrast the confusable one. Set y equal to the function and solve for x^2: y(x^2+2)=x^2+1 => x^2(y-1)=1-2y => x^2=(1-2y)/(y-1). For a real solution x^2 >= 0. Denominator y-1 < 0 always (since f < 1). So numerator 1-2y must also be <= 0, giving y >= 1/2. The minimum y=1/2 is attained at x=0. As x->inf, y->1 from below but never equals 1. Range = [1/2, 1).",
+    "lesson": "For range of f(x): set y = f(x), solve for x in terms of y, impose existence conditions (x^2 >= 0 here), and check which boundary values are achieved.",
+    "timing": "About 80 seconds. Set y=f(x) and rearrange for x^2 (40 sec), impose x^2 >= 0 (20 sec), check endpoints (20 sec). Trap: including y=1 in the range."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

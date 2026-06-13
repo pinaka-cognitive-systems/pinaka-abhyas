@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000651",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000651.py"
+  },
+  "tests": [
+    "qa.lr.blood_relations"
+  ],
+  "difficulty_label": "L1",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 55,
+  "stem": "Amit says, 'Deepa is the sister of my father's only brother.' How is Deepa related to Amit?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Aunt"
+    },
+    {
+      "key": 2,
+      "text": "Mother"
+    },
+    {
+      "key": 3,
+      "text": "Cousin"
+    },
+    {
+      "key": 4,
+      "text": "Sister"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Amit's father's only brother is Amit's uncle. The sister of Amit's uncle is Amit's aunt (or could be Amit's father's sister, which is also aunt). Either way, she is Amit's aunt."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Mother would require Deepa to be Amit's father's wife, not his brother's sister. Confusing brother's sister with mother places Deepa in the wrong role."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "A cousin is one generation below the uncle, but Deepa is a sibling of the uncle (same generation as Amit's father), making her Amit's aunt, not cousin."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "kinship_direction_inverted",
+      "rationale": "Sister would mean Deepa is in Amit's own generation. But Deepa is in Amit's father's generation, making her an aunt, not a sister."
+    }
+  ],
+  "explanation": "Amit's father's only brother is Amit's uncle (paternal). Deepa is the sister of this uncle, so she is in Amit's father's generation. She is Amit's aunt (paternal aunt, or the uncle's sister who is also a sibling of the father).",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Sister of the uncle = same generation as Amit's father = Amit's aunt.",
+    "approach": "Apply clues most-certain-first: father's only brother = Amit's uncle. Sister of uncle = sibling of Amit's father = Amit's aunt.",
+    "lesson": "A sibling of any of your parent's siblings is still your aunt or uncle (parent's generation), not your cousin (your own generation).",
+    "timing": "About 35 seconds. The trap is option 3 (cousin), which confuses sibling-of-uncle with child-of-uncle."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

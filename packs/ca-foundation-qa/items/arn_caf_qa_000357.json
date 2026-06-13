@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000357",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000357.py"
+  },
+  "tests": [
+    "qa.bmath.inequalities.one_variable"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Solve the inequality: 5 - 2x >= 11.",
+  "options": [
+    {
+      "key": 1,
+      "text": "x >= -3"
+    },
+    {
+      "key": 2,
+      "text": "x <= -3"
+    },
+    {
+      "key": 3,
+      "text": "x >= 3"
+    },
+    {
+      "key": 4,
+      "text": "x <= 3"
+    }
+  ],
+  "answer_key": {
+    "correct": 2
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "incorrect",
+      "misconception": "inequality_sign_not_flipped",
+      "rationale": "5 - 2x >= 11 => -2x >= 6 => dividing by -2 must flip the inequality, giving x <= -3; forgetting to flip gives x >= -3."
+    },
+    {
+      "option_key": 2,
+      "verdict": "correct",
+      "rationale": "5 - 2x >= 11 => -2x >= 6 => x <= -3 (flip inequality when dividing by -2)."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "A sign error: treating 5-2x >= 11 as -2x >= 6 and then computing -6/2=+3, giving x >= 3."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "sign_error",
+      "rationale": "Correct flip of the inequality but a sign error: -2x >= 6 with the flip gives x <= 6/(-2) but reading -6/2 as +3 gives x <= 3 instead of x <= -3."
+    }
+  ],
+  "explanation": "5 - 2x >= 11 => subtract 5: -2x >= 6 => divide by -2 (FLIP the inequality): x <= -3. Check x=-3: 5-2(-3)=5+6=11 >= 11. Check x=-4: 5+8=13 >= 11. Check x=-2: 5+4=9, which is NOT >= 11, confirming x=-2 is not in the solution set.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Dividing by the negative coefficient -2 must flip >= to <=, giving x <= -3.",
+    "approach": "Linear inequality with negative coefficient: isolate the x term (subtract 5, giving -2x >= 6). Identify that the coefficient of x is NEGATIVE (-2). Divide both sides by -2 and REVERSE the inequality: x <= -3.",
+    "lesson": "The ONLY time an inequality reverses is when you multiply or divide both sides by a NEGATIVE number. Every other operation preserves the direction.",
+    "timing": "55 seconds. One setup decision: spot -2 as the divisor and flip the sign. Trap: option 1 is the most common error (forgetting to flip)."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

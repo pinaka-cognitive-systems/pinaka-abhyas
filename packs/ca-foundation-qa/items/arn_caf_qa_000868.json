@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000868",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_gen2",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "sonnet",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000868.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.regression"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 90,
+  "stem": "Two regression lines for a bivariate data set are given as: Line 1 (Y on X): 2Y - 3X = 1 and Line 2 (X on Y): 5X - 2Y = 9. What are the mean values X_bar and Y_bar?",
+  "options": [
+    {
+      "key": 1,
+      "text": "X_bar = 5, Y_bar = 8"
+    },
+    {
+      "key": 2,
+      "text": "X_bar = 4, Y_bar = 6"
+    },
+    {
+      "key": 3,
+      "text": "X_bar = 3, Y_bar = 5"
+    },
+    {
+      "key": 4,
+      "text": "X_bar = 6, Y_bar = 9"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Both regression lines pass through (X_bar, Y_bar). Adding: (2Y-3X) + (5X-2Y) = 1+9 => 2X = 10 => X_bar = 5. Then 2Y = 3*5+1 = 16 => Y_bar = 8."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "arithmetic_slip",
+      "rationale": "X_bar = 4 arises from computing 2X = 10 as X = 4 through a factor error, giving Y_bar = (3*4+1)/2 = 6.5, then rounding to 6."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "formula_misapplied",
+      "rationale": "X_bar = 3, Y_bar = 5 results from solving only Line 1 after setting it equal to zero and reading off constants, not treating the system as a simultaneous pair."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "misread_quantity",
+      "rationale": "X_bar = 6, Y_bar = 9 arises from swapping which equation represents Y-on-X and X-on-Y, then solving a different system."
+    }
+  ],
+  "explanation": "Both regression lines always pass through the point (X_bar, Y_bar). Solve the two equations simultaneously: (2Y - 3X = 1) and (5X - 2Y = 9). Adding them: 2X = 10, so X_bar = 5. Substitute back: 2Y = 3*5 + 1 = 16, so Y_bar = 8.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The means are the intersection point of both regression lines; solving them simultaneously gives X_bar and Y_bar in two steps.",
+    "approach": "Formula-selection: the decisive property is that both regression lines pass through (X_bar, Y_bar). Treat the two given equations as a 2x2 linear system. Add them to eliminate Y: (2Y-3X)+(5X-2Y)=1+9 => 2X=10 => X_bar=5. Back-substitute to find Y_bar=8.",
+    "lesson": "Whenever two regression line equations are given, their intersection is the point of means - solve them as simultaneous equations.",
+    "timing": "75 seconds. Trap: trying to read off the means from the constants in individual equations without solving the system."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

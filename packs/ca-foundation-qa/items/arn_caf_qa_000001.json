@@ -69,12 +69,13 @@
       "misconception": "arithmetic_slip"
     }
   ],
-  "explanation": "Half-yearly compounding means r = 10%/2 = 5% per period and n = 2 periods. A = 20000 * (1.05)^2 = 22,050, so CI = 2,050. Dividing the rate by the number of periods per year is the key step; using the full annual rate per period overstates the interest.",
+  "explanation": "Half-yearly compounding means r = 10%/2 = 5% per period and n = 2 periods in one year. A = 20000 * (1.05)^2 = 20000 * 1.1025 = 22,050, so CI = 22,050 - 20,000 = 2,050. Using the full annual rate 10% per period overstates the interest.",
+  "explanation_kind": "formula_selection",
   "explanation_sections": {
-    "punchline": "Half-yearly means two periods at 5% each, not one at 10%. That gives CI of Rs 2,050, not Rs 2,000.",
-    "approach": "When the question states a compounding frequency other than annual, convert the annual rate to a periodic rate and count the periods. For half-yearly: periodic rate = annual rate divided by 2, periods = years multiplied by 2. Then apply A = P * (1 + r)^n and subtract P.",
-    "lesson": "Always match the rate to the compounding period. An annual rate used as a half-yearly rate is a rate-period mismatch that inflates interest.",
-    "timing": "About 75 seconds. Compute (1.05)^2 = 1.1025 in one step. Option (2) is the simple-interest trap: eliminate it in five seconds if you already know compounding applies here."
+    "punchline": "The decisive move is rate conversion: 10% annual compounded half-yearly becomes 5% per half-year for n = 2 periods. A = 20000 * (1.05)^2 = Rs 22,050, so CI = Rs 2,050.",
+    "approach": "Name the formula first: A = P * (1 + r)^n with r as the periodic rate, not the annual rate. Then map the givens: nominal rate 10% divided by 2 periods per year gives r = 5% = 0.05; years * 2 = n = 2. Multiply: 20000 * 1.1025 = 22,050. Subtract the principal to get CI. This is the standard rate-period matching recipe for any compounding frequency.",
+    "lesson": "Always divide the annual rate by the number of compounding periods per year and multiply the number of years by the same number to get n. Using the annual rate as a per-period rate inflates the interest and is the main trap here.",
+    "timing": "About 60 seconds. One conversion and one multiplication. Reject option (2) at Rs 2,000 in three seconds: that is simple interest, which uses no exponent. Reject option (3) at Rs 4,200 in three seconds: that uses 10% per half-year, the rate-period mismatch trap."
   },
   "empirical": {
     "calibration_status": "none",
