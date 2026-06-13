@@ -103,7 +103,7 @@ The registry is data, validated at build. `content_hash` is the durable identity
 
 | Field | Type | Req | Notes |
 |---|---|---|---|
-| `item_type` | enum | yes | Closed universal set: `single_best` / `multi_select` / `numeric_entry`. Extensible, versioned. |
+| `item_type` | enum | yes | Closed universal set: `single_best` / `numeric_entry`. `multi_select` is **reserved** per ADR 0016 — designed but not enabled in any v1 Profile; both validators reject it in v1 packs. Extensible, versioned. |
 | `options` | list of `{key:int, text:md}` | required for choice types | `key` 1-indexed, unique, contiguous from 1. Absent for `numeric_entry`. Core requires >= 2. **Exact count (CA = 4, LSAT = 5) is enforced by the exam extension validator** (4.8). |
 | `answer_key` | object | yes | Shape by `item_type`. See 4.4. |
 | `expected_seconds` | int | optional, recommended | Target solve time. Pacing and timing analytics. |
@@ -125,6 +125,19 @@ Partial-credit policy for `multi_select` is **scoring config, not schema** (sect
 | `explanation` | markdown | yes, non-empty (>= 50 chars) | The teach-by-testing payload. May be structured by exam convention (LSAT five sections) via headings; structure is validated by the exam extension, not the core. May reference Assets. |
 | `per_option_rationale` | list | required for choice items (exam-enforced) | Aligned to options. Each: `{ option_key, verdict: correct|incorrect, rationale: md, misconception?: <tag> }`. `misconception` references the exam misconception vocabulary at `taxonomy_version`, and is required on every incorrect option. The diagnostic gold, made universal. |
 | `common_errors` | list | required for `numeric_entry` (exam-enforced) | The numeric analog of per-option diagnosis, since numeric items have no options. Each: `{ value, misconception, rationale }`. Lets the engine diagnose a wrong number ("you computed the compound-interest value, not the simple-interest one"). |
+
+### 4.5.1 `explanation_sections` object (optional; ADR 0017)
+
+All-or-nothing: the field is optional, but when present all four sub-fields are required.
+
+| Sub-field | Type | Req | Notes |
+|---|---|---|---|
+| `punchline` | string | yes (when present) | One or two sentences naming why the keyed answer wins. Always visible in the UI. Min 20 chars. |
+| `approach` | string | yes (when present) | How to attack this question type from a cold read. Min 20 chars. |
+| `lesson` | string | yes (when present) | The transferable take-home rule. Min 20 chars. |
+| `timing` | string | yes (when present) | How long this should take and what to cut first. Min 10 chars. |
+
+Per-option teaching stays in `per_option_rationale`, not here. None of these sub-fields enter the `content_hash` (section 9); identity is the problem, not the teaching. Voice and notation rules (ADR 0015) apply to all sub-fields; Tier 2 checks `DASH_VIOLATION` and `NOTATION_VIOLATION` cover them. The app renders the sections as numbered reveals (punchline open by default) and degrades gracefully for items without sections.
 
 ### 4.6 `provenance` object
 
@@ -208,6 +221,8 @@ Optional. One per group. Referenced by `Item.group.stimulus_id`.
 
 Stimulus validation invariants are in section 11.2.
 
+**Reconciliation note (ADR 0016):** ADR 0016 (2026-06-10) reserved a different grouping shape — `stimulus_group: {group_id, stimulus, question_index, question_count}` — where the stimulus text is inlined into each item rather than held in a separate Stimulus record. This design supersedes the sketch above for the deferred grouping feature. Neither shape is in the Core schema or any v1 Profile yet; both are deferred until a consuming exam arrives. When grouping is enabled, the ADR 0016 shape governs; the separate Stimulus entity described in sections 3 and 5 above remains the authored design for the rev-3 spec but will be reconciled against ADR 0016 before any Profile enables it.
+
 ---
 
 ## 6. Universal item types
@@ -215,7 +230,7 @@ Stimulus validation invariants are in section 11.2.
 The closed set the renderer and scorer switch on. Exam-independent.
 
 - `single_best` — exactly one correct option. Covers MCQ-4 (CA), MCQ-5 (LSAT), true/false, and assertion-reason (structured stem plus an `ext` flag, not a new core type).
-- `multi_select` — one or more correct options.
+- `multi_select` — one or more correct options. **Reserved per ADR 0016** — designed but not enabled in the Core enum or any v1 Profile; both validators reject it in v1 packs. Enabled by a Profile capability flag when a consuming exam arrives.
 - `numeric_entry` — numeric answer with explicit tolerance. Covers JEE numerical and CA numeric-answer items.
 
 New types are added by versioning this list, never by overloading `ext`.
@@ -407,7 +422,7 @@ provenance:
   created: 2026-04-29
 tests: [qa.stats.probability.conditional, qa.stats.probability.independent_events]
 difficulty_label: L3
-taxonomy_version: 2
+taxonomy_version: 4
 item_type: single_best
 expected_seconds: 90
 answer_key: { correct: 1 }
@@ -694,3 +709,12 @@ Tasks W2-3 and W2-4. All changes are backward-compatible for currently-authored 
 - Section 14 worked example: stale node ids `qa.probability.conditional` and `qa.probability.independent_events` corrected to `qa.stats.probability.conditional` and `qa.stats.probability.independent_events`; `taxonomy_version` corrected from 1 to 2; `provenance.license` corrected to `CC-BY-NC-SA-4.0`.
 
 ALERT still open from rev 3: ICAI negative-marking fraction (10) and LSAT taxonomy reconciliation (7).
+
+---
+
+## 23. Changelog: rev 5 (spec corrections, 2026-06-12)
+
+1. Section 14 worked example: `taxonomy_version` corrected from `2` to `4` (the CA Foundation QA profile taxonomy is currently at version 4; verify at `schema/profiles/ca-foundation-qa/taxonomy.json`).
+2. Sections 4.3 and 6: `multi_select` annotated as **reserved per ADR 0016** — the Core enum has exactly two active values (`single_best`, `numeric_entry`); `multi_select` is designed but not enabled in any v1 Profile.
+3. Section 4.5.1 (`explanation_sections`) added: documents the Core field introduced by ADR 0017, with sub-fields, optionality, min-length constraints, hash exclusion, and notation-check coverage.
+4. Section 5: ADR 0016 reconciliation note added — ADR 0016's `stimulus_group` shape supersedes the separate-Stimulus-entity sketch for the deferred grouping feature; neither is in the Core schema yet.

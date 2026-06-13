@@ -24,7 +24,9 @@ A question is authored against exactly one **leaf taxonomy node** (for example
 | L3 | Trap / multi-concept | A plausible wrong method exists and is baited |
 
 ICAI Paper 3 is application-level throughout. The bank should be roughly 20% L1,
-55% L2, and 25% L3 per node.
+55% L2, and 25% L3 per node. The authoring stock target (20/55/25 per node) and
+the fixed per-form mock draw (20% L1 / 60% L2 / 20% L3, ADR 0022) are different
+quantities; the stock must be deep enough to serve the draw without substitutions.
 
 Difficulty labels are estimates at authoring time and are recalibrated from
 telemetry after launch (ADR 0006). Do not rely on a label to decide whether a
@@ -38,7 +40,7 @@ leaf. Abstract-node targets are rejected.
 ## 02 The misconception rule
 
 Every wrong option must carry exactly one misconception id from the closed canon
-(`misconceptions.json` v2). Not zero, not two. The id names the wrong-answer
+(`misconceptions.json`). Not zero, not two. The id names the wrong-answer
 path: the specific reasoning that produces that number.
 
 - Work backwards. Compute the number a student gets if they make the error, and
@@ -191,9 +193,9 @@ are repaired and re-verified before promotion.
 | Executable solution reproduces the key | Solution harness (W3-1) | Hard reject |
 | Executable distractor derivations present and reproducing distractor values | Solution harness (W3-1) | Hard reject (for generated batches; applies to all new items after the pilot) |
 | Blind verifier agrees with the key | Blind verification pass (specs/content-pipeline.md, stage 3) | Hard reject |
-| Stem under 60 words | B1 readability lint (W3-5) | Hard reject for generated batches; advisory for hand-authored items until lint ships |
+| Stem: per-sentence length max 25 words (B1 gate; `quality.py` `B1_MAX_WORDS_PER_SENTENCE`) | B1 readability lint (W3-5) | Hard reject for generated batches; advisory for hand-authored items until lint ships. Note: the 60-word total stem length is a style guideline, not a machine-enforced gate. |
 | Indian number formatting in money contexts | Notation lint (W3-5 per ADR 0015) | Hard reject for generated batches; advisory until lint ships |
-| No banned voice patterns (contractions, em-dashes, exclamation marks) | Fellow-voice lint (W7-6) | CI gate after the one-time corpus sweep; pre-commit hook locally |
+| No banned voice patterns (contractions, em-dashes, exclamation marks) | Fellow-voice lint (W7-6) | Planned; not yet implemented (build-spec W7-6) |
 | Tag accuracy above 85% on audited sample | Adversarial audit (W4-4, W4-5) | Gate A pass/fail |
 | Blueprint coverage gaps closed first | Pipeline targeting (W4-3) | Process control; not a validator |
 | Difficulty label plausible | Human review at audit | Review; recalibrated from telemetry after launch |

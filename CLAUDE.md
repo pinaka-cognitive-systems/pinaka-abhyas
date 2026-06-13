@@ -12,7 +12,7 @@ Quantitative Aptitude. Then widen by adding Profiles.
 
 Form factor: a static client-side PWA. Vite, React, TypeScript. sqlite-wasm on
 OPFS, service-worker offline, installable, one-click progress export and import.
-Hosted free on GitHub Pages or Cloudflare Pages. No backend.
+Intended to be hosted free on GitHub Pages or Cloudflare Pages once deployed. No backend.
 
 ## Git conventions
 
@@ -23,6 +23,28 @@ Hosted free on GitHub Pages or Cloudflare Pages. No backend.
 - **No signatures, authors, or trailers** in commit messages. No `Co-Authored-By`,
   no `Generated with` lines. This overrides any global default that adds them.
 - Commit only when asked. Never push without explicit instruction.
+- Before committing, run `tools/ci-local.sh`: it runs every blocking gate against
+  a clean `git archive HEAD` export, so a gitignored local artifact cannot mask a
+  CI failure. Push through `tools/push-verified.sh`, which preflights the same way
+  and keeps SHA-keyed verdicts.
+
+## Build, test, run
+
+- App lives in `app/` (its own `package.json` and lockfile). From `app/`:
+  `npm ci`, then `npm run dev` (localhost:5173), `npm run build` + `npm run preview`
+  for the production PWA, and the gates `npm run typecheck`, `npm run lint`,
+  `npm test`, `npm run check-size`, `npm run check-offline`, `npm run check-a11y`.
+- The canonical engine in `engine-ts/` is a separate package; the app consumes it
+  via `file:../engine-ts`. Run its gates from `engine-ts/`: `npm test`,
+  `npm run typecheck`.
+- Every npm dependency is a build or test tool; none ships. `npm run audit` (in
+  `app/` and `engine-ts/`) runs the calibrated gate in `tools/audit-gate.mjs`,
+  which fails on new advisories and allowlists the reviewed dev-only ones. See
+  `SECURITY.md`.
+- Rebuild the shipped pack after any item change:
+  `python3 packs/ca-foundation-qa/build_and_validate.py` (stamps content hashes,
+  runs both validator tiers and the solution harness). `pack.json` is a generated,
+  gitignored artifact; the `items/` and `solutions/` files are the source of truth.
 
 ## Schema
 
@@ -34,7 +56,8 @@ Hosted free on GitHub Pages or Cloudflare Pages. No backend.
 - Validate, both must stay green:
   - `python3 schema/validate.py`
   - `python3 schema/validator/run_checks.py`
-- Validators need `jsonschema` and `referencing`. The system `python3` has them.
+- Validators need `jsonschema`, `referencing`, and `rfc3339-validator`. Install with
+  `pip install ".[dev]"` from the repo root.
 
 ## Engine
 
@@ -75,6 +98,7 @@ old one and references it; the old ADR stays in place as the historical record.
 - Roadmap: `ROADMAP.md` (current phase, what is done, what is next)
 - Schema rationale: `specs/unified-question-schema.md`
 - Content pipeline: `specs/content-pipeline.md`
+- Content authoring guide: `docs/contributing/content-authoring.md`
 - Build spec: `docs/design/build-spec.md`; adherence spec: `docs/design/adherence-spec.md`
 - Brand: `docs/brand/brand-core.md` (voice, principles), `docs/brand/design.md` (visual system), and `docs/brand/positioning-ca.md` (CA)
 - Syllabus source: `syllabus/` (local-only; gitignored; ICAI source materials not distributed)

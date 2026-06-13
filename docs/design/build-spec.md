@@ -152,14 +152,14 @@ shortcut sheet, and Esc-exits-a-flow.
 | `#/settings` | settings (`app/src/flows/settings/`) | Privacy and data, accessibility, exam, about (export/import/update kept) |
 
 The shared view-model layer (`app/src/engine/insights.ts` +
-`app/src/state/appData.ts`) derives the design's profile contract — the six
-data states, the recommendation ladder, misconception costs and the matrix,
-review-queue reasons, syllabus coverage, time triage — from the event log;
-screens read the snapshot and hold no math.
+`app/src/state/appData.ts`) derives the design's profile contract — the five
+data states (plus the interrupted flag), the recommendation ladder, misconception
+costs and the matrix, review-queue reasons, syllabus coverage, time triage — from
+the event log; screens read the snapshot and hold no math.
 
-All layouts are built at 360px first, then widened. The practice loop, first-run,
-and baseline flows are phone-native by design. Mocks and diagnosis are desktop-best
-but fully functional on the phone; no feature is gated by device. (ADR 0011)
+All layouts are built at 360px first, then widened. The practice loop and first-run
+are phone-native by design. Mocks and diagnosis are desktop-best but fully functional
+on the phone; no feature is gated by device. (ADR 0011)
 
 ---
 
@@ -207,7 +207,7 @@ The best is the desktop. Mocks and deep diagnosis are designed to shine on a lap
 while remaining fully functional on the phone.
 
 Primary canvases by surface:
-- Practice loop, first-run, install, baseline: 360px phone-native.
+- Practice loop, first-run, install: 360px phone-native.
 - Mock hall, diagnosis: desktop-best, phone-capable.
 
 Layout discipline: design and build at 360px first. Widening to desktop is cheap;

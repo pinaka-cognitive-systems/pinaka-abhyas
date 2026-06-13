@@ -38,6 +38,9 @@ python3 packs/ca-foundation-qa/build_and_validate.py
 echo "== engine gates"
 (cd engine-ts && npm ci --silent && npx tsc --noEmit && npx vitest run)
 
+echo "== W1-12 cross-check (independent mastery twin, ADR 0010)"
+crosscheck/run_compare.sh
+
 echo "== app gates"
 (cd app && npm ci --silent && npm run typecheck && npm run lint && npx vitest run && npm run build && npm run check-size && npm run check-offline && npm run check-a11y)
 

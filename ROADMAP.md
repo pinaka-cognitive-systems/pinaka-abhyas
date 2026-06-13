@@ -58,24 +58,28 @@ Done:
   with sqlite-wasm on OPFS, a service worker for full offline, an installable
   manifest with real icons, self-hosted IBM Plex subsets, and one-click progress
   export and import. A persistent shell (rail on desktop, tab bar on phones) hosts
-  the hub flows; sessions run full-bleed. The loop is decomposed into seven flows:
-  first-run, baseline, home, practice, diagnosis, mock, and settings. The mock
+  the hub flows; sessions run full-bleed. The loop is decomposed into the flows
+  under `app/src/flows/`: diagnosis, first-run, home, mock, practice, review,
+  settings, syllabus, and testday. The mock
   cycle runs end to end: exam hall (palette, strikes, flags, honest resume),
   score reveal, marks waterfall breakdown with misconception shares, and a
   per-question review walkthrough that reuses the structured teaching reveals.
   See `docs/design/build-spec.md` and `docs/design/as-built.md`.
 - CI. Every push runs schema Tier 1 and Tier 2, key execution, engine typecheck and
-  tests, and app typecheck, lint, and tests, plus byte-budget and offline checks.
-  See `.github/workflows/ci.yml`.
+  tests, and app typecheck, lint, tests, build, byte-budget, offline, and
+  accessibility checks. See `.github/workflows/ci.yml`.
 
 Next:
 
-- Close the last four uncovered taxonomy leaves and deepen the bank past one
-  paper (mock rotation needs roughly three papers of headroom), with a human
-  expert audit at the 5 to 10 percent rate.
+- Close the last four uncovered taxonomy leaves and deepen the bank to at least 800
+  questions before launch (ADR 0018 ruling 6); mock rotation needs roughly three
+  papers of headroom, and the mock assembler must build full blueprint papers without
+  the shortfall mechanism.
 - Replace the quarantined item with an original equivalent.
 - Harden the app for accessibility and performance on a low-end Android phone.
 - Run the closed beta with real aspirants to settle Gate B.
+- Wire the deployment job (ADR 0008 decides GitHub Pages / Cloudflare Pages; no
+  deploy job exists yet — hosting is a pending launch step).
 - Public release: app under AGPL-3.0, shipped questions under CC BY-NC-SA 4.0; the
   opt-in anonymized telemetry collector that calibrates difficulty and fills the
   reserved IRT fields. See `docs/adr/0002-dual-license-agpl-and-cc-by-nc-sa.md` and
@@ -90,3 +94,9 @@ Next:
   `docs/adr/0001-pwa-over-desktop-shell.md`.
 - Runtime AI. All AI runs at build time. See
   `docs/adr/0004-build-time-ai-zero-runtime-ai.md`.
+
+---
+
+CA Foundation is an examination conducted by the Institute of Chartered Accountants
+of India (ICAI). Pinaka Abhyas is not affiliated with, endorsed by, or sponsored by
+ICAI.

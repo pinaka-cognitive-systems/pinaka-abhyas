@@ -41,14 +41,14 @@ that follows is a normal engine-driven session; the engine's own review economic
 handle the backlog (budgeted, never a wall of overdue items). Never display the gap
 length, never display what was "lost".
 
-## Mechanism 4: the student's own reminder, if asked
+## Mechanism 4: the student's own reminder, if asked — REMOVED (ADR 0018 ruling 8)
 
-Settings gains one opt-in: a local notification at a student-chosen time of day
-("Remind me to study at..."), using the Notification API where available, fully
-off by default, with the plain line that this is the student's own alarm and the app
-neither knows nor cares whether it is answered. No escalation, no copy variation,
-no re-prompting when ignored. Where notifications are unavailable (iOS uninstalled),
-the setting explains that honestly and suggests installing first.
+Removed before shipping: ADR 0018 ruling 8 dropped the reminder setting from the
+product ("may return if students ask"). The design below is kept as the agreed
+shape IF it ever returns: one opt-in local notification at a student-chosen time
+of day, fully off by default, the student's own alarm, no escalation, no copy
+variation, no re-prompting when ignored, honest fallback copy where notifications
+are unavailable.
 
 ## Instrumentation for the beta gate
 
@@ -64,5 +64,8 @@ demands, with zero telemetry.
 - The today card derives every claim from the engine (no invented numbers).
 - The delta line is a pure, tested function of two engine states.
 - Re-entry copy appears only past the gap threshold and reads as stated.
-- The reminder is off by default, set in one tap, removable in one tap.
 - Copy passes the deterministic voice gate.
+
+(The reminder acceptance bullet was removed with Mechanism 4, ADR 0018 ruling 8.
+The instrumentation list above predates that ruling; the "reminder fired" flag is
+moot while the mechanism is out.)

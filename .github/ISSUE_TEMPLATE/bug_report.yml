@@ -1,0 +1,36 @@
+name: Bug report
+description: Something in the app behaves incorrectly.
+title: "[bug]: <short summary>"
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What went wrong, and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Go to ...
+        2. Do ...
+        3. See ...
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Device and browser
+      description: The app is an installable PWA. Tell us the device, OS, and browser.
+      placeholder: e.g. Android 14, Chrome 124 / iPhone, Safari
+    validations:
+      required: true
+  - type: textarea
+    id: console
+    attributes:
+      label: Console errors (optional)
+      description: Any errors from the browser console.
+      render: text

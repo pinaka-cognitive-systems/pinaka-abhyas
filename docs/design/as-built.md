@@ -22,8 +22,9 @@ Shared layers (the SSOT the rows build on):
 - `app/src/components/ui.tsx` — Icon set, Chip, Caveat, ScreenHead,
   ReadinessBand, Sheet (focus-trapped), Toast, ShortcutSheet.
 - `app/src/engine/insights.ts` + `app/src/state/appData.ts` — the
-  profile-shaped view-model (six data states, recommendation ladder, matrix,
-  review queue reasons, syllabus coverage, time triage, calibration).
+  profile-shaped view-model (five data states plus the interrupted flag,
+  recommendation ladder, matrix, review queue reasons, syllabus coverage,
+  time triage, calibration).
 
 | Surface / component | Source | Status | Notes |
 | --- | --- | --- | --- |
@@ -33,7 +34,7 @@ Shared layers (the SSOT the rows build on):
 | App shell: rail, tiers, tab bar | app-shell.jsx, app.css, screens.css | deviated | Design rail verbatim (224px full / 64px icons at 900-1199) incl. Syllabus item and the wired reviews-due pill. Below 900px a bottom tab bar (ADR 0018 ruling 2 — the drop does not cover phones). Window chrome dropped (ruling 7); per-route document.title instead. |
 | Keyboard layer + shortcut sheet | App.html:66-138 | built | 1-5/comma nav, ? sheet, Esc exits a flow, dialog focus traps, kbd-hint pill (router.tsx + ui.tsx). |
 | Route transitions + score morph | App.html:16-17, 92-105 | built | startViewTransition crossfade 180ms with reduced-motion bypass and throttle guard; view-transition-name: score morphs reveal -> breakdown. |
-| Six data states | data.jsx PROFILES, Handout s04 | built | classifyDataState (empty/early/returning/progressing/plateau) + interrupted; drives the Today recommendation ladder. Unit-tested (tests/engine/insights.test.ts). |
+| Five data states (plus interrupted flag) | data.jsx PROFILES, Handout s04 | built | classifyDataState (empty/early/returning/progressing/plateau) + interrupted; drives the Today recommendation ladder. Unit-tested (tests/engine/insights.test.ts). |
 | Today | scr-core.jsx:43-173 | built | Full anatomy: ScreenHead, recommended card + See the evidence, ReadinessBand (pass + target markers), recent mocks, plateau belief, recovery banner + Discard with 6s undo toast. |
 | Practice hub | scr-practice.jsx:24-123 | built | Review half + drill setup (topic picker with honest mastery %, difficulty/length/method). Start drill moved to its own row — the prototype overlaps it with the options toggle (canvas defect, fixed here). |
 | Drill (question + feedback) | scr-practice.jsx:125-232, feedback.jsx | built | fb-context bar, letters A-D + kbd hints, locked fb-split feedback with named misconception, always-visible working, cost link. Keyboard 1-4/Enter/Space. Topic/level filter serves from a narrowed bank (engine math untouched). |
@@ -57,7 +58,8 @@ Shared layers (the SSOT the rows build on):
 | Loading/error surfaces | (not in drop) | deviated | Kept, restyled to screen chrome with honest copy (ruling 10). |
 
 Verification record (2026-06-12): typecheck, eslint, and the full vitest
-suite green (698 tests after pruning suites that asserted removed surfaces);
+suite green (698 tests after pruning suites that asserted removed surfaces;
+later 708 after the engine batch below);
 production build green; live side-by-side against the v2 canvas at
 1440/1000/375 across today, practice, drill + feedback, diagnosis, syllabus,
 mocks hub, pre-mock, hall, settings, first-run, and the interrupted-mock
@@ -75,10 +77,10 @@ to the hub during boot, an unconditional "0 due today" headline, a snapshot
 invalidation miss on mock persist, and overflowing matrix row heads. Copy
 pass (string-for-string vs the prototype + voice rules): clean except three
 fixes applied (syllabus empty lede, expired-dialog ghost label, reveal
-not-cleared sentence now gated on penalty dominance). The ADR 0019 pool was
-then verified live end to end: 67 mock mistakes pooled after the test mock,
-one drilled through the single-item hand-off (Q 1 / 1), pool 67 -> 66 and the
-item entered the spaced schedule.
+not-cleared sentence now gated on penalty dominance). (Historical — the pool surface was removed the same day by ADR 0020.) The
+ADR 0019 pool was then verified live end to end: 67 mock mistakes pooled after
+the test mock, one drilled through the single-item hand-off (Q 1 / 1), pool
+67 -> 66 and the item entered the spaced schedule.
 
 SOTA engine batch (2026-06-12, ADRs 0020/0021/0022): FSRS-4.5 scheduler with
 mock ingestion and 12-a-day workload balancing, read-time hierarchical

@@ -1,0 +1,17 @@
+# Code owners are requested for review automatically. See the docs:
+# https://docs.github.com/en/repositories/managing-your-repositories-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything not matched below.
+*                       @5h1vmani
+
+# Question content and the schema/taxonomy that governs it.
+/packs/                 @5h1vmani
+/schema/                @5h1vmani
+/specs/                 @5h1vmani
+
+# Application and engine code.
+/app/                   @5h1vmani
+/engine-ts/             @5h1vmani
+
+# Decisions are load-bearing; changes here always want a maintainer.
+/docs/adr/              @5h1vmani

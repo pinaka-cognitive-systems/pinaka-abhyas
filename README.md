@@ -24,10 +24,11 @@ schema, the CA QA taxonomy from the official ICAI syllabus, the misconception ca
 the event-log record, and the marking config are locked, and both validator tiers are
 green. The TypeScript engine computes mastery, scheduling, selection, and readiness,
 pinned by committed golden vectors. The content pipeline ran a pilot to completion:
-the CA Foundation pack holds 82 items, 81 usable, each shipping an executable solution
-that re-derives its key in CI. The PWA is built, with the loop decomposed into seven
-flows. Next is scaling the verified bank with expert audit, then the closed beta. See
-`ROADMAP.md`.
+the CA Foundation pack holds 106 items, 105 machine-verified, one quarantined with
+the defect recorded in `packs/ca-foundation-qa/ERRATA.md`, each shipping an executable
+solution that re-derives its key in CI. The PWA is built, with the loop decomposed
+into the flows under `app/src/flows/`. Next is scaling the verified bank with expert
+audit, then the closed beta. See `ROADMAP.md`.
 
 ## Layout
 
@@ -58,9 +59,28 @@ flows. Next is scaling the verified bank with expert audit, then the closed beta
 - Tier 1 (structure): `python3 schema/validate.py`
 - Tier 2 (cross-record): `python3 schema/validator/run_checks.py`
 
+## Development
+
+Requirements: Node 22, Python 3.12.
+
+```
+git clone https://github.com/5h1vmani/pinaka-abhyas
+cd pinaka-abhyas
+pip install ".[dev]"          # installs jsonschema, referencing, rfc3339-validator, pytest
+bash tools/dev.sh             # builds the pack, installs app deps on first run, starts http://localhost:5173
+```
+
+`tools/dev.sh` runs `python3 packs/ca-foundation-qa/build_and_validate.py` (which
+generates the gitignored `pack.json`), then `npm install` inside `app/` if
+`node_modules/` is absent, then `npm run dev`.
+
 ## Licensing
 
 App code is AGPL-3.0. Question content is CC BY-NC-SA 4.0: free for students, no
 commercial use, derivatives stay open. Every shipped question is original, authored
 from the public CA Foundation syllabus; we redistribute no exam-board questions. The
 content generator (prashna) stays private. See `LICENSING.md`.
+
+CA Foundation is an examination conducted by the Institute of Chartered Accountants
+of India (ICAI). Pinaka Abhyas is not affiliated with, endorsed by, or sponsored by
+ICAI.

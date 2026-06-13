@@ -1,0 +1,39 @@
+name: Report a question problem
+description: Flag a question that is wrong, ambiguous, mistagged, or mislabelled.
+title: "[question] <item id>: <short summary>"
+labels: ["content", "question-report"]
+body:
+  - type: input
+    id: item_id
+    attributes:
+      label: Item id
+      description: The id shown with the question, e.g. arn_caf_qa_000123.
+      placeholder: arn_caf_qa_000xxx
+    validations:
+      required: true
+  - type: dropdown
+    id: problem_type
+    attributes:
+      label: What is wrong?
+      options:
+        - The keyed answer looks incorrect
+        - More than one option is defensible (ambiguous)
+        - A distractor or its misconception tag is wrong
+        - The difficulty label seems off
+        - The explanation is wrong or unclear
+        - Typo or notation problem
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: detail
+    attributes:
+      label: Details
+      description: What did you expect, and why? Show the working if you can.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Reference (optional)
+      description: A syllabus point or standard result that supports your claim. Do not paste copyrighted exam-board questions.

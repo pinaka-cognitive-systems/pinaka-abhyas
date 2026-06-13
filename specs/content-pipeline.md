@@ -18,8 +18,11 @@ reviews cost and quality before any scale-up.
 
 Targets come from the blueprint gap analysis: uncovered v1-scope leaf nodes ordered by
 blueprint mark weight, with per-node difficulty quotas of roughly 20% L1, 55% L2,
-25% L3 (the authoring guide's distribution). The pilot batch targets uncovered
-high-weight nodes only. Precondition for generating into an uncovered area: the
+25% L3 (the authoring guide's distribution). The authoring stock target (20/55/25
+per node) and the fixed per-form mock draw (26% L1 / 66% L2 / 8% L3, ADR 0024
+superseding ADR 0022's mix to mirror the real ICAI paper) are different
+quantities; the stock must be deep enough to serve the draw without
+substitutions. The pilot batch targets uncovered high-weight nodes only. Precondition for generating into an uncovered area: the
 misconception canon covers it with specific ids (the batched canon v3 bump, W4-2).
 
 ## Stage 1: generate

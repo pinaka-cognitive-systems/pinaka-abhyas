@@ -6,6 +6,11 @@ The single most important rule: the artifact is the visual. The readout, the dia
 
 ## Color
 
+> **Shipped palette (ADR 0018 ruling 1).** The app ships the WCAG-corrected
+> palette; values in all tables below are the shipped tokens. The design-team
+> originals (pre-correction) live in the gitignored design-team drop and are
+> not the reference.
+
 Three-layer story. One brand signal.
 
 ### Surfaces (zinc cool-gray)
@@ -16,18 +21,18 @@ Three-layer story. One brand signal.
 | `--color-foreground` | `#09090B` | Body text. Also the dark-section background |
 | `--color-card` | `#FFFFFF` | Cards push to pure white |
 | `--color-muted` | `#F4F4F5` | Callout and inset backgrounds |
-| `--color-muted-foreground` | `#3F3F46` | Secondary text |
-| `--color-text-subtle` | `#71717A` | Captions, footnotes |
+| `--color-muted-foreground` | `#2F2F36` | Secondary text (darkened by the 2026-06-12 readability ruling: body prose reads at 12.7:1) |
+| `--color-text-subtle` | `#6E6E76` | Captions, footnotes |
 
 ### Brand (indigo, one signal does all the work)
 
 | Token | Hex | Use |
 | --- | --- | --- |
-| `--color-brand-primary` | `#6366F1` | All accents, primary CTAs, links on light |
+| `--color-brand-primary` | `#5558E8` | All accents, primary CTAs, links on light |
 | `--color-brand-primary-hover` | `#4F46E5` | Hover. Body-size link color for AA |
 | `--color-brand-primary-active` | `#4338CA` | Active |
 | `--color-brand-secondary` | `#818CF8` | Brand accent on dark sections. Primary is too dark on `#09090B` |
-| `--color-brand-soft` | `rgba(99,102,241,0.1)` | Focus rings, selected states, the only gradient-like fill |
+| `--color-brand-soft` | `rgba(85,88,232,0.10)` | Focus rings, selected states, the only gradient-like fill |
 
 ### Warm accent (amber, sparing, never chrome)
 
@@ -37,10 +42,10 @@ Three-layer story. One brand signal.
 
 | Meaning | Filled | Soft | Text | Border |
 | --- | --- | --- | --- | --- |
-| Success (emerald) | `#059669` | `#ECFDF5` | `#065F46` | `#34D399` |
-| Warning (amber) | `#D97706` | `#FFFBEB` | `#92400E` | `#FBBF24` |
-| Danger (rose) | `#E11D48` | `#FFF1F2` | `#9F1239` | `#FB7185` |
-| Info (indigo) | `#6366F1` | `#EEF2FF` | `#4338CA` | `#A5B4FC` |
+| Success (emerald) | `#047857` | `#ECFDF5` | `#065F46` | `#059669` |
+| Warning (amber) | `#D97706` | `#FFFBEB` | `#92400E` | `#D97706` |
+| Danger (rose) | `#E11D48` | `#FFF1F2` | `#9F1239` | `#E11D48` |
+| Info (indigo) | `#5558E8` | `#EEF2FF` | `#4338CA` | `#5558E8` |
 
 ### Borders
 
@@ -155,7 +160,7 @@ Adopted from design v1, with two refinements.
 
 The lockup, left to right:
 
-1. The chevron mark. Indigo stroke (`--color-brand-primary #6366F1`). Two diagonal strokes referencing the bow drawn. Square caps, miter joins.
+1. The chevron mark. Indigo stroke (`--color-brand-primary #5558E8`). Two diagonal strokes referencing the bow drawn. Square caps, miter joins.
 2. "Pinaka" in IBM Plex Sans 600, in `--color-foreground #09090B`.
 3. "abhyas" lowercase, set as a tag in regular weight and subtle gray.
 
@@ -165,11 +170,13 @@ Inline SVG for the chevron (square caps, miter joins, 3px stroke):
 
 ```html
 <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
-     stroke="#6366F1" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter">
+     stroke="var(--color-brand-primary)" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter">
   <path d="M4 18L12 6" />
   <path d="M16 12L20 18" />
 </svg>
 ```
+
+`var(--color-brand-primary)` resolves to `#5558E8` (WCAG-corrected; see ADR 0018 ruling 1).
 
 Forms:
 
