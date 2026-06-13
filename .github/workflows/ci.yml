@@ -10,6 +10,13 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+# Least privilege (CodeQL actions/missing-workflow-permissions): the default
+# GITHUB_TOKEN scope is broad. Every job here only reads the repo; none pushes,
+# comments, or deploys. Same-run artifact upload and download are authorized by
+# the run token regardless of this block. Set the floor once for all jobs.
+permissions:
+  contents: read
+
 jobs:
   validate-and-test:
     name: Validate and test (Python 3.12)

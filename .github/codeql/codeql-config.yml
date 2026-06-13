@@ -1,0 +1,10 @@
+name: "pinaka-abhyas CodeQL config"
+
+# Scope analysis to product and tooling code. The pack's solution scripts
+# (packs/ca-foundation-qa/solutions/) are sandboxed, secret-free math that the
+# verification harness runs in isolation (ADR 0005); they are not product code,
+# and their finance-themed variable names (salary, income, balance) trip
+# CodeQL's clear-text-logging heuristic on the harness print() with no real
+# sensitive data behind it. Excluding them removes that false-positive class.
+paths-ignore:
+  - packs/**
