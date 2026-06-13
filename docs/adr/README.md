@@ -30,7 +30,9 @@ in place as the historical record.
 | [0019](0019-mock-mistakes-review-pool.md) | Mock mistakes reach Review as a drill-to-schedule pool | Superseded by 0020 |
 | [0020](0020-fsrs-scheduler-mock-ingestion.md) | FSRS-4.5 scheduler, mock ingestion, workload balancing | Accepted |
 | [0021](0021-hierarchical-shrinkage-reads.md) | Read-time hierarchical shrinkage for skill estimates | Accepted |
-| [0022](0022-mock-form-comparability.md) | Mock form comparability: difficulty mix and exposure control | Accepted |
+| [0022](0022-mock-form-comparability.md) | Mock form comparability: difficulty mix and exposure control | Accepted (difficulty mix superseded by 0024) |
+| [0023](0023-explanation-kinds.md) | Explanation kinds and the per-archetype teaching contract | Accepted |
+| [0024](0024-mock-mix-mirrors-icai.md) | Mock difficulty mix mirrors the real ICAI paper | Accepted |
 
 ADRs 0001 through 0007 record the project's founding
 decisions and share the founding date; their order within that date is the numeric
@@ -42,3 +44,16 @@ are immutable, so those citations stand as written: they record the basis a deci
 rested on at the time. The artifacts still exist; they are simply not part of the
 public doc surface. ADR-to-ADR references (supersession, partial supersession) remain
 valid regardless of where superseded planning docs now live.
+
+## Supersession pointers
+
+ADR bodies are immutable and carry no forward pointer in their text. The table above
+is the authoritative supersession record. Key pointers:
+
+- **0003** (Python reference engine with TS port) — superseded by **0010** (single
+  TypeScript engine). The Python prototype is archived at `prototypes/engine-py/`.
+- **0006** (Elo mastery) — partially superseded by **0012** (Glicko-lite mastery).
+  The Elo update rule is replaced; the IRT telemetry path remains.
+- **0019** (mock mistakes review pool) — superseded by **0020** (FSRS-4.5 scheduler
+  with direct mock ingestion). The interim pool surface is removed; every graded
+  event advances the item's schedule directly.

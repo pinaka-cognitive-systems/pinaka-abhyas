@@ -33,7 +33,23 @@ python3 canonical.py --stamp packs/good.json
 
 ## Invariants enforced (beyond the schema)
 
-`HASH_MISMATCH`, `DUP_CONTENT_HASH`, `DUP_ID`, `UNKNOWN_TEST_NODE`, `DIFFICULTY_NOT_IN_SCALE`, `BAD_OPTION_KEYS`, `RATIONALE_BAD_OPTION`, `RATIONALE_VERDICT_MISMATCH`, `UNKNOWN_MISCONCEPTION`, `DANGLING_ASSET_REF`, `ASSET_OWNER_MISMATCH`, `ABSTRACT_TEST_NODE`, `MISCONCEPTION_FAMILY_MISMATCH`, `TAXONOMY_VERSION_MISMATCH`, `SOLUTION_FILE_MISSING`, plus `svg_is_safe()` for SVG sanitization (spec 11.4).
+`SCHEMA`, `HASH_MISMATCH`, `HASH_ERROR`, `DUP_CONTENT_HASH`, `DUP_ID`, `UNKNOWN_TEST_NODE`, `DIFFICULTY_NOT_IN_SCALE`, `BAD_OPTION_KEYS`, `RATIONALE_COVERAGE`, `RATIONALE_BAD_OPTION`, `RATIONALE_VERDICT_MISMATCH`, `UNKNOWN_MISCONCEPTION`, `MISCONCEPTION_REQUIRED`, `MISSING_COMMON_ERRORS`, `COMMON_ERROR_EQUALS_ANSWER`, `DANGLING_ASSET_REF`, `ASSET_OWNER_MISMATCH`, `ABSTRACT_TEST_NODE`, `MISCONCEPTION_FAMILY_MISMATCH`, `TAXONOMY_VERSION_MISMATCH`, `UNPUBLISHABLE_LICENSE`, `SOLUTION_FILE_MISSING`, plus `svg_is_safe()` for SVG sanitization (spec 11.4).
+
+**Schema and integrity:**
+- `SCHEMA` — item fails JSON Schema (Tier 1) validation; message carries the jsonschema error detail.
+- `HASH_ERROR` — `content_hash` could not be recomputed due to a canonicalization exception (e.g. malformed item structure); item is treated as invalid.
+
+**Option and rationale checks:**
+- `RATIONALE_COVERAGE` — `per_option_rationale` does not cover exactly the same option keys as `options`; keys present in one set but not the other are reported.
+- `MISCONCEPTION_REQUIRED` — an incorrect option in `per_option_rationale` has no `misconception` tag; every wrong option must cite a misconception.
+- `MISSING_COMMON_ERRORS` — a `numeric_entry` item has no `common_errors` list; numeric items must carry at least one error-pattern diagnosis.
+- `COMMON_ERROR_EQUALS_ANSWER` — a value in `common_errors` equals the correct answer after normalization; a common error must be a wrong value.
+
+**License gate:**
+- `UNPUBLISHABLE_LICENSE` — `provenance.license` is `LicenseRef-pinaka-internal-unreleased` and `verification_status` is `published`; unreleased content cannot be shipped.
+
+**Voice and notation gate:**
+- `DASH_VIOLATION` — `--` (ASCII double hyphen) appears in stem, options, explanation, `explanation_sections`, or rationales; the voice rule bans dashes (em/en dashes are already rejected by the ADR 0015 allowlist — this catches the ASCII stand-in).
 
 **Highest-harm content gates (W3-3):**
 - `DISTRACTOR_EQUALS_KEY` — any incorrect option text equals the correct option text after canonical normalization.

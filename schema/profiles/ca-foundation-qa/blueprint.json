@@ -20,6 +20,7 @@
       "sections": [
         {
           "icai_section": "I",
+          "default_explanation_kind": "derivation",
           "label": "Ratio and Proportion, Indices and Logarithms; Equations; Linear Inequalities",
           "weight_percent_of_part": [20, 30],
           "derived_target_questions": 10,
@@ -27,6 +28,7 @@
         },
         {
           "icai_section": "II",
+          "default_explanation_kind": "formula_selection",
           "label": "Mathematics of Finance",
           "weight_percent_of_part": [30, 40],
           "derived_target_questions": 14,
@@ -34,6 +36,7 @@
         },
         {
           "icai_section": "III",
+          "default_explanation_kind": "derivation",
           "label": "Permutations and Combinations; Sequence and Series; Sets, Relations and Functions, Limits and Continuity; Calculus",
           "weight_percent_of_part": [30, 50],
           "derived_target_questions": 16,
@@ -49,6 +52,7 @@
       "sections": [
         {
           "icai_section": "IV",
+          "default_explanation_kind": "deductive_trace",
           "label": "Number Series, Coding and Decoding, Odd Man Out; Direction Tests; Seating Arrangements; Blood Relations",
           "weight_percent_of_part_per_topic": [20, 30],
           "weight_note": "ICAI lists 20-30 percent for each of the four Logical Reasoning topics.",
@@ -65,6 +69,7 @@
       "sections": [
         {
           "icai_section": "V",
+          "default_explanation_kind": "model_compute",
           "label": "Statistical Representation of Data and Sampling; Measures of Central Tendency and Dispersion",
           "weight_percent_of_part": [45, 50],
           "derived_target_questions": 19,
@@ -72,6 +77,7 @@
         },
         {
           "icai_section": "VI",
+          "default_explanation_kind": "model_compute",
           "label": "Probability; Theoretical Distributions",
           "weight_percent_of_part": [25, 30],
           "derived_target_questions": 11,
@@ -79,6 +85,7 @@
         },
         {
           "icai_section": "VII",
+          "default_explanation_kind": "formula_selection",
           "label": "Correlation and Regression",
           "weight_percent_of_part": [10, 15],
           "derived_target_questions": 5,
@@ -86,6 +93,7 @@
         },
         {
           "icai_section": "VIII",
+          "default_explanation_kind": "formula_selection",
           "label": "Index Numbers",
           "weight_percent_of_part": [10, 15],
           "derived_target_questions": 5,
@@ -94,6 +102,13 @@
       ]
     }
   ],
+  "explanation_kinds": {
+    "note": "ADR 0023. Each item carries an explanation_kind (reasoning archetype) that sets what its explanation, explanation_sections.approach, and per_option_rationale must foreground. Resolution order: per-item explanation_kind, then a family override below, then the section default_explanation_kind. Heterogeneous Section III defaults to derivation and is refined per family here.",
+    "family_overrides": {
+      "qa.bmath.permutations_combinations": "counting",
+      "qa.bmath.sets_functions": "concept"
+    }
+  },
   "derived_target_note": "derived_target_questions applies the midpoint of each ICAI weightage range to the part's question count and rounds so each part sums to its total. Use as a generation and mock-assembly guide, not a hard ICAI figure; the plus or minus 5 percent deviation applies.",
   "usage": "Drives generation volume per family, mock-paper assembly, and readiness weighting. Section percentages are within each part; parts are 40/20/40 marks at one mark per question."
 }

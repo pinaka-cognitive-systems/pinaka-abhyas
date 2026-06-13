@@ -26,6 +26,9 @@ Cross-record checks:
   DASH_VIOLATION             '--' in stem/options/explanation/rationale; the voice rule
                              bans dashes, and em/en dashes are already rejected by the
                              ADR 0015 allowlist — this catches the ASCII stand-in
+  EXPLANATION_KIND_WITHOUT_SECTIONS  explanation_kind is set but the four structured
+                             explanation_sections are absent (ADR 0023); a declared
+                             reasoning archetype must carry its structured teaching
 
 Note: SVG sanitization is svg_is_safe(); the build runs it before packing.
 Schema-level structure is delegated to the JSON Schema.
@@ -385,6 +388,19 @@ def validate_pack(pack, taxonomy, schema, registry=None, pack_root=None):
                     )
                 )
                 break
+
+        # 9d. EXPLANATION_KIND_WITHOUT_SECTIONS (ADR 0023): once an item declares a
+        #     reasoning archetype, the structured teaching must be authored. Tier 1
+        #     validates the kind enum; this gate ties the kind to the four
+        #     explanation_sections so a declared archetype cannot ship as bare prose.
+        if item.get("explanation_kind") and not item.get("explanation_sections"):
+            violations.append(
+                Violation(
+                    "EXPLANATION_KIND_WITHOUT_SECTIONS",
+                    iid,
+                    f"explanation_kind {item['explanation_kind']!r} set but explanation_sections is absent",
+                )
+            )
 
         # 10. DISTRACTOR_EQUALS_KEY (W3-3): any incorrect option's canonical text must
         #     not equal the correct option's canonical text — highest-harm defect.

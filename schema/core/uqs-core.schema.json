@@ -54,6 +54,10 @@
         "timing": { "type": "string", "minLength": 10 }
       }
     },
+    "explanation_kind": {
+      "description": "The reasoning archetype this item's teaching follows (ADR 0023), exam-agnostic. It sets, per archetype, what explanation_sections.approach must foreground and how per_option_rationale proves the key. derivation: an algebraic step-chain. formula_selection: name the formula and why this one, then map every given to a variable with its period and unit. counting: classify order and repetition, decompose, then count. deductive_trace: constraint logic with no formula; each distractor's rationale must name the violated clue, because the rationales are the proof. model_compute: identify the model or distribution and state assumptions, then compute. concept: state the definition or property and contrast the confusable one. Optional until the pack is backfilled, then required. Does not enter the content hash.",
+      "enum": ["derivation", "formula_selection", "counting", "deductive_trace", "model_compute", "concept"]
+    },
     "expected_seconds": { "type": "integer", "minimum": 1 },
     "per_option_rationale": {
       "type": "array",

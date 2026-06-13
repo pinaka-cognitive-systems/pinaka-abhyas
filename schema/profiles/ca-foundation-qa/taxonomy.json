@@ -76,6 +76,13 @@
       "v1_scope": true
     },
     {
+      "id": "qa.bmath.ratio_indices_log.time_and_work",
+      "name": "Time and work",
+      "parent": "qa.bmath.ratio_indices_log",
+      "v1_scope": true,
+      "note": "ICAI lists time- and work-related problems under this chapter as an application of ratio and proportion."
+    },
+    {
       "id": "qa.bmath.equations",
       "name": "Equations",
       "parent": "qa.bmath",
@@ -118,11 +125,25 @@
       "v1_scope": true
     },
     {
+      "id": "qa.bmath.inequalities.two_variable",
+      "name": "Linear inequalities in two variables",
+      "parent": "qa.bmath.inequalities",
+      "v1_scope": true,
+      "note": "Pose textually as word problems; do not require a plotted region in v1."
+    },
+    {
       "id": "qa.bmath.inequalities.solution_space",
       "name": "Solution space",
       "parent": "qa.bmath.inequalities",
       "v1_scope": true,
       "note": "Pose textually; do not require a plotted region in v1."
+    },
+    {
+      "id": "qa.bmath.inequalities.optimization",
+      "name": "Objective functions and optimization",
+      "parent": "qa.bmath.inequalities",
+      "v1_scope": true,
+      "note": "ICAI Aug 2024 syllabus: 'Linear Inequalities with Objective Functions and Optimization'. Pose as corner-point evaluation with constraints and vertices stated textually; no plotted region in v1."
     },
     {
       "id": "qa.bmath.finance",
@@ -197,6 +218,34 @@
       "v1_scope": true
     },
     {
+      "id": "qa.bmath.finance.nominal_effective_return",
+      "name": "Nominal and effective rate of return",
+      "parent": "qa.bmath.finance",
+      "v1_scope": true,
+      "note": "ICAI 'Calculations of Returns'; the returns-context counterpart of effective rate of interest."
+    },
+    {
+      "id": "qa.bmath.finance.emi",
+      "name": "Equated monthly instalment (EMI)",
+      "parent": "qa.bmath.finance",
+      "v1_scope": true,
+      "note": "ICAI lists 'Calculating of EMI'; an annuity application."
+    },
+    {
+      "id": "qa.bmath.finance.depreciation",
+      "name": "Depreciation",
+      "parent": "qa.bmath.finance",
+      "v1_scope": true,
+      "note": "ICAI Aug 2024 syllabus item under Mathematics of Finance; straight-line and written-down-value methods."
+    },
+    {
+      "id": "qa.bmath.finance.bond_valuation",
+      "name": "Valuation of bonds",
+      "parent": "qa.bmath.finance",
+      "v1_scope": true,
+      "note": "ICAI Aug 2024 syllabus item under Mathematics of Finance; present value of coupon and redemption cash flows."
+    },
+    {
       "id": "qa.bmath.permutations_combinations",
       "name": "Permutations and Combinations",
       "parent": "qa.bmath",
@@ -257,6 +306,12 @@
       "v1_scope": true
     },
     {
+      "id": "qa.bmath.sequence_series.special_series",
+      "name": "Sum of n terms of special series",
+      "parent": "qa.bmath.sequence_series",
+      "v1_scope": true
+    },
+    {
       "id": "qa.bmath.sets_functions",
       "name": "Sets, Relations and Functions, Limits and Continuity",
       "parent": "qa.bmath",
@@ -304,7 +359,6 @@
       "name": "Differential and Integral Calculus",
       "parent": "qa.bmath",
       "abstract": true,
-      "v1_scope": true,
       "note": "Basic applications of differential and integral calculus in business and economics; excludes trigonometric applications. Pose textually."
     },
     {
@@ -389,6 +443,13 @@
       "abstract": true
     },
     {
+      "id": "qa.stats.data_representation.diagrammatic",
+      "name": "Diagrammatic representation",
+      "parent": "qa.stats.data_representation",
+      "v1_scope": true,
+      "note": "Bar diagrams and pie charts; distinct from graphical (histogram, ogive). Pose conceptually; no figure asset in v1."
+    },
+    {
       "id": "qa.stats.data_representation.frequency_distribution",
       "name": "Frequency distribution",
       "parent": "qa.stats.data_representation",
@@ -462,6 +523,12 @@
       "v1_scope": true
     },
     {
+      "id": "qa.stats.central_tendency_dispersion.coefficient_of_variation",
+      "name": "Coefficient of variation",
+      "parent": "qa.stats.central_tendency_dispersion",
+      "v1_scope": true
+    },
+    {
       "id": "qa.stats.probability",
       "name": "Probability",
       "parent": "qa.stats",
@@ -504,6 +571,12 @@
       "v1_scope": true
     },
     {
+      "id": "qa.stats.probability.bayes_theorem",
+      "name": "Bayes' theorem",
+      "parent": "qa.stats.probability",
+      "v1_scope": true
+    },
+    {
       "id": "qa.stats.distributions",
       "name": "Theoretical Distributions",
       "parent": "qa.stats",
@@ -536,6 +609,12 @@
     {
       "id": "qa.stats.correlation_regression.correlation",
       "name": "Correlation",
+      "parent": "qa.stats.correlation_regression",
+      "v1_scope": true
+    },
+    {
+      "id": "qa.stats.correlation_regression.rank_correlation",
+      "name": "Rank correlation",
       "parent": "qa.stats.correlation_regression",
       "v1_scope": true
     },
