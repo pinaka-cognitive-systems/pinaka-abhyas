@@ -9,11 +9,12 @@
   },
   "scripts": {
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "audit": "node ../tools/audit-gate.mjs"
   },
   "devDependencies": {
     "@types/node": "^20.19.42",
     "typescript": "~5.6.0",
-    "vitest": "~2.1.0"
+    "vitest": "^3.2.6"
   }
 }
