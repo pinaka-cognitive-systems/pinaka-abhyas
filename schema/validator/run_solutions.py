@@ -27,6 +27,7 @@ The quarantined item carries no solution and is skipped by status.
 Run: python3 schema/validator/run_solutions.py packs/ca-foundation-qa
 Exit 0 = all solutions reproduce their keys; nonzero = at least one violation.
 """
+import ast
 import json
 import pathlib
 import resource
@@ -57,6 +58,36 @@ SOLUTION_PROTOCOL_ERROR = "SOLUTION_PROTOCOL_ERROR"
 # W3-2 LR codes.
 SOLUTION_UNSATISFIABLE = "SOLUTION_UNSATISFIABLE"
 SOLUTION_AMBIGUOUS = "SOLUTION_AMBIGUOUS"
+# A solution that imports a non-stdlib module passes wherever that module happens
+# to be installed (a developer's machine) and fails in the clean CI sandbox, an
+# environment-dependent break of the machine-verified guarantee. Caught
+# statically so it fails deterministically on every machine.
+SOLUTION_NONSTDLIB_IMPORT = "SOLUTION_NONSTDLIB_IMPORT"
+
+
+def nonstdlib_imports(solution_path: pathlib.Path):
+    """Top-level imported module names that are not in the standard library.
+
+    Solutions must compute their key with the standard library alone; the
+    sandbox carries no third-party packages. Returns a sorted list of offending
+    module names (empty when the solution is clean).
+    """
+    tree = ast.parse(solution_path.read_text())
+    stdlib = sys.stdlib_module_names
+    offenders = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            names = [a.name for a in node.names]
+        elif isinstance(node, ast.ImportFrom):
+            # level > 0 is a relative import; there are none in a solution file.
+            names = [node.module] if node.module else []
+        else:
+            continue
+        for name in names:
+            top = name.split(".")[0]
+            if top and top not in stdlib:
+                offenders.add(top)
+    return sorted(offenders)
 
 # The runner script written into the child's temp dir. It imports nothing from the
 # harness: it loads the solution file by path, calls solve(), optionally calls
@@ -130,6 +161,18 @@ def run_solution(solution_path: pathlib.Path):
     On success: (payload_dict, None).
     On failure: (None, (code, message)).
     """
+    # Static gate first: a non-stdlib import is rejected on every machine, not
+    # only the clean CI sandbox where the missing package would surface.
+    try:
+        offenders = nonstdlib_imports(solution_path)
+    except SyntaxError as exc:
+        return None, (SOLUTION_RUN_ERROR, f"could not parse solution: {exc}")
+    if offenders:
+        return None, (
+            SOLUTION_NONSTDLIB_IMPORT,
+            f"imports non-stdlib module(s) {offenders}; solutions must be stdlib only",
+        )
+
     with tempfile.TemporaryDirectory() as tmp:
         tmp_dir = pathlib.Path(tmp)
         runner_path = tmp_dir / "_runner.py"
