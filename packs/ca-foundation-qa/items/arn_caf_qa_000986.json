@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000986",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000986.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.mean"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 175,
+  "stem": "Three batches A, B, C wrote a test. Batch A has 20 candidates with mean score 50; batch C has 30 candidates with mean score 40; batch B (size not stated) has mean score 72. The mean score of all three batches combined is 58. What is the mean score of batches B and C taken together?",
+  "options": [
+    {
+      "key": 1,
+      "text": "60"
+    },
+    {
+      "key": 2,
+      "text": "58"
+    },
+    {
+      "key": 3,
+      "text": "56"
+    },
+    {
+      "key": 4,
+      "text": "44"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "First recover the size of B. With combined mean 58: 58(20 + nB + 30) = 20*50 + 72*nB + 30*40, so 58(50 + nB) = 1000 + 72*nB + 1200, giving 2900 + 58*nB = 2200 + 72*nB, hence 14*nB = 700 and nB = 50. Then the mean of B and C = (50*72 + 30*40)/(50 + 30) = (3600 + 1200)/80 = 4800/80 = 60."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Reports the combined mean of all three batches, 58, instead of the mean of only B and C. The question asks for a different subset, so batch A must be excluded.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Takes the simple average of the two batch means: (72 + 40)/2 = 56. The batches have different sizes (50 and 30), so the combined mean must be size-weighted.",
+      "misconception": "mean_median_mode_confusion"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Computes the mean of the wrong subset, A and C: (20*50 + 30*40)/(20 + 30) = 2200/50 = 44. The question pairs B with C, not A with C.",
+      "misconception": "misread_quantity"
+    }
+  ],
+  "explanation": "The size of B is hidden and must be recovered first. From the three-batch combined mean: 58(50 + nB) = 20*50 + 72*nB + 30*40, which solves to 14*nB = 700, so nB = 50. Now the asked subset B and C: mean = (50*72 + 30*40)/(50 + 30) = 4800/80 = 60.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The hidden quantity is B's size. Back it out from the all-three combined mean first, then re-weight only B and C.",
+    "approach": "Set combined mean * total = sum of (size*mean), with the unknown size as the only variable, and solve. Then form the requested subset mean as a fresh size-weighted average using the recovered size.",
+    "lesson": "A combined mean is a size-weighted average; recover any missing size from it before answering a sub-group mean, and weight by sizes, never average the means.",
+    "timing": "About 175 seconds. Fastest elimination: reject 58, the all-three mean, since the question asks only about B and C."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

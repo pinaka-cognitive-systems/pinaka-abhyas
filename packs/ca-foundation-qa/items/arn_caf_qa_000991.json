@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000991",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000991.py"
+  },
+  "tests": [
+    "qa.stats.probability.classical"
+  ],
+  "difficulty_label": "L2",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 170,
+  "stem": "Eight distinct people are seated at random in a row of eight chairs. What is the probability, to three decimals, that two particular people, Asha and Bharat, have exactly three other people seated between them?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.143"
+    },
+    {
+      "key": 2,
+      "text": "0.179"
+    },
+    {
+      "key": 3,
+      "text": "0.125"
+    },
+    {
+      "key": 4,
+      "text": "0.071"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Exactly three people between means the seat positions differ by 4. The lower seat can be 1,2,3 or 4 (so the higher seat is 5,6,7 or 8): 4 position pairs. Each pair can hold Asha-Bharat in 2 orders, giving 8 favourable ordered placements out of 8*7 = 56 ways to place the two named people. P = 8/56 = 1/7 = 0.143. The other 6 people fill the rest in 6! ways, which cancels top and bottom."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Counts a seat gap of 3 instead of 4, i.e. treats 'three between' as a position difference of 3, giving 5 pairs and 10/56 = 0.179. Three people between requires a difference of 4, not 3; the gap relation was set up with the wrong offset.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Divides the 8 favourable placements by 8*8 = 64 instead of 8*7 = 56, sampling the second seat with replacement. The two people cannot share a chair, so the denominator is 8*7.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Counts the 4 position pairs but forgets that Asha and Bharat can swap, dividing 4/56 = 0.071 and ignoring order. Each unordered pair of seats corresponds to two distinct ordered placements, so an unordered count was used where an ordered one was required.",
+      "misconception": "wrong_formula"
+    }
+  ],
+  "explanation": "'Exactly three people between' translates to a seat-number difference of 4. With seats 1 to 8, the lower seat may be 1,2,3 or 4, giving 4 unordered position pairs. Asha and Bharat occupy any such pair in 2 orders, so 8 favourable ordered placements. The total ordered placements of the two named people is 8*7 = 56 (the remaining 6 seats are filled identically in both counts and cancel). P = 8/56 = 1/7 = 0.143.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Three people between two seats means the seat numbers differ by 4, not 3. Count position pairs with that gap, double for order, divide by 8*7.",
+    "approach": "Model: ordered seating, gap counting. Reduce the whole row to just the two named seats: only their relative position matters, so the 6! arrangements of everyone else cancel. Count seat pairs at distance gap+1 = 4 (there are 8 - 4 = 4 of them), multiply by 2 for who sits left, and divide by the 8*7 ordered ways to seat the pair.",
+    "lesson": "k people between two positions means a position difference of k+1. In a row of n, the number of such pairs is n - (k+1).",
+    "timing": "About 170 seconds: set the gap, count 4 pairs, double, divide by 56. Reject 0.179 fast, it uses a seat difference of 3 instead of the correct 4."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

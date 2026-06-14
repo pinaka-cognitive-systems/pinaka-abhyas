@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000985",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000985.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.median"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 180,
+  "stem": "A frequency distribution over classes 0-10, 10-20, 20-30, 30-40, 40-50 has frequencies 5, a, 20, b, 8, where a and b are unknown. The total frequency is 70 and the median is 28. What is the value of a (the frequency of the 10-20 class)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "14"
+    },
+    {
+      "key": 2,
+      "text": "23"
+    },
+    {
+      "key": 3,
+      "text": "22"
+    },
+    {
+      "key": 4,
+      "text": "49"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Total gives 5 + a + 20 + b + 8 = 70, so a + b = 37. With N = 70, N/2 = 35 falls in class 20-30 (L = 20, h = 10, frequency 20), and the cumulative frequency before it is 5 + a. Median = 20 + ((35 - (5 + a))/20)*10 = 28 gives ((30 - a)/20)*10 = 8, so 30 - a = 16 and a = 14. (Then b = 23.)"
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Solves the interpolation correctly but reports b = 23, the OTHER unknown, instead of a = 14 as asked. The question asks for the 10-20 frequency a, not the 30-40 frequency b.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Uses the wrong class width h = 20 instead of 10: 20 + ((35 - (5 + a))/20)*20 = 28 gives 30 - a = 8, so a = 22. The classes span 10 units, so h = 10.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Uses N instead of N/2 in the interpolation: 20 + ((70 - (5 + a))/20)*10 = 28 gives 65 - a = 16, so a = 49. The median position is the N/2-th item, not the N-th.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "The total frequency equation 5 + a + 20 + b + 8 = 70 gives a + b = 37. N/2 = 35 lies in class 20-30, whose preceding cumulative frequency is 5 + a. Apply Median = L + ((N/2 - cf)/f)*h: 28 = 20 + ((35 - (5 + a))/20)*10. Then ((30 - a)/20)*10 = 8, so 30 - a = 16 and a = 14. The total equation then fixes b = 23, but the question asks for a.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Two unknowns, two facts: the total pins a + b, and the median interpolation pins a directly through the cumulative frequency before the median class.",
+    "approach": "Write the total-frequency equation, locate the median class from N/2, express cf with the unknown, then solve the interpolation equation for the unknown the question names. Use the total only to recover the second unknown if needed.",
+    "lesson": "The median equation alone fixes the pre-median frequency; do not waste the total equation trying to solve both at once, and answer the variable actually asked.",
+    "timing": "About 180 seconds. Fastest elimination: reject 23, which is the other unknown b, the moment you confirm the question asks for a."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

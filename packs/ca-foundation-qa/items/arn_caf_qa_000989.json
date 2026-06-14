@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000989",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000989.py"
+  },
+  "tests": [
+    "qa.stats.probability.conditional"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 175,
+  "stem": "A trader buys identical phones from three suppliers P, Q and R supplying 50%, 30% and 20% of stock. Supplier Q's defect rate is 4%. Supplier P's defect rate is half of Q's, and supplier R's is three times Q's. A customer buys one phone and it works perfectly. To three decimals, what is the probability it came from supplier R?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.184"
+    },
+    {
+      "key": 2,
+      "text": "0.200"
+    },
+    {
+      "key": 3,
+      "text": "0.522"
+    },
+    {
+      "key": 4,
+      "text": "0.176"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Defect rates: P = 2%, Q = 4%, R = 12%, so working rates are 0.98, 0.96, 0.88. P(works) = 0.50*0.98 + 0.30*0.96 + 0.20*0.88 = 0.49 + 0.288 + 0.176 = 0.954. P(R | works) = 0.176 / 0.954 = 0.184. The working evidence demotes R below its 0.20 share because R is the least reliable supplier."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Reports the prior share 0.20 of supplier R, ignoring that the 'works perfectly' evidence must update it downward, since R is the least reliable supplier.",
+      "misconception": "conditional_reversed"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Conditions on the wrong event. Computes P(R | defective) = 0.20*0.12 / (0.50*0.02 + 0.30*0.04 + 0.20*0.12) = 0.024 / 0.046 = 0.522, using defect rates as the likelihood instead of working rates. The complement of the observed event was used.",
+      "misconception": "complement_confusion"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Reports the joint working probability 0.20*0.88 = 0.176, the Bayes numerator for R, without dividing by the total working probability 0.954.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "First derive the three defect rates from Q: P = 4%/2 = 2%, Q = 4%, R = 4%*3 = 12%. Convert to working (pass) rates: 0.98, 0.96, 0.88. Total probability a phone works = 0.50*0.98 + 0.30*0.96 + 0.20*0.88 = 0.49 + 0.288 + 0.176 = 0.954. Bayes: P(R | works) = 0.176 / 0.954 = 0.184. The key move is to condition on working, not defective, so the likelihood is 1 minus each defect rate.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The observed event is 'works', so the likelihood for each supplier is 1 minus its defect rate. R is least reliable, so good evidence pulls its posterior below its 0.20 prior.",
+    "approach": "Model: three-source Bayes, but the likelihoods are hidden twice over. First derive R's and P's defect rates from Q (half and triple of 4%). Then flip every defect rate to a working rate (1 - d) because the observed outcome is success. Weight priors by working rates, sum to 0.954, and divide R's term by that. Watch the direction: a reliable-evidence update lowers the unreliable source.",
+    "lesson": "Match the likelihood to the event actually observed. If the phone works, use P(works | source) = 1 - defect rate, never the defect rate itself.",
+    "timing": "About 175 seconds: derive three rates, three products, a sum, a division. Reject 0.522 fast, it conditions on 'defective', the complement of what happened."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

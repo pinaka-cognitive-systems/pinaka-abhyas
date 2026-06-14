@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_001002",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_001002.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.construction"
+  ],
+  "difficulty_label": "L2",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 180,
+  "stem": "A basket has three commodities. Base-year prices and quantities (p0, q0) and current-year prices and quantities (p1, q1) are: A: p0 = 2, q0 = 40, p1 = 6, q1 = 10; B: p0 = 5, q0 = 10, p1 = 6, q1 = 50; C: p0 = 4, q0 = 20, p1 = 5, q1 = 20. What is the Fisher Ideal price index (base = 100)?",
+  "options": [
+    {
+      "key": 1,
+      "text": "158.22"
+    },
+    {
+      "key": 2,
+      "text": "190.48"
+    },
+    {
+      "key": 3,
+      "text": "131.43"
+    },
+    {
+      "key": 4,
+      "text": "160.95"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Build the four weighted sums: Sigma p1q0 = 400, Sigma p0q0 = 210, Sigma p1q1 = 460, Sigma p0q1 = 350. Laspeyres = 400/210*100 = 190.48 and Paasche = 460/350*100 = 131.43. Fisher is their geometric mean: sqrt(190.48 * 131.43) = 158.22."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Stops at the Laspeyres index, 400/210*100 = 190.48, which weights only by base-year quantities. Fisher is the geometric mean of Laspeyres and Paasche, not Laspeyres alone.",
+      "misconception": "concept_definition_confused"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Stops at the Paasche index, 460/350*100 = 131.43, which weights only by current-year quantities. Fisher combines it with Laspeyres through a geometric mean.",
+      "misconception": "concept_definition_confused"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Averages Laspeyres and Paasche arithmetically, (190.48 + 131.43)/2 = 160.95, instead of geometrically. Fisher is sqrt(L * P), not (L + P)/2.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "Fisher needs both Laspeyres and Paasche. From the table Sigma p1q0 = 400, Sigma p0q0 = 210, Sigma p1q1 = 460, Sigma p0q1 = 350, so Laspeyres = 190.48 and Paasche = 131.43. The Fisher Ideal index is their geometric mean, sqrt(190.48 * 131.43) = 158.22, which lies between the two component indices.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Fisher is the geometric mean of Laspeyres and Paasche, so the answer must sit between them. Anything outside the 131 to 190 band, or their arithmetic midpoint, is wrong by construction.",
+    "approach": "Compute the four cross sums once, form Laspeyres = Sigma p1q0/Sigma p0q0 and Paasche = Sigma p1q1/Sigma p0q1, then take sqrt(L * P). Reusing the four sums avoids recomputing anything.",
+    "lesson": "Fisher's Ideal index is the geometric mean sqrt(Laspeyres * Paasche), never the arithmetic mean and never either component on its own.",
+    "timing": "About 180 seconds. The fastest elimination is 160.95, the arithmetic mean trap: Fisher uses a geometric mean, which is always slightly smaller."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

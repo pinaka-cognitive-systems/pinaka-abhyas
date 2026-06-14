@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000971",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000971.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.circular_permutations"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 180,
+  "stem": "Five men and three women are to be seated around a round table (rotations are the same) so that no two women sit next to each other. Among the women is Priya, and among the men is Raj. In how many such seatings does Priya sit immediately next to Raj?",
+  "options": [
+    {
+      "key": 1,
+      "text": "576"
+    },
+    {
+      "key": 2,
+      "text": "1440"
+    },
+    {
+      "key": 3,
+      "text": "2880"
+    },
+    {
+      "key": 4,
+      "text": "288"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Seat the 5 men around the table first: (5-1)! = 24 circular orders. This creates 5 gaps between men; to keep women apart, each woman goes in a distinct gap. Priya must occupy one of the 2 gaps flanking Raj, so 2 choices for her gap. The other 2 women take 2 of the remaining 4 gaps and arrange there in C(4,2) * 2! = 12 ways. Total = 24 * 2 * 12 = 576."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Counts every seating with no two women adjacent, 24 * C(5,3) * 3! = 24 * 60 = 1440, but never imposes that Priya sits next to Raj. The Priya-next-to-Raj condition was dropped.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Seats the men in a line, using 5! = 120 instead of the circular (5-1)! = 24, then applies 2 * 12 for the women to get 2880. A round table needs (n-1)!, not n!.",
+      "misconception": "permutation_combination_confusion"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Places Priya in one of the 2 gaps by Raj and chooses gaps for the other two women, C(4,2) = 6, but forgets to arrange those two women among the chosen gaps (drops the 2!), giving 24 * 2 * 6 = 288. The two distinct women must still be ordered.",
+      "misconception": "permutation_combination_confusion"
+    }
+  ],
+  "explanation": "Use the gap method. Seat the 5 men around the round table in (5-1)! = 24 ways; the gaps between consecutive men are 5, and the no-two-women-adjacent rule means each woman takes a separate gap. Priya must be in a gap adjacent to Raj, and Raj has exactly 2 such gaps, so 2 choices. The remaining 2 women occupy 2 of the other 4 gaps in C(4,2) * 2! = 12 ways. Multiply: 24 * 2 * 12 = 576.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "Seat the unrestricted men first to open gaps, then drop the women into gaps. Priya-next-to-Raj just restricts her to 2 of the 5 gaps, and the other women still must be ordered.",
+    "approach": "For 'no two of group B adjacent' around a circle, place group A by (a-1)!, count the a gaps, then choose and arrange the B members in distinct gaps. Layer extra adjacency conditions as a restriction on which gap a specific member may take.",
+    "lesson": "The gap method turns a not-adjacent condition into choosing distinct gaps; a forced adjacency restricts one member to the 2 gaps beside the anchor.",
+    "timing": "About 180 seconds. Fastest elimination is to reject 1440, the no-two-women-adjacent total that ignores the Priya-next-to-Raj requirement."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

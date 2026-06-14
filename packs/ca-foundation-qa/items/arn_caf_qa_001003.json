@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_001003",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_001003.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.construction"
+  ],
+  "difficulty_label": "L2",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 180,
+  "stem": "For three commodities the data (p0, q0, p1, q1) are: A: 4, 50, 5, 40; B: 6, 30, 8, 35; C: 2, 20, 3, 25. Let P01 be the price index from year 0 to year 1 and P10 the price index from year 1 to year 0, each built by Fisher's method and expressed as a ratio (not a percentage). What is the product P01 times P10?",
+  "options": [
+    {
+      "key": 1,
+      "text": "1.00"
+    },
+    {
+      "key": 2,
+      "text": "0.99"
+    },
+    {
+      "key": 3,
+      "text": "1.01"
+    },
+    {
+      "key": 4,
+      "text": "1.32"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "The cross sums are Sigma p1q0 = 550, Sigma p0q0 = 420, Sigma p1q1 = 555, Sigma p0q1 = 420. Fisher P01 = sqrt((550/420)*(555/420)) = 1.3155. For the reverse index swap the roles of the two years: Fisher P10 = sqrt((420/555)*(420/550)) = 0.7602. Their product 1.3155 * 0.7602 = 1.00 exactly, which is the Time Reversal Test that Fisher satisfies."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Uses Laspeyres for both directions: (550/420) * (420/555) = 0.99, not 1. Laspeyres fails the Time Reversal Test; only Fisher's geometric construction makes the product exactly 1.",
+      "misconception": "concept_definition_confused"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Uses Paasche for both directions: (555/420) * (420/550) = 1.01, not 1. Paasche also fails the Time Reversal Test; the exact 1 requires Fisher.",
+      "misconception": "concept_definition_confused"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Reports the Fisher value ratio Sigma p1q1/Sigma p0q0 = 555/420 = 1.32, confusing the Time Reversal product with the value index from the Factor Reversal Test. The Time Reversal product is P01 * P10, which equals 1.",
+      "misconception": "concept_definition_confused"
+    }
+  ],
+  "explanation": "The Time Reversal Test asks whether P01 * P10 = 1 when each index is built the same way with the years swapped. With cross sums 550, 420, 555, 420, Fisher P01 = sqrt((550/420)(555/420)) = 1.3155 and Fisher P10 = sqrt((420/555)(420/550)) = 0.7602; their product is exactly 1. Laspeyres or Paasche used both ways would give 0.99 or 1.01, so only Fisher passes.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The whole question is which formula makes P01 * P10 collapse to exactly 1. Fisher's geometric mean is built so the swapped factors cancel; Laspeyres and Paasche each miss by about one percent.",
+    "approach": "To check the Time Reversal Test, write P10 by interchanging year 0 and year 1 in the same formula, multiply by P01, and see whether the sums cancel. For Fisher the four roots pair up and the product is identically 1.",
+    "lesson": "Fisher's Ideal index satisfies the Time Reversal Test: P01 * P10 = 1, a property Laspeyres and Paasche do not share.",
+    "timing": "About 180 seconds. The fastest elimination is 1.32, which is the value ratio from the Factor Reversal Test, not the time-reversal product."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

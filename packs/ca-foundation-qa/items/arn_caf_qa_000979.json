@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000979",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000979.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.coefficient_of_variation"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 180,
+  "stem": "Branch A has 40 employees with mean salary Rs 25 thousand and coefficient of variation 20%. Branch B has 60 employees with mean salary Rs 30 thousand and coefficient of variation 15%. The two branches merge. What is the coefficient of variation of salary for the combined 100 employees, to one decimal place?",
+  "options": [
+    {
+      "key": 1,
+      "text": "18.9%"
+    },
+    {
+      "key": 2,
+      "text": "16.8%"
+    },
+    {
+      "key": 3,
+      "text": "17.0%"
+    },
+    {
+      "key": 4,
+      "text": "17.5%"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Recover SDs: SD_A = 20% of 25 = 5, SD_B = 15% of 30 = 4.5. Combined mean M = (40*25 + 60*30)/100 = 28. Deviations of group means: d_A = 25 - 28 = -3, d_B = 30 - 28 = 2. Pooled variance = [40(5^2 + 9) + 60(4.5^2 + 4)]/100 = [40*34 + 60*24.25]/100 = (1360 + 1455)/100 = 28.15, so combined SD = 5.306. CV = 5.306/28 * 100 = 18.95%, to one decimal 18.9%."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Pools only the within-group variances and omits the mean-shift d^2 terms: variance = [40*5^2 + 60*4.5^2]/100 = (1000 + 1215)/100 = 22.15, SD = 4.706, CV = 4.706/28 * 100 = 16.8%. The between-group dispersion (the d^2 contribution) was lost.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Takes a frequency-weighted average of the two CVs: (40*20 + 60*15)/100 = 17.0%. CV is not additive across groups; you must pool variances first.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Takes the simple average of the two CVs: (20 + 15)/2 = 17.5%. This ignores both the unequal group sizes and the mean-shift contribution to spread.",
+      "misconception": "wrong_formula"
+    }
+  ],
+  "explanation": "SD_A = 0.20*25 = 5 and SD_B = 0.15*30 = 4.5. Combined mean M = (40*25 + 60*30)/100 = 28. With d_A = -3 and d_B = 2, the combined variance = [n_A(SD_A^2 + d_A^2) + n_B(SD_B^2 + d_B^2)]/N = [40(25+9) + 60(20.25+4)]/100 = (1360 + 1455)/100 = 28.15. Combined SD = 5.306, so CV = 5.306/28 * 100 = 18.9%.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "CV cannot be averaged. Convert each CV back to an SD, pool the variances WITH the mean-shift terms, then take one ratio against the combined mean.",
+    "approach": "Recover SD = CV/100 * mean for each group. Combined variance = [n1(s1^2 + d1^2) + n2(s2^2 + d2^2)]/N where d_i is each group mean minus the combined mean. Only then divide the pooled SD by M.",
+    "lesson": "The between-group spread (the d^2 terms) is part of the combined variance; omitting it understates the merged CV.",
+    "timing": "About 180 seconds. Fastest elimination: reject 17.5%, the naive average of the two CVs, which ignores group sizes entirely."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

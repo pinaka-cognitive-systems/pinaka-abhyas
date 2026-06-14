@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000969",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000969.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.combinations"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 175,
+  "stem": "Nine distinct books are to be packed into three identical parcels with exactly three books in each parcel; identical parcels mean packings that differ only by relabelling the parcels are the same. Two particular books, X and Y, must not be packed in the same parcel. In how many distinct ways can the nine books be packed?",
+  "options": [
+    {
+      "key": 1,
+      "text": "210"
+    },
+    {
+      "key": 2,
+      "text": "280"
+    },
+    {
+      "key": 3,
+      "text": "70"
+    },
+    {
+      "key": 4,
+      "text": "1260"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Total unlabelled equal-group splits are 9!/(3!*3!*3!)/3! = 1680/6 = 280. Now subtract those with X and Y together. Put X and Y in one parcel; its third book is one of the remaining 7, and the other 6 books split into two identical parcels of 3 in 6!/(3!*3!)/2! = 10 ways, giving 7*10 = 70 bad splits. So 280 - 70 = 210."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Reports the total unlabelled count 280 and never subtracts the packings in which X and Y land in the same parcel. The 'must not share' constraint was dropped entirely.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Reports 70, which is the number of forbidden packings (X and Y together), the quantity that should be subtracted, not the answer. Solved the complement instead of the event asked.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Keeps the parcels labelled. The labelled total 1680 minus the labelled bad count 3*7*C(6,3) = 420 gives 1260, but the parcels are identical, so this never divides out the 3! relabelling symmetry.",
+      "misconception": "permutation_combination_confusion"
+    }
+  ],
+  "explanation": "First count unlabelled equal-group splits: 9!/(3!*3!*3!) = 1680 labelled, divided by 3! for the three identical parcels gives 280. Then count the forbidden splits where X and Y share a parcel: that parcel needs one more book, chosen from the remaining 7 in 7 ways, and the other 6 books form two identical parcels of 3 in 6!/(3!*3!)/2! = 10 ways, so 7*10 = 70. Valid packings are 280 - 70 = 210.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "Glue the forbidden pair into one parcel to count the bad cases, then subtract from the unlabelled total. The identical-parcel divide by 3! must be applied to the total and again, as a divide by 2!, to the two leftover equal parcels in the bad count.",
+    "approach": "For 'must not share' over equal unlabelled groups, count all unlabelled splits, then count the complement by fixing the pair in one group and re-splitting the rest, applying the equal-group division at each stage. Subtract.",
+    "lesson": "When you peel off one parcel and re-split the remainder into equal groups, you must re-divide by the factorial of how many equal groups remain.",
+    "timing": "About 175 seconds. Fastest elimination is to reject 280, the unrestricted total that ignores the X-and-Y constraint."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

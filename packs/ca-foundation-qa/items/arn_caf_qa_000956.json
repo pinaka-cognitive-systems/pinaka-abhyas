@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000956",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000956.py"
+  },
+  "tests": [
+    "qa.bmath.finance.compound_interest"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 160,
+  "stem": "On a certain sum at a certain rate, the simple interest for 2 years is Rs 1,000 and the compound interest for the same 2 years (interest compounded annually) is Rs 1,050. The same rate and the same compounding apply throughout. What is the sum?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 5,000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 2,500"
+    },
+    {
+      "key": 3,
+      "text": "Rs 10,000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 500"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "SI for 2 years = 2*P*r = 1000, so P*r = 500. The 2-year gap CI - SI = P*r^2 = 1050 - 1000 = 50. Dividing, r = (P*r^2)/(P*r) = 50/500 = 0.10. Then P = 500/0.10 = Rs 5,000."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Treats the whole CI of 1050 as the extra-over-SI quantity (CI - SI taken as 1050) so P*r^2 = 1050 against P*r = 500, giving r = 1.05/... then mis-divides SI by 4 instead of 2 years to land on Rs 2,500. The 2-year SI was halved into a 1-year base.",
+      "misconception": "time_factor_dropped"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Reads the gap 50 as P*r (one year's interest) and the SI 1000 as P alone, or divides 1000 by the rate read as 0.10 from 1050/... and doubles, arriving at Rs 10,000. The roles of P*r and P*r^2 are swapped.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Stops at P*r = 500 and reports that as the sum, forgetting that 500 is one year's interest, not the principal. The final division by the rate was skipped.",
+      "misconception": "misread_quantity"
+    }
+  ],
+  "explanation": "Let P be the sum and r the annual rate as a decimal. SI for 2 years = 2*P*r = 1000, so P*r = 500. For annual compounding the 2-year gap CI - SI = P*r^2. Here CI - SI = 1050 - 1000 = 50, so P*r^2 = 50. Divide the two equations: (P*r^2)/(P*r) = r = 50/500 = 0.10, i.e. 10%. Substitute back: P = 500/0.10 = Rs 5,000.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Never solve for r and P separately by trial. Form two equations, P*r = 500 from the SI and P*r^2 = 50 from the CI-minus-SI gap, then divide them so r falls out instantly.",
+    "approach": "The decisive move for any CI-minus-SI back-calculation over 2 years: use SI(2yr) = 2*P*r and the standard 2-year identity CI - SI = P*r^2. The ratio of the second to the first is exactly r, recovering the rate with no powers to undo; then one substitution gives P.",
+    "lesson": "For 2 years and annual compounding, CI - SI = P*r^2 while SI = 2*P*r; their ratio is the rate. Memorise the gap formula so back-calculations become two linear equations.",
+    "timing": "About 160 seconds. Fastest elimination: reject Rs 500, which is just one year's interest P*r = 500 reported as the sum, by noting it never divides by the rate."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

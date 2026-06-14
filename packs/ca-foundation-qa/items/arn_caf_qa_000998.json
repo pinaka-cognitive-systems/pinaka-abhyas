@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000998",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000998.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.rank_correlation"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 170,
+  "stem": "For 10 pairs of values an analyst computes the rank correlation coefficient and reports r = 0.8. While filing the worksheet she finds that for one pair the rank difference was written as d = 4 when it should have been d = 7; every other rank difference is correct. What is the corrected rank correlation coefficient?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.6"
+    },
+    {
+      "key": 2,
+      "text": "0.8"
+    },
+    {
+      "key": 3,
+      "text": "0.93"
+    },
+    {
+      "key": 4,
+      "text": "1.0"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Back-calculate from r = 0.8: with n = 10, n(n^2 - 1) = 990, so 0.8 = 1 - 6*S/990 gives 6*S = 198 and Sigma d^2 = 33. Replace the wrong term 4^2 = 16 with the right term 7^2 = 49, a change of +33, so the corrected Sigma d^2 = 33 - 16 + 49 = 66. Then r = 1 - 6*66/990 = 1 - 0.4 = 0.6."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Reports the original 0.8 unchanged, never recovering Sigma d^2 from the reported r and so never applying the correction to the one wrong term. The asked quantity is the corrected coefficient, not the first one.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Adds the change using the raw differences rather than their squares: replaces d = 4 by d = 7 as a change of 7 - 4 = 3 in Sigma d^2, giving 33 + 3 = 36 and r = 1 - 6*36/990 = 0.78, then a slip lands near 0.93; the Spearman formula squares every difference, so the term changes by 49 - 16, not by 7 - 4.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Flips the sign of the correction, treating the larger d = 7 as if it shrinks Sigma d^2: 33 - 33 = 0, so r = 1 - 0 = 1.0. A bigger rank gap raises Sigma d^2 and lowers r, never the reverse.",
+      "misconception": "sign_error"
+    }
+  ],
+  "explanation": "The reported r is the only route to Sigma d^2. With n = 10, n(n^2 - 1) = 990 and 0.8 = 1 - 6*Sigma d^2/990 gives Sigma d^2 = 33. The single wrong term contributes 4^2 = 16; the correct value is 7^2 = 49, so the corrected sum is 33 - 16 + 49 = 66. Re-applying the Spearman formula, r = 1 - 6*66/990 = 1 - 0.4 = 0.6.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "You are never given Sigma d^2 directly; the reported r is the back door to it. Invert the Spearman formula first, then fix the one squared term.",
+    "approach": "When a rank correlation is reported and one entry is later corrected, treat r as data: solve r = 1 - 6*Sigma d^2/(n(n^2 - 1)) for Sigma d^2, swap the single wrong d^2 for the right d^2, and re-substitute. Only the one squared term moves.",
+    "lesson": "Spearman squares each rank difference, so a corrected entry changes Sigma d^2 by (new d)^2 - (old d)^2, not by (new d) - (old d).",
+    "timing": "About 170 seconds. The fastest elimination is 0.8: any genuine correction to a wrong term must move r, so the unchanged value cannot be the answer."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

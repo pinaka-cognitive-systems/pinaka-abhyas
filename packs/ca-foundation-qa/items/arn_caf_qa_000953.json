@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000953",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000953.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.coding_decoding"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "In a certain code language, 'bright shining stars' is written as 'fa lo ka', 'stars are distant' is written as 'ka mi ne', and 'distant bright moon' is written as 'ne fa zu'. In each line the codes are not necessarily in the order of the words. What is the code for 'shining'?",
+  "options": [
+    {
+      "key": 1,
+      "text": "lo"
+    },
+    {
+      "key": 2,
+      "text": "ka"
+    },
+    {
+      "key": 3,
+      "text": "fa"
+    },
+    {
+      "key": 4,
+      "text": "mi"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Lines 1 and 2 share 'stars' and the code 'ka', so stars=ka. Lines 2 and 3 share 'distant' and the code 'ne', so distant=ne. Lines 1 and 3 share 'bright' and the code 'fa', so bright=fa. In line 1, removing bright=fa and stars=ka leaves shining=lo."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "ka is the code for 'stars', the word line 1 shares with line 2; mistaking the shared code for the leftover word assigns it to shining instead of stars."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "fa is the code for 'bright', the word line 1 shares with line 3; it is the other overlap code, not the residue left for shining."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "mi appears only in line 2, which does not contain 'shining'; picking it ignores that shining's code must come from line 1, the only line where shining occurs."
+    }
+  ],
+  "explanation": "Use the shared words to lock the overlap codes. Lines 1 and 2 have only 'stars' in common, and their code lists share only 'ka', so stars=ka. Lines 2 and 3 share only 'distant', and their codes share only 'ne', so distant=ne. Lines 1 and 3 share only 'bright', and their codes share only 'fa', so bright=fa. Now return to line 1, 'bright shining stars' = 'fa lo ka': bright=fa and stars=ka are known, so the remaining code 'lo' must be shining. Hence shining is coded 'lo'.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Pin the three overlap codes from the pairwise shared words (stars=ka, distant=ne, bright=fa), then read shining as the leftover code 'lo' in its line.",
+    "approach": "Archetype move: for overlapping substitution codes, match each pair of lines on their single common word and their single common code to fix that word; once the shared words are coded, the target word is the residue in whichever line it sits.",
+    "lesson": "A word appearing in only one line is solved last, as the code left over after every shared word in that line is removed.",
+    "timing": "120-150 seconds. Fastest elimination: 'mi' sits only in line 2, which has no 'shining', so it cannot be shining's code and is dismissed instantly."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000958",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000958.py"
+  },
+  "tests": [
+    "qa.bmath.finance.compound_interest"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 175,
+  "stem": "For one and the same sum at one and the same annual rate (compounded annually), the excess of compound interest over simple interest is Rs 100 when the money is kept for 2 years and Rs 310 when it is kept for 3 years. Find the annual rate of interest.",
+  "options": [
+    {
+      "key": 1,
+      "text": "10%"
+    },
+    {
+      "key": 2,
+      "text": "31%"
+    },
+    {
+      "key": 3,
+      "text": "5%"
+    },
+    {
+      "key": 4,
+      "text": "21%"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "For 2 years the CI-SI gap is P*r^2 = 100. For 3 years the gap is P*r^2*(3 + r) = 310. Dividing the second by the first cancels P*r^2: 3 + r = 310/100 = 3.10, so r = 0.10 = 10%."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Takes the ratio 310/100 = 3.10 and reads the rate straight off as 31% (treating 3.10 as a percentage), instead of solving 3 + r = 3.10 for r. The constant 3 in the 3-year gap factor was ignored.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Subtracts the gaps, 310 - 100 = 210, calls it one year's extra interest P*r, and divides by an assumed P*r-style base to get about 5%. The difference of the two gaps is not P*r, so the method is wrong.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Uses the 2-year gap as P*r (not P*r^2) and the 3-year gap as P*r^2, then divides to read r near 0.21. The power on r in the 2-year gap was dropped.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "Let P be the sum and r the annual rate as a decimal. The standard gap identities for annual compounding are: CI - SI over 2 years = P*r^2, and CI - SI over 3 years = P*r^2*(3 + r). Here P*r^2 = 100 and P*r^2*(3 + r) = 310. Divide the 3-year equation by the 2-year equation to cancel P*r^2: (3 + r) = 310/100 = 3.10. Hence r = 0.10, i.e. 10%.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Divide the 3-year gap by the 2-year gap. The whole P*r^2 cancels, leaving 3 + r = 3.10, so the rate is read off in one line.",
+    "approach": "When two CI-minus-SI gaps over consecutive horizons are given, take their ratio. The 3-year gap is P*r^2*(3 + r) and the 2-year gap is P*r^2; the quotient is (3 + r), isolating r without ever finding P. This sidesteps a quadratic.",
+    "lesson": "CI - SI = P*r^2 over 2 years and P*r^2*(3 + r) over 3 years. The ratio of the two gaps equals (3 + r); never read a ratio as a percentage directly.",
+    "timing": "About 175 seconds. Fastest elimination: reject 31%, which is the raw ratio 3.10 misread as a rate without subtracting the constant 3."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

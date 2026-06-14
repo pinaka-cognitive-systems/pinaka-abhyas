@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000992",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000992.py"
+  },
+  "tests": [
+    "qa.stats.probability.classical"
+  ],
+  "difficulty_label": "L2",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 165,
+  "stem": "Two independent machines run a night shift. The odds against the first breaking down are 3 to 2, and the odds against the second breaking down are 7 to 3. What is the probability, to two decimals, that exactly one of the two machines breaks down during the shift?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.46"
+    },
+    {
+      "key": 2,
+      "text": "0.58"
+    },
+    {
+      "key": 3,
+      "text": "0.12"
+    },
+    {
+      "key": 4,
+      "text": "0.70"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Odds against a to b give P(event) = b/(a+b). So P(first breaks) = 2/5 = 0.4 and P(second breaks) = 3/10 = 0.3. Exactly one = P(first only) + P(second only) = 0.4*0.7 + 0.3*0.6 = 0.28 + 0.18 = 0.46."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Computes P(at least one breaks) = 1 - (0.6)(0.7) = 0.58, which counts the both-break case too. 'Exactly one' excludes the case where both fail.",
+      "misconception": "set_operation_confused"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Reports P(both break) = 0.4*0.3 = 0.12, the intersection, instead of the symmetric-difference probability for exactly one.",
+      "misconception": "set_operation_confused"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Adds the two breakdown probabilities 0.4 + 0.3 = 0.7, ignoring that this double counts the both-break overlap and overcounts. Independent events that can co-occur are not mutually exclusive.",
+      "misconception": "mutually_exclusive_vs_independent"
+    }
+  ],
+  "explanation": "Odds against a to b mean P(event) = b/(a+b), so P(first breaks) = 2/(3+2) = 0.4 and P(second breaks) = 3/(7+3) = 0.3. 'Exactly one' is the symmetric difference: P(first and not second) + P(second and not first) = 0.4*(1-0.3) + 0.3*(1-0.4) = 0.28 + 0.18 = 0.46. This deliberately excludes both the neither-breaks and both-break cases.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Odds against a to b give P = b/(a+b), the smaller share. 'Exactly one' = P(A)(1-P(B)) + P(B)(1-P(A)); it drops both the both-fail and neither-fail cases.",
+    "approach": "Model: independent events, exactly-one. First read odds against correctly: the favourable count is the second number, so P = b/(a+b), giving 0.4 and 0.3. Then build exactly-one as two disjoint products, each event times the other's complement, and add. Do not use 1 - P(none); that is at-least-one and keeps the both-fail term.",
+    "lesson": "P(exactly one of A, B) = P(A) + P(B) - 2 P(A) P(B) for independent events. It is strictly less than P(at least one), which keeps the intersection.",
+    "timing": "About 165 seconds: two odds conversions, two products, one sum. Reject 0.58 fast, it is P(at least one) and wrongly includes the both-break case."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

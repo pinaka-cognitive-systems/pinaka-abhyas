@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_001001",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_001001.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.regression"
+  ],
+  "difficulty_label": "L2",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 175,
+  "stem": "The two regression lines of a bivariate data set are 6x + 10y = 130 and 10x + 6y = 110. Using the appropriate regression line, what is the best estimate of y when x = 8?",
+  "options": [
+    {
+      "key": 1,
+      "text": "8.2"
+    },
+    {
+      "key": 2,
+      "text": "5.0"
+    },
+    {
+      "key": 3,
+      "text": "10.0"
+    },
+    {
+      "key": 4,
+      "text": "17.8"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "To estimate y from a known x you must use the y-on-x line. Test the assignment: if 6x + 10y = 130 is y-on-x then b_yx = -6/10 = -0.6, and 10x + 6y = 110 as x-on-y gives b_xy = -6/10 = -0.6; their product 0.36 is at most 1, so this assignment is valid (the reverse gives 2.78 and is rejected). The y-on-x line is y = 13 - 0.6x, so at x = 8, y = 13 - 0.6*8 = 8.2."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Uses the x-on-y line 10x + 6y = 110 to predict y, giving y = (110 - 80)/6 = 5.0. That line is built to predict x from y and minimises horizontal errors; predicting y requires the y-on-x line instead.",
+      "misconception": "concept_definition_confused"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Reports the mean ybar = 10, found from the intersection of the two lines, ignoring that x = 8 differs from xbar = 5 and that the slope then moves the estimate off the mean.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Drops the negative sign of the slope, using y = 13 + 0.6x to get 13 + 4.8 = 17.8. Both regression coefficients here are negative, so the y-on-x slope is -0.6, not +0.6.",
+      "misconception": "sign_error"
+    }
+  ],
+  "explanation": "Estimating y from x demands the y-on-x line, so first identify it. Taking 6x + 10y = 130 as y-on-x gives b_yx = -0.6 and 10x + 6y = 110 as x-on-y gives b_xy = -0.6, product 0.36 at most 1, so the assignment is admissible. The y-on-x line is y = 13 - 0.6x; at x = 8 the estimate is 13 - 4.8 = 8.2.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Which line you use is the whole question: to predict y you need y-on-x, never x-on-y. The admissibility test tells you which is which.",
+    "approach": "When asked to estimate y from x, select the regression line of y on x by checking that the chosen coefficient pairing has product at most 1, write that line in the form y = a + b*x, and substitute the given x.",
+    "lesson": "Predict y from the y-on-x line and x from the x-on-y line; the two lines are not interchangeable for prediction.",
+    "timing": "About 175 seconds. The fastest elimination is 5.0, which comes from feeding x into the wrong line, the x-on-y line."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

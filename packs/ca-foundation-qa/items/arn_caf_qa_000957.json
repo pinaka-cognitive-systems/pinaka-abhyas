@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000957",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000957.py"
+  },
+  "tests": [
+    "qa.bmath.finance.compound_interest"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 170,
+  "stem": "A sum is deposited at 10% per annum compounded annually. At the end of the first year the depositor adds a further Rs 2,000 to the running balance, and from then on the rate rises to 20% per annum compounded annually. At the end of the second year the balance stands at Rs 15,600. What was the original sum deposited?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 10,000"
+    },
+    {
+      "key": 2,
+      "text": "Rs 11,818"
+    },
+    {
+      "key": 3,
+      "text": "Rs 11,000"
+    },
+    {
+      "key": 4,
+      "text": "Rs 10,303"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Work backwards. End of year 2 = (balance after the addition)*1.20 = 15,600, so balance after the Rs 2,000 addition = 15,600/1.20 = 13,000. Remove the addition: balance at end of year 1 = 13,000 - 2,000 = 11,000. That equals P*1.10, so P = 11,000/1.10 = Rs 10,000."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Adds the Rs 2,000 after dividing by 1.20 instead of before, then divides by 1.10: (15,600/1.20 + 2,000)/1.10 ... mishandled to give about Rs 11,818. The deposit was injected at the wrong node of the timeline.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Stops at the end-of-year-1 balance 11,000 and reports it as the original sum, forgetting to strip the first year's 10% growth. The final division by 1.10 was skipped.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Applies 20% across both years (or 10% across both years) instead of switching rates at the year boundary: 15,600/(1.20^2) minus a mis-timed 2,000 lands near Rs 10,303. The two-phase rate change was ignored.",
+      "misconception": "rate_period_mismatch"
+    }
+  ],
+  "explanation": "Run the timeline backwards. The year-2 growth is 20%, so the balance just before that growth = 15,600/1.20 = 13,000. That balance was formed by adding Rs 2,000 to the year-1 closing balance, so the year-1 closing balance = 13,000 - 2,000 = 11,000. The first year grew the principal at 10%, so P*1.10 = 11,000, giving P = 11,000/1.10 = Rs 10,000.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Discount backwards one segment at a time and undo the cash injection at the exact node where it happened, between the 10% year and the 20% year.",
+    "approach": "For a two-phase rate change with a mid-stream deposit, never compound forward by guesswork. Peel the timeline in reverse: divide by the last segment's growth factor, subtract the deposit, then divide by the earlier segment's factor. Each operation is the inverse of one real event in order.",
+    "lesson": "When the rate changes mid-life and cash is added, the deposit must be removed before you undo the earlier year's growth, not after. Order of inverse operations mirrors the events exactly.",
+    "timing": "About 170 seconds. Fastest elimination: reject Rs 11,000, which is the year-1 closing balance reported as the principal without stripping the first 10%."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000948",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000948.py"
+  },
+  "tests": [
+    "qa.lr.blood_relations"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "A is the mother of B and C. B is the only brother of C. C is the only daughter of A. C is married to D, and E is the only child of C and D. How is D related to the maternal grandmother of E?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Son-in-law"
+    },
+    {
+      "key": 2,
+      "text": "Son"
+    },
+    {
+      "key": 3,
+      "text": "Brother-in-law"
+    },
+    {
+      "key": 4,
+      "text": "Daughter-in-law"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "E's mother is C and C's mother is A, so E's maternal grandmother is A. C is the only daughter of A, so C is female; C is married to D, so D is male. D is the husband of A's daughter C, which makes D the son-in-law of A."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "kinship_direction_inverted",
+      "rationale": "Son treats D as A's own child; D enters the family only by marrying A's daughter C, so the tie is son-in-law, not son."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Brother-in-law places D in C's own generation relative to a sibling; the question asks about D versus A, who is one generation up, so the term must be the parental in-law term son-in-law."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "kinship_gender_error",
+      "rationale": "Daughter-in-law uses the female term, but D is male because his wife C is the only daughter of A, so the correct gendered term is son-in-law."
+    }
+  ],
+  "explanation": "Work out who the maternal grandmother of E is first. E is the only child of C and D, so E's mother is C; C's mother is A; therefore E's maternal grandmother is A. Now relate D to A. C is the only daughter of A, so C is female. C is married to D, and a married couple is opposite in gender, so D is male. D is the husband of C, and C is the daughter of A, so D is the husband of A's daughter, which is the definition of a son-in-law. Hence D is the son-in-law of A, the maternal grandmother of E.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Resolve the maternal grandmother to A by climbing E to C to A, then use 'C is the only daughter' to make C female and D male, giving D as A's son-in-law.",
+    "approach": "Archetype move: replace the descriptive label in the question (maternal grandmother of E) with a named person by walking the tree upward, then settle the in-law's gender from a nearby only-daughter or only-son clue before naming the term.",
+    "lesson": "An only-daughter or only-son clue is a hidden gender fact; pair it with the opposite-gender rule for couples to fix an in-law's gender that is never stated outright.",
+    "timing": "120-150 seconds. Fastest elimination: Brother-in-law is wrong the moment you see the comparison is across a generation gap (D versus A), not within C's sibling level."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

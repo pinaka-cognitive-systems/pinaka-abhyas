@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_001005",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_001005.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.deflating"
+  ],
+  "difficulty_label": "L2",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 170,
+  "stem": "A worker's annual money wage and the consumer price index (base 2019 = 100) are: 2019 wage Rs 24000, CPI 100; 2020 wage Rs 26000, CPI 110; 2021 wage Rs 28000, CPI 125; 2022 wage Rs 31000, CPI 145; 2023 wage Rs 33000, CPI 150. In which year was the worker's real wage (purchasing power) the lowest?",
+  "options": [
+    {
+      "key": 1,
+      "text": "2022"
+    },
+    {
+      "key": 2,
+      "text": "2023"
+    },
+    {
+      "key": 3,
+      "text": "2019"
+    },
+    {
+      "key": 4,
+      "text": "2021"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Deflate each wage: real = money wage / CPI * 100. That gives 24000, 23636, 22400, 21379, 22000 for 2019 to 2023. The minimum is 21379 in 2022; real wage falls through 2022 then recovers in 2023 because the 2023 raise outran the small CPI rise from 145 to 150."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Picks 2023 because its CPI is highest, assuming the dearest year must have the lowest real wage. But real wage also depends on the money wage; in 2023 CPI rose only 145 to 150 while the wage jumped 31000 to 33000, so real wage rose to 22000, above 2022.",
+      "misconception": "percentage_base_confusion"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Picks 2019 as the year of the smallest money wage, equating lowest nominal wage with lowest purchasing power. With CPI = 100 the 2019 real wage is 24000, in fact the highest of all five years.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Picks 2021, whose real wage 22400 is low but not the minimum. Stopping before deflating 2022 misses that the 2022 real wage 21379 is lower still.",
+      "misconception": "arithmetic_slip"
+    }
+  ],
+  "explanation": "Real wage = money wage / CPI * 100. The five real wages are 24000, 23636, 22400, 21379, 22000. The trough is 21379 in 2022, after which the 2023 wage rise of 2000 against a CPI rise of only 5 points lifts real wage back to 22000. The nominal series rises every year, so only deflation reveals the dip.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "A money wage that rises every year can still buy less; the trough of the real series need not be the last year or the dearest year. Deflate all five before judging.",
+    "approach": "Convert every nominal figure to real terms with real = nominal / price index * 100, then compare the real series. Do not infer the trough from the price index alone or from the nominal series alone.",
+    "lesson": "Real value = nominal value / price index * 100; purchasing power depends on both the wage and the price level, not either one by itself.",
+    "timing": "About 170 seconds. The fastest elimination is 2023, the highest-CPI trap: its small price rise is outpaced by the wage rise, so its real wage is not the lowest."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000993",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000993.py"
+  },
+  "tests": [
+    "qa.stats.probability.expectation"
+  ],
+  "difficulty_label": "L2",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 180,
+  "stem": "A bag holds 4 red and 6 white balls. A player draws 3 balls together at random. The payoff depends only on the number of red balls drawn: 0 red loses Rs 10, 1 red pays Rs 0, 2 red pays Rs 25, and 3 red pays Rs 60. What is the player's expected payoff, in Rs to two decimals?",
+  "options": [
+    {
+      "key": 1,
+      "text": "7.83"
+    },
+    {
+      "key": 2,
+      "text": "18.75"
+    },
+    {
+      "key": 3,
+      "text": "8.88"
+    },
+    {
+      "key": 4,
+      "text": "1.20"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Drawing 3 from 10 without replacement, the number of reds is hypergeometric. P(0) = C(4,0)C(6,3)/C(10,3) = 20/120 = 1/6; P(1) = C(4,1)C(6,2)/120 = 60/120 = 1/2; P(2) = C(4,2)C(6,1)/120 = 36/120 = 3/10; P(3) = C(4,3)C(6,0)/120 = 4/120 = 1/30. Expected payoff = (1/6)(-10) + (1/2)(0) + (3/10)(25) + (1/30)(60) = -1.6667 + 0 + 7.5 + 2 = 7.83."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Averages the four payoffs as if each red-count were equally likely: (-10 + 0 + 25 + 60)/4 = 18.75. The four outcomes are not equiprobable; each must be weighted by its hypergeometric probability.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Treats the draws as with replacement, using a binomial with p = 0.4: P(k) = C(3,k)0.4^k 0.6^(3-k), giving expected payoff about 8.88. Drawing 3 balls together is without replacement, so the model is hypergeometric, not binomial.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Reports E(number of reds) = 3*(4/10) = 1.20 instead of the expected payoff. The question asks for the expected money, which weights the payoff table, not the count itself.",
+      "misconception": "misread_quantity"
+    }
+  ],
+  "explanation": "Step 1: model the count of reds in 3 draws from 4 red and 6 white as hypergeometric. Step 2: build the distribution with C(4,k)C(6,3-k)/C(10,3): P(0)=1/6, P(1)=1/2, P(2)=3/10, P(3)=1/30 (they sum to 1, a useful check). Step 3: apply the payoff table and take the expectation: (1/6)(-10) + (1/2)(0) + (3/10)(25) + (1/30)(60) = -1.6667 + 7.5 + 2 = 7.83. The payoffs are non-linear in the count, so you must build the full distribution before weighting.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Build the hypergeometric distribution of the red count first, then weight the payoff table by it. The outcomes are not equally likely, and the payoffs are not linear, so no shortcut survives.",
+    "approach": "Model: hypergeometric count, then expectation of a function of it. Compute P(k reds) = C(4,k)C(6,3-k)/C(10,3) for k = 0..3 and confirm they sum to 1. Then E[payoff] = sum of P(k) times payoff(k). Because the payoff jumps non-linearly with k, you cannot collapse this to a multiple of E(X); the whole table is needed.",
+    "lesson": "Expectation of a non-linear payoff requires the full probability distribution. 'Drawn together' means without replacement, so use hypergeometric C(R,k)C(W,n-k)/C(N,n), not binomial.",
+    "timing": "About 180 seconds: four hypergeometric probabilities, a sum check, one weighted sum. Reject 18.75 fast, it averages the payoffs as if the four red-counts were equally likely."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

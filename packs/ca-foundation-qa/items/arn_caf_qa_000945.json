@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000945",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000945.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 160,
+  "stem": "Six friends A, B, C, D, E and F sit in a row of seats numbered 1 (leftmost) to 6 (rightmost), all facing forward. A, B and C occupy three consecutive seats, with B between A and C. D, E and F occupy the other three consecutive seats, with E between D and F. F sits at one of the two ends. C sits somewhere to the left of A. E is not adjacent to C. A is not adjacent to D. Who sits immediately to the left of C?",
+  "options": [
+    {
+      "key": 1,
+      "text": "D"
+    },
+    {
+      "key": 2,
+      "text": "E"
+    },
+    {
+      "key": 3,
+      "text": "B"
+    },
+    {
+      "key": 4,
+      "text": "F"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Both trios are rigid blocks. 'A not adjacent to D' forces the blocks to meet at the C-end of the ABC block, and 'C left of A' orders that block as C,B,A. 'E not adjacent to C' and 'F at an end' fix the DEF block as F,E,D reading left to right. The row is F,E,D,C,B,A, so D sits immediately left of C."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "E ends up left of C only if the DEF block is read as D,E,F at the boundary; that violates 'E not adjacent to C', which is the clue that flips the block to F,E,D."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "B is adjacent to C but on its right, not its left; choosing B ignores 'C is to the left of A', which orders the trio C,B,A and so puts B to C's right."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "direction_turn_error",
+      "rationale": "F sits at the far left end, two seats from C, so it cannot be immediately left of C; this comes from collapsing the DEF block to the wrong side of the row."
+    }
+  ],
+  "explanation": "Each named trio is a rigid consecutive block, so the row is one block then the other. Within ABC, B is in the middle and C is left of A, fixing that block's internal order as C, B, A. Within DEF, E is in the middle. 'A not adjacent to D' rules out the boundary pairing A|D, so the ABC block must sit on the right with C at the boundary (block order DEF then ABC). 'E not adjacent to C' then forces D, not E, to touch the boundary, so the DEF block reads F, E, D. 'F at an end' is consistent with F in seat 1. The unique row is F, E, D, C, B, A, so the person immediately to the left of C (seat 4) is D in seat 3.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Treat each trio as one rigid block; the not-adjacent clues decide which block is on which side and which way each block faces, landing D immediately left of C.",
+    "approach": "Archetype move: when people come in fixed consecutive blocks, first orient each block internally from its order clues, then merge the two blocks by testing only the boundary pair against the not-adjacent constraints; the interior is already locked.",
+    "lesson": "Block-merge puzzles reduce to a tiny case split on block order and block facing; never enumerate all seat permutations when the blocks are rigid.",
+    "timing": "140-160 seconds. Fastest elimination: F is pinned to a row end by its own clue, so it can never be a non-end neighbour of C, killing that option immediately."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

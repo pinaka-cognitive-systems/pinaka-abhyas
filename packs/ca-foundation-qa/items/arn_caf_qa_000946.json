@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000946",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000946.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 175,
+  "stem": "Eight people A, B, C, D, E, F, G and H sit in one row in seats numbered 1 (leftmost) to 8 (rightmost), all facing forward. D is fourth to the left of A. B sits immediately to the right of D. C sits immediately to the right of A. E sits at one of the two ends. Exactly one person sits between E and D. F sits immediately to the right of E. G sits immediately to the left of A. H sits somewhere to the right of D. Who sits in seat 6?",
+  "options": [
+    {
+      "key": 1,
+      "text": "G"
+    },
+    {
+      "key": 2,
+      "text": "H"
+    },
+    {
+      "key": 3,
+      "text": "B"
+    },
+    {
+      "key": 4,
+      "text": "A"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "seat(A)=seat(D)+4 with E at an end and exactly one person between E and D forces E=1, D=3, so A=7. Then B=4, C=8, F=2, G=6. The only seat left is 5 for H, which is right of D. The unique row is E,F,D,B,H,G,A,C, so seat 6 is G."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "H sits in seat 5, not 6. Reading seat 6 as H drops 'G immediately to the left of A', the clue that nails G into seat 6 and pushes H to seat 5."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "direction_turn_error",
+      "rationale": "B sits in seat 4, immediately right of D; placing B in seat 6 comes from sliding the D-B pair rightward, which breaks 'D fourth to the left of A'."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "A sits in seat 7. Reading 'fourth to the left' as fourth to the right mirrors the frame so that A drifts toward the centre near seat 6; the correct reading keeps A at seat 7."
+    }
+  ],
+  "explanation": "Number seats 1 to 8. 'D fourth to the left of A' means seat(A) = seat(D) + 4. 'E at an end' with 'exactly one person between E and D' means |seat(E) - seat(D)| = 2. E=8 forces D=6 then A=10, impossible, so E=1 and D=3, giving A=7. Now 'B immediately right of D' puts B in seat 4, 'C immediately right of A' puts C in seat 8, 'F immediately right of E' puts F in seat 2, and 'G immediately left of A' puts G in seat 6. The only remaining seat is 5, which takes H, and H is to the right of D as required. The unique row is E, F, D, B, H, G, A, C, so seat 6 is G.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The big forced gap seat(A)=seat(D)+4 combined with E pinned to an end at distance two from D collapses the skeleton to one frame, after which every 'immediately right/left' clue drops a person into a fixed seat, leaving G in seat 6.",
+    "approach": "Archetype move: solve the two long-range clues (the fixed gap and the end-anchored distance) as simultaneous equations to lock D, A and E, then apply the chain of immediate-neighbour clues as direct assignments; the last empty seat absorbs the free person.",
+    "lesson": "In an eight-seat fixed-gap row, fix the long-range anchors before any adjacency clue; adjacency clues are deterministic once the anchors are placed.",
+    "timing": "150-175 seconds. Fastest elimination: B is glued immediately right of D near the left, so it cannot reach seat 6, ruling that option out without finishing the grid."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

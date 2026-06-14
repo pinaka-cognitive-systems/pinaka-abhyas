@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000983",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000983.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.standard_deviation"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 180,
+  "stem": "A combined group of 100 readings is formed from Group I (40 readings, mean 20, standard deviation 5) and Group II (60 readings, mean 30, standard deviation unknown). The combined group has standard deviation 13. What is the standard deviation of Group II?",
+  "options": [
+    {
+      "key": 1,
+      "text": "15"
+    },
+    {
+      "key": 2,
+      "text": "16.28"
+    },
+    {
+      "key": 3,
+      "text": "15.52"
+    },
+    {
+      "key": 4,
+      "text": "18.33"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Combined mean M = (40*20 + 60*30)/100 = 26. Mean shifts: d1 = 20 - 26 = -6, d2 = 30 - 26 = 4. The pooled identity N*SD^2 = n1(s1^2 + d1^2) + n2(s2^2 + d2^2) gives 100*169 = 40(25 + 36) + 60(s2^2 + 16). So 16900 = 2440 + 60*s2^2 + 960, hence 60*s2^2 = 13500 and s2^2 = 225, s2 = 15."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Inverts the formula but drops both d^2 terms: 16900 = 40*25 + 60*s2^2 gives 60*s2^2 = 15900, s2 = 16.28. Ignoring the between-group spread forces the unknown SD to absorb it.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Includes Group I's d1^2 but forgets Group II's d2^2: 16900 = 40(25 + 36) + 60*s2^2 gives 60*s2^2 = 14460, s2 = 15.52. Both groups' mean shifts must be carried, not just one.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Back-solves a linear weighted-SD relation SD = (n1*s1 + n2*s2)/N: 13 = (40*5 + 60*s2)/100 gives 60*s2 = 1100, s2 = 18.33. SDs do not combine linearly; the variance identity must be inverted.",
+      "misconception": "wrong_formula"
+    }
+  ],
+  "explanation": "Combined mean M = (40*20 + 60*30)/100 = 26, with d1 = -6 and d2 = 4. Invert the pooled-variance identity N*SD^2 = n1(s1^2 + d1^2) + n2(s2^2 + d2^2): 100*169 = 40(25 + 36) + 60(s2^2 + 16). This is 16900 = 2440 + 60*s2^2 + 960, so 60*s2^2 = 13500 and s2^2 = 225, giving s2 = 15.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Run the pooled-variance identity backwards. The unknown group SD is whatever is left after both the within-group and between-group spreads are accounted for.",
+    "approach": "Write N*SD^2 = n1(s1^2 + d1^2) + n2(s2^2 + d2^2), plug in everything known including both d_i = group mean minus combined mean, and solve the single unknown s2^2.",
+    "lesson": "When back-solving a combined SD, keep BOTH d^2 terms; dropping either dumps that spread onto the unknown and inflates it.",
+    "timing": "About 180 seconds. Fastest elimination: reject 18.33, which comes from a linear SD-averaging relation that does not hold."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

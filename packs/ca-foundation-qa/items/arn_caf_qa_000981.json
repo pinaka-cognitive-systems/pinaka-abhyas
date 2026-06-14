@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000981",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000981.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.standard_deviation"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 170,
+  "stem": "Section X has 40 students with mean marks 30 and standard deviation 6. Section Y has 60 students with mean marks 50 and standard deviation 8. The two sections are combined into one batch of 100. What is the standard deviation of the marks of the combined batch, to two decimal places?",
+  "options": [
+    {
+      "key": 1,
+      "text": "12.20"
+    },
+    {
+      "key": 2,
+      "text": "7.27"
+    },
+    {
+      "key": 3,
+      "text": "7.20"
+    },
+    {
+      "key": 4,
+      "text": "7.00"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Combined mean M = (40*30 + 60*50)/100 = 42. Deviations of section means: d_X = 30 - 42 = -12, d_Y = 50 - 42 = 8. Combined variance = [n_X(s_X^2 + d_X^2) + n_Y(s_Y^2 + d_Y^2)]/N = [40(36 + 144) + 60(64 + 64)]/100 = (7200 + 7680)/100 = 148.8. SD = sqrt(148.8) = 12.20."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Pools only the within-section variances and omits the d^2 terms: variance = (40*36 + 60*64)/100 = (1440 + 3840)/100 = 52.8, SD = 7.27. This ignores that the two section means sit far apart, which is itself a large source of spread.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Takes a frequency-weighted average of the two SDs: (40*6 + 60*8)/100 = 7.2. Standard deviations do not average; only variances combine, and only with the mean-shift terms.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Takes the simple average of the two SDs: (6 + 8)/2 = 7.0. This ignores both the unequal section sizes and the between-section spread.",
+      "misconception": "wrong_formula"
+    }
+  ],
+  "explanation": "Combined mean M = (40*30 + 60*50)/100 = 42. The pooled variance must add each section's own variance AND the squared distance of its mean from M: variance = [40(6^2 + 12^2) + 60(8^2 + 8^2)]/100 = (40*180 + 60*128)/100 = 148.8. SD = sqrt(148.8) = 12.20. The 20-mark gap between the section means contributes more to the spread than either section's internal SD.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The combined SD is far larger than either section's SD because the section means are 20 marks apart. That between-group gap is part of the variance.",
+    "approach": "Combined variance = [n1(s1^2 + d1^2) + n2(s2^2 + d2^2)]/N, where d_i = group mean minus combined mean. Take the square root only at the end; never average SDs.",
+    "lesson": "Pool variances, not SDs, and always include the squared mean-shift d_i^2; dropping it collapses the answer toward the smaller within-group spread.",
+    "timing": "About 170 seconds. Fastest elimination: any answer near 7 ignores the 20-mark gap between the means; reject 7.00 first as a bare average of SDs."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

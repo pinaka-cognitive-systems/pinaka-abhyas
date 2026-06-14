@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000976",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000976.py"
+  },
+  "tests": [
+    "qa.bmath.equations.quadratic"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 175,
+  "stem": "The roots of x^2 - 4x + p = 0 are a and b, and a^3 + b^3 = 28. Find the value of a^4 + b^4.",
+  "options": [
+    {
+      "key": 1,
+      "text": "82"
+    },
+    {
+      "key": 2,
+      "text": "94"
+    },
+    {
+      "key": 3,
+      "text": "100"
+    },
+    {
+      "key": 4,
+      "text": "118"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Vieta gives a + b = 4 and a*b = p. The identity a^3 + b^3 = (a+b)^3 - 3*a*b*(a+b) gives 64 - 12p = 28, so p = 3. Then a^2 + b^2 = (a+b)^2 - 2*a*b = 16 - 6 = 10, and a^4 + b^4 = (a^2 + b^2)^2 - 2*(a*b)^2 = 100 - 2*9 = 82."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Uses a^4 + b^4 = (a^2 + b^2)^2 - 2*a*b = 100 - 6 = 94, subtracting the product instead of its square. The correct cross term is 2*(a*b)^2, not 2*a*b.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Takes a^4 + b^4 = (a^2 + b^2)^2 = 100, dropping the -2*(a*b)^2 term entirely. The square of a sum of squares is not the sum of fourth powers.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Flips the sign to (a^2 + b^2)^2 + 2*(a*b)^2 = 100 + 18 = 118. The identity subtracts twice the squared product, it does not add it.",
+      "misconception": "sign_error"
+    }
+  ],
+  "explanation": "From Vieta, a + b = 4 and a*b = p. Apply the sum-of-cubes identity a^3 + b^3 = (a+b)^3 - 3*a*b*(a+b): 64 - 12p = 28 gives p = 3. Next a^2 + b^2 = (a+b)^2 - 2*a*b = 16 - 6 = 10. Finally a^4 + b^4 = (a^2 + b^2)^2 - 2*(a*b)^2 = 10^2 - 2*3^2 = 100 - 18 = 82.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Cascade the symmetric-power identities: the cube sum pins the product p, then the square sum and fourth-power identity finish the job, all from S = a+b and P = a*b.",
+    "approach": "Solve for the unknown coefficient using a^3+b^3 = S^3 - 3PS, then climb to higher powers with a^2+b^2 = S^2 - 2P and a^4+b^4 = (a^2+b^2)^2 - 2P^2. Never compute the roots themselves.",
+    "lesson": "a^4 + b^4 = (a^2+b^2)^2 - 2*(a*b)^2: the subtracted term is the product squared, not the product.",
+    "timing": "About 175 seconds. Fastest elimination is to reject 100, which forgets the -2*(a*b)^2 correction to the squared square-sum."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

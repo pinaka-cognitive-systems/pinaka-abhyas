@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000997",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000997.py"
+  },
+  "tests": [
+    "qa.stats.distributions.poisson"
+  ],
+  "difficulty_label": "L2",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 175,
+  "stem": "An inbox receives emails as a Poisson process, averaging 240 emails over an 8-hour working day. What is the probability that at most 1 email arrives in a particular 5-minute span, to four decimals? Use e^(-2.5) approx 0.082085.",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.2873"
+    },
+    {
+      "key": 2,
+      "text": "0.9098"
+    },
+    {
+      "key": 3,
+      "text": "0.5438"
+    },
+    {
+      "key": 4,
+      "text": "0.7127"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Rescale the rate to the 5-minute window. 240 emails over 8 hours = 480 minutes is 0.5 per minute, so over 5 minutes L = 0.5*5 = 2.5. Then P(X <= 1) = e^-2.5 (1 + 2.5) = 0.082085 * 3.5 = 0.2873."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Uses the per-minute rate L = 0.5 without scaling up to the 5-minute window: P(X <= 1) = e^-0.5(1 + 0.5) = 0.9098. The window is 5 minutes, so the mean must be multiplied by 5; the wrong-scale mean was plugged in.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Computes P(X <= 2) = e^-2.5(1 + 2.5 + 3.125) = 0.5438, summing one term too many. 'At most 1' stops at the X = 1 term, so the cumulative sum included an extra term.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Reports 1 - P(X <= 1) = 1 - 0.2873 = 0.7127, the complement P(X >= 2). 'At most 1' is the lower tail, not its complement.",
+      "misconception": "complement_confusion"
+    }
+  ],
+  "explanation": "The given rate is for a day, but the question is about 5 minutes, so rescale first. 240 emails over 8 hours = 480 minutes is 0.5 per minute; over 5 minutes the Poisson mean is L = 0.5*5 = 2.5. Then P(at most 1) = P(0) + P(1) = e^-2.5 (1 + 2.5) = 0.082085 * 3.5 = 0.2873. The decisive move is matching lambda to the window before any probability.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Poisson means scale with the window: 240/day becomes 0.5/min, so over 5 minutes L = 2.5. Only then sum P(0) + P(1).",
+    "approach": "Model: Poisson with a window mismatch. Convert the day rate to a per-minute rate (240/480 = 0.5), then multiply by the target window (5 min) to get L = 2.5. The mean is proportional to the interval length; never plug the day rate into a 5-minute question. Then 'at most 1' is the two-term lower tail e^-L (1 + L).",
+    "lesson": "A Poisson mean scales linearly with the observation window: L_new = rate per unit time times window length. Rescale before computing any probability.",
+    "timing": "About 175 seconds: rescale to L = 2.5, then two terms times e^-2.5. Reject 0.9098 fast, it skips the rescaling and uses L = 0.5."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

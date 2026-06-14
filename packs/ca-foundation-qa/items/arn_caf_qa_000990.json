@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000990",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000990.py"
+  },
+  "tests": [
+    "qa.stats.probability.classical"
+  ],
+  "difficulty_label": "L2",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 165,
+  "stem": "Three independent contractors bid for unrelated tenders. The odds in favour of the first winning are 2 to 3, of the second 1 to 4, and of the third 3 to 7. What is the probability that at least one of the three wins its tender?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.664"
+    },
+    {
+      "key": 2,
+      "text": "0.900"
+    },
+    {
+      "key": 3,
+      "text": "0.336"
+    },
+    {
+      "key": 4,
+      "text": "0.024"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Odds in favour a to b give probability a/(a+b): so p1 = 2/5 = 0.4, p2 = 1/5 = 0.2, p3 = 3/10 = 0.3. For independent events, P(at least one) = 1 - P(none) = 1 - (0.6)(0.8)(0.7) = 1 - 0.336 = 0.664."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Adds the three probabilities 0.4 + 0.2 + 0.3 = 0.9, treating the events as mutually exclusive. The addition rule without subtracting overlaps does not apply to independent events that can co-occur.",
+      "misconception": "mutually_exclusive_vs_independent"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Reports P(none win) = (0.6)(0.8)(0.7) = 0.336, the complement of the event asked. Stopping before the final 1 minus step answers the opposite question.",
+      "misconception": "complement_confusion"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Reports P(all three win) = (0.4)(0.2)(0.3) = 0.024, multiplying the win probabilities instead of using one minus the product of the losing probabilities. 'At least one' was read as 'all'.",
+      "misconception": "set_operation_confused"
+    }
+  ],
+  "explanation": "First translate odds in favour into probabilities: a to b means a/(a+b). So p1 = 2/(2+3) = 0.4, p2 = 1/(1+4) = 0.2, p3 = 3/(3+7) = 0.3. 'At least one' is cheapest by complement: P(at least one) = 1 - P(none). The events are independent, so P(none) = (1-0.4)(1-0.2)(1-0.3) = 0.6*0.8*0.7 = 0.336. Therefore the answer is 1 - 0.336 = 0.664.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Convert odds to probabilities first (a to b is a/(a+b)), then take 'at least one' as 1 minus the product of the three losing probabilities. Never add the win probabilities.",
+    "approach": "Model: independent events, at-least-one. Two-stage. Stage one: every odds pair a to b becomes a/(a+b), so 2:3, 1:4, 3:7 become 0.4, 0.2, 0.3. Stage two: P(at least one) = 1 - product of (1 - each). The independence licenses multiplying the complements; the complement form avoids the inclusion-exclusion sum entirely.",
+    "lesson": "Odds in favour a to b give probability a/(a+b), not a/b. For independent events, P(at least one) = 1 - product of the non-occurrence probabilities.",
+    "timing": "About 165 seconds: three odds conversions, three complements, one product, one subtraction. Reject 0.900 instantly, it adds the probabilities as if the events were mutually exclusive."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

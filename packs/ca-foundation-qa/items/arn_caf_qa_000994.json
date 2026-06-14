@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000994",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000994.py"
+  },
+  "tests": [
+    "qa.stats.distributions.binomial"
+  ],
+  "difficulty_label": "L3",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 165,
+  "stem": "A binomial variable X has mean 4 and variance 2.4. Using these to recover its parameters, what is P(X is at least 1), to four decimals?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.9940"
+    },
+    {
+      "key": 2,
+      "text": "0.0060"
+    },
+    {
+      "key": 3,
+      "text": "0.9999"
+    },
+    {
+      "key": 4,
+      "text": "0.0403"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "For a binomial, mean = np = 4 and variance = npq = 2.4. Divide: variance/mean = q = 2.4/4 = 0.6, so p = 0.4, and n = mean/p = 4/0.4 = 10. P(at least 1) = 1 - P(0) = 1 - q^n = 1 - 0.6^10 = 1 - 0.0060 = 0.9940."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Reports P(X = 0) = 0.6^10 = 0.0060, the complement of the event asked. Stopping at the zero-success probability answers the opposite question.",
+      "misconception": "complement_confusion"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Uses 1 - p^n = 1 - 0.4^10 = 0.9999, putting the success probability p in the zero-success term. P(X = 0) carries q^n, not p^n, since zero successes means every trial failed.",
+      "misconception": "complement_confusion"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Computes P(X = 1) = C(10,1)(0.4)(0.6)^9 = 0.0403, answering 'exactly one' rather than 'at least one'. At least one includes all of X = 1,2,...,10.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "The parameters are hidden in the moments. Mean = np = 4 and variance = npq = 2.4. Dividing variance by mean cancels np and leaves q: q = 2.4/4 = 0.6, hence p = 0.4. Then n = mean/p = 4/0.4 = 10. 'At least one' is cheapest as the complement of zero: P(X >= 1) = 1 - P(X = 0) = 1 - q^n = 1 - 0.6^10 = 1 - 0.0060 = 0.9940.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "You are not handed p and n; recover them from the moments. variance/mean = q, then p = 1 - q and n = mean/p, and only then take 1 - q^n.",
+    "approach": "Model: binomial with unknown parameters. The decisive move is variance/mean = npq/np = q = 0.6, so p = 0.4 and n = 4/0.4 = 10. For at-least-one, use the complement of the zero term, which is q^n because zero successes requires every trial to fail. Subtract from 1.",
+    "lesson": "For a binomial, variance/mean = q. P(X = 0) = q^n always; the zero-success term carries q, never p.",
+    "timing": "About 165 seconds: one division for q, one for n, one power, one subtraction. Reject 0.0060 instantly, it is P(X = 0), the complement, not at-least-one."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

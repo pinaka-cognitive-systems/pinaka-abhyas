@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000959",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000959.py"
+  },
+  "tests": [
+    "qa.bmath.finance.simple_interest"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 170,
+  "stem": "A man divides Rs 7,800 into three parts and lends them out at the same rate of 5% simple interest per annum, but for 4 years, 6 years and 12 years respectively. He arranges the three parts so that the simple interest earned on each part is exactly equal. What is the simple interest earned on each part?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 780"
+    },
+    {
+      "key": 2,
+      "text": "Rs 260"
+    },
+    {
+      "key": 3,
+      "text": "Rs 1,560"
+    },
+    {
+      "key": 4,
+      "text": "Rs 390"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Same rate and equal SI mean P*T is the same for each part, so P is inversely proportional to T: parts are in ratio 1/4 : 1/6 : 1/12 = 3 : 2 : 1, summing to 6. The 12-year part = (1/6)*7,800 = 1,300. Its SI = 1,300*12*0.05 = Rs 780, and each of the other two equals the same 780."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Splits the sum in the direct ratio of the times 4 : 6 : 12 (sum 22) instead of the inverse ratio, takes the smallest part 7,800*4/22 and computes its interest, landing near Rs 260. The inverse proportion was inverted.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Finds each part's SI correctly as 780 but then adds the three equal interests, 3*780 = 2,340, or doubles to 1,560, reporting a total instead of the per-part figure asked. The wrong quantity was reported.",
+      "misconception": "misread_quantity"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Divides the whole sum equally into three parts of 2,600 and computes interest on the 4-year part, 2,600*4*0.05 = 520, then mis-scales toward Rs 390. Equal parts is the wrong split; the parts must be unequal to equalise interest.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "At a single rate, simple interest = P*r*T, so equal interest on every part forces P*T to be constant across parts: P is inversely proportional to T. With times 4, 6 and 12 the principals are in ratio 1/4 : 1/6 : 1/12. Clearing denominators (LCM 12) gives 3 : 2 : 1, summing to 6. The 12-year part is (1/6) of 7,800 = 1,300. Its interest = 1,300 * 12 * 0.05 = Rs 780; by construction the 6-year part (2,600) and the 4-year part (3,900) each also earn Rs 780.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Equal SI at one rate means P*T is fixed, so the principals are in the inverse ratio of the times, 3 : 2 : 1, not the direct ratio.",
+    "approach": "For an equal-interest split at a common rate, set P*T equal across parts: P_i proportional to 1/T_i. Convert the reciprocal times to whole-number ratio via the LCM, allocate the total, then compute the (identical) interest on any one part. The single common rate is the hinge that makes P*T the invariant.",
+    "lesson": "Same rate plus equal simple interest implies inverse proportion between principal and time. Always invert the times before splitting the sum.",
+    "timing": "About 170 seconds. Fastest elimination: reject Rs 260, which comes from splitting in the direct time ratio 4 : 6 : 12 instead of the inverse 3 : 2 : 1."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

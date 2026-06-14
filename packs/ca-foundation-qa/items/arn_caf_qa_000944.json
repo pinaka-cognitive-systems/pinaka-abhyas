@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000944",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000944.py"
+  },
+  "tests": [
+    "qa.lr.seating"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 170,
+  "stem": "Eight people P, Q, R, S, T, U, V and W sit in one row in seats numbered 1 (leftmost) to 8 (rightmost), all facing forward. R is third to the left of V. P sits at one of the two ends. Exactly one person sits between P and R. S sits immediately to the right of V. Q sits somewhere to the right of S. T is not adjacent to R. U does not sit at either end. W sits immediately to the right of P. Who sits in seat 5?",
+  "options": [
+    {
+      "key": 1,
+      "text": "T"
+    },
+    {
+      "key": 2,
+      "text": "U"
+    },
+    {
+      "key": 3,
+      "text": "W"
+    },
+    {
+      "key": 4,
+      "text": "Q"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Chaining V=R+3, |P-R|=2, P at an end forces P=1, R=3, V=6, S=7. W=P+1=2, leaving U and T for seats 4 and 5; T cannot be adjacent to R (seat 3), so U=4 and T=5. Q=8 is right of S. The whole row P,W,R,U,T,V,S,Q is the unique fit, with T in seat 5."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_omitted",
+      "rationale": "U sits in seat 4, not 5. Putting U in seat 5 drops the clue that T may not be adjacent to R; honouring it pushes U left of T."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "Reading 'third to the left' as third to the right mirrors the frame and slides W rightward into seat 5; W actually sits in seat 2 next to P."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "direction_turn_error",
+      "rationale": "Anchoring the R-V block at the right end instead of using P at the left makes S land left of centre, dropping Q into seat 5; in the valid row Q is forced to seat 8."
+    }
+  ],
+  "explanation": "Number seats 1 to 8. 'R third to the left of V' means seat(V) = seat(R) + 3. 'P at an end' with 'exactly one person between P and R' means |seat(P) - seat(R)| = 2. P=8 would need R=6, then V=9 which does not exist, so P=1 and R=3, giving V=6. 'S immediately right of V' puts S in seat 7. 'W immediately right of P' puts W in seat 2. Remaining seats 4 and 5 take U and T: T cannot be adjacent to R (seat 3), so T avoids seat 4, giving T=5 and U=4. Q is the last person, seat 8, which is right of S as required, and U is interior. The unique arrangement is P, W, R, U, T, V, S, Q, so seat 5 is T.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "The fixed gap seat(V)=seat(R)+3 plus 'P at an end, one between P and R' pins P=1, R=3, V=6 immediately; then 'T not adjacent to R' decides seats 4 and 5, giving T in seat 5.",
+    "approach": "Archetype move: turn every relative clue into an arithmetic seat equation (V=R+3, |P-R|=2, S=V+1, W=P+1), solve the equations to lock the skeleton, then let the lone soft clue (T not next to R) break the final tie between the two open seats.",
+    "lesson": "In fixed-gap row puzzles, anchor first on the pair with the largest forced gap and on the end-seat clue; together they usually fix three or four seats before any negative clue is touched.",
+    "timing": "150-170 seconds. Fastest elimination: option Q dies at once because Q must sit to the right of S, and S is already deep on the right, so Q cannot occupy seat 5."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

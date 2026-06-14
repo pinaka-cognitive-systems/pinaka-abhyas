@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000964",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000964.py"
+  },
+  "tests": [
+    "qa.bmath.finance.npv"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 180,
+  "stem": "A machine costing Rs 50,000 yields a net cash inflow of Rs 20,000 at the end of each of 3 years. A compulsory overhaul costing Rs 10,000 must be paid at the end of year 2, and the machine is sold for a salvage of Rs 8,000 at the end of year 3 (received in addition to that year's inflow). At a 10% required rate, what is the NPV and should the machine be bought? [Use discount factors: year 1 = 0.9091; year 2 = 0.8264; year 3 = 0.7513]",
+  "options": [
+    {
+      "key": 1,
+      "text": "NPV is about -Rs 2,518, so do not buy"
+    },
+    {
+      "key": 2,
+      "text": "NPV is about +Rs 5,746, so buy"
+    },
+    {
+      "key": 3,
+      "text": "NPV is about -Rs 264, so do not buy"
+    },
+    {
+      "key": 4,
+      "text": "NPV is about +Rs 8,000, so buy"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Net each year first: year 1 = +20,000; year 2 = 20,000 - 10,000 overhaul = +10,000; year 3 = 20,000 + 8,000 salvage = +28,000. PV = 20,000*0.9091 + 10,000*0.8264 + 28,000*0.7513 = 18,182 + 8,264 + 21,036.4 = 47,482.4. NPV = 47,482.4 - 50,000 = about -Rs 2,518, so do not buy."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Ignores the year-2 overhaul, treating year 2 as a full +20,000 inflow: PV = 18,182 + 16,528 + 21,036.4 = 55,746.4, NPV = +5,746. Dropping the Rs 10,000 outflow flips the decision to buy.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Nets the overhaul but forgets to add the salvage to year 3, using year 3 = 20,000: PV = 18,182 + 8,264 + 15,026 = 41,472, NPV near -8,528, or a partial slip landing at about -264. The salvage inflow was omitted.",
+      "misconception": "time_factor_dropped"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Works with undiscounted figures: total inflows 60,000 minus overhaul 10,000 plus salvage 8,000 minus cost 50,000 = +8,000, calling that the NPV. No discounting was applied at all.",
+      "misconception": "time_factor_dropped"
+    }
+  ],
+  "explanation": "Build the net cash flow for each year before discounting. Year 1 = +20,000. Year 2 = 20,000 inflow minus the 10,000 overhaul = +10,000. Year 3 = 20,000 inflow plus 8,000 salvage = +28,000. Discount: 20,000*0.9091 + 10,000*0.8264 + 28,000*0.7513 = 18,182 + 8,264 + 21,036.4 = 47,482.4. Subtract the 50,000 cost: NPV = -2,517.6, about -Rs 2,518. NPV is negative, so the machine should not be bought.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Net each year's flows before you discount: the overhaul shrinks year 2 and the salvage swells year 3. Skip either adjustment and the sign of the NPV flips.",
+    "approach": "For NPV with embedded outflows and salvage, first construct the period-by-period net cash flow (inflow minus any same-year outflow, plus terminal salvage), then discount each net flow by its own factor, sum, and subtract the initial cost. The accept/reject decision follows the sign, not the magnitude.",
+    "lesson": "Salvage and mid-life outflows belong inside the year they occur, netted before discounting. Omitting the overhaul or the salvage each reverses the verdict.",
+    "timing": "About 180 seconds. Fastest elimination: reject the +Rs 8,000 option, which is the raw undiscounted net with no discount factors applied."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

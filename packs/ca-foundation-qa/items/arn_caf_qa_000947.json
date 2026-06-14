@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000947",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000947.py"
+  },
+  "tests": [
+    "qa.lr.blood_relations"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "P and Q are married to each other and have exactly two children, R and S, of whom R is the only son. R is married to T, and U is the only child of R and T. Q is the brother of V. How is the grandmother of U related to V?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Sister-in-law"
+    },
+    {
+      "key": 2,
+      "text": "Mother-in-law"
+    },
+    {
+      "key": 3,
+      "text": "Sister"
+    },
+    {
+      "key": 4,
+      "text": "Aunt"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "U's parents are R and T; R's parents are the couple P and Q, so U's grandmother is whichever of P and Q is female. Q is the brother of V, so Q is male, forcing P to be the female of the couple and hence U's grandmother. P is Q's wife and V is Q's brother, so P, a woman, is V's sister-in-law."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "kinship_generation_error",
+      "rationale": "Mother-in-law places P one generation above V; but P and V belong to the same generation (P married V's brother), so the in-law tie is sibling-level, not parental."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "kinship_direction_inverted",
+      "rationale": "Sister treats P as a blood sibling of V; P is related to V only by marriage to V's brother Q, so the relation is sister-in-law, not sister."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "kinship_gender_error",
+      "rationale": "Aunt would follow from reading the grandmother as Q's generation parent or mis-gendering the chain; here the grandmother is P, same generation as V, so the term is the in-law peer term, sister-in-law."
+    }
+  ],
+  "explanation": "First find U's grandmother. U is the child of R and T, and R is a child of the couple P and Q, so U's grandparents on this side are P and Q; the grandmother is the female one. The gender is not stated directly: it is forced through Q. Q is the brother of V, so Q is male; since P and Q are a married couple they are opposite in gender, so P is female and is therefore U's grandmother. Now relate P to V. P is the wife of Q, and V is the brother of Q, so P is the spouse of V's sibling. The spouse of one's sibling is a brother-in-law or sister-in-law; since P is female, P is V's sister-in-law.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "U's grandmother is the female of the couple P and Q; Q is male because he is V's brother, so P is the grandmother, and as the wife of V's brother she is V's sister-in-law.",
+    "approach": "Archetype move: when a relation's gender is never stated, fix it indirectly through a sibling or spouse whose gender a word like brother or wife reveals, then propagate it across the married couple before naming the final in-law term.",
+    "lesson": "A married couple is gender-opposite; one explicit gendered word anywhere in the couple's network determines both partners and unlocks every dependent term.",
+    "timing": "120-150 seconds. Fastest elimination: Mother-in-law dies once you see P and V share a generation through marriage, ruling out any parental in-law term."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

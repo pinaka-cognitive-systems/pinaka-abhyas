@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_001006",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_001006.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.deflating"
+  ],
+  "difficulty_label": "L2",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 165,
+  "stem": "A family's money income was Rs 40000 when the cost-of-living index stood at 125, and rose to Rs 52000 when the index stood at 175 (both indices on the same base). By what percentage did the family's real income change between the two years?",
+  "options": [
+    {
+      "key": 1,
+      "text": "It fell by about 7.14 percent"
+    },
+    {
+      "key": 2,
+      "text": "It rose by 30 percent"
+    },
+    {
+      "key": 3,
+      "text": "It fell by 10 percent"
+    },
+    {
+      "key": 4,
+      "text": "It rose by 82 percent"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Deflate each income: real = money income / index * 100. Real income is 40000/125*100 = 32000 in the first year and 52000/175*100 = 29714 in the second. The change is (29714 - 32000)/32000 = -0.0714, a fall of about 7.14 percent, even though money income rose."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Reports the money-income change (52000 - 40000)/40000 = 30 percent, ignoring that prices rose 40 percent over the same span. Nominal growth is not real growth.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Subtracts the index growth from the income growth: 30 percent minus (175 - 125)/125 = 40 percent gives -10 percent. Real change is the ratio of deflated values, not the difference of two growth rates; the correct figure is about -7.14 percent.",
+      "misconception": "percentage_base_confusion"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Multiplies income by the index instead of dividing, getting 40000*1.25 = 50000 and 52000*1.75 = 91000, a rise of 82 percent. Deflating means dividing by the price index, not multiplying.",
+      "misconception": "wrong_formula"
+    }
+  ],
+  "explanation": "Real income = money income / cost-of-living index * 100. The two real incomes are 40000/125*100 = 32000 and 52000/175*100 = 29714. The change is (29714 - 32000)/32000 = -7.14 percent: real income fell even though money income rose 30 percent, because the 40 percent rise in prices outran the income rise.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Money income up 30 percent but prices up 40 percent means purchasing power shrank. Deflate both ends and compare the real values, never the headline incomes.",
+    "approach": "Convert each money figure to real terms by dividing by its price index and scaling by 100, then take the percentage change of the real series. Do not subtract the price growth from the income growth, and never multiply by the index.",
+    "lesson": "Real change is the ratio of deflated values; it is not money growth minus price growth, which only approximates and overstates the fall.",
+    "timing": "About 165 seconds. The fastest elimination is the 30 percent option, which is just the money-income change with no deflation at all."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

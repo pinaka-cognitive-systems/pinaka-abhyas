@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000961",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000961.py"
+  },
+  "tests": [
+    "qa.bmath.finance.annuity"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 175,
+  "stem": "An investment promises Rs 5,000 at the end of each year for 4 years, but the first of these payments arrives only at the end of the 6th year (the payments fall at the ends of years 6, 7, 8 and 9). At 10% per annum, what is the present value today? [Use: 4-year ordinary annuity present-value factor at 10% = 3.1699; (1.10)^-5 = 0.6209; (1.10)^-6 = 0.5645]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 9,841"
+    },
+    {
+      "key": 2,
+      "text": "Rs 15,850"
+    },
+    {
+      "key": 3,
+      "text": "Rs 8,947"
+    },
+    {
+      "key": 4,
+      "text": "Rs 4,472"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Value the 4 payments as an ordinary annuity one period before the first payment, i.e. at the end of year 5: 5,000*3.1699 = 15,849.5. Then discount that single lump 5 years to today: 15,849.5*0.6209 = Rs 9,841. The deferment is 5 years because the annuity value sits at year 5."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Computes the ordinary-annuity value 5,000*3.1699 = 15,850 and stops, never discounting back across the 5-year deferment. The annuity's value-date is treated as today.",
+      "misconception": "time_factor_dropped"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Discounts by an extra year, using (1.10)^-6 = 0.5645 because the first payment is at year 6: 15,849.5*0.5645 = 8,947. The annuity factor already places value at year 5, so discounting 6 years double-counts one period.",
+      "misconception": "off_by_one"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Discounts only one payment of 5,000 across the deferment instead of the whole annuity lump, 5,000*0.6209*... mis-scaled to about Rs 4,472, dropping three of the four payments. Only a single cash flow was handled.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "This is a deferred annuity. First value the four equal payments with the ordinary-annuity factor as of one period before the first payment: the first payment is at year 6, so the annuity's natural value-date is the end of year 5. Value at year 5 = 5,000 * 3.1699 = 15,849.5. Now bring that lump to today by discounting exactly 5 years (the deferment): 15,849.5 * (1.10)^-5 = 15,849.5 * 0.6209 = Rs 9,841. The common trap is discounting 6 years; the annuity factor already accounts for the gap between the value-date and the first payment.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "An ordinary-annuity factor places the lump one period before the first payment. With the first payment at year 6, that lump sits at year 5, so discount 5 years, not 6.",
+    "approach": "For a deferred annuity, split into two moves: value the level payments at their natural annuity date (one period before the first receipt), then discount that single lump across the deferment period. The deferment count is years from today to that annuity value-date, which is (first-payment-year minus 1).",
+    "lesson": "Deferment years = first-payment year minus 1, because the ordinary-annuity factor already embeds the one-year lead. Discounting by the first-payment year over-discounts by one period.",
+    "timing": "About 175 seconds. Fastest elimination: reject Rs 15,850, which is the un-discounted annuity value with the entire deferment ignored."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

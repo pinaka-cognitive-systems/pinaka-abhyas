@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000954",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000954.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.coding_decoding"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 150,
+  "stem": "In a code language, 'green tall trees' is written as 'ri se po', 'trees give shade' is written as 'po du mi', and 'shade cool green' is written as 'mi va ri'. The codes within each line are not in the order of the words. What is the code for 'cool'?",
+  "options": [
+    {
+      "key": 1,
+      "text": "va"
+    },
+    {
+      "key": 2,
+      "text": "ri"
+    },
+    {
+      "key": 3,
+      "text": "mi"
+    },
+    {
+      "key": 4,
+      "text": "se"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Lines 1 and 2 share 'trees' and the code 'po', so trees=po. Lines 2 and 3 share 'shade' and the code 'mi', so shade=mi. Lines 1 and 3 share 'green' and the code 'ri', so green=ri. In line 3, removing shade=mi and green=ri leaves cool=va."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "ri is the code for 'green', the word shared by lines 1 and 3; taking the shared code as cool's confuses the overlap word with the residue word."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "mi is the code for 'shade', the word shared by lines 2 and 3; it is the other overlap code in line 3, not the code left over for cool."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "se belongs to line 1, where it codes 'tall'; cool never appears in line 1, so its code cannot be se."
+    }
+  ],
+  "explanation": "Fix the shared codes through the common words. Lines 1 and 2 share only 'trees', and their code lists share only 'po', so trees=po. Lines 2 and 3 share only 'shade', and their codes share only 'mi', so shade=mi. Lines 1 and 3 share only 'green', and their codes share only 'ri', so green=ri. Now look at line 3, 'shade cool green' = 'mi va ri': shade=mi and green=ri are known, so the remaining code 'va' must be cool. Hence cool is coded 'va'.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Resolve the three overlap codes (trees=po, shade=mi, green=ri) from the pairwise common words, then read cool as the leftover code 'va' in its line.",
+    "approach": "Archetype move: in overlapping codes, each pair of lines pins one word by matching its single shared word to the single shared code; the asked word is then the residue once the two known codes are struck from its line.",
+    "lesson": "Always solve overlap words first and target words last; the target's code is whatever remains in its own line after the shared codes are removed.",
+    "timing": "120-150 seconds. Fastest elimination: 'se' lives only in line 1, which lacks 'cool', so it is ruled out before any overlap work is finished."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

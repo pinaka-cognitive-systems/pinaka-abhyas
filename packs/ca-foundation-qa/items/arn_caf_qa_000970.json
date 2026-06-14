@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000970",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000970.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.circular_permutations"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 175,
+  "stem": "Seven people, including three friends A, B and C, are to be seated around a round table; arrangements that differ only by rotation are the same. In how many seatings are A, B and C all together as one block while, within that block, A and C are never adjacent to each other?",
+  "options": [
+    {
+      "key": 1,
+      "text": "48"
+    },
+    {
+      "key": 2,
+      "text": "144"
+    },
+    {
+      "key": 3,
+      "text": "240"
+    },
+    {
+      "key": 4,
+      "text": "96"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Glue A, B, C into one block, leaving 5 units around the table: (5-1)! = 4! = 24 circular orders. Inside the block, which is a short row of three, A and C are non-adjacent only when B sits between them, giving exactly 2 internal orders (A-B-C and C-B-A) out of the 6 possible. Multiply 24 * 2 = 48."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Counts all seatings with the block together, 4! * 3! = 24 * 6 = 144, but never imposes that A and C are non-adjacent inside the block. The apartness restriction was dropped.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Treats the table as a line of 5 units, using 5! = 120 instead of the circular (5-1)! = 24, then multiplies by the 2 valid internal orders to get 240. The round table requires (n-1)!, not n!.",
+      "misconception": "permutation_combination_confusion"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Computes the complement: 4! * 4 = 96 is the number of block-together seatings in which A and C ARE adjacent (the 4 internal orders with B not in the middle). That is the forbidden count, not the valid count.",
+      "misconception": "misread_quantity"
+    }
+  ],
+  "explanation": "Bind A, B, C into a single block; with 5 units around a round table there are (5-1)! = 24 distinct rotations. The block itself is a row of three with two ends, so its members have 3! = 6 internal orders. A and C are non-adjacent only when B is between them, which is exactly the two orders A-B-C and C-B-A. Hence 24 * 2 = 48 seatings.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "The circular formula handles the table; the restriction lives inside the glued block. A and C non-adjacent in a 3-row forces B to the middle, leaving only 2 internal orders, not 6.",
+    "approach": "For circular 'together with an internal apartness', collapse the group to one unit and count the table by (units-1)!. Then count only the internal block orders that satisfy the restriction, treating the block as a row.",
+    "lesson": "A block's internal arrangement is linear (3! orders), and an internal non-adjacent pair pins the third element between them.",
+    "timing": "About 175 seconds. Fastest elimination is to reject 144, the all-together count that ignores the A-not-next-to-C condition."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000960",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000960.py"
+  },
+  "tests": [
+    "qa.bmath.finance.simple_interest"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 165,
+  "stem": "A sum of Rs 4,200 is split into three parts and lent at one and the same rate of simple interest. The first part is lent for 5 years, the second for 6 years, and the third for a period equal to twice the first part's period. The parts are chosen so that the simple interest from each part is the same. What is the largest of the three parts?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 1,800"
+    },
+    {
+      "key": 2,
+      "text": "Rs 900"
+    },
+    {
+      "key": 3,
+      "text": "Rs 1,400"
+    },
+    {
+      "key": 4,
+      "text": "Rs 1,500"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "The third period is twice 5 = 10 years, so times are 5, 6, 10. Equal SI at one rate makes P*T constant, so P is inversely proportional to T: 1/5 : 1/6 : 1/10 = 6 : 5 : 3 (over LCM 30), summing to 14. The largest part goes with the shortest time (5 years): (6/14)*4,200 = Rs 1,800."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Uses the inverse ratio correctly to 6 : 5 : 3 but picks the part tied to the longest time (10 years), (3/14)*4,200 = 900, calling that the largest. It is in fact the smallest part; the extreme was misidentified.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Forgets to double the first period, taking the third time as 5 again, so times become 5, 6, 5 and the ratio shifts; the largest part is mis-sized to about Rs 1,400. The derived time was not computed.",
+      "misconception": "time_factor_dropped"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Splits the sum in the direct ratio of times 5 : 6 : 10 (sum 21) and takes the 10-year part, (10/21)*4,200 = 2,000, then mis-scales toward Rs 1,500. Using the direct rather than inverse ratio is the error.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "First fix the third period: twice the first part's 5 years = 10 years, so the times are 5, 6 and 10. Equal simple interest at a common rate means P*T is constant, so the principals are inversely proportional to the times: 1/5 : 1/6 : 1/10. Multiply through by the LCM 30 to get 6 : 5 : 3, summing to 14. The largest principal pairs with the smallest time (5 years): (6/14) of 4,200 = Rs 1,800.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Shortest loan period earns the largest principal. Invert the times to 6 : 5 : 3 and the 5-year part takes the biggest slice.",
+    "approach": "Resolve any described period first, then apply the equal-interest rule: at one rate, equal SI forces P*T constant, so P_i is proportional to 1/T_i. Clear reciprocals with the LCM, allocate the total, and read off the requested extreme, remembering the largest principal sits opposite the smallest time.",
+    "lesson": "Equal simple interest at one rate gives principal inversely proportional to time; the largest part always matches the shortest period.",
+    "timing": "About 165 seconds. Fastest elimination: reject Rs 900, the part tied to the longest 10-year period, which is the smallest part, not the largest."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

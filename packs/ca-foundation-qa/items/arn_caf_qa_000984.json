@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000984",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000984.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.median"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 175,
+  "stem": "A distribution of claim amounts has classes 0-10, 10-20, 20-30, 30-40, 40-50 with frequencies 6, f, 20, 16, 8, where f is unknown. The total frequency is 64 and the median is 26. Using grouped-median interpolation, what is f?",
+  "options": [
+    {
+      "key": 1,
+      "text": "14"
+    },
+    {
+      "key": 2,
+      "text": "46"
+    },
+    {
+      "key": 3,
+      "text": "38"
+    },
+    {
+      "key": 4,
+      "text": "2"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Total = 6 + f + 20 + 16 + 8 = 50 + f = 64, so f = 14; this must also satisfy the median. With N = 64, N/2 = 32 lands in class 20-30 (L = 20, h = 10, frequency 20), and the cumulative frequency before it is 6 + f. Median = 20 + ((32 - (6 + f))/20)*10 = 26 gives ((26 - f)/20)*10 = 6, so 26 - f = 12 and f = 14. Both routes agree."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Uses N instead of N/2 in the interpolation: 20 + ((64 - (6 + f))/20)*10 = 26 gives 58 - f = 12, so f = 46. The median position is the N/2-th item, not the N-th.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Flips the sign of the cumulative-frequency term: 20 + (((6 + f) - 32)/20)*10 = 26 gives (6 + f) - 32 = 12, so f = 38. The formula subtracts the preceding cf from N/2, not the reverse.",
+      "misconception": "sign_error"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Uses the wrong class width h = 5 instead of 10: 20 + ((32 - (6 + f))/20)*5 = 26 gives 26 - f = 24, so f = 2. The classes span 10 units, so h = 10.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "N = 64, so the median is the 32nd item. The cumulative frequencies are 6, 6+f, 26+f, ... so the 32nd item sits in class 20-30 (the answer confirms 6+f < 32). Apply Median = L + ((N/2 - cf)/f_class)*h: 26 = 20 + ((32 - (6+f))/20)*10. Then ((26 - f)/20)*10 = 6, so 26 - f = 12 and f = 14. The total check 50 + f = 64 also gives f = 14.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Set the interpolation formula equal to the given median and solve for the unknown frequency. The cumulative frequency before the median class carries the unknown.",
+    "approach": "Locate the median class from N/2, write cf in terms of the unknown f, plug into Median = L + ((N/2 - cf)/f_class)*h, and solve the linear equation. Confirm against the total-frequency equation.",
+    "lesson": "In grouped median, the position is N/2 (not N), cf is what lies before the median class, and h is the full class width.",
+    "timing": "About 175 seconds. Fastest elimination: reject 46, which uses N instead of N/2 and exceeds a plausible class frequency for a total of 64."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_001004",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_001004.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.construction"
+  ],
+  "difficulty_label": "L2",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 180,
+  "stem": "For three commodities the data (p0, q0, p1, q1) are: A: 4, 50, 5, 40; B: 6, 30, 8, 35; C: 2, 20, 3, 25. The Fisher price index P01 works out to 131.55. By the factor reversal test the Fisher price index times the Fisher quantity index must equal the true value index (base = 100). What is that value index?",
+  "options": [
+    {
+      "key": 1,
+      "text": "132.14"
+    },
+    {
+      "key": 2,
+      "text": "130.95"
+    },
+    {
+      "key": 3,
+      "text": "133.34"
+    },
+    {
+      "key": 4,
+      "text": "131.55"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "The factor reversal test says Fisher P01 times Fisher Q01 equals the value ratio Sigma p1q1/Sigma p0q0. With Sigma p1q1 = 555 and Sigma p0q0 = 420, that ratio is 555/420 = 1.3214, so the value index is 132.14. You do not even need to recompute Q01: the test guarantees the product is the value index."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Multiplies the Laspeyres price index by the Laspeyres quantity index, (550/420)*(420/420)*100 = 130.95, which does not reproduce the value ratio. Only the Fisher pair satisfies the factor reversal test.",
+      "misconception": "concept_definition_confused"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Multiplies the Paasche price index by the Paasche quantity index, (555/420)*(555/550)*100 = 133.34, which also misses the value ratio. The factor reversal identity holds only for Fisher.",
+      "misconception": "concept_definition_confused"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Reports the Fisher price index 131.55 alone, dropping the quantity factor entirely. The value index is the price index times the quantity index, not the price index by itself.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "The factor reversal test states Fisher P01 times Fisher Q01 equals the value index Sigma p1q1/Sigma p0q0. Here Sigma p1q1 = 555 and Sigma p0q0 = 420, so the value index is 555/420*100 = 132.14. The Laspeyres or Paasche pairs give 130.95 or 133.34 and fail the test; reporting 131.55 forgets the quantity factor.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "You never need the quantity index here. The factor reversal test pins the product directly to the value ratio Sigma p1q1/Sigma p0q0, so compute that one fraction.",
+    "approach": "When asked for Fisher price times Fisher quantity, invoke the factor reversal identity: the product is the raw value ratio Sigma p1q1/Sigma p0q0. Read off the two corner sums and divide.",
+    "lesson": "Fisher's Ideal index satisfies the Factor Reversal Test: price index times quantity index equals the value index Sigma p1q1/Sigma p0q0.",
+    "timing": "About 180 seconds. The fastest elimination is 131.55, the price index alone, which ignores the quantity factor the test requires."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

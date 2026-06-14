@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000951",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000951.py"
+  },
+  "tests": [
+    "qa.lr.direction_tests"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 160,
+  "stem": "In a coded notation, 'X # Y' means X is one unit north of Y, 'X $ Y' means X is one unit south of Y, 'X @ Y' means X is one unit east of Y, and 'X & Y' means X is one unit west of Y. Given the statements 'P # Q', 'O @ P', 'N # O', 'M @ N' and 'R $ Q', in which direction is Q with respect to M?",
+  "options": [
+    {
+      "key": 1,
+      "text": "South-West"
+    },
+    {
+      "key": 2,
+      "text": "North-East"
+    },
+    {
+      "key": 3,
+      "text": "South-East"
+    },
+    {
+      "key": 4,
+      "text": "North-West"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Placing Q at (0,0): P#Q gives P(0,1), O@P gives O(1,1), N#O gives N(1,2), M@N gives M(2,2). The R clue is a decoy. Q minus M is (-2,-2): 2 units west and 2 units south of M in equal amounts, so Q is South-West of M."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "North-East is the direction of M from Q, the forward chain; the question asks Q from M, which reverses both signs to South-West."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "direction_turn_error",
+      "rationale": "South-East keeps the southward sense but flips east for west; M lies east of Q, so Q is west of M, not east, making South-West correct."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "net_displacement_error",
+      "rationale": "North-West correctly puts Q west of M but mishandles the vertical legs (two north steps P#Q and N#O), losing the fact that Q sits below M, hence south, not north."
+    }
+  ],
+  "explanation": "Decode each symbol as a unit step and place the points. Let east be +x, north be +y, and start Q at (0,0). 'P # Q' puts P one north of Q at (0,1). 'O @ P' puts O one east of P at (1,1). 'N # O' puts N one north of O at (1,2). 'M @ N' puts M one east of N at (2,2). The statement 'R $ Q' only locates R and does not touch the M-Q path. The question asks Q with respect to M, so compute Q minus M = (0,0) minus (2,2) = (-2,-2). The x-component -2 means Q is west of M and the y-component -2 means Q is south of M, equally, so Q is South-West of M.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Decode the symbols into unit (x,y) steps, place M at (2,2) with Q at the origin, then subtract in the asked order Q minus M to get (-2,-2), South-West.",
+    "approach": "Archetype move: translate each coded relation into a signed step, chain only the statements that connect the two queried points, discard any decoy clue, and for 'Q with respect to M' compute Q minus M so the reference point M sits at the origin of the answer.",
+    "lesson": "Coded-direction questions are ordinary coordinate problems once the legend is unpacked; the reference point named after 'with respect to' is the one you subtract.",
+    "timing": "140-160 seconds. Fastest elimination: North-East is the forward direction (M from Q), so reject it immediately since the query reverses to Q from M."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

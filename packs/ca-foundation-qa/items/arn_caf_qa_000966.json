@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000966",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000966.py"
+  },
+  "tests": [
+    "qa.bmath.finance.emi"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 180,
+  "stem": "A loan of Rs 7,582 is to be repaid in 5 equal year-end installments at 10% per annum. Just after paying the 3rd installment, the borrower wants to clear the loan in full. How much must be paid to settle the outstanding balance at that point? [Use annuity present-value factors at 10%: 5 years = 3.7908; 2 years = 1.7355; 3 years = 2.4869]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 3,471"
+    },
+    {
+      "key": 2,
+      "text": "Rs 1,582"
+    },
+    {
+      "key": 3,
+      "text": "Rs 4,974"
+    },
+    {
+      "key": 4,
+      "text": "Rs 4,000"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "First find the installment: EMI = 7,582/3.7908 = 2,000. After the 3rd of 5 installments, 2 remain, so the outstanding balance equals the present value of those 2 future installments: 2,000*1.7355 = Rs 3,471. The outstanding balance is always the PV of the payments not yet made."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Subtracts the three paid installments from the original loan: 7,582 - 3*2,000 = 1,582, treating each installment as pure principal. This ignores the interest content of every installment.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Discounts 3 remaining installments instead of 2, using the 3-year factor: 2,000*2.4869 = 4,974. Miscounts the installments left after the 3rd payment of a 5-installment loan.",
+      "misconception": "off_by_one"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Adds the two remaining installments undiscounted: 2*2,000 = 4,000, forgetting that future installments must be discounted to their present value at the settlement date.",
+      "misconception": "time_factor_dropped"
+    }
+  ],
+  "explanation": "The outstanding balance at any date is the present value of the installments still to be paid, not the loan minus cash paid. First recover the installment from the loan: EMI = 7,582/3.7908 = 2,000. After the 3rd of 5 installments, 5 - 3 = 2 installments remain. Discount those 2 future installments to the settlement date: outstanding = 2,000 * 1.7355 = Rs 3,471.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The payoff equals the present value of the payments you have not made yet. Derive the installment, count what is left, discount it.",
+    "approach": "For any outstanding-balance question, ignore what has been paid. Recover the level installment as loan divided by the full annuity factor, count the remaining installments (term minus those paid), and value them as a fresh annuity at the settlement date. The balance is forward-looking, never loan minus cash paid.",
+    "lesson": "Outstanding balance = present value of unpaid installments. Loan minus installments paid is wrong because each installment mixes principal and interest.",
+    "timing": "About 180 seconds. Fastest elimination: reject Rs 1,582, which subtracts paid installments from the loan as if they were pure principal."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

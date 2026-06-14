@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000950",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000950.py"
+  },
+  "tests": [
+    "qa.lr.direction_tests"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 160,
+  "stem": "Six towns A, B, C, D, E and F lie on a plain. B is 6 km east of A. C is 8 km north of B. D is 6 km west of C. E is 3 km south of D. F is 5 km west of E. In which direction is town A from town F?",
+  "options": [
+    {
+      "key": 1,
+      "text": "South-East"
+    },
+    {
+      "key": 2,
+      "text": "North-West"
+    },
+    {
+      "key": 3,
+      "text": "North-East"
+    },
+    {
+      "key": 4,
+      "text": "South-West"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Taking A at the origin, the legs give B(6,0), C(6,8), D(0,8), E(0,5), F(-5,5). A minus F is (5,-5): 5 km east and 5 km south of F with equal magnitudes, so A lies South-East of F."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "North-West is the direction of F from A, the forward heading; the question reverses it and asks for A from F, which flips every component to the opposite, South-East."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "net_displacement_error",
+      "rationale": "North-East comes from getting the east-west sign right but the north-south sign wrong when combining the vertical legs (north 8, south 3), losing the net southward offset of A from F."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "direction_turn_error",
+      "rationale": "South-West flips the east-west component the wrong way, as if F were east of A; F is actually 5 km west of A's x-line, so A is to the east of F, not west."
+    }
+  ],
+  "explanation": "Put A at the origin (0,0) with east as +x and north as +y. B is 6 km east: (6,0). C is 8 km north of B: (6,8). D is 6 km west of C: (0,8). E is 3 km south of D: (0,5). F is 5 km west of E: (-5,5). The question asks for A relative to F, so compute A minus F = (0,0) minus (-5,5) = (5,-5). The x-component +5 means A is east of F and the y-component -5 means A is south of F, in equal amounts, so A is exactly South-East of F. The common trap is to report North-West, which is F seen from A, the opposite of what is asked.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Track coordinates leg by leg to place F at (-5,5) with A at the origin, then subtract in the asked order: A minus F is (5,-5), South-East.",
+    "approach": "Archetype move: convert every leg to a signed (x,y) step and accumulate; for a reversed query 'X from Y', always compute X minus Y, never Y minus X, then read the two signs as the compound direction.",
+    "lesson": "On a 'direction of X from Y' question the reference point is Y; the answer is the heading you face standing at Y looking toward X, which is the exact reverse of the route you walked.",
+    "timing": "140-160 seconds. Fastest elimination: North-West is the trap forward heading (F from A); reject it on sight because the question asks A from F, the reverse."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000962",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000962.py"
+  },
+  "tests": [
+    "qa.bmath.finance.annuity"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 175,
+  "stem": "A person deposits Rs 2,000 at the beginning of each year for 3 years into a fund earning 10% per annum compounded annually. No deposit is made in the 4th year, but the fund keeps earning interest. What is the value of the fund at the end of the 4th year? [Use: (1.10)^2 = 1.21; (1.10)^3 = 1.331; (1.10)^4 = 1.4641]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 8,010"
+    },
+    {
+      "key": 2,
+      "text": "Rs 7,282"
+    },
+    {
+      "key": 3,
+      "text": "Rs 8,811"
+    },
+    {
+      "key": 4,
+      "text": "Rs 6,620"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Beginning-of-year deposits grow to end of year 4 as: 2,000*(1.10)^4 + 2,000*(1.10)^3 + 2,000*(1.10)^2 = 2,928.2 + 2,662 + 2,420 = Rs 8,010. Each deposit compounds for one extra year because it lands at a year-start and the fund runs through year 4."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Computes the annuity-due value at the end of year 3 only, 2,000*[((1.10)^3 - 1)/0.10]*1.10 = 7,282, and forgets the extra idle 4th year of growth. The final *1.10 for the no-deposit year is dropped.",
+      "misconception": "time_factor_dropped"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Over-compounds every deposit by an extra year, using exponents 5, 4, 3: 2,000*((1.10)^5 + (1.10)^4 + (1.10)^3) = 2,000*4.40561 = 8,811. One too many compounding periods were credited to each deposit.",
+      "misconception": "off_by_one"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Takes the plain ordinary-annuity value at end of year 3, 2,000*[((1.10)^3 - 1)/0.10] = 6,620, ignoring both the beginning-of-year timing and the extra idle year. Two compounding adjustments are missed.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "Each deposit is made at a year-start, so deposit 1 (start of year 1) earns interest through the end of year 4, that is 4 years; deposit 2 earns 3 years; deposit 3 earns 2 years. Value = 2,000*(1.10)^4 + 2,000*(1.10)^3 + 2,000*(1.10)^2 = 2,000*(1.4641 + 1.331 + 1.21) = 2,000*4.0051 = Rs 8,010. Equivalently, take the annuity-due value at end of year 3, 2,000*3.31*1.10 = 7,282, and compound the idle 4th year: 7,282*1.10 = 8,010.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Beginning-of-year deposits each earn an extra year, and the idle 4th year adds one more. Count the exponents: 4, 3, 2, not 3, 2, 1.",
+    "approach": "For an annuity due that is then left to grow, count each payment's compounding span from its year-start date to the final valuation date. The earliest deposit gets the largest exponent; the gap year with no deposit still multiplies the whole fund by one more (1 + r). Sum the individual future values.",
+    "lesson": "Annuity due means every payment compounds one year more than the ordinary case; a trailing no-deposit year multiplies the entire accumulated fund by (1 + r) again.",
+    "timing": "About 175 seconds. Fastest elimination: reject Rs 7,282, the annuity-due value at year 3 that forgets the extra idle 4th year of growth."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

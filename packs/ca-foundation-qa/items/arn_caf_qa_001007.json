@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_001007",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_001007.py"
+  },
+  "tests": [
+    "qa.stats.index_numbers.deflating"
+  ],
+  "difficulty_label": "L3",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 180,
+  "stem": "The cost-of-living index for 2018 to 2020 is on base 2018 = 100 and reads 100, 120, 150. From 2020 the series was re-based to 2020 = 100, giving 100, 110, 132 for 2020, 2021, 2022. A person's money income in 2021 was Rs 58000. Expressed in 2018 rupees (base 2018 = 100), what was the real income in 2021?",
+  "options": [
+    {
+      "key": 1,
+      "text": "Rs 35151.52"
+    },
+    {
+      "key": 2,
+      "text": "Rs 52727.27"
+    },
+    {
+      "key": 3,
+      "text": "Rs 79090.91"
+    },
+    {
+      "key": 4,
+      "text": "Rs 95700.00"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "First splice the two index segments onto one base. The 2020 value is 150 on the 2018 base but 100 on the new base, so multiply every re-based figure by 150/100 = 1.5. The 2021 index becomes 110 * 1.5 = 165 on base 2018. Then real income = 58000/165*100 = Rs 35151.52."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Deflates by the re-based 2021 index of 110 without splicing, giving 58000/110*100 = 52727.27. That treats a 2020-base index as if it were on the 2018 base, ignoring that 2020 equals 150 on the original base, not 100.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Splices in the wrong direction, dividing the re-based index by 1.5 instead of multiplying: 110/1.5 = 73.33 and 58000/73.33*100 = 79090.91. Because the new base sits at 150 on the old scale, the conversion factor must enlarge the figures, so multiply by 1.5.",
+      "misconception": "invariance_property_confused"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "After getting the spliced index 165, multiplies income by it instead of dividing: 58000 * 165/100 = 95700. Deflation divides money income by the price index; multiplying inflates rather than deflates.",
+      "misconception": "wrong_formula"
+    }
+  ],
+  "explanation": "The index has a base change, so splice before deflating. Since 2020 reads 150 on the 2018 base and 100 on the new base, the splice factor is 150/100 = 1.5; the 2021 index is 110 * 1.5 = 165 on base 2018. Real income in 2018 rupees is then 58000/165*100 = Rs 35151.52.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "You cannot deflate across a base change until the index is one consistent series. The overlap year 2020 fixes the splice factor 150/100 = 1.5; apply it before dividing.",
+    "approach": "When a price index is re-based mid-series, find the overlap year that appears on both bases, form the ratio of its two readings as the splice factor, scale the newer segment onto the old base, and only then deflate by dividing money income by the spliced index.",
+    "lesson": "Convert all index numbers to a single base before deflating; the splice factor is the ratio of the overlap year's two index values.",
+    "timing": "About 180 seconds. The fastest elimination is Rs 52727.27, the no-splice trap that deflates by the raw re-based 110 and forgets the base change."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

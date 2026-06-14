@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000972",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000972.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.permutations"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 180,
+  "stem": "The seven distinct letters of the word CHARITY (three vowels A, I, Y and four consonants C, H, R, T) are arranged in a row. How many arrangements have no two vowels adjacent, begin and end with a consonant, and do not have the letter C at either end?",
+  "options": [
+    {
+      "key": 1,
+      "text": "72"
+    },
+    {
+      "key": 2,
+      "text": "144"
+    },
+    {
+      "key": 3,
+      "text": "108"
+    },
+    {
+      "key": 4,
+      "text": "1440"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Lay the 4 consonants in a row first: that opens 5 gaps, the two outer gaps being the word's ends. Begin-and-end-with-consonant forces both end gaps empty, so the 3 vowels fill the 3 internal gaps, one each, in 3! = 6 ways, and this also guarantees no two vowels adjacent. The consonants order in 4! = 24 ways, but C must avoid both end positions; C is barred from 2 of the 4 consonant slots, leaving 4! - 2*3! = 24 - 12 = 12 valid consonant orders. Total = 12 * 6 = 72."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Counts arrangements with no two vowels adjacent and consonant ends, 4! * 3! = 24 * 6 = 144, but never excludes C from the ends. The 'C not at either end' constraint was dropped.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Removes C from only one end instead of both: 4! - 1*3! = 18 valid consonant orders, times 3! = 6 gives 108. Both end positions must exclude C, so the subtraction must cover 2 slots.",
+      "misconception": "off_by_one"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Drops the begin-and-end-with-consonant rule, letting the 3 vowels go into any 3 of the 5 gaps: 4! * (5*4*3) = 24 * 60 = 1440. That allows a vowel at an end, violating the stated condition.",
+      "misconception": "wrong_formula"
+    }
+  ],
+  "explanation": "Place the 4 consonants in a row in 4! ways, creating 5 gaps including the two ends. Requiring the word to begin and end with a consonant empties the two end gaps, so the 3 vowels occupy the 3 internal gaps, one per gap, in 3! ways; this automatically keeps vowels non-adjacent. Now exclude C from both ends: of the 4! consonant orders, those with C at an end number 2*3! = 12, so 24 - 12 = 12 remain. Multiply by the 6 vowel orders: 12 * 6 = 72.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "The begin-and-end-with-consonant rule does double duty: it forces the two end gaps empty, which simultaneously satisfies 'no two vowels adjacent' and pins the vowels to the 3 internal gaps.",
+    "approach": "For multiple interacting restrictions, place the unrestricted-adjacency group first to form gaps, then translate each end or apartness rule into which gaps may be filled, and apply position bans last by subtracting the violating arrangements.",
+    "lesson": "A 'not at either end' ban removes the element from 2 positions, so subtract 2*(remaining)! orderings, not one.",
+    "timing": "About 180 seconds. Fastest elimination is to reject 144, the count that satisfies the adjacency and end-type rules but forgets to keep C off the ends."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

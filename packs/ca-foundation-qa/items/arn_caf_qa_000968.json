@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000968",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000968.py"
+  },
+  "tests": [
+    "qa.bmath.permutations_combinations.combinations"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 165,
+  "stem": "Twelve distinct trainees are to be split into three study groups of sizes 5, 4 and 3. In how many ways can this be done if the three groups are not labelled, so two splits that differ only by relabelling the groups count as the same split?",
+  "options": [
+    {
+      "key": 1,
+      "text": "27720"
+    },
+    {
+      "key": 2,
+      "text": "166320"
+    },
+    {
+      "key": 3,
+      "text": "4620"
+    },
+    {
+      "key": 4,
+      "text": "9240"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "The multinomial count 12!/(5!*4!*3!) = 27720 already treats the three blocks as distinct slots of fixed sizes 5, 4 and 3. Because the sizes are all different, no two of these arrangements coincide under relabelling, so 27720 is the count of unlabelled splits with no further division. The all-different sizes are the trap that makes the divide-by-3! correction wrong here."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Counts ordered placement into 12 positions or otherwise multiplies the multinomial by an extra factor, giving 12!/(5!*4!*3!) * 6 = 166320. It over-counts by treating each size slot as further orderable.",
+      "misconception": "permutation_combination_confusion"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Divides the multinomial by 3! = 6 to 'unlabel' the groups, giving 27720/6 = 4620. But that 3! correction is only valid when the group sizes are equal; with sizes 5, 4, 3 all distinct there is no relabelling symmetry to remove, so the division is spurious.",
+      "misconception": "permutation_combination_confusion"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Divides the multinomial only by the number of ways to swap two of the three blocks, 27720/3 = 9240, a partial relabelling correction. Like the divide-by-6 path it removes a symmetry that does not exist for distinct sizes.",
+      "misconception": "permutation_combination_confusion"
+    }
+  ],
+  "explanation": "Place the 12 trainees into a block of 5, a block of 4 and a block of 3: that is the multinomial coefficient 12!/(5!*4!*3!) = 27720. Now ask whether 'unlabelling' the groups merges any of these. Relabelling only merges arrangements when two groups have the same size, because only then can you swap their contents and land on a configuration the labelled count already listed separately. Here all three sizes differ, so every split is distinguishable by its group sizes and no division by 3! is needed. The answer is 27720.",
+  "explanation_kind": "counting",
+  "explanation_sections": {
+    "punchline": "Dividing by 3! to make groups unlabelled is only correct when the group sizes are equal. With distinct sizes 5, 4, 3 there is no symmetry to quotient out, so the multinomial is already the final answer.",
+    "approach": "For dividing n distinct items into groups, first count with labelled blocks via the multinomial n!/(a!*b!*c!...). Then divide by k! only for each set of k groups that share the same size. Match the division to the actual symmetry, not reflexively.",
+    "lesson": "Unlabelled-group correction divides by the factorial of the count of equal-sized groups only. Unequal sizes are already distinguishable.",
+    "timing": "About 165 seconds. Fastest elimination is to reject 4620, the reflexive divide-by-3! that wrongly assumes a symmetry the distinct sizes do not have."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

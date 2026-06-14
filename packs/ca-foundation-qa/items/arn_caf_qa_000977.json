@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000977",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000977.py"
+  },
+  "tests": [
+    "qa.bmath.equations.simultaneous_linear"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 165,
+  "stem": "A system of equations is given: x + 2y + 3z = 14, 2x + 3y + 4z = 20, and 3x + 4y + 5z = 26. Find the value of x + y + z.",
+  "options": [
+    {
+      "key": 1,
+      "text": "6"
+    },
+    {
+      "key": 2,
+      "text": "12"
+    },
+    {
+      "key": 3,
+      "text": "10"
+    },
+    {
+      "key": 4,
+      "text": "14"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "The three equations are dependent (the first plus the third equals twice the second), so x, y and z are not individually determined. But subtracting equation 1 from equation 2 gives (2x+3y+4z) - (x+2y+3z) = x + y + z = 20 - 14 = 6. The asked combination is fixed even though the system has infinitely many solutions."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Subtracts equation 1 from equation 3 to get 2x + 2y + 2z = 12 but reports 12 without dividing by 2. That difference equals 2(x+y+z), so x + y + z = 6.",
+      "misconception": "arithmetic_slip"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Adds all three equations to get 6x + 9y + 12z = 60 and divides by 6, reading it as 6(x+y+z) = 60 to get 10. The left side is not a multiple of x+y+z because the coefficients 6, 9, 12 differ.",
+      "misconception": "wrong_formula"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Assumes a unique solution exists, sets y = z = 0, and reads x = 14 from the first equation, reporting the sum as 14. The system is dependent, so isolating a single variable this way is invalid.",
+      "misconception": "misread_quantity"
+    }
+  ],
+  "explanation": "Check the structure before grinding: equation 1 plus equation 3 gives 4x + 6y + 8z = 40, which is exactly twice equation 2, so the system is dependent and has infinitely many solutions; no single value of x, y or z exists. Yet the difference of consecutive equations is clean: equation 2 minus equation 1 is x + y + z = 20 - 14 = 6, and equation 3 minus equation 2 confirms x + y + z = 6. The combination asked for is an invariant of the whole solution set.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "The system is rank-2 dependent, so you cannot solve for x, y, z separately, but their sum is pinned: equation 2 minus equation 1 is x + y + z directly.",
+    "approach": "Before solving three-by-three, test for dependence. When the target is a symmetric combination like x+y+z, look for a difference or sum of the given equations that produces it in one step, sidestepping the singular system.",
+    "lesson": "A dependent system can still determine a particular linear combination of the variables; difference adjacent equations to find it.",
+    "timing": "About 165 seconds. Fastest elimination is to reject 14, which pretends the singular system has a unique solution by zeroing two variables."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

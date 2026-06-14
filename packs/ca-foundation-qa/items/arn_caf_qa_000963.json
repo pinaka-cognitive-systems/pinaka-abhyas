@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000963",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000963.py"
+  },
+  "tests": [
+    "qa.bmath.finance.npv"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 180,
+  "stem": "Two mutually exclusive projects each cost Rs 20,000 today and each return a total of Rs 24,000 over three years. Project A returns Rs 10,000, Rs 8,000, Rs 6,000 at the ends of years 1, 2, 3. Project B returns Rs 6,000, Rs 8,000, Rs 10,000 at the ends of years 1, 2, 3. The required rate is 10%. On the NPV rule, which should be accepted? [Use discount factors: year 1 = 0.9091; year 2 = 0.8264; year 3 = 0.7513]",
+  "options": [
+    {
+      "key": 1,
+      "text": "Accept A only (its NPV is positive while B's is negative)"
+    },
+    {
+      "key": 2,
+      "text": "Both are equally good, since each returns Rs 24,000 against Rs 20,000"
+    },
+    {
+      "key": 3,
+      "text": "Accept B only (its later cash flows make it worth more)"
+    },
+    {
+      "key": 4,
+      "text": "Reject both, since neither recovers the Rs 20,000 outlay"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "NPV(A) = 10,000*0.9091 + 8,000*0.8264 + 6,000*0.7513 - 20,000 = 20,210 - 20,000 = +210. NPV(B) = 6,000*0.9091 + 8,000*0.8264 + 10,000*0.7513 - 20,000 = 19,579 - 20,000 = -421. Only A has a positive NPV, so accept A and reject B."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Compares undiscounted totals: both return 24,000 against 20,000, so they look identical. This ignores the timing of cash flows; discounting separates them because A is front-loaded.",
+      "misconception": "time_factor_dropped"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Assumes later, larger cash flows are worth more, but discounting penalises distant cash flows. B's back-loaded profile gives the lower present value (NPV -421), so B is in fact the worse project.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Concludes both fail, perhaps by discounting with the wrong (higher) factors or summing present values incorrectly so both fall below 20,000. A actually clears the outlay by 210, so rejecting both is wrong.",
+      "misconception": "rate_period_mismatch"
+    }
+  ],
+  "explanation": "Discount each project's cash flows and subtract the common 20,000 outlay. Project A: 10,000*0.9091 + 8,000*0.8264 + 6,000*0.7513 = 9,091 + 6,611.2 + 4,507.8 = 20,210, so NPV(A) = +210. Project B: 6,000*0.9091 + 8,000*0.8264 + 10,000*0.7513 = 5,454.6 + 6,611.2 + 7,513 = 19,578.8, so NPV(B) = -421.2. The undiscounted totals are identical (24,000 each), so timing alone decides: A is front-loaded and clears the hurdle, B is back-loaded and fails. Accept A, reject B.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "Equal totals, equal outlays, so only timing matters. Front-loaded A discounts to more than its cost; back-loaded B does not.",
+    "approach": "When competing projects share outlay and total cash, do not compare sums. Discount each cash flow by its own year factor, sum to a present value, subtract the outlay, and accept any project with positive NPV, the higher one if choosing between positives. The decisive lever is the cash-flow profile, not the headline total.",
+    "lesson": "Identical undiscounted totals can have opposite NPV signs; earlier rupees are worth more. Always discount before ranking.",
+    "timing": "About 180 seconds. Fastest elimination: reject the 'equally good' option, which compares undiscounted totals and ignores the time value of money entirely."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

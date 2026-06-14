@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000988",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000988.py"
+  },
+  "tests": [
+    "qa.stats.probability.conditional"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 165,
+  "stem": "A factory runs three machines A, B and C that make 30%, 30% and 40% of the day's bolts respectively. Their defect rates are 5%, 4% and 2% in that order. A bolt drawn at random from the day's output is found to be defective. What is the probability, to three decimals, that it was made by machine A?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.429"
+    },
+    {
+      "key": 2,
+      "text": "0.300"
+    },
+    {
+      "key": 3,
+      "text": "0.050"
+    },
+    {
+      "key": 4,
+      "text": "0.015"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Total defect probability = 0.30*0.05 + 0.30*0.04 + 0.40*0.02 = 0.015 + 0.012 + 0.008 = 0.035. Posterior P(A | defective) = 0.015 / 0.035 = 0.4286, which rounds to 0.429. A carries the largest posterior because it pairs a sizeable share with the highest defect rate."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Reports the prior share 0.30 of machine A, ignoring that the defect evidence must update it. Stopping at the prior is the classic failure to apply Bayes.",
+      "misconception": "conditional_reversed"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Reports 0.05, the defect rate P(defective | A), which is the reverse conditional, not P(A | defective). The two conditionals are swapped.",
+      "misconception": "conditional_reversed"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Reports the joint probability 0.30*0.05 = 0.015, the Bayes numerator, treating it as the final answer without dividing by the total defect probability 0.035.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "Use the law of total probability for the denominator, then Bayes for the posterior. P(defective) = 0.30*0.05 + 0.30*0.04 + 0.40*0.02 = 0.015 + 0.012 + 0.008 = 0.035. Then P(A | defective) = (0.30*0.05) / 0.035 = 0.015 / 0.035 = 0.4286, which rounds to 0.429. The decisive structure: weight each prior by its likelihood, sum to get the evidence, divide the A term by that sum.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "The defect is evidence: you must update the 30% prior, not report it. P(A | defective) = (share x defect rate of A) divided by the total defect probability across all three machines.",
+    "approach": "Model: a three-source mixture, Bayes posterior. Build a 3-row table of prior times likelihood: 0.015, 0.012, 0.008. Sum them for the evidence (0.035). The posterior for any source is its own joint term over that sum. Never compare the priors or the defect rates alone; the answer lives in the ratio of one joint term to the total.",
+    "lesson": "Posterior = (prior x likelihood) / sum over all sources of (prior x likelihood). The numerator is one source; the denominator is every source.",
+    "timing": "About 165 seconds: three products, one sum, one division. Reject 0.050 in five seconds, it is the defect rate P(defective | A), the reversed conditional, not what is asked."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

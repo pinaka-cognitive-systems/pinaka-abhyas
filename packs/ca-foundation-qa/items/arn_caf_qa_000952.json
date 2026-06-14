@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000952",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000952.py"
+  },
+  "tests": [
+    "qa.lr.direction_tests"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 170,
+  "stem": "A surveyor starts at a peg facing North. He walks 6 m, turns right and walks 5 m, turns right and walks 10 m, turns left and walks 3 m, turns left and walks 12 m, where he stops. In which direction is his starting peg from the point where he stops?",
+  "options": [
+    {
+      "key": 1,
+      "text": "South-West"
+    },
+    {
+      "key": 2,
+      "text": "North-East"
+    },
+    {
+      "key": 3,
+      "text": "North-West"
+    },
+    {
+      "key": 4,
+      "text": "South-East"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Tracking heading and position: N6 to (0,6), right then E5 to (5,6), right then S10 to (5,-4), left then E3 to (8,-4), left then N12 to (8,8). Start minus end is (0,0) minus (8,8) = (-8,-8): the peg is 8 m west and 8 m south of the stop, so it lies South-West."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "constraint_reversed",
+      "rationale": "North-East is the direction of the stop from the peg, the forward displacement; the question asks for the peg from the stop, the reverse, which is South-West."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "direction_turn_error",
+      "rationale": "North-West follows from mishandling a left turn as a right turn, which sends a leg the wrong way east-west and leaves the net offset pointing north instead of south."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "net_displacement_error",
+      "rationale": "South-East keeps the southward sense for the peg but flips east for west, double-counting the eastward legs and missing that the start lies west of the stop."
+    }
+  ],
+  "explanation": "Track the heading and the position together because the turns alternate. Start facing North at (0,0), east as +x and north as +y. Walk 6 m north to (0,6). Turn right, now facing East, walk 5 m to (5,6). Turn right, now facing South, walk 10 m to (5,-4). Turn left, now facing East, walk 3 m to (8,-4). Turn left, now facing North, walk 12 m to (8,8); this is the stop. The question asks where the starting peg is relative to the stop, so compute start minus stop = (0,0) minus (8,8) = (-8,-8). The x-component -8 means the peg is west of the stop and the y-component -8 means it is south, in equal amounts, so the peg is South-West of the stop.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Carry the heading through the alternating turns to fix the stop at (8,8), then subtract start minus stop to get (-8,-8): the peg is South-West of the stop.",
+    "approach": "Archetype move: when turns are given as left or right rather than as compass directions, update a heading variable at each turn and step the (x,y) accordingly; only at the end convert the displacement, and for the peg-from-stop query subtract in that order.",
+    "lesson": "Mixed left and right turns demand an explicit running heading; never assume the legs alternate cleanly. The reversed query then flips both signs of the net displacement.",
+    "timing": "150-170 seconds. Fastest elimination: North-East is the forward heading of the stop from the peg, so discard it at once because the question asks the peg from the stop."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

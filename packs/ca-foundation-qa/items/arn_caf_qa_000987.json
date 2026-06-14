@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000987",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000987.py"
+  },
+  "tests": [
+    "qa.stats.central_tendency_dispersion.quartile_deviation"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 180,
+  "stem": "A grouped distribution over classes 0-10, 10-20, 20-30, 30-40, 40-50 has frequencies 5, 10, 15, 12, 6. Using interpolation for both quartiles, what is the quartile deviation?",
+  "options": [
+    {
+      "key": 1,
+      "text": "9"
+    },
+    {
+      "key": 2,
+      "text": "18"
+    },
+    {
+      "key": 3,
+      "text": "19"
+    },
+    {
+      "key": 4,
+      "text": "4.5"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "N = 48, cumulative frequencies 5, 15, 30, 42, 48. Q1 is at N/4 = 12, in class 10-20 (L = 10, cf = 5, f = 10): Q1 = 10 + ((12 - 5)/10)*10 = 17. Q3 is at 3N/4 = 36, in class 30-40 (L = 30, cf = 30, f = 12): Q3 = 30 + ((36 - 30)/12)*10 = 35. Quartile deviation = (Q3 - Q1)/2 = (35 - 17)/2 = 9."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Computes the inter-quartile range Q3 - Q1 = 35 - 17 = 18 but forgets to halve it. Quartile deviation is the SEMI inter-quartile range, (Q3 - Q1)/2.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Omits the cumulative frequency before each quartile class, treating cf = 0: Q1 = 10 + (12/10)*10 = 22 and Q3 = 30 + (36/12)*10 = 60, giving QD = (60 - 22)/2 = 19. The interpolation must subtract the preceding cf.",
+      "misconception": "formula_misapplied"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Locates Q3 at N/2 = 24 (the median position) instead of 3N/4 = 36: Q3 = 20 + ((24 - 15)/15)*10 = 26, giving QD = (26 - 17)/2 = 4.5. The third quartile sits at three-quarters of the data, the 3N/4-th item.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "With N = 48 the cumulative frequencies are 5, 15, 30, 42, 48. Q1 at N/4 = 12 lies in 10-20: Q1 = 10 + ((12 - 5)/10)*10 = 17. Q3 at 3N/4 = 36 lies in 30-40: Q3 = 30 + ((36 - 30)/12)*10 = 35. Quartile deviation = (Q3 - Q1)/2 = (35 - 17)/2 = 9. Both quartiles need their own class, cf, and interpolation.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Interpolate Q1 and Q3 separately at N/4 and 3N/4, each in its own class with its own cf, then take half their difference.",
+    "approach": "Build the cumulative-frequency column once. For each quartile find the class containing its position, apply Q = L + ((position - cf)/f)*h, then QD = (Q3 - Q1)/2.",
+    "lesson": "QD is the SEMI inter-quartile range: locate Q1 at N/4 and Q3 at 3N/4, subtract the preceding cf in each, and remember the final division by 2.",
+    "timing": "About 180 seconds. Fastest elimination: reject 18, which is Q3 - Q1 with the halving forgotten."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

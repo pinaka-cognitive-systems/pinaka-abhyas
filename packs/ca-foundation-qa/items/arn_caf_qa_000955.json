@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000955",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000955.py"
+  },
+  "tests": [
+    "qa.lr.series_coding.coding_decoding"
+  ],
+  "difficulty_label": "L2",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 160,
+  "stem": "In a code language, 'deep blue river' is written as 'ta no ri', 'river flows fast' is written as 'ri ka su', and 'blue fast morning' is written as 'no su lo'. The codes within each line are not in the order of the words. What is the code for 'flows'?",
+  "options": [
+    {
+      "key": 1,
+      "text": "ka"
+    },
+    {
+      "key": 2,
+      "text": "ri"
+    },
+    {
+      "key": 3,
+      "text": "su"
+    },
+    {
+      "key": 4,
+      "text": "lo"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Lines 1 and 2 share 'river' and the code 'ri', so river=ri. Lines 2 and 3 share 'fast' and the code 'su', so fast=su. In line 2, 'river flows fast' = 'ri ka su', removing river=ri and fast=su leaves flows=ka."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "ri codes 'river', the word lines 1 and 2 share; flows is the leftover in line 2 after river and fast are removed, not the shared code itself."
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "misconception": "coding_rule_misapplied",
+      "rationale": "su codes 'fast', the word lines 2 and 3 share; it is the second known code in line 2, not the residue that flows must take."
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "misconception": "series_pattern_misidentified",
+      "rationale": "lo appears only in line 3, where it codes 'morning'; flows never occurs in line 3, so its code cannot be lo."
+    }
+  ],
+  "explanation": "Pin the overlap codes using the shared words. Lines 1 and 2 share only 'river', and their codes share only 'ri', so river=ri. Lines 2 and 3 share only 'fast', and their codes share only 'su', so fast=su. Now line 2, 'river flows fast' = 'ri ka su', has river=ri and fast=su already fixed, so the remaining code 'ka' must be flows. The word 'blue' (no) and the other codes are not needed for this target. Hence flows is coded 'ka'.",
+  "explanation_kind": "deductive_trace",
+  "explanation_sections": {
+    "punchline": "Two overlaps fix river=ri and fast=su; striking both from line 2 leaves 'ka' as the code for flows.",
+    "approach": "Archetype move: identify the two lines that, together with the target's line, supply the target's two neighbours; solve those neighbours by pairwise overlap, then take the target as the residue in its own line.",
+    "lesson": "When a target word's line shares each of its other two words with a different line, both neighbours are forced by overlaps and the target falls out as the remainder.",
+    "timing": "130-160 seconds. Fastest elimination: 'lo' is confined to line 3, which has no 'flows', so it is ruled out without computing any overlap."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

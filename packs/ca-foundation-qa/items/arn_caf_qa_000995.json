@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000995",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000995.py"
+  },
+  "tests": [
+    "qa.stats.distributions.binomial"
+  ],
+  "difficulty_label": "L3",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 180,
+  "stem": "A binomial variable X has mean 6, and its mean exceeds its variance by 1.8. After recovering its parameters, what is P(X is at least 2), to four decimals?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.9924"
+    },
+    {
+      "key": 2,
+      "text": "0.9992"
+    },
+    {
+      "key": 3,
+      "text": "0.0076"
+    },
+    {
+      "key": 4,
+      "text": "0.0068"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "Variance = mean - 1.8 = 4.2. Then q = variance/mean = 4.2/6 = 0.7, so p = 0.3, and n = mean/p = 6/0.3 = 20. P(X >= 2) = 1 - P(0) - P(1) = 1 - 0.7^20 - 20(0.3)(0.7^19) = 1 - 0.000798 - 0.006839 = 0.9924."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Computes P(X >= 1) = 1 - P(0) = 1 - 0.7^20 = 0.9992, subtracting only the zero term. 'At least 2' must also remove the P(X = 1) term.",
+      "misconception": "complement_confusion"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Reports P(X < 2) = P(0) + P(1) = 0.000798 + 0.006839 = 0.0076, the complement of the event asked. This is the probability of fewer than two successes, not at least two.",
+      "misconception": "complement_confusion"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Reports P(X = 1) = 20(0.3)(0.7)^19 = 0.0068 alone, confusing 'at least 2' with a single exact term. At least two covers X = 2,3,...,20.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "First pin the parameters. Variance = mean - 1.8 = 6 - 1.8 = 4.2. Then q = variance/mean = 4.2/6 = 0.7, so p = 0.3, and n = mean/p = 6/0.3 = 20. 'At least 2' is the complement of the two small tails: P(X >= 2) = 1 - P(0) - P(1) = 1 - 0.7^20 - 20(0.3)(0.7)^19 = 1 - 0.000798 - 0.006839 = 0.9924. The trap is to subtract only P(0); the X = 1 term must also go.",
+  "explanation_kind": "model_compute",
+  "explanation_sections": {
+    "punchline": "Variance = mean - 1.8 = 4.2 unlocks everything: q = variance/mean = 0.7, p = 0.3, n = 20. Then 'at least 2' is 1 minus both the zero and the one term.",
+    "approach": "Model: binomial with hidden parameters. Get variance from the offset clue, then variance/mean = q, p = 1 - q, n = mean/p. For at-least-2, subtract the two cheap tail terms P(0) = q^n and P(1) = n p q^(n-1) from 1. The common slip is stopping after P(0); the threshold is 2, so two terms come off.",
+    "lesson": "P(X >= k) = 1 - sum of P(0)..P(k-1). For k = 2 you must remove both P(0) and P(1), not P(0) alone.",
+    "timing": "About 180 seconds: derive variance, q, p, n, then two power terms and a subtraction. Reject 0.9992 fast, it removes only P(0) and answers at-least-1."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_000974",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_000974.py"
+  },
+  "tests": [
+    "qa.bmath.sequence_series.special_series"
+  ],
+  "difficulty_label": "L3",
+  "taxonomy_version": 4,
+  "item_type": "single_best",
+  "expected_seconds": 180,
+  "stem": "Consider the series 1*4 + 2*5 + 3*6 + ... whose k-th term is k*(k+3). The sum of its first n terms is 1330. Find the sum of the next three terms, that is the (n+1)-th, (n+2)-th and (n+3)-th terms.",
+  "options": [
+    {
+      "key": 1,
+      "text": "914"
+    },
+    {
+      "key": 2,
+      "text": "812"
+    },
+    {
+      "key": 3,
+      "text": "818"
+    },
+    {
+      "key": 4,
+      "text": "270"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "The k-th term k*(k+3) = k^2 + 3k, so the sum to n is n(n+1)(2n+1)/6 + 3*n(n+1)/2. Setting this to 1330 gives n = 14 (14*15*29/6 + 3*14*15/2 = 1015 + 315 = 1330). The next three terms are k = 15, 16, 17: 15*18 + 16*19 + 17*20 = 270 + 304 + 340 = 914."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Finds n = 14 but takes the 'next three terms' as k = 14, 15, 16 instead of 15, 16, 17: 14*17 + 15*18 + 16*19 = 238 + 270 + 304 = 812. The next term after the n-th is the (n+1)-th, namely k = 15.",
+      "misconception": "off_by_one"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Misreads the term as k*(k+1) rather than k*(k+3), then sums k = 15, 16, 17 as 15*16 + 16*17 + 17*18 = 240 + 272 + 306 = 818. The stated term is k*(k+3).",
+      "misconception": "series_pattern_misidentified"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Computes only the single (n+1)-th term, 15*18 = 270, rather than the sum of the next three. The question asks for three terms added together.",
+      "misconception": "misread_quantity"
+    }
+  ],
+  "explanation": "Split the k-th term: k*(k+3) = k^2 + 3k. Then the sum of the first n terms is sum of squares plus three times the sum of integers, n(n+1)(2n+1)/6 + 3*n(n+1)/2. Setting this equal to 1330 and testing gives n = 14, since 1015 + 315 = 1330. The next three terms correspond to k = 15, 16, 17: 15*18 = 270, 16*19 = 304, 17*20 = 340, which sum to 914.",
+  "explanation_kind": "derivation",
+  "explanation_sections": {
+    "punchline": "Break the product term into k^2 + 3k so two standard closed forms do the summation; back-solve n from the given total, then index the next block carefully.",
+    "approach": "For a series with a polynomial general term, decompose it into powers of k and apply sum-of-squares and sum-of-integers formulas separately. Recover the unknown count from the stated sum before computing any further terms.",
+    "lesson": "A product term like k(k+3) is k^2 + 3k; the term after the n-th is the (n+1)-th, so the next block starts at k = n+1.",
+    "timing": "About 180 seconds. Fastest elimination is to reject 812, the off-by-one block that starts at k = 14 instead of 15."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}

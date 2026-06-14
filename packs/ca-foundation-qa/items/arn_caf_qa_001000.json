@@ -1,0 +1,87 @@
+{
+  "id": "arn_caf_qa_001000",
+  "schema_version": "uqs-1",
+  "exam": "ca_foundation",
+  "lang": "en",
+  "pool": "arena",
+  "verification_status": "machine_verified",
+  "provenance": {
+    "source": "pinaka_synth_genL3b",
+    "license": "CC-BY-NC-SA-4.0",
+    "generator": "opus",
+    "created": "2026-06-13"
+  },
+  "solution": {
+    "language": "python",
+    "path": "solutions/arn_caf_qa_001000.py"
+  },
+  "tests": [
+    "qa.stats.correlation_regression.regression"
+  ],
+  "difficulty_label": "L3",
+  "item_type": "single_best",
+  "taxonomy_version": 4,
+  "expected_seconds": 175,
+  "stem": "Two regression lines are 8x - 10y + 66 = 0 and 40x - 18y - 214 = 0. Taking these as the regression lines of a bivariate data set, what is the coefficient of correlation r between x and y?",
+  "options": [
+    {
+      "key": 1,
+      "text": "0.6"
+    },
+    {
+      "key": 2,
+      "text": "-0.6"
+    },
+    {
+      "key": 3,
+      "text": "0.36"
+    },
+    {
+      "key": 4,
+      "text": "0.8"
+    }
+  ],
+  "answer_key": {
+    "correct": 1
+  },
+  "per_option_rationale": [
+    {
+      "option_key": 1,
+      "verdict": "correct",
+      "rationale": "You must decide which line is y-on-x. Try line 1 as y-on-x: 10y = 8x + 66 gives b_yx = 0.8, and line 2 as x-on-y: 40x = 18y + 214 gives b_xy = 18/40 = 0.45. Their product 0.8 * 0.45 = 0.36 is at most 1, so the assignment is valid (the other assignment gives 1.25 * (40/18) = 2.78 > 1 and is rejected). Then r^2 = 0.36 and, since both coefficients are positive, r = +sqrt(0.36) = 0.6."
+    },
+    {
+      "option_key": 2,
+      "verdict": "incorrect",
+      "rationale": "Takes the negative root. The sign of r is fixed by the common sign of the two regression coefficients; both b_yx = 0.8 and b_xy = 0.45 are positive, so r is +0.6, not -0.6.",
+      "misconception": "sign_error"
+    },
+    {
+      "option_key": 3,
+      "verdict": "incorrect",
+      "rationale": "Stops at the product of the regression coefficients, 0.8 * 0.45 = 0.36, and reports it as r. That product is r^2, so r is its square root, 0.6.",
+      "misconception": "concept_definition_confused"
+    },
+    {
+      "option_key": 4,
+      "verdict": "incorrect",
+      "rationale": "Reports the single coefficient b_yx = 0.8 as the correlation. A regression coefficient is not r; r is the signed geometric mean sqrt(b_yx * b_xy) = 0.6.",
+      "misconception": "formula_misapplied"
+    }
+  ],
+  "explanation": "The two lines cross at the means, but r needs the regression coefficients. Assign line 1 as y-on-x: b_yx = 8/10 = 0.8; line 2 as x-on-y: b_xy = 18/40 = 0.45. The product 0.36 is at most 1, so the assignment is admissible (the reverse assignment gives 2.78, impossible). Hence r^2 = 0.36, and both coefficients being positive forces r = +0.6.",
+  "explanation_kind": "formula_selection",
+  "explanation_sections": {
+    "punchline": "The data never tells you which line is which; the admissibility test b_yx * b_xy at most 1 does. Pick the assignment that passes, then root the product.",
+    "approach": "From two regression lines, form a candidate y-on-x slope and x-on-y slope, multiply them, and keep the assignment whose product does not exceed 1. That product is r^2; take the square root and carry the sign shared by the two coefficients.",
+    "lesson": "The product of the two regression coefficients equals r^2 and can never exceed 1; r is its signed square root, with the sign of the coefficients.",
+    "timing": "About 175 seconds. The fastest elimination is 0.36, the un-rooted product, since a correlation must be a square root here, not the product itself."
+  },
+  "empirical": {
+    "calibration_status": "none",
+    "n_responses": 0
+  },
+  "ext": {
+    "icai_skill_bucket": "application"
+  }
+}
