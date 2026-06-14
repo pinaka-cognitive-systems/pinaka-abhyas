@@ -1,0 +1,15 @@
+{
+ "run": "gen-2026-06-13",
+ "date": "2026-06-13",
+ "kind": "main build",
+ "generated": 600,
+ "accepted": 600,
+ "first_pass_clean": 537,
+ "edited": 55,
+ "regenerated": 8,
+ "dropped": 0,
+ "wrong_answer_rejections": 0,
+ "non_original_rejections": 0,
+ "genuine_l3": null,
+ "notes": "Main 600-item build (incl 10-item proof). First-pass rejects by stage: schema 10, Tier-2 42, solution 6, generation 6."
+}

@@ -1,0 +1,15 @@
+{
+ "run": "gen-L3",
+ "date": "2026-06-13",
+ "kind": "L3 batch",
+ "generated": 43,
+ "accepted": 43,
+ "first_pass_clean": 39,
+ "edited": 4,
+ "regenerated": 0,
+ "dropped": 0,
+ "wrong_answer_rejections": 0,
+ "non_original_rejections": 0,
+ "genuine_l3": 12,
+ "notes": "Dedicated L3 run; adversarial difficulty audit kept 12 as genuine L3 and relabeled 31 to their true L2/L1."
+}

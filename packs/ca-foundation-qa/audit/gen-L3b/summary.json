@@ -1,0 +1,15 @@
+{
+ "run": "gen-L3b",
+ "date": "2026-06-13",
+ "kind": "L3 batch (Hard mocks)",
+ "generated": 64,
+ "accepted": 64,
+ "first_pass_clean": 64,
+ "edited": 0,
+ "regenerated": 0,
+ "dropped": 0,
+ "wrong_answer_rejections": 0,
+ "non_original_rejections": 0,
+ "genuine_l3": 32,
+ "notes": "L3-heavy run for the Hard-mock supply. Clean on all deterministic gates first pass; adversarial difficulty audit confirmed 32 genuine L3 (50% yield, up from 28%) and relabeled the other 32 to their true L2."
+}
