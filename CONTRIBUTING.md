@@ -46,7 +46,7 @@ The individual commands are listed for fast iteration while you work:
 
 | Gate | Command | Where |
 |---|---|---|
-| No absolute home paths | `git grep -In "/Users/"` must find nothing | repo root |
+| No absolute home paths | covered by `tools/ci-local.sh`; the search pattern is assembled at runtime so no tracked file can self-match | repo root |
 | Schema Tier 1 | `python3 schema/validate.py` | repo root |
 | Schema Tier 2 | `python3 schema/validator/run_checks.py` | repo root |
 | Solution harness | `python3 schema/validator/run_solutions.py packs/ca-foundation-qa` | repo root |
