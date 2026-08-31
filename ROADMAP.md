@@ -51,8 +51,9 @@ Done:
   gates plus independent blind solves and an adversarial difficulty audit. The CA
   Foundation pack holds 813 items across all 81 v1-scope taxonomy leaves, at
   24% L1, 64% L2, 12% L3. One item is quarantined with the defect recorded in
-  `packs/ca-foundation-qa/ERRATA.md`. Every blueprint family is at quota, so a
-  zero-shortfall 100-question mock assembles. Every usable item ships an executable
+  `packs/ca-foundation-qa/ERRATA.md`. A 100-question mock currently assembles 89
+  questions: four families short, held back by the per-subtopic cap of 2 in
+  `schema/validator/assemble.py`, not by bank depth. Every usable item ships an executable
   solution that re-derives its key in CI, and (since ADR 0017) the four
   structured teaching sections. Cumulatively the bank has shipped zero wrong answer
   keys and zero non-original items. Gap targeting lives in `tools/gap_analysis.py`;

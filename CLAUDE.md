@@ -37,9 +37,12 @@ Intended to be hosted free on GitHub Pages or Cloudflare Pages once deployed. No
 - The canonical engine in `engine-ts/` is a separate package; the app consumes it
   via `file:../engine-ts`. Run its gates from `engine-ts/`: `npm test`,
   `npm run typecheck`.
-- Every npm dependency is a build or test tool; none ships. `npm run audit` (in
-  `app/` and `engine-ts/`) runs the calibrated gate in `tools/audit-gate.mjs`,
-  which fails on new advisories and allowlists the reviewed dev-only ones. See
+- Three npm dependencies ship in the build output and reach the student's browser:
+  `react`, `react-dom`, and `@sqlite.org/sqlite-wasm`. Advisories in those are never
+  allowlisted. Every other npm and pip dependency is a build or test tool that does
+  not ship. `npm run audit` (in `app/` and `engine-ts/`) runs the calibrated gate in
+  `tools/audit-gate.mjs`, which fails on new advisories and allowlists the reviewed
+  dev-only ones. See
   `SECURITY.md`.
 - Rebuild the shipped pack after any item change:
   `python3 packs/ca-foundation-qa/build_and_validate.py` (stamps content hashes,
