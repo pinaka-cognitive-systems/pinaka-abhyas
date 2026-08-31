@@ -1,6 +1,6 @@
 # Content License: CC BY-NC-SA 4.0
 
-Copyright 2026 Pinaka (Shiv Padakanti).
+Copyright 2026 Shiva Padakanti, under the Pinaka name.
 
 The question content shipped by pinaka-abhyas (every item in the question packs:
 its stem, options, answer key, per-option diagnosis, and explanation) is licensed
@@ -16,6 +16,8 @@ Under the following terms:
 
 - Attribution (BY): you must credit Pinaka and link to this license.
 - NonCommercial (NC): you may not use the questions for commercial purposes.
+  `COMMERCIAL.md` states the Licensor's interpretation of this term, with worked
+  examples of what is free and what needs a paid license.
 - ShareAlike (SA): if you remix, transform, or build upon the questions, you
   must distribute your contributions under this same license.
 - No additional restrictions: you may not apply legal terms or technological
@@ -29,5 +31,7 @@ Full legal code: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
 Human-readable summary: https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 This license covers the question CONTENT only. The application source code is
-licensed separately under the GNU AGPL-3.0 (see LICENSE). The content generator
+licensed separately under the GNU AGPL-3.0 (see LICENSE). Commercial use of either
+needs a separate agreement: see `COMMERCIAL.md`. No trademark rights are granted by
+this or any other license here: see `TRADEMARK.md`. The content generator
 (prashna) is not released.
