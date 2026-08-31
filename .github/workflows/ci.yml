@@ -2,6 +2,7 @@ name: CI
 
 on:
   push:
+    branches: [main]
   pull_request:
 
 # One run per branch: a new push cancels the superseded run, so verdicts and
@@ -21,6 +22,7 @@ jobs:
   validate-and-test:
     name: Validate and test (Python 3.12)
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
@@ -64,6 +66,7 @@ jobs:
   quality-report:
     name: Content quality report (advisory, never blocks merge)
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     needs: validate-and-test
     continue-on-error: true
     steps:
@@ -82,6 +85,7 @@ jobs:
   engine-ts:
     name: Engine (TypeScript) typecheck and tests
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
@@ -119,6 +123,7 @@ jobs:
   app:
     name: App (PWA scaffold) typecheck, lint, test, build, size
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     # The app consumes the validated pack artifact: pack.json is generated, never
     # tracked, so CI must hand the exact validator-passed build to the app job
     # (a gitignored artifact satisfying local runs hid this dependency).
