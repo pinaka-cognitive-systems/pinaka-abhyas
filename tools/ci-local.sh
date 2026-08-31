@@ -36,12 +36,15 @@ echo "== pack artifact (the app consumes this, as in CI)"
 python3 packs/ca-foundation-qa/build_and_validate.py
 
 echo "== engine gates"
-(cd engine-ts && npm ci --silent && npx tsc --noEmit && npx vitest run)
+# `npm run audit` runs last inside each block, exactly as CI orders it, so a
+# dependency advisory never masks a functional failure above it. Omitting it here
+# is how commit 0752879 passed this script and then failed CI on both audit gates.
+(cd engine-ts && npm ci --silent && npx tsc --noEmit && npx vitest run && npm run audit)
 
 echo "== W1-12 cross-check (independent mastery twin, ADR 0010)"
 crosscheck/run_compare.sh
 
 echo "== app gates"
-(cd app && npm ci --silent && npm run typecheck && npm run lint && npx vitest run && npm run build && npm run check-size && npm run check-offline && npm run check-a11y)
+(cd app && npm ci --silent && npm run typecheck && npm run lint && npx vitest run && npm run build && npm run check-size && npm run check-offline && npm run check-a11y && npm run audit)
 
 echo "PASS  all CI gates green on a clean export of HEAD"

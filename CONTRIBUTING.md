@@ -36,20 +36,36 @@ python3 packs/ca-foundation-qa/build_and_validate.py
 bash tools/dev.sh
 ```
 
-**Gates that must stay green before every PR:**
+**Gates that must stay green before every PR.**
 
-| Gate | Command |
-|---|---|
-| Schema Tier 1 | `python3 schema/validate.py` |
-| Schema Tier 2 | `python3 schema/validator/run_checks.py` |
-| Engine typecheck + tests | `tsc --noEmit` and `npx vitest run` in `engine-ts/` |
-| App typecheck | `npm run typecheck` in `app/` |
-| App lint | `npm run lint` in `app/` |
-| App tests | `npm test` in `app/` |
-| Clean-export check | `bash tools/ci-local.sh` |
-| CLA signature | automatic, see above |
+`bash tools/ci-local.sh` is the authoritative check. It runs every blocking gate
+below against a clean `git archive HEAD` export, so a gitignored local artifact
+cannot mask a CI failure. If it is green, CI will be green. Run it before you push.
 
-All gates run in CI on every push (`.github/workflows/ci.yml`). Green CI is the
+The individual commands are listed for fast iteration while you work:
+
+| Gate | Command | Where |
+|---|---|---|
+| No absolute home paths | `git grep -In "/Users/"` must find nothing | repo root |
+| Schema Tier 1 | `python3 schema/validate.py` | repo root |
+| Schema Tier 2 | `python3 schema/validator/run_checks.py` | repo root |
+| Solution harness | `python3 schema/validator/run_solutions.py packs/ca-foundation-qa` | repo root |
+| Validator tests | `python3 -m pytest schema/validator/tests -q` | repo root |
+| Engine typecheck | `npx tsc --noEmit` | `engine-ts/` |
+| Engine tests | `npx vitest run` | `engine-ts/` |
+| Engine cross-check | `crosscheck/run_compare.sh` | repo root |
+| Engine audit gate | `npm run audit` | `engine-ts/` |
+| App typecheck | `npm run typecheck` | `app/` |
+| App lint | `npm run lint` | `app/` |
+| App tests | `npm test` | `app/` |
+| App build | `npm run build` | `app/` |
+| Size budget (ADR 0008) | `npm run check-size` | `app/` |
+| Offline precache | `npm run check-offline` | `app/` |
+| Accessibility | `npm run check-a11y` | `app/` |
+| App audit gate | `npm run audit` | `app/` |
+| CLA signature | automatic, see above | pull request |
+
+All of these run in CI on every push (`.github/workflows/ci.yml`). Green CI is the
 merge bar.
 
 **Commits:** Conventional Commits, every message. Format: `type(scope): summary`.
