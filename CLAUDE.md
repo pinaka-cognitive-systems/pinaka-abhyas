@@ -16,7 +16,7 @@ Intended to be hosted free on GitHub Pages or Cloudflare Pages once deployed. No
 
 ## Git conventions
 
-- **Identity:** `Shiv Padakanti <65507531+5h1vmani@users.noreply.github.com>`. This
+- **Identity:** `Shiva Padakanti <65507531+5h1vmani@users.noreply.github.com>`. This
   is a public repo. Never commit a personal email.
 - **Conventional Commits** for every message: `type(scope): summary`. Types:
   `feat`, `fix`, `chore`, `docs`, `refactor`, `test`, `build`.

@@ -1,6 +1,6 @@
 # pinaka-abhyas
 
-[![CI](https://github.com/5h1vmani/pinaka-abhyas/actions/workflows/ci.yml/badge.svg)](https://github.com/5h1vmani/pinaka-abhyas/actions/workflows/ci.yml)
+[![CI](https://github.com/pinaka-cognitive-systems/pinaka-abhyas/actions/workflows/ci.yml/badge.svg)](https://github.com/pinaka-cognitive-systems/pinaka-abhyas/actions/workflows/ci.yml)
 
 A free, open-source exam-prep engine plus exam packs. A student practises verified
 questions and the app diagnoses what they do not know, per topic and per
@@ -23,12 +23,15 @@ The foundations are in place and the app is built. The UQS Core and CA Profile
 schema, the CA QA taxonomy from the official ICAI syllabus, the misconception canon,
 the event-log record, and the marking config are locked, and both validator tiers are
 green. The TypeScript engine computes mastery, scheduling, selection, and readiness,
-pinned by committed golden vectors. The content pipeline ran a pilot to completion:
-the CA Foundation pack holds 106 items, 105 machine-verified, one quarantined with
-the defect recorded in `packs/ca-foundation-qa/ERRATA.md`, each shipping an executable
-solution that re-derives its key in CI. The PWA is built, with the loop decomposed
-into the flows under `app/src/flows/`. Next is scaling the verified bank with expert
-audit, then the closed beta. See `ROADMAP.md`.
+pinned by committed golden vectors. The content pipeline has run a pilot and three
+scale batches: the CA Foundation pack holds 813 items covering all 81 v1-scope
+taxonomy leaves, at 23% L1, 63% L2, 12% L3. Every item ships an executable solution
+that re-derives its answer key in CI; 812 pass, and one item is quarantined with its
+defect recorded in `packs/ca-foundation-qa/ERRATA.md`. Across every authoring run the
+bank has shipped zero wrong answer keys and zero non-original items. The living ledger
+is `packs/ca-foundation-qa/audit/STATUS.md`. The PWA is built, with the loop decomposed
+into the flows under `app/src/flows/`. Next is expert audit of the bank, then the
+closed beta. See `ROADMAP.md`.
 
 ## Layout
 
@@ -64,7 +67,7 @@ audit, then the closed beta. See `ROADMAP.md`.
 Requirements: Node 22, Python 3.12.
 
 ```
-git clone https://github.com/5h1vmani/pinaka-abhyas
+git clone https://github.com/pinaka-cognitive-systems/pinaka-abhyas
 cd pinaka-abhyas
 pip install ".[dev]"          # installs jsonschema, referencing, rfc3339-validator, pytest
 bash tools/dev.sh             # builds the pack, installs app deps on first run, starts http://localhost:5173
@@ -76,10 +79,21 @@ generates the gitignored `pack.json`), then `npm install` inside `app/` if
 
 ## Licensing
 
-App code is AGPL-3.0. Question content is CC BY-NC-SA 4.0: free for students, no
-commercial use, derivatives stay open. Every shipped question is original, authored
-from the public CA Foundation syllabus; we redistribute no exam-board questions. The
-content generator (prashna) stays private. See `LICENSING.md`.
+Free for students. Paid for businesses.
+
+- **Code:** AGPL-3.0 (`LICENSE`).
+- **Question content:** CC BY-NC-SA 4.0 (`LICENSE-CONTENT.md`). Free for students,
+  no commercial use, derivatives stay open.
+- **Commercial use:** needs a paid license. `COMMERCIAL.md` defines where the line
+  falls, with worked examples. Email `license@mypinaka.com`.
+- **Name and logo:** not licensed by either license. Fork freely, rename before you
+  distribute. `TRADEMARK.md`.
+- **Contributing:** every contributor signs the CLA once (`CLA.md`). You keep your
+  copyright.
+
+`LICENSING.md` is the map. Every shipped question is original, authored from the
+public CA Foundation syllabus; we redistribute no exam-board questions. The content
+generator (prashna) stays private.
 
 CA Foundation is an examination conducted by the Institute of Chartered Accountants
 of India (ICAI). Pinaka Abhyas is not affiliated with, endorsed by, or sponsored by

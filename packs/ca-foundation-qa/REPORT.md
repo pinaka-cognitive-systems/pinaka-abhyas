@@ -2,9 +2,10 @@
 
 Note on currency: this file is the historical record of the first 24-item generation
 spike that proved the Gate A pipeline. The bank has since scaled through a content
-pilot to 106 items, 105 usable (item 000009 remains quarantined). For the current
-bank state and the pilot funnel numbers, see `audit/pilot/PILOT_REPORT.md` and the
-pack manifest. The spike numbers below are preserved as written.
+pilot and three further authoring runs to 813 items (item 000009 remains
+quarantined). For the current bank state see the living ledger at
+`audit/STATUS.md`; for the pilot funnel numbers see `audit/pilot/PILOT_REPORT.md`.
+The spike numbers below are preserved as written.
 
 Goal: prove we can generate ORIGINAL CA QA questions, from the public syllabus, with
 accurate per-option misconception tags, cheaply. This is the real Gate A path (the v1
