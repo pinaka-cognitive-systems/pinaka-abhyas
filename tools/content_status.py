@@ -81,7 +81,8 @@ def main():
     L.append("## The bank right now")
     L.append("")
     L.append(f"- **Total served questions: {total}**")
-    L.append(f"- Difficulty: L1 {diff['L1']} ({100*diff['L1']//total}%) / L2 {diff['L2']} ({100*diff['L2']//total}%) / L3 {diff['L3']} ({100*diff['L3']//total}%)  (ICAI reference 26/66/8)")
+    # Round, do not floor: floor division published a mix summing to 98%.
+    L.append(f"- Difficulty: L1 {diff['L1']} ({round(100*diff['L1']/total)}%) / L2 {diff['L2']} ({round(100*diff['L2']/total)}%) / L3 {diff['L3']} ({round(100*diff['L3']/total)}%)  (ICAI reference 26/66/8)")
     L.append(f"- Leaf coverage: {covered}/{len(leaves)} v1-scope leaves have items (median {med} per leaf)")
     L.append("")
     L.append("By ICAI section:")

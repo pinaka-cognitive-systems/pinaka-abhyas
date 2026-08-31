@@ -25,7 +25,7 @@ the event-log record, and the marking config are locked, and both validator tier
 green. The TypeScript engine computes mastery, scheduling, selection, and readiness,
 pinned by committed golden vectors. The content pipeline has run a pilot and three
 scale batches: the CA Foundation pack holds 813 items covering all 81 v1-scope
-taxonomy leaves, at 23% L1, 63% L2, 12% L3. Every item ships an executable solution
+taxonomy leaves, at 24% L1, 64% L2, 12% L3. Every item ships an executable solution
 that re-derives its answer key in CI; 812 pass, and one item is quarantined with its
 defect recorded in `packs/ca-foundation-qa/ERRATA.md`. Across every authoring run the
 bank has shipped zero wrong answer keys and zero non-original items. The living ledger

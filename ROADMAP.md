@@ -50,7 +50,7 @@ Done:
   scale runs (the 600-item main build, and two L3-targeted runs) through the same
   gates plus independent blind solves and an adversarial difficulty audit. The CA
   Foundation pack holds 813 items across all 81 v1-scope taxonomy leaves, at
-  23% L1, 63% L2, 12% L3. One item is quarantined with the defect recorded in
+  24% L1, 64% L2, 12% L3. One item is quarantined with the defect recorded in
   `packs/ca-foundation-qa/ERRATA.md`. Every blueprint family is at quota, so a
   zero-shortfall 100-question mock assembles. Every usable item ships an executable
   solution that re-derives its key in CI, and (since ADR 0017) the four
@@ -75,10 +75,6 @@ Done:
 
 Next:
 
-- Close the last four uncovered taxonomy leaves and deepen the bank to at least 800
-  questions before launch (ADR 0018 ruling 6); mock rotation needs roughly three
-  papers of headroom, and the mock assembler must build full blueprint papers without
-  the shortfall mechanism.
 - Replace the quarantined item with an original equivalent.
 - Harden the app for accessibility and performance on a low-end Android phone.
 - Run the closed beta with real aspirants to settle Gate B.
