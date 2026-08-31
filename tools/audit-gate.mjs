@@ -2,12 +2,14 @@
 /**
  * audit-gate.mjs — calibrated npm audit gate for the JS packages.
  *
- * Why this exists: every npm dependency in this repo (app/, engine-ts/) is a
- * build or test tool. The shipped product is the static output of
- * `npm run build`; it contains none of them. So a raw `npm audit` is noisy:
- * it flags dev-only and platform-specific advisories that cannot touch the
- * product or, in some cases, this project's usage at all (a Deno-only RCE in a
- * Node project; a Vitest UI server we never start).
+ * Why this exists: almost every npm dependency in this repo (app/, engine-ts/)
+ * is a build or test tool that never ships. The exceptions are the three runtime
+ * packages bundled into `npm run build` output and served to students: react,
+ * react-dom, and @sqlite.org/sqlite-wasm. An advisory in those CAN reach a user
+ * and must never be allowlisted here; fix it by upgrading. Everything else is
+ * dev-only, so a raw `npm audit` is noisy: it flags advisories that cannot touch
+ * the product or, in some cases, this project's usage at all (a Deno-only RCE in
+ * a Node project; a Vitest UI server we never start).
  *
  * This gate runs `npm audit --json` in the current working directory and FAILS
  * only on advisories that are NOT in the allowlist below. New, unreviewed

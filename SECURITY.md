@@ -2,8 +2,13 @@
 
 Pinaka Abhyas is a static, client-side PWA. There is no backend, no server, and no
 accounts. All student data — event log, progress, exam date — stays on the student's
-device in the browser's Origin Private File System (OPFS). Nothing is transmitted to
-any server.
+device in the browser's Origin Private File System (OPFS).
+
+Today nothing is transmitted anywhere: the app ships with no collector. When
+calibration telemetry ships it will be opt-in, off by default, and anonymous by
+construction — per-item outcome tuples with no install id, no session id, and no
+timestamp, and the source IP discarded before storage. The binding design is
+ADR 0014.
 
 ## Reporting a vulnerability
 
@@ -16,12 +21,19 @@ There is no bug bounty program.
 
 ## Dependency advisories
 
-Every npm and pip dependency in this repo is a build or test tool. The shipped
-product is the static output of `npm run build`; it contains none of them. So a
-dependency advisory in vite, vitest, esbuild, or a Python validator cannot reach
-a student: the vulnerable code never leaves the developer's machine or CI.
+Dependencies fall into two classes, and an advisory means different things in each.
 
-Because of that, a raw `npm audit` is noisy. It flags dev-only and platform-
+**Shipped.** Three runtime packages are bundled into the static output of
+`npm run build` and do reach the student's browser: `react`, `react-dom`, and
+`@sqlite.org/sqlite-wasm` (see `app/package.json`). An advisory in any of these can
+affect a student. These are never allowlisted. A real advisory here is fixed by
+upgrading, or the build stays red.
+
+**Not shipped.** Everything else is a build or test tool: vite, vitest, esbuild,
+typescript, eslint, and every Python package used by the validators. None of it
+leaves the developer's machine or CI, so an advisory in one cannot reach a student.
+
+Because most advisories land in the second class, a raw `npm audit` is noisy. It flags dev-only and platform-
 specific advisories, some of which cannot apply to this project's usage at all
 (for example a Deno-runtime RCE in a Node project, or a Vitest UI server we never
 start). To keep the signal honest without ignoring real risk, CI runs
@@ -32,8 +44,11 @@ that file carries a written reason and a review trigger; the allowlist is the
 audit trail, not a mute button. A new advisory therefore stops a merge until a
 human either upgrades the dependency or records why it is accepted.
 
-Dependabot opens weekly grouped PRs (`.github/dependabot.yml`) so the toolchain
-stays current and advisories arrive as reviewable changes rather than surprises.
+There is no automated dependency bot. Dependabot was removed deliberately: its
+version-bump PRs generated review load out of proportion to the risk, given that
+almost every dependency here is dev-only. The audit gate is the trigger instead. A
+new advisory fails CI, which forces a human to either upgrade or record in writing
+why the advisory cannot apply. Upgrades happen on that signal, not on a schedule.
 
 ## Untrusted contributor code
 
