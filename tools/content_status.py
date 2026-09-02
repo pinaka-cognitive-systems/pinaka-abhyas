@@ -48,7 +48,7 @@ def section(node):
 
 def main():
     items = [json.loads(p.read_text()) for p in sorted(ITEMS.glob("*.json"))]
-    served = [i for i in items if i.get("verification_status") != "retired"]
+    served = [i for i in items if i.get("verification_status") not in ("retired", "quarantined")]
     total = len(served)
     diff = Counter(i["difficulty_label"] for i in served)
     secs = Counter(section(i["tests"][0]) for i in served)
