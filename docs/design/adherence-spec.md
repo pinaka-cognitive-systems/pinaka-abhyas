@@ -23,7 +23,9 @@ completes, today is DONE and says so: "Today's work is complete. More study toda
 adds little; come back tomorrow." A finite end is the honest alternative to a streak:
 the reward is permission to stop.
 
-## Mechanism 2: the delta, not the dashboard
+## Mechanism 2: the delta, not the dashboard (not yet built)
+
+Status 2026-09-02: no code under `app/src` computes this line. The design stands.
 
 On return (a new calendar day with prior history), one line above the today card:
 what changed since last time, computed from the event log: "Since Tuesday: 14
@@ -32,7 +34,9 @@ Marks framing, band-honest (no decimal theater). If nothing improved, the line s
 what was practised without praise or blame. Implemented as a pure function over two
 engine states (then, now).
 
-## Mechanism 3: re-entry without shame
+## Mechanism 3: re-entry without shame (not yet built)
+
+Status 2026-09-02: no gap threshold or re-entry copy exists under `app/src`. The design stands.
 
 After a gap of 7 or more days, the today card leads with the honest state, not the
 gap: "Welcome back. Your estimates have widened while you were away; a short session

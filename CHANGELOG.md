@@ -8,10 +8,11 @@ carries its own version in `packs/ca-foundation-qa/pack.manifest.json`.
 ## [Unreleased]
 
 ### Added
-- CA Foundation Paper 3 (Quantitative Aptitude) question bank expanded to 813 verified
-  items, covering all 81 v1-scope taxonomy leaves (every leaf has items).
+- CA Foundation Paper 3 (Quantitative Aptitude) question bank expanded to 813 items
+  (812 machine-verified, one quarantined), covering all 81 v1-scope taxonomy leaves
+  (every leaf has items).
 - `explanation_kind` and the four-section `explanation_sections` teaching contract
-  (punchline, approach, lesson, timing) on every servable item (ADR 0023).
+  (punchline, approach, lesson, timing) on every servable item (ADRs 0017 and 0023).
 - Per-run content-integrity audit artifacts under `packs/ca-foundation-qa/audit/`:
   the generation funnel, rejection reasons per stage, and difficulty-audit verdicts.
 - Project community and security files: `CHANGELOG.md` and an untrusted-code section

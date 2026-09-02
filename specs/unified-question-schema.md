@@ -1,6 +1,6 @@
-# Pinaka Unified Question Schema (UQS) v1, rev 3
+# Pinaka Unified Question Schema (UQS) v1, rev 5
 
-Status: Draft for review (rev 3 applies round-3 fixes, security model, and v1 scoping; see sections 20 and 21)
+Status: Draft for review (rev 5 accumulates round-3 fixes, security model, and v1 scoping (sections 20-21), schema hardening (section 22), and spec corrections (section 23))
 Owner: Pinaka
 Applies to: all exams (first CA Foundation, then LSAT migration)
 Date: 2026-06-07

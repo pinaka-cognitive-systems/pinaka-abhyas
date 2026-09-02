@@ -48,8 +48,9 @@ closed beta. See `ROADMAP.md`.
 - `prototypes/engine-py/`: the archived Python engine prototype. Superseded by
   `engine-ts/`. Kept as the historical reference; its tests do not run in CI.
 - `crosscheck/`: independent Python cross-check of the core engine math.
-- `tools/`: local development and CI helpers (the local CI battery, the dev launcher,
-  the funnel reporter).
+- `tools/`: local development and CI helpers (the local CI battery, the verified push,
+  the dev launcher, the funnel and gap reporters, the content status ledger, the audit
+  gate, and a staging helper).
 - `docs/`: architecture decision records (`adr/`), the brand layer (`brand/`), the
   engineering build spec and adherence spec (`design/`), and the content authoring
   guide (`contributing/`).

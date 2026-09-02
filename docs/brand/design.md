@@ -144,7 +144,7 @@ Primary (indigo fill), secondary (white plus border), ghost (transparent), inver
 
 ## Iconography
 
-Lucide. Monoline, even stroke, square caps, miter joins, no fills. Stroke 1.5 to 2px at 24px. `currentColor`. Icons are never indigo by default, because indigo is reserved for the chevron mark. Sizes: 24 standard, 16 inline in text, 20 compact UI, 32 empty state. No filled glyphs in production web.
+Lucide-style, hand-drawn in `app/src/components/ui.tsx`; no icon library ships. Monoline, even stroke, square caps, miter joins, no fills. Stroke 1.5 to 2px at 24px. `currentColor`. Icons are never indigo by default, because indigo is reserved for the chevron mark. Sizes: 24 standard, 16 inline in text, 20 compact UI, 32 empty state. No filled glyphs in production web.
 
 ## Imagery and the artifact
 

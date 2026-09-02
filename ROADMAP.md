@@ -70,9 +70,11 @@ Done:
   score reveal, marks waterfall breakdown with misconception shares, and a
   per-question review walkthrough that reuses the structured teaching reveals.
   See `docs/design/build-spec.md` and `docs/design/as-built.md`.
-- CI. Every push runs schema Tier 1 and Tier 2, key execution, engine typecheck and
-  tests, and app typecheck, lint, tests, build, byte-budget, offline, and
-  accessibility checks. See `.github/workflows/ci.yml`.
+- CI. Every push to main and every pull request runs a home-path hygiene check,
+  schema Tier 1 and Tier 2, key execution, the validator tests, the pack build,
+  engine typecheck, tests, and the Python cross-check, and app typecheck, lint,
+  tests, build, byte-budget, offline, and accessibility checks, plus a dependency
+  audit gate on both npm packages. See `.github/workflows/ci.yml`.
 
 Next:
 

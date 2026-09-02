@@ -25,15 +25,16 @@ A question is authored against exactly one **leaf taxonomy node** (for example
 
 ICAI Paper 3 is application-level throughout. The bank should be roughly 20% L1,
 55% L2, and 25% L3 per node. The authoring stock target (20/55/25 per node) and
-the fixed per-form mock draw (20% L1 / 60% L2 / 20% L3, ADR 0022) are different
-quantities; the stock must be deep enough to serve the draw without substitutions.
+the fixed per-form mock draw (26% L1 / 66% L2 / 8% L3, ADR 0024 superseding
+ADR 0022's mix) are different quantities; the stock must be deep enough to serve
+the draw without substitutions.
 
 Difficulty labels are estimates at authoring time and are recalibrated from
 telemetry after launch (ADR 0006). Do not rely on a label to decide whether a
 question is hard; use the L1/L2/L3 test in the table above.
 
-**[enforced: Tier 1 schema]** Node id must exist in the taxonomy and must be a
-leaf. Abstract-node targets are rejected.
+**[enforced: Tier 2 cross-record check]** Node id must exist in the taxonomy and
+must be a leaf. Abstract-node targets are rejected.
 
 ---
 
@@ -66,12 +67,14 @@ derivation.
 must exist in the canon and its `families` scope must include the question's
 taxonomy node. Violations are a hard reject.
 
-**[enforced: solution harness, W3-1]** Every distractor must have an executable
-derivation in the solution file (a function that, when run, reproduces the
-distractor value from the givens using the stated error path). The harness
-executes every derivation in CI. This requirement was added after the pilot
-found two distractors whose stated error paths did not produce their printed
-values; it was caught only by the adversarial audit, not by the earlier gates.
+**[enforced: solution harness, W3-1]** The harness re-derives the answer key
+from `solve()` in CI; a mismatch is a hard reject. It does not execute
+distractor derivations. Distractor values, each the value its tagged
+misconception produces, are verified by the pipeline's Stage 3 blind verify
+and Stage 5 audit (specs/content-pipeline.md), not by the CI harness. This
+requirement was added after the pilot found two distractors whose stated error
+paths did not produce their printed values; it was caught only by the
+adversarial audit, not by the earlier gates.
 
 ---
 
@@ -97,25 +100,33 @@ the degree sign use word forms instead.
 
 ## 04 Writing the explanation
 
-Explanations follow the working-steps format: numbered steps, each one line,
-with the **key step flagged** (the step the misconception skips or corrupts).
+`explanation` is short prose, computed honestly, that must actually produce
+the answer. It is not a numbered-steps format.
 
-- Two to four steps. If it needs more, the question is probably mis-leveled.
-- Numbers must be in monospace, computed honestly. The steps must actually
-  produce the answer.
-- The misconception line (shown above the steps) names the error and states
-  what actually happens, in second person, without scolding. Example: "You
-  applied simple interest. Compounding charges interest on the first year's
-  interest too."
+Every servable item also carries `explanation_sections`, four required
+sub-fields (ADR 0017):
+
+- **Punchline**: one or two sentences naming why the keyed answer wins.
+  Always visible in the UI.
+- **Approach**: how to attack this question type from a cold read.
+- **Lesson**: the transferable take-home rule.
+- **Timing**: how long this should take and what to cut first.
+
+Every servable item also carries `explanation_kind`, one of six reasoning
+archetypes (ADR 0023: `derivation`, `formula_selection`, `counting`,
+`deductive_trace`, `model_compute`, `concept`). The kind sets what `approach`
+must foreground and how `per_option_rationale` proves the key; see ADR 0023
+for the per-kind contract.
+
 - Voice rules apply throughout: short sentences, "do not" not "don't", no
   contractions, no em-dashes, no exclamation marks, no "Imagine".
 
-**[enforced: solution harness, W3-1]** The steps in the solution file must
+**[enforced: solution harness, W3-1]** `solve()` in the solution file must
 produce the key value when executed. A mismatch is a hard reject.
 
-**[review]** The misconception line and second-person voice are reviewed by a
-human at audit time. The B1 readability lint checks sentence length and clause
-depth mechanically but cannot assess tone.
+**[review]** Section content and voice are reviewed by a human at audit time.
+The B1 readability lint checks sentence length and clause depth mechanically
+but cannot assess tone.
 
 ---
 
@@ -143,16 +154,17 @@ reported per batch in the funnel report. It is not a validator gate.
    section 01.
 2. Exactly one correct option; verified by independent re-solve.
 3. Every wrong option traces to a named error path with its canon id.
-4. Every wrong option has an executable derivation in the solution file.
-5. Explanation steps reproduce the answer; key step flagged.
+4. Every wrong option's value matches what its tagged misconception produces.
+5. The explanation and its four sections reproduce the answer.
 6. Stem under 60 words; exhibit declared if data-bearing; Indian number
    formatting.
 7. Voice check: no banned phrases, no scolding, sentence case, no contractions,
    no em-dashes.
 
-Items 2, 3, and 4 are checked mechanically by the solution harness and the
-blind verifier. Items 1, 5, 6, and 7 are checked by the lint gates. Item 7 is
-also checked by a human at the audit stage.
+Items 2 and 3 are checked mechanically by the solution harness and the
+blind verifier. Item 4 is checked by the pipeline's Stage 3 blind verify and
+Stage 5 audit, not the solution harness. Items 1, 5, 6, and 7 are checked by
+the lint gates. Item 7 is also checked by a human at the audit stage.
 
 ---
 
@@ -187,15 +199,16 @@ are repaired and re-verified before promotion.
 
 | Rule | Enforced by | Gate type |
 |---|---|---|
-| Node is a leaf in the taxonomy | Tier 1 validator (`schema/validate.py`) | Hard reject |
+| Node is a leaf in the taxonomy | Tier 2 validator (`schema/validator/run_checks.py`) | Hard reject |
 | Misconception id exists in canon | Tier 2 validator (`schema/validator/run_checks.py`) | Hard reject |
 | Misconception id is family-scoped to the question's node | Tier 2 validator | Hard reject |
 | Executable solution reproduces the key | Solution harness (W3-1) | Hard reject |
-| Executable distractor derivations present and reproducing distractor values | Solution harness (W3-1) | Hard reject (for generated batches; applies to all new items after the pilot) |
+| Distractor values reproduce what their tagged misconception produces | Stage 3 blind verify and Stage 5 audit (specs/content-pipeline.md), not the solution harness | Hard reject (Stage 3, every item); sampled reject (Stage 5 audit) |
 | Blind verifier agrees with the key | Blind verification pass (specs/content-pipeline.md, stage 3) | Hard reject |
 | Stem: per-sentence length max 25 words (B1 gate; `quality.py` `B1_MAX_WORDS_PER_SENTENCE`) | B1 readability lint (W3-5) | Hard reject for generated batches; advisory for hand-authored items until lint ships. Note: the 60-word total stem length is a style guideline, not a machine-enforced gate. |
 | Indian number formatting in money contexts | Notation lint (W3-5 per ADR 0015) | Hard reject for generated batches; advisory until lint ships |
-| No banned voice patterns (contractions, em-dashes, exclamation marks) | Fellow-voice lint (W7-6) | Planned; not yet implemented (build-spec W7-6) |
+| No banned voice patterns (contractions, exclamation marks) | Fellow-voice lint (W7-6) | Planned; not yet implemented (build-spec W7-6) |
+| No em-dashes | Notation lint `NOTATION_VIOLATION` (ADR 0015 allowlist) | Hard reject |
 | Tag accuracy above 85% on audited sample | Adversarial audit (W4-4, W4-5) | Gate A pass/fail |
 | Blueprint coverage gaps closed first | Pipeline targeting (W4-3) | Process control; not a validator |
 | Difficulty label plausible | Human review at audit | Review; recalibrated from telemetry after launch |
