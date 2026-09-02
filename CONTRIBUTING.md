@@ -1,5 +1,8 @@
 # Contributing
 
+This project follows the [Code of Conduct](CODE_OF_CONDUCT.md). Read it before you
+participate.
+
 ## Before your first contribution: sign the CLA
 
 Every contributor signs the [Contributor License Agreement](CLA.md) once, before
