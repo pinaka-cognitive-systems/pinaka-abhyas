@@ -8,7 +8,7 @@ exposure window, and the hard-mock variant — remains in force.
 ## Context
 
 ADR 0022 set the standard and pace mock difficulty draw at 20% L1 / 60% L2 / 20% L3.
-Measured against the ICAI-modelled reference vault and the calibrated bank, the real
+Measured against an internal reference set and the calibrated bank, the real
 CA Foundation Paper 3 is about 26% L1 / 66% L2 / 8% L3 — far fewer hard items than
 20%. Two problems followed from the 20% L3 target.
 

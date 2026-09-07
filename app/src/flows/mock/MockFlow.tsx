@@ -126,7 +126,7 @@ interface MockTypeSpec {
 
 const MOCK_TYPES: readonly MockTypeSpec[] = [
   {
-    id: "standard", name: "Standard", tag: "ICAI style",
+    id: "standard", name: "Standard", tag: "Exam pattern",
     icon: "clipboard",
     line: "The real paper. ICAI section weightage, application-level, full timing.",
     spec: ["100 questions", "2 hours", "−0.25 per wrong", "Blueprint-weighted"],

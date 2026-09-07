@@ -21,7 +21,7 @@ carries its own version in `packs/ca-foundation-qa/pack.manifest.json`.
   `TRADEMARK.md`, with CLA enforcement in `.github/workflows/cla.yml`.
 
 ### Changed
-- Difficulty labels recalibrated against the ICAI-modelled reference. The bank sits
+- Difficulty labels recalibrated against an internal reference set. The bank sits
   at 24% L1 / 64% L2 / 12% L3 against an ICAI reference of 26/66/8.
 - Standard and pace mock difficulty mix now mirrors the real ICAI paper at
   26/66/8 L1/L2/L3 (ADR 0024, superseding the 20/60/20 target of ADR 0022). The

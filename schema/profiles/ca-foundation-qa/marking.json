@@ -10,7 +10,7 @@
   "negative_mark_per_wrong": 0.25,
   "marks_per_unattempted": 0,
   "num_questions": 100,
-  "num_questions_note": "Confirmed: 100 one-mark objective MCQs, 100 marks, 2 hours. Cross-checked against the ICAI sample paper (syllabus/SA May 2025 QA.pdf: 100 questions, Q1-40 Business Mathematics, Q41-60 Logical Reasoning, Q61-100 Statistics) and ICAI exam-pattern sources. Per-part question counts follow the 40/20/40 mark split at one mark each.",
+  "num_questions_note": "Confirmed: 100 one-mark objective MCQs, 100 marks, 2 hours. Cross-checked against the published ICAI sample paper for May 2025 and ICAI exam-pattern sources. Per-part question counts follow the 40/20/40 mark split at one mark each.",
   "parts": [
     { "name": "Business Mathematics", "marks": 40, "questions": 40 },
     { "name": "Logical Reasoning", "marks": 20, "questions": 20 },
@@ -26,7 +26,7 @@
   },
   "readiness_anchor": "A predicted Paper 3 mark of 40 out of 100, net of negative marking, is the pass threshold. Readiness is shown as distance to this anchor, honestly labelled as an estimate until empirical calibration exists.",
   "sources": [
-    "syllabus/SA May 2025 QA.pdf — ICAI sample paper, May 2025 (100 questions; Q1-40 Business Mathematics, Q41-60 Logical Reasoning, Q61-100 Statistics)",
+    "ICAI sample paper, May 2025, published by ICAI (100 questions; Q1-40 Business Mathematics, Q41-60 Logical Reasoning, Q61-100 Statistics)",
     "https://www.icai.org/post/section-wise-weightages-nset — ICAI section-wise weightage (Paper 3: 40/20/40 marks)",
     "https://www.icai.org/post/sm-foundation-p3-may2026 — ICAI BoS study material, Paper 3",
     "https://www.catestseries.org/blogs/negative-marking-in-ca-foundation.php — negative marking 0.25 on objective papers"

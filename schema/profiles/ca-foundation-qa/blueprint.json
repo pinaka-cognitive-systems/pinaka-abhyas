@@ -3,7 +3,7 @@
   "paper": "Paper 3 — Quantitative Aptitude",
   "version": 1,
   "status": "draft",
-  "source": "ICAI section-wise weightage issued 26 October 2023, applicable May 2024 onwards (syllabus/CA foundation question weightage.pdf); ICAI skill-wise weightage (syllabus/CA foundation skill-wise-weightage.pdf); ICAI sample paper May 2025 (syllabus/SA May 2025 QA.pdf).",
+  "source": "ICAI section-wise weightage issued 26 October 2023, applicable May 2024 onwards; ICAI skill-wise weightage; ICAI sample paper May 2025. All published by ICAI at https://www.icai.org.",
   "deviation_allowed_percent": 5,
   "deviation_note": "ICAI permits a maximum deviation of plus or minus 5 percent on the specified section-wise weightage.",
   "skill_levels": {

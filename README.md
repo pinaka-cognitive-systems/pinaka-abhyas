@@ -2,13 +2,15 @@
 
 [![CI](https://github.com/pinaka-cognitive-systems/pinaka-abhyas/actions/workflows/ci.yml/badge.svg)](https://github.com/pinaka-cognitive-systems/pinaka-abhyas/actions/workflows/ci.yml)
 
-A free, open-source exam-prep engine plus exam packs. A student practises verified
+A free exam-prep engine plus exam packs. The engine is open source; the questions are openly licensed for non-commercial use. A student practises verified
 questions and the app diagnoses what they do not know, per topic and per
 misconception, resurfaces past mistakes on schedule, tells them the next thing to
 do, and shows how close they are to ready.
 
 The app is a static client-side PWA. It works offline after first load, installs to
-the device, and keeps your data on your device. Sharing is opt-in and collects no personal data (ADR 0014).
+the device, and keeps your data on your device. Nothing is transmitted today: the app
+ships with no collector. Any future sharing will be opt-in, off by default, and will
+carry no personal data (ADR 0014).
 
 One exam, one paper, one loop. The first pack is CA Foundation Paper 3, Quantitative
 Aptitude, the simplest place to prove the core works. Once the loop is undeniable,
@@ -93,7 +95,8 @@ Free for students. Paid for businesses.
 - **Name and logo:** not licensed by either license. Fork freely, rename before you
   distribute. `TRADEMARK.md`.
 - **Contributing:** every contributor signs the CLA once (`CLA.md`). You keep your
-  copyright.
+  copyright and grant the project the right to relicense your contribution, which is
+  what makes the commercial license sellable. `CLA.md` has the exact terms.
 
 `LICENSING.md` is the map. Every shipped question is original, authored from the
 public CA Foundation syllabus; we redistribute no exam-board questions. The content

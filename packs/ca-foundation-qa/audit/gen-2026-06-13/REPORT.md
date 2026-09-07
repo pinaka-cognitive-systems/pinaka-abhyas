@@ -21,7 +21,7 @@ away and generate a fresh one. Either way it is recorded below.
 | Tier-1 schema | The item's structure (required fields, option count, types) | Any field missing or malformed |
 | Tier-2 cross-record | Tagging and question integrity across the whole bank | A distractor's misconception tag does not belong to the topic; the correct answer text leaks into the stem; a wrong option equals the correct one; the stem is a near-duplicate (word-overlap >= 0.80) of another item; notation or voice rules are broken (no LaTeX, no dashes) |
 | Solution harness | **Correctness.** Every item ships an executable Python solution that is run in an isolated sandbox | The computed answer must reproduce the item's answer key. A mismatch, error, timeout, or any stray output is a hard reject |
-| Originality | Word-overlap of the stem against both our own bank and the 723-item ICAI-modelled reference vault | Overlap >= 0.80 with any existing or reference item |
+| Originality | Word-overlap of the stem against both our own bank and an internal reference set | Overlap >= 0.80 with any existing or reference item |
 
 The solution harness is the heart of it: an item's answer is not accepted because a
 language model said so. It is accepted because independent code computes the same

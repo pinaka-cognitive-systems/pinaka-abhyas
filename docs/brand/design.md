@@ -1,6 +1,6 @@
 # Design system
 
-The visual system. One visual family, shared with the LSAT flagship, unchanged. Color, type, motion, components, icons, and the logo lockup. Voice and copy doctrine live in `brand-core.md`. Exam positioning lives in `positioning-ca.md`.
+The visual system. One visual family, used unchanged across every pack. Color, type, motion, components, icons, and the logo lockup. Voice and copy doctrine live in `brand-core.md`. Exam positioning lives in `positioning-ca.md`.
 
 The single most important rule: the artifact is the visual. The readout, the diagnosis, the readiness screen is the image. Never decorate around it.
 

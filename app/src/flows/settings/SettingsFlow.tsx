@@ -383,9 +383,11 @@ export function SettingsFlow({ onExit: _onExit, mockGuard }: SettingsFlowProps):
               <div>
                 <div className="set-row__title">Anonymous telemetry</div>
                 <div className="set-row__detail">
-                  Off by default. If you turn this on, Pinaka may send anonymised, aggregate
-                  usage counts to improve question quality. Never your answers, never anything
-                  that identifies you. You can read exactly what would be sent before it is.
+                  Not yet available. Nothing is sent today, because the app ships with no
+                  collector. When this does arrive it will stay off by default, and turning it
+                  on would send anonymised, aggregate usage counts to improve question quality.
+                  Never your answers, never anything that identifies you. You will be able to
+                  read exactly what would be sent before it is.
                 </div>
               </div>
               <button
@@ -648,6 +650,10 @@ export function SettingsFlow({ onExit: _onExit, mockGuard }: SettingsFlowProps):
                 <div className="set-row__detail">
                   Local build · CA Foundation Paper 3 (Quantitative Aptitude). Taxonomy v1,
                   misconception canon v2. An exam analytics tool, not a course.
+                  <br />
+                  CA Foundation is an examination conducted by the Institute of Chartered
+                  Accountants of India (ICAI). Pinaka Abhyas is not affiliated with,
+                  endorsed by, or sponsored by ICAI.
                 </div>
               </div>
               <span className="mono subtle" style={{ fontSize: 12 }}>{APP_VERSION}</span>

@@ -1,7 +1,7 @@
 {
   "name": "Pinaka Abhyas",
   "short_name": "Abhyas",
-  "description": "Free exam-prep engine for CA Foundation students.",
+  "description": "Free exam-prep engine for CA Foundation students. Not affiliated with or endorsed by ICAI.",
   "start_url": "/",
   "display": "standalone",
   "lang": "en",

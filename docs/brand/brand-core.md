@@ -1,6 +1,6 @@
 # Brand core
 
-Exam-agnostic doctrine. This is the part that does not change between exam packs. It is ported from the mature LSAT flagship brand and generalized. Exam-specific positioning lives in `positioning-ca.md`. The visual system lives in `design.md`.
+Exam-agnostic doctrine. This is the part that does not change between exam packs. It is generalized from an earlier product brand. Exam-specific positioning lives in `positioning-ca.md`. The visual system lives in `design.md`.
 
 This mirrors the schema. Brand core is to positioning what the UQS Core is to a Profile: one stable spine, many specializations.
 
