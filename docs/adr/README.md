@@ -15,7 +15,7 @@ in place as the historical record.
 | [0004](0004-build-time-ai-zero-runtime-ai.md) | Build-time AI, zero runtime AI | Accepted |
 | [0005](0005-machine-verified-item-pipeline.md) | Machine-verified item pipeline | Accepted |
 | [0006](0006-elo-now-telemetry-path-to-irt.md) | Elo mastery now, telemetry path to IRT | Partially superseded by 0012 |
-| [0007](0007-one-domain-marketing-site.md) | One domain, marketing site renders from the repo | Accepted |
+| [0007](0007-one-domain-marketing-site.md) | One domain, marketing site renders from the repo | Accepted, withdrawn from the public record |
 | [0008](0008-storage-and-hosting.md) | Storage and hosting: opfs-sahpool on Cloudflare Pages | Accepted |
 | [0009](0009-pack-and-data-lifecycle.md) | Pack and data lifecycle | Accepted |
 | [0010](0010-single-typescript-engine.md) | One engine, in TypeScript | Accepted |

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Assemble, content-hash stamp, and validate the ca_abhyas enrichment pilot pack.
+"""Assemble, content-hash stamp, and validate the CA Foundation QA pack.
 
 Reads every items/*.json, assembles a pack, stamps content_hash via the
 repo's canonical.py, then runs the Tier 2 pack validator (which also runs Tier 1

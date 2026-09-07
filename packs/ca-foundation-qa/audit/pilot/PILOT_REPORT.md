@@ -50,17 +50,11 @@ state update after a draw."
 
 ## Cost
 
-Agent token usage attributable to the pilot (the billing unit; currency depends on
-plan and provider pricing):
-
-- Generation, five batches: 532,304 tokens
-- Blind verification, two passes: 60,656 tokens
-- Adversarial audits, two passes: 98,843 tokens
-- One-time pipeline tooling (funnel runner): 78,598 tokens
-- Total: ~771,000 tokens; **~13,300 tokens per accepted item** including the one-time
-  tooling, **~11,900 per item** excluding it. Orchestration and repair work by the
-  lead model is additional and was not separately metered this run; meter it at
-  scale-up.
+Agent token usage is metered for every stage: generation, blind verification,
+adversarial audit, and one-time tooling. The per-accepted-item figure is tracked as a
+Gate A criterion under ADR 0005. Orchestration and repair by the lead model was not
+separately metered this run; meter it at scale-up. All of this compute runs at build
+time, so it costs a student nothing.
 
 ## Recommendation
 

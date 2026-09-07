@@ -58,6 +58,9 @@ closed beta. See `ROADMAP.md`.
   `content-pipeline.md` (how items are generated, verified, and accepted).
 - `syllabus/`: the official ICAI source (local-only; gitignored; ICAI source materials not distributed).
 
+Source comments in `app/` cite `design-team/v2/...`. That was the operator-local design
+workspace and is not distributed. `docs/design/as-built.md` records what was ported from it.
+
 ## Validate
 
 - Tier 1 (structure): `python3 schema/validate.py`

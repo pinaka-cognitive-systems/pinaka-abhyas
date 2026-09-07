@@ -81,16 +81,3 @@ The base mix is Sage 50 / Everyman 30 / Magician 20. These surfaces tilt it. App
 
 State the diagnosis plainly. Name the misconception, do not scold. Show the number when there is one. No hype, no exclamation, no em-dash. Carry the ICAI disclaimer if the surface mentions CA Foundation. The student did the work. The screen reflects it back.
 
-## What changes from the LSAT product, explicitly
-
-| Axis | LSAT flagship | Pinaka Abhyas (CA) |
-| --- | --- | --- |
-| Audience | US and Canada law aspirants | India CA Foundation aspirants |
-| Price | Paid subscription | Free forever |
-| Delivery | Cloud web app | Offline-capable PWA |
-| Data | Server-side | On the device, opt-in sharing |
-| Vocabulary | LR, RC, predicted score | QA topics, misconception, readiness estimate |
-| Reading level | C1 ceiling | B1 target, B2 ceiling |
-| Trademark body | LSAC | ICAI |
-| Founder presence | Off-domain only | About pages and bylines allowed, app surfaces not |
-| Voice, principles, visual system | The Fellow, seven principles, one visual family | Unchanged |

@@ -8,8 +8,7 @@ quarantined). For the current bank state see the living ledger at
 The spike numbers below are preserved as written.
 
 Goal: prove we can generate ORIGINAL CA QA questions, from the public syllabus, with
-accurate per-option misconception tags, cheaply. This is the real Gate A path (the v1
-enrichment pilot is retired).
+accurate per-option misconception tags, cheaply. This is the Gate A path.
 
 ## What was built
 
@@ -42,14 +41,14 @@ agents generated in parallel against `generation_spec.md` and the manifest.
 | Answer position | 6 / 6 / 6 / 6 across keys 1-4. |
 | Surface tell | Correct option uniquely longest in 2 of 24 (`000018`, `000020`). |
 | Coverage | 31 of 37 canon misconceptions exercised, including all v2 LR and conceptual ids. |
-| Cost | ~14k tokens/item to generate and verify (gen ~227k + verify ~109k tokens over 24). |
+| Cost | Metered per item across generation and verification. All of it runs at build time. |
 
 ## Gate A status: demonstrated, not certified
 
 - Wrong-key < 0.5%: met (0/24) on model verification.
 - Tag accuracy >= 85%: 81% strict as-generated, 92% acceptable, ~99% after the auditor
   corrections. Met after a fix pass, on model audit.
-- Known cost per question: yes, ~14k tokens/item.
+- Known cost per question: yes, metered per item.
 
 Two honest limits remain before Gate A can be called passed:
 1. **Human expert audit.** All verification here is model-on-model. The bar wants an
@@ -60,7 +59,7 @@ Two honest limits remain before Gate A can be called passed:
 ## Artifacts
 
 - Items: `packs/ca-foundation-qa/items/arn_caf_qa_*.json` (24). Stamped pack: `packs/ca-foundation-qa/pack.json`.
-- Spec: `prashna/profiles/ca_abhyas/generation_spec.md`. Manifest: `packs/ca-foundation-qa/manifest.json`.
+- Spec: the generation spec, which is not released. Manifest: `packs/ca-foundation-qa/manifest.json`.
 - Canon v2: `schema/profiles/ca-foundation-qa/misconceptions.json` (version 2, 37 ids).
 - Re-run: `python3 packs/ca-foundation-qa/build_and_validate.py`.
 

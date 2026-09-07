@@ -85,9 +85,9 @@ came in at 89.5% first-pass clean rather than failing wholesale.
 
 ## Cost
 
-Generation: ~3.37M agent output tokens across 53 batches, plus the fix and
-verification passes. All compute is at build time; students run zero AI and need no
-internet after first load.
+Generation ran in 53 batches, plus the fix and verification passes. Token usage is
+metered per accepted item. All compute is at build time; students run zero AI and need
+no internet after first load.
 
 ## Reproducibility
 
