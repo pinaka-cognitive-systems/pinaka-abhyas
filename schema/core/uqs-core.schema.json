@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://pinaka.dev/schema/uqs-core-1.json",
+  "$id": "https://mypinaka.com/schema/uqs-core-1.json",
   "title": "Pinaka UQS Core — exam-agnostic item contract (v1)",
   "description": "TIER: CORE. The structural contract shared by every exam. Exam-specific narrowing — the exam value, id namespace, option count, difficulty scale, ext shape, asset policy — lives in a Profile schema that composes this one via allOf + $ref (see profiles/<exam>/). This file expresses STRUCTURAL invariants only. Cross-record invariants (content_hash recompute, pack-level uniqueness, tests[] and misconception referential integrity against a Profile's taxonomy and canon, asset sanitization) are enforced by the shared validator, not here, because JSON Schema cannot express them. Core changes rarely; the Profile absorbs per-exam variation. Surface: single_best, numeric_entry. Stimulus/grouping, multi_select are deferred until an exam needs them.",
   "type": "object",

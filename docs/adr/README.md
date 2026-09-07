@@ -33,6 +33,7 @@ in place as the historical record.
 | [0022](0022-mock-form-comparability.md) | Mock form comparability: difficulty mix and exposure control | Accepted (difficulty mix superseded by 0024) |
 | [0023](0023-explanation-kinds.md) | Explanation kinds and the per-archetype teaching contract | Accepted |
 | [0024](0024-mock-mix-mirrors-icai.md) | Mock difficulty mix mirrors the real ICAI paper | Accepted |
+| [0025](0025-schema-namespace-on-owned-domain.md) | Schema identifiers use a domain the project owns | Accepted |
 
 ADRs 0001 through 0007 record the project's founding
 decisions and share the founding date; their order within that date is the numeric

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://pinaka.dev/schema/uqs-event-2.json",
+  "$id": "https://mypinaka.com/schema/uqs-event-2.json",
   "title": "Pinaka UQS Event — local response record (v2)",
   "description": "TIER: CORE. The one record written for every answer the student gives. It is the single fuel for three things: local diagnosis (per-topic and per-misconception mastery), the spaced-repetition scheduler, and the opt-in anonymised telemetry export. Exam-agnostic by design. Written locally first; nothing leaves the device unless the student opts in. install_id is a random per-install identifier, never personal identity. This record is a one-way door: changing its shape breaks historical comparability, so it is locked early and evolved only via schema_version. v2 (ADR 0009): adds optional device_context (form factor, viewport class) and enforces response shape per item_type.",
   "type": "object",
