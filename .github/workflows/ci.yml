@@ -49,6 +49,14 @@ jobs:
       - name: "Solution harness: sandboxed key execution"
         run: python3 schema/validator/run_solutions.py packs/ca-foundation-qa
 
+      # Originality is the legal basis for both licences, so it is gated, not
+      # asserted. The reference side is committed one-way hashes, never text, so
+      # this runs in public CI without redistributing any exam-board question.
+      - name: "Originality: no item copies a published exam-board question"
+        run: |
+          python3 tools/check_originality.py --self-test
+          python3 tools/check_originality.py
+
       - name: "Tests: validator"
         run: python3 -m pytest schema/validator/tests -q
 

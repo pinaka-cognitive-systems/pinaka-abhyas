@@ -56,7 +56,7 @@ closed beta. See `ROADMAP.md`.
   gate, and a staging helper).
 - `docs/`: architecture decision records (`adr/`), the brand layer (`brand/`), the
   engineering build spec and adherence spec (`design/`), and the content authoring
-  guide (`contributing/`).
+  guide (`contributing/`), including how the originality gate works.
 - `specs/`: `unified-question-schema.md` (the schema rationale) and
   `content-pipeline.md` (how items are generated, verified, and accepted).
 - `syllabus/`: the official ICAI source (local-only; gitignored; ICAI source materials not distributed).

@@ -53,6 +53,7 @@ The individual commands are listed for fast iteration while you work:
 | Schema Tier 1 | `python3 schema/validate.py` | repo root |
 | Schema Tier 2 | `python3 schema/validator/run_checks.py` | repo root |
 | Solution harness | `python3 schema/validator/run_solutions.py packs/ca-foundation-qa` | repo root |
+| Originality | `python3 tools/check_originality.py` | repo root |
 | Validator tests | `python3 -m pytest schema/validator/tests -q` | repo root |
 | Engine typecheck | `npx tsc --noEmit` | `engine-ts/` |
 | Engine tests | `npx vitest run` | `engine-ts/` |

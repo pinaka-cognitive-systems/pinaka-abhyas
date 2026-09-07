@@ -30,6 +30,8 @@ echo "== python gates"
 python3 schema/validate.py
 python3 schema/validator/run_checks.py
 python3 schema/validator/run_solutions.py packs/ca-foundation-qa
+python3 tools/check_originality.py --self-test
+python3 tools/check_originality.py
 python3 -m pytest schema/validator/tests -q
 
 echo "== pack artifact (the app consumes this, as in CI)"
