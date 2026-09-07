@@ -61,8 +61,10 @@ answer key (ADR 0005). The harness treats those solutions as untrusted:
 - resource limits are enforced (CPU 5s, address space 256 MB, file size 1 MB,
   wall-clock 10s, no core dumps);
 - the CI job that runs solutions has no secrets mounted and the runner is ephemeral,
-  so there is nothing to exfiltrate and nothing writable. Fork pull requests run with
-  a read-only token by GitHub default.
+  so there is nothing to exfiltrate and nothing writable. Fork pull requests run this
+  job with a read-only token. The one workflow that holds write permissions is the CLA
+  check, which uses `pull_request_target` and never checks out or runs pull-request
+  code, so nothing a contributor writes reaches that token.
 
 The full contract is in `schema/validator/SOLUTION_HARNESS.md`. A kernel-level sandbox
 (seccomp, containers) is deliberately out of scope for v1 because the secret-free CI

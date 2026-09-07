@@ -57,9 +57,18 @@ is automated in `.github/workflows/cla.yml`.
 
 ## Our content is original
 
-Every shipped question is authored by Pinaka from the public CA Foundation
+Every shipped question is written for Pinaka from the public CA Foundation
 syllabus. We do not redistribute ICAI's papers, or any exam board's questions.
-Pinaka owns what it ships, which is what lets us grant the content license.
+
+The questions are drafted by Claude models at build time, under a rubric Pinaka
+wrote, and each one then has to pass an executable solution that re-derives its
+answer key in CI. `docs/adr/0004-build-time-ai-zero-runtime-ai.md` and
+`specs/content-pipeline.md` describe the pipeline, and every item records its
+generator in `provenance.generator`. No model runs on a student's device.
+
+Pinaka holds whatever rights exist in this output, which is what lets us grant
+the content license. How copyright applies to machine-generated text is unsettled
+in several countries, and we do not claim more than the law gives us.
 
 ## The generator: private
 

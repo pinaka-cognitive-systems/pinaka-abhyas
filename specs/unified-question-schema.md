@@ -174,7 +174,7 @@ All keys nullable and **may be omitted** (omitted means null). Sparse is allowed
 
 Examples of what lives in `ext`:
 
-- **LSAT**: `stem_polarity` (standard/negative), `trap_polarity_checked`, `formal_logic` (premise structure for uniqueness re-solve), `rc_anchors`, `length_meta`, `explanation_sections`, `pool_assignment`, `tier`, source preptest provenance specifics.
+- **LSAT**: `stem_polarity` (standard/negative), `trap_polarity_checked`, `formal_logic` (premise structure for uniqueness re-solve), `rc_anchors`, `length_meta`, `explanation_sections`, `pool_assignment`, `tier`, and pack-specific provenance fields.
 - **CA Foundation**: `icai_skill_bucket` (recall/application), `icai_provenance`, `tier_eligibility`, authoring `diagram_spec` (compiled to an Asset at build; see 4.9).
 
 ### 4.9 Assets (figures, diagrams, images)
@@ -607,7 +607,7 @@ Blocking:
 2. `id` abbreviations undefined and inconsistent — fixed; code registry added (4.1.1); both examples now resolve.
 3. `answer_key` location contradiction — fixed; frontmatter is canonical, `## Answer` is a human cross-check (12.1).
 4. Validate-before-hash — fixed; build computes hashes before validate; #3 also runs at ingest (11.3).
-5. ICAI inside LSAT `ext` — fixed; removed, replaced with preptest provenance (4.8).
+5. Exam-specific fields leaking across profiles — fixed; each profile now owns its own provenance fields (4.8).
 
 Should-fix:
 6. No core home for diagrams — fixed; Assets entity added (4.9), with build-time `diagram_spec` → SVG.

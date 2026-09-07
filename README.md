@@ -29,8 +29,9 @@ pinned by committed golden vectors. The content pipeline has run a pilot and thr
 scale batches: the CA Foundation pack holds 813 items covering all 81 v1-scope
 taxonomy leaves, at 24% L1, 64% L2, 12% L3. Every item ships an executable solution
 that re-derives its answer key in CI; 812 pass, and one item is quarantined with its
-defect recorded in `packs/ca-foundation-qa/ERRATA.md`. Across every authoring run the
-bank has shipped zero wrong answer keys and zero non-original items. The living ledger
+defect recorded in `packs/ca-foundation-qa/ERRATA.md`. Since the executable-solution
+gate came in, no shipped item has carried a wrong answer key. Originality is measured
+as word overlap against our own bank and an internal reference set. The living ledger
 is `packs/ca-foundation-qa/audit/STATUS.md`. The PWA is built, with the loop decomposed
 into the flows under `app/src/flows/`. Next is expert audit of the bank, then the
 closed beta. See `ROADMAP.md`.
@@ -98,9 +99,12 @@ Free for students. Paid for businesses.
   copyright and grant the project the right to relicense your contribution, which is
   what makes the commercial license sellable. `CLA.md` has the exact terms.
 
-`LICENSING.md` is the map. Every shipped question is original, authored from the
-public CA Foundation syllabus; we redistribute no exam-board questions. The content
-generator (prashna) stays private.
+`LICENSING.md` is the map. Every shipped question is original, written from the
+public CA Foundation syllabus; we redistribute no exam-board questions. The questions
+are drafted by Claude models at build time and each must pass an executable solution
+that re-derives its answer key in CI. Every item records its generator in
+`provenance.generator`. No model runs on a student's device. The content generator
+(prashna) stays private.
 
 CA Foundation is an examination conducted by the Institute of Chartered Accountants
 of India (ICAI). Pinaka Abhyas is not affiliated with, endorsed by, or sponsored by

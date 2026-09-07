@@ -20,8 +20,8 @@ schema/generated/
 packs/ca-foundation-qa/pack.json
 
 # Operator-local reference material. Never tracked, never distributed.
-syllabus/extracted/sa-may-2025-qa.md
 /syllabus/
+syllabus/
 
 # Design-team working area (vendor inbox; ported artifacts land in docs/brand/ and app/)
 /design-team/
