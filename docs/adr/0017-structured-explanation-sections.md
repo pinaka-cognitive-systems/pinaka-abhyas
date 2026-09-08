@@ -5,12 +5,12 @@ Status: Accepted.
 
 ## Context
 
-The UX audit (2026-06-11) compared post-answer teaching in Abhyas with the LSAT
-flagship. Abhyas showed a verdict line, a misconception line on wrong answers, and
-the explanation prose split into numbered sentences. The flagship shows a richer,
-proven structure: a punchline always visible, a per-option diagnosis, a
-how-to-approach section, a take-home lesson, and a timing strategy, each a
-collapsible numbered reveal. Students get the quick reason first and can open the
+The UX audit (2026-06-11) reviewed post-answer teaching in Abhyas. Abhyas showed a
+verdict line, a misconception line on wrong answers, and the explanation prose split
+into numbered sentences. That is thin. A student who answers wrong needs more than a
+verdict. The audit set a richer target: a punchline always visible, a per-option
+diagnosis, a how-to-approach section, a take-home lesson, and a timing strategy, each
+a collapsible numbered reveal. Students get the quick reason first and can open the
 depth they want.
 
 Half of that structure already existed in the Core (`per_option_rationale` carries

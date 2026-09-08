@@ -86,8 +86,6 @@ Intended to be hosted free on GitHub Pages or Cloudflare Pages once deployed. No
 - Honesty in the product: no predicted score we cannot back. Readiness is an
   estimate until calibrated. Difficulty starts as an estimate and is recalibrated
   from real telemetry.
-- The LSAT flagship is a separate product. Learn from it; copy none of its code.
-  Its vault becomes pack 2 later.
 
 ## ADR policy
 
