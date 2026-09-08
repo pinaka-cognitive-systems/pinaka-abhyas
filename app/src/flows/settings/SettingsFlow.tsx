@@ -31,6 +31,7 @@ import {
   createHttpPort,
   createStoragePort,
   extractErrataFromBody,
+  DEFAULT_PACK_LOCATION,
   PackUpdater,
   type MockGuard,
   type UpdaterState,
@@ -71,8 +72,6 @@ import {
 } from "./io.js";
 import type { ImportReport } from "../../storage/index.js";
 import "./settings.css";
-
-const PACK_LOCATION = { manifestUrl: "pack.manifest.json", packUrl: "pack.json" } as const;
 
 declare const __APP_VERSION__: string;
 const APP_VERSION =
@@ -133,7 +132,7 @@ export function SettingsFlow({ onExit: _onExit, mockGuard }: SettingsFlowProps):
       const { adapter } = await (steal ? takeoverSharedStorage() : getSharedStorage());
       adapterRef.current = adapter;
       updaterRef.current = new PackUpdater({
-        network: createHttpPort(PACK_LOCATION),
+        network: createHttpPort(DEFAULT_PACK_LOCATION),
         staging: createStoragePort(adapter),
         appVersion: APP_VERSION,
         mockGuard: mockGuard ?? realMockGuard,

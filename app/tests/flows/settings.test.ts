@@ -253,6 +253,7 @@ function fakeStaging(initialLive: PackManifest | null): PackStagingPort {
   let staged: StagedPack | null = null;
   return {
     readLiveManifest: () => Promise.resolve(live),
+    readLiveBody: () => Promise.resolve(null),
     readStaging: () => Promise.resolve(staged),
     writeStaging: (s) => {
       staged = s;

@@ -46,6 +46,9 @@ export interface PackNetworkPort {
  *   - clearStaging discards an abandoned/failed staging entry.
  *   - readLiveManifest returns the currently installed pack's manifest, or null
  *     on first install.
+ *   - readLiveBody returns the currently installed pack's raw JSON text, or
+ *     null on first install. The one pack loader (pack/source.ts) reads this
+ *     first, so a student who already has a live pack never re-fetches it.
  *
  * "Atomic" here means: a reader either sees the old live pack or the new one,
  * never a half-written mix. The storage-backed implementation achieves this by
@@ -54,6 +57,7 @@ export interface PackNetworkPort {
  */
 export interface PackStagingPort {
   readLiveManifest(): Promise<PackManifest | null>;
+  readLiveBody(): Promise<string | null>;
   readStaging(): Promise<StagedPack | null>;
   writeStaging(staged: StagedPack): Promise<void>;
   commitStaging(): Promise<void>;

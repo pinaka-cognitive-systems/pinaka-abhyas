@@ -19,7 +19,12 @@ export {
   type UpdateNote,
 } from "./updater.js";
 
-export { createHttpPort, extractErrataFromBody, type PackLocation } from "./network.js";
+export {
+  createHttpPort,
+  extractErrataFromBody,
+  DEFAULT_PACK_LOCATION,
+  type PackLocation,
+} from "./network.js";
 export { createStoragePort, stampVersions } from "./storagePort.js";
 
 export {

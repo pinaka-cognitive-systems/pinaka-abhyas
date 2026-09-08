@@ -86,6 +86,9 @@ into it on first run (the system Python is never touched), runs
 `npm run dev`. `tools/ci-local.sh` uses the same `.venv`. To run a validator or the
 pack build by hand, use `.venv/bin/python3` in place of `python3`.
 
+`npm run dev` inside `app/` also starts with no pack built. The app then shows one
+message naming the fix, so app work never needs Python (ADR 0027).
+
 ## Licensing
 
 Free for students. Paid for businesses.

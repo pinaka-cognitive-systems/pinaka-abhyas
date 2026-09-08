@@ -18,6 +18,15 @@ export interface PackLocation {
   readonly packUrl: string;
 }
 
+/** Where the deployed pack actually lives (ADR 0027): pack.json and its
+ * manifest, served from the app origin by vite-plugin-pack.mjs in dev and
+ * copied into dist/ at build time. The one loader (pack/source.ts) and the
+ * settings update flow both fetch from here, so they agree on the location. */
+export const DEFAULT_PACK_LOCATION: PackLocation = {
+  manifestUrl: "pack.manifest.json",
+  packUrl: "pack.json",
+};
+
 /** Build the HTTP network port for a given deployed pack location. */
 export function createHttpPort(location: PackLocation): PackNetworkPort {
   return {

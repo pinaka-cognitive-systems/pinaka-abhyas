@@ -78,6 +78,9 @@ class FakeStaging implements PackStagingPort {
   readLiveManifest(): Promise<PackManifest | null> {
     return Promise.resolve(this.live);
   }
+  readLiveBody(): Promise<string | null> {
+    return Promise.resolve(null);
+  }
   readStaging(): Promise<StagedPack | null> {
     return Promise.resolve(this.staged);
   }

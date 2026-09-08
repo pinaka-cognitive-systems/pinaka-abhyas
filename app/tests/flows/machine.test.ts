@@ -8,6 +8,9 @@
  * correct. DOM-free (no jsdom dep, the repo convention).
  */
 
+import { existsSync, readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+
 import { describe, expect, it } from "vitest";
 
 import {
@@ -16,6 +19,7 @@ import {
   nextAction,
   readiness,
   type LoadedPack,
+  type RawPack,
 } from "../../src/engine/index.js";
 import {
   advanceSession,
@@ -27,7 +31,11 @@ import {
   selectQuestion,
   SESSION_LENGTH,
 } from "../../src/flows/practice/machine.js";
-import { buildContentMap, type ContentItem } from "../../src/flows/practice/types.js";
+import {
+  buildContentMap,
+  type ContentItem,
+  type RawContentItem,
+} from "../../src/flows/practice/types.js";
 import { buildEvent } from "../../src/flows/practice/event.js";
 import type { StoredEvent } from "../../src/storage/index.js";
 
@@ -35,6 +43,26 @@ import blueprintJson from "../../../schema/profiles/ca-foundation-qa/blueprint.j
 import markingJson from "../../../schema/profiles/ca-foundation-qa/marking.json";
 
 const NOW = Date.UTC(2026, 5, 10, 9, 0, 0);
+
+// The shipped pack (packs/ca-foundation-qa/pack.json) is a generated,
+// gitignored build artifact (CLAUDE.md), not a bundled module (ADR 0027). The
+// engine's loadCaPack() now fetches it over HTTP, which vitest cannot serve,
+// so this test reads the file straight from disk instead, the same way
+// tests/flows/mock.assembler.test.ts does. CI always builds the pack before
+// the app job runs; a fresh clone with no pack.json skips this test instead
+// of failing to read a file that does not exist.
+const shippedPackPath = fileURLToPath(
+  new URL("../../../packs/ca-foundation-qa/pack.json", import.meta.url),
+);
+const shippedPackJson = existsSync(shippedPackPath)
+  ? (JSON.parse(readFileSync(shippedPackPath, "utf8")) as { items: readonly RawContentItem[] })
+  : null;
+const maybeRealPack: LoadedPack | null = shippedPackJson
+  ? loadPack(shippedPackJson as unknown as RawPack, blueprintJson, markingJson)
+  : null;
+const maybeRealContent: ReadonlyMap<string, ContentItem> | null = shippedPackJson
+  ? buildContentMap(shippedPackJson.items)
+  : null;
 
 /**
  * A synthetic pack tagged at the BLUEPRINT FAMILY node (qa.bmath.finance), so
@@ -146,11 +174,11 @@ describe("engine-consistent serving (family-node pack)", () => {
 });
 
 describe("shipped pack serving + fallback safety", () => {
-  it("serves a real question on the shipped pack, matching the engine when it has one", async () => {
-    const { loadCaPack } = await import("../../src/engine/caPack.js");
-    const { loadCaContent } = await import("../../src/flows/practice/content.js");
-    const pack = await loadCaPack();
-    const content = await loadCaContent();
+  it.skipIf(maybeRealPack === null)(
+    "serves a real question on the shipped pack, matching the engine when it has one",
+    () => {
+    const pack = maybeRealPack as LoadedPack;
+    const content = maybeRealContent as ReadonlyMap<string, ContentItem>;
     const state = buildEngineState([], pack.bank, NOW);
 
     const engineAction = nextAction(state, pack, NOW, SESSION_LENGTH, EMPTY_SESSION);
@@ -171,7 +199,8 @@ describe("shipped pack serving + fallback safety", () => {
       expect(served!.fromEngine).toBe(false);
       expect(served!.action.kind).toBe("coverage");
     }
-  });
+    },
+  );
 
   it("the engine returns none when no item prefix-matches a weighted family, and the fallback serves", () => {
     // A pack whose only item is tagged under a node carrying NO blueprint weight

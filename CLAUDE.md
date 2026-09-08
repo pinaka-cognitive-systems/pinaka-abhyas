@@ -48,6 +48,11 @@ Intended to be hosted free on GitHub Pages or Cloudflare Pages once deployed. No
   `python3 packs/ca-foundation-qa/build_and_validate.py` (stamps content hashes,
   runs both validator tiers and the solution harness). `pack.json` is a generated,
   gitignored artifact; the `items/` and `solutions/` files are the source of truth.
+- The app fetches `pack.json` and `pack.manifest.json` at runtime; it does not
+  bundle them (ADR 0027). `app/vite-plugin-pack.mjs` serves both from
+  `packs/ca-foundation-qa/` in dev and copies them into `dist/` at build.
+  `npm run dev` starts without a pack and the app names the fix. `npm run build`
+  fails without one.
 
 ## Schema
 

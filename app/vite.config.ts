@@ -3,6 +3,8 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 // @ts-expect-error — .mjs build helper, no .d.ts; typed loosely on purpose.
 import { swPlugin } from "./vite-plugin-sw.mjs";
+// @ts-expect-error — .mjs build helper, no .d.ts; typed loosely on purpose.
+import { packPlugin } from "./vite-plugin-pack.mjs";
 
 // App version is the single source of truth for version stamping (ADR 0009) and
 // the pack update min-app-version check (ADR 0009). Read it from package.json at
@@ -23,6 +25,10 @@ export default defineConfig({
     // @vitejs/plugin-react: enables React fast-refresh in dev and handles
     // JSX transform without requiring React in scope (new JSX transform).
     react(),
+    // Serves the question pack in dev and copies it into dist/ at build time
+    // (ADR 0027). Runs before swPlugin() so the pack files exist in dist/
+    // before the offline precache manifest is computed.
+    packPlugin(),
     // Hand-rolled service worker: builds dist/sw.js with a precache manifest of
     // the app shell after the main bundle is written (W5-4, ADR 0001/0008).
     swPlugin(),
@@ -42,9 +48,10 @@ export default defineConfig({
   },
   server: {
     fs: {
-      // Allow the dev server to read the repo root: the demo lazily imports the
-      // real pack (packs/ca-foundation-qa/pack.json) and profile JSON, which
-      // live above app/. The import is code-split into its own chunk (W5-3).
+      // Allow the dev server to read the repo root: the engine still statically
+      // imports the profile's blueprint.json, marking.json and taxonomy.json,
+      // which live above app/. The pack itself (pack.json, pack.manifest.json)
+      // is served by vite-plugin-pack.mjs, not read through this path (ADR 0027).
       allow: [".."],
     },
   },

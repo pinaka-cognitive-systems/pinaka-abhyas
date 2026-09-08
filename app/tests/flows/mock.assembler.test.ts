@@ -16,9 +16,19 @@
  *   - hard mock behaviour is unchanged: L3-weighted, bypasses DIFFICULTY_MIX.
  */
 
+import { existsSync, readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+
 import { describe, expect, it } from "vitest";
 
-import { buildBank, buildBlueprint, loadPack, type RawPack, type RawPackItem } from "../../src/engine/index.js";
+import {
+  buildBank,
+  buildBlueprint,
+  loadPack,
+  type LoadedPack,
+  type RawPack,
+  type RawPackItem,
+} from "../../src/engine/index.js";
 import {
   assembleMock,
   scaleMarking,
@@ -26,16 +36,23 @@ import {
   type AssembledMock,
 } from "../../src/flows/mock/assembler.js";
 
-import packJson from "../../../packs/ca-foundation-qa/pack.json";
 import blueprintJson from "../../../schema/profiles/ca-foundation-qa/blueprint.json";
 import markingJson from "../../../schema/profiles/ca-foundation-qa/marking.json";
 
-const realPack = loadPack(
-  packJson as unknown as RawPack,
-  blueprintJson,
-  markingJson,
+// pack.json is a generated, gitignored build artifact (CLAUDE.md), unlike the
+// schema files above. CI always builds the pack before the app job runs, so
+// the suites below run there. A fresh clone with no pack.json skips them
+// instead of failing to import a file that does not exist.
+const packPath = fileURLToPath(
+  new URL("../../../packs/ca-foundation-qa/pack.json", import.meta.url),
 );
-const fullSize = realPack.marking.numQuestions;
+const maybeRealPack: LoadedPack | null = existsSync(packPath)
+  ? loadPack(JSON.parse(readFileSync(packPath, "utf8")) as unknown as RawPack, blueprintJson, markingJson)
+  : null;
+// Read only inside suites guarded by describe.skipIf(maybeRealPack === null)
+// below, so this is never dereferenced when the pack is absent.
+const realPack = maybeRealPack as LoadedPack;
+const fullSize = maybeRealPack?.marking.numQuestions ?? 0;
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -69,7 +86,7 @@ function syntheticItems(
 // Determinism
 // ---------------------------------------------------------------------------
 
-describe("assembleMock — determinism", () => {
+describe.skipIf(maybeRealPack === null)("assembleMock — determinism", () => {
   it("the same seed produces the identical paper", () => {
     const a = assembleMock(12345, realPack.bank, realPack.blueprint, fullSize);
     const b = assembleMock(12345, realPack.bank, realPack.blueprint, fullSize);
@@ -99,7 +116,7 @@ describe("assembleMock — determinism", () => {
 // Blueprint proportionality
 // ---------------------------------------------------------------------------
 
-describe("assembleMock — blueprint proportionality", () => {
+describe.skipIf(maybeRealPack === null)("assembleMock — blueprint proportionality", () => {
   it("draws min(quota, available) per family, never more", () => {
     const mock = assembleMock(7, realPack.bank, realPack.blueprint, fullSize);
     for (const fam of mock.families) {
@@ -146,7 +163,7 @@ describe("assembleMock — blueprint proportionality", () => {
 // No repeats
 // ---------------------------------------------------------------------------
 
-describe("assembleMock — no repeats", () => {
+describe.skipIf(maybeRealPack === null)("assembleMock — no repeats", () => {
   it("never draws the same item twice on one paper", () => {
     for (const seed of [1, 2, 99, 4242, 0]) {
       const mock = assembleMock(seed, realPack.bank, realPack.blueprint, fullSize);
@@ -183,7 +200,7 @@ describe("assembleMock — tombstones excluded", () => {
 // scaleMarking — proportional budget and bar
 // ---------------------------------------------------------------------------
 
-describe("scaleMarking — proportional budget and bar", () => {
+describe.skipIf(maybeRealPack === null)("scaleMarking — proportional budget and bar", () => {
   it("scales the time budget and pass bar by the size ratio; keeps per-question rules", () => {
     const mock = assembleMock(7, realPack.bank, realPack.blueprint, fullSize);
     const scaled = scaleMarking(realPack.marking, mock.size);
@@ -289,7 +306,7 @@ describe("assembleMock — difficulty mix (ADR 0022)", () => {
 // Exposure control (ADR 0022)
 // ---------------------------------------------------------------------------
 
-describe("assembleMock — exposure control (ADR 0022)", () => {
+describe.skipIf(maybeRealPack === null)("assembleMock — exposure control (ADR 0022)", () => {
   it("excludes recent items when pool is ample (no reuse needed)", () => {
     // Build a bank with plenty of items per label so exclusion never causes shortage.
     const countPerLabel = 30;

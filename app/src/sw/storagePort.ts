@@ -42,6 +42,10 @@ export function createStoragePort(adapter: StorageAdapter): PackStagingPort {
       }
     },
 
+    async readLiveBody(): Promise<string | null> {
+      return await adapter.getMeta(KEYS.liveBody);
+    },
+
     async readStaging(): Promise<StagedPack | null> {
       const [m, b] = await Promise.all([
         adapter.getMeta(KEYS.stagingManifest),

@@ -1,24 +1,24 @@
 /**
- * Lazy practice-content loader (W5-5 flow a).
+ * Practice-content loader (ADR 0027).
  *
- * Loads the SAME pack.json artifact the engine pack loader uses, but reads the
- * human content fields (stem, options, answer key, rationale, explanation) the
- * engine ignores. Uses dynamic import() so the pack bytes stay in their own lazy
- * chunk and never bloat the entry chunk (ADR 0008 byte budget). Because the
- * engine's caPack loader imports the same JSON module, Vite serves it from one
- * shared chunk — the content view costs no extra item bytes.
+ * Reads the SAME pack the engine pack loader uses, but reads the human
+ * content fields (stem, options, answer key, rationale, explanation) the
+ * engine ignores. The pack arrives through pack/source.ts (loadRawPack),
+ * which reads it from storage after the first load, or fetches it over HTTP
+ * on the first load, the same way the update flow does. There is one loader
+ * for the raw pack; this module and the engine loader each shape it for
+ * their own fields.
  */
 
+import { loadRawPack } from "../../pack/source.js";
 import { buildContentMap, type ContentItem, type RawContentItem } from "./types.js";
 
 interface RawPackFile {
   readonly items: readonly RawContentItem[];
 }
 
-/** Dynamically import the CA pack and build the screen-content lookup. */
+/** Load the CA pack and build the screen-content lookup. */
 export async function loadCaContent(): Promise<ReadonlyMap<string, ContentItem>> {
-  const pack = (await import("../../../../packs/ca-foundation-qa/pack.json")) as {
-    default: RawPackFile;
-  };
-  return buildContentMap(pack.default.items);
+  const pack = (await loadRawPack()) as RawPackFile;
+  return buildContentMap(pack.items);
 }
