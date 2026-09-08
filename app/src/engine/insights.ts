@@ -476,14 +476,16 @@ export function misconceptionMatrix(
   };
 }
 
-/** Cell heat, exactly the design's mxCell math (scr-diagnosis.jsx:22-27).
- * Returns inline-style values; the indigo literal is the design's own. */
+/** Cell heat. Returns inline-style values.
+ * The ramp is the warm neutral ink, not the accent: data never carries the
+ * brand colour, so a school theme cannot change what a reading means. */
 export function matrixCellStyle(v: number): { background: string; color: string } {
   if (v <= 0) return { background: "var(--color-card)", color: "var(--color-foreground)" };
   const o = 0.12 + Math.min(v / MATRIX_SCALE_MAX, 1) * 0.8;
   return {
-    background: `rgba(99, 102, 241, ${o.toFixed(2)})`,
-    color: v >= 3.2 ? "#fff" : "var(--color-foreground)",
+    // verify-hex-allow: the data ramp. Ink at a computed alpha, so it cannot be a fixed token.
+    background: `rgba(12, 10, 9, ${o.toFixed(2)})`,
+    color: v >= 3.2 ? "var(--color-card)" : "var(--color-foreground)",
   };
 }
 

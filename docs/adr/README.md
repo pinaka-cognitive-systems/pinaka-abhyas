@@ -34,6 +34,7 @@ in place as the historical record.
 | [0023](0023-explanation-kinds.md) | Explanation kinds and the per-archetype teaching contract | Accepted |
 | [0024](0024-mock-mix-mirrors-icai.md) | Mock difficulty mix mirrors the real ICAI paper | Accepted |
 | [0025](0025-schema-namespace-on-owned-domain.md) | Schema identifiers use a domain the project owns | Accepted |
+| [0026](0026-warm-neutral-palette-and-burnt-orange-accent.md) | Warm neutral palette and a burnt orange accent | Accepted |
 
 ADRs 0001 through 0007 record the project's founding
 decisions and share the founding date; their order within that date is the numeric

@@ -82,7 +82,7 @@ Exam-specific term tables live in the positioning doc, because the right words d
 - No dark patterns. No lying. No hiding value. Add value before any extraction.
 - No emoji. Anywhere. Product, marketing, email, release notes.
 - Type ceiling is Semibold 600. No Bold. See `design.md`.
-- One brand signal. Indigo. See `design.md`.
+- One brand signal. Burnt orange. See `design.md`.
 - Every session has a designed peak and an honest close. Never end on "next drill".
 
 ## Banned terms

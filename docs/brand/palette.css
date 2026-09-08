@@ -1,0 +1,72 @@
+/*
+ * palette.css — the Pinaka Abhyas brand palette.
+ *
+ * This file holds the colour values the brand defines. app/src/theme/tokens.css
+ * is the shipped token layer and must match it. The gate
+ * `node tools/verify/tokens.mjs` compares the two and fails on any difference,
+ * so a colour cannot change in code without changing here as well.
+ *
+ * The palette is warm neutral. The brand signal is burnt orange. There is no
+ * info role and no warm editorial accent.
+ *
+ * Where a value fails WCAG in real use, the corrected value ships and the
+ * reason sits next to the token in tokens.css. See ADR 0018 ruling 1.
+ */
+
+:root {
+
+  /* Surfaces */
+  --color-background: #FAFAF9;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #0C0A09;
+  --color-popover: #FFFFFF;
+  --color-popover-foreground: #0C0A09;
+  --color-foreground: #0C0A09;
+  --color-muted: #F5F5F4;
+  --color-muted-foreground: #38342E;
+  --color-accent: #F5F5F4;
+  --color-accent-foreground: #0C0A09;
+  --color-subtle: #E7E5E4;
+  --color-text-subtle: #514C46;
+
+  /* Borders */
+  --color-border-hairline: #F5F5F4;
+  --color-border: #E7E5E4;
+  --color-border-strong: #D6D3D1;
+  --color-input: #E7E5E4;
+
+  /* Brand signal */
+  --color-brand-primary: #9A3412;
+  --color-brand-primary-hover: #882500;
+  --color-brand-primary-active: #721E00;
+  --color-brand-secondary: #C2593A;
+  --color-brand-secondary-hover: #9A3412;
+  --color-brand-soft: rgba(154, 52, 18, 0.10);
+  --color-brand-text: #FFFFFF;
+
+  /* Semantic, fixed */
+  --color-success: #15803D;
+  --color-success-soft: #DCFCE7;
+  --color-success-text: #14532D;
+  --color-success-border: #15803D;
+  --color-success-foreground: #FFFFFF;
+  --color-warning: #F5B544;
+  --color-warning-soft: #FEF3C7;
+  --color-warning-text: #78350F;
+  --color-warning-border: #F5B544;
+  --color-warning-foreground: #0C0A09;
+  --color-danger: #E11D48;
+  --color-danger-soft: #FEE2E2;
+  --color-danger-text: #8B1A1A;
+  --color-danger-border: #E11D48;
+  --color-danger-foreground: #FFFFFF;
+
+  /* Dark sections */
+  --color-dark-bg: #0C0A09;
+  --color-dark-text-primary: #FFFFFF;
+  --color-dark-text-body: #D6D3D1;
+  --color-dark-text-muted: #A8A29E;
+  --color-dark-hairline: #292524;
+  --color-dark-strike: #57534E;
+  --color-dark-brand-accent: #C2593A;
+}

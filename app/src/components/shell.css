@@ -81,7 +81,7 @@
   }
 
   .app-shell__tab--active {
-    color: var(--color-info-text);
+    color: var(--color-brand-primary-active);
   }
 
   .app-shell__tab-icon {
@@ -108,7 +108,7 @@
     font-weight: var(--font-weight-medium);
     font-variant-numeric: tabular-nums;
     background: var(--color-brand-soft);
-    color: var(--color-info-text);
+    color: var(--color-brand-primary-active);
     border-radius: var(--radius-full);
   }
 

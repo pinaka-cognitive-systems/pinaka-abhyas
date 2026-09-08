@@ -13,43 +13,38 @@ The single most important rule: the artifact is the visual. The readout, the dia
 
 Three-layer story. One brand signal.
 
-### Surfaces (zinc cool-gray)
+### Surfaces (warm neutral)
 
 | Token | Hex | Use |
 | --- | --- | --- |
-| `--color-background` | `#FAFAFA` | Page background |
-| `--color-foreground` | `#09090B` | Body text. Also the dark-section background |
+| `--color-background` | `#FAFAF9` | Page background |
+| `--color-foreground` | `#0C0A09` | Body text. Also the dark-section background |
 | `--color-card` | `#FFFFFF` | Cards push to pure white |
-| `--color-muted` | `#F4F4F5` | Callout and inset backgrounds |
-| `--color-muted-foreground` | `#2F2F36` | Secondary text (darkened by the 2026-06-12 readability ruling: body prose reads at 12.7:1) |
-| `--color-text-subtle` | `#6E6E76` | Captions, footnotes |
+| `--color-muted` | `#F5F5F4` | Callout and inset backgrounds |
+| `--color-muted-foreground` | `#38342E` | Body text and descriptions. Reads 11.8:1 on the page, 12.4:1 on a card |
+| `--color-text-subtle` | `#514C46` | Captions, footnotes |
 
-### Brand (indigo, one signal does all the work)
+### Brand (burnt orange, one signal does all the work)
 
 | Token | Hex | Use |
 | --- | --- | --- |
-| `--color-brand-primary` | `#5558E8` | All accents, primary CTAs, links on light |
-| `--color-brand-primary-hover` | `#4F46E5` | Hover. Body-size link color for AA |
-| `--color-brand-primary-active` | `#4338CA` | Active |
-| `--color-brand-secondary` | `#818CF8` | Brand accent on dark sections. Primary is too dark on `#09090B` |
+| `--color-brand-primary` | `#9A3412` | All accents, primary CTAs, links on light |
+| `--color-brand-primary-hover` | `#882500` | Hover. Body-size link color for AA |
+| `--color-brand-primary-active` | `#721E00` | Active |
+| `--color-brand-secondary` | `#C2593A` | Brand accent on dark sections. Primary is too dark on `#0C0A09` |
 | `--color-brand-soft` | `rgba(85,88,232,0.10)` | Focus rings, selected states, the only gradient-like fill |
-
-### Warm accent (amber, sparing, never chrome)
-
-`--color-warm-500 #B45309` · `--color-warm-100 #FEF3C7` · `--color-warm-50 #FFFBEB`. Editorial callouts only.
 
 ### Semantic (not interchangeable)
 
 | Meaning | Filled | Soft | Text | Border |
 | --- | --- | --- | --- | --- |
-| Success (emerald) | `#047857` | `#ECFDF5` | `#065F46` | `#059669` |
-| Warning (amber) | `#D97706` | `#FFFBEB` | `#92400E` | `#D97706` |
-| Danger (rose) | `#E11D48` | `#FFF1F2` | `#9F1239` | `#E11D48` |
-| Info (indigo) | `#5558E8` | `#EEF2FF` | `#4338CA` | `#5558E8` |
+| Success (green) | `#15803D` | `#DCFCE7` | `#14532D` | `#15803D` |
+| Warning (amber) | `#F5B544` | `#FEF3C7` | `#78350F` | `#F5B544` |
+| Danger (rose) | `#E11D48` | `#FEE2E2` | `#8B1A1A` | `#E11D48` |
 
 ### Borders
 
-`--color-border-hairline #E4E4E7` (decorative dividers only) · `--color-border #D4D4D8` (cards, inputs) · `--color-border-strong #A1A1AA` (interactive and focused).
+`--color-border-hairline #F5F5F4` (decorative dividers only) · `--color-border #E7E5E4` (cards, inputs) · `--color-border-strong #D6D3D1` (interactive and focused).
 
 ### The dark-section palette (inverted)
 
@@ -57,13 +52,13 @@ When a section inverts to near-black (manifesto, primary CTA card, stat callout)
 
 | Role | Hex |
 | --- | --- |
-| Background | `#09090B` |
-| Primary text | `#FAFAFA` |
-| Body and secondary text | `#D4D4D8` |
-| Muted and caption | `#A1A1AA` |
-| Hairline divider | `#27272A` |
-| Strikethrough rule | `#52525B` |
-| Brand accent (eyebrow, chevron) | `#818CF8` |
+| Background | `#0C0A09` |
+| Primary text | `#FFFFFF` |
+| Body and secondary text | `#D6D3D1` |
+| Muted and caption | `#A8A29E` |
+| Hairline divider | `#292524` |
+| Strikethrough rule | `#57534E` |
+| Brand accent (eyebrow, chevron) | `#C2593A` |
 
 Hold to one true dark section per page. A second, like a primary CTA card, is acceptable. Three is not.
 
@@ -92,7 +87,7 @@ There is no Bold. User-agent `<strong>` and `<h1>` through `<h6>` defaults are o
 - Italics for book titles and technical first-mentions only. Never for emphasis.
 - Line-length caps: long-form 65ch, card body 45ch, hero 35ch, sub-hero 50ch.
 - Letter-spacing: `--tracking-tight -0.025em` (hero), `--tracking-heading -0.02em`, `--tracking-caps 0.05em` (eyebrows).
-- Fonts are self-hosted in production, no CDN. Google Fonts only for prototypes. Email falls back to system sans (`-apple-system, 'Segoe UI', Roboto`) because Outlook strips webfonts. The chevron, indigo, and voice still carry the brand.
+- Fonts are self-hosted in production, no CDN. Google Fonts only for prototypes. Email falls back to system sans (`-apple-system, 'Segoe UI', Roboto`) because Outlook strips webfonts. The chevron, the accent, and the voice still carry the brand.
 
 ## Motion
 
@@ -125,7 +120,7 @@ Forbidden: hardcoded ms, parallax, auto-playing motion, confetti, sparkles, part
 
 ### Cards
 
-White on zinc-50, `radius-lg`, `--color-border` hairline, optional `--shadow-sm`. Border or shadow, not both heavy. Usually border alone. No colored-left-border accent cards.
+White on the page surface, `radius-lg`, `--color-border` hairline, optional `--shadow-sm`. Border or shadow, not both heavy. Usually border alone. No colored-left-border accent cards.
 
 ### Hover and press
 
@@ -133,7 +128,7 @@ Color-only hover (background to muted or brand-soft, border to strong). Cards ma
 
 ### Buttons
 
-Primary (indigo fill), secondary (white plus border), ghost (transparent), inverse (zinc-50 on dark). Sizes sm, md, lg (heights 32, 40, 48). Border-radius `md`.
+Primary (accent fill), secondary (white plus border), ghost (transparent), inverse (page surface on dark). Sizes sm, md, lg (heights 32, 40, 48). Border-radius `md`.
 
 ### Layout rules
 
@@ -144,11 +139,11 @@ Primary (indigo fill), secondary (white plus border), ghost (transparent), inver
 
 ## Iconography
 
-Lucide-style, hand-drawn in `app/src/components/ui.tsx`; no icon library ships. Monoline, even stroke, square caps, miter joins, no fills. Stroke 1.5 to 2px at 24px. `currentColor`. Icons are never indigo by default, because indigo is reserved for the chevron mark. Sizes: 24 standard, 16 inline in text, 20 compact UI, 32 empty state. No filled glyphs in production web.
+Lucide-style, hand-drawn in `app/src/components/ui.tsx`; no icon library ships. Monoline, even stroke, square caps, miter joins, no fills. Stroke 1.5 to 2px at 24px. `currentColor`. Icons are never the accent colour by default, because the accent is reserved for the chevron mark. Sizes: 24 standard, 16 inline in text, 20 compact UI, 32 empty state. No filled glyphs in production web.
 
 ## Imagery and the artifact
 
-No photography. No stock photos. No instructor headshots. No environment imagery. No abstract product shots. No illustration. Surfaces are the zinc base and the data on top of it.
+No photography. No stock photos. No instructor headshots. No environment imagery. No abstract product shots. No illustration. Surfaces are the warm neutral base and the data on top of it.
 
 The artifact is the ad. The readout, the diagnosis, the readiness screen, the explanation: annotated sometimes, staged never. Marketing surfaces present the product's actual output. When a section feels like it needs an image, the answer is almost always to show a real artifact instead.
 
@@ -160,8 +155,8 @@ Adopted from design v1, with two refinements.
 
 The lockup, left to right:
 
-1. The chevron mark. Indigo stroke (`--color-brand-primary #5558E8`). Two diagonal strokes referencing the bow drawn. Square caps, miter joins.
-2. "Pinaka" in IBM Plex Sans 600, in `--color-foreground #09090B`.
+1. The chevron mark. Burnt orange stroke (`--color-brand-primary #9A3412`). Two diagonal strokes referencing the bow drawn. Square caps, miter joins.
+2. "Pinaka" in IBM Plex Sans 600, in `--color-foreground #0C0A09`.
 3. "abhyas" lowercase, set as a tag in regular weight and subtle gray.
 
 Brand work happens through the icon, never through coloring the text. This is the editorial pattern premium publications follow.
@@ -176,7 +171,7 @@ Inline SVG for the chevron (square caps, miter joins, 3px stroke):
 </svg>
 ```
 
-`var(--color-brand-primary)` resolves to `#5558E8` (WCAG-corrected; see ADR 0018 ruling 1).
+`var(--color-brand-primary)` resolves to `#9A3412`. It reads 7.0:1 on the page, and white on it reads 7.3:1.
 
 Forms:
 

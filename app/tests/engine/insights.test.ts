@@ -238,10 +238,10 @@ describe("misconceptionMatrix", () => {
   });
 });
 
-describe("matrixCellStyle (the design mxCell math)", () => {
+describe("matrixCellStyle (the neutral data ramp)", () => {
   it("matches the design opacity curve", () => {
-    expect(matrixCellStyle(7).background).toBe("rgba(99, 102, 241, 0.92)");
-    expect(matrixCellStyle(7).color).toBe("#fff");
+    expect(matrixCellStyle(7).background).toBe("rgba(12, 10, 9, 0.92)");
+    expect(matrixCellStyle(7).color).toBe("var(--color-card)");
     expect(matrixCellStyle(1.5).color).toBe("var(--color-foreground)");
     expect(matrixCellStyle(0).background).toBe("var(--color-card)");
   });

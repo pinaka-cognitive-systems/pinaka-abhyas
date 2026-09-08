@@ -220,6 +220,8 @@ const PAIRINGS = [
   ["brand-text on brand-primary-hover",   "--color-brand-text",            "--color-brand-primary-hover", "normal"],
   ["brand-primary-active on background",  "--color-brand-primary-active",  "--color-background",       "normal"],
   ["brand-text on brand-primary-active",  "--color-brand-text",            "--color-brand-primary-active", "normal"],
+  // Brand selection state (replaces the retired info role)
+  ["brand-primary-active on brand-soft", "--color-brand-primary-active", "--color-brand-soft",       "normal"],
   // Semantic — success
   ["success-text on success-soft",        "--color-success-text",          "--color-success-soft",     "normal"],
   ["success-foreground on success",       "--color-success-foreground",    "--color-success",          "normal"],
@@ -231,19 +233,11 @@ const PAIRINGS = [
   ["danger-text on danger-soft",          "--color-danger-text",           "--color-danger-soft",      "normal"],
   ["danger-foreground on danger",         "--color-danger-foreground",     "--color-danger",           "normal"],
   ["danger-text on background",           "--color-danger-text",           "--color-background",       "normal"],
-  // Semantic — info
-  ["info-text on info-soft",              "--color-info-text",             "--color-info-soft",        "normal"],
-  ["info-foreground on info",             "--color-info-foreground",       "--color-info",             "normal"],
   // Dark section
   ["dark-text-primary on dark-bg",        "--color-dark-text-primary",     "--color-dark-bg",          "normal"],
   ["dark-text-body on dark-bg",           "--color-dark-text-body",        "--color-dark-bg",          "normal"],
   ["dark-text-muted on dark-bg",          "--color-dark-text-muted",       "--color-dark-bg",          "normal"],
   ["dark-brand-accent on dark-bg",        "--color-dark-brand-accent",     "--color-dark-bg",          "normal"],
-  // Danger on background (timer low, etc.)
-  ["danger on background",                "--color-danger",                "--color-background",       "normal"],
-  // Warm accent
-  ["warm-500 on background",              "--color-warm-500",              "--color-background",       "normal"],
-  ["warm-500 on warm-100",                "--color-warm-500",              "--color-warm-100",         "normal"],
 ];
 
 const THRESHOLD_NORMAL = 4.5;

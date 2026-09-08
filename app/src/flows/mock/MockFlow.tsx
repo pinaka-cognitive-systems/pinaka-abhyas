@@ -1640,7 +1640,8 @@ function Hall({
 
           <div className="palette-legend">
             <span className="pleg">
-              <span className="pleg__sw" style={{ background: "rgba(99,102,241,0.16)", borderColor: "rgba(99,102,241,0.34)" }} />
+              // verify-hex-allow: the accent at 16% and 34%, matching .pcell.is-answered in design.css.
+              <span className="pleg__sw" style={{ background: "rgba(154, 52, 18, 0.16)", borderColor: "rgba(154, 52, 18, 0.34)" }} />
               Answered
             </span>
             <span className="pleg">
