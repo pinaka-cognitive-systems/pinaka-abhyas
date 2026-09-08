@@ -10,6 +10,10 @@
 set -euo pipefail
 
 ROOT="$(git rev-parse --show-toplevel)"
+# The Python gates run in the repo's .venv (tools/python-env.sh), the same one
+# tools/dev.sh uses. Sourced before the cd so the venv lives in the real repo,
+# not in the throwaway export.
+. "$ROOT/tools/python-env.sh"
 WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT
 
@@ -27,15 +31,15 @@ if grep -RIn "$PAT" --exclude-dir=.git --exclude="*.lock" --exclude="package-loc
 fi
 
 echo "== python gates"
-python3 schema/validate.py
-python3 schema/validator/run_checks.py
-python3 schema/validator/run_solutions.py packs/ca-foundation-qa
-python3 tools/check_originality.py --self-test
-python3 tools/check_originality.py
-python3 -m pytest schema/validator/tests -q
+"$PY" schema/validate.py
+"$PY" schema/validator/run_checks.py
+"$PY" schema/validator/run_solutions.py packs/ca-foundation-qa
+"$PY" tools/check_originality.py --self-test
+"$PY" tools/check_originality.py
+"$PY" -m pytest schema/validator/tests -q
 
 echo "== pack artifact (the app consumes this, as in CI)"
-python3 packs/ca-foundation-qa/build_and_validate.py
+"$PY" packs/ca-foundation-qa/build_and_validate.py
 
 echo "== engine gates"
 # `npm run audit` runs last inside each block, exactly as CI orders it, so a

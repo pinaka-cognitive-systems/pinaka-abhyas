@@ -76,13 +76,15 @@ Requirements: Node 22, Python 3.12.
 ```
 git clone https://github.com/pinaka-cognitive-systems/pinaka-abhyas
 cd pinaka-abhyas
-pip install ".[dev]"          # installs jsonschema, referencing, rfc3339-validator, pytest
-bash tools/dev.sh             # builds the pack, installs app deps on first run, starts http://localhost:5173
+bash tools/dev.sh             # first run takes a few minutes; then http://localhost:5173
 ```
 
-`tools/dev.sh` runs `python3 packs/ca-foundation-qa/build_and_validate.py` (which
-generates the gitignored `pack.json`), then `npm install` inside `app/` if
-`node_modules/` is absent, then `npm run dev`.
+`tools/dev.sh` creates `.venv` and installs the pack build's Python dependencies
+into it on first run (the system Python is never touched), runs
+`packs/ca-foundation-qa/build_and_validate.py` (which generates the gitignored
+`pack.json`), then `npm install` inside `app/` if `node_modules/` is absent, then
+`npm run dev`. `tools/ci-local.sh` uses the same `.venv`. To run a validator or the
+pack build by hand, use `.venv/bin/python3` in place of `python3`.
 
 ## Licensing
 

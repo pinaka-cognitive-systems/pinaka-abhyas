@@ -32,12 +32,12 @@ misconception tagging, verification requirements, and the licensing rules.
 **Quickstart:**
 
 ```bash
-# Build and validate the pack (required before running the app)
-python3 packs/ca-foundation-qa/build_and_validate.py
-
-# Start the dev server (installs app deps on first run, then serves on :5173)
 bash tools/dev.sh
 ```
+
+That one command creates `.venv` with the pack build's Python dependencies, builds
+and validates the pack, installs the app dependencies, and serves on :5173. The
+first run takes a few minutes.
 
 **Gates that must stay green before every PR.**
 

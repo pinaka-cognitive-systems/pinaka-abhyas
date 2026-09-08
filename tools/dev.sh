@@ -10,8 +10,11 @@ set -euo pipefail
 ROOT="$(git rev-parse --show-toplevel)"
 cd "$ROOT"
 
+# The pack build runs in .venv, created here on first use (tools/python-env.sh).
+. "$ROOT/tools/python-env.sh"
+
 echo "== pack artifact"
-python3 packs/ca-foundation-qa/build_and_validate.py
+"$PY" packs/ca-foundation-qa/build_and_validate.py
 
 cd app
 if [ ! -d node_modules ]; then

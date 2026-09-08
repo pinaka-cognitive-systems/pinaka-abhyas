@@ -59,8 +59,10 @@ Intended to be hosted free on GitHub Pages or Cloudflare Pages once deployed. No
 - Validate, both must stay green:
   - `python3 schema/validate.py`
   - `python3 schema/validator/run_checks.py`
-- Validators need `jsonschema`, `referencing`, and `rfc3339-validator`. Install with
-  `pip install ".[dev]"` from the repo root.
+- Validators need `jsonschema`, `referencing`, and `rfc3339-validator`.
+  `tools/python-env.sh` installs them into `.venv` on first use; `tools/dev.sh` and
+  `tools/ci-local.sh` source it. To run a validator by hand, use
+  `.venv/bin/python3`.
 
 ## Engine
 
