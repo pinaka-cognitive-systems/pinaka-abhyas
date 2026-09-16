@@ -76,9 +76,10 @@ the answer is per-mode, not one rule for everything.
 ### 3.2 Tracks for every learner type — sequence it
 
 The Profile mechanism has never been exercised by a second profile, so "the Core rarely
-changes" is an untested claim — ADR 0016 says as much. Six hard-coded references to
-`ca-foundation-qa` sit across the Python validators, `tools/ci-local.sh` and
-`app/vite-plugin-pack.mjs`.
+changes" is an untested claim — ADR 0016 says as much. About 35 hard-coded references
+to `ca-foundation-qa`, across 18 files and not counting tests, sit in the Python
+validators and content tools, `tools/ci-local.sh`, `.github/workflows/ci.yml`,
+`app/vite-plugin-pack.mjs`, and the app's taxonomy, misconception and blueprint imports.
 
 Deeper: **school is not exam prep.** The engine computes a readiness band against a
 paper. A Grade 5 student has no paper. School needs a second goal model — syllabus
@@ -317,7 +318,12 @@ any hard gate goes back to its author rather than forward to a device.
 
 #### WS-1 · Parameterise the build and the validators (weeks 1–2)
 
-Six places assume the CA pack is the only pack. Small, mechanical, unblocks everything else.
+About 35 references across 18 files, not counting tests, assume the CA pack is the only
+pack. The table lists the ones on the build and gate path. The content tools
+(`run_quality.py`, `check_originality.py`, `funnel.py`, `content_status.py`,
+`gap_analysis.py`) and the app's profile imports (`engine/topics.ts`, `state/appData.ts`,
+`flows/diagnosis/DiagnosisFlow.tsx`) need the same change. Mechanical rather than small,
+and it unblocks everything else.
 
 | Path | Change |
 |---|---|
@@ -526,18 +532,20 @@ flowchart LR
 
 ### 8.2 One real gap in rule 4
 
-There are 20 reject fixtures under `schema/validator/packs/reject/` against 28 Tier 2
-violation codes, and the filenames do not map one-to-one onto the codes — so which codes
-are actually proven falsifiable cannot be checked mechanically today.
+The reject fixtures already assert the right thing. `run_checks.py` maps each of the 20
+fixtures under `schema/validator/packs/reject/` to the exact set of violation codes it
+must produce, and fails if an expected code is missing or an unexpected one appears. A
+fixture cannot pass by tripping the wrong check.
 
-More significant: a fixture asserts only that the pack *was rejected*, not that the
-intended check is what rejected it. A fixture built to trip `MISCONCEPTION_REQUIRED` that
-happens to also trip `SCHEMA` passes while proving nothing about the check it was written
-for.
+The gap is coverage. `pack_validator.py` emits 28 Tier 2 violation codes, and the
+fixtures' expected sets name 21 of them. Seven have no fixture anywhere in the repo:
+`ASSET_OWNER_MISMATCH`, `COMMON_ERROR_EQUALS_ANSWER`, `DIFFICULTY_NOT_IN_SCALE`,
+`EXPLANATION_KIND_WITHOUT_SECTIONS`, `HASH_ERROR`, `RATIONALE_BAD_OPTION` and
+`UNPUBLISHABLE_LICENSE`. Nothing fails when a new code is added without one.
 
-**Fix, roughly a day's work:** have each fixture declare its expected code, assert the code
-fires, and add a coverage check that fails CI when any registered code has no fixture. Do
-it in Phase 1, while there are 28 codes rather than the 60-odd that Phases 2 and 3 add.
+**Fix, a few hours:** add fixtures for the seven, and a coverage check that fails CI when a
+code emitted by `pack_validator.py` appears in no fixture's expected set. Do it in Phase 1,
+while there are 28 codes rather than the 60-odd that Phases 2 and 3 add.
 
 ### 8.3 What the solution harness guarantees
 
@@ -607,7 +615,7 @@ existed and should be re-tuned against beta data, not defended.
 | Gate | Asserts | Build or extend |
 |---|---|---|
 | **Round-trip equality** | The database build and the git build produce identical content hashes for all 813 items | new — `tools/verify_roundtrip.py` |
-| **Violation-code coverage** | Every registered check code has a fixture that trips *it specifically*, and the fixture asserts which code fired | new — closes the rule 4 gap |
+| **Violation-code coverage** | Every code `pack_validator.py` emits appears in at least one reject fixture's exact expected set | extend — `run_checks.py` already asserts exact sets; this adds the coverage check that closes the rule 4 gap |
 | **Per-pack isolation** | Each pack is gated independently in a CI matrix; one red pack cannot mask a green one | extend — `ci.yml` |
 | **Catalogue consistency** | No catalogue row without its object; the manifest hash matches the stored object; no published version is ever rewritten | new — publish pipeline |
 | **Access check on every endpoint** | No item-bearing response is served without a subscription check. Asserted per route, so a new endpoint cannot quietly omit it | new — session service |
