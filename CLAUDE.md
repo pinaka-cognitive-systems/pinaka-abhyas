@@ -104,6 +104,8 @@ old one and references it; the old ADR stays in place as the historical record.
 ## Pointers
 
 - Decisions: `docs/adr/`
+- Proposals: `docs/proposals/` (ideas under review; never a decision until an ADR
+  accepts one)
 - Roadmap: `ROADMAP.md` (current phase, what is done, what is next)
 - Schema rationale: `specs/unified-question-schema.md`
 - Content pipeline: `specs/content-pipeline.md`
