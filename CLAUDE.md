@@ -16,8 +16,9 @@ Intended to be hosted free on GitHub Pages or Cloudflare Pages once deployed. No
 
 ## Git conventions
 
-- **Identity:** `Shiva Padakanti <65507531+5h1vmani@users.noreply.github.com>`. This
-  is a public repo. Never commit a personal email.
+- **Identity:** commit as yourself, under your own name and your own GitHub noreply
+  address, in the form `<id>+<login>@users.noreply.github.com`. This is a public
+  repo. Never commit a personal email. Never commit under another person's name.
 - **Conventional Commits** for every message: `type(scope): summary`. Types:
   `feat`, `fix`, `chore`, `docs`, `refactor`, `test`, `build`.
 - **No signatures, authors, or trailers** in commit messages. No `Co-Authored-By`,
