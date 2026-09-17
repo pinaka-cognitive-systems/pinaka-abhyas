@@ -197,7 +197,10 @@ quarantined until it is replaced. A student can report a question from the
 explanation screen.
 
 Authored items and new exams come later. They go through the same schema and the
-same gates, and the verification tier is visible on every item.
+same gates. Only a machine-verified or an expert-reviewed item ever reaches a
+student. An item that has passed structure checks but not a correctness check
+stays in the contributor pool until two blind solves agree. The verification
+tier is visible on every item a student sees.
 
 The content generator is private. Outsiders use it through a generation request.
 A contributor names the exam, topic, difficulty, and target misconception. A
@@ -206,11 +209,12 @@ maintainer runs the generator.
 ## 10. Telemetry and calibration
 
 Telemetry is opt-in, off by default, and anonymous by construction. Each record
-is one attempt: the item, whether it was correct, a coarse time bucket, the mode,
-and the device form factor. No student id, no device id, no session id, and no
-exact timestamp leave the device. The collector drops the source address before
-it stores anything. Because records cannot be linked, telemetry cannot follow one
-student over time.
+is one attempt. It holds the item, whether it was correct, a coarse time bucket,
+the mode, the device form factor, and an ability band with five levels. No student id, no
+device id, no session id, and no exact timestamp leave the device. The collector
+drops the source address before it stores anything and stores each record on its
+own. Because records cannot be linked, telemetry cannot follow one student over
+time.
 
 Telemetry exists for one reason: to calibrate item difficulty on the engine's
 scale. Calibration is a build-time batch job. A maintainer runs it, reviews the
@@ -253,4 +257,5 @@ second exam. It fixes the loop first.
   research question. Candidates: a mock score rising, mastery per topic, the
   distance to pass.
 - A counsel check on the anonymity position in section 10 before the collector
-  ships.
+  ships. The same check covers how a student under 18 shares an export file
+  with the project.
