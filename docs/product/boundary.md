@@ -1,9 +1,8 @@
 # Product boundary
 
-Status: Draft for review, version 2. It becomes binding when the product owner
+Status: Draft for review, version 3. It becomes binding when the product owner
 and the engineering owner approve it. After that, a change to a non-goal, a
-principle, the exam list, or the decision rule needs a written decision that the
-product owner approves.
+principle, or the exam list needs a written decision.
 Owner: product. Reviewer: engineering.
 Review cadence: after the closed beta, and then once per quarter.
 
@@ -22,9 +21,10 @@ model in `objects.md` lists them.
 
 There is one student, not a set of personas.
 
-- Prepares for a competitive exam. CA Foundation comes first. JEE, NEET, and
-  LSAT follow, and the roadmap sets their order.
-- Cannot afford coaching, so studies alone.
+- Prepares for a competitive exam. CA Foundation comes first, then LSAT, then
+  JEE and NEET.
+- Usually cannot afford coaching. Studies alone either way, with or without a
+  class. The product serves the student, never the coaching centre.
 - Studies from past papers, YouTube, and Telegram groups today.
 - Uses a shared Android phone as the base device. Some have their own phone. Few
   have a computer.
@@ -46,7 +46,7 @@ The job statement:
 The outcomes the student wants, in order:
 
 1. Know which topics and which misconceptions hold my score down.
-2. Know the one next step, and why.
+2. Know the one next action, and why.
 3. See my past mistakes come back until I stop making them.
 4. See my score move, and know how far I am from passing.
 5. Keep my progress, and take it with me to another phone.
@@ -69,7 +69,7 @@ Four moments the product must serve:
 
 - The switch. A student arrives with weeks left and a mock score that worried
   them. The first screen must answer "is this real" before it asks for anything.
-- The first session. It ends with one named weakness and one next step. Readiness
+- The first session. It ends with one named weakness and one next action. Readiness
   says "not enough data yet" until the evidence exists. The app never shows an
   early number to look useful.
 - Exam day. The app shows what the student has done and says nothing new. There
@@ -85,7 +85,7 @@ device:
 1. The student practises verified questions.
 2. The app diagnoses what they do not know, per topic and per misconception.
 3. It resurfaces past mistakes on a schedule.
-4. It names the single next step.
+4. It names the single next action.
 5. It shows how far they are from passing, as an estimate.
 
 There is no account. No server holds student data. The app works fully offline
@@ -149,7 +149,7 @@ touches no student data, and the engineering owner decides it.
 3. **Honest numbers only.** An estimate is labelled as an estimate. When a number
    rests on a source, the source is shown. The engine never claims a score it
    cannot back.
-4. **Every session ends with evidence of progress and a next step.** Nothing makes
+4. **Every session ends with evidence of progress and a next action.** Nothing makes
    a struggling student feel worse without telling them what to do. No streak
    pressure. No trick that builds a habit without progress.
 5. **Works on the base device, for every student.** A shared Android phone,
@@ -161,9 +161,8 @@ touches no student data, and the engineering owner decides it.
 
 ## 8. Exams
 
-CA Foundation Paper 3, Quantitative Aptitude, ships first. JEE, NEET, and LSAT
-follow. The roadmap sets the order after CA Foundation and gates each one on
-traction.
+CA Foundation Paper 3, Quantitative Aptitude, ships first. LSAT follows, then JEE
+and NEET. Each new exam waits for the one before it to show traction.
 
 Each exam is a Profile on an exam-agnostic Core. The engine takes each exam's
 blueprint and marking scheme as parameters. Nothing in the engine is specific to
@@ -200,10 +199,9 @@ explanation screen.
 Authored items and new exams come later. They go through the same schema and the
 same gates, and the verification tier is visible on every item.
 
-The content generator stays private for now. A generation-request path may open
-first: a contributor names the exam, topic, difficulty, and target misconception,
-and a maintainer runs the generator. Opening the generator itself needs its own
-written decision.
+The content generator is private. Outsiders use it through a generation request.
+A contributor names the exam, topic, difficulty, and target misconception. A
+maintainer runs the generator.
 
 ## 10. Telemetry and calibration
 
@@ -224,25 +222,7 @@ own diagnosis, which is computed on their device.
 If telemetry cannot be collected, the authored difficulty labels and the
 scheduler keep the app working.
 
-## 11. Decision rule
-
-There are two roles. The product owner owns this page and the PRD. The
-engineering owner owns the architecture, the build, and the delivery, inside this
-page.
-
-- A change to a non-goal, a principle, the exam list, or this rule needs a
-  written decision. It is proposed on a branch and reviewed by both roles. The
-  product owner decides it after both reviews.
-- Inside the boundary, the engineering owner decides how. The product owner
-  reviews and does not redesign.
-- If the two roles disagree on whether a change is "what" or "how", it is treated
-  as "what" and goes through a written decision.
-- Either role may push back on a decision once, in writing, with a reason. Then
-  the owner of that area decides.
-- A settled decision stays settled until a new written decision replaces it.
-  Nobody reopens a decision in a pull request comment.
-
-## 12. Success
+## 11. Success
 
 Three numbers, read together. Any one alone can be gamed. Each one names how it
 is measured, because the privacy rule limits what can be counted.
@@ -267,11 +247,10 @@ The stop rule is this. The closed beta must show that students return, find the
 diagnosis accurate, and improve. If it does not, the product does not widen to a
 second exam. It fixes the loop first.
 
-## 13. Open questions
+## 12. Open questions
 
 - What evidence of improvement does this student trust? This is a closed-beta
   research question. Candidates: a mock score rising, mastery per topic, the
   distance to pass.
-- Whether to open the content generator. Pending. See section 9.
 - A counsel check on the anonymity position in section 10 before the collector
   ships.
