@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
-# Push, then block on the CI verdict for EXACTLY the pushed commit.
-# Purpose: a push is not done when it leaves this machine; it is done when the
-# run for that SHA is green. Polling by SHA also prevents misreading an older
-# run's verdict as the current one (which happened). Exits nonzero on failure
-# so the terminal, not an email hours later, is where a red run gets noticed.
+# Push, then block until all three checks for EXACTLY the pushed commit are done.
+# Three workflows run on every commit: CI (.github/workflows/ci.yml), CLA
+# (.github/workflows/cla.yml), and Commit identity
+# (.github/workflows/commit-identity.yml). Each run is picked by its own
+# workflow name, not by list position: the CLA run often finishes in seconds,
+# and picking "the first run in the list" once reported CLA's quick pass as
+# the CI verdict while CI was still running.
+# A push is not done when it leaves this machine; it is done when all three
+# runs for that SHA are green. Exits nonzero on failure so the terminal, not
+# an email hours later, is where a red run gets noticed.
 #
 # Usage: tools/push-verified.sh [remote] [branch]
 set -euo pipefail
@@ -15,28 +20,49 @@ BRANCH="${2:-$(git branch --show-current)}"
 
 git push "$REMOTE" "$BRANCH"
 SHA="$(git rev-parse HEAD)"
-echo "pushed $SHA; awaiting the CI run for this exact commit"
+echo "pushed $SHA; awaiting the CI, CLA, and Commit identity runs for this exact commit"
 
-# Wait for the run to appear (the API lags a push by a few seconds).
-RUN_ID=""
-for _ in $(seq 1 20); do
-  RUN_ID="$(gh run list --commit "$SHA" --json databaseId --jq '.[0].databaseId' 2>/dev/null || true)"
-  [ -n "$RUN_ID" ] && break
-  sleep 5
+# Find the run ID for one workflow on this commit. Retries because the API
+# lags a push by a few seconds.
+find_run_id() {
+  local workflow="$1" run_id=""
+  for _ in $(seq 1 20); do
+    run_id="$(gh run list --commit "$SHA" --workflow "$workflow" --json databaseId --jq '.[0].databaseId' 2>/dev/null || true)"
+    [ -n "$run_id" ] && break
+    sleep 5
+  done
+  echo "$run_id"
+}
+
+CI_RUN="$(find_run_id ci.yml)"
+[ -n "$CI_RUN" ] || { echo "FAIL  no CI run appeared for $SHA"; exit 1; }
+CLA_RUN="$(find_run_id cla.yml)"
+[ -n "$CLA_RUN" ] || { echo "FAIL  no CLA run appeared for $SHA"; exit 1; }
+IDENTITY_RUN="$(find_run_id commit-identity.yml)"
+[ -n "$IDENTITY_RUN" ] || { echo "FAIL  no Commit identity run appeared for $SHA"; exit 1; }
+
+wait_for_run() {
+  until [ "$(gh run view "$1" --json status --jq '.status')" = "completed" ]; do
+    sleep 15
+  done
+}
+wait_for_run "$CI_RUN"
+wait_for_run "$CLA_RUN"
+wait_for_run "$IDENTITY_RUN"
+
+# Report each run's verdict. A red run also prints its failed job logs.
+FAILED=0
+for entry in "CI $CI_RUN" "CLA $CLA_RUN" "Commit identity $IDENTITY_RUN"; do
+  NAME="${entry% *}"
+  RUN_ID="${entry##* }"
+  CONCLUSION="$(gh run view "$RUN_ID" --json conclusion --jq '.conclusion')"
+  echo "$NAME: $CONCLUSION"
+  if [ "$CONCLUSION" != "success" ]; then
+    echo "FAIL  $NAME run $RUN_ID concluded: $CONCLUSION"
+    gh run view "$RUN_ID" --log-failed | tail -40
+    FAILED=1
+  fi
 done
-if [ -z "$RUN_ID" ]; then
-  echo "FAIL  no CI run appeared for $SHA"; exit 1
-fi
 
-until [ "$(gh run view "$RUN_ID" --json status --jq '.status')" = "completed" ]; do
-  sleep 15
-done
-
-gh run view "$RUN_ID" --json jobs --jq '.jobs[] | .name + ": " + .conclusion'
-CONCLUSION="$(gh run view "$RUN_ID" --json conclusion --jq '.conclusion')"
-if [ "$CONCLUSION" != "success" ]; then
-  echo "FAIL  CI run $RUN_ID concluded: $CONCLUSION"
-  gh run view "$RUN_ID" --log-failed | tail -40
-  exit 1
-fi
-echo "PASS  CI green for $SHA"
+[ "$FAILED" -eq 0 ] || exit 1
+echo "PASS  CI, CLA, and Commit identity all green for $SHA"
