@@ -16,6 +16,9 @@
  *   - hard mock behaviour is unchanged: L3-weighted, bypasses DIFFICULTY_MIX.
  */
 
+// tsconfig sets types: [] so app code cannot reach Node APIs. This test reads
+// the pack from disk, so it opts in to the Node types explicitly.
+/// <reference types="node" />
 import { existsSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
