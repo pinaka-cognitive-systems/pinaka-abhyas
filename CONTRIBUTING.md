@@ -20,6 +20,22 @@ unsellable over the affected parts. You keep your own copyright either way; you 
 granting an additional license alongside it, not signing it away. Read `CLA.md` for
 the exact terms.
 
+## Before your first commit: identity and signature
+
+Two rules apply to every commit from anyone, maintainers included.
+
+1. Commit as yourself. Use your own name and your own GitHub noreply address, in
+   the form `<id>+<login>@users.noreply.github.com`. Never a personal email. Never
+   another person's name.
+2. Sign every commit. `main` accepts only pull requests. Every commit in a pull
+   request must show "Verified" on GitHub. A CI check named "Commit identity" fails
+   the pull request if any commit's author or committer is not the account that
+   opened it.
+
+Setup takes about ten minutes. The full guide, with every command, the GitHub
+settings path, and the fix for each failure, is
+`docs/contributing/commit-signing.md`.
+
 ## Two contributor paths
 
 ### Content authors
@@ -68,12 +84,14 @@ The individual commands are listed for fast iteration while you work:
 | Accessibility | `npm run check-a11y` | `app/` |
 | App audit gate | `npm run audit` | `app/` |
 | CLA signature | automatic, see above | pull request |
+| Commit identity | automatic; every commit authored, committed and signed by the PR opener | pull request |
 
 All of these run in CI on every push (`.github/workflows/ci.yml`). Green CI is the
 merge bar.
 
 **Commits:** Conventional Commits, every message. Format: `type(scope): summary`.
-Types: `feat`, `fix`, `chore`, `docs`, `refactor`, `test`, `build`. No trailers.
+Types: `feat`, `fix`, `chore`, `docs`, `refactor`, `test`, `build`. No trailers. Every
+commit is signed and carries your own identity; see the section above.
 
 **Licensing:** App code is AGPL-3.0 (`LICENSE`). Question content is CC BY-NC-SA 4.0
 (`LICENSE-CONTENT.md`). Commercial use of either needs a paid license

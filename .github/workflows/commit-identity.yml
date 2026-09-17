@@ -1,0 +1,58 @@
+name: Commit identity
+
+# Every commit in a pull request must be authored and committed by the account
+# that opened it, and must carry a signature GitHub verifies. Git does not check
+# the name and email on a commit; a contributor once copied a maintainer's
+# identity from a config example. This gate fails early, with the fix named,
+# before the main ruleset refuses the merge. GitHub's own "web-flow" committer
+# is allowed: GitHub signs the commits it creates in the web interface.
+# Setup and fixes: docs/contributing/commit-signing.md
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: commit-identity-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  commit-identity:
+    name: Commit identity
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: "Every commit is authored, committed and signed by the pull request opener"
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          OPENER: ${{ github.event.pull_request.user.login }}
+        run: |
+          set -euo pipefail
+          fail=0
+          while IFS=$'\t' read -r sha author committer verified reason; do
+            ok=1
+            [ "$author" = "$OPENER" ] || ok=0
+            [ "$committer" = "$OPENER" ] || [ "$committer" = "web-flow" ] || ok=0
+            [ "$verified" = "true" ] || ok=0
+            if [ "$ok" = 1 ]; then
+              echo "PASS  $sha  author=$author  committer=$committer  signature=$reason"
+            else
+              echo "FAIL  $sha  author=$author  committer=$committer  signature=$reason  opener=$OPENER"
+              fail=1
+            fi
+          done < <(gh api --paginate "repos/$REPO/pulls/$PR/commits?per_page=100" \
+            --jq '.[] | [.sha[0:7], (.author.login // "unresolved"), (.committer.login // "unresolved"), (.commit.verification.verified | tostring), .commit.verification.reason] | @tsv')
+          if [ "$fail" = 1 ]; then
+            echo
+            echo "A commit above is not authored, committed and signed by @$OPENER."
+            echo "author or committer 'unresolved' means the email on the commit is not linked to any GitHub account."
+            echo "Fix: docs/contributing/commit-signing.md, sections 'When a push is rejected' and 'When a commit carries the wrong name'."
+            exit 1
+          fi
+          echo "All commits are authored, committed and signed by @$OPENER."

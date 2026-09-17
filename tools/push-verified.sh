@@ -9,7 +9,9 @@
 set -euo pipefail
 
 REMOTE="${1:-origin}"
-BRANCH="${2:-main}"
+# Default is the current branch. main accepts only pull requests, so a direct
+# push there is refused by the ruleset.
+BRANCH="${2:-$(git branch --show-current)}"
 
 git push "$REMOTE" "$BRANCH"
 SHA="$(git rev-parse HEAD)"

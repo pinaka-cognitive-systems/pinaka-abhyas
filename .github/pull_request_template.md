@@ -18,6 +18,7 @@
 ## Checklist
 
 - [ ] Commit messages follow Conventional Commits (`type(scope): summary`) with **no** `Co-Authored-By` or `Generated with` trailers.
+- [ ] Every commit is authored by me, signed, and shows "Verified" on GitHub. See `docs/contributing/commit-signing.md`.
 - [ ] Ran the gates relevant to this change:
   - Content: `python3 schema/validate.py` and `python3 schema/validator/run_checks.py` (and the solution harness if items changed).
   - App: `npm --prefix app run typecheck && npm --prefix app run lint && npm --prefix app test`.

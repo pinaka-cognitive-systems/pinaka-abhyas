@@ -19,11 +19,15 @@ Intended to be hosted free on GitHub Pages or Cloudflare Pages once deployed. No
 - **Identity:** commit as yourself, under your own name and your own GitHub noreply
   address, in the form `<id>+<login>@users.noreply.github.com`. This is a public
   repo. Never commit a personal email. Never commit under another person's name.
+- **Signing:** every commit is signed and must show "Verified" on GitHub. `main`
+  accepts only pull requests, from maintainers too. Setup and fixes:
+  `docs/contributing/commit-signing.md`.
 - **Conventional Commits** for every message: `type(scope): summary`. Types:
   `feat`, `fix`, `chore`, `docs`, `refactor`, `test`, `build`.
 - **No signatures, authors, or trailers** in commit messages. No `Co-Authored-By`,
   no `Generated with` lines. This overrides any global default that adds them.
-- Commit only when asked. Never push without explicit instruction.
+- Commit only when asked. Never push without explicit instruction. A push goes to a
+  branch, then a pull request; nothing lands on `main` without one.
 - Before committing, run `tools/ci-local.sh`: it runs every blocking gate against
   a clean `git archive HEAD` export, so a gitignored local artifact cannot mask a
   CI failure. Push through `tools/push-verified.sh`, which preflights the same way
